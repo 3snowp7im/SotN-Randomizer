@@ -66,35 +66,38 @@
 // 1C Ring of Vlad | 1a
 // 1D Eye of Vlad | 1b
 
+const shopAddress = 0x47dbde0
+const shopOffset = 0x64
+
 const relicAddresses = [
-  [ 0x047a5b66 ],
-  [ 0x0557535e ],
-  [ 0x04aa4156 ],
-  [ 0x0526e6a8 ],
-  [ 0x049d6596 ],
-  [ 0x04b6b9b4, 0x053f971c ],
-  [ 0x054b1d5a ],
-  [ 0x043c578a ],
-  [ 0x05610db8, 0x0561142c ],
-  [ 0x04cfcb16 ],
-  [ 0x04b6b946, 0x053f969a, 0x04b6b08a, 0x053f8e2e ],
-  [ 0x048fd1fe, 0x048fe280 ],
-  [ 0x048fc9ba ],
-  [ 0x05610dc2 ],
-  [ 0x04c34ee6 ],
-  [ 0x047a5720 ],
-  [ 0x047a321c ],
-  [ 0x04c35174 ],
-  [ 0x054b1d58 ],
-  [ 0x05611958, 0x0561127c ],
-  [ 0x047a5784 ],
-  [ 0x045ea95e ],
-  [ 0x04aa3f76 ],
-  [ 0x06306ab2, 0x04e335b4 ],
-  [ 0x05051d52, 0x067d1630 ],
-  [ 0x069d2b1e, 0x050fa914 ],
-  [ 0x059bdb30, 0x059ee2e4 ],
-  [ 0x04da65f2, 0x0662263a ],
+  [ 0x47a5b66 ],
+  [ 0x557535e ],
+  [ 0x4aa4156 ],
+  [ 0x526e6a8 ],
+  [ 0x49d6596 ],
+  [ 0x4b6b9b4, 0x53f971c ],
+  [ 0x54b1d5a ],
+  [ 0x43c578a ],
+  [ 0x5610db8, 0x561142c ],
+  [ 0x4cfcb16 ],
+  [ 0x4b6b946, 0x53f969a, 0x4b6b08a, 0x53f8e2e ],
+  [ 0x48fd1fe, 0x48fe280 ],
+  [ 0x48fc9ba ],
+  [ 0x5610dc2 ],
+  [ 0x4c34ee6 ],
+  [ 0x47a5720 ],
+  [ 0x47a321c ],
+  [ 0x4c35174 ],
+  [ 0x54b1d58 ],
+  [ 0x5611958, 0x561127c ],
+  [ 0x47a5784 ],
+  [ 0x45ea95e ],
+  [ 0x4aa3f76 ],
+  [ 0x6306ab2, 0x4e335b4 ],
+  [ 0x5051d52, 0x67d1630 ],
+  [ 0x69d2b1e, 0x50fa914 ],
+  [ 0x59bdb30, 0x59ee2e4 ],
+  [ 0x4da65f2, 0x662263a ],
 ]
 
 const locationIds = [
@@ -110,24 +113,28 @@ function placeItem(ctx, item, data) {
   relicAddresses[item.locationIdx].forEach(function(address) {
     data[address] = locationIds[item.relicIdx]
   })
+  // Fix shop menu
+  if (item.locationIdx === 0x10) {
+    data[shopAddress] = item.relicIdx + shopOffset
+  }
   // Check abilities if possible
-  if (locationIds[item.relicIdx] == 0x10) {
+  if (locationIds[item.relicIdx] === 0x10) {
     ctx.abilities.jewelOfOpen = true
-  } else if (locationIds[item.relicIdx] == 0xd) {
+  } else if (locationIds[item.relicIdx] === 0xd) {
     ctx.abilities.leapStone = true
-  } else if (locationIds[item.relicIdx] == 0x7) {
+  } else if (locationIds[item.relicIdx] === 0x7) {
     ctx.abilities.mist = true
-  } else if (locationIds[item.relicIdx] == 0x8) {
+  } else if (locationIds[item.relicIdx] === 0x8) {
     ctx.abilities.powerOfMist = true
-  } else if (locationIds[item.relicIdx] == 0xc) {
+  } else if (locationIds[item.relicIdx] === 0xc) {
     ctx.abilities.gravityBoots = true
-  } else if (locationIds[item.relicIdx] == 0x4) {
+  } else if (locationIds[item.relicIdx] === 0x4) {
     ctx.abilities.wolf = true
-  } else if (locationIds[item.relicIdx] == 0x0) {
+  } else if (locationIds[item.relicIdx] === 0x0) {
     ctx.abilities.bat = true
-  } else if (locationIds[item.relicIdx] == 0x2) {
+  } else if (locationIds[item.relicIdx] === 0x2) {
     ctx.abilities.sonar = true
-  } else if (locationIds[item.relicIdx] == 0x11) {
+  } else if (locationIds[item.relicIdx] === 0x11) {
     ctx.abilities.mermanStatue = true
   }
   // Mark as used
@@ -146,7 +153,7 @@ function pushAvailableLocation(ctx, locationsAvailable, locationIdx) {
 }
 
 function softUnlock(ctx) {
-  if (ctx.stackDepth++ == 64) {
+  if (ctx.stackDepth++ === 64) {
     throw new Error('soft lock generated')
   }
   // List of available locations
@@ -201,10 +208,10 @@ function softUnlock(ctx) {
   // Get unplaced relic
   do relicIdx = randIdx(locationIds)
   while (ctx.relics[relicIdx])
-  if (locationsAvailable.length == 0) {
+  if (locationsAvailable.length === 0) {
     throw new Error('out of available locations')
   }
-  if (locationsAvailable.length == 1) {
+  if (locationsAvailable.length === 1) {
     // Only one location left?
     // Check to see if its the last item in the game
     // If not, give an item that will unlock more items
