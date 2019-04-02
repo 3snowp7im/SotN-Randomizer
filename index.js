@@ -200,7 +200,7 @@ function softUnlock(ctx) {
   }
   if (ctx.abilities.jewelOfOpen && ctx.abilities.mist
       && (ctx.abilities.bat || ctx.abilities.powerOfMist || gravityBootsChain)
-      && (ctx.abilities.powerOfMist || ctx.abilities.sonar)) {
+      && (ctx.abilities.powerOfMist || (ctx.abilities.bat && ctx.abilities.sonar))) {
     // Castle 2 - Flight, Mist, Jewel of Open, and sonar or power of mist
     [ 0x03, 0x09, 0x17, 0x18, 0x19, 0x1a, 0x1b ].forEach(push)
   }
