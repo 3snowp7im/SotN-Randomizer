@@ -283,7 +283,14 @@ function randomizeRelics(data) {
       }
       break
     } catch (e) {
-      console.warn(e)
+      if (e.message !== 'soft lock generated'
+          && e.message !== 'out of available locations') {
+        console.error(e)
+      }
     }
   }
 }
+
+try {
+  module.exports = randomizeRelics
+} catch (e) {}
