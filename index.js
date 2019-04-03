@@ -85,7 +85,7 @@ const relicAddresses = [
   [ 0x48fc9ba ],
   [ 0x5610dc2, 0x561161a ],
   [ 0x4c34ee6 ],
-  [ 0x47a5720 ],
+  [ 0x47a5720, 0x47a5dd2 ],
   [ 0x47a321c ],
   [ 0x4c35174 ],
   [ 0x54b1d58 ],
