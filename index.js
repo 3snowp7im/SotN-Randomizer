@@ -289,6 +289,21 @@ function randomizeRelics(data) {
       }
     }
   }
+  // Entering the room between jewel door and red door in alchemy lab triggers
+  // a cutscene with Maria. The game will softlock if the player enters alchemy
+  // lab through the red door in chapel before fighting hippogryph. This can
+  // only happen if the player has access to olrox quarters without soul of
+  // bat, which isn't possible in the vanilla game without a speedrun trick.
+  // In a randomized relic run, however, it is possible to have early movement
+  // options that trigger this softlock for unwitting players. To be safe,
+  // disable the cutscene from ever taking place.
+  // The flag that gets set after the maria cutscene is @ 0x3be71.
+  // The instruction that checks that flag is:
+  // 0x54f0f44:    bne r2, r0, 0x1b8a58    144002da
+  // Change the instruction so it always branches:
+  // 0x54f0f44:    beq r0, r0, 0x1b8a58    100002da
+  data[0x54f0f44 + 2] = 0x00
+  data[0x54f0f44 + 3] = 0x10
 }
 
 try {
