@@ -37,12 +37,12 @@
 // ----------------------------------------------------------------
 // 00 Soul of Bat | 00
 // 01 Fire of Bat | 01
-// 02 Echo of Bat | 02 | Castle 2 | 18 19 1a 1b 1c
+// 02 Echo of Bat | 02 | Castle 2 | 17 18 19 1a 1b 1c
 // 03 Force of Echo | 03
 // 04 Soul of Wolf | 04
 // 05 Power of Wolf | 05
 // 06 Skill of Wolf | 06
-// 07 Form of Mist | 07 | Castle 2, Mist Gates | 18 19 1a 1b 1c 00
+// 07 Form of Mist | 07 | Castle 2, Mist Gates | 17 18 19 1a 1b 1c 00
 // 08 Power of Mist | 08
 // 09 Gas Cloud | 09
 // 0A Cube of Zoe | 0a
@@ -51,7 +51,7 @@
 // 0D Leap Stone | 0d
 // 0E Holy Symbol | 0e
 // 0F Faerie Scroll | 0f
-// 10 Jewel of Open | 10 | Castle 2, Jewel Doors | 18 19 1a 1b 1c 0d 0e 11 15
+// 10 Jewel of Open | 10 | Castle 2, Jewel Doors | 17 18 19 1a 1b 1c 0d 0e 11 15
 // 11 Merman Statue | 11 | Holy Snorkel Location | 0e
 // 12 Bat Card | 12
 // 13 Ghost Card | 13
@@ -237,17 +237,17 @@ function softUnlock(ctx) {
   // Items are never allowed in these locations
   switch (locationIds[relicIdx]) {
   case 0x02:
-    if ([ 0x18, 0x19, 0x1a, 0x1b, 0x1c ].indexOf(locationIdx) !== -1) {
+    if ([ 0x17, 0x18, 0x19, 0x1a, 0x1b ].indexOf(locationIdx) !== -1) {
       return softUnlock(ctx)
     }
     break
   case 0x07:
-    if ([ 0x18, 0x19, 0x1a, 0x1b, 0x1c, 0x00 ].indexOf(locationIdx) !== -1) {
+    if ([ 0x17, 0x18, 0x19, 0x1a, 0x1b, 0x00 ].indexOf(locationIdx) !== -1) {
       return softUnlock(ctx)
     }
     break
   case 0x10:
-    if ([ 0x18, 0x19, 0x1a, 0x1b, 0x1c, 0x0d, 0x0e, 0x11, 0x15 ].indexOf(locationIdx) !== -1) {
+    if ([ 0x17, 0x18, 0x19, 0x1a, 0x1b, 0x0d, 0x0e, 0x11, 0x15 ].indexOf(locationIdx) !== -1) {
       return softUnlock(ctx)
     }
     break
