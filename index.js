@@ -404,38 +404,8 @@ function placeRelic(ctx, relic, location, data) {
       data[shopRelicNameAddress + i] = value
     }
   }
-  // Check abilities if possible
-  switch (relic.id) {
-  case 0x10:
-    ctx.abilities.jewelOfOpen = true
-    break
-  case 0x0d:
-    ctx.abilities.leapStone = true
-    break
-  case 0x07:
-    ctx.abilities.mist = true
-    break
-  case 0x08:
-    ctx.abilities.powerOfMist = true
-    break
-  case 0x0c:
-    ctx.abilities.gravityBoots = true
-    break
-  case 0x04:
-    ctx.abilities.wolf = true
-    break
-  case 0x00:
-    ctx.abilities.bat = true
-    break
-  case 0x02:
-    ctx.abilities.sonar = true
-    break
-  case 0x11:
-    ctx.abilities.mermanStatue = true
-    break
-  }
-  
-  relics.forEach((r) => {
+  // Check what abilities are gained
+  relics.forEach(function(r) {
     if (r.ability && r.id === relic.id) {
       ctx.abilities[r.ability] = true;
     }
@@ -444,7 +414,6 @@ function placeRelic(ctx, relic, location, data) {
   // Mark as used
   ctx.relics[relic.id] = true
   ctx.locations[location] = true
-  // console.log(relicFromId(relic.id).name + ' at ' + locations.filter(l => l.location == location).pop().vanilla);
 }
 
 function randIdx(array) {
@@ -462,47 +431,82 @@ function pickRelicLocation(ctx, locs) {
     throw new Error('soft lock generated')
   }
   // List of available locations
-  const locationsAvailable = locs
-    .filter(loc => !ctx.locations[loc.location])
-    .filter((loc) => {
-      return loc.locks.some(lock => lock.split('').every(req => ctx.abilities[req]));
-    });
+  let locationsAvailable = locs
+    .filter(function(loc) { return !ctx.locations[loc.location]; });
   if (locationsAvailable.length === 0) {
     throw new Error('out of available locations')
   }
-  let relic
+  
   // Get unplaced relic
-  do relic = relics[randIdx(relics)]
-  while (ctx.relics[relic.id])
-  if (locationsAvailable.length === 1) {
-    // Only one location left?
-    // Check to see if its the last item in the game
-    // If not, give an item that will unlock more items
-    // I need to actually think this through and place the correct items,
-    // but this will do for now
-    if (!ctx.abilities.jewelOfOpen) {
-      relic = relicFromId(0x10)
-    } else if (!ctx.abilities.leapStone) {
-      relic = relicFromId(0x0d)
-    } else if (!ctx.abilities.gravityBoots) {
-      relic = relicFromId(0x0c)
-    } else if (!ctx.abilities.bat) {
-      relic = relicFromId(0x00)
-    } else if (!ctx.abilities.mist) {
-      relic = relicFromId(0x07)
-    } else if (!ctx.abilities.sonar) {
-      relic = relicFromId(0x02)
-    } else if (!ctx.abilities.mermanStatue) {
-      relic = relicFromId(0x11)
-    }
+  // Start with the progression relics to make softlocks much less likely when distributing
+  let keyRelics = relics.filter(function(relic) { return relic.ability && !ctx.relics[relic.id]; });
+  if (keyRelics.length === 0) {
+    // Out of progression. Throw everything else in
+    keyRelics = relics.filter(function(relic) { return !ctx.relics[relic.id]; });
   }
-  // Get free location
-  let location
-  do location = locationsAvailable[randIdx(locationsAvailable)].location;
-  while (ctx.locations[location])
+  const relic = keyRelics[randIdx(keyRelics)];
+  
+  // Find a location not locked by this current relic
+  locationsAvailable = locationsAvailable.filter(function(loc) {
+    return loc.locks.some(function(lock) { return lock.indexOf(relic.ability) == -1; });
+  });
+  
+  if (locationsAvailable.length === 0) {
+    throw new Error('out of available locations')
+  }
+  
+  const location = locationsAvailable[randIdx(locationsAvailable)];
+  
+  // We're going to put this relic in this location, so anything previously
+  // locked by the relic is now locked by the requirements of the new location
+  // TODO: This logic is a bit messy, and can probably be cleaned up a bit
+  const newLocs = locs.map(function(loc) {
+    const newLoc = Object.assign({}, loc);
+    let newLocks = [];
+    
+    // Replace all instances of the old relic with new locks based on the new
+    // location's requirements
+    loc.locks.forEach(function(lock) {
+      // Any locks that didn't require the relic can stay the same
+      if (lock.indexOf(relic.ability) === -1) {
+        newLocks.push(lock);
+      }
+      
+      // Any locks that *did* require the relic must be updated.
+      // Create a new lock for each unique lock for this location.
+      else {
+        location.locks.forEach(function(transferLock) {
+          let newLock = lock.replace(relic.ability, transferLock);
+          
+          // Duplicate removal
+          newLock = [...new Set(newLock)].sort().join('');
+          newLocks.push(newLock);
+        });
+      }
+    });
+    
+    // Filter out locks that use this ability
+    newLocks = newLocks.filter(function(lock) { return lock.indexOf(relic.ability) === -1; });
+    
+    // Filter out locks that are supersets of other locks
+    newLocks = [...new Set(newLocks)].sort(function(a, b) { return a.length - b.length; });
+    for (let i = 0; i < newLocks.length - 1; i++) {
+      const lock = newLocks[i];
+      for (let j = i + 1; j < newLocks.length; j++) {
+        if (lock.split('').every(function(l) { return newLocks[j].indexOf(l) !== -1; })) {
+          newLocks.splice(j, 1);
+          j--;
+        }
+      }
+    }
+    newLoc.locks = newLocks;
+    return newLoc;
+  });
+  
   return {
     relic: relic,
-    location: location,
+    location: location.location,
+    newLocs: newLocs
   }
 }
 
@@ -523,10 +527,11 @@ function randomizeRelics(data) {
     // Make things always possible later
     // Place the rest of the items
     try {
-      const locs = locations.map(loc => Object.assign({}, loc));
+      let locs = locations.map(function(loc) { return Object.assign({}, loc); });
       for (let i = 0; i < relics.length; i++) {
         const relicLocation = pickRelicLocation(ctx, locs)
         placeRelic(ctx, relicLocation.relic, relicLocation.location, data)
+        locs = relicLocation.newLocs;
       }
       break
     } catch (e) {
