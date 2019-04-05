@@ -1,15 +1,11 @@
 /**
  * Let's Randomize Relics
- * Made by setz
- * All comments by setz unless otherwise noted
  *
+ * Originally by setz
  * @splixel on twitter
  * twitch.tv/skiffain
  *
- * too lazy for licenses, pretend I attached WTFPL
- * (do what the fuck you want with this)
- *
- * Javascript port by Wild Mouse
+ * Javascript port and improvements by Wild Mouse
  * @3snow_p7im on twitter
  * twitch.tv/3snow_p7im
  *
@@ -24,123 +20,226 @@
  *   Mist
  */
 
-// Known Bugs
-// need to trace relics from left/right as well as up/down because of how sotn
-// loads entities
-//   List of known delinquents
-//     Cube Of Zoe
-//     Spirit Orb
-//     Farie Scroll
-//     Leap Stone
+const shopRelicNameAddress = 0x47d5650
+const shopRelicIdAddress = 0x47dbde0
+const shopRelicIdOffset = 0x64
 
-// Some relics have doubles, so..
-// Relic ID/Name | RelicLocation ID | Cant Be Behind | RL ID No-Gos
-// ----------------------------------------------------------------
-// 00 Soul of Bat | 00
-// 01 Fire of Bat | 01
-// 02 Echo of Bat | 02
-// 03 Force of Echo | 03
-// 04 Soul of Wolf | 04
-// 05 Power of Wolf | 05
-// 06 Skill of Wolf | 06
-// 07 Form of Mist | 07 | Castle 2, Mist Gates | 17 18 19 1a 1b 00
-// 08 Power of Mist | 08
-// 09 Gas Cloud | 09
-// 0A Cube of Zoe | 0a
-// 0B Spirit Orb | 0b
-// 0C Gravity Boots | 0c
-// 0D Leap Stone | 0d
-// 0E Holy Symbol | 0e
-// 0F Faerie Scroll | 0f
-// 10 Jewel | 10 | Castle 2, Jewel Doors | 17 18 19 1a 1b 0d 0e 11 15
-// 11 Merman Statue | 11 | Holy Snorkel Location | 0e
-// 12 Bat Card | 12
-// 13 Ghost Card | 13
-// 14 Faerie Card | 14
-// 15 Card | 15
-// 16 Sword Card | 16
-// 17 Sprite Card | --
-// 18 Nosedevil Card | --
-// 19 Heart of Vlad | 17
-// 1A Tooth of Vlad | 18
-// 1B Rib of Vlad | 19
-// 1C Ring of Vlad | 1a
-// 1D Eye of Vlad | 1b
+const relics = [{
+  name: 'Soul of Bat',
+  id: 0x00,
+  location: 0x00,
+  addresses: [ 0x47a5b66 ],
+}, {
+  name: 'Fire of Bat',
+  id: 0x01,
+  location: 0x01,
+  addresses: [ 0x557535e ],
+}, {
+  name: 'Echo of Bat',
+  id: 0x02,
+  location: 0x02,
+  addresses: [ 0x4aa4156 ],
+},  {
+  name: 'Force of Echo',
+  id: 0x03,
+  location: 0x03,
+  addresses: [ 0x526e6a8 ],
+}, {
+  name: 'Soul of Wolf',
+  id: 0x04,
+  location: 0x04,
+  addresses: [ 0x49d6596, 0x49d5d3e ],
+}, {
+  name: 'Power of Wolf',
+  id: 0x05,
+  location: 0x05,
+  addresses: [ 0x4b6b9b4, 0x53f971c ],
+}, {
+  name: 'Skill of Wolf',
+  id: 0x06,
+  location: 0x06,
+  addresses: [ 0x54b1d5a ],
+}, {
+  name: 'Form of Mist',
+  id: 0x07,
+  location: 0x07,
+  addresses: [ 0x43c578a ],
+  // Mist Gates, Castle 2
+  locationBlacklist: [ 0x00, 0x17, 0x18, 0x19, 0x1a, 0x1b ]
+}, {
+  name: 'Power of Mist',
+  id: 0x08,
+  location: 0x08,
+  addresses: [ 0x5610db8, 0x561142c ],
+}, {
+  name: 'Gas Cloud',
+  id: 0x09,
+  location: 0x09,
+  addresses: [ 0x4cfcb16 ],
+}, {
+  name: 'Cube of Zoe',
+  id: 0x0a,
+  location: 0x0a,
+  addresses: [ 0x4b6b946, 0x53f969a, 0x4b6b08a, 0x53f8e2e ],
+}, {
+  name: 'Spirit Orb',
+  id: 0x0b,
+  location: 0x0b,
+  addresses: [ 0x48fd1fe, 0x48fe280 ],
+}, {
+  name: 'Gravity Boots',
+  id: 0x0c,
+  location: 0x0c,
+  addresses: [ 0x48fc9ba ],
+}, {
+  name: 'Leap Stone',
+  id: 0x0d,
+  location: 0x0d,
+  addresses: [ 0x5610dc2, 0x561161a ],
+}, {
+  name: 'Holy Symbol',
+  id: 0x0e,
+  location: 0x0e,
+  addresses: [ 0x4c34ee6 ],
+}, {
+  name: 'Faerie Scroll',
+  id: 0x0f,
+  location: 0x0f,
+  addresses: [ 0x47a5720, 0x47a5dd2 ],
+}, {
+  name: 'Jewel of Open',
+  id: 0x10,
+  location: 0x10,
+  addresses: [ 0x47a321c ],
+  // Jewel Doors, Castle 2
+  locationBlacklist: [ 0x11, 0x15, 0x17, 0x18, 0x19, 0x1a, 0x1b, 0x0d, 0x0e ],
+}, {
+  name: 'Merman Statue',
+  id: 0x11,
+  location: 0x11,
+  addresses: [ 0x4c35174 ],
+  // Holy Snorkel Location
+  locationBlacklist: [ 0x0e ],
+}, {
+  name: 'Bat Card',
+  id: 0x12,
+  location: 0x12,
+  addresses: [ 0x54b1d58 ],
+}, {
+  name: 'Ghost Card',
+  id: 0x13,
+  location: 0x13,
+  addresses: [ 0x5611958, 0x561127c ],
+}, {
+  name: 'Faerie Card',
+  id: 0x14,
+  location: 0x14,
+  addresses: [ 0x47a5784 ],
+}, {
+  name: 'Demon Card',
+  id: 0x15,
+  location: 0x15,
+  addresses: [ 0x45ea95e ],
+}, {
+  name: 'Sword Card',
+  id: 0x16,
+  location: 0x16,
+  addresses: [ 0x4aa3f76 ],
+}, {
+  name: 'Heart of Vlad',
+  id: 0x19,
+  location: 0x17,
+  addresses: [ 0x67437d2, 0x6306ab2, 0x4e335b4 ],
+}, {
+  name: 'Tooth of Vlad',
+  id: 0x1a,
+  location: 0x18,
+  addresses: [ 0x5051d52, 0x67d1630 ],
+}, {
+  name: 'Rib of Vlad',
+  id: 0x1b,
+  location: 0x19,
+  addresses: [ 0x69d2b1e, 0x50fa914 ],
+}, {
+  name: 'Ring of Vlad',
+  id: 0x1c,
+  location: 0x1a,
+  addresses: [ 0x59bdb30, 0x59ee2e4 ],
+}, {
+  name: 'Eye of Vlad',
+  id: 0x1d,
+  location: 0x1b,
+  addresses: [ 0x4da65f2, 0x662263a ],
+}]
 
-const shopAddress = 0x47dbde0
-const shopOffset = 0x64
+function relicFromId(id) {
+  return relics.filter(function(relic) {
+    return relic.id === id
+  }).pop()
+}
 
-const relicAddresses = [
-  [ 0x47a5b66 ],
-  [ 0x557535e ],
-  [ 0x4aa4156 ],
-  [ 0x526e6a8 ],
-  [ 0x49d6596, 0x49d5d3e ],
-  [ 0x4b6b9b4, 0x53f971c ],
-  [ 0x54b1d5a ],
-  [ 0x43c578a ],
-  [ 0x5610db8, 0x561142c ],
-  [ 0x4cfcb16 ],
-  [ 0x4b6b946, 0x53f969a, 0x4b6b08a, 0x53f8e2e ],
-  [ 0x48fd1fe, 0x48fe280 ],
-  [ 0x48fc9ba ],
-  [ 0x5610dc2, 0x561161a ],
-  [ 0x4c34ee6 ],
-  [ 0x47a5720, 0x47a5dd2 ],
-  [ 0x47a321c ],
-  [ 0x4c35174 ],
-  [ 0x54b1d58 ],
-  [ 0x5611958, 0x561127c ],
-  [ 0x47a5784 ],
-  [ 0x45ea95e ],
-  [ 0x4aa3f76 ],
-  [ 0x67437d2, 0x6306ab2, 0x4e335b4 ],
-  [ 0x5051d52, 0x67d1630 ],
-  [ 0x69d2b1e, 0x50fa914 ],
-  [ 0x59bdb30, 0x59ee2e4 ],
-  [ 0x4da65f2, 0x662263a ],
-]
-
-const relicIds = [
-  0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07,
-  0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f,
-  0x10, 0x11, 0x12, 0x13, 0x14, 0x15, 0x16, 0x19,
-  0x1a, 0x1b, 0x1c, 0x1d
-]
+function addressesFromLocation(location) {
+  return relics.filter(function(relic) {
+    return relic.location === location
+  }).pop().addresses
+}
 
 const startingAreas = [ 0x04, 0x0a, 0x0b, 0x0f, 0x10 ]
 
-function placeItem(ctx, item, data) {
-  relicAddresses[item.locationIdx].forEach(function(address) {
-    data[address] = relicIds[item.relicIdx]
+function placeRelic(ctx, relic, location, data) {
+  addressesFromLocation(location).forEach(function(address) {
+    data[address] = relic.id
   })
-  // Fix shop menu
-  if (item.locationIdx === 0x10) {
-    data[shopAddress] = item.relicIdx + shopOffset
+  // Check if placing in the shop
+  const jewelOfOpen = relicFromId(0x10)
+  if (location === jewelOfOpen.location) {
+    // Fix shop menu check
+    data[shopRelicIdAddress] = relic.id + shopRelicIdOffset
+    // Change shop menu name
+    for (let i = 0; i < jewelOfOpen.name.length; i++) {
+      let value
+      if (i >= relic.name.length
+         || relic.name.charCodeAt(i) == ' '.charCodeAt()) {
+        value = ' '
+      } else {
+        value = relic.name.charCodeAt(i) - 0x20
+      }
+      data[shopRelicNameAddress + i] = value
+    }
   }
   // Check abilities if possible
-  if (relicIds[item.relicIdx] === 0x10) {
+  switch (relic.id) {
+  case 0x10:
     ctx.abilities.jewelOfOpen = true
-  } else if (relicIds[item.relicIdx] === 0xd) {
+    break
+  case 0x0d:
     ctx.abilities.leapStone = true
-  } else if (relicIds[item.relicIdx] === 0x7) {
+    break
+  case 0x07:
     ctx.abilities.mist = true
-  } else if (relicIds[item.relicIdx] === 0x8) {
+    break
+  case 0x08:
     ctx.abilities.powerOfMist = true
-  } else if (relicIds[item.relicIdx] === 0xc) {
+    break
+  case 0x0c:
     ctx.abilities.gravityBoots = true
-  } else if (relicIds[item.relicIdx] === 0x4) {
+    break
+  case 0x04:
     ctx.abilities.wolf = true
-  } else if (relicIds[item.relicIdx] === 0x0) {
+    break
+  case 0x00:
     ctx.abilities.bat = true
-  } else if (relicIds[item.relicIdx] === 0x2) {
+    break
+  case 0x02:
     ctx.abilities.sonar = true
-  } else if (relicIds[item.relicIdx] === 0x11) {
+    break
+  case 0x11:
     ctx.abilities.mermanStatue = true
+    break
   }
   // Mark as used
-  ctx.relics[item.relicIdx] = true
-  ctx.locations[item.locationIdx] = true
+  ctx.relics[relic.id] = true
+  ctx.locations[location] = true
 }
 
 function randIdx(array) {
@@ -153,12 +252,13 @@ function pushAvailableLocation(ctx, locationsAvailable, locationIdx) {
   }
 }
 
-function softUnlock(ctx) {
+function pickRelicLocation(ctx) {
   if (ctx.stackDepth++ === 64) {
     throw new Error('soft lock generated')
   }
   // List of available locations
-  const gravityBootsChain = ctx.abilities.gravityBoots && ctx.abilities.leapStone
+  const gravityBootsChain = ctx.abilities.gravityBoots
+        && ctx.abilities.leapStone
   const mistFlight = ctx.abilities.mist && ctx.abilities.powerOfMist
   const locationsAvailable = []
   const push = pushAvailableLocation.bind(null, ctx, locationsAvailable)
@@ -226,13 +326,13 @@ function softUnlock(ctx) {
     // Castle 2 - Flight, Mist, Jewel of Open, and sonar or power of mist
     [ 0x03, 0x09, 0x17, 0x18, 0x19, 0x1a, 0x1b ].forEach(push)
   }
-  let relicIdx
-  // Get unplaced relic
-  do relicIdx = randIdx(relicIds)
-  while (ctx.relics[relicIdx])
   if (locationsAvailable.length === 0) {
     throw new Error('out of available locations')
   }
+  let relic
+  // Get unplaced relic
+  do relic = relics[randIdx(relics)]
+  while (ctx.relics[relic.id])
   if (locationsAvailable.length === 1) {
     // Only one location left?
     // Check to see if its the last item in the game
@@ -240,43 +340,31 @@ function softUnlock(ctx) {
     // I need to actually think this through and place the correct items,
     // but this will do for now
     if (!ctx.abilities.jewelOfOpen) {
-      relicIdx = 0x10
+      relic = relicFromId(0x10)
     } else if (!ctx.abilities.leapStone) {
-      relicIdx = 0x0d
+      relic = relicFromId(0x0d)
     } else if (!ctx.abilities.gravityBoots) {
-      relicIdx = 0x0c
+      relic = relicFromId(0x0c)
     } else if (!ctx.abilities.bat) {
-      relicIdx = 0x00
+      relic = relicFromId(0x00)
     } else if (!ctx.abilities.mist) {
-      relicIdx = 0x07
+      relic = relicFromId(0x07)
     } else if (!ctx.abilities.mermanStatue) {
-      relicIdx = 0x11
+      relic = relicFromId(0x11)
     }
   }
   // Get free location
-  let locationIdx
-  do locationIdx = locationsAvailable[randIdx(locationsAvailable)]
-  while (ctx.locations[locationIdx])
+  let location
+  do location = locationsAvailable[randIdx(locationsAvailable)]
+  while (ctx.locations[location])
   // Items are never allowed in these locations
-  switch (relicIds[relicIdx]) {
-  case 0x07:
-    if ([ 0x17, 0x18, 0x19, 0x1a, 0x1b, 0x00 ].indexOf(locationIdx) !== -1) {
-      return softUnlock(ctx)
-    }
-    break
-  case 0x10:
-    if ([ 0x17, 0x18, 0x19, 0x1a, 0x1b,
-          0x0d, 0x0e, 0x11, 0x15 ].indexOf(locationIdx) !== -1) {
-      return softUnlock(ctx)
-    }
-    break
-  case 0x11:
-    if ([ 0x0e ].indexOf(locationIdx) !== -1) {
-      return softUnlock(ctx)
-    }
-    break
+  if ((relic.locationBlacklist || []).indexOf(location) !== -1) {
+    return pickRelicLocation(ctx)
   }
-  return {relicIdx, locationIdx}
+  return {
+    relic: relic,
+    location: location,
+  }
 }
 
 
@@ -289,22 +377,22 @@ function randomizeRelics(data) {
     const ctx = {
       stackDepth: 0,
       abilities: {},
-      relics: new Array(relicIds.length),
-      locations: new Array(relicIds.length),
+      relics: [],
+      locations: [],
     }
     // Do some shuffling things, make sure things arent impossible to access
     // Make things always possible later
     // Place the rest of the items
     try {
-      for (let i = 0; i < relicIds.length; i++) {
-        const item = softUnlock(ctx)
-        placeItem(ctx, item, data)
+      for (let i = 0; i < relics.length; i++) {
+        const relicLocation = pickRelicLocation(ctx)
+        placeRelic(ctx, relicLocation.relic, relicLocation.location, data)
       }
       break
     } catch (e) {
       if (e.message !== 'soft lock generated'
           && e.message !== 'out of available locations') {
-        console.error(e)
+        throw e
       }
     }
   }
