@@ -183,6 +183,7 @@
       relics.forEach((relic) => {
         const cell = newDiv();
         cell.textContent = relic.name;
+        cell.className = 'col-header';
         row.appendChild(cell);
       });
       content.appendChild(row);
@@ -207,6 +208,7 @@
         const locRow = newDiv();
         locRow.className = 'row';
         const loc = newDiv();
+        loc.className = 'row-header';
         loc.textContent = relic.name;
         locRow.appendChild(loc);
         
@@ -235,6 +237,9 @@
       .row div {
         display: table-cell;
         border: 1px solid black;
+      }
+      .row .col-header, .row .row-header {
+        font-size: small;
       }
       
       .row div.zero {
