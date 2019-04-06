@@ -45,6 +45,8 @@ const relics = [{
   location: 0x00,
   addresses: [ 0x47a5b66 ],
   ability: 'B',
+  // Can't be placed in 2nd castle
+  locationBlacklist: [ 0x17, 0x18, 0x19, 0x1a, 0x1b ],
 }, {
   name: 'Fire of Bat',
   id: 0x01,
