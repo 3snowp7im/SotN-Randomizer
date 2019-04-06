@@ -439,9 +439,19 @@ function pickRelicLocation(ctx, locs) {
   
   // Get unplaced relic
   // Start with the progression relics to make softlocks much less likely when distributing
-  let keyRelics = relics.filter(function(relic) { return relic.ability && !ctx.relics[relic.id]; });
+  
+  // Minor hack:
+  // Bat unlocks almost everything so we'll place it first, because otherwise it's too easy
+  // to hide progression behind bat and give early bat. 
+  let keyRelics = ctx.relics[0x00] ? null : [relics[0]];
+  
+  // If we've placed bat already, start picking other progression items
+  if (!keyRelics) {
+    keyRelics = relics.filter(function(relic) { return relic.ability && !ctx.relics[relic.id]; });
+  }
+
+  // Out of progression. Throw everything else in
   if (keyRelics.length === 0) {
-    // Out of progression. Throw everything else in
     keyRelics = relics.filter(function(relic) { return !ctx.relics[relic.id]; });
   }
   const relic = keyRelics[randIdx(keyRelics)];
