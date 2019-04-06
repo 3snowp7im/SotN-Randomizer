@@ -546,7 +546,7 @@ function checkForSoftLock(mapping) {
     .map(function(l){  return l.location; }));
   }
   if (Object.keys(visited).length !== locations.length) {
-    throw new Error('out of available locations')
+    throw new Error('soft lock generated')
   }
 }
 
