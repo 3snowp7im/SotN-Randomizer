@@ -18,17 +18,33 @@
  *   Flight
  *   Jewel of Open
  *   Mist
+ *
+ * Fun fact, due to Silver/Gold ring reqs, Gravity Boots + Leap Stone will never
+ * be the only flight you can get before second castle.
  */
 
 const shopRelicNameAddress = 0x47d5650
 const shopRelicIdAddress = 0x47dbde0
 const shopRelicIdOffset = 0x64
 
+/**
+ * List of every relic, described as follows:
+ * relic.name - The name of the relic
+ * relic.id - The ID of the relic. Writing the value to a location
+ *   will place the relic in that location
+ * relic.location - Randomizer-specific ID determining which
+ *   logical location each relic is originally.
+ * relic.addresses - List of the memory addresses corresponding to the location.
+ *   Write IDs here to replace relics.
+ * relic.ability - What ability this relic provides.
+ *   Used to determine when progression is gained.
+ */
 const relics = [{
   name: 'Soul of Bat',
   id: 0x00,
   location: 0x00,
   addresses: [ 0x47a5b66 ],
+  ability: 'B',
 }, {
   name: 'Fire of Bat',
   id: 0x01,
@@ -39,6 +55,7 @@ const relics = [{
   id: 0x02,
   location: 0x02,
   addresses: [ 0x4aa4156 ],
+  ability: 'E',
 },  {
   name: 'Force of Echo',
   id: 0x03,
@@ -49,6 +66,7 @@ const relics = [{
   id: 0x04,
   location: 0x04,
   addresses: [ 0x49d6596, 0x49d5d3e ],
+  ability: 'W',
 }, {
   name: 'Power of Wolf',
   id: 0x05,
@@ -64,13 +82,13 @@ const relics = [{
   id: 0x07,
   location: 0x07,
   addresses: [ 0x43c578a ],
-  // Mist Gates, Castle 2
-  locationBlacklist: [ 0x00, 0x17, 0x18, 0x19, 0x1a, 0x1b ]
+  ability: 'M',
 }, {
   name: 'Power of Mist',
   id: 0x08,
   location: 0x08,
   addresses: [ 0x5610db8, 0x561142c ],
+  ability: 'P',
 }, {
   name: 'Gas Cloud',
   id: 0x09,
@@ -91,11 +109,13 @@ const relics = [{
   id: 0x0c,
   location: 0x0c,
   addresses: [ 0x48fc9ba ],
+  ability: 'G',
 }, {
   name: 'Leap Stone',
   id: 0x0d,
   location: 0x0d,
   addresses: [ 0x5610dc2, 0x561161a ],
+  ability: 'L',
 }, {
   name: 'Holy Symbol',
   id: 0x0e,
@@ -111,15 +131,13 @@ const relics = [{
   id: 0x10,
   location: 0x10,
   addresses: [ 0x47a321c ],
-  // Jewel Doors, Castle 2
-  locationBlacklist: [ 0x11, 0x15, 0x17, 0x18, 0x19, 0x1a, 0x1b, 0x0d, 0x0e ],
+  ability: 'J',
 }, {
   name: 'Merman Statue',
   id: 0x11,
   location: 0x11,
   addresses: [ 0x4c35174 ],
-  // Holy Snorkel Location
-  locationBlacklist: [ 0x0e ],
+  ability: 'S',
 }, {
   name: 'Bat Card',
   id: 0x12,
@@ -170,7 +188,188 @@ const relics = [{
   id: 0x1d,
   location: 0x1b,
   addresses: [ 0x4da65f2, 0x662263a ],
-}]
+}];
+
+/**
+ * List of every relic location, described as follows:
+ * location.vanilla - The original relic located at this location.
+ *   Unused, but valuable for documentation purposes.
+ * location.location - The ID of the location to align with the relics list.
+ * location.locks - List of ability combinations this location is locked by.
+ *   Each entry in this list is a combination of abilities and having all the
+ *   abilities in any entry is enough to make the location available.
+ *   A lock of '' means the location is initially available.
+ */
+const locations = [
+  {
+    vanilla: 'Soul of Bat',
+    location: 0x00,
+    // Mist + at least Leap Stone
+    locks: ['MB', 'MG', 'ML', 'MP']
+  },
+  {
+    vanilla: 'Fire of Bat',
+    location: 0x01,
+    // Flight
+    locks: ['B', 'LG', 'MP']
+  },
+  {
+    vanilla: 'Echo of Bat',
+    location: 0x02,
+    // Flight + Form Change
+    locks: ['B', 'LGM', 'LGW', 'MP']
+  }, 
+  {
+    vanilla: 'Force of Echo',
+    location: 0x03,
+    // Second Castle
+    locks: ['JMP', 'JMBE']
+  },
+  {
+    vanilla: 'Soul of Wolf',
+    location: 0x04,
+    // No locks
+    locks: ['']
+  },
+  {
+    vanilla: 'Power of Wolf',
+    location: 0x05,
+    // Flight
+    locks: ['B', 'LG', 'MP']
+  },
+  {
+    vanilla: 'Skill of Wolf',
+    location: 0x06,
+    // Gravity Boots or better
+    locks: ['G', 'B', 'MP']
+  },
+  {
+    vanilla: 'Form of Mist',
+    location: 0x07,
+    // At least Leap Stone
+    locks: ['B', 'G', 'L', 'MP']
+  },
+  {
+    vanilla: 'Power of Mist',
+    location: 0x08,
+    // Flight
+    locks: ['B', 'LG', 'MP']
+  },
+  {
+    vanilla: 'Gas Cloud',
+    location: 0x09,
+    // Second Castle
+    locks: ['JMP', 'JMBE']
+  },
+  {
+    vanilla: 'Cube of Zoe',
+    location: 0x0a,
+    // No locks
+    locks: ['']
+  },
+  {
+    vanilla: 'Spirit Orb',
+    location: 0x0b,
+    // No locks
+    locks: ['']
+  },
+  {
+    vanilla: 'Gravity Boots',
+    location: 0x0c,
+    // Flight
+    locks: ['B', 'LG', 'MP']
+  },
+  {
+    vanilla: 'Leap Stone',
+    location: 0x0d,
+    // Jewel of Open or at least Leap Stone
+    locks: ['J', 'B', 'G', 'L', 'MP']
+  },
+  {
+    vanilla: 'Holy Symbol',
+    location: 0x0e,
+    // Jewel of Open + Merman Statue
+    locks: ['JS']
+  },
+  {
+    vanilla: 'Faerie Scroll',
+    location: 0x0f,
+    // No locks
+    locks: ['']
+  },
+  {
+    vanilla: 'Jewel of Open',
+    location: 0x10,
+    // No locks
+    locks: ['']
+  },
+  {
+    vanilla: 'Merman Statue',
+    location: 0x11,
+    // Just Jewel
+    locks: ['J']
+  },
+  {
+    vanilla: 'Bat Card',
+    location: 0x12,
+    // Gravity Boots or better
+    locks: ['G', 'B', 'MP']
+  },
+  {
+    vanilla: 'Ghost Card',
+    location: 0x13,
+    // Flight
+    locks: ['B', 'LG', 'MP']
+  },
+  {
+    vanilla: 'Faerie Card',
+    location: 0x14,
+    // Gravity Boots or better
+    locks: ['G', 'B', 'MP']
+  },
+  {
+    vanilla: 'Demon Card',
+    location: 0x15,
+    // Jewel of Open and at least Leap Stone
+    locks: ['JL', 'JG', 'JB', 'JMP']
+  },
+  {
+    vanilla: 'Sword Card',
+    location: 0x16,
+    // Flight
+    locks: ['B', 'LG', 'MP']
+  },
+  {
+    vanilla: 'Heart of Vlad',
+    location: 0x17,
+    // Second Castle
+    locks: ['JMP', 'JMBE']
+  },
+  {
+    vanilla: 'Tooth of Vlad',
+    location: 0x18,
+    // Second Castle
+    locks: ['JMP', 'JMBE']
+  },
+  {
+    vanilla: 'Rib of Vlad',
+    location: 0x19,
+    // Second Castle
+    locks: ['JMP', 'JMBE']
+  },
+  {
+    vanilla: 'Ring of Vlad',
+    location: 0x1a,
+    // Second Castle
+    locks: ['JMP', 'JMBE']
+  },
+  {
+    vanilla: 'Eye of Vlad',
+    location: 0x1b,
+    // Second Castle
+    locks: ['JMP', 'JMBE']
+  }
+];
 
 function relicFromId(id) {
   return relics.filter(function(relic) {
@@ -183,8 +382,6 @@ function addressesFromLocation(location) {
     return relic.location === location
   }).pop().addresses
 }
-
-const startingAreas = [ 0x04, 0x0a, 0x0b, 0x0f, 0x10 ]
 
 function placeRelic(ctx, relic, location, data) {
   addressesFromLocation(location).forEach(function(address) {
@@ -207,36 +404,13 @@ function placeRelic(ctx, relic, location, data) {
       data[shopRelicNameAddress + i] = value
     }
   }
-  // Check abilities if possible
-  switch (relic.id) {
-  case 0x10:
-    ctx.abilities.jewelOfOpen = true
-    break
-  case 0x0d:
-    ctx.abilities.leapStone = true
-    break
-  case 0x07:
-    ctx.abilities.mist = true
-    break
-  case 0x08:
-    ctx.abilities.powerOfMist = true
-    break
-  case 0x0c:
-    ctx.abilities.gravityBoots = true
-    break
-  case 0x04:
-    ctx.abilities.wolf = true
-    break
-  case 0x00:
-    ctx.abilities.bat = true
-    break
-  case 0x02:
-    ctx.abilities.sonar = true
-    break
-  case 0x11:
-    ctx.abilities.mermanStatue = true
-    break
-  }
+  // Check what abilities are gained
+  relics.forEach(function(r) {
+    if (r.ability && r.id === relic.id) {
+      ctx.abilities[r.ability] = true;
+    }
+  });
+  
   // Mark as used
   ctx.relics[relic.id] = true
   ctx.locations[location] = true
@@ -252,118 +426,97 @@ function pushAvailableLocation(ctx, locationsAvailable, locationIdx) {
   }
 }
 
-function pickRelicLocation(ctx) {
+function pickRelicLocation(ctx, locs) {
   if (ctx.stackDepth++ === 64) {
     throw new Error('soft lock generated')
   }
   // List of available locations
-  const gravityBootsChain = ctx.abilities.gravityBoots
-        && ctx.abilities.leapStone
-  const mistFlight = ctx.abilities.mist && ctx.abilities.powerOfMist
-  const locationsAvailable = []
-  const push = pushAvailableLocation.bind(null, ctx, locationsAvailable)
-  // Starting Areas
-  startingAreas.forEach(push)
-  // Restricted Areas
-  if (ctx.abilities.mist
-      && (ctx.abilities.leapStone
-          || ctx.abilities.gravityBoots
-          || ctx.abilities.bat)) {
-    // Soul of Bat Vanilla
-    [ 0x00 ].forEach(push)
-  }
-  if (ctx.abilities.bat
-      || gravityBootsChain
-      || mistFlight) {
-    // Flight only
-    [ 0x01, 0x05, 0x08, 0x0c, 0x13, 0x16 ].forEach(push)
-  }
-  if ((ctx.abilities.bat
-       || mistFlight
-       || gravityBootsChain)
-      && (ctx.abilities.mist
-          || ctx.abilities.wolf
-          || ctx.abilities.bat)) {
-    // Olrox's Prize
-    [ 0x02 ].forEach(push)
-  }
-  if (ctx.abilities.gravityBoots
-      || ctx.abilities.bat
-      || mistFlight) {
-    // Gravity Boots or better
-    [ 0x06, 0x12, 0x14 ].forEach(push)
-  }
-  if (ctx.abilities.leapStone
-      || ctx.abilities.gravityBoots
-      || ctx.abilities.bat || mistFlight) {
-    // Leapstone or better
-    // Colosseum - only required if leap stone?
-    [ 0x07, 0x0d ].forEach(push)
-  }
-  if (ctx.abilities.jewelOfOpen) {
-    // Bottom of the castle
-    [ 0x11 ].forEach(push)
-  }
-  if ((ctx.abilities.jewelOfOpen && ctx.abilities.leapStone)
-      || ctx.abilities.bat
-      || mistFlight) {
-    // Demon card a bitch (setz' words, not mine -mouse)
-    [ 0x15 ].forEach(push)
-  }
-  if (ctx.abilities.mermanStatue
-      && ctx.abilities.jewelOfOpen) {
-    // Holy snorkel vanilla
-    [ 0x0e ].forEach(push)
-  }
-  if (ctx.abilities.jewelOfOpen
-      && ctx.abilities.mist
-      && (ctx.abilities.bat
-          || ctx.abilities.powerOfMist
-          || gravityBootsChain)
-      && (ctx.abilities.powerOfMist
-          || (ctx.abilities.bat
-              && ctx.abilities.sonar))) {
-    // Castle 2 - Flight, Mist, Jewel of Open, and sonar or power of mist
-    [ 0x03, 0x09, 0x17, 0x18, 0x19, 0x1a, 0x1b ].forEach(push)
-  }
+  let locationsAvailable = locs
+    .filter(function(loc) { return !ctx.locations[loc.location]; });
   if (locationsAvailable.length === 0) {
     throw new Error('out of available locations')
   }
-  let relic
+  
   // Get unplaced relic
-  do relic = relics[randIdx(relics)]
-  while (ctx.relics[relic.id])
-  if (locationsAvailable.length === 1) {
-    // Only one location left?
-    // Check to see if its the last item in the game
-    // If not, give an item that will unlock more items
-    // I need to actually think this through and place the correct items,
-    // but this will do for now
-    if (!ctx.abilities.jewelOfOpen) {
-      relic = relicFromId(0x10)
-    } else if (!ctx.abilities.leapStone) {
-      relic = relicFromId(0x0d)
-    } else if (!ctx.abilities.gravityBoots) {
-      relic = relicFromId(0x0c)
-    } else if (!ctx.abilities.bat) {
-      relic = relicFromId(0x00)
-    } else if (!ctx.abilities.mist) {
-      relic = relicFromId(0x07)
-    } else if (!ctx.abilities.mermanStatue) {
-      relic = relicFromId(0x11)
+  // Start with the progression relics to make softlocks much less likely when distributing
+  
+  // Minor hack:
+  // Bat unlocks almost everything so we'll place it first, because otherwise it's too easy
+  // to hide progression behind bat and give early bat. 
+  let keyRelics = ctx.relics[0x00] ? null : [relics[0]];
+  
+  // If we've placed bat already, start picking other progression items
+  if (!keyRelics) {
+    keyRelics = relics.filter(function(relic) { return relic.ability && !ctx.relics[relic.id]; });
+  }
+
+  // Out of progression. Throw everything else in
+  if (keyRelics.length === 0) {
+    keyRelics = relics.filter(function(relic) { return !ctx.relics[relic.id]; });
+  }
+  const relic = keyRelics[randIdx(keyRelics)];
+  
+  // Find a location not locked by this current relic
+  locationsAvailable = locationsAvailable.filter(function(loc) {
+    return loc.locks.some(function(lock) { return lock.indexOf(relic.ability) == -1; });
+  });
+  
+  if (locationsAvailable.length === 0) {
+    throw new Error('out of available locations')
+  }
+  
+  const location = locationsAvailable[randIdx(locationsAvailable)];
+  
+  // We're going to put this relic in this location, so anything previously
+  // locked by the relic is now locked by the requirements of the new location
+  // TODO: This logic is a bit messy, and can probably be cleaned up a bit
+  const newLocs = locs.map(function(loc) {
+    const newLoc = Object.assign({}, loc);
+    let newLocks = [];
+    
+    // Replace all instances of the old relic with new locks based on the new
+    // location's requirements
+    loc.locks.forEach(function(lock) {
+      // Any locks that didn't require the relic can stay the same
+      if (lock.indexOf(relic.ability) === -1) {
+        newLocks.push(lock);
+      }
+      
+      // Any locks that *did* require the relic must be updated.
+      // Create a new lock for each unique lock for this location.
+      else {
+        location.locks.forEach(function(transferLock) {
+          let newLock = lock.replace(relic.ability, transferLock);
+          
+          // Duplicate removal
+          newLock = [...new Set(newLock)].sort().join('');
+          newLocks.push(newLock);
+        });
+      }
+    });
+    
+    // Filter out locks that use this ability
+    newLocks = newLocks.filter(function(lock) { return lock.indexOf(relic.ability) === -1; });
+    
+    // Filter out locks that are supersets of other locks
+    newLocks = [...new Set(newLocks)].sort(function(a, b) { return a.length - b.length; });
+    for (let i = 0; i < newLocks.length - 1; i++) {
+      const lock = newLocks[i];
+      for (let j = i + 1; j < newLocks.length; j++) {
+        if (lock.split('').every(function(l) { return newLocks[j].indexOf(l) !== -1; })) {
+          newLocks.splice(j, 1);
+          j--;
+        }
+      }
     }
-  }
-  // Get free location
-  let location
-  do location = locationsAvailable[randIdx(locationsAvailable)]
-  while (ctx.locations[location])
-  // Items are never allowed in these locations
-  if ((relic.locationBlacklist || []).indexOf(location) !== -1) {
-    return pickRelicLocation(ctx)
-  }
+    newLoc.locks = newLocks;
+    return newLoc;
+  });
+  
   return {
     relic: relic,
-    location: location,
+    location: location.location,
+    newLocs: newLocs
   }
 }
 
@@ -384,9 +537,11 @@ function randomizeRelics(data) {
     // Make things always possible later
     // Place the rest of the items
     try {
+      let locs = locations.map(function(loc) { return Object.assign({}, loc); });
       for (let i = 0; i < relics.length; i++) {
-        const relicLocation = pickRelicLocation(ctx)
+        const relicLocation = pickRelicLocation(ctx, locs)
         placeRelic(ctx, relicLocation.relic, relicLocation.location, data)
+        locs = relicLocation.newLocs;
       }
       break
     } catch (e) {
