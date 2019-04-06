@@ -56,6 +56,8 @@ const relics = [{
   location: 0x02,
   addresses: [ 0x4aa4156 ],
   ability: 'E',
+  // Can't be placed in 2nd castle
+  locationBlacklist: [ 0x17, 0x18, 0x19, 0x1a, 0x1b ],
 },  {
   name: 'Force of Echo',
   id: 0x03,
@@ -367,7 +369,7 @@ function placeRelic(ctx, relic, location, data) {
     for (let i = 0; i < jewelOfOpen.name.length; i++) {
       let value
       if (i >= relic.name.length
-         || relic.name.charCodeAt(i) == ' '.charCodeAt()) {
+         || relic.name.charCodeAt(i) === ' '.charCodeAt()) {
         value = ' '
       } else {
         value = relic.name.charCodeAt(i) - 0x20
@@ -426,8 +428,12 @@ function pickRelicLocation(ctx, locs) {
 
   // Find a location not locked by this current relic
   locationsAvailable = locationsAvailable.filter(function(loc) {
+    if (relic.locationBlacklist
+        && relic.locationBlacklist.indexOf(loc.location) !== -1) {
+      return false
+    }
     return loc.locks.some(function(lock) {
-      return lock.indexOf(relic.ability) == -1
+      return lock.indexOf(relic.ability) === -1
     })
   })
 
