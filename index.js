@@ -34,8 +34,8 @@ const shopRelicIdOffset = 0x64
  *   will place the relic in that location
  * relic.location - Randomizer-specific ID determining which
  *   logical location each relic is originally.
- * relic.addresses - List of the memory addresses corresponding to the location.
- *   Write IDs here to replace relics.
+ * relic.addresses - List of the memory addresses corresponding to the 
+*    location. Write IDs here to replace relics.
  * relic.ability - What ability this relic provides.
  *   Used to determine when progression is gained.
  */
@@ -188,7 +188,7 @@ const relics = [{
   id: 0x1d,
   location: 0x1b,
   addresses: [ 0x4da65f2, 0x662263a ],
-}];
+}]
 
 /**
  * List of every relic location, described as follows:
@@ -200,176 +200,147 @@ const relics = [{
  *   abilities in any entry is enough to make the location available.
  *   A lock of '' means the location is initially available.
  */
-const locations = [
-  {
-    vanilla: 'Soul of Bat',
-    location: 0x00,
-    // Mist + at least Leap Stone
-    locks: ['MB', 'MG', 'ML', 'MP']
-  },
-  {
-    vanilla: 'Fire of Bat',
-    location: 0x01,
-    // Flight
-    locks: ['B', 'LG', 'MP']
-  },
-  {
-    vanilla: 'Echo of Bat',
-    location: 0x02,
-    // Flight + Form Change
-    locks: ['B', 'LGM', 'LGW', 'MP']
-  }, 
-  {
-    vanilla: 'Force of Echo',
-    location: 0x03,
-    // Second Castle
-    locks: ['JMP', 'JMBE']
-  },
-  {
-    vanilla: 'Soul of Wolf',
-    location: 0x04,
-    // No locks
-    locks: ['']
-  },
-  {
-    vanilla: 'Power of Wolf',
-    location: 0x05,
-    // Flight
-    locks: ['B', 'LG', 'MP']
-  },
-  {
-    vanilla: 'Skill of Wolf',
-    location: 0x06,
-    // Gravity Boots or better
-    locks: ['G', 'B', 'MP']
-  },
-  {
-    vanilla: 'Form of Mist',
-    location: 0x07,
-    // At least Leap Stone
-    locks: ['B', 'G', 'L', 'MP']
-  },
-  {
-    vanilla: 'Power of Mist',
-    location: 0x08,
-    // Flight
-    locks: ['B', 'LG', 'MP']
-  },
-  {
-    vanilla: 'Gas Cloud',
-    location: 0x09,
-    // Second Castle
-    locks: ['JMP', 'JMBE']
-  },
-  {
-    vanilla: 'Cube of Zoe',
-    location: 0x0a,
-    // No locks
-    locks: ['']
-  },
-  {
-    vanilla: 'Spirit Orb',
-    location: 0x0b,
-    // No locks
-    locks: ['']
-  },
-  {
-    vanilla: 'Gravity Boots',
-    location: 0x0c,
-    // Flight
-    locks: ['B', 'LG', 'MP']
-  },
-  {
-    vanilla: 'Leap Stone',
-    location: 0x0d,
-    // Jewel of Open or at least Leap Stone
-    locks: ['J', 'B', 'G', 'L', 'MP']
-  },
-  {
-    vanilla: 'Holy Symbol',
-    location: 0x0e,
-    // Jewel of Open + Merman Statue
-    locks: ['JS']
-  },
-  {
-    vanilla: 'Faerie Scroll',
-    location: 0x0f,
-    // No locks
-    locks: ['']
-  },
-  {
-    vanilla: 'Jewel of Open',
-    location: 0x10,
-    // No locks
-    locks: ['']
-  },
-  {
-    vanilla: 'Merman Statue',
-    location: 0x11,
-    // Just Jewel
-    locks: ['J']
-  },
-  {
-    vanilla: 'Bat Card',
-    location: 0x12,
-    // Gravity Boots or better
-    locks: ['G', 'B', 'MP']
-  },
-  {
-    vanilla: 'Ghost Card',
-    location: 0x13,
-    // Flight
-    locks: ['B', 'LG', 'MP']
-  },
-  {
-    vanilla: 'Faerie Card',
-    location: 0x14,
-    // Gravity Boots or better
-    locks: ['G', 'B', 'MP']
-  },
-  {
-    vanilla: 'Demon Card',
-    location: 0x15,
-    // Jewel of Open and at least Leap Stone
-    locks: ['JL', 'JG', 'JB', 'JMP']
-  },
-  {
-    vanilla: 'Sword Card',
-    location: 0x16,
-    // Flight
-    locks: ['B', 'LG', 'MP']
-  },
-  {
-    vanilla: 'Heart of Vlad',
-    location: 0x17,
-    // Second Castle
-    locks: ['JMP', 'JMBE']
-  },
-  {
-    vanilla: 'Tooth of Vlad',
-    location: 0x18,
-    // Second Castle
-    locks: ['JMP', 'JMBE']
-  },
-  {
-    vanilla: 'Rib of Vlad',
-    location: 0x19,
-    // Second Castle
-    locks: ['JMP', 'JMBE']
-  },
-  {
-    vanilla: 'Ring of Vlad',
-    location: 0x1a,
-    // Second Castle
-    locks: ['JMP', 'JMBE']
-  },
-  {
-    vanilla: 'Eye of Vlad',
-    location: 0x1b,
-    // Second Castle
-    locks: ['JMP', 'JMBE']
-  }
-];
+const locations = [{
+  vanilla: 'Soul of Bat',
+  location: 0x00,
+  // Mist + at least Leap Stone
+  locks: ['MG', 'ML', 'MP']
+}, {
+  vanilla: 'Fire of Bat',
+  location: 0x01,
+  // Flight
+  locks: ['B', 'LG', 'MP']
+}, {
+  vanilla: 'Echo of Bat',
+  location: 0x02,
+  // Flight + Form Change
+  locks: ['B', 'LGM', 'LGW', 'MP']
+}, {
+  vanilla: 'Force of Echo',
+  location: 0x03,
+  // Second Castle
+  locks: ['JMP', 'JMBE']
+}, {
+  vanilla: 'Soul of Wolf',
+  location: 0x04,
+  // No locks
+  locks: ['']
+}, {
+  vanilla: 'Power of Wolf',
+  location: 0x05,
+  // Flight
+  locks: ['B', 'LG', 'MP']
+}, {
+  vanilla: 'Skill of Wolf',
+  location: 0x06,
+  // Gravity Boots or better
+  locks: ['G', 'B', 'MP']
+}, {
+  vanilla: 'Form of Mist',
+  location: 0x07,
+  // At least Leap Stone
+  locks: ['B', 'G', 'L', 'MP']
+}, {
+  vanilla: 'Power of Mist',
+  location: 0x08,
+  // Flight
+  locks: ['B', 'LG', 'MP']
+}, {
+  vanilla: 'Gas Cloud',
+  location: 0x09,
+  // Second Castle
+  locks: ['JMP', 'JMBE']
+}, {
+  vanilla: 'Cube of Zoe',
+  location: 0x0a,
+  // No locks
+  locks: ['']
+}, {
+  vanilla: 'Spirit Orb',
+  location: 0x0b,
+  // No locks
+  locks: ['']
+}, {
+  vanilla: 'Gravity Boots',
+  location: 0x0c,
+  // Flight
+  locks: ['B', 'LG', 'MP']
+}, {
+  vanilla: 'Leap Stone',
+  location: 0x0d,
+  // Jewel of Open or at least Leap Stone
+  locks: ['J', 'B', 'G', 'L', 'MP']
+}, {
+  vanilla: 'Holy Symbol',
+  location: 0x0e,
+  // Jewel of Open + Merman Statue
+  locks: ['JS']
+}, {
+  vanilla: 'Faerie Scroll',
+  location: 0x0f,
+  // No locks
+  locks: ['']
+}, {
+  vanilla: 'Jewel of Open',
+  location: 0x10,
+  // No locks
+  locks: ['']
+}, {
+  vanilla: 'Merman Statue',
+  location: 0x11,
+  // Just Jewel
+  locks: ['J']
+}, {
+  vanilla: 'Bat Card',
+  location: 0x12,
+  // Gravity Boots or better
+  locks: ['G', 'B', 'MP']
+}, {
+  vanilla: 'Ghost Card',
+  location: 0x13,
+  // Flight
+  locks: ['B', 'LG', 'MP']
+}, {
+  vanilla: 'Faerie Card',
+  location: 0x14,
+  // Gravity Boots or better
+  locks: ['G', 'B', 'MP']
+}, {
+  vanilla: 'Demon Card',
+  location: 0x15,
+  // Jewel of Open and at least Leap Stone
+  locks: ['JL', 'JG', 'JB', 'JMP']
+}, {
+  vanilla: 'Sword Card',
+  location: 0x16,
+  // Flight
+  locks: ['B', 'LG', 'MP']
+}, {
+  vanilla: 'Heart of Vlad',
+  location: 0x17,
+  // Second Castle
+  locks: ['JMP', 'JMBE']
+}, {
+  vanilla: 'Tooth of Vlad',
+  location: 0x18,
+  // Second Castle
+  locks: ['JMP', 'JMBE']
+}, {
+  vanilla: 'Rib of Vlad',
+  location: 0x19,
+  // Second Castle
+  locks: ['JMP', 'JMBE']
+}, {
+  vanilla: 'Ring of Vlad',
+  location: 0x1a,
+  // Second Castle
+  locks: ['JMP', 'JMBE']
+}, {
+  vanilla: 'Eye of Vlad',
+  location: 0x1b,
+  // Second Castle
+  locks: ['JMP', 'JMBE']
+}]
 
 function relicFromId(id) {
   return relics.filter(function(relic) {
@@ -407,9 +378,9 @@ function placeRelic(ctx, relic, location, data) {
   // Check what abilities are gained
   relics.forEach(function(r) {
     if (r.ability && r.id === relic.id) {
-      ctx.abilities[r.ability] = true;
+      ctx.abilities[r.ability] = true
     }
-  });
+  })
   
   // Mark as used
   ctx.relics[relic.id] = true
@@ -431,87 +402,94 @@ function pickRelicLocation(ctx, locs) {
     throw new Error('soft lock generated')
   }
   // List of available locations
-  let locationsAvailable = locs
-    .filter(function(loc) { return !ctx.locations[loc.location]; });
+  let locationsAvailable = locs.filter(function(loc) {
+    return !ctx.locations[loc.location]
+  })
   if (locationsAvailable.length === 0) {
     throw new Error('out of available locations')
   }
   
-  // Get unplaced relic
-  // Start with the progression relics to make softlocks much less likely when distributing
-  
-  // Minor hack:
-  // Bat unlocks almost everything so we'll place it first, because otherwise it's too easy
-  // to hide progression behind bat and give early bat.
-  let keyRelics = ctx.relics[0x00] ? null : [relics[0]];
-  
-  // If we've placed bat already, start picking other progression items
-  if (!keyRelics) {
-    keyRelics = relics.filter(function(relic) { return relic.ability && !ctx.relics[relic.id]; });
-  }
+
+  // Get unplaced relic.
+  // Start with the progression relics to make softlocks much less likely
+  // when distributing.
+  let keyRelics = relics.filter(function(relic) {
+    return relic.ability && !ctx.relics[relic.id]
+  })
 
   // Out of progression. Throw everything else in
   if (keyRelics.length === 0) {
-    keyRelics = relics.filter(function(relic) { return !ctx.relics[relic.id]; });
+    keyRelics = relics.filter(function(relic) {
+      return !ctx.relics[relic.id]
+    })
   }
-  const relic = keyRelics[randIdx(keyRelics)];
+  const relic = keyRelics[randIdx(keyRelics)]
   
   // Find a location not locked by this current relic
   locationsAvailable = locationsAvailable.filter(function(loc) {
-    return loc.locks.some(function(lock) { return lock.indexOf(relic.ability) == -1; });
-  });
+    return loc.locks.some(function(lock) {
+      return lock.indexOf(relic.ability) == -1
+    })
+  })
   
   if (locationsAvailable.length === 0) {
     throw new Error('out of available locations')
   }
   
-  const location = locationsAvailable[randIdx(locationsAvailable)];
+  const location = locationsAvailable[randIdx(locationsAvailable)]
   
   // We're going to put this relic in this location, so anything previously
   // locked by the relic is now locked by the requirements of the new location
   // TODO: This logic is a bit messy, and can probably be cleaned up a bit
   const newLocs = locs.map(function(loc) {
-    const newLoc = Object.assign({}, loc);
-    let newLocks = [];
+    const newLoc = Object.assign({}, loc)
+    let newLocks = []
     
     // Replace all instances of the old relic with new locks based on the new
     // location's requirements
     loc.locks.forEach(function(lock) {
       // Any locks that didn't require the relic can stay the same
       if (lock.indexOf(relic.ability) === -1) {
-        newLocks.push(lock);
+        newLocks.push(lock)
       }
       
       // Any locks that *did* require the relic must be updated.
       // Create a new lock for each unique lock for this location.
       else {
         location.locks.forEach(function(transferLock) {
-          let newLock = lock.replace(relic.ability, transferLock);
+          let newLock = lock.replace(relic.ability, transferLock)
           
           // Duplicate removal
-          newLock = [...new Set(newLock)].sort().join('');
-          newLocks.push(newLock);
-        });
+          newLock = Array.from(new Set(newLock)).sort().join('')
+          newLocks.push(newLock)
+        })
       }
-    });
+    })
     
     // Filter out locks that use this ability
-    newLocks = newLocks.filter(function(lock) { return lock.indexOf(relic.ability) === -1; });
+    newLocks = newLocks.filter(function(lock) {
+      return lock.indexOf(relic.ability) === -1
+    })
     
     // Filter out locks that are supersets of other locks
-    newLocks = [...new Set(newLocks)].sort(function(a, b) { return a.length - b.length; });
+    newLocks = Array.from(new Set(newLocks)).sort(function(a, b) {
+      return a.length - b.length
+    })
     for (let i = 0; i < newLocks.length - 1; i++) {
-      const lock = newLocks[i];
+      const lock = newLocks[i]
       for (let j = i + 1; j < newLocks.length; j++) {
-        if (lock.split('').every(function(l) { return newLocks[j].indexOf(l) !== -1; })) {
-          newLocks.splice(j, 1);
-          j--;
+        const superset = lock.split('').every(function(l) {
+          return newLocks[j].indexOf(l) !== -1
+        })
+        if (superset) {
+          newLocks.splice(j, 1)
+          j--
         }
       }
     }
-    newLoc.locks = newLocks;
-    return newLoc;
-  });
+    newLoc.locks = newLocks
+    return newLoc
+  })
   
   return {
     relic: relic,
@@ -521,29 +499,35 @@ function pickRelicLocation(ctx, locs) {
 }
 
 function checkForSoftLock(mapping) {
-  let locs = [ 0x04, 0x0a, 0x0b, 0x0f, 0x10 ];
-  const visited = {};
-  locs.forEach(function(l) { return visited[l] = true; });
-  const abilities = {};
+  let locs = [ 0x04, 0x0a, 0x0b, 0x0f, 0x10 ]
+  const visited = {}
+  locs.forEach(function(l) {
+    return visited[l] = true
+  })
+  const abilities = {}
   while (locs.length) {
-    const loc = locs.shift();
-    visited[loc] = true;
-    const relic = mapping[loc];
+    const loc = locs.shift()
+    visited[loc] = true
+    const relic = mapping[loc]
     if (relic.relic.ability) {
-      abilities[relic.relic.ability] = true;;
+      abilities[relic.relic.ability] = true
     }
     locs = locs.concat(locations.filter(function(l) {
       if (visited[l.location]) {
-        return false;
+        return false
       }
       if (locs.indexOf(l.location) !== -1) {
-        return false;
+        return false
       }
       return l.locks.some(function(ll) {
-        return ll.split('').every(function(lll) { return abilities[lll]; });
-      });
+        return ll.split('').every(function(lll) {
+          return abilities[lll]
+        })
+      })
     })
-    .map(function(l){  return l.location; }));
+    .map(function(l) {
+      return l.location
+    }))
   }
   if (Object.keys(visited).length !== locations.length) {
     throw new Error('soft lock generated')
@@ -566,15 +550,17 @@ function randomizeRelics(data) {
     // Make things always possible later
     // Place the rest of the items
     try {
-      let locs = locations.map(function(loc) { return Object.assign({}, loc); });
-      const mapping = {};
+      let locs = locations.map(function(loc) {
+        return Object.assign({}, loc)
+      })
+      const mapping = {}
       for (let i = 0; i < relics.length; i++) {
         const relicLocation = pickRelicLocation(ctx, locs)
         placeRelic(ctx, relicLocation.relic, relicLocation.location, data)
-        mapping[relicLocation.location] = relicLocation;
-        locs = relicLocation.newLocs;
+        mapping[relicLocation.location] = relicLocation
+        locs = relicLocation.newLocs
       }
-      checkForSoftLock(mapping);
+      checkForSoftLock(mapping)
       break
     } catch (e) {
       if (e.message !== 'soft lock generated'
