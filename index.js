@@ -442,7 +442,7 @@ function pickRelicLocation(ctx, locs) {
   
   // Minor hack:
   // Bat unlocks almost everything so we'll place it first, because otherwise it's too easy
-  // to hide progression behind bat and give early bat. 
+  // to hide progression behind bat and give early bat.
   let keyRelics = ctx.relics[0x00] ? null : [relics[0]];
   
   // If we've placed bat already, start picking other progression items
@@ -520,6 +520,35 @@ function pickRelicLocation(ctx, locs) {
   }
 }
 
+function checkForSoftLock(mapping) {
+  let locs = [ 0x04, 0x0a, 0x0b, 0x0f, 0x10 ];
+  const visited = {};
+  locs.forEach(function(l) { return visited[l] = true; });
+  const abilities = {};
+  while (locs.length) {
+    const loc = locs.shift();
+    visited[loc] = true;
+    const relic = mapping[loc];
+    if (relic.relic.ability) {
+      abilities[relic.relic.ability] = true;;
+    }
+    locs = locs.concat(locations.filter(function(l) {
+      if (visited[l.location]) {
+        return false;
+      }
+      if (locs.indexOf(l.location) !== -1) {
+        return false;
+      }
+      return l.locks.some(function(ll) {
+        return ll.split('').every(function(lll) { return abilities[lll]; });
+      });
+    })
+    .map(function(l){  return l.location; }));
+  }
+  if (Object.keys(visited).length !== locations.length) {
+    throw new Error('out of available locations')
+  }
+}
 
 function randomizeRelics(data) {
   // Doesn't seem like the logic behind selecting relics has been thought
@@ -538,11 +567,14 @@ function randomizeRelics(data) {
     // Place the rest of the items
     try {
       let locs = locations.map(function(loc) { return Object.assign({}, loc); });
+      const mapping = {};
       for (let i = 0; i < relics.length; i++) {
         const relicLocation = pickRelicLocation(ctx, locs)
         placeRelic(ctx, relicLocation.relic, relicLocation.location, data)
+        mapping[relicLocation.location] = relicLocation;
         locs = relicLocation.newLocs;
       }
+      checkForSoftLock(mapping);
       break
     } catch (e) {
       if (e.message !== 'soft lock generated'
