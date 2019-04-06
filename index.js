@@ -459,7 +459,7 @@ function pickRelicLocation(ctx, locs) {
           let newLock = lock.replace(relic.ability, transferLock)
           
           // Duplicate removal
-          newLock = [...new Set(newLock)].sort().join('')
+          newLock = Array.from(new Set(newLock)).sort().join('')
           newLocks.push(newLock)
         })
       }
@@ -471,7 +471,7 @@ function pickRelicLocation(ctx, locs) {
     })
     
     // Filter out locks that are supersets of other locks
-    newLocks = [...new Set(newLocks)].sort(function(a, b) {
+    newLocks = Array.from(new Set(newLocks)).sort(function(a, b) {
       return a.length - b.length
     })
     for (let i = 0; i < newLocks.length - 1; i++) {
