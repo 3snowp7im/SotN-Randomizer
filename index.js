@@ -19,8 +19,8 @@
  *   Jewel of Open
  *   Mist
  *
- * Fun fact, due to Silver/Gold ring reqs, Gravity Boots + Leap Stone will never
- * be the only flight you can get before second castle.
+ * Fun fact, due to Silver/Gold ring reqs, Gravity Boots + Leap Stone will
+ * never be the only flight you can get before second castle.
  */
 
 const shopRelicNameAddress = 0x47d5650
@@ -408,7 +408,6 @@ function pickRelicLocation(ctx, locs) {
   if (locationsAvailable.length === 0) {
     throw new Error('out of available locations')
   }
-  
 
   // Get unplaced relic.
   // Start with the progression relics to make softlocks much less likely
@@ -424,18 +423,18 @@ function pickRelicLocation(ctx, locs) {
     })
   }
   const relic = keyRelics[randIdx(keyRelics)]
-  
+
   // Find a location not locked by this current relic
   locationsAvailable = locationsAvailable.filter(function(loc) {
     return loc.locks.some(function(lock) {
       return lock.indexOf(relic.ability) == -1
     })
   })
-  
+
   if (locationsAvailable.length === 0) {
     throw new Error('out of available locations')
   }
-  
+
   const location = locationsAvailable[randIdx(locationsAvailable)]
   
   // We're going to put this relic in this location, so anything previously
@@ -444,33 +443,29 @@ function pickRelicLocation(ctx, locs) {
   const newLocs = locs.map(function(loc) {
     const newLoc = Object.assign({}, loc)
     let newLocks = []
-    
     // Replace all instances of the old relic with new locks based on the new
     // location's requirements
     loc.locks.forEach(function(lock) {
       // Any locks that didn't require the relic can stay the same
       if (lock.indexOf(relic.ability) === -1) {
         newLocks.push(lock)
-      }
-      
-      // Any locks that *did* require the relic must be updated.
-      // Create a new lock for each unique lock for this location.
-      else {
+      } else {
+        // Any locks that *did* require the relic must be updated.
+        // Create a new lock for each unique lock for this location.
         location.locks.forEach(function(transferLock) {
           let newLock = lock.replace(relic.ability, transferLock)
-          
           // Duplicate removal
           newLock = Array.from(new Set(newLock)).sort().join('')
           newLocks.push(newLock)
         })
       }
     })
-    
+
     // Filter out locks that use this ability
     newLocks = newLocks.filter(function(lock) {
       return lock.indexOf(relic.ability) === -1
     })
-    
+
     // Filter out locks that are supersets of other locks
     newLocks = Array.from(new Set(newLocks)).sort(function(a, b) {
       return a.length - b.length
@@ -490,7 +485,7 @@ function pickRelicLocation(ctx, locs) {
     newLoc.locks = newLocks
     return newLoc
   })
-  
+
   return {
     relic: relic,
     location: location.location,
@@ -524,8 +519,7 @@ function checkForSoftLock(mapping) {
           return abilities[lll]
         })
       })
-    })
-    .map(function(l) {
+    }).map(function(l) {
       return l.location
     }))
   }
