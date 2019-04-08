@@ -536,56 +536,86 @@ function checkForSoftLock(mapping) {
   }
 }
 
-function randomizeRelics(data) {
-  // Doesn't seem like the logic behind selecting relics has been thought
-  // out by the original author, so many times this script will result in
-  // an infinite loop or soft-lock state. To remedy this, just loop the
-  // selection process until it finishes successfully. -mouse
-  while (true) {
-    const ctx = {
-      stackDepth: 0,
-      abilities: {},
-      relics: [],
-      locations: [],
-    }
-    // Do some shuffling things, make sure things arent impossible to access
-    // Make things always possible later
-    // Place the rest of the items
-    try {
-      let locs = locations.map(function(loc) {
-        return Object.assign({}, loc)
+function randomizeRelics(data, options) {
+  // Run a sanity check.
+  if (options.checkVanilla) {
+    const mismatches = []
+    relics.forEach(function(relic) {
+      relic.addresses.forEach(function(address) {
+        if (data[address] !== relic.id) {
+          mismatches.push({
+            name: relic.name,
+            id: '0x' + ('0' + relic.id.toString(16)).slice(-2),
+            location: '0x' + ('0' + relic.location.toString(16)).slice(-2),
+            address: '0x' + address.toString(16),
+          })
+        }
       })
-      const mapping = {}
-      for (let i = 0; i < relics.length; i++) {
-        const relicLocation = pickRelicLocation(ctx, locs)
-        placeRelic(ctx, relicLocation.relic, relicLocation.location, data)
-        mapping[relicLocation.location] = relicLocation
-        locs = relicLocation.newLocs
+    })
+    if (mismatches.length) {
+      if (options.verbose) {
+        console.error('relic mismatches:')
+        mismatches.forEach(function(relic) {
+          console.error(relic)
+        })
+        console.error('relic data is NOT vanilla')
       }
-      checkForSoftLock(mapping)
-      break
-    } catch (e) {
-      if (e.message !== 'soft lock generated'
-          && e.message !== 'out of available locations') {
-        throw e
+    } else if (options.verbose) {
+      console.log('relic data is vanilla')
+    }
+    return
+  }
+  if (options.relicLocations) {
+    // Doesn't seem like the logic behind selecting relics has been thought
+    // out by the original author, so many times this script will result in
+    // an infinite loop or soft-lock state. To remedy this, just loop the
+    // selection process until it finishes successfully. -mouse
+    while (true) {
+      const ctx = {
+        stackDepth: 0,
+        abilities: {},
+        relics: [],
+        locations: [],
+      }
+      // Do some shuffling things, make sure things arent impossible to access
+      // Make things always possible later
+      // Place the rest of the items
+      try {
+        let locs = locations.map(function(loc) {
+          return Object.assign({}, loc)
+        })
+        const mapping = {}
+        for (let i = 0; i < relics.length; i++) {
+          const relicLocation = pickRelicLocation(ctx, locs)
+          placeRelic(ctx, relicLocation.relic, relicLocation.location, data)
+          mapping[relicLocation.location] = relicLocation
+          locs = relicLocation.newLocs
+        }
+        checkForSoftLock(mapping)
+        break
+      } catch (e) {
+        if (e.message !== 'soft lock generated'
+            && e.message !== 'out of available locations') {
+          throw e
+        }
       }
     }
+    // Entering the room between jewel door and red door in alchemy lab triggers
+    // a cutscene with Maria. The game will softlock if the player enters alchemy
+    // lab through the red door in chapel before fighting hippogryph. This can
+    // only happen if the player has access to olrox quarters without soul of
+    // bat, which isn't possible in the vanilla game without a speedrun trick.
+    // In a randomized relic run, however, it is possible to have early movement
+    // options that trigger this softlock for unwitting players. To be safe,
+    // disable the cutscene from ever taking place.
+    // The flag that gets set after the maria cutscene is @ 0x3be71.
+    // The instruction that checks that flag is:
+    // 0x54f0f44:    bne r2, r0, 0x1b8a58    144002da
+    // Change the instruction so it always branches:
+    // 0x54f0f44:    beq r0, r0, 0x1b8a58    100002da
+    data[0x54f0f44 + 2] = 0x00
+    data[0x54f0f44 + 3] = 0x10
   }
-  // Entering the room between jewel door and red door in alchemy lab triggers
-  // a cutscene with Maria. The game will softlock if the player enters alchemy
-  // lab through the red door in chapel before fighting hippogryph. This can
-  // only happen if the player has access to olrox quarters without soul of
-  // bat, which isn't possible in the vanilla game without a speedrun trick.
-  // In a randomized relic run, however, it is possible to have early movement
-  // options that trigger this softlock for unwitting players. To be safe,
-  // disable the cutscene from ever taking place.
-  // The flag that gets set after the maria cutscene is @ 0x3be71.
-  // The instruction that checks that flag is:
-  // 0x54f0f44:    bne r2, r0, 0x1b8a58    144002da
-  // Change the instruction so it always branches:
-  // 0x54f0f44:    beq r0, r0, 0x1b8a58    100002da
-  data[0x54f0f44 + 2] = 0x00
-  data[0x54f0f44 + 3] = 0x10
 }
 
 try {
