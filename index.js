@@ -600,12 +600,13 @@ function randomizeRelics(data, options) {
         }
       }
     }
-    // Entering the room between jewel door and red door in alchemy lab triggers
-    // a cutscene with Maria. The game will softlock if the player enters alchemy
-    // lab through the red door in chapel before fighting hippogryph. This can
-    // only happen if the player has access to olrox quarters without soul of
-    // bat, which isn't possible in the vanilla game without a speedrun trick.
-    // In a randomized relic run, however, it is possible to have early movement
+    // Entering the room between jewel door and red door in alchemy lab
+    // triggers a cutscene with Maria. The game will softlock if the player
+    // enters alchemy lab through the red door in chapel before fighting
+    // hippogryph. This can only happen if the player has access to olrox
+    // quarters without soul of bat, which isn't possible in the vanilla game
+    // without a speedrun trick. In a randomized relic run, however, it is
+    // possible to have early movement
     // options that trigger this softlock for unwitting players. To be safe,
     // disable the cutscene from ever taking place.
     // The flag that gets set after the maria cutscene is @ 0x3be71.
@@ -615,6 +616,17 @@ function randomizeRelics(data, options) {
     // 0x54f0f44:    beq r0, r0, 0x1b8a58    100002da
     data[0x54f0f44 + 2] = 0x00
     data[0x54f0f44 + 3] = 0x10
+    // Entering the clock room for the first time triggers a cutscene with
+    // Maria. The cutscene takes place in a separately loaded room that does
+    // not connect to the rest of the castle through the statue doors or the
+    // vertical climb to gravity boots. If the player has early movement
+    // options, they may attempt to leave the room through one of these top
+    // exits but find themselves blocked, with the only option being to reload
+    // the room through the left or right exit first. To make it more
+    // convenient and less confusing, disable the cutscene from ever taking
+    // place.
+    // The specific room has a time attack entry that needs to be zero'd out.
+    data[0xaeaa0] = 0x00
   }
 }
 
