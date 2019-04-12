@@ -45,8 +45,6 @@ const relics = [{
   location: 0x00,
   addresses: [ 0x47a5b66 ],
   ability: 'B',
-  // Can't be placed in 2nd castle
-  locationBlacklist: [ 0x03, 0x09, 0x17, 0x18, 0x19, 0x1a, 0x1b ],
 }, {
   name: 'Fire of Bat',
   id: 0x01,
@@ -58,8 +56,6 @@ const relics = [{
   location: 0x02,
   addresses: [ 0x4aa4156 ],
   ability: 'E',
-  // Can't be placed in 2nd castle
-  locationBlacklist: [ 0x03, 0x09, 0x17, 0x18, 0x19, 0x1a, 0x1b ],
 },  {
   name: 'Force of Echo',
   id: 0x03,
@@ -479,7 +475,6 @@ function pickRelicLocation(ctx, locs) {
   // Find a location not locked by this current relic
   locationsAvailable = locationsAvailable.filter(function(loc) {
     // Restrict certain locations for certain relics
-    // TODO: Technically this can be resolved just by adding to the locks
     if (relic.locationBlacklist
         && relic.locationBlacklist.indexOf(loc.location) !== -1) {
       return false
