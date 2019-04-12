@@ -117,24 +117,24 @@
         id: 0x1d,
         address: 0x4da65f2
       }]
-      
+
       const addresses = {}
       const ids = {}
       relics.forEach(function(relic) {
         addresses[relic.address] = relic.name
         ids[relic.id] = relic.name
       })
-      
+
       const totals = {}
       const runs = new URLSearchParams(window.location.search).get('runs') || 1000
       var data = {}
       for (let i = 0; i < runs; i++) {
-        randomizeRelics(data)
-        
+        randomizeRelics(data, { relicLocations: true })
+
         relics.forEach(function(relic) {
           const loc = addresses[relic.address]
           const item = ids[data[relic.address]]
-          
+
           if (!totals[loc]) {
             totals[loc] = {}
           }
@@ -144,14 +144,14 @@
           totals[loc][item]++
         })
       }
-      
+
       const content = document.getElementById('content')
       const newDiv = function() {
 			  return document.createElement('div')
 			}
       const row = newDiv()
       row.className = 'row'
-      
+
       row.appendChild(newDiv())
       relics.forEach(function(relic) {
         const cell = newDiv()
@@ -160,7 +160,7 @@
         row.appendChild(cell)
       })
       content.appendChild(row)
-      
+
       const getClassname = function(count) {
         if (count === 0) {
           return 'zero'
@@ -176,7 +176,7 @@
         }
         return 'a-lot'
       }
-      
+
       relics.forEach(function(relic) {
         const locRow = newDiv()
         locRow.className = 'row'
@@ -184,7 +184,7 @@
         loc.className = 'row-header'
         loc.textContent = relic.name
         locRow.appendChild(loc)
-        
+
         relics.forEach(function(r) {
           const count = newDiv()
           const amount = totals[relic.name][r.name] || 0
@@ -195,7 +195,7 @@
         content.appendChild(locRow)
       })
     }
-    
+
     window.onload = doStuff
     </script>
     <style>
@@ -203,7 +203,7 @@
         display: table;
         margin: auto;
       }
-      
+
       .row {
         display: table-row;
       }
@@ -214,7 +214,7 @@
       .row .col-header, .row .row-header {
         font-size: small;
       }
-      
+
       .row div.zero {
         background-color: #777;
       }
