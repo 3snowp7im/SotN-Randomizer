@@ -435,8 +435,8 @@ function replaceLocks(locks, abilityToReplace, locksToAdd) {
       locksToAdd.forEach(function(transferLock) {
         let newLock = new Set(lock)
         newLock.delete(abilityToReplace)
-        transferLock.forEach(function(l) {
-          newLock.add(l)
+        transferLock.forEach(function(requirement) {
+          newLock.add(requirement)
         })
         newLocks.push(newLock)
       })
@@ -543,21 +543,20 @@ function checkForSoftLock(mapping) {
       abilities[relic.relic.ability] = true
     }
 
-    // TODO: Clean this up. It's a bit of a mess.
-    locs = locs.concat(locations.filter(function(l) {
-      if (visited[l.location]) {
+    locs = locs.concat(locations.filter(function(location) {
+      if (visited[location.location]) {
         return false
       }
-      if (locs.indexOf(l.location) !== -1) {
+      if (locs.indexOf(location.location) !== -1) {
         return false
       }
-      return l.locks.some(function(ll) {
-        return Array.from(ll).every(function(lll) {
-          return abilities[lll]
+      return location.locks.some(function(lock) {
+        return Array.from(lock).every(function(requirement) {
+          return abilities[requirement]
         })
       })
-    }).map(function(l) {
-      return l.location
+    }).map(function(location) {
+      return location.location
     }))
   }
   if (Object.keys(visited).length !== locations.length) {
