@@ -46,7 +46,7 @@ const relics = [{
   addresses: [ 0x47a5b66 ],
   ability: 'B',
   // Can't be placed in 2nd castle
-  locationBlacklist: [ 0x17, 0x18, 0x19, 0x1a, 0x1b ],
+  locationBlacklist: [ 0x03, 0x09, 0x17, 0x18, 0x19, 0x1a, 0x1b ],
 }, {
   name: 'Fire of Bat',
   id: 0x01,
@@ -59,7 +59,7 @@ const relics = [{
   addresses: [ 0x4aa4156 ],
   ability: 'E',
   // Can't be placed in 2nd castle
-  locationBlacklist: [ 0x17, 0x18, 0x19, 0x1a, 0x1b ],
+  locationBlacklist: [ 0x03, 0x09, 0x17, 0x18, 0x19, 0x1a, 0x1b ],
 },  {
   name: 'Force of Echo',
   id: 0x03,
