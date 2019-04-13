@@ -627,6 +627,13 @@ function randomizeRelics(data, options) {
     // place.
     // The specific room has a time attack entry that needs to be zero'd out.
     data[0xaeaa0] = 0x00
+    // The time attack check occurs in Richter mode too, but the game gets
+    // around this by writing the seconds elapsed between pressing Start on the
+    // main screen and on the name entry screen to the time attack table for
+    // events that aren't in Richter mode.
+    // Zero out the time attack entry for the clock room, or Richter will enter
+    // the cutscene version every time he enters it.
+    data[0x119af4] = 0x00
   }
 }
 
