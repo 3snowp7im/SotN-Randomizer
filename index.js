@@ -574,7 +574,7 @@ function randomizeRelics(data, options, info) {
         }
         returnVal = false
       } else if (options.verbose) {
-        console.log('relic data is vanilla')
+        console.log('relic locations are vanilla')
       }
     } else {
       // Doesn't seem like the logic behind selecting relics has been thought
