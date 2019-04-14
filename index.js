@@ -544,8 +544,10 @@ function randomizeRelics(data, options) {
       relic.addresses.forEach(function(address) {
         if (data[address] !== relic.id) {
           mismatches.push({
-            name: relic.name,
-            id: '0x' + ('0' + relic.id.toString(16)).slice(-2),
+            name: relics.filter(function(relic) {
+              return relic.id === data[address]
+            }).pop().name,
+            id: '0x' + ('0' + data[address].toString(16)).slice(-2),
             location: '0x' + ('0' + relic.location.toString(16)).slice(-2),
             address: '0x' + address.toString(16),
           })
