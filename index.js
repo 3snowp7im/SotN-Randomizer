@@ -352,6 +352,12 @@ function relicFromId(id) {
   }).pop()
 }
 
+function relicFromName(name) {
+  return relics.filter(function(relic) {
+    return relic.name === name
+  }).pop()
+}
+
 function addressesFromLocation(location) {
   return relics.filter(function(relic) {
     return relic.location === location
@@ -537,106 +543,111 @@ function checkForSoftLock(mapping) {
 }
 
 function randomizeRelics(data, options) {
-  // Run a sanity check.
-  if (options.checkVanilla) {
-    const mismatches = []
-    relics.forEach(function(relic) {
-      relic.addresses.forEach(function(address) {
+  let returnVal = true
+  if (options.relicLocations) {
+    // Run a sanity check.
+    if (options.checkVanilla) {
+      const mismatches = []
+      locations.forEach(function(location) {
+        const relic = relics.filter(function(relic) {
+          return relic.location === location.location
+        }).pop()
+        const address = relic.addresses[0]
         if (data[address] !== relic.id) {
           mismatches.push({
-            name: relics.filter(function(relic) {
+            relic: relics.filter(function(relic) {
               return relic.id === data[address]
             }).pop().name,
-            id: '0x' + ('0' + data[address].toString(16)).slice(-2),
-            location: '0x' + ('0' + relic.location.toString(16)).slice(-2),
-            address: '0x' + address.toString(16),
+            location: location.vanilla,
           })
         }
       })
-    })
-    if (mismatches.length) {
-      if (options.verbose) {
-        console.error('relic mismatches:')
-        mismatches.forEach(function(relic) {
-          console.error(relic)
-        })
-        console.error('relic data is NOT vanilla')
-      }
-    } else if (options.verbose) {
-      console.log('relic data is vanilla')
-    }
-    return
-  }
-  if (options.relicLocations) {
-    // Doesn't seem like the logic behind selecting relics has been thought
-    // out by the original author, so many times this script will result in
-    // an infinite loop or soft-lock state. To remedy this, just loop the
-    // selection process until it finishes successfully. -mouse
-    while (true) {
-      const ctx = {
-        stackDepth: 0,
-        abilities: {},
-        relics: [],
-        locations: [],
-      }
-      // Do some shuffling things, make sure things arent impossible to access
-      // Make things always possible later
-      // Place the rest of the items
-      try {
-        let locs = locations.map(function(loc) {
-          return Object.assign({}, loc)
-        })
-        const mapping = {}
-        for (let i = 0; i < relics.length; i++) {
-          const relicLocation = pickRelicLocation(ctx, locs)
-          placeRelic(ctx, relicLocation.relic, relicLocation.location, data)
-          mapping[relicLocation.location] = relicLocation
-          locs = relicLocation.newLocs
+      if (mismatches.length) {
+        if (options.verbose) {
+          console.error('relic mismatches:')
+          mismatches.sort(function(a, b) {
+            return relicFromName(a.relic).id - relicFromName(b.relic).id
+          }).forEach(function(relic) {
+            console.error(relic)
+          })
+          console.error('relic data is NOT vanilla')
         }
-        checkForSoftLock(mapping)
-        break
-      } catch (e) {
-        if (e.message !== 'soft lock generated'
-            && e.message !== 'out of available locations') {
-          throw e
+        returnVal = false
+      } else if (options.verbose) {
+        console.log('relic data is vanilla')
+      }
+    } else {
+      // Doesn't seem like the logic behind selecting relics has been thought
+      // out by the original author, so many times this script will result in
+      // an infinite loop or soft-lock state. To remedy this, just loop the
+      // selection process until it finishes successfully. -mouse
+      while (true) {
+        const ctx = {
+          stackDepth: 0,
+          abilities: {},
+          relics: [],
+          locations: [],
+        }
+        // Do some shuffling things, make sure things arent impossible to
+        // access. Make things always possible later.
+        // Place the rest of the items.
+        try {
+          let locs = locations.map(function(loc) {
+            return Object.assign({}, loc)
+          })
+          const mapping = {}
+          for (let i = 0; i < relics.length; i++) {
+            const relicLocation = pickRelicLocation(ctx, locs)
+            placeRelic(ctx, relicLocation.relic, relicLocation.location, data)
+            mapping[relicLocation.location] = relicLocation
+            locs = relicLocation.newLocs
+          }
+          checkForSoftLock(mapping)
+          break
+        } catch (e) {
+          if (e.message !== 'soft lock generated'
+              && e.message !== 'out of available locations') {
+            throw e
+          }
         }
       }
+      // Entering the room between jewel door and red door in alchemy lab
+      // triggers a cutscene with Maria. The game will softlock if the player
+      // enters alchemy lab through the red door in chapel before fighting
+      // hippogryph. This can only happen if the player has access to olrox
+      // quarters without soul of bat, which isn't possible in the vanilla game
+      // without a speedrun trick. In a randomized relic run, however, it is
+      // possible to have early movement
+      // options that trigger this softlock for unwitting players. To be safe,
+      // disable the cutscene from ever taking place.
+      // The flag that gets set after the maria cutscene is @ 0x3be71.
+      // The instruction that checks that flag is:
+      // 0x54f0f44:    bne r2, r0, 0x1b8a58    144002da
+      // Change the instruction so it always branches:
+      // 0x54f0f44:    beq r0, r0, 0x1b8a58    100002da
+      data[0x54f0f44 + 2] = 0x00
+      data[0x54f0f44 + 3] = 0x10
+      // Entering the clock room for the first time triggers a cutscene with
+      // Maria. The cutscene takes place in a separately loaded room that does
+      // not connect to the rest of the castle through the statue doors or the
+      // vertical climb to gravity boots. If the player has early movement
+      // options, they may attempt to leave the room through one of these top
+      // exits but find themselves blocked, with the only option being to
+      // reload the room through the left or right exit first. To make it more
+      // convenient and less confusing, disable the cutscene from ever taking
+      // place.
+      // The specific room has a time attack entry that needs to be zero'd out.
+      data[0xaeaa0] = 0x00
+      // The time attack check occurs in Richter mode too, but the game gets
+      // around this by writing the seconds elapsed between pressing Start on
+      // the main screen and on the name entry screen to the time attack table
+      // for events that aren't in Richter mode.
+      // Zero out the time attack entry for the clock room, or Richter will
+      // enter the cutscene version every time he enters it.
+      data[0x119af4] = 0x00
     }
-    // Entering the room between jewel door and red door in alchemy lab
-    // triggers a cutscene with Maria. The game will softlock if the player
-    // enters alchemy lab through the red door in chapel before fighting
-    // hippogryph. This can only happen if the player has access to olrox
-    // quarters without soul of bat, which isn't possible in the vanilla game
-    // without a speedrun trick. In a randomized relic run, however, it is
-    // possible to have early movement
-    // options that trigger this softlock for unwitting players. To be safe,
-    // disable the cutscene from ever taking place.
-    // The flag that gets set after the maria cutscene is @ 0x3be71.
-    // The instruction that checks that flag is:
-    // 0x54f0f44:    bne r2, r0, 0x1b8a58    144002da
-    // Change the instruction so it always branches:
-    // 0x54f0f44:    beq r0, r0, 0x1b8a58    100002da
-    data[0x54f0f44 + 2] = 0x00
-    data[0x54f0f44 + 3] = 0x10
-    // Entering the clock room for the first time triggers a cutscene with
-    // Maria. The cutscene takes place in a separately loaded room that does
-    // not connect to the rest of the castle through the statue doors or the
-    // vertical climb to gravity boots. If the player has early movement
-    // options, they may attempt to leave the room through one of these top
-    // exits but find themselves blocked, with the only option being to reload
-    // the room through the left or right exit first. To make it more
-    // convenient and less confusing, disable the cutscene from ever taking
-    // place.
-    // The specific room has a time attack entry that needs to be zero'd out.
-    data[0xaeaa0] = 0x00
-    // The time attack check occurs in Richter mode too, but the game gets
-    // around this by writing the seconds elapsed between pressing Start on the
-    // main screen and on the name entry screen to the time attack table for
-    // events that aren't in Richter mode.
-    // Zero out the time attack entry for the clock room, or Richter will enter
-    // the cutscene version every time he enters it.
-    data[0x119af4] = 0x00
   }
+  return returnVal
 }
 
 try {
