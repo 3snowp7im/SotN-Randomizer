@@ -428,8 +428,7 @@ function replaceLocks(locks, abilityToReplace, locksToAdd) {
     if (!lock.has(abilityToReplace)) {
       // Any locks that didn't require the relic can stay the same
       newLocks.push(lock)
-    }
-    else {
+    } else {
       // Otherwise, remove the old relic as a requirement and instead
       // add all the locks to that relic
       locksToAdd.forEach(function(transferLock) {
