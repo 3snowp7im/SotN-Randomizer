@@ -34,8 +34,8 @@ const shopRelicIdOffset = 0x64
  *   will place the relic in that location
  * relic.location - Randomizer-specific ID determining which
  *   logical location each relic is originally.
- * relic.addresses - List of the memory addresses corresponding to the 
-*    location. Write IDs here to replace relics.
+ * relic.addresses - List of the memory addresses corresponding to the
+ *   location. Write IDs here to replace relics.
  * relic.ability - What ability this relic provides.
  *   Used to determine when progression is gained.
  */
@@ -45,8 +45,6 @@ const relics = [{
   location: 0x00,
   addresses: [ 0x047a5b66 ],
   ability: 'B',
-  // Can't be placed in 2nd castle
-  locationBlacklist: [ 0x03, 0x09, 0x17, 0x18, 0x19, 0x1a, 0x1b ],
 }, {
   name: 'Fire of Bat',
   id: 0x01,
@@ -58,8 +56,6 @@ const relics = [{
   location: 0x02,
   addresses: [ 0x04aa4156 ],
   ability: 'E',
-  // Can't be placed in 2nd castle
-  locationBlacklist: [ 0x03, 0x09, 0x17, 0x18, 0x19, 0x1a, 0x1b ],
 },  {
   name: 'Force of Echo',
   id: 0x03,
@@ -200,150 +196,157 @@ const relics = [{
  *   Unused, but valuable for documentation purposes.
  * location.location - The ID of the location to align with the relics list.
  * location.locks - List of ability combinations this location is locked by.
- *   Each entry in this list is a combination of abilities and having all the
- *   abilities in any entry is enough to make the location available.
- *   A lock of '' means the location is initially available.
+ *   Each entry in this list is a set describing a combination of abilities
+ *   and having all the abilities in any set is enough to make the
+ *   location available.
+ *   An empty set means the location is initially available.
  */
 const locations = [{
   vanilla: 'Soul of Bat',
   location: 0x00,
   // Mist + at least Leap Stone
-  locks: ['MG', 'ML', 'MP']
+  locks: [new Set('MG'), new Set('ML'), new Set('MP')]
 }, {
   vanilla: 'Fire of Bat',
   location: 0x01,
   // Flight
-  locks: ['B', 'LG', 'MP']
+  locks: [new Set('B'), new Set('LG'), new Set('MP')]
 }, {
   vanilla: 'Echo of Bat',
   location: 0x02,
   // Flight + Form Change
-  locks: ['B', 'LGM', 'LGW', 'MP']
+  locks: [new Set('B'), new Set('LGM'), new Set('LGW'), new Set('MP')]
 }, {
   vanilla: 'Force of Echo',
   location: 0x03,
   // Second Castle
-  locks: ['JMP', 'JMBE']
+  locks: [new Set('JMBE')]
 }, {
   vanilla: 'Soul of Wolf',
   location: 0x04,
   // No locks
-  locks: ['']
+  locks: [new Set('')]
 }, {
   vanilla: 'Power of Wolf',
   location: 0x05,
   // Flight
-  locks: ['B', 'LG', 'MP']
+  locks: [new Set('B'), new Set('LG'), new Set('MP')]
 }, {
   vanilla: 'Skill of Wolf',
   location: 0x06,
   // Gravity Boots or better
-  locks: ['G', 'B', 'MP']
+  locks: [new Set('G'), new Set('B'), new Set('MP')]
 }, {
   vanilla: 'Form of Mist',
   location: 0x07,
   // At least Leap Stone
-  locks: ['B', 'G', 'L', 'MP']
+  locks: [new Set('B'), new Set('G'), new Set('L'), new Set('MP')]
 }, {
   vanilla: 'Power of Mist',
   location: 0x08,
   // Flight
-  locks: ['B', 'LG', 'MP']
+  locks: [new Set('B'), new Set('LG'), new Set('MP')]
 }, {
   vanilla: 'Gas Cloud',
   location: 0x09,
   // Second Castle
-  locks: ['JMP', 'JMBE']
+  locks: [new Set('JMBE')]
 }, {
   vanilla: 'Cube of Zoe',
   location: 0x0a,
   // No locks
-  locks: ['']
+  locks: [new Set('')]
 }, {
   vanilla: 'Spirit Orb',
   location: 0x0b,
   // No locks
-  locks: ['']
+  locks: [new Set('')]
 }, {
   vanilla: 'Gravity Boots',
   location: 0x0c,
   // Flight
-  locks: ['B', 'LG', 'MP']
+  locks: [new Set('B'), new Set('LG'), new Set('MP')]
 }, {
   vanilla: 'Leap Stone',
   location: 0x0d,
   // Jewel of Open or at least Leap Stone
-  locks: ['J', 'B', 'G', 'L', 'MP']
+  locks: [
+    new Set('J'),
+    new Set('B'),
+    new Set('G'),
+    new Set('L'),
+    new Set('MP')
+  ]
 }, {
   vanilla: 'Holy Symbol',
   location: 0x0e,
   // Jewel of Open + Merman Statue
-  locks: ['JS']
+  locks: [new Set('JS')]
 }, {
   vanilla: 'Faerie Scroll',
   location: 0x0f,
   // No locks
-  locks: ['']
+  locks: [new Set('')]
 }, {
   vanilla: 'Jewel of Open',
   location: 0x10,
   // No locks
-  locks: ['']
+  locks: [new Set('')]
 }, {
   vanilla: 'Merman Statue',
   location: 0x11,
   // Just Jewel
-  locks: ['J']
+  locks: [new Set('J')]
 }, {
   vanilla: 'Bat Card',
   location: 0x12,
   // Gravity Boots or better
-  locks: ['G', 'B', 'MP']
+  locks: [new Set('G'), new Set('B'), new Set('MP')]
 }, {
   vanilla: 'Ghost Card',
   location: 0x13,
   // Flight
-  locks: ['B', 'LG', 'MP']
+  locks: [new Set('B'), new Set('LG'), new Set('MP')]
 }, {
   vanilla: 'Faerie Card',
   location: 0x14,
   // Gravity Boots or better
-  locks: ['G', 'B', 'MP']
+  locks: [new Set('G'), new Set('B'), new Set('MP')]
 }, {
   vanilla: 'Demon Card',
   location: 0x15,
   // Jewel of Open and at least Leap Stone
-  locks: ['JL', 'JG', 'JB', 'JMP']
+  locks: [new Set('JL'), new Set('JB'), new Set('JMP')]
 }, {
   vanilla: 'Sword Card',
   location: 0x16,
   // Flight
-  locks: ['B', 'LG', 'MP']
+  locks: [new Set('B'), new Set('LG'), new Set('MP')]
 }, {
   vanilla: 'Heart of Vlad',
   location: 0x17,
   // Second Castle
-  locks: ['JMP', 'JMBE']
+  locks: [new Set('JMBE')]
 }, {
   vanilla: 'Tooth of Vlad',
   location: 0x18,
   // Second Castle
-  locks: ['JMP', 'JMBE']
+  locks: [new Set('JMBE')]
 }, {
   vanilla: 'Rib of Vlad',
   location: 0x19,
   // Second Castle
-  locks: ['JMP', 'JMBE']
+  locks: [new Set('JMBE')]
 }, {
   vanilla: 'Ring of Vlad',
   location: 0x1a,
   // Second Castle
-  locks: ['JMP', 'JMBE']
+  locks: [new Set('JMBE')]
 }, {
   vanilla: 'Eye of Vlad',
   location: 0x1b,
   // Second Castle
-  locks: ['JMP', 'JMBE']
+  locks: [new Set('JMBE')]
 }]
 
 function relicFromId(id) {
@@ -386,12 +389,10 @@ function placeRelic(ctx, relic, location, data) {
     }
   }
   // Check what abilities are gained
-  relics.forEach(function(r) {
-    if (r.ability && r.id === relic.id) {
-      ctx.abilities[r.ability] = true
-    }
-  })
-  
+  if (relic.ability) {
+    ctx.abilities[relic.ability] = true
+  }
+
   // Mark as used
   ctx.relics[relic.id] = true
   ctx.locations[location] = true
@@ -405,6 +406,48 @@ function pushAvailableLocation(ctx, locationsAvailable, locationIdx) {
   if (!ctx.locations[locationIdx]) {
     locationsAvailable.push(locationIdx)
   }
+}
+
+/** Helper function to see if a set is strictly a subset of another. */
+function isSubset(firstSet, secondSet) {
+  let allPresent = true
+
+  firstSet.forEach(function(element) {
+    allPresent = allPresent && secondSet.has(element)
+  })
+
+  return allPresent
+}
+
+/**
+ * Helper function to take a list of locks and replace all instances
+ * of a single ability with new locks
+ *
+ * @param {Array} locks - A list of locks to update
+ * @param {String} abilityToReplace - The ability to replace requirements of
+ * @param {Array} locksToAdd - A list of lock sets to replace the original
+ *   ability requirement with
+ */
+function replaceLocks(locks, abilityToReplace, locksToAdd) {
+  const newLocks = []
+  locks.forEach(function(lock) {
+    if (!lock.has(abilityToReplace)) {
+      // Any locks that didn't require the relic can stay the same
+      newLocks.push(lock)
+    } else {
+      // Otherwise, remove the old relic as a requirement and instead
+      // add all the locks to that relic
+      locksToAdd.forEach(function(transferLock) {
+        let newLock = new Set(lock)
+        newLock.delete(abilityToReplace)
+        transferLock.forEach(function(requirement) {
+          newLock.add(requirement)
+        })
+        newLocks.push(newLock)
+      })
+    }
+  })
+  return newLocks
 }
 
 function pickRelicLocation(ctx, locs) {
@@ -436,12 +479,15 @@ function pickRelicLocation(ctx, locs) {
 
   // Find a location not locked by this current relic
   locationsAvailable = locationsAvailable.filter(function(loc) {
+    // Restrict certain locations for certain relics
     if (relic.locationBlacklist
         && relic.locationBlacklist.indexOf(loc.location) !== -1) {
       return false
     }
+
+    // Find a location with a lock set that doesn't contain this relic
     return loc.locks.some(function(lock) {
-      return lock.indexOf(relic.ability) === -1
+      return !lock.has(relic.ability)
     })
   })
 
@@ -450,47 +496,27 @@ function pickRelicLocation(ctx, locs) {
   }
 
   const location = locationsAvailable[randIdx(locationsAvailable)]
-  
+
   // We're going to put this relic in this location, so anything previously
   // locked by the relic is now locked by the requirements of the new location
-  // TODO: This logic is a bit messy, and can probably be cleaned up a bit
   const newLocs = locs.map(function(loc) {
     const newLoc = Object.assign({}, loc)
-    let newLocks = []
-    // Replace all instances of the old relic with new locks based on the new
-    // location's requirements
-    loc.locks.forEach(function(lock) {
-      // Any locks that didn't require the relic can stay the same
-      if (lock.indexOf(relic.ability) === -1) {
-        newLocks.push(lock)
-      } else {
-        // Any locks that *did* require the relic must be updated.
-        // Create a new lock for each unique lock for this location.
-        location.locks.forEach(function(transferLock) {
-          let newLock = lock.replace(relic.ability, transferLock)
-          // Duplicate removal
-          newLock = Array.from(new Set(newLock)).sort().join('')
-          newLocks.push(newLock)
-        })
-      }
-    })
+    let newLocks = replaceLocks(loc.locks, relic.ability, location.locks)
 
     // Filter out locks that use this ability
     newLocks = newLocks.filter(function(lock) {
-      return lock.indexOf(relic.ability) === -1
+      return !lock.has(relic.ability)
     })
 
     // Filter out locks that are supersets of other locks
-    newLocks = Array.from(new Set(newLocks)).sort(function(a, b) {
-      return a.length - b.length
+    newLocks.sort(function(a, b) {
+      return a.size - b.size
     })
     for (let i = 0; i < newLocks.length - 1; i++) {
       const lock = newLocks[i]
       for (let j = i + 1; j < newLocks.length; j++) {
-        const superset = lock.split('').every(function(l) {
-          return newLocks[j].indexOf(l) !== -1
-        })
-        if (superset) {
+        // If lock i is a subset of lock j, remove j from the list
+        if (isSubset(lock, newLocks[j])) {
           newLocks.splice(j, 1)
           j--
         }
@@ -521,20 +547,21 @@ function checkForSoftLock(mapping) {
     if (relic.relic.ability) {
       abilities[relic.relic.ability] = true
     }
-    locs = locs.concat(locations.filter(function(l) {
-      if (visited[l.location]) {
+
+    locs = locs.concat(locations.filter(function(location) {
+      if (visited[location.location]) {
         return false
       }
-      if (locs.indexOf(l.location) !== -1) {
+      if (locs.indexOf(location.location) !== -1) {
         return false
       }
-      return l.locks.some(function(ll) {
-        return ll.split('').every(function(lll) {
-          return abilities[lll]
+      return location.locks.some(function(lock) {
+        return Array.from(lock).every(function(requirement) {
+          return abilities[requirement]
         })
       })
-    }).map(function(l) {
-      return l.location
+    }).map(function(location) {
+      return location.location
     }))
   }
   if (Object.keys(visited).length !== locations.length) {
