@@ -316,7 +316,7 @@ const locations = [{
   vanilla: 'Demon Card',
   location: 0x15,
   // Jewel of Open and at least Leap Stone
-  locks: [new Set('JL'), new Set('JG'), new Set('JB'), new Set('JMP')]
+  locks: [new Set('JL'), new Set('JB'), new Set('JMP')]
 }, {
   vanilla: 'Sword Card',
   location: 0x16,
