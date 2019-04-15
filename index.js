@@ -610,7 +610,9 @@ function randomizeRelics(data, options, info) {
             }).pop()
             spoilers.push(relic.name + ' at ' + location.vanilla)
           })
-          info[3]['Relic locations'] = spoilers
+          if (info) {
+            info[3]['Relic locations'] = spoilers
+          }
           break
         } catch (e) {
           if (e.message !== 'soft lock generated'
