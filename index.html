@@ -1,242 +1,221 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <script src="index.js"></script>
-    <script>
-    const doStuff = function() {
-      const relics = [{
-        name: 'Soul of Bat',
-        id: 0x00,
-        address: 0x47a5b66
-      }, {
-        name: 'Fire of Bat',
-        id: 0x01,
-        address: 0x557535e
-      }, {
-        name: 'Echo of Bat',
-        id: 0x02,
-        address: 0x4aa4156
-      }, {
-        name: 'Force of Echo',
-        id: 0x03,
-        address: 0x526e6a8
-      }, {
-        name: 'Soul of Wolf',
-        id: 0x04,
-        address: 0x49d6596
-      }, {
-        name: 'Power of Wolf',
-        id: 0x05,
-        address: 0x4b6b9b4
-      }, {
-        name: 'Skill of Wolf',
-        id: 0x06,
-        address: 0x54b1d5a
-      }, {
-        name: 'Form of Mist',
-        id: 0x07,
-        address: 0x43c578a
-      }, {
-        name: 'Power of Mist',
-        id: 0x08,
-        address: 0x5610db8
-      }, {
-        name: 'Gas Cloud',
-        id: 0x09,
-        address: 0x4cfcb16
-      }, {
-        name: 'Cube of Zoe',
-        id: 0x0a,
-        address: 0x4b6b946
-      }, {
-        name: 'Spirit Orb',
-        id: 0x0b,
-        address: 0x48fd1fe
-      }, {
-        name: 'Gravity Boots',
-        id: 0x0c,
-        address: 0x48fc9ba
-      }, {
-        name: 'Leap Stone',
-        id: 0x0d,
-        address: 0x5610dc2
-      }, {
-        name: 'Holy Symbol',
-        id: 0x0e,
-        address: 0x4c34ee6
-      }, {
-        name: 'Faerie Scroll',
-        id: 0x0f,
-        address: 0x47a5720
-      }, {
-        name: 'Jewel of Open',
-        id: 0x10,
-        address: 0x47a321c
-      }, {
-        name: 'Merman Statue',
-        id: 0x11,
-        address: 0x4c35174
-      }, {
-        name: 'Bat Card',
-        id: 0x12,
-        address: 0x54b1d58
-      }, {
-        name: 'Ghost Card',
-        id: 0x13,
-        address: 0x5611958
-      }, {
-        name: 'Faerie Card',
-        id: 0x14,
-        address: 0x47a5784
-      }, {
-        name: 'Demon Card',
-        id: 0x15,
-        address: 0x45ea95e
-      }, {
-        name: 'Sword Card',
-        id: 0x16,
-        address: 0x4aa3f76
-      }, {
-        name: 'Heart of Vlad',
-        id: 0x19,
-        address: 0x6306ab2
-      }, {
-        name: 'Tooth of Vlad',
-        id: 0x1a,
-        address: 0x5051d52
-      }, {
-        name: 'Rib of Vlad',
-        id: 0x1b,
-        address: 0x69d2b1e
-      }, {
-        name: 'Ring of Vlad',
-        id: 0x1c,
-        address: 0x59bdb30
-      }, {
-        name: 'Eye of Vlad',
-        id: 0x1d,
-        address: 0x4da65f2
-      }]
-
-      const addresses = {}
-      const ids = {}
-      relics.forEach(function(relic) {
-        addresses[relic.address] = relic.name
-        ids[relic.id] = relic.name
-      })
-
-      const totals = {}
-      const runs = new URLSearchParams(window.location.search).get('runs') || 1000
-      var data = {}
-      for (let i = 0; i < runs; i++) {
-        randomizeRelics(data, {relicLocations: true})
-
-        relics.forEach(function(relic) {
-          const loc = addresses[relic.address]
-          const item = ids[data[relic.address]]
-
-          if (!totals[loc]) {
-            totals[loc] = {}
-          }
-          if (!totals[loc][item]) {
-            totals[loc][item] = 0
-          }
-          totals[loc][item]++
-        })
-      }
-
-      const content = document.getElementById('content')
-      const newDiv = function() {
-			  return document.createElement('div')
-			}
-      const row = newDiv()
-      row.className = 'row'
-
-      row.appendChild(newDiv())
-      relics.forEach(function(relic) {
-        const cell = newDiv()
-        cell.textContent = relic.name
-        cell.className = 'col-header'
-        row.appendChild(cell)
-      })
-      content.appendChild(row)
-
-      const getClassname = function(count) {
-        if (count === 0) {
-          return 'zero'
-        }
-        if (count <= runs / relics.length) {
-          return 'below-average'
-        }
-        if (count <= 1.5 * runs / relics.length) {
-          return 'average'
-        }
-        if (count <= 3 * runs / relics.length) {
-          return 'above-average'
-        }
-        return 'a-lot'
-      }
-
-      relics.forEach(function(relic) {
-        const locRow = newDiv()
-        locRow.className = 'row'
-        const loc = newDiv()
-        loc.className = 'row-header'
-        loc.textContent = relic.name
-        locRow.appendChild(loc)
-
-        relics.forEach(function(r) {
-          const count = newDiv()
-          const amount = totals[relic.name][r.name] || 0
-          count.textContent = amount
-          count.className = getClassname(amount)
-          locRow.appendChild(count)
-        })
-        content.appendChild(locRow)
-      })
-    }
-
-    window.onload = doStuff
-    </script>
-    <style>
-      #content {
-        display: table;
-        margin: auto;
-      }
-
-      .row {
-        display: table-row;
-      }
-      .row div {
-        display: table-cell;
-        border: 1px solid black;
-      }
-      .row .col-header, .row .row-header {
-        font-size: small;
-      }
-
-      .row div.zero {
-        background-color: #777;
-      }
-      .row div.below-average {
-        background-color: lightgreen;
-      }
-      .row div.average {
-        background-color: yellow;
-      }
-      .row div.above-average {
-        background-color: orangered;
-      }
-      .row div.a-lot {
-        background-color: darkred;
-      }
-    </style>
-    <title>SotN Rando Relic Distribution</title>
+    <title>Castlevania: Symphony of the Night Randomizer</title>
+    <link rel="stylesheet"
+          href="https://unpkg.com/purecss@1.0.0/build/pure-min.css">
+    <link rel="stylesheet"
+          href="https://unpkg.com/purecss@1.0.0/build/grids-responsive-min.css">
+    <link rel="stylesheet" href="index.css">
   </head>
-  <body style="text-align: center">
-    <h1>Current Symphony of the Night Randomizer Relic Distribution</h1>
-    <div>Change then number of runs by adding ?runs=# to the end of the url</div>
-    <div id='content'>
-    </div>
+  <body>
+    <h1>Castlevania: Symphony of the Night Randomizer</h1>
+    <p>
+      by Wild Mouse
+      <a href="https://twitter.com/3snow_p7im"><img height="16" width="16" src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/twitter.svg"></a>
+      <a href="https://twitch.tv/3snow_p7im"><img height="16" width="16" src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/twitch.svg"></a>
+    </p>
+    <form id="form">
+      <p id="target"></p>
+      <div class="spoilers">
+        <textarea id="spoilers" rows="8" cols="32" disabled="disabled">
+        </textarea>
+      </div>
+      <p>
+        <label for="seed">Seed (optional)</label>
+        <input id="seed" type="text">
+      </p>
+      <div>
+        <input id="relic-locations" type="checkbox" checked="checked">
+        <label for="relic-locations">Randomize relic locations</label>
+      </div>
+      <div>
+        <input id="item-locations" type="checkbox" checked="checked">
+        <label for="item-locations">Randomize item locations</label>
+      </div>
+      <div>
+        <input id="starting-equipment" type="checkbox" checked="checked">
+        <label for="starting-equipment">Randomize starting equipment</label>
+      </div>
+      <div>
+        <input id="prologue-rewards" type="checkbox" checked="checked">
+        <label for="prologue-rewards">Randomize prologue rewards</label>
+      </div>
+      <div>
+        <input id="turkey-mode" type="checkbox" checked="checked">
+        <label for="turkey-mode">Turkey mode</label>
+      </div>
+      <div>
+        <input id="show-spoilers" type="checkbox">
+        <label for="show-spoilers">Show spoilers</label>
+      </div>
+      <div>
+        <input id="show-relics" type="checkbox" disabled="disabled">
+        <label for="show-relics">Show relic locations</label>
+      </div>
+      <p>
+        <input id="randomize"
+               type="submit"
+               class="pure-button pure-button-primary"
+               disabled="disabled"
+               value="Randomize">
+        <input id="copy"
+               type="submit"
+               class="pure-button"
+               disabled="disabled"
+               value="Copy seed">
+      </p>
+      <p>
+        <input id="seed-url" type="text" class="hidden">
+        <div id="notification">Copied to clipboard</div>
+      </p>
+      <a id="download" style="display:none"></a>
+      <div id="loader"></div>
+    </form>
+    <hr>
+    <h2><a name="help">Help</a></h2>
+    <p>
+      You need an image of your game disc in BIN/CUE format to use this tool.
+      If your disc image is split across two .bin files, drop only the first
+      .bin file (track 1) into the box below.
+    </p>
+    <p>
+      After downloading the randomized image, you will need to rename it to
+      match the track listing in your .cue file, or modify your cue file to
+      use the name of the randomized image.
+    </p>
+    <hr>
+    <h2><a name="links">Links</a></h2>
+    <ul>
+      <li><a href="https://testrunnersrl.github.io/sotn-tracker/">Relic tracker</a> (thanks TestRunner)</li>
+      <li><a href="SotN-Relic-Randomizer/">Relic distribution table</a> (thanks Soba)</li>
+      <li><a href="https://discord.gg/wGMdDRG">The Long Library</a>, a SotN discord server</li>
+    </ul>
+    <hr>
+    <h2><a name="bugs">Bugs</a></h2>
+    <p>
+      Think you found a bug? The best way to report it is using <a href="https://github.com/3snowp7im/SotN-Randomizer/issues/new?assignees=3snowp7im&template=bug-report.md">GitHub issues</a>.
+    </p>
+    <hr>
+    <h2><a name="changelog">Changelog</a></h2>
+    <ul>
+      <li>
+        <h3><time>April 22, 2019</time></h3>
+        <ul>
+          <li>Add turkey mode.</li>
+        </ul>
+      </li>
+      <li>
+        <h3><time>April 20, 2019</time></h3>
+        <ul>
+          <li>Add candle randomization.</li>
+          <li>Add prologue reward item randomization.</li>
+          <li>Add Axe Lord and Luck Mode starting equipment randomization.</li>
+          <li>Add copy seed button.</li>
+        </ul>
+      </li>
+      <li>
+        <h3><time>April 15, 2019</time></h3>
+        Add link to the <a href="https://testrunnersrl.github.io/sotn-tracker/">relic tracker</a> (thanks TestRunner)
+      </li>
+      <li>
+        <h3><time>April 15, 2019</time></h3>
+        <ul>
+          <li>Display seed at file select menu.</li>
+          <li>Distribute jewel types with same frequency as vanilla.</li>
+        </ul>
+      </li>
+      <li>
+        <h3><time>April 14, 2019</time></h3>
+        Add option to show relic locations in spoilers.
+      </li>
+      <li>
+        <h3><time>April 13, 2019</time></h3>
+        Fix Maria cutscene skip in Richter mode.
+      </li>
+      <li>
+        <h3><time>April 11, 2019</time></h3>
+        <ul>
+          <li>Remove Maria cutscene in Marble Gallery to avoid confusion.</li>
+          <li>Add spoilers option.</li>
+        </ul>
+      </li>
+      <li>
+        <h3><time>April 8, 2019</time></h3>
+        <ul>
+          <li>Fix bug that allowed salable gems to be sold in shop menu.</li>
+          <li>Items are now placed by type with same frequency as vanilla.</li>
+        </ul>
+      </li>
+      <li>
+        <h3><time>April 7, 2019</time></h3>
+        Add item location randomization.
+      </li>
+      <li>
+        <h3><time>April 5, 2019</time></h3>
+        <ul>
+          <li>Add <a href="SotN-Relic-Randomizer/">relic distribution</a>
+            (thx Soba)</li>
+          <li>Fix relic duping in Medusa room.</li>
+          <li>Fix shop relic name not being updated in shop menu.</li>
+          <li>Produce more uniform relic distribution (thx Soba).</li>
+        </ul>
+      </li>
+      <li>
+        <h3><time>April 4, 2019</time></h3>
+        <ul>
+          <li>Remove Maria cutscene in Alchemy Lab to avoid softlock.</li>
+          <li>Fix 2nd castle relic locations (thx Soba).</li>
+          <li>Fix randomized equipment by same type.</li>
+        </ul>
+      </li>
+      <li>
+        <h3><time>April 3, 2019</time></h3>
+        <ul>
+          <li>Fix random seed not being reproducible.</li>
+          <li>Fix crash after Scylla fight.</li>
+          <li>Fix faerie scroll duping.</li>
+          <li>Fix same seed causes different randomizations.</li>
+        </ul>
+      </li>
+      <li>
+        <h3><time>April 2, 2019</time></h3>
+        <ul>
+          <li>Fix equipment randomization.</li>
+          <li>
+            Fix bug that allowed bat relic to be placed in 2nd castle without
+            ability to get spike breaker armor.
+          </li>
+          <li>Download file name contains seed value.</li>
+        </ul>
+      </li>
+      <li>
+        <h3><time>April 1, 2019</time></h3>
+        <ul>
+          <li>Fix shop relic glitch.</li>
+          <li>Fix relic duping in clock tower and outer wall.</li>
+        </ul>
+      </li>
+      <li>
+        <h3><time>March 31, 2019</time></h3>
+        Add equipment location randomization.
+      </li>
+      <li>
+        <h3><time>March 28, 2019</time></h3>
+        Add starting equipment randomization.
+      </li>
+      <li>
+        <h3><time>March 27, 2019</time></h3>
+        Ported skiffain's <a href="https://github.com/josephstevenspgh/SotN-Relic-Randomizer">relic randomizer</a> to javascript.
+      </li>
+    </ul>
+    <a id="fork" href="https://github.com/3snowp7im/SotN-Randomizer"><img width="149" height="149" src="https://github.blog/wp-content/uploads/2008/12/forkme_left_darkblue_121621.png?resize=149%2C149" class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1"></a>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/seedrandom/3.0.1/seedrandom.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sjcl/1.0.8/sjcl.min.js"></script>
+    <script src="items/data.js"></script>
+    <script src="items/index.js"></script>
+    <script src="relics/index.js"></script>
+    <script src="ecc-edc-recalc-js/index.js"></script>
+    <script src="index.js"></script>
   </body>
 </html>

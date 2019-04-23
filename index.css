@@ -1,0 +1,95 @@
+html, body {
+    height: 100%;
+}
+
+body {
+    padding-left: 15%;
+    padding-right: 15%;
+}
+
+#changelog h3 {
+    display: inline;
+    font-size: medium;
+}
+
+#target {
+    text-align: center;
+    padding: 4em 0;
+    border: 10px #CCC dashed;
+}
+
+#target.active {
+    border-color: #CFC;
+}
+
+#target.error {
+    border-color: #FCC;
+}
+
+.spoilers {
+    float: right;
+}
+
+#spoilers {
+    visibility: hidden;
+}
+
+#notification {
+    padding: 1em;
+    margin: 10px;
+    background: #cfc;
+    border-radius: .5em;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    display: none;
+}
+
+#notification.success {
+    display: block;
+    opacity: 1;
+    transition: opacity 2s ease-in-out;
+}
+
+#notification.success.hide {
+    opacity: 0;
+}
+
+#seed-url.hidden {
+    display: none;
+}
+
+#loader {
+    height: 4px;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    background-color: #ddd;
+    visibility: hidden;
+}
+
+#loader:before{
+    display: block;
+    position: absolute;
+    content: "";
+    left: -200px;
+    width: 200px;
+    height: 4px;
+    background-color: #2980b9;
+    animation: loading 2s linear infinite;
+}
+
+@keyframes loading {
+    from {left: -200px; width: 30%;}
+    50% {width: 30%;}
+    70% {width: 70%;}
+    80% { left: 50%;}
+    95% {left: 120%;}
+    to {left: 100%;}
+}
+
+#fork {
+    position: absolute;
+    top: 0;
+    left: 0;
+}

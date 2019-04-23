@@ -1,0 +1,374 @@
+#!/usr/bin/env node
+// This tool parses a SotN bin for candle data, adds it the global item list
+// and prints the modified list to stdout.
+// Usage: tools/candle-data <path-to-rom> [indent-level]
+
+const fs = require('fs')
+
+const data = require('../data')
+const ZONE = data.ZONE
+const TYPE = data.TYPE
+const zones = data.zones
+const typeNames = data.typeNames
+const zoneNames = data.zoneNames
+const items = data.items || []
+
+// Offsets in the bin of each zone file.
+const zones = [{
+  // ZONE.ST0
+  pos: 0x0533efc8, len: 271812,
+}, {
+  // ZONE.ARE
+  pos: 0x043c2018, len: 352636,
+}, {
+  // ZONE.CAT
+  pos: 0x0448f938, len: 361920,
+}, {
+  // ZONE.CHI
+  pos: 0x045e8ae8, len: 193576,
+}, {
+  // ZONE.DAI
+  pos: 0x04675f08, len: 373764,
+}, {
+  // ZONE.LIB
+  pos: 0x047a1ae8, len: 348876,
+}, {
+  // ZONE.NO0
+  pos: 0x048f9a38, len: 390540,
+}, {
+  // ZONE.NO1
+  pos: 0x049d18b8, len: 356452,
+}, {
+  // ZONE.NO2
+  pos: 0x04aa0438, len: 327100,
+}, {
+  // ZONE.NO3
+  pos: 0x04b665e8, len: 359960,
+}, {
+  // ZONE.NP3
+  pos: 0x053f4708, len: 341044,
+}, {
+  // ZONE.NO4
+  pos: 0x04c307e8, len: 391260,
+}, {
+  // ZONE.NZ0
+  pos: 0x054b0c88, len: 309120,
+}, {
+  // ZONE.NZ1
+  pos: 0x055724b8, len: 271168,
+}, {
+  // ZONE.TOP
+  pos: 0x0560e7b8, len: 247132,
+}, {
+  // ZONE.RARE
+  pos: 0x057509e8, len: 234384,
+}, {
+  // ZONE.RCAT
+  pos: 0x04cfa0b8, len: 278188,
+}, {
+  // ZONE.RCHI
+  pos: 0x04da4968, len: 174880,
+}, {
+  // ZONE.RDAI
+  pos: 0x04e31458, len: 295736,
+}, {
+  // ZONE.RLIB
+  pos: 0x04ee2218, len: 201776,
+}, {
+  // ZONE.RNO0
+  pos: 0x04f84a28, len: 347020,
+}, {
+  // ZONE.RNO1
+  pos: 0x0504f558, len: 357020,
+}, {
+  // ZONE.RNO2
+  pos: 0x050f7948, len: 313816,
+}, {
+  // ZONE.RNO3
+  pos: 0x051ac758, len: 304428,
+}, {
+  // ZONE.RNO4
+  pos: 0x0526a868, len: 384020,
+}, {
+  // ZONE.RNZ0
+  pos: 0x05902278, len: 281512,
+}, {
+  // ZONE.RNZ1
+  pos: 0x059bb0d8, len: 260960,
+}, {
+  // ZONE.RTOP
+  pos: 0x057df998, len: 200988,
+}]
+
+const tileIdOffset = 0x80
+
+function bufToHex(buf) {
+  return Array.from(buf).map(function(byte) {
+    return ('00' + byte.toString(16)).slice(-2)
+  }).join('')
+}
+
+function numToHex(num, width) {
+  const zeros = Array(width).fill('0').join('')
+  const hex = (zeros + num.toString(16)).slice(-width)
+  return '0x' + hex
+}
+
+function restoreZone(data, offset, zoneLength) {
+  const dataLength = zoneLength + Math.floor(zoneLength / 0x800) * 0x130
+  data = data.slice(offset, offset + dataLength)
+  const zone = Buffer.alloc(zoneLength)
+  let curr = zone
+  while (data.length) {
+    curr.set(data.slice(0, 0x800))
+    curr = curr.slice(0x800)
+    data = data.slice(0x800 + 0x130)
+  }
+  return zone
+}
+
+function isCandle(zoneId, entity) {
+  const id = entity.readUInt16LE(4)
+  if (id === 0xa001) {
+    const states = []
+    switch (zoneId) {
+    case ZONE.ST0:
+      states.push(0x20, 0x30, 0x80, 0x90)
+      break
+    case ZONE.ARE:
+      states.push(0x10)
+      break
+    case ZONE.CAT:
+      states.push(0x00, 0x10, 0x20)
+      break
+    case ZONE.CHI:
+      states.push(0x00, 0x10)
+      break
+    case ZONE.DAI:
+      states.push(0x00, 0x10)
+      break
+    case ZONE.LIB:
+      states.push(0x00)
+      break
+    case ZONE.NO0:
+      states.push(0x00, 0x10, 0x20, 0x80)
+      break
+    case ZONE.NO1:
+      states.push(0x50, 0x60)
+      break
+    case ZONE.NO2:
+      states.push(0x00, 0x10, 0x20, 0x30, 0x40, 0x60)
+      break
+    case ZONE.NO3:
+    case ZONE.NP3:
+      states.push(0x00)
+      break
+    case ZONE.NO4:
+      states.push(0x00, 0x50, 0x60)
+      break
+    case ZONE.NZ0:
+      states.push(0x00, 0x10, 0x20)
+      break
+    case ZONE.NZ1:
+      states.push(0x00, 0x10, 0x40, 0x50, 0x60)
+      break
+    case ZONE.TOP:
+      states.push(0x20, 0x30, 0x60)
+      break
+    case ZONE.RARE:
+      states.push(0x10)
+      break
+    case ZONE.RCAT:
+      states.push(0x00, 0x10, 0x20)
+      break
+    case ZONE.RCHI:
+      states.push(0x00, 0x10)
+      break
+    case ZONE.RDAI:
+      states.push(0x00, 0x10)
+      break
+    case ZONE.RLIB:
+      states.push(0x00)
+      break
+    case ZONE.RNO0:
+      states.push(0x00, 0x10, 0x20, 0x80)
+      break
+    case ZONE.RNO1:
+      states.push(0x50, 0x60)
+      break
+    case ZONE.RNO2:
+      states.push(0x00, 0x10, 0x20, 0x30, 0x40, 0x60)
+      break
+    case ZONE.RNO3:
+      states.push(0x00)
+      break
+    case ZONE.RNO4:
+      states.push(0x00, 0x50, 0x60)
+      break
+    case ZONE.RNZ0:
+      states.push(0x00, 0x10, 0x20)
+      break
+    case ZONE.RNZ1:
+      states.push(0x10, 0x40, 0x50, 0x60)
+      break
+    case ZONE.RTOP:
+      states.push(0x20, 0x30, 0x60)
+      break
+    }
+    if (states.indexOf(entity[9] & 0xf0) !== -1) {
+      return true
+    }
+  }
+}
+
+function getCandleEntities(zoneId, zone, rooms, offset, candles) {
+  for (let i = 0; i < rooms; i++) {
+    const ptr = zone.readUInt32LE(offset) - 0x80180000
+    let entitiy
+    let count = 0
+    do {
+      const p = ptr + 10 * count++
+      entity = zone.slice(p, p + 10)
+      if (isCandle(zoneId, entity)) {
+        const candle = bufToHex(entity)
+        candles[i][candle] = candles[i][candle] || []
+        candles[i][candle].push(p)
+      }
+    } while (entity.readUInt32LE() != 0xffffffff)
+    offset += 4
+  }
+}
+
+function findCandleAddresses(zoneId, data, pos, len) {
+  const zone = restoreZone(data, pos, len)
+  // Get pointers to sorted tile layout structures.
+  let layout = zone.readUInt32LE(0x10) - 0x80180000
+  let rooms = 0
+  while (zone[layout] != 0x40) {
+    rooms++
+    layout += 8
+  }
+  const enter = zone.readUInt32LE(0x0c) - 0x80180000
+  const offX = zone.readUInt16LE(enter + 0x1c)
+  const offY = zone.readUInt16LE(enter + 0x28)
+  const candles = Array(rooms).fill(null).map(function() {
+    return {}
+  })
+  // Get candle data.
+  getCandleEntities(zoneId, zone, rooms, offX, candles)
+  getCandleEntities(zoneId, zone, rooms, offY, candles)
+  // Add candle data to item list.
+  candles.forEach(function(room) {
+    Object.getOwnPropertyNames(room).forEach(function(key) {
+      const entity = key.match(/[0-9a-f]{2}/g).map(function(byte) {
+        return parseInt(byte, 16)
+      })
+      const state = (entity[9] << 8) + entity[8]
+      const candle = (state & 0xf000) >>> 8
+      const id = state & 0x0fff
+      const item = items.filter(function(item) {
+        if (id > tileIdOffset) {
+          return item.id === (id - tileIdOffset) && [
+            TYPE.WEAPON1,
+            TYPE.WEAPON2,
+            TYPE.SHIELD,
+            TYPE.HELMET,
+            TYPE.ARMOR,
+            TYPE.CLOAK,
+            TYPE.ACCESSORY,
+            TYPE.USABLE,
+          ].indexOf(item.type) !== -1
+        }
+        return item.id === id
+      })[0]
+      const addresses = room[key]
+      if (addresses.length !== 2) {
+        console.error(zone, addresses)
+      }
+      item.tiles = item.tiles || []
+      item.tiles.push({
+        zone: zoneId,
+        addresses: addresses.map(function(address) {
+          address += 8
+          return pos + address + Math.floor(address / 0x800) * 0x130
+        }),
+        candle: candle,
+      })
+    })
+  })
+}
+
+function formatObject(obj, indent, hexWidth) {
+  indent = indent || 0
+  if (Array.isArray(obj)) {
+    let padFirst
+    let padLast
+    if (obj.length > 0) {
+      padFirst = typeof(obj[0]) !== 'object'
+      padLast = typeof(obj[obj.length - 1]) !== 'object'
+    }
+    return '[' + (padFirst ? ' ' : '') + obj.map(function(el) {
+      return formatObject(el, indent, hexWidth)
+    }).join(', ') + (padLast ? ' ' : '') + ']'
+  }
+  switch (typeof(obj)) {
+  case 'string':
+    return '\'' + entry[1].replace(/'/, '\\\'') + '\''
+  case 'number':
+    if (typeof(hexWidth) === 'number') {
+      return numToHex(obj, hexWidth)
+    }
+    return obj.toString(10)
+  case 'object':
+    const outer = Array(indent).fill(' ').join('')
+    const inner = Array(indent + 2).fill(' ').join('')
+    const lines = []
+    for (entry of Object.entries(obj)) {
+      let name = inner + entry[0] + ': '
+      let value
+      switch (entry[0]) {
+      case 'type':
+        value = 'TYPE.' + typeNames[entry[1]]
+        break
+      case 'zone':
+        value = 'ZONE.' + zoneNames[entry[1]]
+        break
+      case 'candle':
+        value = numToHex(entry[1], 2)
+        break
+      default:
+        let hexWidth
+        if (['addresses', 'blacklist'].indexOf(entry[0]) !== -1) {
+          hexWidth = 8
+        }
+        value = formatObject(entry[1], indent + 2, hexWidth)
+        break
+      }
+      lines.push(name + value + ',')
+    }
+    return '{\n' + lines.join('\n') + '\n' + outer + '}'
+  }
+  return obj.toString()
+}
+
+// Clear existing candle data from item list.
+items.filter(function(item) {
+  return !!item.tiles
+}).forEach(function(item) {
+  item.tiles = (item.tiles || []).filter(function(tile) {
+    return typeof(tile.candle) === 'undefined'
+  })
+})
+
+// Read input bin.
+const bin = fs.readFileSync(process.argv[2])
+
+// Read candle data.
+zones.forEach(function(zone, zoneId) {
+  findCandleAddresses(zoneId, bin, zone.pos, zone.len)
+})
+
+// Format data.
+const indent = parseInt(process.argv[3] || 2)
+const spaces = Array(indent).fill(' ').join('')
+console.log(spaces + 'const items = ' + formatObject(items, indent))

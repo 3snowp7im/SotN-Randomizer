@@ -1,0 +1,23 @@
+{
+  "name": "SotN-Randomizer",
+  "version": "1.2.0",
+  "description": "This is a romhacking tool to randomize some things about `Castlevania: Symphony of the Night`.",
+  "main": "index.js",
+  "dependencies": {
+    "seedrandom": "^3.0.1",
+    "sjcl": "^1.0.8",
+    "yargs": "^13.2.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/3snowp7im/SotN-Randomizer.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "WTFPL",
+  "bugs": {
+    "url": "https://github.com/3snowp7im/SotN-Randomizer/issues"
+  },
+  "homepage": "https://3snowp7im.github.io/sotnrando/",
+  "devDependencies": {}
+}
