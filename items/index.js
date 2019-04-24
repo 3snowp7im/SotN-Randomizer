@@ -4,11 +4,14 @@
     isNode = !!module
   } catch (e) {}
 
+  let utils
   let data
 
   if (isNode) {
+    utils = require('../utils')
     data = require('./data')
   } else {
+    utils = window.sotnRandoUtils
     data = window.sotnRandoItems.data
   }
 
@@ -161,11 +164,6 @@
     return shuffled
   }
 
-  function writeShort(data, address, value) {
-    data[address + 0] = value & 0xff
-    data[address + 1] = value >>> 8
-  }
-
   function flattened() {
     const flattened = []
     for (let i = 0; i < arguments.length; i++) {
@@ -227,23 +225,10 @@
       item.tiles.forEach(function(tile) {
         const value = tileValue(item, tile)
         tile.addresses.forEach(function(address) {
-          writeShort(data, address, value)
+          data.writeShort(address, value)
         })
       })
     }
-  }
-
-  function numToHex(num, width) {
-    width = width || 0
-    const zeros = Array(width).fill('0').join('')
-    const hex = (zeros + num.toString(16)).slice(-width)
-    return '0x' + hex
-  }
-
-  function bufToHex(buf) {
-    return Array.from(buf).map(function(byte) {
-      return ('00' + byte.toString(16)).slice(-2)
-    }).join('')
   }
 
   function randomizeStartingEquipment(data, info) {
@@ -269,36 +254,38 @@
     const cloakInvOffset = cloak.id + equipmentInvIdOffset
     const accessoryInvOffset = accessory.id + equipmentInvIdOffset
     // Equip the items.
-    writeShort(data, equipBaseAddress +  0, weaponEquipVal)
-    writeShort(data, equipBaseAddress + 12, shieldEquipVal)
-    writeShort(data, equipBaseAddress + 24, helmetEquipVal)
-    writeShort(data, equipBaseAddress + 36, armorEquipVal)
-    writeShort(data, equipBaseAddress + 48, cloakEquipVal)
-    writeShort(data, equipBaseAddress + 60, accessoryEquipVal)
+    data.writeShort(equipBaseAddress +  0, weaponEquipVal)
+    data.writeShort(equipBaseAddress + 12, shieldEquipVal)
+    data.writeShort(equipBaseAddress + 24, helmetEquipVal)
+    data.writeShort(equipBaseAddress + 36, armorEquipVal)
+    data.writeShort(equipBaseAddress + 48, cloakEquipVal)
+    data.writeShort(equipBaseAddress + 60, accessoryEquipVal)
     // Death removes these values if equipped.
-    data[0x1195f8] = weaponEquipVal
-    data[0x119658] = shieldEquipVal
-    data[0x1196b8] = helmetEquipVal
-    data[0x1196f4] = armorEquipVal
-    data[0x119730] = cloakEquipVal
-    data[0x119774] = accessoryEquipVal
+    data.writeByte(0x1195f8, weaponEquipVal)
+    data.writeByte(0x119658, shieldEquipVal)
+    data.writeByte(0x1196b8, helmetEquipVal)
+    data.writeByte(0x1196f4, armorEquipVal)
+    data.writeByte(0x119730, cloakEquipVal)
+    data.writeByte(0x119774, accessoryEquipVal)
     // Death decrements these inventory values if not equiped.
-    writeShort(data, 0x119634, weaponInvOffset)
-    writeShort(data, 0x119648, weaponInvOffset)
-    writeShort(data, 0x119694, shieldInvOffset)
-    writeShort(data, 0x1196a8, shieldInvOffset)
-    writeShort(data, 0x1196d0, helmetInvOffset)
-    writeShort(data, 0x1196e4, helmetInvOffset)
-    writeShort(data, 0x11970c, armorInvOffset)
-    writeShort(data, 0x119720, armorInvOffset)
-    writeShort(data, 0x119750, cloakInvOffset)
-    writeShort(data, 0x119764, cloakInvOffset)
-    writeShort(data, 0x1197b0, accessoryInvOffset)
-    writeShort(data, 0x1197c4, accessoryInvOffset)
+    data.writeShort(0x119634, weaponInvOffset)
+    data.writeShort(0x119648, weaponInvOffset)
+    data.writeShort(0x119694, shieldInvOffset)
+    data.writeShort(0x1196a8, shieldInvOffset)
+    data.writeShort(0x1196d0, helmetInvOffset)
+    data.writeShort(0x1196e4, helmetInvOffset)
+    data.writeShort(0x11970c, armorInvOffset)
+    data.writeShort(0x119720, armorInvOffset)
+    data.writeShort(0x119750, cloakInvOffset)
+    data.writeShort(0x119764, cloakInvOffset)
+    data.writeShort(0x1197b0, accessoryInvOffset)
+    data.writeShort(0x1197c4, accessoryInvOffset)
     // Replace Axe Lord Armor with a random armor.
-    data[0x11a230] = randItem(items.filter(armorFilter)).id + equipIdOffset
+    const axeLordArmor = randItem(items.filter(armorFilter)).id
+    data.writeByte(0x11a230, axeLordArmor + equipIdOffset)
     // Replace Lapis Lazuli with a random accessory.
-    data[0x11a198] = randItem(items.filter(accessoryFilter)).id + equipIdOffset
+    const luckModeAccessory = randItem(items.filter(accessoryFilter)).id
+    data.writeByte(0x11a198, luckModeAccessory + equipIdOffset)
     // Update info.
     info[2]['Starting equipment'] = [
       weapon.name,
@@ -512,7 +499,7 @@
     }))
     tiles.forEach(function(item) {
       item.tile.addresses.forEach(function(address) {
-        address = numToHex(address, 8)
+        address = utils.numToHex(address, 8)
         addresses[address] = addresses[address] || []
         const dup = Object.assign({}, item, {
           tile: Object.assign({}, item.tile),
@@ -555,7 +542,7 @@
     const mismatches = []
     for (let i = 0; i < 6; i++) {
       let expected = equipment[i].id
-      let actual = data[equipBaseAddress + i * 12]
+      let actual = data.readByte(equipBaseAddress + i * 12)
       if (i > 1) {
         actual -= equipIdOffset
       }
@@ -594,18 +581,18 @@
             const m = {
               name: item.name,
               zone: zoneNames[tile.zone],
-              address: numToHex(address, 8),
+              address: utils.numToHex(address, 8),
             }
             if (tile.byte) {
-              found = (data[address] === value)
-              m.expected = numToHex(value, 2)
-              m.actual = numToHex(data[address], 2)
+              const actual = data.readByte(address)
+              found = (actual === value)
+              m.expected = utils.numToHex(value, 2)
+              m.actual = utils.numToHex(actual, 2)
             } else {
-              found = (data[address] === (value & 0xff))
-                && (data[address + 1] === (value >>> 8))
-              m.expected = numToHex(value, 4)
-              const actual = (data[address] << 8) + data[address + 1]
-              m.actual = numToHex(actual, 4)
+              const actual = data.readShort(address)
+              found = (actual === value)
+              m.expected = utils.numToHex(value, 4)
+              m.actual = utils.numToHex(actual, 4)
             }
             if (!found) {
               mismatches.push(m)
@@ -717,11 +704,16 @@
     }
     return returnVal
   }
+
+  const exports = {
+    randomizeItems: randomizeItems,
+  }
   if (isNode) {
-    module.exports = randomizeItems
+    module.exports = exports
   } else {
-    window.sotnRandoItems = Object.assign(window.sotnRandoItems || {}, {
-      randomizeItems: randomizeItems,
-    })
+    window.sotnRandoItems = Object.assign(
+      window.sotnRandoItems || {},
+      exports,
+    )
   }
 })()

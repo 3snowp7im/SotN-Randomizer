@@ -7,6 +7,10 @@ body {
     padding-right: 15%;
 }
 
+body.dev {
+    border: 4px #ff0 solid;
+}
+
 #changelog h3 {
     display: inline;
     font-size: medium;

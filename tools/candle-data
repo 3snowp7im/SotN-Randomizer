@@ -4,8 +4,9 @@
 // Usage: tools/candle-data <path-to-rom> [indent-level]
 
 const fs = require('fs')
-
+const utils = require('../../utils')
 const data = require('../data')
+
 const ZONE = data.ZONE
 const TYPE = data.TYPE
 const zones = data.zones
@@ -101,18 +102,6 @@ const zones = [{
 }]
 
 const tileIdOffset = 0x80
-
-function bufToHex(buf) {
-  return Array.from(buf).map(function(byte) {
-    return ('00' + byte.toString(16)).slice(-2)
-  }).join('')
-}
-
-function numToHex(num, width) {
-  const zeros = Array(width).fill('0').join('')
-  const hex = (zeros + num.toString(16)).slice(-width)
-  return '0x' + hex
-}
 
 function restoreZone(data, offset, zoneLength) {
   const dataLength = zoneLength + Math.floor(zoneLength / 0x800) * 0x130
@@ -230,7 +219,7 @@ function getCandleEntities(zoneId, zone, rooms, offset, candles) {
       const p = ptr + 10 * count++
       entity = zone.slice(p, p + 10)
       if (isCandle(zoneId, entity)) {
-        const candle = bufToHex(entity)
+        const candle = utils.bufToHex(entity)
         candles[i][candle] = candles[i][candle] || []
         candles[i][candle].push(p)
       }
@@ -316,7 +305,7 @@ function formatObject(obj, indent, hexWidth) {
     return '\'' + entry[1].replace(/'/, '\\\'') + '\''
   case 'number':
     if (typeof(hexWidth) === 'number') {
-      return numToHex(obj, hexWidth)
+      return utils.numToHex(obj, hexWidth)
     }
     return obj.toString(10)
   case 'object':
@@ -334,7 +323,7 @@ function formatObject(obj, indent, hexWidth) {
         value = 'ZONE.' + zoneNames[entry[1]]
         break
       case 'candle':
-        value = numToHex(entry[1], 2)
+        value = utils.numToHex(entry[1], 2)
         break
       default:
         let hexWidth

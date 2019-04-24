@@ -374,13 +374,13 @@
 
   function placeRelic(ctx, relic, location, data) {
     addressesFromLocation(location).forEach(function(address) {
-      data[address] = relic.id
+      data.writeByte(address, relic.id)
     })
     // Check if placing in the shop
     const jewelOfOpen = relicFromId(0x10)
     if (location === jewelOfOpen.location) {
       // Fix shop menu check
-      data[shopRelicIdAddress] = relic.id + shopRelicIdOffset
+      data.writeByte(shopRelicIdAddress, relic.id + shopRelicIdOffset)
       // Change shop menu name
       for (let i = 0; i < jewelOfOpen.name.length; i++) {
         let value
@@ -390,7 +390,7 @@
         } else {
           value = relic.name.charCodeAt(i) - 0x20
         }
-        data[shopRelicNameAddress + i] = value
+        data.writeByte(shopRelicNameAddress + i, value)
       }
     }
     // Check what abilities are gained
@@ -503,7 +503,8 @@
     const location = locationsAvailable[randIdx(locationsAvailable)]
 
     // We're going to put this relic in this location, so anything previously
-    // locked by the relic is now locked by the requirements of the new location
+    // locked by the relic is now locked by the requirements of the new
+    // location
     const newLocs = locs.map(function(loc) {
       const newLoc = Object.assign({}, loc)
       let newLocks = replaceLocks(loc.locks, relic.ability, location.locks)
@@ -585,10 +586,10 @@
             return relic.location === location.location
           }).pop()
           const address = relic.addresses[0]
-          if (data[address] !== relic.id) {
+          if (data.readByte(address) !== relic.id) {
             mismatches.push({
               relic: relics.filter(function(relic) {
-                return relic.id === data[address]
+                return relic.id === data.readByte(address)
               }).pop().name,
               location: location.vanilla,
             })
@@ -672,8 +673,8 @@
         // 0x54f0f44:    bne r2, r0, 0x1b8a58    144002da
         // Change the instruction so it always branches:
         // 0x54f0f44:    beq r0, r0, 0x1b8a58    100002da
-        data[0x54f0f44 + 2] = 0x00
-        data[0x54f0f44 + 3] = 0x10
+        data.writeByte(0x054f0f44 + 2, 0x00)
+        data.writeByte(0x054f0f44 + 3, 0x10)
         // Entering the clock room for the first time triggers a cutscene with
         // Maria. The cutscene takes place in a separately loaded room that
         // does not connect to the rest of the castle through the statue doors
@@ -685,24 +686,28 @@
         // from ever taking place.
         // The specific room has a time attack entry that needs to be zeroed
         // out.
-        data[0xaeaa0] = 0x00
+        data.writeByte(0x0aeaa0, 0x00)
         // The time attack check occurs in Richter mode too, but the game gets
         // around this by writing the seconds elapsed between pressing Start on
         // the main screen and on the name entry screen to the time attack
         // table for events that aren't in Richter mode.
         // Zero out the time attack entry for the clock room, or Richter will
         // load the cutscene version every time he enters.
-        data[0x119af4] = 0x00
+        data.writeByte(0x119af4, 0x00)
       }
     }
     return returnVal
   }
 
+  const exports = {
+    randomizeRelics: randomizeRelics,
+  }
   if (isNode) {
-    module.exports = randomizeRelics
+    module.exports = exports
   } else {
-    window.sotnRandoRelics = Object.assign(window.sotnRandoRelics || {}, {
-      randomizeRelics: randomizeRelics,
-    })
+    window.sotnRandoRelics = Object.assign(
+      window.sotnRandoRelics || {},
+      exports,
+    )
   }
 })()

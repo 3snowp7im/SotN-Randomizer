@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <script src="../utils.js"></script>
     <script src="index.js"></script>
     <script>
     const doStuff = function() {
@@ -126,10 +127,12 @@
       })
 
       const totals = {}
-      const runs = new URLSearchParams(window.location.search).get('runs') || 1000
+      const searchParams = new URLSearchParams(window.location.search)
+      const runs = searchParams.get('runs') || 1000
       var data = {}
+      const checked = new window.sotnRandoUtils.checked(data, {})
       for (let i = 0; i < runs; i++) {
-        randomizeRelics(data, {relicLocations: true})
+        window.sotnRandoRelics.randomizeRelics(checked, {relicLocations: true})
 
         relics.forEach(function(relic) {
           const loc = addresses[relic.address]
