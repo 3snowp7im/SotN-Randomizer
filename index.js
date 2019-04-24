@@ -656,7 +656,7 @@
     }
     if (url.hostname === 'localhost' || url.protocol === 'file:'
         || path.match(/-dev\/?$/)) {
-      document.body.className = 'dev'
+      document.getElementById('dev-border').className = 'dev'
     }
   }
 })()
