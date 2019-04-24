@@ -619,6 +619,7 @@
         if (response.ok) {
           response.json().then(function(json) {
             version = json.version
+            document.getElementById('version').innerHTML = version
           })
         }
       }).catch(function(){})

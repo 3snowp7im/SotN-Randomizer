@@ -7,6 +7,11 @@ body {
     padding-right: 15%;
 }
 
+#version {
+    float: right;
+    font-size: small;
+}
+
 #dev-border.dev {
     border: 4px #ff0 solid;
     position: fixed;
