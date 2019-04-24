@@ -406,7 +406,7 @@
             data.writeByte(address.start + a++, seed.charCodeAt(s++))
           }
         } else {
-          data.writeByte(addresses.start + a++, 0)
+          data.writeByte(address.start + a++, 0)
         }
       }
     })
