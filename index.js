@@ -650,8 +650,12 @@
       haveChecksum = true
     }
     window.history.replaceState({}, document.title, url.origin + url.pathname)
+    let path = url.pathname
+    if (path.match(/index\.html$/)) {
+      path = path.slice(0, path.length - 10)
+    }
     if (url.hostname === 'localhost' || url.protocol === 'file:'
-        || url.pathname.match(/-dev\/?$/)) {
+        || path.match(/-dev\/?$/)) {
       document.body.className = 'dev'
     }
   }
