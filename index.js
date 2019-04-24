@@ -269,10 +269,14 @@
         const url = URL.createObjectURL(new Blob([ data ], {
           type: 'application/octet-binary'
         }))
-        elems.download.download = randomizedFilename(
-          selectedFile.name,
-          seed,
-        )
+        if (elems.appendSeed.checked) {
+          elems.download.download = randomizedFilename(
+            selectedFile.name,
+            seed,
+          )
+        } else {
+          elems.download.download = selectedFile.name
+        }
         elems.download.href = url
         elems.download.click()
         URL.revokeObjectURL(url)
@@ -402,8 +406,10 @@
             } else {
               s = seed.length
             }
-          } else {
+          } else if (seed[s].match(/[a-zA-Z]/)) {
             data.writeByte(address.start + a++, seed.charCodeAt(s++))
+          } else {
+            s++
           }
         } else {
           data.writeByte(address.start + a++, 0)
@@ -593,6 +599,7 @@
     elems.randomize = document.getElementById('randomize')
     elems.seed = document.getElementById('seed')
     elems.seed.addEventListener('change', seedChangeHandler, false)
+    elems.appendSeed = document.getElementById('append-seed')
     elems.relicLocations = document.getElementById('relic-locations')
     elems.startingEquipment = document.getElementById('starting-equipment')
     elems.itemLocations = document.getElementById('item-locations')

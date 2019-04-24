@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="index.css">
   </head>
   <body>
-    <div id="dev-border"></div>
     <div id="version"></div>
     <h1>Castlevania: Symphony of the Night Randomizer</h1>
     <p>
@@ -48,6 +47,10 @@
         <label for="turkey-mode">Turkey mode</label>
       </div>
       <div>
+        <input id="append-seed" type="checkbox" checked="checked">
+        <label for="append-seed">Append seed to filename</label>
+      </div>
+      <div>
         <input id="show-spoilers" type="checkbox" checked="checked">
         <label for="show-spoilers">Show spoilers</label>
       </div>
@@ -77,13 +80,15 @@
     <hr>
     <h2><a name="help">Help</a></h2>
     <p>
-      You need an image of your game disc in BIN/CUE format to use this tool.
-      If your disc image is split across two .bin files, drop only the first
-      .bin file (track 1) into the box below.
+      This randomizer targets the original NTSC-U release of
+      <a href="http://redump.org/disc/3379/"><i>Castlevania: Symphony of the
+      Night</i> (SLU-00067)</a>. You will need an image of your game disc in
+      BIN/CUE format. If your disc image is split across two .bin files, drag
+      only the first .bin file (track 1) into the drop zone.
     </p>
     <p>
       After downloading the randomized image, you will need to rename it to
-      match the track listing in your .cue file, or modify your cue file to
+      match the track listing in your .cue file, or, modify your cue file to
       use the name of the randomized image.
     </p>
     <hr>
@@ -91,7 +96,8 @@
     <ul>
       <li><a href="https://testrunnersrl.github.io/sotn-tracker">Relic tracker</a> (thanks TestRunner)</li>
       <li><a href="relics">Relic distribution table</a> (thanks Soba)</li>
-      <li><a href="https://discord.gg/wGMdDRG">The Long Library</a>, a SotN discord server</li>
+      <li><a href="https://discord.gg/wGMdDRG">The Long Library</a>, a SotN
+      discord server</li>
     </ul>
     <hr>
     <h2><a name="bugs">Bugs</a></h2>
@@ -193,6 +199,7 @@
     <ul>
       <li>Ported skiffain's <a href="https://github.com/josephstevenspgh/SotN-Relic-Randomizer">relic randomizer</a> to javascript.</li>
     </ul>
+    <div id="dev-border"></div>
     <a id="fork" href="https://github.com/3snowp7im/SotN-Randomizer"><img width="149" height="149" src="https://github.blog/wp-content/uploads/2008/12/forkme_left_darkblue_121621.png?resize=149%2C149" class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1"></a>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/seedrandom/3.0.1/seedrandom.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sjcl/1.0.8/sjcl.min.js"></script>

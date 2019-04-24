@@ -13,22 +13,29 @@ body {
 }
 
 #dev-border.dev {
-    border: 4px #ff0 solid;
+    border: .5em solid rgba(255, 255, 0, .5);
+    border-image: repeating-linear-gradient(
+        -45deg,
+        rgba(0, 0, 0, .5) 0,
+        rgba(0, 0, 0, .5) 15px,
+        rgba(255, 255, 0, .5) 0,
+        rgba(255, 255, 0, .5) 30px
+    ) 15;
     position: fixed;
     top: 0;
     right: 0;
     bottom: 0;
     left: 0;
+    z-index: -1;
 }
 
-#changelog h3 {
-    display: inline;
+h3 time {
     font-size: medium;
 }
 
 #target {
     text-align: center;
-    padding: 4em 0;
+    padding: 3em 0;
     border: 10px #CCC dashed;
 }
 
