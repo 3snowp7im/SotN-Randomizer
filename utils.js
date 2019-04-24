@@ -24,9 +24,9 @@
     return '0x' + hex
   }
 
-  function checked(data, writes) {
+  function checked(data) {
     this.data = data
-    this.writes = writes
+    this.writes = {}
   }
 
   checked.prototype.readByte = function readByte(address) {
@@ -34,17 +34,17 @@
   }
 
   checked.prototype.readShort = function readShort(address) {
-    return (this.readByte(address + 0) << 8) + (this.readByte(address + 1))
+    return (this.readByte(address + 1) << 8) + (this.readByte(address + 0))
   }
 
   checked.prototype.writeByte = function writeByte(address, val) {
-    this.writes[address] = val
     this.data[address] = val
+    this.writes[address] = val
   }
 
   checked.prototype.writeShort = function writeShort(address, val) {
-    this.writeByte(address + 0, val >>> 8)
-    this.writeByte(address + 1, val & 0xff)
+    this.writeByte(address + 0, val & 0xff)
+    this.writeByte(address + 1, val >>> 8)
   }
 
   checked.prototype.sum = function sum() {

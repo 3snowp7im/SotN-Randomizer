@@ -252,8 +252,7 @@
       try {
         const data = reader.result
         const array = new Uint8Array(data)
-        const writes = {}
-        const check = new window.sotnRandoUtils.checked(array, writes)
+        const check = new window.sotnRandoUtils.checked(array)
         window.sotnRandoItems.randomizeItems(check, options, info)
         window.sotnRandoRelics.randomizeRelics(check, options, info)
         setSeedText(check, seed)
@@ -556,9 +555,8 @@
         info[1]['Seed'] = seed
       }
     }
-    const writes = {}
     const data = fs.readFileSync(argv._[0])
-    const check = new util.checked(data, writes)
+    const check = new util.checked(data)
     let returnVal = true
     returnVal = items.randomizeItems(check, options, info) && returnVal
     returnVal = relics.randomizeRelics(check, options, info) && returnVal
