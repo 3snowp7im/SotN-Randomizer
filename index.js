@@ -4,7 +4,7 @@
     isNode = !!module
   } catch (e) {}
 
-  const baseUrl = 'https://3snowp7im.github.io/sotnrando'
+  const baseUrl = 'https://sotn.io'
   const defaultOptions = 'eiprt'
 
   let version
