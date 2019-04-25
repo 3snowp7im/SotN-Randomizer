@@ -25,7 +25,9 @@
   }
 
   function checked(data) {
-    this.data = data
+    if (data) {
+      this.data = data
+    }
     this.writes = {}
   }
 
@@ -38,7 +40,9 @@
   }
 
   checked.prototype.writeByte = function writeByte(address, val) {
-    this.data[address] = val
+    if (this.data) {
+      this.data[address] = val
+    }
     this.writes[address] = val
   }
 

@@ -430,9 +430,16 @@
     version = require('./package').version
     const yargs = require('yargs')
       .strict()
+      .option('bin', {
+        alias: 'b',
+        describe: 'Path to .bin file',
+        type: 'string',
+        requiresArg: true,
+      })
       .option('seed', {
         alias: 's',
         describe: 'Seed',
+        requiresArg: true,
       })
       .option('randomize', {
         alias: 'r',
@@ -454,6 +461,7 @@
         alias: 'e',
         describe: 'Verify randomization produces an expected checksum',
         type: 'string',
+        requiresArg: true,
       })
       .option('url', {
         alias: 'u',
@@ -470,6 +478,7 @@
         describe: 'Print starting equipment and use url mode (same as -uvv)',
         type: 'boolean',
       })
+      .demandCommand(0, 1)
       .help()
     const argv = yargs.argv
     let options
@@ -501,9 +510,9 @@
       }
     }
     // Check for seed url.
-    if (argv._[1]) {
+    if (argv._[0]) {
       try {
-        const url = optionsFromUrl(argv._[1])
+        const url = optionsFromUrl(argv._[0])
         options = url.options
         seed = url.seed
         expectChecksum = url.checksum
@@ -557,11 +566,20 @@
     if (!argv.checkVanilla) {
       require('seedrandom')(saltSeed(options, seed), {global: true})
       // Add seed to log info if not provided through arg or url.
-      if (!argv._[1] && !('seed' in argv) && !argv.url) {
+      if (!argv._[0] && !('seed' in argv) && !argv.url) {
         info[1]['Seed'] = seed
       }
     }
-    const data = fs.readFileSync(argv._[0])
+    let data
+    // If checking a vanilla .bin file, the path to the file must be given.
+    if (options.checkVanilla && !('bin' in argv)) {
+      yargs.showHelp()
+      console.error('\nDid not specify path to .bin file')
+      process.exit(1)
+    }
+    if ('bin' in argv) {
+      data = fs.readFileSync(argv.bin)
+    }
     const check = new util.checked(data)
     let returnVal = true
     returnVal = items.randomizeItems(check, options, info) && returnVal
@@ -574,7 +592,7 @@
       process.exit(1)
     }
     // Show url if not provided as arg.
-    if (argv.url && !argv._[1]) {
+    if (argv.url && !argv._[0]) {
       console.log(optionsToUrl(options, checksum, seed, baseUrl).toString())
     }
     if (argv.verbose >= 1) {
@@ -583,11 +601,11 @@
         console.log(text)
       }
     }
-    if (argv.checkVanilla) {
+    if (argv.checkVanilla || !('bin' in argv)) {
       process.exit(returnVal ? 0 : 1)
     }
     eccEdcCalc(data)
-    fs.writeFileSync(argv._[0], data)
+    fs.writeFileSync(argv.bin, data)
   } else {
     const body = document.getElementsByTagName('body')[0]
     body.addEventListener('dragover', dragOverListener, false)

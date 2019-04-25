@@ -16,21 +16,54 @@ $ git submodule update --init
 $ npm install
 ```
 
-If you plan on sharing a seed, the easiest way to use CLI is with the `--live`
-option. To generate a random seed and print its url and starting equipment:
+### Basic usage
+
+To randomize your disc image, just pass in the path to your .bin file using the
+`--bin` option. This will use the current time in seconds as the seed:
 
 ```shell
-$ ./randomize sotn.bin -l
+$ ./randomize -b sotn.bin
 ```
 
-To specify a seed and print its url and starting equipment:
+You can use a custom seed with the `--seed` option:
 
 ```shell
-$ ./randomize sotn.bin -l -s myseed
+$ ./randomize -b sotn.bin -s myseed
 ```
 
-To use a seed previously generated url and print its starting equipment:
+### `--live`
+
+If you plan on sharing a seed with outhers, the easiest way to use CLI is with
+the `--live` option. To generate a random seed and print its url and starting
+equipment:
 
 ```shell
-$ ./randomize sotn.bin -l https://3snowp7im.github.io/sotnrando?s=myseed
+$ ./randomize -lb sotn.bin
+```
+
+To use a custom seed and print its url and starting equipment:
+
+```shell
+$ ./randomize -lb sotn.bin -s myseed
+```
+
+To use a copied seed url and print its starting equipment:
+
+```shell
+$ ./randomize -lb sotn.bin https://sotn.io?449,myseed
+```
+
+### Dry run
+
+You can also perform a number of actions without modifying a disc image.
+To print any mismatches between your disc image and a vanilla image:
+
+```shell
+$ ./randomize -vcb sotn.bin
+```
+
+To print starting equipment and relic locations for a seed:
+
+```shell
+$ ./randomize -vvvs myseed
 ```
