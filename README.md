@@ -71,11 +71,13 @@ $ ./randomize -blvvv sotn.bin https://sotn.io?3b7,myseed  # More verbose
 ### `--check-vanilla`
 
 The `--check-vanilla` option will check your disc image for any non-vanilla
-values, but not make any changes to it:
+values:
 
 ```shell
-$ ./randomize -cbv sotn.bin
+$ ./randomize -bcv sotn.bin
 ```
+
+Note that `--check-vanilla` does not modify your disc image.
 
 ### Dry running
 
