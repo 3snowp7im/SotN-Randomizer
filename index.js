@@ -91,7 +91,7 @@
 
   function optionsToUrl(options, checksum, seed, baseUrl) {
     options = optionsToString(options)
-    if (baseUrl[baseUrl.length - 1] === '/') {
+    while (baseUrl[baseUrl.length - 1] === '/') {
       baseUrl = baseUrl.slice(0, baseUrl.length - 1)
     }
     const args = []
@@ -389,31 +389,33 @@
       start: 0x04389bf8,
       length: 31,
     }, {
+      start: 0x04389c18,
+      length: 39,
+    }, {
       start: 0x04389c6c,
-      length: 52,
+      length: 55,
     }]
-    const maxSeedLength = 31
+    const maxSeedLength = 28
     addresses.forEach(function(address) {
       let a = 0
       let s = 0
-      while (a < address.length) {
-        if (a < maxSeedLength && s < seed.length) {
-          if (seed[s] in map) {
-            if ((a + 1) < maxSeedLength) {
-              const val = map[seed[s++]]
-              data.writeByte(address.start + a++, val >>> 8)
-              data.writeByte(address.start + a++, val & 0xff)
-            } else {
-              s = seed.length
-            }
-          } else if (seed[s].match(/[a-zA-Z]/)) {
-            data.writeByte(address.start + a++, seed.charCodeAt(s++))
+      while (a < maxSeedLength && s < seed.length) {
+        if (seed[s] in map) {
+          if ((a + 1) < maxSeedLength) {
+            const val = map[seed[s++]]
+            data.writeByte(address.start + a++, val >>> 8)
+            data.writeByte(address.start + a++, val & 0xff)
           } else {
-            s++
+            break
           }
+        } else if (seed[s].match(/[a-zA-Z ]/)) {
+          data.writeByte(address.start + a++, seed.charCodeAt(s++))
         } else {
-          data.writeByte(address.start + a++, 0)
+          s++
         }
+      }
+      while (a < address.length) {
+        data.writeByte(address.start + a++, 0)
       }
     })
   }
@@ -549,7 +551,9 @@
     // Set options for --generate-race.
     if (argv.live) {
       argv.url = true
-      argv.verbose = 2
+      if (argv.verbose === 0) {
+        argv.verbose = 2
+      }
     }
     // Create default options if none provided.
     if (typeof(seed) === 'undefined') {

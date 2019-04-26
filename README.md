@@ -16,54 +16,75 @@ $ git submodule update --init
 $ npm install
 ```
 
-### Basic usage
+### Usage
 
 To randomize your disc image, just pass in the path to your .bin file using the
-`--bin` option. This will use the current time in seconds as the seed:
+`--bin` option. This will use the current time as the seed:
 
 ```shell
 $ ./randomize -b sotn.bin
 ```
 
-You can use a custom seed with the `--seed` option:
+You can print the seed used with the `--verbose` flag:
 
 ```shell
-$ ./randomize -b sotn.bin -s myseed
+$ ./randomize -bv sotn.bin
 ```
 
-### `--live`
-
-If you plan on sharing a seed with outhers, the easiest way to use CLI is with
-the `--live` option. To generate a random seed and print its url and starting
-equipment:
+The more `--verbose` flags you include, the more information about the
+randomization gets printed:
 
 ```shell
-$ ./randomize -lb sotn.bin
+$ ./randomize -bvvv sotn.bin
 ```
 
-To use a custom seed and print its url and starting equipment:
+### Seed URLs
+
+If you plan on sharing a seed with others, the easiest way to use CLI is with
+the `--live` option and seed URLs. To use the current time as a seed and print
+its URL and starting equipment:
 
 ```shell
-$ ./randomize -lb sotn.bin -s myseed
+$ ./randomize -bl sotn.bin
 ```
 
-To use a copied seed url and print its starting equipment:
+To use a custom seed and print its URL and starting equipment:
 
 ```shell
-$ ./randomize -lb sotn.bin https://sotn.io?449,myseed
+$ ./randomize -bl sotn.bin -s myseed
 ```
 
-### Dry run
-
-You can also perform a number of actions without modifying a disc image.
-To print any mismatches between your disc image and a vanilla image:
+To use a copied seed URL and print its starting equipment:
 
 ```shell
-$ ./randomize -vcb sotn.bin
+$ ./randomize -bl sotn.bin https://sotn.io?3b7,myseed
 ```
 
-To print starting equipment and relic locations for a seed:
+The `--live` option implies a verbosity level of 2. You can override this by
+supplying your own `--verbose` flag(s):
 
 ```shell
-$ ./randomize -vvvs myseed
+$ ./randomize -blv sotn.bin https://sotn.io?3b7,myseed    # Less verbose
+$ ./randomize -blvvv sotn.bin https://sotn.io?3b7,myseed  # More verbose
+```
+
+### `--check-vanilla`
+
+The `--check-vanilla` option will check your disc image for any non-vanilla
+values, but not make any changes to it:
+
+```shell
+$ ./randomize -cbv sotn.bin
+```
+
+### Dry running
+
+The `--check-vanilla` option is the only action that requires a bin file. You
+can omit the `--bin` option from all other actions to perform a dry run.
+
+To print starting equipment and relic locations for a URL without actually
+writing the randomizations to your disc image:
+
+```shell
+$ ./randomize -lvvv https://sotn.io?449,myseed
 ```
