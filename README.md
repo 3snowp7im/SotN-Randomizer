@@ -28,14 +28,14 @@ $ ./randomize -b sotn.bin
 You can print the seed used with the `--verbose` flag:
 
 ```shell
-$ ./randomize -bv sotn.bin
+$ ./randomize -vb sotn.bin
 ```
 
 The more `--verbose` flags you include, the more information about the
 randomization gets printed:
 
 ```shell
-$ ./randomize -bvvv sotn.bin
+$ ./randomize -vvvb sotn.bin
 ```
 
 ### Seed URLs
@@ -45,27 +45,27 @@ the `--live` option and seed URLs. To use the current time as a seed and print
 its URL and starting equipment:
 
 ```shell
-$ ./randomize -bl sotn.bin
+$ ./randomize -lb sotn.bin
 ```
 
 To use a custom seed and print its URL and starting equipment:
 
 ```shell
-$ ./randomize -bl sotn.bin -s myseed
+$ ./randomize -lb sotn.bin -s myseed
 ```
 
 To use a copied seed URL and print its starting equipment:
 
 ```shell
-$ ./randomize -bl sotn.bin https://sotn.io?3b7,myseed
+$ ./randomize -lb sotn.bin https://sotn.io?3b7,myseed
 ```
 
 The `--live` option implies a verbosity level of 2. You can override this by
 supplying your own `--verbose` flag(s):
 
 ```shell
-$ ./randomize -blv sotn.bin https://sotn.io?3b7,myseed    # Less verbose
-$ ./randomize -blvvv sotn.bin https://sotn.io?3b7,myseed  # More verbose
+$ ./randomize -vlb sotn.bin https://sotn.io?3b7,myseed    # Less verbose
+$ ./randomize -vvvlb sotn.bin https://sotn.io?3b7,myseed  # More verbose
 ```
 
 ### `--check-vanilla`
@@ -74,7 +74,7 @@ The `--check-vanilla` option will check your disc image for any non-vanilla
 values:
 
 ```shell
-$ ./randomize -bcv sotn.bin
+$ ./randomize -cvb sotn.bin
 ```
 
 Note that `--check-vanilla` does not modify your disc image.
