@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <script src="../utils.js"></script>
-    <script src="index.js"></script>
+    <script src="../constants.js"></script>
+    <script src="../util.js"></script>
+    <script src="../randomizeRelics.js"></script>
     <script>
     const doStuff = function() {
       const relics = [{
@@ -130,9 +131,9 @@
       const searchParams = new URLSearchParams(window.location.search)
       const runs = searchParams.get('runs') || 1000
       var data = {}
-      const checked = new window.sotnRandoUtils.checked(data, {})
+      const checked = new window.sotnRando.util.checked(data, {})
       for (let i = 0; i < runs; i++) {
-        window.sotnRandoRelics.randomizeRelics(checked, {relicLocations: true})
+        window.sotnRando.randomizeRelics(checked, {relicLocations: true})
 
         relics.forEach(function(relic) {
           const loc = addresses[relic.address]

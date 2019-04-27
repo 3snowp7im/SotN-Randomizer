@@ -5,7 +5,7 @@
   } catch (e) {}
 
   const baseUrl = 'https://sotn.io'
-  const defaultOptions = 'eiprt'
+  const defaultOptions = 'deiprt'
 
   let version
   let sjcl
@@ -25,6 +25,9 @@
     const options = {}
     for (let i = 0; i < (randomize || '').length; i++) {
       switch (randomize[i]) {
+      case 'd':
+        options.enemyDrops = true
+        break
       case 'e':
         options.startingEquipment = true
         break
@@ -49,6 +52,9 @@
 
   function optionsToString(options) {
     let randomize = ''
+    if (options.enemyDrops) {
+      randomize += 'd'
+    }
     if (options.startingEquipment) {
       randomize += 'e'
     }
@@ -91,7 +97,7 @@
 
   function optionsToUrl(options, checksum, seed, baseUrl) {
     options = optionsToString(options)
-    while (baseUrl[baseUrl.length - 1] === '/') {
+    if (baseUrl[baseUrl.length - 1] === '/') {
       baseUrl = baseUrl.slice(0, baseUrl.length - 1)
     }
     const args = []
@@ -229,6 +235,7 @@
       startingEquipment: elems.startingEquipment.checked,
       prologueRewards: elems.prologueRewards.checked,
       itemLocations: elems.itemLocations.checked,
+      enemyDrops: elems.enemyDrops.checked,
       turkeyMode: elems.turkeyMode.checked,
     }
   }
@@ -252,9 +259,9 @@
       try {
         const data = reader.result
         const array = new Uint8Array(data)
-        const check = new window.sotnRandoUtils.checked(array)
-        window.sotnRandoItems.randomizeItems(check, options, info)
-        window.sotnRandoRelics.randomizeRelics(check, options, info)
+        const check = new window.sotnRando.util.checked(array)
+        window.sotnRando.randomizeItems(check, options, info)
+        window.sotnRando.randomizeRelics(check, options, info)
         setSeedText(check, seed)
         checksum = check.sum()
         if (haveChecksum && expectChecksum !== checksum) {
@@ -424,9 +431,9 @@
 
   if (isNode) {
     const fs = require('fs')
-    const util = require('./utils')
-    const items = require('./items')
-    const relics = require('./relics')
+    const util = require('./util')
+    const randomizeItems = require('./randomizeItems')
+    const randomizeRelics = require('./randomizeRelics')
     const eccEdcCalc = require('./ecc-edc-recalc-js')
     sjcl = require('sjcl')
     version = require('./package').version
@@ -447,6 +454,7 @@
         alias: 'r',
         describe: [
           'Specify randomizations:',
+          '"d" for enemy drops',
           '"e" for starting equipment',
           '"i" for item locations',
           '"p" for prologue rewards',
@@ -586,8 +594,8 @@
     }
     const check = new util.checked(data)
     let returnVal = true
-    returnVal = items.randomizeItems(check, options, info) && returnVal
-    returnVal = relics.randomizeRelics(check, options, info) && returnVal
+    returnVal = randomizeItems(check, options, info) && returnVal
+    returnVal = randomizeRelics(check, options, info) && returnVal
     setSeedText(check, seed)
     const checksum = check.sum()
     // Verify expected checksum matches actual checksum.
@@ -625,6 +633,7 @@
     elems.relicLocations = document.getElementById('relic-locations')
     elems.startingEquipment = document.getElementById('starting-equipment')
     elems.itemLocations = document.getElementById('item-locations')
+    elems.enemyDrops = document.getElementById('enemy-drops')
     elems.prologueRewards = document.getElementById('prologue-rewards')
     elems.turkeyMode = document.getElementById('turkey-mode')
     elems.showSpoilers = document.getElementById('show-spoilers')
@@ -663,6 +672,9 @@
     if (!options.itemLocations) {
       elems.itemLocations.checked = false
     }
+    if (!options.enemyDrops) {
+      elems.enemyDrops.checked = false
+    }
     if (!options.prologueRewards) {
       elems.prologueRewards.checked = false
     }
@@ -682,8 +694,9 @@
     if (path.match(/index\.html$/)) {
       path = path.slice(0, path.length - 10)
     }
-    if (url.hostname === 'localhost' || url.protocol === 'file:'
-        || path.match(/-dev\/?$/)) {
+    if (url.hostname === 'localhost'
+        || url.hostname.match(/^dev\./)
+        || url.protocol === 'file:') {
       document.getElementById('dev-border').className = 'dev'
     }
   }
