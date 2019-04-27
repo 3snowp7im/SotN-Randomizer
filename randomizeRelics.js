@@ -699,15 +699,12 @@
     return returnVal
   }
 
-  const exports = {
-    randomizeRelics: randomizeRelics,
-  }
+  const exports = randomizeRelics
   if (isNode) {
     module.exports = exports
   } else {
-    window.sotnRandoRelics = Object.assign(
-      window.sotnRandoRelics || {},
-      exports,
-    )
+    window.sotnRando = Object.assign(window.sotnRando || {}, {
+      randomizeRelics: exports,
+    })
   }
 })()

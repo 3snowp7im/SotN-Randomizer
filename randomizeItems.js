@@ -4,28 +4,28 @@
     isNode = !!module
   } catch (e) {}
 
-  let utils
-  let data
+  let constants
+  let items
+  let util
 
   if (isNode) {
-    utils = require('../utils')
-    data = require('./data')
+    constants = require('./constants')
+    items = require('./items')
+    util = require('./util')
   } else {
-    utils = window.sotnRandoUtils
-    data = window.sotnRandoItems.data
+    constants = window.sotnRando.constants
+    items = window.sotnRando.items
+    util = window.sotnRando.util
   }
 
-  const TYPE = data.TYPE
-  const ZONE = data.ZONE
-  const typeNames = data.typeNames
-  const zoneNames = data.zoneNames
-  const items = data.items
+  const TYPE = constants.TYPE
+  const typeNames = constants.typeNames
+  const ZONE = constants.ZONE
+  const zoneNames = constants.zoneNames
+  const tileIdOffset = constants.tileIdOffset
 
   // The base address of Alucard's equipped item list.
   const equipBaseAddress = 0x11a0d0
-
-  // This is applied to item ids that are found in zone data.
-  const tileIdOffset = 0x80
 
   // This is applied to helmet, armor, cloak, and other ids that are sold in
   // the librarian's shop menu or are in an equipment slot.
@@ -52,6 +52,8 @@
     }
   }
 
+  const goldFilter = typeFilter([TYPE.GOLD])
+  const subweaponFilter = typeFilter([TYPE.SUBWEAPON])
   const powerupFilter = typeFilter([TYPE.POWERUP])
   const weaponFilter = typeFilter([TYPE.WEAPON1, TYPE.WEAPON2])
   const shieldFilter = typeFilter([TYPE.SHIELD])
@@ -59,7 +61,15 @@
   const armorFilter = typeFilter([TYPE.ARMOR])
   const cloakFilter = typeFilter([TYPE.CLOAK])
   const accessoryFilter = typeFilter([TYPE.ACCESSORY])
-  const subweaponFilter = typeFilter([TYPE.SUBWEAPON])
+  const equipmentFilter = typeFilter([
+    TYPE.WEAPON1,
+    TYPE.WEAPON2,
+    TYPE.SHIELD,
+    TYPE.HELMET,
+    TYPE.ARMOR,
+    TYPE.CLOAK,
+    TYPE.ACCESSORY,
+  ])
 
   function foodFilter(item) {
     return item.food
@@ -79,6 +89,14 @@
 
   function tilesFilter(item) {
     return Array.isArray(item.tiles)
+  }
+
+  function dropItemFilter(item) {
+    return item.tiles && item.tiles.some(dropTileFilter)
+  }
+
+  function dropTileFilter(tile) {
+    return typeof(tile.enemy) !== 'undefined'
   }
 
   function candleTileFilter(tile) {
@@ -150,6 +168,14 @@
     }
   }
 
+  function cloneTilesMap(tileFilter) {
+    return function(item) {
+      return Object.assign({}, item, {
+        tiles: (item.tiles || []).filter(tileFilter)
+      })
+    }
+  }
+
   function randItem(array) {
     return array[Math.floor(Math.random() * array.length)]
   }
@@ -202,7 +228,7 @@
         id += equipIdOffset
         break
       }
-    } else if (typeof(tile.candle) !== 'undefined' && item.id > tileIdOffset) {
+    } else if (candleTileFilter(tile) && item.id > tileIdOffset) {
       id += tileIdOffset
     } else {
       // Apply tile offset for some tile items.
@@ -433,17 +459,14 @@
     // Shuffle items.
     const shuffledItems = shuffled(itemDescriptions)
     // Get all map tiles.
-    const tileItems = items.map(function(item) {
-      return Object.assign({}, item, {
-        tiles: (item.tiles || []).filter(function(tile) {
-          return !tile.shop && !tile.tank && !tile.reward
-            && typeof(tile.candle) === 'undefined'
-        })
-      })
-    })
+    const mapItems = items.filter(tilesFilter)
+    const tileItems = mapItems.map(cloneTilesMap(function(tile) {
+      return !tile.shop && !tile.tank && !tile.reward
+        && !candleTileFilter(tile) && !dropTileFilter(tile)
+        && !tile.librarian
+    }))
     // Shuffle all map tiles.
     const shuffledTiles = shuffled(collectTiles(tileItems))
-    // Place tiles with the same type frequency as vanilla.
     // Equipment is unique and placed in non-despawn tiles.
     const equipment = [
       weaponFilter,
@@ -464,8 +487,8 @@
       const item = randItem(items)
       pushTile.call(item, takePermaTile(shuffledTiles, blacklist(item)))
     })
-    // Distribute jewels with same frequency as vanilla.
-    const salableItems = items.filter(salableFilter)
+    // Distribute jewels with same id frequency as vanilla.
+    const salableItems = mapItems.filter(salableFilter)
     salableItems.forEach(function(salableItem) {
       eachTileItem(tileItems, shuffledItems, function(item) {
         return item.id === salableItem.id
@@ -481,6 +504,99 @@
         const item = randItem(items)
         pushTile.call(item, takeTile(shuffledTiles, blacklist(item)))
       })
+    })
+    util.assert.equal(shuffledTiles.length, 0)
+  }
+
+  function randomizeEnemyDrops(itemDescriptions) {
+    // Replace the axe subweapon drop with a random subweapon.
+    const subweapon = shuffled(itemDescriptions.filter(subweaponFilter)).pop()
+    const subweaponTiles = collectTiles(items.filter(function(item) {
+      return dropItemFilter(item) && subweaponFilter(item)
+    }), dropTileFilter)
+    while (subweaponTiles.length) {
+      pushTile.call(subweapon, takeTile(subweaponTiles))
+    }
+    // Shuffle items.
+    const shuffledItems = shuffled(itemDescriptions)
+    // Get all drop items.
+    const dropItems = items.filter(function(item) {
+      return dropItemFilter(item) && !subweaponFilter(item)
+    })
+    const tileItems = dropItems.map(cloneTilesMap(function(tile) {
+      return dropTileFilter(tile) && !tile.byte
+    }))
+    // Shuffle all drop tiles.
+    const shuffledTiles = shuffled(collectTiles(tileItems))
+    // Distribute gold with same id frequency as vanilla.
+    const goldItems = dropItems.filter(goldFilter)
+    goldItems.forEach(function(goldItem) {
+      eachTileItem(tileItems, shuffledItems, function(item) {
+        return goldFilter(item) && item.id === goldItem.id
+      }, function(items) {
+        const item = items[0]
+        pushTile.call(item, takeTile(shuffledTiles, blacklist(item)))
+      })
+    })
+    // Distribute jewels with same id frequency as vanilla.
+    const salableItems = dropItems.filter(salableFilter)
+    salableItems.forEach(function(salableItem) {
+      eachTileItem(tileItems, shuffledItems, function(item) {
+        return item.id === salableItem.id
+      }, function(items) {
+        const item = items[0]
+        pushTile.call(item, takeTile(shuffledTiles, blacklist(item)))
+      })
+    })
+    // Distribute equipment with same type frequency as vanilla.
+    const equipment = [
+      weaponFilter,
+      shieldFilter,
+      helmetFilter,
+      armorFilter,
+      cloakFilter,
+      nonsalableFilter,
+    ]
+    equipment.forEach(function(filter) {
+      eachTileItem(tileItems, shuffledItems, filter, function(items) {
+        const item = items.pop()
+        pushTile.call(item, takeTile(shuffledTiles, blacklist(item)))
+      })
+    })
+    // Distribute usable items randomly.
+    const usable = [ usableFilter, foodFilter ]
+    usable.forEach(function(filter) {
+      eachTileItem(tileItems, shuffledItems, filter, function(items) {
+        const item = randItem(items)
+        pushTile.call(item, takeTile(shuffledTiles, blacklist(item)))
+      })
+    })
+    util.assert.equal(shuffledTiles.length, 0)
+    // The required Short Sword and Red Rust drops were ignored.
+    // Push those tiles onto whatever item they ended up being replaced with.
+    const pushReplacement = function(name) {
+      const tiles = itemFromName(name).tiles
+      const shortTile = tiles.filter(function(tile) {
+        return !tile.byte
+      })[0]
+      const byteTile = tiles.filter(function(tile) {
+        return tile.byte
+      })[0]
+      const replacement = itemDescriptions.filter(function(item) {
+        return item.tiles && item.tiles.indexOf(shortTile) !== -1
+      })[0]
+      replacement.tiles.push(byteTile)
+    }
+    pushReplacement('Short Sword')
+    pushReplacement('Red Rust')
+    // Replace the librarian's drops.
+    const libTiles = collectTiles(items, function(tile) {
+      return tile.librarian
+    })
+    const shuffledEquip = shuffled(itemDescriptions.filter(equipmentFilter))
+    const libItems = shuffledEquip.slice(0, libTiles.length)
+    libItems.forEach(function(item) {
+      pushTile.call(item, takeTile(libTiles, blacklist(item)))
     })
   }
 
@@ -499,7 +615,7 @@
     }))
     tiles.forEach(function(item) {
       item.tile.addresses.forEach(function(address) {
-        address = utils.numToHex(address, 8)
+        address = util.numToHex(address, 8)
         addresses[address] = addresses[address] || []
         const dup = Object.assign({}, item, {
           tile: Object.assign({}, item.tile),
@@ -580,19 +696,21 @@
             const value = tileValue(item, tile)
             const m = {
               name: item.name,
-              zone: zoneNames[tile.zone],
-              address: utils.numToHex(address, 8),
             }
+            if (typeof(tile.zone) !== 'undefined') {
+              m.zone = zoneNames[tile.zone]
+            }
+            m.address = util.numToHex(address, 8)
             if (tile.byte) {
               const actual = data.readByte(address)
               found = (actual === value)
-              m.expected = utils.numToHex(value, 2)
-              m.actual = utils.numToHex(actual, 2)
+              m.expected = util.numToHex(value, 2)
+              m.actual = util.numToHex(actual, 2)
             } else {
               const actual = data.readShort(address)
               found = (actual === value)
-              m.expected = utils.numToHex(value, 4)
-              m.actual = utils.numToHex(actual, 4)
+              m.expected = util.numToHex(value, 4)
+              m.actual = util.numToHex(actual, 4)
             }
             if (!found) {
               mismatches.push(m)
@@ -606,7 +724,7 @@
 
   function checkItemLocations(data, verbose) {
     const mismatches = items.reduce(checkAddresses(data, function(tile) {
-      return !tile.reward
+      return !tile.reward && !tile.librarian
     }), [])
     if (mismatches.length) {
       if (verbose) {
@@ -642,16 +760,34 @@
     return true
   }
 
+  function checkEnemyDrops(data, verbose) {
+    const mismatches = items.reduce(checkAddresses(data, function(tile) {
+      return typeof(tile.enemy) !== 'undefined' || tile.librarian
+    }), [])
+    if (mismatches.length) {
+      if (verbose) {
+        console.error('enemy drop mismatches:')
+        mismatches.forEach(function(item) {
+          console.error(item)
+        })
+        console.error('enemy drops are NOT vanilla')
+      }
+      return false
+    } else if (verbose) {
+      console.log('enemy drops are vanilla')
+    }
+    return true
+  }
+
   function randomizeItems(data, options, info) {
     // Check for duped addresses.
     if (!checkItemAddresses(data)) {
       return false
     }
     let returnVal = true
-    // Randomize starting equipment.
     if (options.startingEquipment) {
-      // Run a sanity check.
       if (options.checkVanilla) {
+        // Check for vanilla starting equipment.
         returnVal = checkStartingEquipment(data, options.verbose) && returnVal
       } else {
         // Randomize starting equipment.
@@ -664,9 +800,7 @@
       delete item.tiles
       return item
     })
-    // Randomize item locations.
     if (options.itemLocations) {
-      // Run a sanity check.
       if (options.checkVanilla) {
         // Check for item locations.
         returnVal = checkItemLocations(data, options.verbose) && returnVal
@@ -683,15 +817,22 @@
         randomizeMapItems(itemDescriptions)
       }
     }
-    // Randomize prologue rewards.
     if (options.prologueRewards) {
-      // Run a sanity check.
       if (options.checkVanilla) {
-        // Check for item locations.
+        // Check for vanilla rewards.
         returnVal = checkPrologueRewards(data, options.verbose) && returnVal
       } else {
-        // Randomize reward items.
+        // Randomize prologue rewards.
         randomizePrologueRewards(itemDescriptions)
+      }
+    }
+    if (options.enemyDrops) {
+      if (options.checkVanilla) {
+        // Check for vanilla enemy drops.
+        returnVal = checkEnemyDrops(data, options.verbose) && returnVal
+      } else {
+        // Randomize enemy drops.
+        randomizeEnemyDrops(itemDescriptions)
       }
     }
     // Turkey mode.
@@ -705,15 +846,12 @@
     return returnVal
   }
 
-  const exports = {
-    randomizeItems: randomizeItems,
-  }
+  const exports = randomizeItems
   if (isNode) {
     module.exports = exports
   } else {
-    window.sotnRandoItems = Object.assign(
-      window.sotnRandoItems || {},
-      exports,
-    )
+    window.sotnRando = Object.assign(window.sotnRando || {}, {
+      randomizeItems: exports,
+    })
   }
 })()

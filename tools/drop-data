@@ -1,0 +1,106 @@
+#!/usr/bin/env node
+// This tool parses a SotN bin for drop data, adds it the global item list
+// and prints the modified list to stdout.
+// Usage: tools/drop-data <path-to-rom> [indent-level]
+
+const fs = require('fs')
+const constants = require('../constants')
+const items = require('../items')
+const util = require('../util')
+
+const tileIdOffset = constants.tileIdOffset
+const TYPE = constants.TYPE
+const ZONE = constants.ZONE
+const zones = constants.zones
+
+// Clear existing drop data from item list.
+items.filter(function(item) {
+  return !!item.tiles
+}).forEach(function(item) {
+  item.tiles = (item.tiles || []).filter(function(tile) {
+    return typeof(tile.enemy) === 'undefined'
+  })
+})
+
+// TODO: Short sword, Red rust, Librarian drops
+const exeFile = { pos: 0x0abb28, len: 703272 }
+const enemyListOff = 0xe90
+const enemyListLen = 292
+const enemyDataOff = 0x8900
+const dropsOff = 0x1a
+
+// Read input bin.
+const bin = fs.readFileSync(process.argv[2])
+// Restore main executable.
+const exeData = util.restoreFile(bin, exeFile)
+// Restore library data.
+const library = util.restoreFile(bin, zones[ZONE.LIB])
+// Get enemy list.
+const enemyList = library.subarray(enemyListOff, enemyListOff + enemyListLen)
+// Parse enemy data.
+const enemies = []
+for (let i = 0; i < enemyList.length / 2; i++) {
+  enemies.push({
+    id: i + 1,
+    offset: enemyDataOff + enemyList.readUInt16LE(2 * i) * 0x28,
+  })
+}
+enemies.forEach(function(enemy) {
+  const offsets = [
+    enemy.offset + dropsOff + 0,
+    enemy.offset + dropsOff + 2,
+  ]
+  offsets.forEach(function(offset) {
+    const id = exeData.readUInt16LE(offset)
+    if (id === 0) {
+      return
+    }
+    const item = items.filter(function(item) {
+      if (id > tileIdOffset) {
+        return item.id === (id - tileIdOffset) && [
+          TYPE.WEAPON1,
+          TYPE.WEAPON2,
+          TYPE.SHIELD,
+          TYPE.HELMET,
+          TYPE.ARMOR,
+          TYPE.CLOAK,
+          TYPE.ACCESSORY,
+          TYPE.USABLE,
+        ].indexOf(item.type) !== -1
+      }
+      return item.id === id
+    })[0]
+    let address = exeFile.pos + offset + Math.floor(offset / 0x800) * 0x130
+    item.tiles = item.tiles || []
+    item.tiles.push({
+      addresses: [ address ],
+      enemy: enemy.id,
+    })
+  })
+})
+
+// The Short Sword and Red Rust dropped by the Bone Scimitars in the Entrance
+// are hardcoded.
+const shortSword = items.filter(function(item) {
+  return item.name === 'Short Sword'
+})[0]
+shortSword.tiles.push({
+  zone: ZONE.NO3,
+  addresses: [ 0x04bc9324 ],
+  enemy: 9,
+  byte: true,
+})
+const redRust = items.filter(function(item) {
+  return item.name === 'Red Rust'
+})[0]
+redRust.tiles.push({
+  zone: ZONE.NO3,
+  addresses: [ 0x04bc9328 ],
+  enemy: 9,
+  byte: true,
+})
+
+// Format data.
+const indent = parseInt(process.argv[3] || 2)
+const spaces = Array(indent).fill(' ').join('')
+console.log(spaces + 'const items = ' + util.formatObject(items, indent))
