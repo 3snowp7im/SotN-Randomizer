@@ -4742,6 +4742,7 @@
     name: '$100',
     type: TYPE.GOLD,
     id: 5,
+    blacklist: [ 0x04bc9324, 0x04bc9328 ],
     tiles: [{
       zone: ZONE.ARE,
       addresses: [ 0x043c5ab4, 0x043c62c6 ],
@@ -5015,6 +5016,7 @@
     name: '$400',
     type: TYPE.GOLD,
     id: 7,
+    blacklist: [ 0x04bc9324, 0x04bc9328 ],
     tiles: [{
       zone: ZONE.NP3,
       addresses: [ 0x053f8ec4, 0x053f973a ],
@@ -5065,6 +5067,7 @@
     name: '$1000',
     type: TYPE.GOLD,
     id: 9,
+    blacklist: [ 0x04bc9324, 0x04bc9328 ],
     tiles: [{
       zone: ZONE.ARE,
       addresses: [ 0x043c58ca, 0x043c60b4 ],
@@ -5081,6 +5084,7 @@
     name: '$2000',
     type: TYPE.GOLD,
     id: 10,
+    blacklist: [ 0x04bc9324, 0x04bc9328 ],
     tiles: [{
       zone: ZONE.NO4,
       addresses: [ 0x04c3491e, 0x04c35b84 ],
