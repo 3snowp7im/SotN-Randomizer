@@ -88,5 +88,5 @@ To print starting equipment and relic locations for a URL without actually
 writing the randomizations to your disc image:
 
 ```shell
-$ ./randomize -vvvl https://sotn.io?449,myseed
+$ ./randomize -vvvl https://sotn.io?3b7,myseed
 ```
