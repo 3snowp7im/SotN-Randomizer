@@ -80,7 +80,7 @@
     let checksum
     let seed
     if (args.length === 3) {
-      options = optionsFromString(shift)
+      options = optionsFromString(args.shift())
     } else {
       options = optionsFromString(defaultOptions)
       if (args.length == 2) {
