@@ -21,6 +21,16 @@
 
   const MAX_VERBOSITY = 5
 
+  function loadOption(name, changeHandler, defaultValue) {
+    const value = localStorage.getItem(name)
+    if (typeof(value) === 'string') {
+      elems[name].checked = value === 'true'
+    } else {
+      elems[name].checked = defaultValue
+    }
+    changeHandler()
+  }
+
   function optionsFromString(randomize) {
     const options = {}
     for (let i = 0; i < (randomize || '').length; i++) {
@@ -83,10 +93,10 @@
       options = optionsFromString(args.shift())
     } else {
       options = optionsFromString(defaultOptions)
-      if (args.length == 2) {
-        checksum = parseInt(args.shift(), 16)
-        seed = decodeURIComponent(args.shift())
-      }
+    }
+    if (args.length == 2) {
+      checksum = parseInt(args.shift(), 16)
+      seed = decodeURIComponent(args.shift())
     }
     return {
       options: options,
@@ -166,13 +176,41 @@
     }
   }
 
-  function seedChangeHandler() {
+  function seedChange() {
     disableDownload()
     elems.copy.disabled = true
     haveChecksum = false
   }
 
-  function spoilersChangeHandler() {
+  function startingEquipmentChange() {
+    localStorage.setItem('startingEquipment', elems.startingEquipment.checked)
+  }
+
+  function itemLocationsChange() {
+    localStorage.setItem('itemLocations', elems.itemLocations.checked)
+  }
+
+  function enemyDropsChange() {
+    localStorage.setItem('enemyDrops', elems.enemyDrops.checked)
+  }
+
+  function prologueRewardsChange() {
+    localStorage.setItem('prologueRewards', elems.prologueRewards.checked)
+  }
+
+  function relicLocationsChange() {
+    localStorage.setItem('relicLocations', elems.relicLocations.checked)
+  }
+
+  function turkeyModeChange() {
+    localStorage.setItem('turkeyMode', elems.turkeyMode.checked)
+  }
+
+  function appendSeedChange() {
+    localStorage.setItem('appendSeed', elems.appendSeed.checked)
+  }
+
+  function spoilersChange() {
     if (!elems.showSpoilers.checked) {
       elems.spoilers.style.visibility = 'hidden'
       elems.showRelics.checked = false
@@ -181,10 +219,12 @@
       showSpoilers()
       elems.showRelics.disabled = false
     }
+    localStorage.setItem('showSpoilers', elems.showSpoilers.checked)
   }
 
-  function showRelicsChangeHandler() {
+  function showRelicsChange() {
     showSpoilers()
+    localStorage.setItem('showRelics', elems.showRelics.checked)
   }
 
   function dragLeaveListener(event) {
@@ -620,32 +660,39 @@
     fs.writeFileSync(argv.bin, data)
   } else {
     const body = document.getElementsByTagName('body')[0]
-    body.addEventListener('dragover', dragOverListener, false)
-    body.addEventListener('dragleave', dragLeaveListener, false)
-    body.addEventListener('drop', dropListener, false)
+    body.addEventListener('dragover', dragOverListener)
+    body.addEventListener('dragleave', dragLeaveListener)
+    body.addEventListener('drop', dropListener)
     elems.target = document.getElementById('target')
     elems.form = document.getElementById('form')
-    form.addEventListener('submit', submitListener, false)
+    form.addEventListener('submit', submitListener)
     elems.randomize = document.getElementById('randomize')
     elems.seed = document.getElementById('seed')
-    elems.seed.addEventListener('change', seedChangeHandler, false)
-    elems.appendSeed = document.getElementById('append-seed')
+    elems.seed.addEventListener('change', seedChange)
     elems.relicLocations = document.getElementById('relic-locations')
+    elems.relicLocations.addEventListener('change', relicLocationsChange)
     elems.startingEquipment = document.getElementById('starting-equipment')
+    elems.startingEquipment.addEventListener('change', startingEquipmentChange)
     elems.itemLocations = document.getElementById('item-locations')
+    elems.itemLocations.addEventListener('change', itemLocationsChange)
     elems.enemyDrops = document.getElementById('enemy-drops')
+    elems.enemyDrops.addEventListener('change', enemyDropsChange)
     elems.prologueRewards = document.getElementById('prologue-rewards')
+    elems.prologueRewards.addEventListener('change', prologueRewardsChange)
     elems.turkeyMode = document.getElementById('turkey-mode')
+    elems.turkeyMode.addEventListener('change', turkeyModeChange)
+    elems.appendSeed = document.getElementById('append-seed')
+    elems.appendSeed.addEventListener('change', appendSeedChange)
     elems.showSpoilers = document.getElementById('show-spoilers')
-    elems.showSpoilers.addEventListener('change', spoilersChangeHandler, false)
+    elems.showSpoilers.addEventListener('change', spoilersChange)
     elems.showRelics = document.getElementById('show-relics')
-    elems.showRelics.addEventListener('change', showRelicsChangeHandler, false)
+    elems.showRelics.addEventListener('change', showRelicsChange)
     elems.spoilers = document.getElementById('spoilers')
     elems.download = document.getElementById('download')
     elems.loader = document.getElementById('loader')
     resetState()
     elems.copy = document.getElementById('copy')
-    elems.copy.addEventListener('click', copyHandler, false)
+    elems.copy.addEventListener('click', copyHandler)
     elems.notification = document.getElementById('notification')
     elems.seedUrl = document.getElementById('seed-url')
     sjcl = window.sjcl
@@ -662,34 +709,38 @@
     }
     let options
     let seed
-    const rs = optionsFromUrl(window.location.href)
-    options = rs.options
-    seed = rs.seed
-    expectChecksum = rs.checksum
-    if (!options.startingEquipment) {
-      elems.startingEquipment.checked = false
+    if (url.search.length) {
+      const rs = optionsFromUrl(window.location.href)
+      options = rs.options
+      seed = rs.seed
+      expectChecksum = rs.checksum
+      elems.startingEquipment.checked = options.startingEquipment
+      startingEquipmentChange()
+      elems.itemLocations.checked = options.itemLocations
+      itemLocationsChange()
+      elems.enemyDrops.checked = options.enemyDrops
+      enemyDropsChange()
+      elems.prologueRewards.checked = options.prologueRewards
+      prologueRewardsChange()
+      elems.relicLocations.checked = options.relicLocations
+      relicLocationsChange()
+      elems.turkeyMode.checked = options.turkeyMode
+      turkeyModeChange()
+      if (typeof(seed) === 'string') {
+        elems.seed.value = seed
+        seedChange()
+        haveChecksum = true
+      }
+      const baseUrl = url.origin + url.pathname
+      window.history.replaceState({}, document.title, baseUrl)
+    } else {
+      loadOption('relicLocations', relicLocationsChange, true)
+      loadOption('itemLocations', itemLocationsChange, true)
+      loadOption('enemyDrops', enemyDropsChange, true)
+      loadOption('startingEquipment', startingEquipmentChange, true)
+      loadOption('prologueRewards', prologueRewardsChange, true)
+      loadOption('turkeyMode', turkeyModeChange, true)
     }
-    if (!options.itemLocations) {
-      elems.itemLocations.checked = false
-    }
-    if (!options.enemyDrops) {
-      elems.enemyDrops.checked = false
-    }
-    if (!options.prologueRewards) {
-      elems.prologueRewards.checked = false
-    }
-    if (!options.relicLocations) {
-      elems.relicLocations.checked = false
-    }
-    if (!options.turkeyMode) {
-      elems.turkeyMode.checked = false
-    }
-    if (typeof(seed) === 'string') {
-      elems.seed.value = seed
-      seedChangeHandler()
-      haveChecksum = true
-    }
-    window.history.replaceState({}, document.title, url.origin + url.pathname)
     let path = url.pathname
     if (path.match(/index\.html$/)) {
       path = path.slice(0, path.length - 10)
@@ -699,5 +750,8 @@
         || url.protocol === 'file:') {
       document.getElementById('dev-border').className = 'dev'
     }
+    loadOption('appendSeed', appendSeedChange, true)
+    loadOption('showSpoilers', spoilersChange, true)
+    loadOption('showRelics', showRelicsChange, false)
   }
 })()
