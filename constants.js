@@ -1,8 +1,6 @@
-(function() {
-  let isNode
-  try {
-    isNode = !!module
-  } catch (e) {}
+(function(self) {
+
+  const defaultOptions = 'deiprt'
 
   const TYPE = {
     HEART: 0,
@@ -188,6 +186,7 @@
   const tileIdOffset = 0x80
 
   const exports = {
+    defaultOptions: defaultOptions,
     TYPE: TYPE,
     typeNames: typeNames,
     ZONE: ZONE,
@@ -195,11 +194,11 @@
     zones: zones,
     tileIdOffset: 0x80,
   }
-  if (isNode) {
-    module.exports = exports
-  } else {
-    window.sotnRando = Object.assign(window.sotnRando || {}, {
+  if (self) {
+    self.sotnRando = Object.assign(self.sotnRando || {}, {
       constants: exports,
     })
+  } else {
+    module.exports = exports
   }
-})()
+})(typeof(self) !== 'undefined' ? self : null)

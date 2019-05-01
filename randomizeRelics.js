@@ -22,11 +22,7 @@
  * Fun fact, due to Silver/Gold ring reqs, Gravity Boots + Leap Stone will
  * never be the only flight you can get before second castle.
  */
-(function() {
-  let isNode
-  try {
-    isNode = !!module
-  } catch (e) {}
+(function(self) {
 
   const shopRelicNameAddress = 0x47d5650
   const shopRelicIdAddress = 0x47dbde0
@@ -700,11 +696,11 @@
   }
 
   const exports = randomizeRelics
-  if (isNode) {
-    module.exports = exports
-  } else {
-    window.sotnRando = Object.assign(window.sotnRando || {}, {
+  if (self) {
+    self.sotnRando = Object.assign(self.sotnRando || {}, {
       randomizeRelics: exports,
     })
+  } else {
+    module.exports = exports
   }
-})()
+})(typeof(self) !== 'undefined' ? self : null)

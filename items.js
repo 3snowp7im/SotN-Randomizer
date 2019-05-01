@@ -1,14 +1,10 @@
-(function() {
-  let isNode
-  try {
-    isNode = !!module
-  } catch (e) {}
+(function(self) {
 
   let constants
-  if (isNode) {
-    constants = require('./constants')
+  if (self) {
+    constants = self.sotnRando.constants
   } else {
-    constants = window.sotnRando.constants
+    constants = require('./constants')
   }
   const ZONE = constants.ZONE
   const TYPE = constants.TYPE
@@ -8967,11 +8963,11 @@
   }]
 
   const exports = items
-  if (isNode) {
-    module.exports = exports
-  } else {
-    window.sotnRando = Object.assign(window.sotnRando || {}, {
+  if (self) {
+    self.sotnRando = Object.assign(self.sotnRando || {}, {
       items: exports,
     })
+  } else {
+    module.exports = exports
   }
-})()
+})(typeof(self) !== 'undefined' ? self : null)

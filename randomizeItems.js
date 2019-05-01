@@ -1,21 +1,17 @@
-(function() {
-  let isNode
-  try {
-    isNode = !!module
-  } catch (e) {}
+(function(self) {
 
   let constants
   let items
   let util
 
-  if (isNode) {
+  if (self) {
+    constants = self.sotnRando.constants
+    items = self.sotnRando.items
+    util = self.sotnRando.util
+  } else {
     constants = require('./constants')
     items = require('./items')
     util = require('./util')
-  } else {
-    constants = window.sotnRando.constants
-    items = window.sotnRando.items
-    util = window.sotnRando.util
   }
 
   const TYPE = constants.TYPE
@@ -847,11 +843,11 @@
   }
 
   const exports = randomizeItems
-  if (isNode) {
-    module.exports = exports
-  } else {
-    window.sotnRando = Object.assign(window.sotnRando || {}, {
+  if (self) {
+    self.sotnRando = Object.assign(self.sotnRando || {}, {
       randomizeItems: exports,
     })
+  } else {
+    module.exports = exports
   }
-})()
+})(typeof(self) !== 'undefined' ? self : null)
