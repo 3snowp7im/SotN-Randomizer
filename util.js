@@ -25,6 +25,54 @@
     }
   }
 
+  function entityOffsets(zone) {
+    // Get room count.
+    let layout = zone.readUInt32LE(0x10) - 0x80180000
+    let rooms = 0
+    while (zone[layout] != 0x40) {
+      rooms++
+      layout += 8
+    }
+    // Get pointers to sorted tile layout structures.
+    const enter = zone.readUInt32LE(0x0c) - 0x80180000
+    const offsets = [
+      zone.readUInt16LE(enter + 0x1c),
+      zone.readUInt16LE(enter + 0x28),
+    ]
+    // Get sorted lists.
+    const entities = Array(rooms).fill(null).map(function() {
+      return {}
+    })
+    offsets.forEach(function(offset) {
+      for (let i = 0; i < rooms; i++) {
+        const ptr = zone.readUInt32LE(offset) - 0x80180000
+        let entitiy
+        let count = 0
+        do {
+          const p = ptr + 10 * count++
+          entity = zone.slice(p, p + 10)
+          const key = bufToHex(entity)
+          entities[i][key] = entities[i][key] || []
+          entities[i][key].push(p)
+        } while (entity.readUInt32LE() != 0xffffffff)
+        offset += 4
+      }
+    })
+    return entities.map(function(room) {
+      return Object.getOwnPropertyNames(room).map(function(key) {
+        const bytes = key.match(/[0-9a-f]{2}/g).map(function(byte) {
+          return parseInt(byte, 16)
+        })
+        return {
+          entity: Buffer.from(bytes),
+          addresses: room[key],
+        }
+      })
+    }).reduce(function(flat, array) {
+      return flat.concat(array)
+    }, [])
+  }
+
   function bufToHex(buf) {
     return Array.from(buf).map(function(byte) {
       return ('00' + byte.toString(16)).slice(-2)
@@ -308,6 +356,8 @@
   }
 
   const exports = {
+    assert: assert,
+    entityOffsets: entityOffsets,
     bufToHex: bufToHex,
     numToHex: numToHex,
     checked: checked,
@@ -319,7 +369,6 @@
     saltSeed: saltSeed,
     restoreFile: restoreFile,
     formatObject: formatObject,
-    assert: assert,
   }
   if (self) {
     self.sotnRando = Object.assign(self.sotnRando || {}, {
