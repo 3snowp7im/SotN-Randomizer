@@ -30,6 +30,7 @@ self.addEventListener('message', function(message) {
     }
     eccEdcCalc(array)
     self.postMessage({
+      seed: data.seed,
       data: fileData,
       checksum: checksum,
       info: data.info,

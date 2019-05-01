@@ -233,6 +233,7 @@
       elems.target.innerHTML = data.error
       return
     }
+    const seed = data.seed
     checksum = data.checksum
     info = data.info
     showSpoilers()
