@@ -583,10 +583,17 @@
           }).pop()
           const address = relic.addresses[0]
           if (data.readByte(address) !== relic.id) {
+            const actual = relics.filter(function(relic) {
+              return relic.id === data.readByte(address)
+            }).pop()
+            let name
+            if (actual) {
+              name = actual.name
+            } else {
+              name = 'Unknown'
+            }
             mismatches.push({
-              relic: relics.filter(function(relic) {
-                return relic.id === data.readByte(address)
-              }).pop().name,
+              relic: name,
               location: location.vanilla,
             })
           }
@@ -595,7 +602,9 @@
           if (options.verbose) {
             console.error('relic mismatches:')
             mismatches.sort(function(a, b) {
-              return relicFromName(a.relic).id - relicFromName(b.relic).id
+              a = relicFromName(a.relic) || { id: 0 }
+              b = relicFromName(b.relic) || { id: 0 }
+              return a.id - b.id
             }).forEach(function(relic) {
               console.error(relic)
             })

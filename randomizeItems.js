@@ -660,7 +660,11 @@
       }
       if (actual !== expected) {
         const item = itemFromId(actual, typeFilter([equipment[i].type]))
-        mismatches.push(item.name)
+        if (item) {
+          mismatches.push(item.name)
+        } else {
+          mismatches.push('Unknown')
+        }
       }
     }
     if (mismatches.length) {
