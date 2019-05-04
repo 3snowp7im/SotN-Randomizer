@@ -268,6 +268,8 @@
     resetCopy()
   }
 
+  let animationDone = true
+
   function copyHandler(event) {
     event.preventDefault()
     event.stopPropagation()
@@ -278,14 +280,29 @@
       elems.seed.value,
       window.location.href,
     )
-    elems.seedUrl.classList.remove('success')
-    elems.seedUrl.value = url.toString()
-    elems.seedUrl.select()
+    const textarea = document.createElement('textarea')
+    textarea.textContent = url.toString()
+    document.body.appendChild(textarea)
+    const selection = document.getSelection()
+    const range = document.createRange()
+    range.selectNode(textarea)
+    selection.removeAllRanges()
+    selection.addRange(range)
     document.execCommand('copy')
-    elems.notification.classList.add('success')
-    setTimeout(function() {
-      elems.notification.classList.add('hide')
-    }, 250)
+    selection.removeAllRanges()
+    document.body.removeChild(textarea)
+    if (animationDone) {
+      animationDone = false
+      elems.notification.classList.add('success')
+      elems.notification.classList.remove('hide')
+      setTimeout(function() {
+        elems.notification.classList.add('hide')
+      }, 250)
+      setTimeout(function() {
+        elems.notification.classList.remove('success')
+        animationDone = true
+      }, 2250)
+    }
   }
 
   function formatInfo(info, verbosity) {
