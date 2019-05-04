@@ -29,6 +29,11 @@ body {
     z-index: -1;
 }
 
+#spoilers {
+    display: block;
+    margin: 0 auto;
+}
+
 h3 time {
     font-size: medium;
 }

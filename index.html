@@ -11,59 +11,69 @@
   <body>
     <div id="version"></div>
     <h1>Castlevania: Symphony of the Night Randomizer</h1>
-    <p>
+    <div>
       by Wild Mouse
       <a href="https://twitter.com/3snow_p7im"><img height="16" width="16" src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/twitter.svg"></a>
       <a href="https://twitch.tv/3snow_p7im"><img height="16" width="16" src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/twitch.svg"></a>
-    </p>
-    <form id="form">
-      <p id="target">
+    </div>
+    <form id="form" class="pure-g">
+      <p id="target" class="pure-u-1">
         <span id="status"></span>
         <input id="file" type="file" accept=".bin,.iso">
       </p>
-      <div class="spoilers">
+      <div class="pure-u-12-24">
+        <fieldset>
+          <legend>Randomizations</legend>
+          <div class="pure-u-1">
+            <label for="seed">Seed</label>
+            <input id="seed" type="text" placeholder="Optional">
+          </div>
+          <div class="pure-g">
+            <div class="pure-u-12-24">
+              <input id="relic-locations" type="checkbox">
+              <label for="relic-locations">Relic locations</label>
+            </div>
+            <div class="pure-u-12-24">
+              <input id="item-locations" type="checkbox">
+              <label for="item-locations">Item locations</label>
+            </div>
+            <div class="pure-u-12-24">
+              <input id="enemy-drops" type="checkbox">
+              <label for="enemy-drops">Enemy drops</label>
+            </div>
+            <div class="pure-u-12-24">
+              <input id="starting-equipment" type="checkbox">
+              <label for="starting-equipment">Starting equipment</label>
+            </div>
+            <div class="pure-u-12-24">
+              <input id="prologue-rewards" type="checkbox">
+              <label for="prologue-rewards">Prologue rewards</label>
+            </div>
+            <div class="pure-u-12-24">
+              <input id="turkey-mode" type="checkbox">
+              <label for="turkey-mode">Turkey mode</label>
+            </div>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend>Options</legend>
+          <div>
+            <input id="append-seed" type="checkbox">
+            <label for="append-seed">Append seed to filename</label>
+          </div>
+          <div>
+            <input id="show-spoilers" type="checkbox">
+            <label for="show-spoilers">Show spoilers</label>
+          </div>
+          <div>
+            <input id="show-relics" type="checkbox">
+            <label for="show-relics">Show relic locations</label>
+          </div>
+        </fieldset>
+      </div>
+      <div class="pure-u-12-24 spoilers">
         <textarea id="spoilers" rows="8" cols="32" disabled="disabled">
         </textarea>
-      </div>
-      <p>
-        <label for="seed">Seed (optional)</label>
-        <input id="seed" type="text">
-      </p>
-      <div>
-        <input id="relic-locations" type="checkbox">
-        <label for="relic-locations">Randomize relic locations</label>
-      </div>
-      <div>
-        <input id="item-locations" type="checkbox">
-        <label for="item-locations">Randomize item locations</label>
-      </div>
-      <div>
-        <input id="enemy-drops" type="checkbox">
-        <label for="enemy-drops">Randomize enemy drops</label>
-      </div>
-      <div>
-        <input id="starting-equipment" type="checkbox">
-        <label for="starting-equipment">Randomize starting equipment</label>
-      </div>
-      <div>
-        <input id="prologue-rewards" type="checkbox">
-        <label for="prologue-rewards">Randomize prologue rewards</label>
-      </div>
-      <div>
-        <input id="turkey-mode" type="checkbox">
-        <label for="turkey-mode">Turkey mode</label>
-      </div>
-      <div>
-        <input id="append-seed" type="checkbox">
-        <label for="append-seed">Append seed to filename</label>
-      </div>
-      <div>
-        <input id="show-spoilers" type="checkbox">
-        <label for="show-spoilers">Show spoilers</label>
-      </div>
-      <div>
-        <input id="show-relics" type="checkbox">
-        <label for="show-relics">Show relic locations</label>
       </div>
       <p>
         <input id="randomize"
