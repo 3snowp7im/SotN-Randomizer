@@ -80,14 +80,18 @@
     hideLoader()
   }
 
-  function resetTarget() {
+  function resetTarget(showFileName) {
     if (selectedFile) {
+      let status = 'Ready to randomize'
+      if (showFileName) {
+        status += ' ' + selectedFile.name
+      }
       elems.target.className = 'active'
-      elems.target.innerHTML = 'Ready to randomize'
+      elems.status.innerHTML = status
       elems.randomize.disabled = false
     } else {
       elems.target.className = ''
-      elems.target.innerHTML = 'Drop .bin file here'
+      elems.status.innerHTML = 'Drop .bin file here or'
     }      
   }
 
@@ -131,6 +135,14 @@
 
   function appendSeedChange() {
     localStorage.setItem('appendSeed', elems.appendSeed.checked)
+  }
+
+  function fileChange(event) {
+    if (elems.file.files[0]) {
+      resetState()
+      selectedFile = elems.file.files[0]
+      resetTarget()
+    }
   }
 
   function spoilersChange() {
@@ -179,7 +191,8 @@
         selectedFile = file
       }
     }
-    resetTarget()
+    resetTarget(true)
+    elems.file.style.display = 'none'
   }
 
   function randomizedFilename(filename, seed) {
@@ -230,7 +243,7 @@
     const data = message.data
     if (data.error) {
       elems.target.className = 'error'
-      elems.target.innerHTML = data.error
+      elems.status.innerHTML = data.error
       return
     }
     const seed = data.seed
@@ -523,6 +536,9 @@
     body.addEventListener('dragleave', dragLeaveListener)
     body.addEventListener('drop', dropListener)
     elems.target = document.getElementById('target')
+    elems.status = document.getElementById('status')
+    elems.file = document.getElementById('file')
+    elems.file.addEventListener('change', fileChange)
     elems.form = document.getElementById('form')
     form.addEventListener('submit', submitListener)
     elems.randomize = document.getElementById('randomize')

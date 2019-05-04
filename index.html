@@ -17,7 +17,10 @@
       <a href="https://twitch.tv/3snow_p7im"><img height="16" width="16" src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/twitch.svg"></a>
     </p>
     <form id="form">
-      <p id="target"></p>
+      <p id="target">
+        <span id="status"></span>
+        <input id="file" type="file" accept=".bin,.iso">
+      </p>
       <div class="spoilers">
         <textarea id="spoilers" rows="8" cols="32" disabled="disabled">
         </textarea>
@@ -110,6 +113,10 @@
     </p>
     <hr>
     <h2><a name="changelog">Changelog</a></h2>
+    <h3><time>Map 3, 2019</time></h3>
+    <ul>
+      <li>Add file input as alternative to drag API.</li>
+    </ul>
     <h3><time>April 30, 2019</time></h3>
     <ul>
       <li>Use web worker.</li>
