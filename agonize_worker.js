@@ -4,6 +4,21 @@ const worker_threads = require('worker_threads')
 
 const options = worker_threads.workerData
 
+const flightRequired = '(' + [
+  'Ghost Card',
+  'Power of Mist',
+  'Fire of Bat',
+  'Echo of Bat',
+].join('|') + ')'
+
+const vladRelics = '(' + [
+  'Eye',
+  'Heart',
+  'Rib',
+  'Ring',
+  'Tooth',
+].join('|') + ') of Vlad'
+
 let seed
 let agony
 let output
@@ -21,27 +36,22 @@ do {
   agony = agony && output.match('Leap Stone at Merman Statue')
   agony = agony && output.match('Form of Mist at Demon Card')
   agony = agony && output.match('Soul of Bat at Power of Wolf')
-  agony = agony && output.match('Echo of Bat at (' + [
-    'Ghost Card',
-    'Power of Mist',
-    'Fire of Bat',
-    'Echo of Bat',
-  ].join('|') + ')')
+  agony = agony && output.match('Echo of Bat at ' + flightRequired)
   agony = agony && output.match('Gravity Boots at Force of Echo')
-  agony = agony && output.match('Soul of Wolf at .* of Vlad')
-  agony = agony && output.match('.* of Vlad at Tooth of Vlad')
-  agony = agony && output.match('Cube of Zoe at .* of Vlad')
+  agony = agony && output.match(vladRelics + ' at Tooth of Vlad')
+  agony = agony && output.match('Soul of Wolf at ' + vladRelics)
+  agony = agony && output.match('Cube of Zoe at ' + vladRelics)
   if (options.earlyMerman) {
     if (agony && output.match('Merman Statue at Leap Stone')) {
       agony = agony && output.match('Power of Mist at Holy Symbol')
-      agony = agony && output.match('.* of Vlad at Gas Cloud')
+      agony = agony && output.match(vladRelics + ' at Gas Cloud')
     } else {
       agony = false
     }
   } else {
     if (agony && output.match('Merman Statue at Gas Cloud')) {
       agony = agony && output.match('Power of Mist at Form of Mist')
-      agony = agony && output.match('.* of Vlad at Holy Symbol')
+      agony = agony && output.match(vladRelics + ' at Holy Symbol')
     } else {
       agony = false
     }
