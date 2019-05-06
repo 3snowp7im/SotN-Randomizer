@@ -16,7 +16,7 @@ const args = require('yargs')
     describe: 'Number of threads to use',
     type: 'number',
     requiresArg: true,
-    default: 2 * os.cpus().length,
+    default: os.cpus().length,
   })
   .version(false)
   .help()
