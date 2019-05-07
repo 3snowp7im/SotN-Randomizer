@@ -183,6 +183,37 @@
     pos: 0x057df998, len: 200988,
   }]
 
+  const RELIC = {
+    SOUL_OF_BAT: 'B',
+    FIRE_OF_BAT: 'f',
+    ECHO_OF_BAT: 'E',
+    FORCE_OF_ECHO: 'e',
+    SOUL_OF_WOLF: 'W',
+    POWER_OF_WOLF: 'p',
+    SKILL_OF_WOLF: 's',
+    FORM_OF_MIST: 'M',
+    POWER_OF_MIST: 'P',
+    GAS_CLOUD: 'c',
+    CUBE_OF_ZOE: 'z',
+    SPIRIT_ORB: 'o',
+    GRAVITY_BOOTS: 'G',
+    LEAP_STONE: 'L',
+    HOLY_SYMBOL: 'y',
+    FAERIE_SCROLL: 'l',
+    JEWEL_OF_OPEN: 'J',
+    MERMAN_STATUE: 'S',
+    BAT_CARD: 'b',
+    GHOST_CARD: 'g',
+    FAERIE_CARD: 'a',
+    DEMON_CARD: 'd',
+    SWORD_CARD: 'w',
+    HEART_OF_VLAD: 'h',
+    TOOTH_OF_VLAD: 't',
+    RIB_OF_VLAD: 'r',
+    RING_OF_VLAD: 'n',
+    EYE_OF_VLAD: 'i',
+  }
+
   const tileIdOffset = 0x80
 
   const exports = {
@@ -192,6 +223,7 @@
     ZONE: ZONE,
     zoneNames: zoneNames,
     zones: zones,
+    RELIC: RELIC,
     tileIdOffset: 0x80,
   }
   if (self) {

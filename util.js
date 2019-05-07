@@ -124,8 +124,10 @@
 
   function optionsFromString(randomize) {
     const options = {}
-    for (let i = 0; i < (randomize || '').length; i++) {
-      switch (randomize[i]) {
+    let i = 0
+    while (i < randomize.length) {
+      let c = randomize[i++]
+      switch (c) {
       case 'd':
         options.enemyDrops = true
         break
@@ -144,8 +146,47 @@
       case 't':
         options.turkeyMode = true
         break
+      case 'l':
+        c = randomize[i++]
+        const relics = Object.getOwnPropertyNames(constants.RELIC)
+        let location = constants.RELIC[relics.filter(function(relic) {
+          return constants.RELIC[relic] === c
+        }).pop()]
+        if (!location) {
+          throw new Error('Invalid relic location: ' + c)
+        }
+        let start = i
+        while (i < randomize.length && randomize[i] !== ',') {
+          c = randomize[i]
+          if (c !== '-') {
+            const valid = relics.some(function(relic) {
+              return constants.RELIC[relic] === c
+            })
+            if (!valid) {
+              throw new Error('Invalid relic: ' + c)
+            }
+          }
+          i++
+        }
+        const lock = randomize.slice(start, i)
+        let locks = lock.split('-')
+        const emptyLocks = locks.filter(function(lock) {
+          return lock.length === 0
+        })
+        locks = locks.filter(function(lock) {
+          return lock.length > 0
+        })
+        if (emptyLocks.length > 1 || (locks.length && emptyLocks.length)) {
+          throw new Error('Invald lock: ' + location + lock)
+        }
+        options.relicLocks = options.relicLocks || {}
+        options.relicLocks[location] = locks
+        if (randomize[i] === ',') {
+          i++
+        }
+        break
       default:
-        throw new Error('Invalid randomization: ' + randomize[i])
+        throw new Error('Invalid randomization: ' + c)
       }
     }
     return options
@@ -171,6 +212,16 @@
     if (options.turkeyMode) {
       randomize += 't'
     }
+    if (options.relicLocks) {
+      const locks = []
+      Object.getOwnPropertyNames(constants.RELIC).forEach(function(relic) {
+        relic = constants.RELIC[relic]
+        if (options.relicLocks[relic]) {
+          locks.push('l' + relic + options.relicLocks[relic].join('-'))
+        }
+      })
+      randomize += locks.join(',')
+    }
     return randomize
   }
 
@@ -180,15 +231,13 @@
     let options
     let checksum
     let seed
-    if (args.length === 3) {
-      options = optionsFromString(args.shift())
+    if (args.length > 2) {
+      options = optionsFromString(args.slice(0, args.length - 2).join(','))
     } else {
       options = optionsFromString(constants.defaultOptions)
     }
-    if (args.length == 2) {
-      checksum = parseInt(args.shift(), 16)
-      seed = decodeURIComponent(args.shift())
-    }
+    seed = decodeURIComponent(args.pop())
+    checksum = parseInt(args.pop(), 16)
     return {
       options: options,
       checksum: checksum,
@@ -355,6 +404,16 @@
     return obj.toString()
   }
 
+  function shuffled(array) {
+    const copy = array.slice()
+    const shuffled = []
+    while (copy.length) {
+      const rand = Math.floor(Math.random() * copy.length)
+      shuffled.push(copy.splice(rand, 1)[0])
+    }
+    return shuffled
+  }
+
   const exports = {
     assert: assert,
     entityOffsets: entityOffsets,
@@ -369,6 +428,7 @@
     saltSeed: saltSeed,
     restoreFile: restoreFile,
     formatObject: formatObject,
+    shuffled: shuffled,
   }
   if (self) {
     self.sotnRando = Object.assign(self.sotnRando || {}, {

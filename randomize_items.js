@@ -20,6 +20,8 @@
   const zoneNames = constants.zoneNames
   const tileIdOffset = constants.tileIdOffset
 
+  const shuffled = util.shuffled
+
   // The base address of Alucard's equipped item list.
   const equipBaseAddress = 0x11a0d0
 
@@ -174,16 +176,6 @@
 
   function randItem(array) {
     return array[Math.floor(Math.random() * array.length)]
-  }
-
-  function shuffled(array) {
-    const copy = array.slice()
-    const shuffled = []
-    while (copy.length) {
-      const rand = Math.floor(Math.random() * copy.length)
-      shuffled.push(copy.splice(rand, 1)[0])
-    }
-    return shuffled
   }
 
   function flattened() {

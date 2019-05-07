@@ -2,8 +2,9 @@
 <html>
   <head>
     <script src="../constants.js"></script>
+    <script src="../relics.js"></script>
     <script src="../util.js"></script>
-    <script src="../randomizeRelics.js"></script>
+    <script src="../randomize_relics.js"></script>
     <script>
     const doStuff = function() {
       const relics = [{
@@ -130,10 +131,18 @@
       const totals = {}
       const searchParams = new URLSearchParams(window.location.search)
       const runs = searchParams.get('runs') || 1000
-      var data = {}
+      const data = {}
       const checked = new window.sotnRando.util.checked(data, {})
+      const options = {relicLocations: true}
+      const locks = searchParams.get('locks')
+      if (locks) {
+        options.relicLocks = {}
+        locks.split(',').forEach(function(lock) {
+          options.relicLocks[lock[1]] = lock.slice(2).split('-')
+        })
+      }
       for (let i = 0; i < runs; i++) {
-        window.sotnRando.randomizeRelics(checked, {relicLocations: true})
+        window.sotnRando.randomizeRelics(checked, options)
 
         relics.forEach(function(relic) {
           const loc = addresses[relic.address]
@@ -151,8 +160,8 @@
 
       const content = document.getElementById('content')
       const newDiv = function() {
-			  return document.createElement('div')
-			}
+        return document.createElement('div')
+      }
       const row = newDiv()
       row.className = 'row'
 

@@ -1,9 +1,10 @@
 (function(window) {
-  const baseUrl = 'https://sotn.io'
+  const defaultBaseUrl = 'https://sotn.io/'
 
   let version
   let constants
   let util
+  let relics
 
   let info
   let lastSeed
@@ -22,10 +23,12 @@
     worker.addEventListener('message', workerMessage);
     constants = sotnRando.constants
     util = sotnRando.util
+    relics = sotnRando.relics
   } else {
     version = require('./package').version
     constants = require('./constants')
     util = require('./util')
+    relics = require('./relics')
   }
 
   function loadOption(name, changeHandler, defaultValue) {
@@ -40,16 +43,13 @@
 
   function optionsToUrl(options, checksum, seed, baseUrl) {
     options = util.optionsToString(options)
-    if (baseUrl[baseUrl.length - 1] === '/') {
-      baseUrl = baseUrl.slice(0, baseUrl.length - 1)
-    }
     const args = []
     if (options !== constants.defaultOptions) {
       args.push(options)
     }
     args.push(checksum.toString(16))
     args.push(encodeURIComponent(seed))
-    return baseUrl + '?' + args.join(',')
+    return (baseUrl || defaultBaseUrl) + '?' + args.join(',')
   }
 
   function newInfo() {
@@ -206,6 +206,11 @@
   }
 
   function getFormOptions() {
+    let relicLocks
+    if (elems.relicLocks.value) {
+      const options = util.optionsFromString(elems.relicLocks.value)
+      relicLocks = options.relicLocks
+    }
     return {
       relicLocations: elems.relicLocations.checked,
       startingEquipment: elems.startingEquipment.checked,
@@ -213,6 +218,7 @@
       itemLocations: elems.itemLocations.checked,
       enemyDrops: elems.enemyDrops.checked,
       turkeyMode: elems.turkeyMode.checked,
+      relicLocks: relicLocks,
     }
   }
 
@@ -266,6 +272,28 @@
     elems.download.click()
     URL.revokeObjectURL(url)
     resetCopy()
+  }
+
+  function clearHandler(event) {
+    expectChecksum = undefined
+    event.preventDefault()
+    event.stopPropagation()
+    elems.seed.value = ''
+    elems.seed.disabled = false
+    elems.relicLocations.value = ''
+    elems.relicLocations.disabled = false
+    elems.itemLocations.value = ''
+    elems.itemLocations.disabled = false
+    elems.enemyDrops.value = ''
+    elems.enemyDrops.disabled = false
+    elems.startingEquipment.value = ''
+    elems.startingEquipment.disabled = false
+    elems.prologueRewards.value = ''
+    elems.prologueRewards.disabled = false
+    elems.turkeyMode.value = ''
+    elems.turkeyMode.disabled = false
+    elems.relicLocks.value = ''
+    elems.clear.classList.add('hidden')
   }
 
   let animationDone = true
@@ -349,14 +377,57 @@
 
   const elems = {}
 
+  const optionsHelp = [
+    'The options string may contain any of the following:',
+    '  "d" for enemy drops',
+    '  "e" for starting equipment',
+    '  "i" for item locations',
+    '  "p" for prologue rewards',
+    '  "r" for relic locations',
+    '  "t" for turkey mode',
+    '  "l" for relic location lock (`--help locks`)',
+  ].join('\n')
+
+  const locksHelp = [
+    'A relic location lock sets the abilities required to access a relic',
+    'location. Each relic location may be guarded by multiple locks, and the',
+    'location will be open to the player once they have all abilities',
+    'comprising any single lock.',
+    '',
+    'Lock format:',
+    '  l<loc>[abil[-abil...]][,l<loc>[abil[-abil...]]...]',
+    '',
+    'Locations and abilities are specified using any of the following:',
+  ].concat(relics.map(function(relic) {
+    return '  "' + relic.ability + '" for ' + relic.name
+      + ' (default locks: '
+      + (relic.locks ? relic.locks.join('-') : '<no locks>')
+      + ')'
+  })).concat([
+    '',
+    'Examples:',
+    '  `lBL`      Soul of Bat relic location requires Leap Stone.',
+    '  `lSLG-MP`  Holy Symbol relic location requires Leap Stone + Gravity',
+    '             Boots OR Form of Mist + Power of Mist.',
+    '',
+    'Multiple locks can be specified by separating each location by a comma:',
+    '  `lBL,lSLG-MP`',
+    '',
+    'If randomization options follow a lock, they must also be separated',
+    'from the lock with a comma:',
+    '',
+    '  `-o lBL,lSLG-MP,rdt`',
+  ]).join('\n')
+
   function main() {
     const fs = require('fs')
     const constants = require('./constants')
-    const randomizeItems = require('./randomizeItems')
-    const randomizeRelics = require('./randomizeRelics')
+    const randomizeItems = require('./randomize_items')
+    const randomizeRelics = require('./randomize_relics')
     const eccEdcCalc = require('./ecc-edc-recalc-js')
     const yargs = require('yargs')
       .strict()
+      .usage('$0 [options] [url]')
       .option('bin', {
         alias: 'b',
         describe: 'Path to .bin file',
@@ -366,34 +437,33 @@
       .option('seed', {
         alias: 's',
         describe: 'Seed',
+        type: 'string',
         requiresArg: true,
       })
-      .option('randomize', {
-        alias: 'r',
-        describe: [
-          'Specify randomizations:',
-          '"d" for enemy drops',
-          '"e" for starting equipment',
-          '"i" for item locations',
-          '"p" for prologue rewards',
-          '"r" for relic locations',
-          '"t" for turkey mode',
-        ].join('\n'),
+      .option('options', {
+        alias: 'o',
+        describe: 'Randomizations (`--help options`)',
+        type: 'string',
       })
       .option('check-vanilla', {
         alias: 'c',
-        describe: 'Check vanilla .bin file (does not modify image)',
+        describe: 'Check .bin file (does not modify image)',
         type: 'boolean',
       })
       .option('expect-checksum', {
         alias: 'e',
-        describe: 'Verify randomization produces an expected checksum',
+        describe: 'Verify checksum',
         type: 'string',
         requiresArg: true,
       })
       .option('url', {
         alias: 'u',
-        description: 'Print seed url',
+        description: 'Print seed url using optional base',
+        type: 'string',
+      })
+      .option('race', {
+        alias: 'r',
+        describe: 'Same as -uvv',
         type: 'boolean',
       })
       .option('verbose', {
@@ -401,21 +471,45 @@
         describe: 'Verbosity level',
         type: 'count',
       })
-      .option('live', {
-        alias: 'l',
-        describe: 'Print starting equipment and use url mode (same as -uvv)',
-        type: 'boolean',
+      .help(false)
+      .option('help', {
+        alias: 'h',
+        describe: 'Show help',
+        type: 'string',
       })
       .demandCommand(0, 1)
-      .help()
     const argv = yargs.argv
     let options
     let seed
+    let baseUrl
     let expectChecksum
     let haveChecksum
+    // Check for help.
+    if ('help' in argv) {
+      if (!argv.help) {
+        yargs.showHelp()
+        process.exit()
+      }
+      switch (argv.help) {
+      case 'options':
+        console.log(optionsHelp)
+        process.exit()
+      case 'locks':
+        console.log(locksHelp)
+        process.exit()
+      default:
+        yargs.showHelp()
+        console.error('\nUnknown help topic: ' + argv.help)
+        process.exit(1)
+      }
+    }
     // Check for seed string.
     if ('seed' in argv) {
       seed = argv.seed.toString()
+    }
+    // Check for base url.
+    if (argv.url) {
+      baseUrl = argv.url
     }
     // Check for expected checksum.
     if ('expectChecksum' in argv) {
@@ -428,9 +522,9 @@
       haveChecksum = true
     }
     // Check for randomization string.
-    if ('randomize' in argv) {
+    if ('options' in argv) {
       try {
-        options = util.optionsFromString(argv.randomize)
+        options = util.optionsFromString(argv.options)
       } catch (e) {
         yargs.showHelp()
         console.error('\n' + e.message)
@@ -461,9 +555,9 @@
         console.error('\nArgument seed is not url seed')
         process.exit(1)
       }
-      // Ensure randomizations match if given using --randomize.
+      // Ensure randomizations match if given using --options.
       const optionStr = util.optionsToString(options)
-      if ('randomize' in argv && argv.randomize !== optionsStr) {
+      if ('options' in argv && argv.options !== optionsStr) {
         yargs.showHelp()
         console.error('\nArgument randomizations are not url randomizations')
         process.exit(1)
@@ -475,8 +569,8 @@
         process.exit(1)
       }
     }
-    // Set options for --generate-race.
-    if (argv.live) {
+    // Set options for --race.
+    if (argv.race) {
       argv.url = true
       if (argv.verbose === 0) {
         argv.verbose = 2
@@ -501,7 +595,7 @@
         seed,
       ), {global: true})
       // Add seed to log info if not provided through arg or url.
-      if (!argv._[0] && !('seed' in argv) && !argv.url) {
+      if (!argv.url || argv._[0]) {
         info[1]['Seed'] = seed
       }
     }
@@ -574,6 +668,9 @@
     elems.prologueRewards.addEventListener('change', prologueRewardsChange)
     elems.turkeyMode = document.getElementById('turkey-mode')
     elems.turkeyMode.addEventListener('change', turkeyModeChange)
+    elems.relicLocks = document.getElementById('relic-locks')
+    elems.clear = document.getElementById('clear')
+    elems.clear.addEventListener('click', clearHandler)
     elems.appendSeed = document.getElementById('append-seed')
     elems.appendSeed.addEventListener('change', appendSeedChange)
     elems.showSpoilers = document.getElementById('show-spoilers')
@@ -617,12 +714,27 @@
       elems.relicLocations.checked = options.relicLocations
       relicLocationsChange()
       elems.turkeyMode.checked = options.turkeyMode
+      let relicLocks = ''
+      if (options.relicLocks) {
+        relicLocks = util.optionsToString({
+          relicLocks: options.relicLocks,
+        })
+      }
+      elems.relicLocks.value = relicLocks
       turkeyModeChange()
       if (typeof(seed) === 'string') {
         elems.seed.value = seed
         seedChange()
         haveChecksum = true
       }
+      elems.seed.disabled = true
+      elems.relicLocations.disabled = true
+      elems.itemLocations.disabled = true
+      elems.enemyDrops.disabled = true
+      elems.startingEquipment.disabled = true
+      elems.prologueRewards.disabled = true
+      elems.turkeyMode.disabled = true
+      elems.clear.classList.remove('hidden')
       const baseUrl = url.origin + url.pathname
       window.history.replaceState({}, document.title, baseUrl)
     } else {

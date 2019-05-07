@@ -41,15 +41,15 @@ h3 time {
 #target {
     text-align: center;
     padding: 3em 0;
-    border: 10px #CCC dashed;
+    border: 10px #ccc dashed;
 }
 
 #target.active {
-    border-color: #CFC;
+    border-color: #cfc;
 }
 
 #target.error {
-    border-color: #FCC;
+    border-color: #fcc;
 }
 
 .spoilers {
@@ -81,7 +81,7 @@ h3 time {
     opacity: 0;
 }
 
-#seed-url.hidden {
+#seed-url.hidden, #clear-seed.hidden {
     display: none;
 }
 

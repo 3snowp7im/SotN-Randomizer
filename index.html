@@ -24,11 +24,11 @@
       <div class="pure-u-12-24">
         <fieldset>
           <legend>Randomizations</legend>
-          <div class="pure-u-1">
-            <label for="seed">Seed</label>
-            <input id="seed" type="text" placeholder="Optional">
-          </div>
           <div class="pure-g">
+            <div class="pure-u-1">
+              <label for="seed">Seed</label>
+              <input id="seed" type="text" placeholder="Optional">
+            </div>
             <div class="pure-u-12-24">
               <input id="relic-locations" type="checkbox">
               <label for="relic-locations">Relic locations</label>
@@ -52,6 +52,16 @@
             <div class="pure-u-12-24">
               <input id="turkey-mode" type="checkbox">
               <label for="turkey-mode">Turkey mode</label>
+            </div>
+            <input id="relic-locks"
+                   type="text"
+                   disabled="disabled"
+                   style="display: none">
+            <div class="pure-u-1">
+              <input id="clear"
+                     type="submit"
+                     class="pure-button hidden"
+                     value="Clear">
             </div>
           </div>
         </fieldset>
@@ -180,7 +190,7 @@
     </ul>
     <h3><time>April 5, 2019</time></h3>
     <ul>
-      <li>Add <a href="SotN-Relic-Randomizer/">relic distribution</a>
+      <li>Add <a href="relics">relic distribution</a>
         (thx Soba)</li>
       <li>Fix relic duping in Medusa room.</li>
       <li>Fix shop relic name not being updated in shop menu.</li>
@@ -228,6 +238,7 @@
     <div id="dev-border"></div>
     <a id="fork" href="https://github.com/3snowp7im/SotN-Randomizer"><img width="149" height="149" src="https://github.blog/wp-content/uploads/2008/12/forkme_left_darkblue_121621.png?resize=149%2C149" class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1"></a>
     <script src="constants.js"></script>
+    <script src="relics.js"></script>
     <script src="util.js"></script>
     <script src="index.js"></script>
   </body>
