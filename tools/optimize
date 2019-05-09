@@ -1,0 +1,27 @@
+#!/usr/bin/env node
+// This tool creates a relic location lock string that maximizes speed.
+// Usage: tools/optimize [prefix]
+
+// Boilerplate.
+const plandomizer = require('../util').plandomizer
+const RELIC = require('../constants').RELIC
+
+// Create plandomizer.
+const plan = new plandomizer()
+
+// Place relics.
+plan.place(RELIC.SOUL_OF_BAT, RELIC.CUBE_OF_ZOE)
+plan.place(RELIC.ECHO_OF_BAT, RELIC.SKILL_OF_WOLF)
+plan.place(RELIC.GRAVITY_BOOTS, RELIC.SPIRIT_ORB)
+plan.place(RELIC.FORM_OF_MIST, RELIC.GRAVITY_BOOTS)
+plan.place(RELIC.JEWEL_OF_OPEN, RELIC.FORM_OF_MIST)
+plan.place(RELIC.POWER_OF_MIST, RELIC.DEMON_CARD)
+plan.place(RELIC.RIB_OF_VLAD, RELIC.LEAP_STONE)
+plan.place(RELIC.TOOTH_OF_VLAD, RELIC.GHOST_CARD)
+plan.place(RELIC.EYE_OF_VLAD, RELIC.POWER_OF_MIST)
+plan.place(RELIC.RING_OF_VLAD, RELIC.RING_OF_VLAD)
+plan.place(RELIC.HEART_OF_VLAD, RELIC.HEART_OF_VLAD)
+
+// Print output.
+const prefix = process.argv[2] || ''
+console.log(prefix + plan.locks())

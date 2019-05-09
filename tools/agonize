@@ -2,53 +2,33 @@
 // This tool creates a relic location lock string that maximizes agony.
 // Usage: tools/agonize [prefix]
 
-const constants = require('../constants')
-const relics = require('../relics')
-const util = require('../util')
+// Boilerplate.
+const plandomizer = require('../util').plandomizer
+const RELIC = require('../constants').RELIC
 
-const RELIC = constants.RELIC
-
-// Concat all locations.
-const all = Object.getOwnPropertyNames(RELIC).reduce(function(lock, relic) {
-  return lock + RELIC[relic]
-}, '')
-
-// A set of unplaced locations.
-const unplaced = new Set(all)
-
-// The collection of location locks.
-const locks = {}
-
-function place(what, where) {
-  util.assert.equal(what.length, where.length)
-  what.split('').forEach(function(relic) {
-    unplaced.delete(relic)
-  })
-  where.split('').forEach(function(location) {
-    locks[location] = new Set(unplaced)
-  })
-}
+// Create plandomizer.
+const plan = new plandomizer()
 
 // Vanilla Jewel of Open.
-place(RELIC.JEWEL_OF_OPEN, RELIC.JEWEL_OF_OPEN)
+plan.place(RELIC.JEWEL_OF_OPEN, RELIC.JEWEL_OF_OPEN)
 
 // Leap Stone at Merman Statue.
-place(RELIC.LEAP_STONE, RELIC.MERMAN_STATUE)
+plan.place(RELIC.LEAP_STONE, RELIC.MERMAN_STATUE)
 
 // Vanilla Form of Mist.
-place(RELIC.FORM_OF_MIST, RELIC.FORM_OF_MIST)
+plan.place(RELIC.FORM_OF_MIST, RELIC.FORM_OF_MIST)
 
 // Power of Mist at Demon Card.
-place(RELIC.POWER_OF_MIST, RELIC.DEMON_CARD)
+plan.place(RELIC.POWER_OF_MIST, RELIC.DEMON_CARD)
 
 // Merman Statue at Gas Cloud.
-place(RELIC.MERMAN_STATUE, RELIC.GAS_CLOUD)
+plan.place(RELIC.MERMAN_STATUE, RELIC.GAS_CLOUD)
 
 // Gravity Boots at Eye of Vlad.
-place(RELIC.GRAVITY_BOOTS, RELIC.EYE_OF_VLAD)
+plan.place(RELIC.GRAVITY_BOOTS, RELIC.EYE_OF_VLAD)
 
 // Soul of Bat and Echo of Bat at Power of Mist or Power of Wolf.
-place(
+plan.place(
   RELIC.SOUL_OF_BAT
     + RELIC.ECHO_OF_BAT,
   RELIC.POWER_OF_MIST
@@ -56,7 +36,7 @@ place(
 )
 
 // Soul of Wolf and Cube of Zoe at 2nd castle.
-place(
+plan.place(
   RELIC.SOUL_OF_WOLF
     + RELIC.CUBE_OF_ZOE,
   RELIC.HEART_OF_VLAD
@@ -65,7 +45,7 @@ place(
 
 // Any Vlad relic at Soul of Bat, Tooth of Vlad, Rib of Vlad, Force of Echo,
 // or Holy Sympbol.
-place(
+plan.place(
   RELIC.HEART_OF_VLAD
     + RELIC.TOOTH_OF_VLAD
     + RELIC.RIB_OF_VLAD
@@ -78,15 +58,6 @@ place(
     + RELIC.HOLY_SYMBOL,
 )
 
-// Convert lock sets into strings.
-relics.forEach(function(relic) {
-  if (!locks[relic.ability]) {
-    locks[relic.ability] = ['']
-  } else {
-    locks[relic.ability] = [Array.from(locks[relic.ability]).join('')]
-  }
-})
-
 // Print output.
 const prefix = process.argv[2] || ''
-console.log(prefix + util.optionsToString({relicLocks: locks}))
+console.log(prefix + plan.locks())

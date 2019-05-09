@@ -90,3 +90,22 @@ writing the randomizations to your disc image:
 ```shell
 $ ./randomize -vvvl https://sotn.io/?3b7,myseed
 ```
+### Custom relic logic
+
+Relic placement is determind by relic location locks. For more information:
+
+```shell
+$ ./randomize --help locks
+```
+
+Lock strings are a terse format of information meant solely for consumption
+by the randomizer. Creating your own relic logic is more easily done using a
+tool. Examples of such tools are `tools/agonize` and `tools/optimize`. These
+scripts outline new rules for relic placement logic and output the
+corresponding lock string. The resulting lock string can then be used as part
+of the randomizer options:
+
+```shell
+$ ./randomize -uo r$(tools/agonize)   # Create a URL for a slow seed
+$ ./randomize -uo r$(tools/optimize)  # Create a URL for a fast seed
+```

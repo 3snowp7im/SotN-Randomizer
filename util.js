@@ -1,13 +1,16 @@
 (function(self) {
 
   let constants
+  let relics
   let sjcl
 
   if (self) {
     constants = self.sotnRando.constants
+    relics = self.sotnRando.relics
     sjcl = self.sjcl
   } else {
     constants = require('./constants')
+    relics = require('./relics')
     sjcl = require('sjcl')
   }
 
@@ -414,6 +417,44 @@
     return shuffled
   }
 
+  // Helper class to create relic location locks.
+  function plandomizer() {
+    const relicNames = Object.getOwnPropertyNames(constants.RELIC)
+    // A set of unplaced locations.
+    this.unplaced = new Set(relicNames.reduce(function(lock, relic) {
+      return lock + constants.RELIC[relic]
+    }, ''))
+    // The collection of location locks.
+    this.locations = {}
+  }
+
+  // Add relics to locations. The what and where arguments must contain the
+  // same number of relics.
+  plandomizer.prototype.place = function place(what, where) {
+    assert.equal(what.length, where.length)
+    const unplaced = this.unplaced
+    const locations = this.locations
+    what.split('').forEach(function(relic) {
+      unplaced.delete(relic)
+    })
+    where.split('').forEach(function(location) {
+      locations[location] = new Set(unplaced)
+    })
+  }
+
+  // Convert lock sets into strings.
+  plandomizer.prototype.locks = function locks() {
+    const locks = Object.assign({}, this.locations)
+    relics.forEach(function(relic) {
+      if (!locks[relic.ability]) {
+        locks[relic.ability] = ['']
+      } else {
+        locks[relic.ability] = [Array.from(locks[relic.ability]).join('')]
+      }
+    })
+    return optionsToString({relicLocks: locks})
+  }
+
   const exports = {
     assert: assert,
     entityOffsets: entityOffsets,
@@ -429,6 +470,7 @@
     restoreFile: restoreFile,
     formatObject: formatObject,
     shuffled: shuffled,
+    plandomizer: plandomizer,
   }
   if (self) {
     self.sotnRando = Object.assign(self.sotnRando || {}, {
