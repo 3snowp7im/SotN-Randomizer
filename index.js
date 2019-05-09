@@ -386,6 +386,16 @@
     '  "r" for relic locations',
     '  "t" for turkey mode',
     '  "l" for relic location lock (`--help locks`)',
+    '',
+    'The default randomization mode is "'
+      +  constants.defaultOptions
+      + '", which randomizes everything',
+    'while using default relic placement logic.',
+    '',
+    'Examples:',
+    '  `$0 -o d`    # Only randomize enemy drops.',
+    '  `$0 -o dir`  # Randomize drops, item locations, and relic locations.',
+    '  `$0`         # Randomize everything (default mode).',
   ].join('\n')
 
   const locksHelp = [
@@ -394,14 +404,14 @@
     'location will be open to the player once they have all abilities',
     'comprising any single lock.',
     '',
-    'Lock format:',
+    'Locks format:',
     '  l<loc>[abil[-abil...]][,l<loc>[abil[-abil...]]...]',
     '',
     'Locations and abilities are specified using any of the following:',
   ].concat(relics.map(function(relic) {
     return '  "' + relic.ability + '" for ' + relic.name
-      + ' (default locks: '
-      + (relic.locks ? relic.locks.join('-') : '<no locks>')
+      + ' (default locks: l' + relic.ability
+      + (relic.locks ? relic.locks.join('-') : '')
       + ')'
   })).concat([
     '',
@@ -410,18 +420,20 @@
     '  `lSLG-MP`  Holy Symbol relic location requires Leap Stone + Gravity',
     '             Boots OR Form of Mist + Power of Mist.',
     '',
-    'Multiple locks can be specified by separating each location by a comma:',
+    'Locks for different location can be specified by separating each',
+    'location by a comma:',
     '  `lBL,lSLG-MP`',
     '',
-    'If randomization options follow a lock, they must also be separated',
-    'from the lock with a comma:',
+    'If other randomization options follow a lock, they must also be',
+    'separated from the lock with a comma:',
     '',
-    '  `-o lBL,lSLG-MP,rdt`',
+    '  `$0 -o lBL,lSLG-MP,rdt`',
   ]).join('\n')
 
   function main() {
     const fs = require('fs')
     const constants = require('./constants')
+    const path = require('path')
     const randomizeItems = require('./randomize_items')
     const randomizeRelics = require('./randomize_relics')
     const eccEdcCalc = require('./ecc-edc-recalc-js')
@@ -490,12 +502,20 @@
         yargs.showHelp()
         process.exit()
       }
+      const topics = {
+        optionsHelp: optionsHelp,
+        locksHelp: locksHelp,
+      }
+      const script = path.basename(process.argv[1])
+      Object.getOwnPropertyNames(topics).forEach(function(topic) {
+        topics[topic] = topics[topic].replace(/\$0/g, script)
+      }, {})
       switch (argv.help) {
       case 'options':
-        console.log(optionsHelp)
+        console.log(topics.optionsHelp)
         process.exit()
       case 'locks':
-        console.log(locksHelp)
+        console.log(topics.locksHelp)
         process.exit()
       default:
         yargs.showHelp()
