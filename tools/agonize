@@ -44,20 +44,15 @@ place(RELIC.POWER_OF_MIST, RELIC.DEMON_CARD)
 // Merman Statue at Gas Cloud.
 place(RELIC.MERMAN_STATUE, RELIC.GAS_CLOUD)
 
-// Echo of Bat at Power of Wolf.
-place(RELIC.ECHO_OF_BAT, RELIC.POWER_OF_WOLF)
-
 // Gravity Boots at Eye of Vlad.
 place(RELIC.GRAVITY_BOOTS, RELIC.EYE_OF_VLAD)
 
-// Soul of Bat at Power of Mist, Ghost Card, or Fire of Bat.
+// Soul of Bat and Echo of Bat at Power of Mist or Power of Wolf.
 place(
   RELIC.SOUL_OF_BAT
-    + RELIC.GHOST_CARD
-    + RELIC.FIRE_OF_BAT,
+    + RELIC.ECHO_OF_BAT,
   RELIC.POWER_OF_MIST
-    + RELIC.GHOST_CARD
-    + RELIC.FIRE_OF_BAT,
+    + RELIC.POWER_OF_WOLF,
 )
 
 // Soul of Wolf and Cube of Zoe at 2nd castle.
@@ -68,13 +63,16 @@ place(
     + RELIC.RING_OF_VLAD,
 )
 
-// Any Vlad relic at Tooth of Vlad, Rib of Vlad, Force of Echo or Holy Sympbol.
+// Any Vlad relic at Soul of Bat, Tooth of Vlad, Rib of Vlad, Force of Echo,
+// or Holy Sympbol.
 place(
   RELIC.HEART_OF_VLAD
     + RELIC.TOOTH_OF_VLAD
     + RELIC.RIB_OF_VLAD
-    + RELIC.RING_OF_VLAD,
-  RELIC.TOOTH_OF_VLAD
+    + RELIC.RING_OF_VLAD
+    + RELIC.EYE_OF_VLAD,
+  RELIC.SOUL_OF_BAT
+    + RELIC.TOOTH_OF_VLAD
     + RELIC.RIB_OF_VLAD
     + RELIC.FORCE_OF_ECHO
     + RELIC.HOLY_SYMBOL,
