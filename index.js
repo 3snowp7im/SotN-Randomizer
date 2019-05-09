@@ -1,5 +1,6 @@
 (function(window) {
-  const defaultBaseUrl = 'https://sotn.io/'
+  const releaseBaseUrl = 'https://sotn.io/'
+  const devBaseUrl = 'https://dev.sotn.io/'
 
   let version
   let constants
@@ -29,6 +30,7 @@
     constants = require('./constants')
     util = require('./util')
     relics = require('./relics')
+    
   }
 
   function loadOption(name, changeHandler, defaultValue) {
@@ -49,7 +51,13 @@
     }
     args.push(checksum.toString(16))
     args.push(encodeURIComponent(seed))
-    return (baseUrl || defaultBaseUrl) + '?' + args.join(',')
+    let versionBaseUrl
+    if (version.match(/-/)) {
+      versionBaseUrl = devBaseUrl
+    } else {
+      versionBaseUrl = releaseBaseUrl
+    }
+    return (baseUrl || versionBaseUrl) + '?' + args.join(',')
   }
 
   function newInfo() {
