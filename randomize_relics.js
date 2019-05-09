@@ -43,6 +43,7 @@
 
   function writeMapping(mapping, data) {
     Object.getOwnPropertyNames(mapping).forEach(function(location) {
+      location = parseInt(location)
       const relic = mapping[location]
       relics[location].addresses.forEach(function(address) {
         data.writeByte(address, relic.id)
