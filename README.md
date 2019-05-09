@@ -120,3 +120,12 @@ plan.place(
   RELIC.GHOST_CARD + RELIC.DEMON_CARD
 )
 ```
+
+These tools are very rudimentary are not useful designing locks opened up by
+multiple ability combinations. For more information on the specifics of the
+lock string format, and, to see the vanilla placement logic, refer to the help
+topic built into the `randomize` script:
+
+```shell
+$ ./randomize --help locks
+```
