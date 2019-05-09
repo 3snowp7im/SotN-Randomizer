@@ -571,7 +571,7 @@
     }
     // Set options for --race.
     if (argv.race) {
-      argv.url = true
+      argv.url = ''
       if (argv.verbose === 0) {
         argv.verbose = 2
       }
@@ -595,7 +595,7 @@
         seed,
       ), {global: true})
       // Add seed to log info if not provided through arg or url.
-      if (!argv.url || argv._[0]) {
+      if (!('url' in argv) || argv._[0]) {
         info[1]['Seed'] = seed
       }
     }
@@ -621,7 +621,7 @@
       process.exit(1)
     }
     // Show url if not provided as arg.
-    if (argv.url && !argv._[0]) {
+    if ('url' in argv && !argv._[0]) {
       console.log(optionsToUrl(
         options,
         checksum,

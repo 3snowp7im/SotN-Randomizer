@@ -50,6 +50,7 @@
     }
   }
 
+  const heartFilter = typeFilter([TYPE.HEART])
   const goldFilter = typeFilter([TYPE.GOLD])
   const subweaponFilter = typeFilter([TYPE.SUBWEAPON])
   const powerupFilter = typeFilter([TYPE.POWERUP])
@@ -89,22 +90,36 @@
     return Array.isArray(item.tiles)
   }
 
-  function dropItemFilter(item) {
-    return item.tiles && item.tiles.some(dropTileFilter)
+  function itemTileFilter(tileFilter) {
+    return function(item) {
+      return item.tiles && item.tiles.some(tileFilter)
+    }
+  }
+
+  function mapTileFilter(tile) {
+    return !tile.shop && !tile.tank && !tile.reward
+      && !candleTileFilter(tile) && !dropTileFilter(tile)
+      && !tile.librarian
+  }
+
+  function shopTileFilter(tile) {
+    return tile.shop
+  }
+
+  function librarianDropTileFilter(tile) {
+    return tile.librarian
   }
 
   function dropTileFilter(tile) {
     return typeof(tile.enemy) !== 'undefined'
   }
 
-  function candleTileFilter(tile) {
-    return typeof(tile.candle) !== 'undefined'
+  function rewardTileFilter(tile) {
+    return tile.reward
   }
 
-  function zoneTileFilter(zone) {
-    return function(tile) {
-      return tile.zone === zone
-    }
+  function candleTileFilter(tile) {
+    return typeof(tile.candle) !== 'undefined'
   }
 
   function typeReduce(types, item) {
@@ -311,7 +326,7 @@
     ]
   }
 
-  function randomizeCandles(itemDescriptions) {
+  function randomizeCandles(pool) {
     // There are statues and pots in the hidden room of Final Stage stage that
     // drop equipment and usable items. Note that these are unique in the game
     // in that they are handled by the candle code, but their sprites are
@@ -337,7 +352,7 @@
       Array.prototype.push.apply(specialIds, ids)
     })
     // Randomize these special cases by replacing them with the same item type.
-    const itemTypes = shuffled(itemDescriptions).reduce(typeReduce, [])
+    const itemTypes = shuffled(pool).reduce(typeReduce, [])
     Object.getOwnPropertyNames(zones).forEach(function(name) {
       specials[name].forEach(function(item) {
         let replacement
@@ -361,7 +376,7 @@
     })
     const candleTiles = shuffled(collectTiles(candleItems, tileFilter))
     candleItems.forEach(function(item, index) {
-      item = itemFromId(item.id, typeFilter([item.type]), itemDescriptions)
+      item = itemFromId(item.id, typeFilter([item.type]), pool)
       let count = candleTileCounts[index]
       while (count--) {
         pushTile.call(item, candleTiles.pop())
@@ -369,17 +384,17 @@
     })
   }
 
-  function randomizePrologueRewards(itemDescriptions) {
+  function randomizePrologueRewards(pool) {
     const rewardTiles = collectTiles(items, function(tile) {
       return tile.reward
     })
-    const usableItems = shuffled(itemDescriptions.filter(usableFilter))
+    const usableItems = shuffled(pool.filter(usableFilter))
     while (rewardTiles.length) {
       pushTile.call(usableItems.pop(), rewardTiles.pop())
     }
   }
 
-  function randomizeSubweaponTanks(itemDescriptions) {
+  function randomizeSubweaponTanks(pool) {
     // Get subweapon tank tiles.
     const tankTiles = flattened(items.filter(function(item) {
       return item.tiles && item.tiles.some(function(tile) {
@@ -398,15 +413,15 @@
     })
     // Randomize tank items.
     Object.getOwnPropertyNames(tankZones).forEach(function(zone) {
-      const subweapons = shuffled(itemDescriptions.filter(subweaponFilter))
+      const subweapons = shuffled(pool.filter(subweaponFilter))
       while (tankZones[zone].length) {
         pushTile.call(subweapons.pop(), tankZones[zone].pop())
       }
     })
   }
 
-  function turkeyMode(itemDescriptions) {
-    itemDescriptions.push({
+  function turkeyMode(pool) {
+    pool.push({
       name: 'Turkey',
       type: TYPE.SUBWEAPON,
       id: 13,
@@ -416,7 +431,7 @@
     })
   }
 
-  function randomizeShopItems(itemDescriptions) {
+  function randomizeShopItems(pool) {
     // Get shop items by type.
     const shopTypes = items.filter(function(item) {
       return item.tiles && item.tiles.some(function(tile) {
@@ -431,7 +446,7 @@
       }
     }).reduce(typeReduce, [])
     // Assign random shop addresses.
-    const shuffledTypes = shuffled(itemDescriptions.filter(function(item) {
+    const shuffledTypes = shuffled(pool.filter(function(item) {
       return !foodFilter(item) && !salableFilter(item)
     })).reduce(typeReduce, [])
     shopTypes.forEach(function(items, type) {
@@ -443,16 +458,12 @@
     })
   }
 
-  function randomizeMapItems(itemDescriptions) {
+  function randomizeMapItems(pool) {
     // Shuffle items.
-    const shuffledItems = shuffled(itemDescriptions)
+    const shuffledItems = shuffled(pool)
     // Get all map tiles.
-    const mapItems = items.filter(tilesFilter)
-    const tileItems = mapItems.map(cloneTilesMap(function(tile) {
-      return !tile.shop && !tile.tank && !tile.reward
-        && !candleTileFilter(tile) && !dropTileFilter(tile)
-        && !tile.librarian
-    }))
+    const mapItems = items.filter(itemTileFilter(mapTileFilter))
+    const tileItems = mapItems.map(cloneTilesMap(mapTileFilter))
     // Shuffle all map tiles.
     const shuffledTiles = shuffled(collectTiles(tileItems))
     // Equipment is unique and placed in non-despawn tiles.
@@ -496,20 +507,20 @@
     util.assert.equal(shuffledTiles.length, 0)
   }
 
-  function randomizeEnemyDrops(itemDescriptions) {
+  function randomizeEnemyDrops(pool) {
     // Replace the axe subweapon drop with a random subweapon.
-    const subweapon = shuffled(itemDescriptions.filter(subweaponFilter)).pop()
+    const subweapon = shuffled(pool.filter(subweaponFilter)).pop()
     const subweaponTiles = collectTiles(items.filter(function(item) {
-      return dropItemFilter(item) && subweaponFilter(item)
+      return itemTileFilter(dropTileFilter)(item) && subweaponFilter(item)
     }), dropTileFilter)
     while (subweaponTiles.length) {
       pushTile.call(subweapon, takeTile(subweaponTiles))
     }
     // Shuffle items.
-    const shuffledItems = shuffled(itemDescriptions)
+    const shuffledItems = shuffled(pool)
     // Get all drop items.
     const dropItems = items.filter(function(item) {
-      return dropItemFilter(item) && !subweaponFilter(item)
+      return itemTileFilter(dropTileFilter)(item) && !subweaponFilter(item)
     })
     const tileItems = dropItems.map(cloneTilesMap(function(tile) {
       return dropTileFilter(tile) && !tile.byte
@@ -570,7 +581,7 @@
       const byteTile = tiles.filter(function(tile) {
         return tile.byte
       })[0]
-      const replacement = itemDescriptions.filter(function(item) {
+      const replacement = pool.filter(function(item) {
         return item.tiles && item.tiles.indexOf(shortTile) !== -1
       })[0]
       replacement.tiles.push(byteTile)
@@ -581,7 +592,7 @@
     const libTiles = collectTiles(items, function(tile) {
       return tile.librarian
     })
-    const shuffledEquip = shuffled(itemDescriptions.filter(equipmentFilter))
+    const shuffledEquip = shuffled(pool.filter(equipmentFilter))
     const libItems = shuffledEquip.slice(0, libTiles.length)
     libItems.forEach(function(item) {
       pushTile.call(item, takeTile(libTiles, blacklist(item)))
@@ -786,36 +797,52 @@
         randomizeStartingEquipment(data, info)
       }
     }
-    // Get item descriptions.
-    const itemDescriptions = items.map(function(item) {
+    // Get pool of randomizable items.
+    const pool = items.filter(function(item) {
+      if (foodFilter(item)) {
+        return true
+      }
+      if (options.enemyDrops) {
+        if (itemTileFilter(dropTileFilter)(item)) {
+          return true
+        }
+      }
+      if (options.itemLocations) {
+        if (itemTileFilter(mapTileFilter)(item)
+            || itemTileFilter(shopTileFilter)(item)
+            || itemTileFilter(librarianDropTileFilter)(item)
+            || heartFilter(item)
+            || goldFilter(item)
+            || subweaponFilter(item)) {
+          return true
+        }
+      }
+      if (options.prologueRewards) {
+        if (itemTileFilter(rewardTileFilter)(item)) {
+          return true
+        }
+      } 
+    }).map(function(item) {
       item = Object.assign({}, item)
       delete item.tiles
       return item
     })
+    // Randomizations.
     if (options.itemLocations) {
       if (options.checkVanilla) {
         // Check for item locations.
         returnVal = checkItemLocations(data, options.verbose) && returnVal
       } else {
         // Randomize candles.
-        randomizeCandles(itemDescriptions)
+        randomizeCandles(pool)
         // Randomize tank items.
         if (!options.turkeyMode) {
-          randomizeSubweaponTanks(itemDescriptions)
+          randomizeSubweaponTanks(pool)
         }
         // Randomize shop items.
-        randomizeShopItems(itemDescriptions)
+        randomizeShopItems(pool)
         // Randomize map items.
-        randomizeMapItems(itemDescriptions)
-      }
-    }
-    if (options.prologueRewards) {
-      if (options.checkVanilla) {
-        // Check for vanilla rewards.
-        returnVal = checkPrologueRewards(data, options.verbose) && returnVal
-      } else {
-        // Randomize prologue rewards.
-        randomizePrologueRewards(itemDescriptions)
+        randomizeMapItems(pool)
       }
     }
     if (options.enemyDrops) {
@@ -824,16 +851,25 @@
         returnVal = checkEnemyDrops(data, options.verbose) && returnVal
       } else {
         // Randomize enemy drops.
-        randomizeEnemyDrops(itemDescriptions)
+        randomizeEnemyDrops(pool)
+      }
+    }
+    if (options.prologueRewards) {
+      if (options.checkVanilla) {
+        // Check for vanilla rewards.
+        returnVal = checkPrologueRewards(data, options.verbose) && returnVal
+      } else {
+        // Randomize prologue rewards.
+        randomizePrologueRewards(pool)
       }
     }
     // Turkey mode.
     if (options.turkeyMode) {
-      turkeyMode(itemDescriptions)
+      turkeyMode(pool)
     }
     // Write items to ROM.
     if (!options.checkVanilla) {
-      itemDescriptions.filter(tilesFilter).forEach(writeTiles(data))
+      pool.filter(tilesFilter).forEach(writeTiles(data))
     }
     return returnVal
   }

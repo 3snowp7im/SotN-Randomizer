@@ -47,12 +47,12 @@
       relics[location].addresses.forEach(function(address) {
         data.writeByte(address, relic.id)
       })
-      // Check if placing in the shop
+      // Check if placing in the shop.
       const jewelOfOpen = relicFromId(0x10)
       if (location === jewelOfOpen.location) {
-        // Fix shop menu check
+        // Fix shop menu check.
         data.writeByte(shopRelicIdAddress, relic.id + shopRelicIdOffset)
-        // Change shop menu name
+        // Change shop menu name.
         for (let i = 0; i < jewelOfOpen.name.length; i++) {
           let value
           if (i >= relic.name.length

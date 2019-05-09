@@ -5056,10 +5056,6 @@
       enemy: 32,
     }],
   }, {
-    name: '$700',
-    type: TYPE.GOLD,
-    id: 8,
-  }, {
     name: '$1000',
     type: TYPE.GOLD,
     id: 9,
