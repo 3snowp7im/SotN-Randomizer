@@ -63,20 +63,20 @@ place(
 // Soul of Wolf and Cube of Zoe at 2nd castle.
 place(
   RELIC.SOUL_OF_WOLF
-    + RELIC.CUBE_OF_ZOE
-    + RELIC.FORCE_OF_ECHO,
+    + RELIC.CUBE_OF_ZOE,
   RELIC.HEART_OF_VLAD
-    + RELIC.RING_OF_VLAD
-    + RELIC.FORCE_OF_ECHO,
+    + RELIC.RING_OF_VLAD,
 )
 
-// Any Vlad relic at Holy Sympbol, Tooth of Vlad, and Rib of Vlad.
+// Any Vlad relic at Tooth of Vlad, Rib of Vlad, Force of Echo or Holy Sympbol.
 place(
   RELIC.HEART_OF_VLAD
     + RELIC.TOOTH_OF_VLAD
-    + RELIC.RIB_OF_VLAD,
+    + RELIC.RIB_OF_VLAD
+    + RELIC.RING_OF_VLAD,
   RELIC.TOOTH_OF_VLAD
     + RELIC.RIB_OF_VLAD
+    + RELIC.FORCE_OF_ECHO
     + RELIC.HOLY_SYMBOL,
 )
 
@@ -92,4 +92,3 @@ relics.forEach(function(relic) {
 // Print output.
 const prefix = process.argv[2] || ''
 console.log(prefix + util.optionsToString({relicLocks: locks}))
-//console.log(locks)
