@@ -270,7 +270,7 @@
     name: 'Rib of Vlad',
     id: 0x1b,
     location: 0x19,
-    addresses: [ 0x069d2b1e, 0x050fa914 ],
+    addresses: [ 0x069d2b1e, 0x050fa914, 0x050fb228 ],
     ability: RELIC.RIB_OF_VLAD,
     locks: [
       RELIC.JEWEL_OF_OPEN + RELIC.FORM_OF_MIST
