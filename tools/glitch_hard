@@ -67,8 +67,6 @@ plan.place(
     + RELIC.GAS_CLOUD,
 )
 
-plan.unlockRemaining()
-
 // Print output.
 const prefix = process.argv[2] || ''
 console.log(prefix + plan.locks())

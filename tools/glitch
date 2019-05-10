@@ -38,8 +38,6 @@ plan.place(
     + RELIC.FORM_OF_MIST,
 )
 
-plan.unlockRemaining()
-
 // Print output.
 const prefix = process.argv[2] || ''
 console.log(prefix + plan.locks())
