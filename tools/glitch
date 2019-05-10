@@ -1,0 +1,45 @@
+#!/usr/bin/env node
+// Glitch Logic by romscout
+// This tool creates a relic location lock string that may require extensive
+// glitch knowledge for completion.
+// Any% completion is assumed, but all Vlad relics are accessible.
+// Usage: tools/glitch [prefix]
+
+// Boilerplate.
+const plandomizer = require('../util').plandomizer
+const RELIC = require('../constants').RELIC
+
+// Create plandomizer.
+const plan = new plandomizer()
+
+// Soul of Wolf or Leap Stone will be early.
+plan.place(
+  RELIC.SOUL_OF_WOLF
+    + RELIC.LEAP_STONE
+    + RELIC.SWORD_CARD
+    + RELIC.GHOST_CARD
+    + RELIC.FAERIE_CARD
+    + RELIC.BAT_CARD,
+  RELIC.CUBE_OF_ZOE
+    + RELIC.SPIRIT_ORB
+    + RELIC.SOUL_OF_WOLF
+    + RELIC.JEWEL_OF_OPEN
+    + RELIC.FAERIE_SCROLL
+    + RELIC.LEAP_STONE,
+)
+
+// Mist will be accessible with Wolf and Leap Stone.
+plan.place(
+  RELIC.FORM_OF_MIST
+    + RELIC.SPIRIT_ORB
+    + RELIC.FAERIE_SCROLL,
+  RELIC.FAERIE_CARD
+    + RELIC.BAT_CARD
+    + RELIC.FORM_OF_MIST,
+)
+
+plan.unlockRemaining()
+
+// Print output.
+const prefix = process.argv[2] || ''
+console.log(prefix + plan.locks())

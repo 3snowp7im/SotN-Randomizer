@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+// Optimizer by 3snow_p7im
 // This tool creates a relic location lock string that maximizes speed.
 // Usage: tools/optimize [prefix]
 

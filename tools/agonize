@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+// Agonizer by 3snow_p7im
 // This tool creates a relic location lock string that maximizes agony.
 // Usage: tools/agonize [prefix]
 
