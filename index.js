@@ -444,7 +444,7 @@
     const path = require('path')
     const randomizeItems = require('./randomize_items')
     const randomizeRelics = require('./randomize_relics')
-    const eccEdcCalc = require('./ecc-edc-recalc-js')
+    let eccEdcCalc
     const yargs = require('yargs')
       .strict()
       .usage('$0 [options] [url]')
@@ -635,6 +635,7 @@
       process.exit(1)
     }
     if ('bin' in argv) {
+      eccEdcCalc = require('./ecc-edc-recalc-js')
       data = fs.readFileSync(argv.bin)
     }
     const check = new util.checked(data)
