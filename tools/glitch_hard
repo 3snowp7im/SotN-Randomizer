@@ -53,7 +53,7 @@ plan.place(
 
 // Tooth of Vlad will always be at the end of 2nd Castle
 plan.place(
-  RELIC.TOOTH_OF_VLAD
+  RELIC.HEART_OF_VLAD
     + RELIC.EYE_OF_VLAD,
   RELIC.EYE_OF_VLAD
     + RELIC.FORCE_OF_ECHO,
@@ -62,7 +62,7 @@ plan.place(
 // Jewel of Open will always be behind Merman Statue or Galamoth
 plan.place(
   RELIC.JEWEL_OF_OPEN
-    + RELIC.HEART_OF_VLAD,
+    + RELIC.TOOTH_OF_VLAD,
   RELIC.HOLY_SYMBOL
     + RELIC.GAS_CLOUD,
 )
