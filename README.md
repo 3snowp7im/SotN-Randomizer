@@ -95,16 +95,7 @@ $ ./randomize -vvvl https://sotn.io/?3b7,myseed
 Relic placement is determind by relic location locks. Lock strings are a terse
 format of information meant solely for consumption by the randomizer. Creating
 your own lock strings is more easily done using a tool. Examples of such tools
-are `logic/safe.js`, `logic/agonize.js`, and `logic/glitch.js`. These scripts
-outline new rules for relic placement logic and output the corresponding lock
-string. The result can then be used as part of the randomizer options.
-
-For example, you have created your tool in `logic/mylogic.js`. To create a URL
-that allows others to randomize their game using your custom logic:
-
-```shell
-$ ./randomize -uo $(node logic/mylogic.js)
-```
+are `logic/safe.js`, `logic/agonize.js`, and `logic/glitch.js`.
 
 To create your own locks, try copying one of these tools and modifying the
 arguments passed to the `place` or `lock` function calls:
@@ -127,6 +118,16 @@ plan.lock(RELIC.CUBE_OF_ZOE, [
   RELIC.LEAP_STONE + RELIC.GRAVITY_BOOTS,
   RELIC.JEWEL_OF_OPEN,
 ])
+```
+
+These scripts outline new rules for relic placement logic and output the
+corresponding lock string. The result can then be used as part of the
+randomizer options. For example, you have created your tool and named it
+`logic/mylogic.js`. To create a URL that allows others to randomize their game
+using your custom logic:
+
+```shell
+$ ./randomize -uo $(node logic/mylogic.js)
 ```
 
 For more information on the specifics of the lock string format, refer to the
