@@ -13,12 +13,15 @@
   
   let relics
   let util
+  let logic
   if (self) {
-    relics = sotnRando.relics
-    util = sotnRando.util
+    relics = self.sotnRando.relics
+    util = self.sotnRando.util
+    logic = self.sotnRando.logic
   } else {
     relics = require('./relics')
     util = require('./util')
+    logic = require('./logic')
   }
 
   const ERROR = {
@@ -262,11 +265,17 @@
         }
       } else {
         // Initialize location locks.
-        const locks = relics.reduce(function(locks, relic) {
-          locks[relic.ability] = relic.locks || []
-          return locks
-        }, {})
+        const locks = {}
         Object.assign(locks, options.relicLocks || {})
+        const id = locks.logic || 'safe'
+        const meta = logic.filter(function(meta) {
+          return meta.id === id
+        }).pop()
+        if (!meta) {
+          throw new Error('Unknown logic: ' + id)
+        }
+        Object.assign(locks, meta.locks, options.relicLocks)
+        delete locks.logic
         relics.forEach(function(relic) {
           relic.locks = locks[relic.ability].map(function(lock) {
             return new Set(lock)

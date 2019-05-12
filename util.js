@@ -151,17 +151,24 @@
         break
       case 'l':
         c = randomize[i++]
-        const relics = Object.getOwnPropertyNames(constants.RELIC)
-        let location = constants.RELIC[relics.filter(function(relic) {
-          return constants.RELIC[relic] === c
-        }).pop()]
-        if (!location) {
-          throw new Error('Invalid relic location: ' + c)
+        let logic
+        if (c === '.') {
+          logic = true
         }
+        const relics = Object.getOwnPropertyNames(constants.RELIC)
         let start = i
+        let location
+        if (!logic) {
+          location = constants.RELIC[relics.filter(function(relic) {
+            return constants.RELIC[relic] === c
+          }).pop()]
+          if (!location) {
+            throw new Error('Invalid relic location: ' + c)
+          }
+        }
         while (i < randomize.length && randomize[i] !== ',') {
           c = randomize[i]
-          if (c !== '-') {
+          if (!logic && c !== '-') {
             const valid = relics.some(function(relic) {
               return constants.RELIC[relic] === c
             })
@@ -172,25 +179,43 @@
           i++
         }
         const lock = randomize.slice(start, i)
-        let locks = lock.split('-')
-        const emptyLocks = locks.filter(function(lock) {
-          return lock.length === 0
-        })
-        locks = locks.filter(function(lock) {
-          return lock.length > 0
-        })
-        if (emptyLocks.length > 1 || (locks.length && emptyLocks.length)) {
-          throw new Error('Invald lock: ' + location + lock)
+        const relicLocks = options.relicLocks || {}
+        if (logic) {
+          if ('logic' in relicLocks) {
+            throw new Error('Can\'t specify more than one relic logic')
+          }
+          options.relicLocations = true
+          if (lock !== 'safe') {
+            // Safe logic is default.
+            relicLocks.logic = lock
+          }
+        } else {
+          let locks = lock.split('-')
+          const emptyLocks = locks.filter(function(lock) {
+            return lock.length === 0
+          })
+          locks = locks.filter(function(lock) {
+            return lock.length > 0
+          })
+          if (emptyLocks.length > 1 || (locks.length && emptyLocks.length)) {
+            throw new Error('Invald lock: ' + location + lock)
+          }
+          relicLocks[location] = locks
         }
-        options.relicLocks = options.relicLocks || {}
-        options.relicLocks[location] = locks
         if (randomize[i] === ',') {
           i++
+        }
+        if (Object.getOwnPropertyNames(relicLocks).length) {
+          options.relicLocks = relicLocks
+          options.relicLocations = true
         }
         break
       default:
         throw new Error('Invalid randomization: ' + c)
       }
+    }
+    if (!Object.getOwnPropertyNames(options).length) {
+      throw new Error('No randomizations')
     }
     return options
   }
@@ -210,13 +235,23 @@
       randomize += 'p'
     }
     if (options.relicLocations) {
-      randomize += 'r'
+      if (!('relicLocks' in options)) {
+        randomize += 'r'
+      } else if (options.relicLocks.logic === 'safe') {
+        if (Object.getOwnPropertyNames(options.relicLocks).length === 1) {
+          randomize += 'r'
+        }
+      }
     }
     if (options.turkeyMode) {
       randomize += 't'
     }
     if (options.relicLocks) {
       const locks = []
+      if ('logic' in options.relicLocks
+          && options.relicLocks.logic !== 'safe') {
+        locks.push('l.' + options.relicLocks.logic)
+      }
       Object.getOwnPropertyNames(constants.RELIC).forEach(function(relic) {
         relic = constants.RELIC[relic]
         if (options.relicLocks[relic]) {
@@ -224,6 +259,9 @@
         }
       })
       randomize += locks.join(',')
+    }
+    if (!randomize.length) {
+      throw new Error('No randomizations')
     }
     return randomize
   }
@@ -418,7 +456,8 @@
   }
 
   // Helper class to create relic location locks.
-  function plandomizer() {
+  function plandomizer(metadata) {
+    this.metadata = metadata
     const relicNames = Object.getOwnPropertyNames(constants.RELIC)
     // A set of unplaced locations.
     this.unplaced = new Set(relicNames.reduce(function(lock, relic) {
@@ -426,6 +465,14 @@
     }, ''))
     // The collection of location locks.
     this.locations = {}
+  }
+
+  // Lock relic location behind abilities.
+  plandomizer.prototype.lock = function lock(where, what) {
+    this.locations[where] = this.locations[where] || []
+    Array.prototype.push.apply(this.locations[where], what.map(function(lock) {
+      return new Set(lock)
+    }))
   }
 
   // Add relics to locations. The what and where arguments must contain the
@@ -438,21 +485,31 @@
       unplaced.delete(relic)
     })
     where.split('').forEach(function(location) {
-      locations[location] = new Set(unplaced)
+      locations[location] = locations[location] || []
+      locations[location].push(new Set(unplaced))
     })
   }
 
   // Convert lock sets into strings.
-  plandomizer.prototype.locks = function locks() {
+  plandomizer.prototype.logic = function logic() {
     const locks = Object.assign({}, this.locations)
     relics.forEach(function(relic) {
-      if (!locks[relic.ability]) {
-        locks[relic.ability] = ['']
+      if (locks[relic.ability]) {
+        locks[relic.ability] = locks[relic.ability].map(function(lock) {
+          return Array.from(lock).join('')
+        })
       } else {
-        locks[relic.ability] = [Array.from(locks[relic.ability]).join('')]
+        locks[relic.ability] = ['']
       }
     })
-    return optionsToString({relicLocks: locks})
+    return Object.assign({}, this.metadata, {
+      locks: locks,
+    })
+  }
+
+  // Output as lock string.
+  plandomizer.prototype.toString = function toString() {
+    return optionsToString({relicLocks: this.logic().locks})
   }
 
   const exports = {

@@ -21,17 +21,29 @@
         <span id="status"></span>
         <input id="file" type="file" accept=".bin,.iso">
       </p>
-      <div class="pure-u-12-24">
+      <div class="pure-u-14-24">
         <fieldset>
           <legend>Randomizations</legend>
           <div class="pure-g">
-            <div class="pure-u-1">
-              <label for="seed">Seed</label>
+            <div class="pure-u-12-24">
+              <label for="seed">Seed:</label>
+            </div>
+            <div class="pure-u-12-24">
               <input id="seed" type="text" placeholder="Optional">
             </div>
             <div class="pure-u-12-24">
               <input id="relic-locations" type="checkbox">
-              <label for="relic-locations">Relic locations</label>
+              <label id="relic-label" for="relic-locations"></label>
+            </div>
+            <div id="relic-logic-field" class="pure-u-12-24">
+              <select id="relic-logic"></select>
+              <span class="tooltip-wrapper">
+                <span class="tooltip-indicator">?</span>
+                <span class="tooltip hidden">
+                  <span id="logic-description"></span>
+                  <span id="logic-author"></span>
+                </span>
+              </span>
             </div>
             <div class="pure-u-12-24">
               <input id="item-locations" type="checkbox">
@@ -67,21 +79,23 @@
         </fieldset>
         <fieldset>
           <legend>Options</legend>
-          <div>
-            <input id="append-seed" type="checkbox">
-            <label for="append-seed">Append seed to filename</label>
-          </div>
-          <div>
-            <input id="show-spoilers" type="checkbox">
-            <label for="show-spoilers">Show spoilers</label>
-          </div>
-          <div>
-            <input id="show-relics" type="checkbox">
-            <label for="show-relics">Show relic locations</label>
+          <div class="pure-g">
+            <div class="pure-u-1">
+              <input id="append-seed" type="checkbox">
+              <label for="append-seed">Append seed to filename</label>
+            </div>
+            <div class="pure-u-1">
+              <input id="show-spoilers" type="checkbox">
+              <label for="show-spoilers">Show spoilers</label>
+            </div>
+            <div class="pure-u-1">
+              <input id="show-relics" type="checkbox">
+              <label for="show-relics">Show relic locations</label>
+            </div>
           </div>
         </fieldset>
       </div>
-      <div class="pure-u-12-24 spoilers">
+      <div class="pure-u-10-24 spoilers">
         <textarea id="spoilers" rows="8" cols="32" disabled="disabled">
         </textarea>
       </div>
@@ -130,6 +144,10 @@
     </p>
     <hr>
     <h2><a name="changelog">Changelog</a></h2>
+    <h3><time>Map 11, 2019</time></h3>
+    <ul>
+      <li>Add selector for built-in relic logic schemes.</li>
+    </ul>
     <h3><time>Map 8, 2019</time></h3>
     <ul>
       <li>Add support for <a href="https://github.com/3snowp7im/SotN-Randomizer#custom-relic-logic">custom relic logic</a>.</li>
@@ -237,13 +255,19 @@
     </ul>
     <h3><time>March 27, 2019</time></h3>
     <ul>
-      <li>Ported skiffain's <a href="https://github.com/josephstevenspgh/SotN-Relic-Randomizer">relic randomizer</a> to javascript.</li>
+      <li>Ported setz's <a href="https://github.com/josephstevenspgh/SotN-Relic-Randomizer">relic randomizer</a> to javascript.</li>
     </ul>
     <div id="dev-border"></div>
     <a id="fork" href="https://github.com/3snowp7im/SotN-Randomizer"><img width="149" height="149" src="https://github.blog/wp-content/uploads/2008/12/forkme_left_darkblue_121621.png?resize=149%2C149" class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1"></a>
     <script src="constants.js"></script>
     <script src="relics.js"></script>
     <script src="util.js"></script>
+    <script src="logic/safe.js"></script>
+    <script src="logic/agonize.js"></script>
+    <script src="logic/glitch.js"></script>
+    <script src="logic/glitch-hard.js"></script>
+    <script src="logic/optimize.js"></script>
+    <script src="logic/index.js"></script>
     <script src="index.js"></script>
   </body>
 </html>

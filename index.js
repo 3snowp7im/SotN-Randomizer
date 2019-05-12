@@ -6,6 +6,7 @@
   let constants
   let util
   let relics
+  let logic
 
   let info
   let lastSeed
@@ -25,12 +26,13 @@
     constants = sotnRando.constants
     util = sotnRando.util
     relics = sotnRando.relics
+    logic = sotnRando.logic
   } else {
     version = require('./package').version
     constants = require('./constants')
     util = require('./util')
     relics = require('./relics')
-    
+    logic = require('./logic')
   }
 
   function loadOption(name, changeHandler, defaultValue) {
@@ -73,11 +75,11 @@
   }
 
   function hideLoader() {
-    elems.loader.style.visibility = 'hidden'
+    elems.loader.classList.add('hide')
   }
 
   function showLoader() {
-    elems.loader.style.visibility = 'visible'
+    elems.loader.classList.remove('hide')
   }
 
   function resetState() {
@@ -95,11 +97,11 @@
         status += ' ' + selectedFile.name
       }
       elems.target.classList.add('active')
-      elems.status.innerHTML = status
+      elems.status.innerText = status
       elems.randomize.disabled = false
     } else {
       elems.target.classList.remove('active')
-      elems.status.innerHTML = 'Drop .bin file here or'
+      elems.status.innerText = 'Drop .bin file here or'
     }      
   }
 
@@ -135,6 +137,13 @@
 
   function relicLocationsChange() {
     localStorage.setItem('relicLocations', elems.relicLocations.checked)
+    if (elems.relicLocations.checked) {
+      elems.relicLabel.innerText = 'Relic locations:'
+      elems.relicLogicField.classList.remove('hide')
+    } else {
+      elems.relicLabel.innerText = 'Relic locations'
+      elems.relicLogicField.classList.add('hide')
+    }
   }
 
   function turkeyModeChange() {
@@ -168,6 +177,13 @@
   function showRelicsChange() {
     showSpoilers()
     localStorage.setItem('showRelics', elems.showRelics.checked)
+  }
+
+  function relicLogicChange() {
+    const meta = logic[elems.relicLogic.selectedIndex]
+    elems.logicDescription.innerText = meta.description
+    elems.logicAuthor.innerText = 'by ' + meta.author
+    localStorage.setItem('relicLogic', meta.id)
   }
 
   function dragLeaveListener(event) {
@@ -214,20 +230,22 @@
   }
 
   function getFormOptions() {
-    let relicLocks
-    if (elems.relicLocks.value) {
-      const options = util.optionsFromString(elems.relicLocks.value)
-      relicLocks = options.relicLocks
-    }
-    return {
+    const options = {
       relicLocations: elems.relicLocations.checked,
       startingEquipment: elems.startingEquipment.checked,
       prologueRewards: elems.prologueRewards.checked,
       itemLocations: elems.itemLocations.checked,
       enemyDrops: elems.enemyDrops.checked,
       turkeyMode: elems.turkeyMode.checked,
-      relicLocks: relicLocks,
     }
+    if (elems.relicLocks.value) {
+      options.relicLocks = util.optionsFromString(elems.relicLocks.value)
+    }
+    if (options.relicLocations) {
+      options.relicLocks = options.relicLocks || {}
+      options.relicLocks.logic = logic[elems.relicLogic.selectedIndex].id
+    }
+    return options
   }
 
   function submitListener(event) {
@@ -258,7 +276,7 @@
     if (data.error) {
       elems.target.classList.remove('active')
       elems.target.classList.add('error')
-      elems.status.innerHTML = data.error
+      elems.status.innerText = data.error
       return
     }
     const seed = data.seed
@@ -288,19 +306,13 @@
     event.stopPropagation()
     elems.seed.value = ''
     elems.seed.disabled = false
-    elems.relicLocations.value = ''
     elems.relicLocations.disabled = false
-    elems.itemLocations.value = ''
     elems.itemLocations.disabled = false
-    elems.enemyDrops.value = ''
     elems.enemyDrops.disabled = false
-    elems.startingEquipment.value = ''
     elems.startingEquipment.disabled = false
-    elems.prologueRewards.value = ''
     elems.prologueRewards.disabled = false
-    elems.turkeyMode.value = ''
     elems.turkeyMode.disabled = false
-    elems.relicLocks.value = ''
+    elems.relicLogic.disabled = false
     elems.clear.classList.add('hidden')
   }
 
@@ -316,17 +328,13 @@
       elems.seed.value,
       window.location.href,
     )
-    const textarea = document.createElement('textarea')
-    textarea.textContent = url.toString()
-    document.body.appendChild(textarea)
-    const selection = document.getSelection()
-    const range = document.createRange()
-    range.selectNode(textarea)
-    selection.removeAllRanges()
-    selection.addRange(range)
+    const input = document.createElement('input')
+    document.body.appendChild(input)
+    input.type = 'text'
+    input.value = url.toString()
+    input.select()
     document.execCommand('copy')
-    selection.removeAllRanges()
-    document.body.removeChild(textarea)
+    document.body.removeChild(input)
     if (animationDone) {
       animationDone = false
       elems.notification.classList.add('success')
@@ -393,7 +401,7 @@
     '  "p" for prologue rewards',
     '  "r" for relic locations',
     '  "t" for turkey mode',
-    '  "l" for relic location lock (`--help locks`)',
+    '  "l" for relic location lock (`--help logic`)',
     '',
     'The default randomization mode is "'
       +  constants.defaultOptions
@@ -401,9 +409,9 @@
     'while using default relic placement logic.',
     '',
     'Examples:',
-    '  `$0 -o d`    # Only randomize enemy drops.',
-    '  `$0 -o dir`  # Randomize drops, item locations, and relic locations.',
-    '  `$0`         # Randomize everything (default mode).',
+    '  $0 -o d    # Only randomize enemy drops.',
+    '  $0 -o dir  # Randomize drops, item locations, and relic locations.',
+    '  $0         # Randomize everything (default mode).',
   ].join('\n')
 
   const locksHelp = [
@@ -413,30 +421,62 @@
     'comprising any single lock.',
     '',
     'Locks format:',
-    '  l<loc>[abil[-abil...]][,l<loc>[abil[-abil...]]...]',
-    '',
-    'Locations and abilities are specified using any of the following:',
-  ].concat(relics.map(function(relic) {
-    return '  "' + relic.ability + '" for ' + relic.name
-      + ' (default locks: l' + relic.ability
-      + (relic.locks ? relic.locks.join('-') : '')
-      + ')'
-  })).concat([
+    '  l<loc|\'.\'>[abil[-abil...]][,l<loc>[abil[-abil...]]...]',
     '',
     'Examples:',
-    '  `lBL`      Soul of Bat relic location requires Leap Stone.',
-    '  `lSLG-MP`  Holy Symbol relic location requires Leap Stone + Gravity',
-    '             Boots OR Form of Mist + Power of Mist.',
+    '  lBL      Soul of Bat relic location requires Leap Stone.',
+    '  lSLG-MP  Holy Symbol relic location requires Leap Stone + Gravity',
+    '           Boots OR Form of Mist + Power of Mist.',
     '',
     'Locks for different location can be specified by separating each',
     'location by a comma:',
-    '  `lBL,lSLG-MP`',
+    '  lBL,lSLG-MP',
     '',
     'If other randomization options follow a lock, they must also be',
     'separated from the lock with a comma:',
     '',
-    '  `$0 -o lBL,lSLG-MP,rdt`',
+    '  $0 -o lBL,lSLG-MP,dpt',
+    '',
+    'Use `--help logic` for information on the built-in placement logic',
+    'schemes.',
+  ].join('\n')
+
+  const logicHelp = [
+    'This randomizer has several built-in relic placement logic schemes:',
+  ].concat(logic.map(function(meta) {
+    return '  ' + meta.id + (meta.id === 'safe' ? ' (default)' : '')
+  })).concat([
+    '',
+    'Use `--help <logic>` for information on a specific scheme.',
+    '',
+    'Use the lock string format with a location identifier of "." to specify',
+    'a logic scheme other than default.',
+    '',
+    'Example:',
+    '  randomize -o l.agonize         # Randomize relics, agonizer logic',
+    '  randomize -o l.optimize,deipt  # Randomize everything, speedrun logic',
+    '',
+    'Note that specifying locks implies randomization "r" (relic locations)',
+    'is enabled, so it does not need to be included in the options string.',
+    'For example, an options string of "lBL" is the same as "lBLr".',
+    '',
+    'Use `--help locks` for information on custom location locks.',
   ]).join('\n')
+
+  function logicMetaHelp(meta) {
+    return [
+      meta.name + ' by ' + meta.author,
+      meta.description,
+      ''
+    ].concat(relics.map(function(relic) {
+      let label = '  (' + relic.ability + ') ' + relic.name
+      label += Array(28).fill(' ').join('')
+      return label.slice(0, 28) + 'l' + relic.ability
+        + (meta.locks[relic.ability]
+           ? meta.locks[relic.ability].join('-') : '')
+    })).concat([
+    ]).join('\n')
+  }
 
   function main() {
     const fs = require('fs')
@@ -511,21 +551,21 @@
         process.exit()
       }
       const topics = {
-        optionsHelp: optionsHelp,
-        locksHelp: locksHelp,
+        options: optionsHelp,
+        locks: locksHelp,
+        logic: logicHelp,
       }
       const script = path.basename(process.argv[1])
       Object.getOwnPropertyNames(topics).forEach(function(topic) {
         topics[topic] = topics[topic].replace(/\$0/g, script)
       }, {})
-      switch (argv.help) {
-      case 'options':
-        console.log(topics.optionsHelp)
+      logic.forEach(function(meta) {
+        topics[meta.id] = logicMetaHelp(meta)
+      })
+      if (argv.help in topics) {
+        console.log(topics[argv.help])
         process.exit()
-      case 'locks':
-        console.log(topics.locksHelp)
-        process.exit()
-      default:
+      } else {
         yargs.showHelp()
         console.error('\nUnknown help topic: ' + argv.help)
         process.exit(1)
@@ -685,8 +725,14 @@
     elems.randomize = document.getElementById('randomize')
     elems.seed = document.getElementById('seed')
     elems.seed.addEventListener('change', seedChange)
+    elems.relicLabel = document.getElementById('relic-label')
     elems.relicLocations = document.getElementById('relic-locations')
     elems.relicLocations.addEventListener('change', relicLocationsChange)
+    elems.relicLogicField = document.getElementById('relic-logic-field')
+    elems.relicLogic = document.getElementById('relic-logic')
+    elems.relicLogic.addEventListener('change', relicLogicChange)
+    elems.logicDescription = document.getElementById('logic-description')
+    elems.logicAuthor = document.getElementById('logic-author')
     elems.startingEquipment = document.getElementById('starting-equipment')
     elems.startingEquipment.addEventListener('change', startingEquipmentChange)
     elems.itemLocations = document.getElementById('item-locations')
@@ -714,13 +760,20 @@
     elems.copy.addEventListener('click', copyHandler)
     elems.notification = document.getElementById('notification')
     elems.seedUrl = document.getElementById('seed-url')
+    // Load relic logic.
+    logic.forEach(function(meta) {
+      const option = document.createElement('option')
+      option.value = meta.id
+      option.innerText = meta.name
+      elems.relicLogic.appendChild(option)
+    })
     const url = new URL(window.location.href)
     if (url.protocol !== 'file:') {
       fetch(new Request('package.json')).then(function(response) {
         if (response.ok) {
           response.json().then(function(json) {
             version = json.version
-            document.getElementById('version').innerHTML = version
+            document.getElementById('version').innerText = version
           })
         }
       }).catch(function(){})
@@ -748,6 +801,17 @@
         relicLocks = util.optionsToString({
           relicLocks: options.relicLocks,
         })
+        if (options.relicLocks.logic) {
+          for (let i = 0; i < logic.length; i++) {
+            if (logic[i].id === options.relicLocks.logic) {
+              elems.relicLogic.selectedIndex = i
+              break
+            }
+          }
+        } else {
+          elems.relicLogic.selectedIndex = 0
+        }
+        relicLogicChange()
       }
       elems.relicLocks.value = relicLocks
       turkeyModeChange()
@@ -763,6 +827,7 @@
       elems.startingEquipment.disabled = true
       elems.prologueRewards.disabled = true
       elems.turkeyMode.disabled = true
+      elems.relicLogic.disabled = true
       elems.clear.classList.remove('hidden')
       const baseUrl = url.origin + url.pathname
       window.history.replaceState({}, document.title, baseUrl)
@@ -773,6 +838,16 @@
       loadOption('startingEquipment', startingEquipmentChange, true)
       loadOption('prologueRewards', prologueRewardsChange, true)
       loadOption('turkeyMode', turkeyModeChange, true)
+      const relicLogic = localStorage.getItem('relicLogic')
+      if (typeof(relicLogic) === 'string') {
+        for (let i = 0; i < logic.length; i++) {
+          if (logic[i].id === relicLogic) {
+            elems.relicLogic.selectedIndex = i
+            break
+          }
+        }
+      }
+      relicLogicChange()
     }
     let path = url.pathname
     if (path.match(/index\.html$/)) {
@@ -786,6 +861,12 @@
     loadOption('appendSeed', appendSeedChange, true)
     loadOption('showSpoilers', spoilersChange, true)
     loadOption('showRelics', showRelicsChange, false)
+    setTimeout(function() {
+      const els = document.getElementsByClassName('tooltip')
+      Array.prototype.forEach.call(els, function(el) {
+        el.classList.remove('hidden')
+      })
+    })
   } else {
     main()
   }
