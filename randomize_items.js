@@ -537,11 +537,9 @@
     Object.getOwnPropertyNames(dupTypes).forEach(function(type) {
       type = parseInt(type)
       const items = shuffled(types[type])
-      for (let i = 0; i < dupTypes[type].length; i++) {
-        for (let j = 0; j < dupTypes[type][i]; j++) {
-          pool.push(Object.assign({}, items[i]))
-        }
-      }
+      dupTypes[type].forEach(function(count) {
+        Array.prototype.push.apply(pool, Array(count).fill(items.shift()))
+      })
     })
     // Shuffle items.
     const shuffledItems = shuffled(pool)
