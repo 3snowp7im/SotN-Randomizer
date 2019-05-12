@@ -60,7 +60,7 @@
   ])
 
   // Skill of Wolf requires at least Gravity Boots.
-  plan.lock(RELIC.SKILL_OF_WOLD, [
+  plan.lock(RELIC.SKILL_OF_WOLF, [
     RELIC.GRAVITY_BOOTS,
     RELIC.SOUL_OF_BAT,
     RELIC.FORM_OF_MIST + RELIC.POWER_OF_MIST,
