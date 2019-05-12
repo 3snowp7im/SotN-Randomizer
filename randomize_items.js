@@ -526,8 +526,8 @@
           return tile.enemy
         })
         if (enemies.length > 1) {
-          dupTypes[item.type] = dupTypes[item.type] || 0
-          dupTypes[item.type] += enemies.length - 1
+          dupTypes[item.type] = dupTypes[item.type] || []
+          dupTypes[item.type].push(enemies.length - 1)
         }
       }
     })
@@ -537,12 +537,9 @@
     Object.getOwnPropertyNames(dupTypes).forEach(function(type) {
       type = parseInt(type)
       const items = shuffled(types[type])
-      for (let i = 0; i < items.length; i++) {
-        if (items[i].type === type) {
-          for (let j = 0; j < dupTypes[type]; j++) {
-            pool.push(Object.assign({}, items[i]))
-          }
-          break
+      for (let i = 0; i < dupTypes[type].length; i++) {
+        for (let j = 0; j < dupTypes[type][i]; j++) {
+          pool.push(Object.assign({}, items[i]))
         }
       }
     })
