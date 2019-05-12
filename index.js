@@ -793,9 +793,10 @@
       enemyDropsChange()
       elems.prologueRewards.checked = options.prologueRewards
       prologueRewardsChange()
+      elems.turkeyMode.checked = options.turkeyMode
+      turkeyModeChange()
       elems.relicLocations.checked = options.relicLocations
       relicLocationsChange()
-      elems.turkeyMode.checked = options.turkeyMode
       let relicLocks = ''
       if (options.relicLocks) {
         relicLocks = util.optionsToString({
@@ -811,10 +812,9 @@
         } else {
           elems.relicLogic.selectedIndex = 0
         }
-        relicLogicChange()
       }
+      relicLogicChange()
       elems.relicLocks.value = relicLocks
-      turkeyModeChange()
       if (typeof(seed) === 'string') {
         elems.seed.value = seed
         seedChange()
