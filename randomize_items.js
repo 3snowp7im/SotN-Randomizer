@@ -516,6 +516,36 @@
     while (subweaponTiles.length) {
       pushTile.call(subweapon, takeTile(subweaponTiles))
     }
+    // Collect counts of equipment types dropped by more than one enemy.
+    const dupTypes = {}
+    items.forEach(function(item) {
+      if (equipmentFilter(item) && !salableFilter(item) && item.tiles) {
+        const enemies = item.tiles.filter(function(tile) {
+          return 'enemy' in tile
+        }).map(function(tile) {
+          return tile.enemy
+        })
+        if (enemies.length > 1) {
+          dupTypes[item.type] = dupTypes[item.type] || 0
+          dupTypes[item.type] += enemies.length - 1
+        }
+      }
+    })
+    // Duplicate equipment as necessary.
+    const types = pool.reduce(typeReduce, [])
+    types[TYPE.ACCESSORY] = types[TYPE.ACCESSORY].filter(nonsalableFilter)
+    Object.getOwnPropertyNames(dupTypes).forEach(function(type) {
+      type = parseInt(type)
+      const items = shuffled(types[type])
+      for (let i = 0; i < items.length; i++) {
+        if (items[i].type === type) {
+          for (let j = 0; j < dupTypes[type]; j++) {
+            pool.push(Object.assign({}, items[i]))
+          }
+          break
+        }
+      }
+    })
     // Shuffle items.
     const shuffledItems = shuffled(pool)
     // Get all drop items.
@@ -525,6 +555,17 @@
     const tileItems = dropItems.map(cloneTilesMap(function(tile) {
       return dropTileFilter(tile) && !tile.byte
     }))
+    // Create filter that ensures enemies don't drop the same item twice.
+    const drops = {}
+    const uniqueDrops = function(item) {
+      return function(tile) {
+        if (blacklist(item)(tile)
+            && (!tile.enemy in drops || drops[tile.enemy] !== item.id)) {
+          drops[tile.enemy] = item.id
+          return true
+        }
+      }
+    }
     // Shuffle all drop tiles.
     const shuffledTiles = shuffled(collectTiles(tileItems))
     // Distribute gold with same id frequency as vanilla.
@@ -534,7 +575,7 @@
         return goldFilter(item) && item.id === goldItem.id
       }, function(items) {
         const item = items[0]
-        pushTile.call(item, takeTile(shuffledTiles, blacklist(item)))
+        pushTile.call(item, takeTile(shuffledTiles, uniqueDrops(item)))
       })
     })
     // Distribute jewels with same id frequency as vanilla.
@@ -544,7 +585,7 @@
         return item.id === salableItem.id
       }, function(items) {
         const item = items[0]
-        pushTile.call(item, takeTile(shuffledTiles, blacklist(item)))
+        pushTile.call(item, takeTile(shuffledTiles, uniqueDrops(item)))
       })
     })
     // Distribute equipment with same type frequency as vanilla.
@@ -559,7 +600,7 @@
     equipment.forEach(function(filter) {
       eachTileItem(tileItems, shuffledItems, filter, function(items) {
         const item = items.pop()
-        pushTile.call(item, takeTile(shuffledTiles, blacklist(item)))
+        pushTile.call(item, takeTile(shuffledTiles, uniqueDrops(item)))
       })
     })
     // Distribute usable items randomly.
@@ -567,7 +608,7 @@
     usable.forEach(function(filter) {
       eachTileItem(tileItems, shuffledItems, filter, function(items) {
         const item = randItem(items)
-        pushTile.call(item, takeTile(shuffledTiles, blacklist(item)))
+        pushTile.call(item, takeTile(shuffledTiles, uniqueDrops(item)))
       })
     })
     util.assert.equal(shuffledTiles.length, 0)
