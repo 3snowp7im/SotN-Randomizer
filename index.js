@@ -239,11 +239,13 @@
       turkeyMode: elems.turkeyMode.checked,
     }
     if (elems.relicLocks.value) {
-      options.relicLocks = util.optionsFromString(elems.relicLocks.value)
+      options.relicLocations = util.optionsFromString(elems.relicLocks.value)
     }
     if (options.relicLocations) {
-      options.relicLocks = options.relicLocks || {}
-      options.relicLocks.logic = logic[elems.relicLogic.selectedIndex].id
+      if (typeof(options.relicLocations) !== 'object') {
+        options.relicLocations = {}
+      }
+      options.relicLocations.logic = logic[elems.relicLogic.selectedIndex].id
     }
     return options
   }
@@ -399,9 +401,8 @@
     '  "e" for starting equipment',
     '  "i" for item locations',
     '  "p" for prologue rewards',
-    '  "r" for relic locations',
     '  "t" for turkey mode',
-    '  "l" for relic location lock (`--help logic`)',
+    '  "r" for relic locations (`--help relics`)',
     '',
     'The default randomization mode is "'
       +  constants.defaultOptions
@@ -410,32 +411,36 @@
     '',
     'Examples:',
     '  $0 -o d    # Only randomize enemy drops.',
-    '  $0 -o dir  # Randomize drops, item locations, and relic locations.',
+    '  $0 -o di   # Randomize drops and item locations.',
     '  $0         # Randomize everything (default mode).',
   ].join('\n')
 
-  const locksHelp = [
+  const relicsHelp = [
+    'Relic location randomization can be either toggled with the "r" switch,',
+    'or more advanced options can be enabled using logic schemes and location',
+    'locks.',
+    '',
     'A relic location lock sets the abilities required to access a relic',
     'location. Each relic location may be guarded by multiple locks, and the',
     'location will be open to the player once they have all abilities',
     'comprising any single lock.',
     '',
-    'Locks format:',
-    '  l<loc|\'.\'>[abil[-abil...]][,l<loc>[abil[-abil...]]...]',
+    'Relics format:',
+    '  r[:\'logic\':logic][:location[:abilities[-abilities...]][:location...]',
     '',
     'Examples:',
-    '  lBL      Soul of Bat relic location requires Leap Stone.',
-    '  lSLG-MP  Holy Symbol relic location requires Leap Stone + Gravity',
-    '           Boots OR Form of Mist + Power of Mist.',
+    '  r:B:L      Soul of Bat relic location requires Leap Stone.',
+    '  r:S:LG-MP  Holy Symbol relic location requires Leap Stone + Gravity',
+    '             Boots OR Form of Mist + Power of Mist.',
     '',
     'Locks for different location can be specified by separating each',
-    'location by a comma:',
-    '  lBL,lSLG-MP',
+    'location by a colon:',
+    '  r:B:L:S:LG-MP',
     '',
     'If other randomization options follow a lock, they must also be',
     'separated from the lock with a comma:',
     '',
-    '  $0 -o lBL,lSLG-MP,dpt',
+    '  $0 -o r:B:L:S:LG-MP,dpt',
     '',
     'Use `--help logic` for information on the built-in placement logic',
     'schemes.',
@@ -449,16 +454,12 @@
     '',
     'Use `--help <logic>` for information on a specific scheme.',
     '',
-    'Use the lock string format with a location identifier of "." to specify',
+    'Use the lock string format with a location identifier of ":" to specify',
     'a logic scheme other than default.',
     '',
     'Example:',
-    '  randomize -o l.agonize         # Randomize relics, agonizer logic',
-    '  randomize -o l.optimize,deipt  # Randomize everything, speedrun logic',
-    '',
-    'Note that specifying locks implies randomization "r" (relic locations)',
-    'is enabled, so it does not need to be included in the options string.',
-    'For example, an options string of "lBL" is the same as "lBLr".',
+    '  $0 -o r:logic:agonize         # Randomize relics, agonizer logic',
+    '  $0 -o r:logic:optimize,deipt  # Randomize everything, speedrun logic',
     '',
     'Use `--help locks` for information on custom location locks.',
   ]).join('\n')
@@ -471,11 +472,10 @@
     ].concat(relics.map(function(relic) {
       let label = '  (' + relic.ability + ') ' + relic.name
       label += Array(28).fill(' ').join('')
-      return label.slice(0, 28) + 'l' + relic.ability
-        + (meta.locks[relic.ability]
-           ? meta.locks[relic.ability].join('-') : '')
-    })).concat([
-    ]).join('\n')
+      return label.slice(0, 28) + relic.ability + ':'
+        + (meta.locks[relic.ability] ?
+           meta.locks[relic.ability].join('-') : '')
+    })).join('\n')
   }
 
   function main() {
@@ -552,7 +552,7 @@
       }
       const topics = {
         options: optionsHelp,
-        locks: locksHelp,
+        relics: relicsHelp,
         logic: logicHelp,
       }
       const script = path.basename(process.argv[1])
@@ -625,7 +625,7 @@
       }
       // Ensure randomizations match if given using --options.
       const optionStr = util.optionsToString(options)
-      if ('options' in argv && argv.options !== optionsStr) {
+      if ('options' in argv && argv.options !== optionStr) {
         yargs.showHelp()
         console.error('\nArgument randomizations are not url randomizations')
         process.exit(1)
@@ -652,8 +652,12 @@
       options = util.optionsFromString(constants.defaultOptions)
     }
     // Set misc options.
-    options.checkVanilla = argv.checkVanilla
-    options.verbose = argv.verbose
+    if ('checkVanilla' in argv) {
+      options.checkVanilla = argv.checkVanilla
+    }
+    if ('verbose' in argv) {
+      options.verbose = argv.verbose
+    }
     info = newInfo()
     // Set seed if not running a sanity check.
     if (!argv.checkVanilla) {
@@ -798,13 +802,13 @@
       elems.relicLocations.checked = options.relicLocations
       relicLocationsChange()
       let relicLocks = ''
-      if (options.relicLocks) {
+      if (typeof(options.relicLocations) === 'object') {
         relicLocks = util.optionsToString({
-          relicLocks: options.relicLocks,
+          relicLocations: options.relicLocations,
         })
-        if (options.relicLocks.logic) {
+        if (options.relicLocations.logic) {
           for (let i = 0; i < logic.length; i++) {
-            if (logic[i].id === options.relicLocks.logic) {
+            if (logic[i].id === options.relicLocations.logic) {
               elems.relicLogic.selectedIndex = i
               break
             }

@@ -1,6 +1,6 @@
 (function(self) {
 
-  const defaultOptions = 'deiprt'
+  const defaultOptions = 'deiptr'
 
   const TYPE = {
     HEART: 0,

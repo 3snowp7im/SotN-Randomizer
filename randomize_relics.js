@@ -266,7 +266,9 @@
       } else {
         // Initialize location locks.
         const locks = {}
-        Object.assign(locks, options.relicLocks || {})
+        if (typeof(options.relicLocations) === 'object') {
+          Object.assign(locks, options.relicLocations)
+        }
         const id = locks.logic || 'safe'
         const meta = logic.filter(function(meta) {
           return meta.id === id
@@ -274,7 +276,10 @@
         if (!meta) {
           throw new Error('Unknown logic: ' + id)
         }
-        Object.assign(locks, meta.locks, options.relicLocks)
+        Object.assign(locks, meta.locks)
+        if (typeof(options.relicLocations) === 'object') {
+          Object.assign(locks, options.relicLocations)
+        }
         delete locks.logic
         relics.forEach(function(relic) {
           relic.locks = locks[relic.ability].map(function(lock) {

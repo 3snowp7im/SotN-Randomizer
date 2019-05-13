@@ -143,72 +143,109 @@
       case 'p':
         options.prologueRewards = true
         break;
-      case 'r':
-        options.relicLocations = true
-        break
       case 't':
         options.turkeyMode = true
         break
-      case 'l':
-        c = randomize[i++]
-        let logic
-        if (c === '.') {
-          logic = true
-        }
-        const relics = Object.getOwnPropertyNames(constants.RELIC)
-        let start = i
-        let location
-        if (!logic) {
-          location = constants.RELIC[relics.filter(function(relic) {
-            return constants.RELIC[relic] === c
-          }).pop()]
-          if (!location) {
-            throw new Error('Invalid relic location: ' + c)
-          }
-        }
-        while (i < randomize.length && randomize[i] !== ',') {
-          c = randomize[i]
-          if (!logic && c !== '-') {
-            const valid = relics.some(function(relic) {
-              return constants.RELIC[relic] === c
-            })
-            if (!valid) {
-              throw new Error('Invalid relic: ' + c)
+      case 'r':
+        let relicLocations = options.relicLocations || true
+        // Check for an argument.
+        if (randomize[i] === ':') {
+          i++
+          while (i < randomize.length && randomize[i] !== ',') {
+            // If there's an argument it's either a relic logic scheme name 
+            // or a location lock.
+            let arg
+            let logic
+            let location
+            let relics
+            let start
+            // Parse the arg name.
+            start = i
+            while (i < randomize.length
+                   && [',', ':'].indexOf(randomize[i]) === -1) {
+              i++
+            }
+            arg = randomize.slice(start, i)
+            if (arg === 'logic') {
+              if (typeof(relicLocations) === 'object'
+                  && 'logic' in relicLocations) {
+                throw new Error('Can\'t specify more than one relic logic')
+              }
+              logic = true
+            } else if (arg.length) {
+              relics = Object.getOwnPropertyNames(constants.RELIC)
+              location = constants.RELIC[relics.filter(function(relic) {
+                return constants.RELIC[relic] === arg
+              }).pop()]
+              if (!location) {
+                throw new Error('Invalid relic location: ' + arg)
+              }
+            } else {
+              throw new Error('Expected argument')
+            }
+            if (typeof(relicLocations) !== 'object') {
+              relicLocations = {}
+            }
+            if (randomize[i] === ':') {
+              start = ++i
+              while (i < randomize.length
+                     && [',', ':'].indexOf(randomize[i]) === -1) {
+                i++
+              }
+              arg = randomize.slice(start, i)
+              if (logic) {
+                if (!arg.length) {
+                  throw new Error('Relic logic name required')
+                }
+                if (arg !== 'safe') {
+                  relicLocations.logic = arg
+                }
+              } else {
+                const invalid = arg.split('').filter(function(c) {
+                  if (c === '-') {
+                    return false
+                  }
+                  return !relics.some(function(relic) {
+                    return constants.RELIC[relic] === c
+                  })
+                })
+                if (invalid.length) {
+                  throw new Error('Invalid relic: ' + invalid[0])
+                }
+                let locks = arg.split('-')
+                const emptyLocks = locks.filter(function(lock) {
+                  return lock.length === 0
+                })
+                locks = locks.filter(function(lock) {
+                  return lock.length > 0
+                })
+                if (emptyLocks.length > 1
+                    || (locks.length && emptyLocks.length)) {
+                  throw new Error('Invald lock: ' + location + lock)
+                }
+                relicLocations[location] = locks
+              }
+            } else if (logic) {
+              throw new Error('Relic logic name required')
+            } else {
+              relicLocations[location] = []
+            }
+            if (randomize[i] === ':') {
+              i++
             }
           }
-          i++
-        }
-        const lock = randomize.slice(start, i)
-        const relicLocks = options.relicLocks || {}
-        if (logic) {
-          if ('logic' in relicLocks) {
-            throw new Error('Can\'t specify more than one relic logic')
-          }
-          options.relicLocations = true
-          if (lock !== 'safe') {
-            // Safe logic is default.
-            relicLocks.logic = lock
-          }
-        } else {
-          let locks = lock.split('-')
-          const emptyLocks = locks.filter(function(lock) {
-            return lock.length === 0
-          })
-          locks = locks.filter(function(lock) {
-            return lock.length > 0
-          })
-          if (emptyLocks.length > 1 || (locks.length && emptyLocks.length)) {
-            throw new Error('Invald lock: ' + location + lock)
-          }
-          relicLocks[location] = locks
+        } else if (typeof(relicLocations) === 'undefined') {
+          // Otherwise it's just turning on relic randomization.
+          relicLocations = true
         }
         if (randomize[i] === ',') {
           i++
         }
-        if (Object.getOwnPropertyNames(relicLocks).length) {
-          options.relicLocks = relicLocks
-          options.relicLocations = true
+        if (typeof(relicLocations) === 'object'
+            && Object.getOwnPropertyNames(relicLocations).length === 0) {
+          relicLocations = true
         }
+        options.relicLocations = relicLocations
         break
       default:
         throw new Error('Invalid randomization: ' + c)
@@ -221,44 +258,57 @@
   }
 
   function optionsToString(options) {
+    options = Object.assign({}, options)
+    delete options.checkVanilla
+    delete options.verbose
+    Object.getOwnPropertyNames(options).forEach(function(opt) {
+      if (options[opt] === false) {
+        delete options[opt]
+      }
+    })
     let randomize = ''
-    if (options.enemyDrops) {
-      randomize += 'd'
-    }
-    if (options.startingEquipment) {
-      randomize += 'e'
-    }
-    if (options.itemLocations) {
-      randomize += 'i'
-    }
-    if (options.prologueRewards) {
-      randomize += 'p'
-    }
-    if (options.relicLocations) {
-      if (!('relicLocks' in options)) {
+    while (Object.getOwnPropertyNames(options).length) {
+      if ('enemyDrops' in options) {
+        randomize += 'd'
+        delete options.enemyDrops
+      } else if ('startingEquipment' in options) {
+        randomize += 'e'
+        delete options.startingEquipment
+      } else if ('itemLocations' in options) {
+        randomize += 'i'
+        delete options.itemLocations
+      } else if ('prologueRewards' in options) {
+        randomize += 'p'
+        delete options.prologueRewards
+      } else if ('turkeyMode' in options) {
+        randomize += 't'
+        delete options.turkeyMode
+      } else if ('relicLocations' in options) {
         randomize += 'r'
-      } else if (options.relicLocks.logic === 'safe') {
-        if (Object.getOwnPropertyNames(options.relicLocks).length === 1) {
-          randomize += 'r'
+        if (typeof(options.relicLocations) === 'object') {
+          const locks = []
+          if ('logic' in options.relicLocations
+              && options.relicLocations.logic !== 'safe') {
+            locks.push('logic:' + options.relicLocations.logic)
+          }
+          Object.getOwnPropertyNames(constants.RELIC).forEach(function(relic) {
+            relic = constants.RELIC[relic]
+            if (options.relicLocations[relic]) {
+              locks.push(relic + ':' + options.relicLocations[relic].join('-'))
+            }
+          })
+          if (locks.length) {
+            randomize += ':' + locks.join(':')
+          }
         }
-      }
-    }
-    if (options.turkeyMode) {
-      randomize += 't'
-    }
-    if (options.relicLocks) {
-      const locks = []
-      if ('logic' in options.relicLocks
-          && options.relicLocks.logic !== 'safe') {
-        locks.push('l.' + options.relicLocks.logic)
-      }
-      Object.getOwnPropertyNames(constants.RELIC).forEach(function(relic) {
-        relic = constants.RELIC[relic]
-        if (options.relicLocks[relic]) {
-          locks.push('l' + relic + options.relicLocks[relic].join('-'))
+        delete options.relicLocations
+        if (Object.getOwnPropertyNames(options).length) {
+          randomize += ','
         }
-      })
-      randomize += locks.join(',')
+      } else {
+        const unknown = Object.getOwnPropertyNames(options).pop()
+        throw new Error('Unknown options: ' + unknown)
+      }
     }
     if (!randomize.length) {
       throw new Error('No randomizations')
@@ -370,11 +420,13 @@
   }
 
   function saltSeed(version, options, seed) {
-    return sjcl.codec.hex.fromBits(sjcl.hash.sha256.hash(JSON.stringify({
+    const str = JSON.stringify({
       version: version,
       options: optionsToString(options),
       seed: seed,
-    }))).match(/[0-9a-f]{2}/g).map(function(byte) {
+    })
+    const hex = sjcl.codec.hex.fromBits(sjcl.hash.sha256.hash(str))
+    return hex.match(/[0-9a-f]{2}/g).map(function(byte) {
       return String.fromCharCode(byte)
     }).join('')
   }
@@ -509,7 +561,7 @@
 
   // Output as lock string.
   plandomizer.prototype.toString = function toString() {
-    return optionsToString({relicLocks: this.logic().locks})
+    return optionsToString({relicLocations: this.logic().locks})
   }
 
   const exports = {

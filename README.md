@@ -88,7 +88,7 @@ To print starting equipment and relic locations for a URL without actually
 writing the randomizations to your disc image:
 
 ```shell
-$ ./randomize -vvvl https://sotn.io/?3b7,myseed
+$ ./randomize -vvvr https://sotn.io/?3b7,myseed
 ```
 ### Custom relic logic
 
@@ -134,5 +134,5 @@ For more information on the specifics of the lock string format, refer to the
 help topic built in to the `randomize` script:
 
 ```shell
-$ ./randomize --help locks
+$ ./randomize --help relics
 ```
