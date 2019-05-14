@@ -1,15 +1,21 @@
 (function(self) {
 
   let constants
+  let enemies
+  let items
   let relics
   let sjcl
 
   if (self) {
     constants = self.sotnRando.constants
+    enemies = self.sotnRando.enemies
+    items = self.sotnRando.items
     relics = self.sotnRando.relics
     sjcl = self.sjcl
   } else {
     constants = require('./constants')
+    enemies = require('./enemies')
+    items = require('./items')
     relics = require('./relics')
     sjcl = require('sjcl')
   }
@@ -131,9 +137,6 @@
     while (i < randomize.length) {
       let c = randomize[i++]
       switch (c) {
-      case 'd':
-        options.enemyDrops = true
-        break
       case 'e':
         options.startingEquipment = true
         break
@@ -145,6 +148,84 @@
         break;
       case 't':
         options.turkeyMode = true
+        break
+      case 'd':
+        let enemyDrops = options.enemyDrops || true
+        // Check for an argument.
+        if (randomize[i] === ':') {
+          i++
+          while (i < randomize.length && randomize[i] !== ',') {
+            let enemy
+            let arg
+            let start
+            // Parse the arg name.
+            start = i
+            while (i < randomize.length
+                   && [',', ':'].indexOf(randomize[i]) === -1) {
+              i++
+            }
+            arg = randomize.slice(start, i)
+            if (arg.length) {
+              enemy = enemies.filter(function(enemy) {
+                const name = enemy.name.replace(/[^a-zA-Z0-9]/, '')
+                if (enemy.name.match(/[0-9]+$/)) {
+                  return arg === enemy.name
+                }
+                return (arg === name + enemy.level)|| arg === name
+              })[0]
+              if (!enemy) {
+                throw new Error('Unknown enemy: ' + arg)
+              }
+            } else {
+              throw new Error('Expected argument')
+            }
+            if (typeof(enemyDrops) !== 'object') {
+              enemyDrops = {}
+            }
+            enemyDrops[enemy.id] = []
+            if (randomize[i] === ':') {
+              start = ++i
+              while (i < randomize.length
+                     && [',', ':'].indexOf(randomize[i]) === -1) {
+                i++
+              }
+              arg = randomize.slice(start, i)
+              arg.split('-').forEach(function(arg, index)  {
+                if (index > 1) {
+                  throw new Error('Too many drops for enemy: ' + enemy.name)
+                }
+                if (arg) {
+                  const item = items.filter(function(item) {
+                    const name = item.name.replace(/[^a-zA-Z0-9]/, '')
+                    return name === arg
+                  })[0]
+                  if (!item) {
+                    throw new Error('Unknown item: ' + arg)
+                  }
+                  enemyDrops[enemy.id].push(item)
+                } else {
+                  enemyDrops[enemy.id].push(undefined)
+                }
+              })
+            } else {
+              enemyDrops[enemy.id] = [undefined, undefined]
+            }
+            if (randomize[i] === ':') {
+              i++
+            }
+          }
+        } else if (typeof(enemyDrops) === 'undefined') {
+          // Otherwise it's just turning on drop randomization.
+          enemyDrops = true
+        }
+        if (randomize[i] === ',') {
+          i++
+        }
+        if (typeof(enemyDrops) === 'object'
+            && Object.getOwnPropertyNames(enemyDrops).length === 0) {
+          enemyDrops = true
+        }
+        options.enemyDrops = enemyDrops
         break
       case 'r':
         let relicLocations = options.relicLocations || true

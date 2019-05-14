@@ -1,0 +1,58 @@
+#!/usr/bin/env node
+// This tool parses a SotN bin for enemy data, and prints it to stdout.
+// Usage: tools/enemy-data <path-to-rom> [indent-level]
+
+const fs = require('fs')
+const constants = require('../constants')
+const util = require('../util')
+
+const ZONE = constants.ZONE
+const zones = constants.zones
+const exe = constants.exe
+const enemyListOff = constants.enemyListOff 
+const enemyListLen = constants.enemyListLen
+const enemyDataOff = constants.enemyDataOff
+const enemyDataLen = constants.enemyDataLen
+const exeRamOffset = 0xa0000
+const enemyLevelOffset = 0x16
+
+// Read input bin.
+const bin = fs.readFileSync(process.argv[2])
+// Restore main executable.
+const exeData = util.restoreFile(bin, exe)
+// Restore library data.
+const library = util.restoreFile(bin, zones[ZONE.LIB])
+// Get enemy list.
+const enemyList = library.subarray(enemyListOff, enemyListOff + enemyListLen)
+// Parse enemy data.
+const enemies = []
+for (let i = 0; i < enemyList.length / 2; i++) {
+  enemies.push({
+    id: i + 1,
+    offset: enemyDataOff + enemyList.readUInt16LE(2 * i) * enemyDataLen,
+  })
+}
+enemies.forEach(function(enemy) {
+  const offset = enemy.offset
+  delete enemy.offset
+  let ptr = exeData.readUInt32LE(offset) - 0x80000000 - exeRamOffset
+  let c
+  enemy.name = ''
+  while (true) {
+    c = exeData[ptr++]
+    if (c === 255) {
+      break
+    } else if (c === 0) {
+      c = ' '.charCodeAt()
+    } else {
+      c += 0x20
+    }
+    enemy.name += String.fromCharCode(c)
+  }
+  enemy.level = exeData[offset + enemyLevelOffset]
+})
+
+// Format data.
+const indent = parseInt(process.argv[3] || 2)
+const spaces = Array(indent).fill(' ').join('')
+console.log(spaces + 'const enemies = ' + util.formatObject(enemies, indent))

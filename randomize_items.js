@@ -161,7 +161,7 @@
   }
 
   function pushTile() {
-    const tiles = Array.prototype.slice.call(arguments, 0)
+    const tiles = Array.prototype.slice.call(arguments)
     this.tiles = this.tiles || []
     Array.prototype.push.apply(this.tiles, tiles)
   }
@@ -507,7 +507,7 @@
     util.assert.equal(shuffledTiles.length, 0)
   }
 
-  function randomizeEnemyDrops(pool) {
+  function randomizeEnemyDrops(pool, planned) {
     // Replace the axe subweapon drop with a random subweapon.
     const subweapon = shuffled(pool.filter(subweaponFilter)).pop()
     const subweaponTiles = collectTiles(items.filter(function(item) {
@@ -607,6 +607,45 @@
       })
     })
     util.assert.equal(shuffledTiles.length, 0)
+    // Replace the librarian's drops.
+    const libTiles = collectTiles(items, function(tile) {
+      return tile.librarian
+    })
+    const shuffledEquip = shuffled(pool.filter(equipmentFilter))
+    const libItems = shuffledEquip.slice(0, libTiles.length)
+    libItems.forEach(function(item) {
+      pushTile.call(item, takeTile(libTiles, blacklist(item)))
+    })
+    // Place planned drops.
+    if (planned) {
+      Object.getOwnPropertyNames(planned).forEach(function(enemy) {
+        enemy = parseInt(enemy)
+        const items = pool.filter(itemTileFilter(function(tile) {
+          return tile.enemy === enemy
+        }))
+        const tiles = items.reduce(function(tiles, item) {
+          const indexes = item.tiles.reduce(function(indexes, tile, index) {
+            if (tile.enemy === enemy) {
+              indexes.push(index)
+            }
+            return indexes
+          }, []).reverse()
+          indexes.forEach(function(index) {
+            Array.prototype.push.apply(tiles, item.tiles.splice(index, 1))
+          })
+          return tiles
+        }, []).sort(function(a, b) {
+          return a.addresses[0] - b.addresses[0]
+        })
+        planned[enemy].forEach(function(item) {
+          if (item) {
+            pushTile.call(pool.filter(function(drop) {
+              return drop.id === item.id && drop.type === item.type
+            })[0], tiles.shift())
+          }
+        })
+      })
+    }
     // The required Short Sword and Red Rust drops were ignored.
     // Push those tiles onto whatever item they ended up being replaced with.
     const pushReplacement = function(name) {
@@ -624,15 +663,6 @@
     }
     pushReplacement('Short Sword')
     pushReplacement('Red Rust')
-    // Replace the librarian's drops.
-    const libTiles = collectTiles(items, function(tile) {
-      return tile.librarian
-    })
-    const shuffledEquip = shuffled(pool.filter(equipmentFilter))
-    const libItems = shuffledEquip.slice(0, libTiles.length)
-    libItems.forEach(function(item) {
-      pushTile.call(item, takeTile(libTiles, blacklist(item)))
-    })
   }
 
   function checkItemAddresses(data) {
@@ -887,7 +917,11 @@
         returnVal = checkEnemyDrops(data, options.verbose) && returnVal
       } else {
         // Randomize enemy drops.
-        randomizeEnemyDrops(pool)
+        let planned
+        if (typeof(options.enemyDrops) === 'object') {
+          planned = options.enemyDrops
+        }
+        randomizeEnemyDrops(pool, planned)
       }
     }
     if (options.prologueRewards) {

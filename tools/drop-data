@@ -12,6 +12,12 @@ const tileIdOffset = constants.tileIdOffset
 const TYPE = constants.TYPE
 const ZONE = constants.ZONE
 const zones = constants.zones
+const exe = constants.exe
+const enemyListOff = constants.enemyListOff 
+const enemyListLen = constants.enemyListLen
+const enemyDataOff = constants.enemyDataOff
+const enemyDataLen = constants.enemyDataLen
+const dropsOff = 0x1a
 
 // Clear existing drop data from item list.
 items.filter(function(item) {
@@ -22,17 +28,10 @@ items.filter(function(item) {
   })
 })
 
-// TODO: Short sword, Red rust, Librarian drops
-const exeFile = { pos: 0x0abb28, len: 703272 }
-const enemyListOff = 0xe90
-const enemyListLen = 292
-const enemyDataOff = 0x8900
-const dropsOff = 0x1a
-
 // Read input bin.
 const bin = fs.readFileSync(process.argv[2])
 // Restore main executable.
-const exeData = util.restoreFile(bin, exeFile)
+const exeData = util.restoreFile(bin, exe)
 // Restore library data.
 const library = util.restoreFile(bin, zones[ZONE.LIB])
 // Get enemy list.
@@ -42,7 +41,7 @@ const enemies = []
 for (let i = 0; i < enemyList.length / 2; i++) {
   enemies.push({
     id: i + 1,
-    offset: enemyDataOff + enemyList.readUInt16LE(2 * i) * 0x28,
+    offset: enemyDataOff + enemyList.readUInt16LE(2 * i) * enemyDataLen,
   })
 }
 enemies.forEach(function(enemy) {
@@ -70,7 +69,7 @@ enemies.forEach(function(enemy) {
       }
       return item.id === id
     })[0]
-    let address = exeFile.pos + offset + Math.floor(offset / 0x800) * 0x130
+    let address = exe.pos + offset + Math.floor(offset / 0x800) * 0x130
     item.tiles = item.tiles || []
     item.tiles.push({
       addresses: [ address ],

@@ -1,6 +1,6 @@
 (function(self) {
 
-  const defaultOptions = 'deiptr'
+  const defaultOptions = 'eiptdr'
 
   const TYPE = {
     HEART: 0,
@@ -183,6 +183,12 @@
     pos: 0x057df998, len: 200988,
   }]
 
+  const exe = { pos: 0x0abb28, len: 703272 }
+  const enemyListOff = 0xe90
+  const enemyListLen = 292
+  const enemyDataOff = 0x8900
+  const enemyDataLen = 0x28
+
   const RELIC = {
     SOUL_OF_BAT: 'B',
     FIRE_OF_BAT: 'f',
@@ -223,6 +229,11 @@
     ZONE: ZONE,
     zoneNames: zoneNames,
     zones: zones,
+    exe: exe,
+    enemyListOff: enemyListOff,
+    enemyListLen: enemyListLen,
+    enemyDataOff: enemyDataOff,
+    enemyDataLen: enemyDataLen,
     RELIC: RELIC,
     tileIdOffset: 0x80,
   }
