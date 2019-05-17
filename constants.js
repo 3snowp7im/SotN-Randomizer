@@ -1,6 +1,6 @@
 (function(self) {
 
-  const defaultOptions = 'eiptdr'
+  const defaultOptions = 'deiprt'
 
   const TYPE = {
     HEART: 0,

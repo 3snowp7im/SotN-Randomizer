@@ -84,7 +84,6 @@ const shortSword = items.filter(function(item) {
   return item.name === 'Short Sword'
 })[0]
 shortSword.tiles.push({
-  zone: ZONE.NO3,
   addresses: [ 0x04bc9324 ],
   enemy: 9,
   byte: true,
@@ -93,7 +92,6 @@ const redRust = items.filter(function(item) {
   return item.name === 'Red Rust'
 })[0]
 redRust.tiles.push({
-  zone: ZONE.NO3,
   addresses: [ 0x04bc9328 ],
   enemy: 9,
   byte: true,

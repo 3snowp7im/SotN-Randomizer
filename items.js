@@ -4738,7 +4738,7 @@
     name: '$100',
     type: TYPE.GOLD,
     id: 5,
-    blacklist: [ 0x04bc9324, 0x04bc9328 ],
+    blacklist: [ 0x000b6b3c, 0x000b6b3a ],
     tiles: [{
       zone: ZONE.ARE,
       addresses: [ 0x043c5ab4, 0x043c62c6 ],
@@ -5012,7 +5012,7 @@
     name: '$400',
     type: TYPE.GOLD,
     id: 7,
-    blacklist: [ 0x04bc9324, 0x04bc9328 ],
+    blacklist: [ 0x000b6b3c, 0x000b6b3a ],
     tiles: [{
       zone: ZONE.NP3,
       addresses: [ 0x053f8ec4, 0x053f973a ],
@@ -5059,7 +5059,7 @@
     name: '$1000',
     type: TYPE.GOLD,
     id: 9,
-    blacklist: [ 0x04bc9324, 0x04bc9328 ],
+    blacklist: [ 0x000b6b3c, 0x000b6b3a ],
     tiles: [{
       zone: ZONE.ARE,
       addresses: [ 0x043c58ca, 0x043c60b4 ],
@@ -5076,7 +5076,7 @@
     name: '$2000',
     type: TYPE.GOLD,
     id: 10,
-    blacklist: [ 0x04bc9324, 0x04bc9328 ],
+    blacklist: [ 0x000b6b3c, 0x000b6b3a ],
     tiles: [{
       zone: ZONE.NO4,
       addresses: [ 0x04c3491e, 0x04c35b84 ],
@@ -6122,7 +6122,6 @@
       addresses: [ 0x000b6b3c ],
       enemy: 9,
     }, {
-      zone: ZONE.NO3,
       addresses: [ 0x04bc9324 ],
       enemy: 9,
       byte: true,
@@ -6235,7 +6234,6 @@
       addresses: [ 0x000b6b3a ],
       enemy: 9,
     }, {
-      zone: ZONE.NO3,
       addresses: [ 0x04bc9328 ],
       enemy: 9,
       byte: true,
@@ -8092,6 +8090,7 @@
     name: 'Alucart Shield',
     type: TYPE.SHIELD,
     id: 167,
+    blacklist: [ 0x000b6b3c, 0x000b6b3a ],
     tiles: [{
       zone: ZONE.NO0,
       addresses: [ 0x048fad9a ],
@@ -8108,6 +8107,7 @@
     name: 'Cloth Tunic',
     type: TYPE.ARMOR,
     id: 170,
+    blacklist: [ 0x000b6b3c, 0x000b6b3a ],
     tiles: [{
       addresses: [ 0x000b6c02 ],
       enemy: 5,
@@ -8119,6 +8119,7 @@
     name: 'Hide cuirass',
     type: TYPE.ARMOR,
     id: 171,
+    blacklist: [ 0x000b6b3c, 0x000b6b3a ],
     tiles: [{
       zone: ZONE.NZ0,
       addresses: [ 0x054b2298 ],
@@ -8130,6 +8131,7 @@
     name: 'Bronze Cuirass',
     type: TYPE.ARMOR,
     id: 172,
+    blacklist: [ 0x000b6b3c, 0x000b6b3a ],
     tiles: [{
       zone: ZONE.LIB,
       addresses: [ 0x047a3910 ],
@@ -8141,6 +8143,7 @@
     name: 'Iron Cuirass',
     type: TYPE.ARMOR,
     id: 173,
+    blacklist: [ 0x000b6b3c, 0x000b6b3a ],
     tiles: [{
       zone: ZONE.LIB,
       addresses: [ 0x047a3196 ],
@@ -8156,6 +8159,7 @@
     name: 'Steel Cuirass',
     type: TYPE.ARMOR,
     id: 174,
+    blacklist: [ 0x000b6b3c, 0x000b6b3a ],
     tiles: [{
       zone: ZONE.LIB,
       addresses: [ 0x047a319e ],
@@ -8165,6 +8169,7 @@
     name: 'Silver Plate',
     type: TYPE.ARMOR,
     id: 175,
+    blacklist: [ 0x000b6b3c, 0x000b6b3a ],
     tiles: [{
       zone: ZONE.DAI,
       addresses: [ 0x04676f0c ],
@@ -8173,6 +8178,7 @@
     name: 'Gold Plate',
     type: TYPE.ARMOR,
     id: 176,
+    blacklist: [ 0x000b6b3c, 0x000b6b3a ],
     tiles: [{
       zone: ZONE.NZ1,
       addresses: [ 0x0557383c ],
@@ -8190,6 +8196,7 @@
     name: 'Platinum Mail',
     type: TYPE.ARMOR,
     id: 177,
+    blacklist: [ 0x000b6b3c, 0x000b6b3a ],
     tiles: [{
       zone: ZONE.TOP,
       addresses: [ 0x0560f60e ],
@@ -8201,6 +8208,7 @@
     name: 'Diamond Plate',
     type: TYPE.ARMOR,
     id: 178,
+    blacklist: [ 0x000b6b3c, 0x000b6b3a ],
     tiles: [{
       zone: ZONE.LIB,
       addresses: [ 0x047a31a6 ],
@@ -8210,6 +8218,7 @@
     name: 'Fire Mail',
     type: TYPE.ARMOR,
     id: 179,
+    blacklist: [ 0x000b6b3c, 0x000b6b3a ],
     tiles: [{
       zone: ZONE.TOP,
       addresses: [ 0x0560f5fc ],
@@ -8224,6 +8233,7 @@
     name: 'Lightning Mail',
     type: TYPE.ARMOR,
     id: 180,
+    blacklist: [ 0x000b6b3c, 0x000b6b3a ],
     tiles: [{
       zone: ZONE.RTOP,
       addresses: [ 0x057e018e ],
@@ -8235,6 +8245,7 @@
     name: 'Ice Mail',
     type: TYPE.ARMOR,
     id: 181,
+    blacklist: [ 0x000b6b3c, 0x000b6b3a ],
     tiles: [{
       zone: ZONE.NZ1,
       addresses: [ 0x05573846 ],
@@ -8246,6 +8257,7 @@
     name: 'Mirror Cuirass',
     type: TYPE.ARMOR,
     id: 182,
+    blacklist: [ 0x000b6b3c, 0x000b6b3a ],
     tiles: [{
       zone: ZONE.NO1,
       addresses: [ 0x049d3676 ],
@@ -8254,6 +8266,7 @@
     name: 'Alucard Mail',
     type: TYPE.ARMOR,
     id: 184,
+    blacklist: [ 0x000b6b3c, 0x000b6b3a ],
     tiles: [{
       zone: ZONE.RNO2,
       addresses: [ 0x050f87c6 ],
@@ -8261,6 +8274,7 @@
   }, {
     name: 'Dark Armor',
     type: TYPE.ARMOR,
+    blacklist: [ 0x000b6b3c, 0x000b6b3a ],
     id: 185,
     tiles: [{
       addresses: [ 0x000b8212 ],
@@ -8270,6 +8284,7 @@
     name: 'Healing Mail',
     type: TYPE.ARMOR,
     id: 186,
+    blacklist: [ 0x000b6b3c, 0x000b6b3a ],
     tiles: [{
       zone: ZONE.NZ1,
       addresses: [ 0x05573840 ],
@@ -8278,6 +8293,7 @@
     name: 'Holy Mail',
     type: TYPE.ARMOR,
     id: 187,
+    blacklist: [ 0x000b6b3c, 0x000b6b3a ],
     tiles: [{
       zone: ZONE.NO3,
       addresses: [ 0x04b6860e, 0x053f5f8a ],
@@ -8286,6 +8302,7 @@
     name: 'Walk Armor',
     type: TYPE.ARMOR,
     id: 188,
+    blacklist: [ 0x000b6b3c, 0x000b6b3a ],
     tiles: [{
       zone: ZONE.CAT,
       addresses: [ 0x044912e8 ],
@@ -8294,6 +8311,7 @@
     name: 'Brilliant Mail',
     type: TYPE.ARMOR,
     id: 189,
+    blacklist: [ 0x000b6b3c, 0x000b6b3a ],
     tiles: [{
       addresses: [ 0x000b7a7a ],
       enemy: 118,
@@ -8302,6 +8320,7 @@
     name: 'Mojo Mail',
     type: TYPE.ARMOR,
     id: 190,
+    blacklist: [ 0x000b6b3c, 0x000b6b3a ],
     tiles: [{
       addresses: [ 0x000b87a2 ],
       enemy: 100,
@@ -8310,6 +8329,7 @@
     name: 'Fury Plate',
     type: TYPE.ARMOR,
     id: 191,
+    blacklist: [ 0x000b6b3c, 0x000b6b3a ],
     tiles: [{
       zone: ZONE.RARE,
       addresses: [ 0x05751554 ],
@@ -8321,6 +8341,7 @@
     name: 'Dracula Tunic',
     type: TYPE.ARMOR,
     id: 192,
+    blacklist: [ 0x000b6b3c, 0x000b6b3a ],
     tiles: [{
       zone: ZONE.LIB,
       addresses: [ 0x047d9370 ],
@@ -8331,6 +8352,7 @@
     name: 'God\'s Garb',
     type: TYPE.ARMOR,
     id: 193,
+    blacklist: [ 0x000b6b3c, 0x000b6b3a ],
     tiles: [{
       addresses: [ 0x000b9ea2 ],
       enemy: 143,
@@ -8339,6 +8361,7 @@
     name: 'Axe Lord Armor',
     type: TYPE.ARMOR,
     id: 194,
+    blacklist: [ 0x000b6b3c, 0x000b6b3a ],
     tiles: [{
       zone: ZONE.LIB,
       addresses: [ 0x047d9284 ],
@@ -8349,6 +8372,7 @@
     name: 'Sunglasses',
     type: TYPE.HELMET,
     id: 196,
+    blacklist: [ 0x000b6b3c, 0x000b6b3a ],
     tiles: [{
       zone: ZONE.NZ0,
       addresses: [ 0x054b22a4 ],
@@ -8361,6 +8385,7 @@
     name: 'Ballroom Mask',
     type: TYPE.HELMET,
     id: 197,
+    blacklist: [ 0x000b6b3c, 0x000b6b3a ],
     tiles: [{
       zone: ZONE.CAT,
       addresses: [ 0x044912f2 ],
@@ -8372,6 +8397,7 @@
     name: 'Bandana',
     type: TYPE.HELMET,
     id: 198,
+    blacklist: [ 0x000b6b3c, 0x000b6b3a ],
     tiles: [{
       zone: ZONE.NO4,
       addresses: [ 0x04c324b6, 0x061a73ba ],
@@ -8380,6 +8406,7 @@
     name: 'Felt Hat',
     type: TYPE.HELMET,
     id: 199,
+    blacklist: [ 0x000b6b3c, 0x000b6b3a ],
     tiles: [{
       addresses: [ 0x000b641c ],
       enemy: 36,
@@ -8388,6 +8415,7 @@
     name: 'Velvet Hat',
     type: TYPE.HELMET,
     id: 200,
+    blacklist: [ 0x000b6b3c, 0x000b6b3a ],
     tiles: [{
       zone: ZONE.LIB,
       addresses: [ 0x047a3176 ],
@@ -8397,6 +8425,7 @@
     name: 'Goggles',
     type: TYPE.HELMET,
     id: 201,
+    blacklist: [ 0x000b6b3c, 0x000b6b3a ],
     tiles: [{
       zone: ZONE.DAI,
       addresses: [ 0x04676f0a ],
@@ -8405,6 +8434,7 @@
     name: 'Leather Hat',
     type: TYPE.HELMET,
     id: 202,
+    blacklist: [ 0x000b6b3c, 0x000b6b3a ],
     tiles: [{
       zone: ZONE.LIB,
       addresses: [ 0x047a317e ],
@@ -8414,6 +8444,7 @@
     name: 'Steel Helm',
     type: TYPE.HELMET,
     id: 204,
+    blacklist: [ 0x000b6b3c, 0x000b6b3a ],
     tiles: [{
       zone: ZONE.NZ1,
       addresses: [ 0x0557383e ],
@@ -8422,6 +8453,7 @@
     name: 'Stone Mask',
     type: TYPE.HELMET,
     id: 205,
+    blacklist: [ 0x000b6b3c, 0x000b6b3a ],
     tiles: [{
       zone: ZONE.LIB,
       addresses: [ 0x047a390a ],
@@ -8433,6 +8465,7 @@
     name: 'Circlet',
     type: TYPE.HELMET,
     id: 206,
+    blacklist: [ 0x000b6b3c, 0x000b6b3a ],
     tiles: [{
       zone: ZONE.LIB,
       addresses: [ 0x047a3186 ],
@@ -8445,6 +8478,7 @@
     name: 'Gold Circlet',
     type: TYPE.HELMET,
     id: 207,
+    blacklist: [ 0x000b6b3c, 0x000b6b3a ],
     tiles: [{
       addresses: [ 0x000b7fbc ],
       enemy: 82,
@@ -8453,6 +8487,7 @@
     name: 'Ruby Circlet',
     type: TYPE.HELMET,
     id: 208,
+    blacklist: [ 0x000b6b3c, 0x000b6b3a ],
     tiles: [{
       zone: ZONE.RCAT,
       addresses: [ 0x04cfb702 ],
@@ -8461,6 +8496,7 @@
     name: 'Opal Circlet',
     type: TYPE.HELMET,
     id: 209,
+    blacklist: [ 0x000b6b3c, 0x000b6b3a ],
     tiles: [{
       addresses: [ 0x000b7f1a ],
       enemy: 138,
@@ -8469,6 +8505,7 @@
     name: 'Topaz Circlet',
     type: TYPE.HELMET,
     id: 210,
+    blacklist: [ 0x000b6b3c, 0x000b6b3a ],
     tiles: [{
       zone: ZONE.LIB,
       addresses: [ 0x047a391c ],
@@ -8477,6 +8514,7 @@
     name: 'Beryl Circlet',
     type: TYPE.HELMET,
     id: 211,
+    blacklist: [ 0x000b6b3c, 0x000b6b3a ],
     tiles: [{
       zone: ZONE.RNO3,
       addresses: [ 0x051ad7a4 ],
@@ -8485,6 +8523,7 @@
     name: 'Cat-eye Circlet',
     type: TYPE.HELMET,
     id: 212,
+    blacklist: [ 0x000b6b3c, 0x000b6b3a ],
     tiles: [{
       zone: ZONE.CAT,
       addresses: [ 0x044912e4 ],
@@ -8493,6 +8532,7 @@
     name: 'Coral Circlet',
     type: TYPE.HELMET,
     id: 213,
+    blacklist: [ 0x000b6b3c, 0x000b6b3a ],
     tiles: [{
       addresses: [ 0x000b752c ],
       enemy: 95,
@@ -8501,6 +8541,7 @@
     name: 'Dragon Helm',
     type: TYPE.HELMET,
     id: 214,
+    blacklist: [ 0x000b6b3c, 0x000b6b3a ],
     tiles: [{
       zone: ZONE.RNZ1,
       addresses: [ 0x059bc0da ],
@@ -8509,6 +8550,7 @@
     name: 'Silver Crown',
     type: TYPE.HELMET,
     id: 215,
+    blacklist: [ 0x000b6b3c, 0x000b6b3a ],
     tiles: [{
       zone: ZONE.LIB,
       addresses: [ 0x047a318e ],
@@ -8518,6 +8560,7 @@
     name: 'Wizard Hat',
     type: TYPE.HELMET,
     id: 216,
+    blacklist: [ 0x000b6b3c, 0x000b6b3a ],
     tiles: [{
       addresses: [ 0x000b80fc ],
       enemy: 139,
@@ -8526,6 +8569,7 @@
     name: 'Cloth Cape',
     type: TYPE.CLOAK,
     id: 218,
+    blacklist: [ 0x000b6b3c, 0x000b6b3a ],
     tiles: [{
       zone: ZONE.NZ0,
       addresses: [ 0x054b229c ],
@@ -8534,6 +8578,7 @@
     name: 'Reverse Cloak',
     type: TYPE.CLOAK,
     id: 219,
+    blacklist: [ 0x000b6b3c, 0x000b6b3a ],
     tiles: [{
       zone: ZONE.LIB,
       addresses: [ 0x047a31ae ],
@@ -8543,6 +8588,7 @@
     name: 'Elven Cloak',
     type: TYPE.CLOAK,
     id: 220,
+    blacklist: [ 0x000b6b3c, 0x000b6b3a ],
     tiles: [{
       zone: ZONE.LIB,
       addresses: [ 0x047a31b6 ],
@@ -8552,6 +8598,7 @@
     name: 'Crystal Cloak',
     type: TYPE.CLOAK,
     id: 221,
+    blacklist: [ 0x000b6b3c, 0x000b6b3a ],
     tiles: [{
       zone: ZONE.NO4,
       addresses: [ 0x04c324a4, 0x061a73a8 ],
@@ -8560,6 +8607,7 @@
     name: 'Royal Cloak',
     type: TYPE.CLOAK,
     id: 222,
+    blacklist: [ 0x000b6b3c, 0x000b6b3a ],
     tiles: [{
       zone: ZONE.RTOP,
       addresses: [ 0x057e0176 ],
@@ -8568,6 +8616,7 @@
     name: 'Blood Cloak',
     type: TYPE.CLOAK,
     id: 223,
+    blacklist: [ 0x000b6b3c, 0x000b6b3a ],
     tiles: [{
       zone: ZONE.RARE,
       addresses: [ 0x043c3136 ],
@@ -8576,6 +8625,7 @@
     name: 'Joseph\'s Cloak',
     type: TYPE.CLOAK,
     id: 224,
+    blacklist: [ 0x000b6b3c, 0x000b6b3a ],
     tiles: [{
       zone: ZONE.LIB,
       addresses: [ 0x047a31be ],
@@ -8585,6 +8635,7 @@
     name: 'Twilight Cloak',
     type: TYPE.CLOAK,
     id: 225,
+    blacklist: [ 0x000b6b3c, 0x000b6b3a ],
     tiles: [{
       zone: ZONE.RDAI,
       addresses: [ 0x04e322d4 ],
@@ -8593,6 +8644,7 @@
     name: 'Moonstone',
     type: TYPE.ACCESSORY,
     id: 227,
+    blacklist: [ 0x000b6b3c, 0x000b6b3a ],
     tiles: [{
       zone: ZONE.NO4,
       addresses: [ 0x04c324c4, 0x061a73c8 ],
@@ -8601,6 +8653,7 @@
     name: 'Sunstone',
     type: TYPE.ACCESSORY,
     id: 228,
+    blacklist: [ 0x000b6b3c, 0x000b6b3a ],
     tiles: [{
       zone: ZONE.RNZ1,
       addresses: [ 0x059bc0e0 ],
@@ -8609,6 +8662,7 @@
     name: 'Bloodstone',
     type: TYPE.ACCESSORY,
     id: 229,
+    blacklist: [ 0x000b6b3c, 0x000b6b3a ],
     tiles: [{
       zone: ZONE.CAT,
       addresses: [ 0x044912f4 ],
@@ -8617,6 +8671,7 @@
     name: 'Staurolite',
     type: TYPE.ACCESSORY,
     id: 230,
+    blacklist: [ 0x000b6b3c, 0x000b6b3a ],
     tiles: [{
       zone: ZONE.RLIB,
       addresses: [ 0x04ee2f20 ],
@@ -8625,6 +8680,7 @@
     name: 'Ring of Pales',
     type: TYPE.ACCESSORY,
     id: 231,
+    blacklist: [ 0x000b6b3c, 0x000b6b3a ],
     tiles: [{
       zone: ZONE.LIB,
       addresses: [ 0x047a31ce ],
@@ -8635,6 +8691,7 @@
     type: TYPE.ACCESSORY,
     id: 232,
     salable: true,
+    blacklist: [ 0x000b6b3c, 0x000b6b3a ],
     tiles: [{
       zone: ZONE.DAI,
       addresses: [ 0x04676f12 ],
@@ -8677,6 +8734,7 @@
     type: TYPE.ACCESSORY,
     id: 233,
     salable: true,
+    blacklist: [ 0x000b6b3c, 0x000b6b3a ],
     tiles: [{
       zone: ZONE.DAI,
       addresses: [ 0x04676efe ],
@@ -8698,6 +8756,7 @@
     type: TYPE.ACCESSORY,
     id: 234,
     salable: true,
+    blacklist: [ 0x000b6b3c, 0x000b6b3a ],
     tiles: [{
       zone: ZONE.TOP,
       addresses: [ 0x0560f5f8 ],
@@ -8716,6 +8775,7 @@
     type: TYPE.ACCESSORY,
     id: 235,
     salable: true,
+    blacklist: [ 0x000b6b3c, 0x000b6b3a ],
     tiles: [{
       zone: ZONE.LIB,
       addresses: [ 0x047a3914 ],
@@ -8731,6 +8791,7 @@
     type: TYPE.ACCESSORY,
     id: 236,
     salable: true,
+    blacklist: [ 0x000b6b3c, 0x000b6b3a ],
     tiles: [{
       zone: ZONE.NO1,
       addresses: [ 0x049d367a ],
@@ -8755,6 +8816,7 @@
     type: TYPE.ACCESSORY,
     id: 237,
     salable: true,
+    blacklist: [ 0x000b6b3c, 0x000b6b3a ],
     tiles: [{
       zone: ZONE.RLIB,
       addresses: [ 0x04ee2f12 ],
@@ -8773,6 +8835,7 @@
     type: TYPE.ACCESSORY,
     id: 238,
     salable: true,
+    blacklist: [ 0x000b6b3c, 0x000b6b3a ],
     tiles: [{
       zone: ZONE.RNZ1,
       addresses: [ 0x059bc0dc ],
@@ -8790,6 +8853,7 @@
     name: 'Lapis Lazuli',
     type: TYPE.ACCESSORY,
     id: 239,
+    blacklist: [ 0x000b6b3c, 0x000b6b3a ],
     tiles: [{
       addresses: [ 0x000b70da ],
       enemy: 114,
@@ -8798,6 +8862,7 @@
     name: 'Ring of Ares',
     type: TYPE.ACCESSORY,
     id: 240,
+    blacklist: [ 0x000b6b3c, 0x000b6b3a ],
     tiles: [{
       zone: ZONE.CHI,
       addresses: [ 0x045e9604 ],
@@ -8806,6 +8871,7 @@
     name: 'Ring of Varda',
     type: TYPE.ACCESSORY,
     id: 243,
+    blacklist: [ 0x000b6b3c, 0x000b6b3a ],
     tiles: [{
       addresses: [ 0x000b7e2a ],
       enemy: 67,
@@ -8814,6 +8880,7 @@
     name: 'Ring of Arcana',
     type: TYPE.ACCESSORY,
     id: 244,
+    blacklist: [ 0x000b6b3c, 0x000b6b3a ],
     tiles: [{
       zone: ZONE.RNZ0,
       addresses: [ 0x05903080 ],
@@ -8827,6 +8894,7 @@
     name: 'Mystic Pendant',
     type: TYPE.ACCESSORY,
     id: 245,
+    blacklist: [ 0x000b6b3c, 0x000b6b3a ],
     tiles: [{
       zone: ZONE.DAI,
       addresses: [ 0x04676f00 ],
@@ -8838,6 +8906,7 @@
     name: 'Heart Broach',
     type: TYPE.ACCESSORY,
     id: 246,
+    blacklist: [ 0x000b6b3c, 0x000b6b3a ],
     tiles: [{
       addresses: [ 0x000b6b14 ],
       enemy: 141,
@@ -8846,6 +8915,7 @@
     name: 'Necklace of J',
     type: TYPE.ACCESSORY,
     id: 247,
+    blacklist: [ 0x000b6b3c, 0x000b6b3a ],
     tiles: [{
       zone: ZONE.RCAT,
       addresses: [ 0x04cfb6fa ],
@@ -8857,6 +8927,7 @@
     name: 'Gauntlet',
     type: TYPE.ACCESSORY,
     id: 248,
+    blacklist: [ 0x000b6b3c, 0x000b6b3a ],
     tiles: [{
       zone: ZONE.LIB,
       addresses: [ 0x047a31d6 ],
@@ -8872,6 +8943,7 @@
     name: 'Ankh of Life',
     type: TYPE.ACCESSORY,
     id: 249,
+    blacklist: [ 0x000b6b3c, 0x000b6b3a ],
     tiles: [{
       zone: ZONE.DAI,
       addresses: [ 0x04676ef8 ],
@@ -8880,6 +8952,7 @@
     name: 'Ring of Feanor',
     type: TYPE.ACCESSORY,
     id: 250,
+    blacklist: [ 0x000b6b3c, 0x000b6b3a ],
     tiles: [{
       addresses: [ 0x000b8a22 ],
       enemy: 87,
@@ -8888,6 +8961,7 @@
     name: 'Medal',
     type: TYPE.ACCESSORY,
     id: 251,
+    blacklist: [ 0x000b6b3c, 0x000b6b3a ],
     tiles: [{
       zone: ZONE.LIB,
       addresses: [ 0x047a31c6 ],
@@ -8900,6 +8974,7 @@
     name: 'Talisman',
     type: TYPE.ACCESSORY,
     id: 252,
+    blacklist: [ 0x000b6b3c, 0x000b6b3a ],
     tiles: [{
       zone: ZONE.RNO3,
       addresses: [ 0x051ad7aa ],
@@ -8911,6 +8986,7 @@
     name: 'Duplicator',
     type: TYPE.ACCESSORY,
     id: 253,
+    blacklist: [ 0x000b6b3c, 0x000b6b3a ],
     tiles: [{
       zone: ZONE.LIB,
       addresses: [ 0x047a31de ],
@@ -8920,6 +8996,7 @@
     name: 'King\'s Stone',
     type: TYPE.ACCESSORY,
     id: 254,
+    blacklist: [ 0x000b6b3c, 0x000b6b3a ],
     tiles: [{
       addresses: [ 0x000b8ac2 ],
       enemy: 134,
@@ -8928,6 +9005,7 @@
     name: 'Covenant Stone',
     type: TYPE.ACCESSORY,
     id: 255,
+    blacklist: [ 0x000b6b3c, 0x000b6b3a ],
     tiles: [{
       addresses: [ 0x000b8034 ],
       enemy: 137,
@@ -8936,6 +9014,7 @@
     name: 'Nauglamir',
     type: TYPE.ACCESSORY,
     id: 256,
+    blacklist: [ 0x000b6b3c, 0x000b6b3a ],
     tiles: [{
       addresses: [ 0x000b73ea ],
       enemy: 122,
@@ -8944,6 +9023,7 @@
     name: 'Secret Boots',
     type: TYPE.ACCESSORY,
     id: 257,
+    blacklist: [ 0x000b6b3c, 0x000b6b3a ],
     tiles: [{
       zone: ZONE.NO4,
       addresses: [ 0x04c324de, 0x061a73e2 ],
@@ -8952,6 +9032,7 @@
     name: 'Alucart Mail',
     type: TYPE.ARMOR,
     id: 258,
+    blacklist: [ 0x000b6b3c, 0x000b6b3a ],
     tiles: [{
       zone: ZONE.NO0,
       addresses: [ 0x048fada4 ],

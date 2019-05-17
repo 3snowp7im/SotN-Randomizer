@@ -231,7 +231,7 @@
         id += equipIdOffset
         break
       }
-    } else if (candleTileFilter(tile) && item.id > tileIdOffset) {
+    } else if (candleTileFilter(tile) && item.id >= tileIdOffset) {
       id += tileIdOffset
     } else {
       // Apply tile offset for some tile items.
@@ -260,42 +260,80 @@
     }
   }
 
-  function randomizeStartingEquipment(data, info) {
-    // Select random starting equipment.
-    const weapon = randItem(items.filter(typeFilter([TYPE.WEAPON1])))
-    const shield = randItem(items.filter(shieldFilter))
-    const helmet = randItem(items.filter(helmetFilter))
-    const armor = randItem(items.filter(armorFilter))
-    const cloak = randItem(items.filter(cloakFilter))
-    const accessory = randItem(items.filter(accessoryFilter))
+  function randomizeStartingEquipment(data, info, planned) {
+    // Select starting equipment.
+    planned = planned || {}
+    let weapon, shield, helmet, armor, cloak, other
+    if ('r' in planned) {
+      weapon = planned.r
+    } else {
+      weapon = randItem(items.filter(typeFilter([TYPE.WEAPON1])))
+    }
+    if ('l' in planned) {
+      shield = planned.l
+    } else if (!planned.r || planned.r.type !== TYPE.WEAPON2) {
+      shield = randItem(items.filter(shieldFilter))
+    }
+    if ('b' in planned) {
+      armor = planned.b
+    } else {
+      armor = randItem(items.filter(armorFilter))
+    }
+    if ('h' in planned) {
+      helmet = planned.h
+    } else {
+      helmet = randItem(items.filter(helmetFilter))
+    }
+    if ('c' in planned) {
+      cloak = planned.c
+    } else {
+      cloak = randItem(items.filter(cloakFilter))
+    }
+    if ('o' in planned) {
+      other = planned.o
+    } else {
+      other = randItem(items.filter(accessoryFilter))
+    }
     // Their values when equipped.
-    const weaponEquipVal = weapon.id
-    const shieldEquipVal = shield.id
-    const helmetEquipVal = helmet.id + equipIdOffset
-    const armorEquipVal = armor.id + equipIdOffset
-    const cloakEquipVal = cloak.id + equipIdOffset
-    const accessoryEquipVal = accessory.id + equipIdOffset
+    const weaponEquipVal = weapon ? weapon.id : 0
+    const shieldEquipVal = shield ? shield.id : 0
+    const helmetEquipVal = helmet ? helmet.id + equipIdOffset : 0
+    const armorEquipVal = armor ? armor.id + equipIdOffset : 0
+    const cloakEquipVal = cloak ? cloak.id + equipIdOffset : 0
+    const otherEquipVal = other ? other.id  + equipIdOffset : 0
     // Their inventory locations.
-    const weaponInvOffset = weapon.id + equipmentInvIdOffset
-    const shieldInvOffset = shield.id + equipmentInvIdOffset
-    const helmetInvOffset = helmet.id + equipmentInvIdOffset
-    const armorInvOffset = armor.id + equipmentInvIdOffset
-    const cloakInvOffset = cloak.id + equipmentInvIdOffset
-    const accessoryInvOffset = accessory.id + equipmentInvIdOffset
+    const weaponInvOffset = weapon ? weapon.id + equipmentInvIdOffset : 0
+    const shieldInvOffset = shield ? shield.id + equipmentInvIdOffset : 0
+    const helmetInvOffset = helmet ? helmet.id + equipmentInvIdOffset : 0
+    const armorInvOffset = armor ? armor.id + equipmentInvIdOffset : 0
+    const cloakInvOffset = cloak ? cloak.id + equipmentInvIdOffset : 0
+    const otherInvOffset = other ? other.id + equipmentInvIdOffset : 0
     // Equip the items.
     data.writeShort(equipBaseAddress +  0, weaponEquipVal)
     data.writeShort(equipBaseAddress + 12, shieldEquipVal)
-    data.writeShort(equipBaseAddress + 24, helmetEquipVal)
+    if (helmet) {
+      data.writeShort(equipBaseAddress + 24, helmetEquipVal)
+    } else {
+      data.writeWord(equipBaseAddress + 32, 0)
+    }
     data.writeShort(equipBaseAddress + 36, armorEquipVal)
-    data.writeShort(equipBaseAddress + 48, cloakEquipVal)
-    data.writeShort(equipBaseAddress + 60, accessoryEquipVal)
+    if (cloak) {
+      data.writeShort(equipBaseAddress + 48, cloakEquipVal)
+    } else {
+      data.writeWord(equipBaseAddress + 56, 0)
+    }
+    if (other) {
+      data.writeShort(equipBaseAddress + 60, otherEquipVal)
+    } else {
+      data.writeWord(equipBaseAddress + 68, 0)
+    }
     // Death removes these values if equipped.
-    data.writeByte(0x1195f8, weaponEquipVal)
-    data.writeByte(0x119658, shieldEquipVal)
-    data.writeByte(0x1196b8, helmetEquipVal)
-    data.writeByte(0x1196f4, armorEquipVal)
-    data.writeByte(0x119730, cloakEquipVal)
-    data.writeByte(0x119774, accessoryEquipVal)
+    data.writeShort(0x1195f8, weaponEquipVal)
+    data.writeShort(0x119658, shieldEquipVal)
+    data.writeShort(0x1196b8, helmetEquipVal)
+    data.writeShort(0x1196f4, armorEquipVal)
+    data.writeShort(0x119730, cloakEquipVal)
+    data.writeShort(0x119774, otherEquipVal)
     // Death decrements these inventory values if not equiped.
     data.writeShort(0x119634, weaponInvOffset)
     data.writeShort(0x119648, weaponInvOffset)
@@ -307,22 +345,38 @@
     data.writeShort(0x119720, armorInvOffset)
     data.writeShort(0x119750, cloakInvOffset)
     data.writeShort(0x119764, cloakInvOffset)
-    data.writeShort(0x1197b0, accessoryInvOffset)
-    data.writeShort(0x1197c4, accessoryInvOffset)
-    // Replace Axe Lord Armor with a random armor.
-    const axeLordArmor = randItem(items.filter(armorFilter)).id
-    data.writeByte(0x11a230, axeLordArmor + equipIdOffset)
-    // Replace Lapis Lazuli with a random accessory.
-    const luckModeAccessory = randItem(items.filter(accessoryFilter)).id
-    data.writeByte(0x11a198, luckModeAccessory + equipIdOffset)
+    data.writeShort(0x1197b0, otherInvOffset)
+    data.writeShort(0x1197c4, otherInvOffset)
+    // Replace Axe Lord Armor.
+    let axeLordArmor
+    if ('a' in planned) {
+      axeLordArmor = planned.a
+    } else {
+      axeLordArmor = randItem(items.filter(armorFilter))
+    }
+    const axeLordEquipVal = axeLordArmor ? axeLordArmor.id + equipIdOffset : 0
+    data.writeByte(0x11a230, axeLordEquipVal)
+    // Replace Lapis Lazuli.
+    let luckItem
+    if ('x' in planned) {
+      luckItem = planned.x
+    } else {
+      luckItem = randItem(items.filter(accessoryFilter)).id
+    }
+    if (luckItem) {
+      const luckItemEquipVal = luckItem ? luckItem.id : 0
+      data.writeByte(0x11a198, luckItemEquipVal + equipIdOffset)
+    } else {
+      data.writeWord(0x11a1d8, 0)
+    }
     // Update info.
     info[2]['Starting equipment'] = [
-      weapon.name,
-      shield.name,
-      helmet.name,
-      armor.name,
-      cloak.name,
-      accessory.name,
+      weapon ? weapon.name : 'none',
+      shield ? shield.name : 'none',
+      helmet ? helmet.name : 'none',
+      armor ? armor.name : 'none',
+      cloak ? cloak.name : 'none',
+      other ? other.name : 'none',
     ]
   }
 
@@ -384,13 +438,51 @@
     })
   }
 
-  function randomizePrologueRewards(pool) {
-    const rewardTiles = collectTiles(items, function(tile) {
-      return tile.reward
+  function randomizePrologueRewards(pool, addon, planned) {
+    const rewardItems = items.filter(itemTileFilter, rewardTileFilter)
+    rewardItems.sort(function(a, b) {
+      if (a < b) {
+        return -1
+      } else if (a > b) {
+        return 1
+      }
+      return 0
     })
+    const rewardTiles = collectTiles(items, rewardTileFilter)
     const usableItems = shuffled(pool.filter(usableFilter))
+    pool = ['h', 'n', 'p'].map(function(item) {
+      if (planned && item in planned) {
+        if (planned[item]) {
+          let poolItem = (addon || []).concat(pool).filter(function(poolItem) {
+            if (poolItem.id === planned[item].id
+                && poolItem.type == planned[item].type) {
+              return poolItem
+            }
+          })[0]
+          if (!poolItem) {
+            poolItem = Object.assign({}, planned[item])
+            delete poolItem.tiles
+            addon.push(poolItem)
+          }
+          return poolItem
+        }
+        return { id: 0 }
+      }
+      return usableItems.pop()
+    })
     while (rewardTiles.length) {
-      pushTile.call(usableItems.pop(), rewardTiles.pop())
+      const item = pool.shift()
+      switch (item.type) {
+      case TYPE.HELMET:
+      case TYPE.ARMOR:
+      case TYPE.CLOAK:
+      case TYPE.ACCESSORY:
+        if (item.id >= tileIdOffset) {
+          throw new Error('Cannot reward ' + item.name)
+        }
+        break
+      }
+      pushTile.call(item, rewardTiles.shift())
     }
   }
 
@@ -458,7 +550,7 @@
     })
   }
 
-  function randomizeMapItems(pool) {
+  function randomizeMapItems(pool, addon, planned) {
     // Shuffle items.
     const shuffledItems = shuffled(pool)
     // Get all map tiles.
@@ -505,9 +597,57 @@
       })
     })
     util.assert.equal(shuffledTiles.length, 0)
+    // Place planned item locations.
+    if (planned) {
+      Object.getOwnPropertyNames(planned).forEach(function(zone) {
+        const items = planned[zone]
+        Array.from(items.keys()).forEach(function(item) {
+          // Collect tiles for the item.
+          const tiles = item.tiles.reduce(function(tiles, tile) {
+            if (tile.zone === constants.ZONE[zone] && !tile.reward) {
+              tiles.push(tile)
+            }
+            return tiles
+          }, []).reverse()
+          // Replaced tiles in item pool.
+          const map = items.get(item)
+          Object.getOwnPropertyNames(map).forEach(function(index) {
+            index = parseInt(index)
+            pool.forEach(function(item) {
+              if (item.tiles) {
+                for (let i = 0; i < item.tiles.length; i++) {
+                  if (item.tiles[i] === tiles[index]) {
+                    item.tiles.splice(i, 1)
+                  }
+                }
+              }
+            })
+            // Get target replacement in pool or add it.
+            let target = pool.filter(function(ref) {
+              return ref.id === map[index].id && ref.type === map[index].type
+            })[0]
+            if (!target) {
+              target = Object.assign({}, map[index])
+              addon.push(target)
+            }
+            switch (target.type) {
+            case TYPE.HELMET:
+            case TYPE.ARMOR:
+            case TYPE.CLOAK:
+            case TYPE.ACCESSORY:
+              if (tile.byte && target.id >= tileIdOffset) {
+                throw new Error('Cannot place item: ' + target.name)
+              }
+              break
+            }
+            pushTile.call(target, tiles[index])
+          })
+        })
+      })
+    }
   }
 
-  function randomizeEnemyDrops(pool, planned) {
+  function randomizeEnemyDrops(pool, addon, planned) {
     // Replace the axe subweapon drop with a random subweapon.
     const subweapon = shuffled(pool.filter(subweaponFilter)).pop()
     const subweaponTiles = collectTiles(items.filter(function(item) {
@@ -618,14 +758,13 @@
     })
     // Place planned drops.
     if (planned) {
-      Object.getOwnPropertyNames(planned).forEach(function(enemy) {
-        enemy = parseInt(enemy)
+      Array.from(planned.keys()).forEach(function(enemy) {
         const items = pool.filter(itemTileFilter(function(tile) {
-          return tile.enemy === enemy
+          return tile.enemy === enemy.id
         }))
         const tiles = items.reduce(function(tiles, item) {
           const indexes = item.tiles.reduce(function(indexes, tile, index) {
-            if (tile.enemy === enemy) {
+            if (tile.enemy === enemy.id) {
               indexes.push(index)
             }
             return indexes
@@ -637,29 +776,61 @@
         }, []).sort(function(a, b) {
           return a.addresses[0] - b.addresses[0]
         })
-        planned[enemy].forEach(function(item) {
-          if (item) {
-            pushTile.call(pool.filter(function(drop) {
-              return drop.id === item.id && drop.type === item.type
-            })[0], tiles.shift())
-          }
-        })
+        if (planned.get(enemy)) {
+          planned.get(enemy).forEach(function(item) {
+            const tile = tiles.shift()
+            if (item) {
+              let target = pool.filter(function(drop) {
+                return drop.id === item.id && drop.type === item.type
+              })[0]
+              if (!target) {
+                target = Object.assign({}, item)
+                addon.push(target)
+              }
+              pushTile.call(target, tile)
+            }
+          })
+        } else {
+          tiles.forEach(function(tile) {
+            const target = {
+              name: 'nothing',
+              id: 0,
+            }
+            addon.push(target)
+            pushTile.call(target, tile)
+          })
+        }
       })
     }
     // The required Short Sword and Red Rust drops were ignored.
     // Push those tiles onto whatever item they ended up being replaced with.
     const pushReplacement = function(name) {
       const tiles = itemFromName(name).tiles
-      const shortTile = tiles.filter(function(tile) {
-        return !tile.byte
-      })[0]
       const byteTile = tiles.filter(function(tile) {
         return tile.byte
       })[0]
-      const replacement = pool.filter(function(item) {
+      const shortTile = tiles.filter(function(tile) {
+        return !tile.byte
+      })[0]
+      const replacement = (addon || []).concat(pool).filter(function(item) {
         return item.tiles && item.tiles.indexOf(shortTile) !== -1
       })[0]
-      replacement.tiles.push(byteTile)
+      if (replacement) {
+        if (replacement.id === 0) {
+          throw new Error('Cannot drop item: ' + replacement.name)
+        }
+        switch (replacement.type) {
+        case TYPE.HELMET:
+        case TYPE.ARMOR:
+        case TYPE.CLOAK:
+        case TYPE.ACCESSORY:
+          if (replacement.id >= tileIdOffset) {
+            throw new Error('Cannot drop item: ' + replacement.name)
+          }
+          break
+        }
+        replacement.tiles.push(byteTile)
+      }
     }
     pushReplacement('Short Sword')
     pushReplacement('Red Rust')
@@ -860,10 +1031,15 @@
         returnVal = checkStartingEquipment(data, options.verbose) && returnVal
       } else {
         // Randomize starting equipment.
-        randomizeStartingEquipment(data, info)
+        let planned
+        if (typeof(options.startingEquipment) === 'object') {
+          planned = options.startingEquipment
+        }
+        randomizeStartingEquipment(data, info, planned)
       }
     }
     // Get pool of randomizable items.
+    const addon = []
     const pool = items.filter(function(item) {
       if (foodFilter(item)) {
         return true
@@ -908,7 +1084,11 @@
         // Randomize shop items.
         randomizeShopItems(pool)
         // Randomize map items.
-        randomizeMapItems(pool)
+        let planned
+        if (typeof(options.itemLocations) === 'object') {
+          planned = options.itemLocations
+        }
+        randomizeMapItems(pool, addon, planned)
       }
     }
     if (options.enemyDrops) {
@@ -921,7 +1101,7 @@
         if (typeof(options.enemyDrops) === 'object') {
           planned = options.enemyDrops
         }
-        randomizeEnemyDrops(pool, planned)
+        randomizeEnemyDrops(pool, addon, planned)
       }
     }
     if (options.prologueRewards) {
@@ -930,7 +1110,11 @@
         returnVal = checkPrologueRewards(data, options.verbose) && returnVal
       } else {
         // Randomize prologue rewards.
-        randomizePrologueRewards(pool)
+        let planned
+        if (typeof(options.prologueRewards) === 'object') {
+          planned = options.prologueRewards
+        }
+        randomizePrologueRewards(pool, addon, planned)
       }
     }
     // Turkey mode.
@@ -939,7 +1123,7 @@
     }
     // Write items to ROM.
     if (!options.checkVanilla) {
-      pool.filter(tilesFilter).forEach(writeTiles(data))
+      (addon.concat(pool)).filter(tilesFilter).forEach(writeTiles(data))
     }
     return returnVal
   }

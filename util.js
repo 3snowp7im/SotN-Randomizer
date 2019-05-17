@@ -121,6 +121,11 @@
     this.writeByte(address + 1, val >>> 8)
   }
 
+  checked.prototype.writeWord = function writeShort(address, val) {
+    this.writeShort(address + 0, val & 0xffff)
+    this.writeShort(address + 2, val >>> 16)
+  }
+
   checked.prototype.sum = function sum() {
     const state = JSON.stringify(this.writes)
     let hex = sjcl.codec.hex.fromBits(sjcl.hash.sha256.hash(state))
@@ -137,23 +142,12 @@
     while (i < randomize.length) {
       let c = randomize[i++]
       switch (c) {
-      case 'e':
-        options.startingEquipment = true
-        break
-      case 'i':
-        options.itemLocations = true
-        break
-      case 'p':
-        options.prologueRewards = true
-        break;
-      case 't':
-        options.turkeyMode = true
-        break
       case 'd':
         let enemyDrops = options.enemyDrops || true
         // Check for an argument.
         if (randomize[i] === ':') {
           i++
+          let args = 0
           while (i < randomize.length && randomize[i] !== ',') {
             let enemy
             let arg
@@ -165,24 +159,22 @@
               i++
             }
             arg = randomize.slice(start, i)
-            if (arg.length) {
-              enemy = enemies.filter(function(enemy) {
-                const name = enemy.name.replace(/[^a-zA-Z0-9]/, '')
-                if (enemy.name.match(/[0-9]+$/)) {
-                  return arg === enemy.name
-                }
-                return (arg === name + enemy.level)|| arg === name
-              })[0]
-              if (!enemy) {
-                throw new Error('Unknown enemy: ' + arg)
-              }
-            } else {
+            if (!arg.length) {
               throw new Error('Expected argument')
             }
-            if (typeof(enemyDrops) !== 'object') {
-              enemyDrops = {}
+            enemy = enemies.filter(function(enemy) {
+              let name = enemy.name.replace(/[^a-zA-Z0-9]/g, '')
+              name = name.toLowerCase()
+              return (name + '-' + enemy.level === arg.toLowerCase())
+                || name === arg.toLowerCase()
+            })[0]
+            if (!enemy) {
+              throw new Error('Unknown enemy: ' + arg)
             }
-            enemyDrops[enemy.id] = []
+            if (typeof(enemyDrops) !== 'object') {
+              enemyDrops = new Map()
+            }
+            enemyDrops.set(enemy, [])
             if (randomize[i] === ':') {
               start = ++i
               while (i < randomize.length
@@ -196,23 +188,28 @@
                 }
                 if (arg) {
                   const item = items.filter(function(item) {
-                    const name = item.name.replace(/[^a-zA-Z0-9]/, '')
-                    return name === arg
+                    let name = item.name.replace(/[^a-zA-Z0-9]/g, '')
+                    name = name.toLowerCase()
+                    return name === arg.toLowerCase()
                   })[0]
                   if (!item) {
                     throw new Error('Unknown item: ' + arg)
                   }
-                  enemyDrops[enemy.id].push(item)
+                  enemyDrops.get(enemy).push(item)
                 } else {
-                  enemyDrops[enemy.id].push(undefined)
+                  enemyDrops.get(enemy).push(undefined)
                 }
               })
             } else {
-              enemyDrops[enemy.id] = [undefined, undefined]
+              enemyDrops.set(enemy, null)
             }
             if (randomize[i] === ':') {
               i++
             }
+            args++
+          }
+          if (!args) {
+            throw new Error('Expected argument')
           }
         } else if (typeof(enemyDrops) === 'undefined') {
           // Otherwise it's just turning on drop randomization.
@@ -222,10 +219,326 @@
           i++
         }
         if (typeof(enemyDrops) === 'object'
-            && Object.getOwnPropertyNames(enemyDrops).length === 0) {
+            && enemyDrops.entries().length === 0) {
           enemyDrops = true
         }
         options.enemyDrops = enemyDrops
+        break
+      case 'e':
+        let startingEquipment = options.startingEquipment || true
+        // Check for an argument.
+        if (randomize[i] === ':') {
+          i++
+          let args = 0
+          while (i < randomize.length && randomize[i] !== ',') {
+            let arg
+            let start
+            // Parse the arg name.
+            start = i
+            while (i < randomize.length
+                   && [',', ':'].indexOf(randomize[i]) === -1) {
+              i++
+            }
+            arg = randomize.slice(start, i)
+            if (!arg.length) {
+              throw new Error('Expected argument')
+            }
+            if (['r', 'l', 'h', 'b', 'c', 'o', 'a', 'x'].indexOf(arg) === -1) {
+              throw new Error('Unknown equipment slot: ' + arg)
+            }
+            const slot = arg
+            if (randomize[i] !== ':') {
+              throw new Error('Expected argument')
+            }
+            start = ++i
+            while (i < randomize.length
+                   && [',', ':'].indexOf(randomize[i]) === -1) {
+              i++
+            }
+            arg = randomize.slice(start, i)
+            let item
+            if (arg.length) {
+              const itemName = arg
+              item = items.filter(function(item) {
+                let name = item.name.replace(/[^a-zA-Z0-9]/g, '')
+                name = name.toLowerCase()
+                return name === itemName.toLowerCase()
+              })[0]
+              if (!item) {
+                throw new Error('Unknown item: ' + arg)
+              }
+              let types
+              switch (slot) {
+              case 'r':
+                types = [
+                  constants.TYPE.WEAPON1,
+                  constants.TYPE.WEAPON2,
+                  constants.TYPE.SHIELD,
+                  constants.TYPE.USABLE,
+                ]
+                if (types.indexOf(item.type) === -1) {
+                  throw new Error('Cannot equip ' + item.name
+                                  + ' in right hand')
+                }
+                if (startingEquipment.l
+                    && item.type === constants.TYPE.WEAPON2) {
+                  throw new Error('Cannot equip ' + item.name
+                                  + ' and a two handed weapon')
+                }
+                break
+              case 'l':
+                types = [
+                  constants.TYPE.WEAPON1,
+                  constants.TYPE.SHIELD,
+                  constants.TYPE.USABLE,
+                ]
+                if (types.indexOf(item.type) === -1) {
+                  throw new Error('Cannot equip ' + item.name
+                                  + ' in left hand')
+                }
+                if (startingEquipment.r
+                    && startingEquipment.r.type === constants.TYPE.WEAPON2) {
+                  throw new Error('Cannot equip ' + item.name
+                                  + ' and a two handed weapon')
+                }
+                break
+              case 'h':
+                if (item.type !== constants.TYPE.HELMET) {
+                  throw new Error('Cannot equip ' + item.name + ' on head')
+                }
+                break
+              case 'b':
+                if (item.type !== constants.TYPE.ARMOR) {
+                  throw new Error('Cannot equip ' + item.name + ' on body')
+                }
+                break
+              case 'c':
+                if (item.type !== constants.TYPE.CLOAK) {
+                  throw new Error('Cannot equip ' + item.name + ' as cloak')
+                }
+                break
+              case 'o':
+                if (item.type !== constants.TYPE.ACCESSORY) {
+                  throw new Error('Cannot equip ' + item.name + ' as other')
+                }
+                break
+              case 'a':
+                if (item.type !== constants.TYPE.ARMOR) {
+                  throw new Error('Cannot give ' + item.name + ' as armor')
+                }
+                break
+              case 'x':
+                if (item.type !== constants.TYPE.ACCESSORY) {
+                  throw new Error('Cannot equip ' + item.name + ' as other')
+                }
+                break
+              }
+            }
+            if (typeof(startingEquipment) !== 'object') {
+              startingEquipment = {}
+            }
+            startingEquipment[slot] = item
+            if (randomize[i] === ':') {
+              i++
+            }
+            args++
+          }
+          if (!args) {
+            throw new Error('Expected argument')
+          }
+        } else if (typeof(startingEquipment) === 'undefined') {
+          // Otherwise it's just turning on equipment randomization.
+          startingEquipment = true
+        }
+        if (randomize[i] === ',') {
+          i++
+        }
+        if (typeof(startingEquipment) === 'object'
+            && Object.getOwnPropertyNames(startingEquipment).length === 0) {
+          startingEquipment = true
+        }
+        options.startingEquipment = startingEquipment
+        break
+      case 'i':
+        let itemLocations = options.itemLocations || true
+        // Check for an argument.
+        if (randomize[i] === ':') {
+          i++
+          let args = 0
+          while (i < randomize.length && randomize[i] !== ',') {
+            let arg
+            let start
+            // Parse the arg name.
+            start = i
+            while (i < randomize.length
+                   && [',', ':'].indexOf(randomize[i]) === -1) {
+              i++
+            }
+            arg = randomize.slice(start, i)
+            if (!arg.length) {
+              throw new Error('Expected argument')
+            }
+            if (!(arg in constants.ZONE)) {
+              throw new Error('Unknown zone: ' + arg)
+            }
+            const zone = arg
+            if (typeof(itemLocations) !== 'object') {
+              itemLocations = {}
+            }
+            if (randomize[i] !== ':') {
+              throw new Error('Expected argument')
+            }
+            start = ++i
+            while (i < randomize.length
+                   && [',', ':'].indexOf(randomize[i]) === -1) {
+              i++
+            }
+            arg = randomize.slice(start, i)
+            if (!arg.length) {
+              throw new Error('Expected argument')
+            }
+            const dashIndex = arg.lastIndexOf('-')
+            let itemName
+            let index
+            if (dashIndex === -1) {
+              itemName = arg
+              index = 0
+            } else {
+              itemName = arg.slice(0, dashIndex)
+              index = parseInt(arg.slice(dashIndex + 1)) - 1
+              if (index < 0) {
+                throw new Error('Unknown index: ' + arg.slice(dashIndex + 1))
+              }
+            }
+            const item = items.filter(function(item) {
+              let name = item.name.replace(/[^a-zA-Z0-9]/g, '')
+              name = name.toLowerCase()
+              return name === itemName.toLowerCase()
+            })[0]
+            if (!item) {
+              throw new Error('Unknown item: ' + arg)
+            }
+            const tile = item.tiles && item.tiles.filter(function(tile) {
+              if (typeof(tile.zone) !== 'undefined') {
+                return tile.zone === constants.ZONE[zone]
+              }
+            })[index]
+            if (!tile) {
+              throw new Error('Item not found in zone: ' + arg)
+            }
+            if (randomize[i] !== ':') {
+              throw new Error('Expected argument')
+            }
+            start = ++i
+            while (i < randomize.length
+                   && [',', ':'].indexOf(randomize[i]) === -1) {
+              i++
+            }
+            arg = randomize.slice(start, i)
+            if (!arg.length) {
+              throw new Error('Expected argument')
+            }
+            const replacement = items.filter(function(item) {
+              let name = item.name.replace(/[^a-zA-Z0-9]/g, '')
+              name = name.toLowerCase()
+              return name === arg.toLowerCase()
+            })[0]
+            if (!replacement) {
+              throw new Error('Unknown item: ' + arg)
+            }
+            itemLocations[zone] = itemLocations[zone] || new Map()
+            let map = itemLocations[zone].get(item) || {}
+            map[index] = replacement
+            itemLocations[zone].set(item, map)
+            if (randomize[i] === ':') {
+              i++
+            }
+            args++
+          }
+          if (!args) {
+            throw new Error('Expected argument')
+          }
+        } else if (typeof(itemLocations) === 'undefined') {
+          // Otherwise it's just turning on item randomization.
+          itemLocations = true
+        }
+        if (randomize[i] === ',') {
+          i++
+        }
+        if (typeof(itemLocations) === 'object'
+            && Object.getOwnPropertyNames(itemLocations).length === 0) {
+          itemLocations = true
+        }
+        options.itemLocations = itemLocations
+        break
+      case 'p':
+        let prologueRewards = options.prologueRewards || true
+        // Check for an argument
+        if (randomize[i] === ':') {
+          i++
+          let args = 0
+          while (i < randomize.length && randomize[i] !== ',') {
+            let arg
+            let start
+            // Parse the arg name.
+            start = i
+            while (i < randomize.length
+                   && [',', ':'].indexOf(randomize[i]) === -1) {
+              i++
+            }
+            arg = randomize.slice(start, i)
+            if (!arg.length) {
+              throw new Error('Expected argument')
+            }
+            const item = arg
+            if (['h', 'n', 'p'].indexOf(item) === -1) {
+              throw new Error('Unknown reward: ' + arg)
+            }
+            if (randomize[i] !== ':') {
+              throw new Error('Expected argument')
+            }
+            start = ++i
+            while (i < randomize.length
+                   && [',', ':'].indexOf(randomize[i]) === -1) {
+              i++
+            }
+            arg = randomize.slice(start, i)
+            let replacement
+            if (arg.length) {
+              const replacementName = arg
+              replacement = items.filter(function(item) {
+                let name = item.name.replace(/[^a-zA-Z0-9]/g, '')
+                name = name.toLowerCase()
+                return name === replacementName.toLowerCase()
+              })[0]
+              if (!replacement) {
+                throw new Error('Unknown item: ' + arg)
+              }
+            }
+            if (typeof(prologueRewards) !== 'object') {
+              prologueRewards = {}
+            }
+            prologueRewards[item] = replacement
+            if (randomize[i] === ':') {
+              i++
+            }
+            args++
+          }
+          if (!args) {
+            throw new Error('Expected argument')
+          }
+        } else if (typeof(prologueRewards) === 'undefined') {
+          // Otherwise it's just turning on reward randomization.
+          prologueRewards = true
+        }
+        if (randomize[i] === ',') {
+          i++
+        }
+        if (typeof(prologueRewards) === 'object'
+            && Object.getOwnPropertyNames(prologueRewards).length === 0) {
+          prologueRewards = true
+        }
+        options.prologueRewards = prologueRewards
         break
       case 'r':
         let relicLocations = options.relicLocations || true
@@ -235,10 +548,10 @@
           while (i < randomize.length && randomize[i] !== ',') {
             // If there's an argument it's either a relic logic scheme name 
             // or a location lock.
-            let arg
             let logic
             let location
             let relics
+            let arg
             let start
             // Parse the arg name.
             start = i
@@ -328,6 +641,9 @@
         }
         options.relicLocations = relicLocations
         break
+      case 't':
+        options.turkeyMode = true
+        break
       default:
         throw new Error('Invalid randomization: ' + c)
       }
@@ -351,19 +667,125 @@
     while (Object.getOwnPropertyNames(options).length) {
       if ('enemyDrops' in options) {
         randomize += 'd'
+        if (typeof(options.enemyDrops) === 'object') {
+          Array.from(options.enemyDrops.keys()).forEach(function(enemy) {
+            const drops = options.enemyDrops.get(enemy)
+            const firstEnemy = enemies.filter(function(ref) {
+              return ref.name === enemy.name
+            }).shift()
+            let disambig = firstEnemy !== enemy
+            randomize += ':' + enemy.name.replace(/[^a-zA-Z0-9]/g, '')
+              + (disambig ? '-' + enemy.level : '')
+            if (drops) {
+              randomize += ':'
+              randomize += drops.map(function(drop) {
+                if (drop) {
+                  return drop.name.replace(/[^a-zA-Z0-9]/g, '')
+                }
+              }).join('-')
+            }
+          })
+          if (Object.getOwnPropertyNames(options).length > 1) {
+            randomize += ','
+          }
+        }
         delete options.enemyDrops
       } else if ('startingEquipment' in options) {
         randomize += 'e'
+        const eq = options.startingEquipment
+        if (typeof(eq) === 'object') {
+          if ('r' in eq) {
+            randomize += ':'
+            if (eq.r) {
+              randomize += eq.r.name.replace(/[^a-zA-Z0-9]/g, '')
+            }
+          }
+          if ('l' in eq) {
+            randomize += ':'
+            if (eq.r) {
+              randomize += eq.l.name.replace(/[^a-zA-Z0-9]/g, '')
+            }
+          }
+          if ('h' in eq) {
+            randomize += ':'
+            if (eq.h) {
+              randomize += eq.h.name.replace(/[^a-zA-Z0-9]/g, '')
+            }
+          }
+          if ('b' in eq) {
+            randomize += ':'
+            if (eq.b) {
+              randomize += eq.b.name.replace(/[^a-zA-Z0-9]/g, '')
+            }
+          }
+          if ('c' in eq) {
+            randomize += ':'
+            if (eq.c) {
+              randomize += eq.c.name.replace(/[^a-zA-Z0-9]/g, '')
+            }
+          }
+          if ('o' in eq) {
+            randomize += ':'
+            if (eq.o) {
+              randomize += eq.o.name.replace(/[^a-zA-Z0-9]/g, '')
+            }
+          }
+          if ('a' in eq) {
+            randomize += ':'
+            if (eq.a) {
+              randomize += eq.a.name.replace(/[^a-zA-Z0-9]/g, '')
+            }
+          }
+          if ('x' in eq) {
+            randomize += ':'
+            if (eq.x) {
+              randomize += eq.x.name.replace(/[^a-zA-Z0-9]/g, '')
+            }
+          }
+        }
         delete options.startingEquipment
       } else if ('itemLocations' in options) {
         randomize += 'i'
+        if (typeof(options.itemLocations) === 'object') {
+          Object.getOwnPropertyNames(constants.ZONE).forEach(function(zone) {
+            if (zone in options.itemLocations) {
+              const items = options.itemLocations[zone]
+              Array.from(items.keys()).forEach(function(item) {
+                const map = items.get(item)
+                const indexes = Object.getOwnPropertyNames(map)
+                indexes.forEach(function(index) {
+                  const replacement = map[index]
+                  randomize += ':' + zone
+                    + ':' + item.name.replace(/[^a-zA-Z0-9]/g, '')
+                    + (index > 0 ? '-' + (index + 1) : '')
+                    + ':' + replacement.name.replace(/[^a-zA-Z0-9]/g, '')
+                })
+              })
+            }
+          })
+          if (Object.getOwnPropertyNames(options).length > 1) {
+            randomize += ','
+          }
+        }
         delete options.itemLocations
       } else if ('prologueRewards' in options) {
         randomize += 'p'
+        if (typeof(options.prologueRewards) === 'object') {
+          const rewards = ['h', 'n', 'p']
+          rewards.forEach(function(reward) {
+            if (reward in options.prologueRewards) {
+              randomize += ':' + reward
+              if (options.prologueRewards[reward]) {
+                const item = options.prologueRewards[reward]
+                randomize += ':' + item.name.replace(/[^a-zA-Z0-9]/g, '')
+              }
+            }
+          })
+          if (Object.getOwnPropertyNames(options).length > 1) {
+            randomize += ','
+          }
+        }
         delete options.prologueRewards
-      } else if ('turkeyMode' in options) {
-        randomize += 't'
-        delete options.turkeyMode
       } else if ('relicLocations' in options) {
         randomize += 'r'
         if (typeof(options.relicLocations) === 'object') {
@@ -381,11 +803,14 @@
           if (locks.length) {
             randomize += ':' + locks.join(':')
           }
+          if (Object.getOwnPropertyNames(options).length > 1) {
+            randomize += ','
+          }
         }
         delete options.relicLocations
-        if (Object.getOwnPropertyNames(options).length) {
-          randomize += ','
-        }
+      } else if ('turkeyMode' in options) {
+        randomize += 't'
+        delete options.turkeyMode
       } else {
         const unknown = Object.getOwnPropertyNames(options).pop()
         throw new Error('Unknown options: ' + unknown)
