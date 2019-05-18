@@ -6,7 +6,7 @@
   let constants
   let util
   let relics
-  let logic
+  let preset
 
   let info
   let lastSeed
@@ -26,13 +26,13 @@
     constants = sotnRando.constants
     util = sotnRando.util
     relics = sotnRando.relics
-    logic = sotnRando.logic
+    preset = sotnRando.preset
   } else {
     version = require('./package').version
     constants = require('./constants')
     util = require('./util')
     relics = require('./relics')
-    logic = require('./logic')
+    preset = require('./preset')
   }
 
   function loadOption(name, changeHandler, defaultValue) {
@@ -139,10 +139,10 @@
     localStorage.setItem('relicLocations', elems.relicLocations.checked)
     if (elems.relicLocations.checked) {
       elems.relicLabel.innerText = 'Relic locations:'
-      elems.relicLogicField.classList.remove('hide')
+      elems.relicPresetField.classList.remove('hide')
     } else {
       elems.relicLabel.innerText = 'Relic locations'
-      elems.relicLogicField.classList.add('hide')
+      elems.relicPresetField.classList.add('hide')
     }
   }
 
@@ -179,11 +179,11 @@
     localStorage.setItem('showRelics', elems.showRelics.checked)
   }
 
-  function relicLogicChange() {
-    const meta = logic[elems.relicLogic.selectedIndex]
-    elems.logicDescription.innerText = meta.description
-    elems.logicAuthor.innerText = 'by ' + meta.author
-    localStorage.setItem('relicLogic', meta.id)
+  function relicPresetChange() {
+    const meta = preset[elems.relicPreset.selectedIndex]
+    elems.presetDescription.innerText = meta.description
+    elems.presetAuthor.innerText = 'by ' + meta.author
+    localStorage.setItem('relicPreset', meta.id)
   }
 
   function dragLeaveListener(event) {
@@ -245,7 +245,7 @@
       if (typeof(options.relicLocations) !== 'object') {
         options.relicLocations = {}
       }
-      options.relicLocations.logic = logic[elems.relicLogic.selectedIndex].id
+      options.relicLocations.preset = preset[elems.relicPreset.selectedIndex].id
     }
     return options
   }
@@ -314,7 +314,7 @@
     elems.startingEquipment.disabled = false
     elems.prologueRewards.disabled = false
     elems.turkeyMode.disabled = false
-    elems.relicLogic.disabled = false
+    elems.relicPreset.disabled = false
     elems.clear.classList.add('hidden')
   }
 
@@ -407,7 +407,7 @@
     'The default randomization mode is "'
       +  constants.defaultOptions
       + '", which randomizes everything',
-    'while using default relic placement logic.',
+    'while using default relic placement preset.',
     '',
     'Examples:',
     '  $0 -o d    # Only randomize enemy drops.',
@@ -420,7 +420,7 @@
     'also be specified using argument syntax.',
     '',
     'Drops format:',
-    '  d[:enemy[-level][:[item][-[item]]][:enemy...]',
+    '  d[:enemy[-level][:[item][-[item]]][:...]',
     '',
     'Enemies and items are specified by removing any non-alphanumeric',
     'characters from their name. Enemies with the same name can be dis-',
@@ -441,7 +441,7 @@
     'Equipment may also be specified using argument syntax.',
     '',
     'Equipment format:',
-    '  e[:slot[:item]][:slot...]',
+    '  e[:slot[:item]][:...]',
     '',
     'Items are specified by removing any non-alphanumeric characters from',
     'their name.',
@@ -471,7 +471,7 @@
     'may be placed in specific locations using argument syntax.',
     '',
     'Items format:',
-    '  i[:zone:item[-index]:replacement][:zone...]',
+    '  i[:zone:item[-index]:replacement][:...]',
     '',
     'Items are specified by removing any non-alphanumeric characters from',
     'their name. If a zone contains multiple occurences of the same item,',
@@ -521,7 +521,7 @@
     'Rewards may be specified using argument syntax.',
     '',
     'Rewards format:',
-    '  p[:reward[:item]][:reward...]',
+    '  p[:reward[:item]][:...]',
     '',
     'Reward is one of:',
     '  "h" for Heart Refresh',
@@ -543,8 +543,9 @@
 
   const relicsHelp = [
     'Relic location randomization can be either toggled with the "r" switch,',
-    'or more advanced options can be enabled using logic schemes and location',
-    'locks. Logic and locks may be specified using argument syntax.',
+    'or more advanced options can be enabled using preset logic schemes and',
+    'location locks. Preset logic and locks may be specified using argument',
+    'syntax.',
     '',
     'A relic location lock sets the abilities required to access a relic',
     'location. Each relic location may be guarded by multiple locks, and the',
@@ -552,7 +553,7 @@
     'comprising any single lock.',
     '',
     'Relics format:',
-    '  r[:\'logic\':logic][:location[:abilities[-abilities...]][:location...]',
+    '  r[:\'preset\':preset][:location[:abilities[-abilities...]][:...]',
     '',
     'Examples:',
     '  r:B:L      Soul of Bat relic location requires Leap Stone.',
@@ -567,29 +568,29 @@
     'separated from the lock with a comma:',
     '  $0 -o r:B:L:S:LG-MP,dpt',
     '',
-    'Use `--help logic` for information on the built-in placement logic',
+    'Use `--help preset` for information on the built-in placement preset',
     'schemes.',
   ].join('\n')
 
-  const logicHelp = [
-    'This randomizer has several built-in relic placement logic schemes:',
-  ].concat(logic.map(function(meta) {
+  const presetHelp = [
+    'This randomizer has several built-in relic placement preset schemes:',
+  ].concat(preset.map(function(meta) {
     return '  ' + meta.id + (meta.id === 'safe' ? ' (default)' : '')
   })).concat([
     '',
-    'Use `--help <logic>` for information on a specific scheme.',
+    'Use `--help <preset>` for information on a specific scheme.',
     '',
     'Use the lock string format with a location identifier of ":" to specify',
-    'a logic scheme other than default.',
+    'a preset scheme other than default.',
     '',
     'Example:',
-    '  $0 -o r:logic:agonize         # Randomize relics, agonizer logic',
-    '  $0 -o r:logic:optimize,deipt  # Randomize everything, speedrun logic',
+    '  $0 -o r:preset:agonize         # Randomize relics, agonizer preset',
+    '  $0 -o r:preset:optimize,deipt  # Randomize everything, speedrun preset',
     '',
     'Use `--help locks` for information on custom location locks.',
   ]).join('\n')
 
-  function logicMetaHelp(meta) {
+  function presetMetaHelp(meta) {
     return [
       meta.name + ' by ' + meta.author,
       meta.description,
@@ -682,14 +683,14 @@
         items: itemsHelp,
         rewards: rewardsHelp,
         relics: relicsHelp,
-        logic: logicHelp,
+        preset: presetHelp,
       }
       const script = path.basename(process.argv[1])
       Object.getOwnPropertyNames(topics).forEach(function(topic) {
         topics[topic] = topics[topic].replace(/\$0/g, script)
       }, {})
-      logic.forEach(function(meta) {
-        topics[meta.id] = logicMetaHelp(meta)
+      preset.forEach(function(meta) {
+        topics[meta.id] = presetMetaHelp(meta)
       })
       if (argv.help in topics) {
         console.log(topics[argv.help])
@@ -861,11 +862,11 @@
     elems.relicLabel = document.getElementById('relic-label')
     elems.relicLocations = document.getElementById('relic-locations')
     elems.relicLocations.addEventListener('change', relicLocationsChange)
-    elems.relicLogicField = document.getElementById('relic-logic-field')
-    elems.relicLogic = document.getElementById('relic-logic')
-    elems.relicLogic.addEventListener('change', relicLogicChange)
-    elems.logicDescription = document.getElementById('logic-description')
-    elems.logicAuthor = document.getElementById('logic-author')
+    elems.relicPresetField = document.getElementById('relic-preset-field')
+    elems.relicPreset = document.getElementById('relic-preset')
+    elems.relicPreset.addEventListener('change', relicPresetChange)
+    elems.presetDescription = document.getElementById('preset-description')
+    elems.presetAuthor = document.getElementById('preset-author')
     elems.startingEquipment = document.getElementById('starting-equipment')
     elems.startingEquipment.addEventListener('change', startingEquipmentChange)
     elems.itemLocations = document.getElementById('item-locations')
@@ -893,12 +894,12 @@
     elems.copy.addEventListener('click', copyHandler)
     elems.notification = document.getElementById('notification')
     elems.seedUrl = document.getElementById('seed-url')
-    // Load relic logic.
-    logic.forEach(function(meta) {
+    // Load relic preset.
+    preset.forEach(function(meta) {
       const option = document.createElement('option')
       option.value = meta.id
       option.innerText = meta.name
-      elems.relicLogic.appendChild(option)
+      elems.relicPreset.appendChild(option)
     })
     const url = new URL(window.location.href)
     if (url.protocol !== 'file:') {
@@ -935,18 +936,18 @@
         relicLocks = util.optionsToString({
           relicLocations: options.relicLocations,
         })
-        if (options.relicLocations.logic) {
-          for (let i = 0; i < logic.length; i++) {
-            if (logic[i].id === options.relicLocations.logic) {
-              elems.relicLogic.selectedIndex = i
+        if (options.relicLocations.preset) {
+          for (let i = 0; i < preset.length; i++) {
+            if (preset[i].id === options.relicLocations.preset) {
+              elems.relicPreset.selectedIndex = i
               break
             }
           }
         } else {
-          elems.relicLogic.selectedIndex = 0
+          elems.relicPreset.selectedIndex = 0
         }
       }
-      relicLogicChange()
+      relicPresetChange()
       elems.relicLocks.value = relicLocks
       if (typeof(seed) === 'string') {
         elems.seed.value = seed
@@ -960,7 +961,7 @@
       elems.startingEquipment.disabled = true
       elems.prologueRewards.disabled = true
       elems.turkeyMode.disabled = true
-      elems.relicLogic.disabled = true
+      elems.relicPreset.disabled = true
       elems.clear.classList.remove('hidden')
       const baseUrl = url.origin + url.pathname
       window.history.replaceState({}, document.title, baseUrl)
@@ -971,16 +972,16 @@
       loadOption('startingEquipment', startingEquipmentChange, true)
       loadOption('prologueRewards', prologueRewardsChange, true)
       loadOption('turkeyMode', turkeyModeChange, true)
-      const relicLogic = localStorage.getItem('relicLogic')
-      if (typeof(relicLogic) === 'string') {
-        for (let i = 0; i < logic.length; i++) {
-          if (logic[i].id === relicLogic) {
-            elems.relicLogic.selectedIndex = i
+      const relicPreset = localStorage.getItem('relicPreset')
+      if (typeof(relicPreset) === 'string') {
+        for (let i = 0; i < preset.length; i++) {
+          if (preset[i].id === relicPreset) {
+            elems.relicPreset.selectedIndex = i
             break
           }
         }
       }
-      relicLogicChange()
+      relicPresetChange()
     }
     let path = url.pathname
     if (path.match(/index\.html$/)) {

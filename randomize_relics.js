@@ -13,15 +13,15 @@
   
   let relics
   let util
-  let logic
+  let preset
   if (self) {
     relics = self.sotnRando.relics
     util = self.sotnRando.util
-    logic = self.sotnRando.logic
+    preset = self.sotnRando.preset
   } else {
     relics = require('./relics')
     util = require('./util')
-    logic = require('./logic')
+    preset = require('./preset')
   }
 
   const ERROR = {
@@ -269,18 +269,18 @@
         if (typeof(options.relicLocations) === 'object') {
           Object.assign(locks, options.relicLocations)
         }
-        const id = locks.logic || 'safe'
-        const meta = logic.filter(function(meta) {
+        const id = locks.preset || 'safe'
+        const meta = preset.filter(function(meta) {
           return meta.id === id
         }).pop()
         if (!meta) {
-          throw new Error('Unknown logic: ' + id)
+          throw new Error('Unknown preset: ' + id)
         }
         Object.assign(locks, meta.locks)
         if (typeof(options.relicLocations) === 'object') {
           Object.assign(locks, options.relicLocations)
         }
-        delete locks.logic
+        delete locks.preset
         relics.forEach(function(relic) {
           relic.locks = locks[relic.ability].map(function(lock) {
             return new Set(lock)

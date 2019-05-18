@@ -546,9 +546,9 @@
         if (randomize[i] === ':') {
           i++
           while (i < randomize.length && randomize[i] !== ',') {
-            // If there's an argument it's either a relic logic scheme name 
+            // If there's an argument it's either a relic preset scheme name 
             // or a location lock.
-            let logic
+            let preset
             let location
             let relics
             let arg
@@ -560,12 +560,12 @@
               i++
             }
             arg = randomize.slice(start, i)
-            if (arg === 'logic') {
+            if (arg === 'preset') {
               if (typeof(relicLocations) === 'object'
-                  && 'logic' in relicLocations) {
-                throw new Error('Can\'t specify more than one relic logic')
+                  && 'preset' in relicLocations) {
+                throw new Error('Can\'t specify more than one relic preset')
               }
-              logic = true
+              preset = true
             } else if (arg.length) {
               relics = Object.getOwnPropertyNames(constants.RELIC)
               location = constants.RELIC[relics.filter(function(relic) {
@@ -587,12 +587,12 @@
                 i++
               }
               arg = randomize.slice(start, i)
-              if (logic) {
+              if (preset) {
                 if (!arg.length) {
-                  throw new Error('Relic logic name required')
+                  throw new Error('Relic preset name required')
                 }
                 if (arg !== 'safe') {
-                  relicLocations.logic = arg
+                  relicLocations.preset = arg
                 }
               } else {
                 const invalid = arg.split('').filter(function(c) {
@@ -619,8 +619,8 @@
                 }
                 relicLocations[location] = locks
               }
-            } else if (logic) {
-              throw new Error('Relic logic name required')
+            } else if (preset) {
+              throw new Error('Relic preset name required')
             } else {
               relicLocations[location] = []
             }
@@ -790,9 +790,9 @@
         randomize += 'r'
         if (typeof(options.relicLocations) === 'object') {
           const locks = []
-          if ('logic' in options.relicLocations
-              && options.relicLocations.logic !== 'safe') {
-            locks.push('logic:' + options.relicLocations.logic)
+          if ('preset' in options.relicLocations
+              && options.relicLocations.preset !== 'safe') {
+            locks.push('preset:' + options.relicLocations.preset)
           }
           Object.getOwnPropertyNames(constants.RELIC).forEach(function(relic) {
             relic = constants.RELIC[relic]
@@ -1049,7 +1049,7 @@
   }
 
   // Convert lock sets into strings.
-  plandomizer.prototype.logic = function logic() {
+  plandomizer.prototype.preset = function preset() {
     const locks = Object.assign({}, this.locations)
     relics.forEach(function(relic) {
       if (locks[relic.ability]) {
@@ -1067,7 +1067,7 @@
 
   // Output as lock string.
   plandomizer.prototype.toString = function toString() {
-    return optionsToString({relicLocations: this.logic().locks})
+    return optionsToString({relicLocations: this.preset().locks})
   }
 
   const exports = {
