@@ -119,6 +119,15 @@
     haveChecksum = false
   }
 
+  function presetChange() {
+    localStorage.setItem('preset', elems.preset.checked)
+    if (elems.preset.checked) {
+      elems.presetField.classList.remove('hide')
+    } else {
+      elems.presetField.classList.add('hide')
+    }
+  }
+
   function startingEquipmentChange() {
     localStorage.setItem('startingEquipment', elems.startingEquipment.checked)
   }
@@ -137,13 +146,6 @@
 
   function relicLocationsChange() {
     localStorage.setItem('relicLocations', elems.relicLocations.checked)
-    if (elems.relicLocations.checked) {
-      elems.relicLabel.innerText = 'Relic locations:'
-      elems.relicPresetField.classList.remove('hide')
-    } else {
-      elems.relicLabel.innerText = 'Relic locations'
-      elems.relicPresetField.classList.add('hide')
-    }
   }
 
   function turkeyModeChange() {
@@ -179,11 +181,11 @@
     localStorage.setItem('showRelics', elems.showRelics.checked)
   }
 
-  function relicPresetChange() {
-    const meta = preset[elems.relicPreset.selectedIndex]
+  function presetIdChange() {
+    const meta = preset[elems.preset.selectedIndex]
     elems.presetDescription.innerText = meta.description
     elems.presetAuthor.innerText = 'by ' + meta.author
-    localStorage.setItem('relicPreset', meta.id)
+    localStorage.setItem('presetId', meta.id)
   }
 
   function dragLeaveListener(event) {
@@ -230,22 +232,36 @@
   }
 
   function getFormOptions() {
+    if (elems.preset.checked) {
+      return preset[elems.preset.selectedIndex].options()
+    }
     const options = {
-      relicLocations: elems.relicLocations.checked,
-      startingEquipment: elems.startingEquipment.checked,
-      prologueRewards: elems.prologueRewards.checked,
-      itemLocations: elems.itemLocations.checked,
       enemyDrops: elems.enemyDrops.checked,
+      startingEquipment: elems.startingEquipment.checked,
+      itemLocations: elems.itemLocations.checked,
+      prologueRewards: elems.prologueRewards.checked,
+      relicLocations: elems.relicLocations.checked,
       turkeyMode: elems.turkeyMode.checked,
     }
-    if (elems.relicLocks.value) {
-      options.relicLocations = util.optionsFromString(elems.relicLocks.value)
+    if (elems.enemyDropsArg.value) {
+      options.enemyDrops = util.optionsFromString({
+        enemyDrops: elems.enemyDropsArg.value,
+      }).enemyDrops
     }
-    if (options.relicLocations) {
-      if (typeof(options.relicLocations) !== 'object') {
-        options.relicLocations = {}
-      }
-      options.relicLocations.preset = preset[elems.relicPreset.selectedIndex].id
+    if (elems.startingEquipmentArg.value) {
+      options.startingEquipment = util.optionsFromString({
+        startingEquipment: elems.startingEquipmentArg.value,
+      }).startingEquipment
+    }
+    if (elems.prologueRewards.value) {
+      options.prologueRewards = util.optionsFromString({
+        prologueRewards: elems.prologueRewardsArg.value,
+      }).prologueRewards
+    }
+    if (elems.relicLocationsArg.value) {
+      options.relicLocations = util.optionsFromString({
+        relicLocations: elems.relicLocationsArg.value,
+      }).relicLocations
     }
     return options
   }
@@ -567,39 +583,27 @@
     'If other randomization options follow a lock, they must also be',
     'separated from the lock with a comma:',
     '  $0 -o r:B:L:S:LG-MP,dpt',
-    '',
-    'Use `--help preset` for information on the built-in placement preset',
-    'schemes.',
   ].join('\n')
 
   const presetHelp = [
-    'This randomizer has several built-in relic placement preset schemes:',
+    'This randomizer has several built-in presets:',
   ].concat(preset.map(function(meta) {
     return '  ' + meta.id + (meta.id === 'safe' ? ' (default)' : '')
   })).concat([
     '',
     'Use `--help <preset>` for information on a specific scheme.',
-    '',
-    'Use the lock string format with a location identifier of ":" to specify',
-    'a preset scheme other than default.',
-    '',
-    'Example:',
-    '  $0 -o r:preset:agonize         # Randomize relics, agonizer preset',
-    '  $0 -o r:preset:optimize,deipt  # Randomize everything, speedrun preset',
-    '',
-    'Use `--help locks` for information on custom location locks.',
   ]).join('\n')
 
   function presetMetaHelp(meta) {
     return [
       meta.name + ' by ' + meta.author,
       meta.description,
-      ''
+      '',
     ].concat(relics.map(function(relic) {
       let label = '  (' + relic.ability + ') ' + relic.name
       label += Array(28).fill(' ').join('')
       return label.slice(0, 28) + relic.ability + ':'
-        + (meta.locks[relic.ability] ?
+        + (meta.relicL[relic.ability] ?
            meta.locks[relic.ability].join('-') : '')
     })).join('\n')
   }

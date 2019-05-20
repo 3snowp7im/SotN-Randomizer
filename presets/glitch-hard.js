@@ -9,23 +9,23 @@
   }
 
   // Boilerplate.
-  let plandomizer
+  let PresetBuilder
   let RELIC
   if (self) {
-    plandomizer = self.sotnRando.util.plandomizer
+    PresetBuilder = self.sotnRando.util.PresetBuilder
     RELIC = self.sotnRando.constants.RELIC
   } else {
-    plandomizer = require('../util').plandomizer
+    PresetBuilder = require('../util').PresetBuilder
     RELIC = require('../constants').RELIC
   }
 
-  // Create plandomizer.
-  const plan = new plandomizer(metadata)
+  // Create preset.
+  const builder = new PresetBuilder(metadata)
 
   // Custom logic...
 
   // Form of Mist will be early
-  plan.place(
+  builder.placeRelic(
     RELIC.FORM_OF_MIST
       + RELIC.DEMON_CARD
       + RELIC.SWORD_CARD
@@ -41,7 +41,7 @@
   )
 
   // Wolf will be accessible with Form of Mist
-  plan.place(
+  builder.placeRelic(
     RELIC.SOUL_OF_WOLF
       + RELIC.SPIRIT_ORB
       + RELIC.FAERIE_SCROLL,
@@ -52,7 +52,7 @@
 
   // Soul of Bat, Power of Mist, Gravity Boots
   // will always be in 2nd Castle
-  plan.place(
+  builder.placeRelic(
     RELIC.SOUL_OF_BAT 
       + RELIC.POWER_OF_MIST 
       + RELIC.GRAVITY_BOOTS
@@ -64,7 +64,7 @@
   )
 
   // Tooth of Vlad will always be at the end of 2nd Castle
-  plan.place(
+  builder.placeRelic(
     RELIC.HEART_OF_VLAD
       + RELIC.EYE_OF_VLAD,
     RELIC.EYE_OF_VLAD
@@ -72,7 +72,7 @@
   )
 
   // Jewel of Open will always be behind Merman Statue or Galamoth
-  plan.place(
+  builder.placeRelic(
     RELIC.JEWEL_OF_OPEN
       + RELIC.TOOTH_OF_VLAD,
     RELIC.HOLY_SYMBOL
@@ -80,15 +80,16 @@
   )
 
   // Export.
+  const preset = builder.build()
   if (self) {
-    const logic = (self.sotnRando || {}).logic || []
-    logic.push(plan.logic())
+    const presets = (self.sotnRando || {}).preset || []
+    presets.push(preset)
     self.sotnRando = Object.assign(self.sotnRando || {}, {
-      logic: logic,
+      presets: presets,
     })
   } else if (!module.parent) {
-    console.log(plan.toString())
+    console.log(preset.toString())
   } else {
-    module.exports = plan.logic()
+    module.exports = preset
   }
 })(typeof(self) !== 'undefined' ? self : null)

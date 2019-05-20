@@ -2,7 +2,7 @@
 
   let exports
   if (self) {
-    exports = self.sotnRando.logic
+    exports = self.sotnRando.presets
   } else {
     exports = [
       require('./safe'),
@@ -26,7 +26,7 @@
 
   if (self) {
     self.sotnRando = Object.assign(self.sotnRando || {}, {
-      logic: exports,
+      presets: exports,
     })
   } else {
     module.exports = exports

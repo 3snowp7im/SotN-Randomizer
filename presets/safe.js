@@ -10,21 +10,21 @@
   }
 
   // Boilerplate.
-  let plandomizer
+  let PresetBuilder
   let RELIC
   if (self) {
-    plandomizer = self.sotnRando.util.plandomizer
+    PresetBuilder = self.sotnRando.util.PresetBuilder
     RELIC = self.sotnRando.constants.RELIC
   } else {
-    plandomizer = require('../util').plandomizer
+    PresetBuilder = require('../util').PresetBuilder
     RELIC = require('../constants').RELIC
   }
 
-  // Create plandomizer.
-  const plan = new plandomizer(metadata)
+  // Create PresetBuilder.
+  const builder = new PresetBuilder(metadata)
 
   // Soul of Bat requires Mist + at least Leap Stone.
-  plan.lock(RELIC.SOUL_OF_BAT, [
+  builder.lockLocation(RELIC.SOUL_OF_BAT, [
     RELIC.FORM_OF_MIST + RELIC.LEAP_STONE,
     RELIC.FORM_OF_MIST + RELIC.GRAVITY_BOOTS,
     RELIC.FORM_OF_MIST + RELIC.SOUL_OF_BAT,
@@ -32,14 +32,14 @@
   ])
 
   // Fire of Bat requires flight.
-  plan.lock(RELIC.FIRE_OF_BAT, [
+  builder.lockLocation(RELIC.FIRE_OF_BAT, [
     RELIC.SOUL_OF_BAT,
     RELIC.LEAP_STONE + RELIC.GRAVITY_BOOTS,
     RELIC.FORM_OF_MIST + RELIC.POWER_OF_MIST,
   ])
 
   // Echo of Bat requires flight + a transformation.
-  plan.lock(RELIC.ECHO_OF_BAT, [
+  builder.lockLocation(RELIC.ECHO_OF_BAT, [
     RELIC.SOUL_OF_BAT,
     RELIC.LEAP_STONE + RELIC.GRAVITY_BOOTS + RELIC.FORM_OF_MIST,
     RELIC.LEAP_STONE + RELIC.GRAVITY_BOOTS + RELIC.SOUL_OF_WOLF,
@@ -47,27 +47,27 @@
   ])
 
   // Force of Echo in second castle.
-  plan.lock(RELIC.FORCE_OF_ECHO, [
+  builder.lockLocation(RELIC.FORCE_OF_ECHO, [
     RELIC.JEWEL_OF_OPEN + RELIC.FORM_OF_MIST
       + RELIC.SOUL_OF_BAT + RELIC.ECHO_OF_BAT,
   ])
 
   // Power of Wolf requires flight.
-  plan.lock(RELIC.POWER_OF_WOLF, [
+  builder.lockLocation(RELIC.POWER_OF_WOLF, [
     RELIC.SOUL_OF_BAT,
     RELIC.LEAP_STONE + RELIC.GRAVITY_BOOTS,
     RELIC.FORM_OF_MIST + RELIC.POWER_OF_MIST,
   ])
 
   // Skill of Wolf requires at least Gravity Boots.
-  plan.lock(RELIC.SKILL_OF_WOLF, [
+  builder.lockLocation(RELIC.SKILL_OF_WOLF, [
     RELIC.GRAVITY_BOOTS,
     RELIC.SOUL_OF_BAT,
     RELIC.FORM_OF_MIST + RELIC.POWER_OF_MIST,
   ])
 
   // Form of Mist requires at least Leap Stone.
-  plan.lock(RELIC.FORM_OF_MIST, [
+  builder.lockLocation(RELIC.FORM_OF_MIST, [
     RELIC.LEAP_STONE,
     RELIC.GRAVITY_BOOTS,
     RELIC.SOUL_OF_BAT,
@@ -75,27 +75,27 @@
   ])
 
   // Power of Mist requires flight.
-  plan.lock(RELIC.POWER_OF_MIST, [
+  builder.lockLocation(RELIC.POWER_OF_MIST, [
     RELIC.SOUL_OF_BAT,
     RELIC.LEAP_STONE + RELIC.GRAVITY_BOOTS,
     RELIC.FORM_OF_MIST + RELIC.POWER_OF_MIST,
   ])
 
   // Gas Cloud in second castle.
-  plan.lock(RELIC.GAS_CLOUD, [
+  builder.lockLocation(RELIC.GAS_CLOUD, [
     RELIC.JEWEL_OF_OPEN + RELIC.FORM_OF_MIST
       + RELIC.SOUL_OF_BAT + RELIC.ECHO_OF_BAT,
   ])
 
   // Gravity Boots requires flight.
-  plan.lock(RELIC.GRAVITY_BOOTS, [
+  builder.lockLocation(RELIC.GRAVITY_BOOTS, [
     RELIC.SOUL_OF_BAT,
     RELIC.LEAP_STONE + RELIC.GRAVITY_BOOTS,
     RELIC.FORM_OF_MIST + RELIC.POWER_OF_MIST,
   ])
 
   // Leap Stone requires Jewel of Open or at least Leap Stone.
-  plan.lock(RELIC.LEAP_STONE, [
+  builder.lockLocation(RELIC.LEAP_STONE, [
     RELIC.JEWEL_OF_OPEN,
     RELIC.LEAP_STONE,
     RELIC.GRAVITY_BOOTS,
@@ -104,90 +104,91 @@
   ])
 
   // Holy Symbol requires Jewel of Open and Merman Statue.
-  plan.lock(RELIC.HOLY_SYMBOL, [
+  builder.lockLocation(RELIC.HOLY_SYMBOL, [
     RELIC.JEWEL_OF_OPEN + RELIC.MERMAN_STATUE,
   ])
 
   // Merman Statue requires Jewel of Open.
-  plan.lock(RELIC.MERMAN_STATUE, [
+  builder.lockLocation(RELIC.MERMAN_STATUE, [
     RELIC.JEWEL_OF_OPEN,
   ])
 
   // Bat Card requires at least Gravity Boots.
-  plan.lock(RELIC.BAT_CARD, [
+  builder.lockLocation(RELIC.BAT_CARD, [
     RELIC.GRAVITY_BOOTS,
     RELIC.SOUL_OF_BAT,
     RELIC.FORM_OF_MIST + RELIC.POWER_OF_MIST,
   ])
 
   // Ghost Card requires flight.
-  plan.lock(RELIC.GHOST_CARD, [
+  builder.lockLocation(RELIC.GHOST_CARD, [
     RELIC.SOUL_OF_BAT,
     RELIC.LEAP_STONE + RELIC.GRAVITY_BOOTS,
     RELIC.FORM_OF_MIST + RELIC.POWER_OF_MIST,
   ])
 
   // Faerie Card requires at least Gravity Boots.
-  plan.lock(RELIC.FAERIE_CARD, [
+  builder.lockLocation(RELIC.FAERIE_CARD, [
     RELIC.GRAVITY_BOOTS,
     RELIC.SOUL_OF_BAT,
     RELIC.FORM_OF_MIST + RELIC.POWER_OF_MIST,
   ])
 
   // Demon Card requires Jewel of Open + at least Leap Stone.
-  plan.lock(RELIC.DEMON_CARD, [
+  builder.lockLocation(RELIC.DEMON_CARD, [
     RELIC.JEWEL_OF_OPEN + RELIC.LEAP_STONE,
     RELIC.JEWEL_OF_OPEN + RELIC.SOUL_OF_BAT,
     RELIC.JEWEL_OF_OPEN + RELIC.FORM_OF_MIST + RELIC.POWER_OF_MIST,
   ])
 
   // Sword Card requires flight.
-  plan.lock(RELIC.SWORD_CARD, [
+  builder.lockLocation(RELIC.SWORD_CARD, [
     RELIC.SOUL_OF_BAT,
     RELIC.LEAP_STONE + RELIC.GRAVITY_BOOTS,
     RELIC.FORM_OF_MIST + RELIC.POWER_OF_MIST,
   ])
 
   // Heart of Vlad in second castle.
-  plan.lock(RELIC.HEART_OF_VLAD, [
+  builder.lockLocation(RELIC.HEART_OF_VLAD, [
     RELIC.JEWEL_OF_OPEN + RELIC.FORM_OF_MIST
       + RELIC.SOUL_OF_BAT + RELIC.ECHO_OF_BAT,
   ])
 
   // Tooth of Vlad in second castle.
-  plan.lock(RELIC.TOOTH_OF_VLAD, [
+  builder.lockLocation(RELIC.TOOTH_OF_VLAD, [
     RELIC.JEWEL_OF_OPEN + RELIC.FORM_OF_MIST
       + RELIC.SOUL_OF_BAT + RELIC.ECHO_OF_BAT,
   ])
 
   // Rib of Vlad in second castle.
-  plan.lock(RELIC.RIB_OF_VLAD, [
+  builder.lockLocation(RELIC.RIB_OF_VLAD, [
     RELIC.JEWEL_OF_OPEN + RELIC.FORM_OF_MIST
       + RELIC.SOUL_OF_BAT + RELIC.ECHO_OF_BAT,
   ])
 
   // Ring of Vlad in second castle.
-  plan.lock(RELIC.RING_OF_VLAD, [
+  builder.lockLocation(RELIC.RING_OF_VLAD, [
     RELIC.JEWEL_OF_OPEN + RELIC.FORM_OF_MIST
       + RELIC.SOUL_OF_BAT + RELIC.ECHO_OF_BAT,
   ])
 
   // Eye of Vlad in second castle.
-  plan.lock(RELIC.EYE_OF_VLAD, [
+  builder.lockLocation(RELIC.EYE_OF_VLAD, [
     RELIC.JEWEL_OF_OPEN + RELIC.FORM_OF_MIST
       + RELIC.SOUL_OF_BAT + RELIC.ECHO_OF_BAT,
   ])
 
   // Export.
+  const preset = builder.build()
   if (self) {
-    const logic = (self.sotnRando || {}).logic || []
-    logic.push(plan.logic())
+    const presets = (self.sotnRando || {}).presets || []
+    presets.push(preset)
     self.sotnRando = Object.assign(self.sotnRando || {}, {
-      logic: logic,
+      presets: presets,
     })
   } else if (!module.parent) {
-    console.log(plan.toString())
+    console.log(preset.toString())
   } else {
-    module.exports = plan.logic()
+    module.exports = preset
   }
 })(typeof(self) !== 'undefined' ? self : null)

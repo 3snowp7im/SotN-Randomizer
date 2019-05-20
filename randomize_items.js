@@ -1,15 +1,18 @@
 (function(self) {
 
   let constants
+  let enemies
   let items
   let util
 
   if (self) {
     constants = self.sotnRando.constants
+    enemies = self.sotnRando.enemies
     items = self.sotnRando.items
     util = self.sotnRando.util
   } else {
     constants = require('./constants')
+    enemies = require('./enemies')
     items = require('./items')
     util = require('./util')
   }
@@ -265,32 +268,32 @@
     planned = planned || {}
     let weapon, shield, helmet, armor, cloak, other
     if ('r' in planned) {
-      weapon = planned.r
+      weapon = itemFromName(planned.r)
     } else {
       weapon = randItem(items.filter(typeFilter([TYPE.WEAPON1])))
     }
     if ('l' in planned) {
-      shield = planned.l
+      shield = itemFromName(planned.l)
     } else if (!planned.r || planned.r.type !== TYPE.WEAPON2) {
       shield = randItem(items.filter(shieldFilter))
     }
     if ('b' in planned) {
-      armor = planned.b
+      armor = itemFromName(planned.b)
     } else {
       armor = randItem(items.filter(armorFilter))
     }
     if ('h' in planned) {
-      helmet = planned.h
+      helmet = itemFromName(planned.h)
     } else {
       helmet = randItem(items.filter(helmetFilter))
     }
     if ('c' in planned) {
-      cloak = planned.c
+      cloak = itemFromName(planned.c)
     } else {
       cloak = randItem(items.filter(cloakFilter))
     }
     if ('o' in planned) {
-      other = planned.o
+      other = itemFromName(planned.o)
     } else {
       other = randItem(items.filter(accessoryFilter))
     }
@@ -350,7 +353,7 @@
     // Replace Axe Lord Armor.
     let axeLordArmor
     if ('a' in planned) {
-      axeLordArmor = planned.a
+      axeLordArmor = itemFromName(planned.a)
     } else {
       axeLordArmor = randItem(items.filter(armorFilter))
     }
@@ -359,7 +362,7 @@
     // Replace Lapis Lazuli.
     let luckItem
     if ('x' in planned) {
-      luckItem = planned.x
+      luckItem = itemFromName(planned.x)
     } else {
       luckItem = randItem(items.filter(accessoryFilter)).id
     }
@@ -453,14 +456,15 @@
     pool = ['h', 'n', 'p'].map(function(item) {
       if (planned && item in planned) {
         if (planned[item]) {
+          const plannedItem = itemFromName(plannedItem)
           let poolItem = (addon || []).concat(pool).filter(function(poolItem) {
-            if (poolItem.id === planned[item].id
-                && poolItem.type == planned[item].type) {
+            if (poolItem.id === plannedItem.id
+                && poolItem.type == plannedItem.type) {
               return poolItem
             }
           })[0]
           if (!poolItem) {
-            poolItem = Object.assign({}, planned[item])
+            poolItem = Object.assign({}, plannedItem)
             delete poolItem.tiles
             addon.push(poolItem)
           }
@@ -601,7 +605,8 @@
     if (planned) {
       Object.getOwnPropertyNames(planned).forEach(function(zone) {
         const items = planned[zone]
-        Array.from(items.keys()).forEach(function(item) {
+        Object.getOwnPropertyNames(items).forEach(function(itemName) {
+          const item = itemFromName(itemName)
           // Collect tiles for the item.
           const tiles = item.tiles.reduce(function(tiles, tile) {
             if (tile.zone === constants.ZONE[zone] && !tile.reward) {
@@ -610,7 +615,7 @@
             return tiles
           }, []).reverse()
           // Replaced tiles in item pool.
-          const map = items.get(item)
+          const map = items[item]
           Object.getOwnPropertyNames(map).forEach(function(index) {
             index = parseInt(index)
             pool.forEach(function(item) {
@@ -758,7 +763,22 @@
     })
     // Place planned drops.
     if (planned) {
-      Array.from(planned.keys()).forEach(function(enemy) {
+      Object.getOwnPropertyNames(planned).forEach(function(key) {
+        const dashIndex = enemyName.lastIndexOf('-')
+        let enemyName = key
+        let level
+        if (dashIndex) {
+          level = parseInt(enemyName.slice(0, dashIndex + 1))
+          enemyName = key.slice(0, dashIndex)
+        }
+        const enemy = enemies.filter(function(enemy) {
+          if (enemy.name === enemayName) {
+            if (typeof(level) !== 'undefined') {
+              return enemy.level === level
+            }
+            return true
+          }
+        }).pop()
         const items = pool.filter(itemTileFilter(function(tile) {
           return tile.enemy === enemy.id
         }))
@@ -776,8 +796,9 @@
         }, []).sort(function(a, b) {
           return a.addresses[0] - b.addresses[0]
         })
-        if (planned.get(enemy)) {
-          planned.get(enemy).forEach(function(item) {
+        if (planned[key].length) {
+          planned[key].forEach(function(itemName) {
+            const item = itemFromName(itemName)
             const tile = tiles.shift()
             if (item) {
               let target = pool.filter(function(drop) {

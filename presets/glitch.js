@@ -10,23 +10,23 @@
   }
 
   // Boilerplate.
-  let plandomizer
+  let PresetBuilder
   let RELIC
   if (self) {
-    plandomizer = self.sotnRando.util.plandomizer
+    PresetBuilder = self.sotnRando.util.PresetBuilder
     RELIC = self.sotnRando.constants.RELIC
   } else {
-    plandomizer = require('../util').plandomizer
+    PresetBuilder = require('../util').PresetBuilder
     RELIC = require('../constants').RELIC
   }
 
-  // Create plandomizer.
-  const plan = new plandomizer(metadata)
+  // Create PresetBuilder.
+  const preset = new PresetBuilder(metadata)
 
   // Custom logic...
 
   // Soul of Wolf or Leap Stone will be early.
-  plan.place(
+  preset.placeRelic(
     RELIC.SOUL_OF_WOLF
       + RELIC.LEAP_STONE
       + RELIC.SWORD_CARD
@@ -42,7 +42,7 @@
   )
 
   // Mist will be accessible with Wolf and Leap Stone.
-  plan.place(
+  preset.placeRelic(
     RELIC.FORM_OF_MIST
       + RELIC.SPIRIT_ORB
       + RELIC.FAERIE_SCROLL,
@@ -53,14 +53,14 @@
 
   // Export.
   if (self) {
-    const logic = (self.sotnRando || {}).logic || []
-    logic.push(plan.logic())
+    const presets = (self.sotnRando || {}).presets || []
+    presets.push(preset.build())
     self.sotnRando = Object.assign(self.sotnRando || {}, {
-      logic: logic,
+      presets: presets,
     })
   } else if (!module.parent) {
-    console.log(plan.toString())
+    console.log(preset.toString())
   } else {
-    module.exports = plan.logic()
+    module.exports = preset.build()
   }
 })(typeof(self) !== 'undefined' ? self : null)

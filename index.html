@@ -32,18 +32,22 @@
               <input id="seed" type="text" placeholder="Optional">
             </div>
             <div class="pure-u-12-24">
-              <input id="relic-locations" type="checkbox">
-              <label id="relic-label" for="relic-locations"></label>
+              <input id="preset" type="checkbox">
+              <label for="preset">Preset</label>
             </div>
-            <div id="relic-logic-field" class="pure-u-12-24">
-              <select id="relic-logic"></select>
+            <div id="presets-fields" class="pure-u-12-24">
+              <select id="preset-id"></select>
               <span class="tooltip-wrapper">
                 <span class="tooltip-indicator">?</span>
                 <span class="tooltip hidden">
-                  <span id="logic-description"></span>
-                  <span id="logic-author"></span>
+                  <span id="preset-description"></span>
+                  <span id="preset-author"></span>
                 </span>
               </span>
+            </div>
+            <div class="pure-u-12-24">
+              <input id="relic-locations" type="checkbox">
+              <label id="relic-label" for="relic-locations"></label>
             </div>
             <div class="pure-u-12-24">
               <input id="item-locations" type="checkbox">
@@ -65,7 +69,23 @@
               <input id="turkey-mode" type="checkbox">
               <label for="turkey-mode">Turkey mode</label>
             </div>
-            <input id="relic-locks"
+            <input id="enemy-drops-arg"
+                   type="text"
+                   disabled="disabled"
+                   style="display: none">
+            <input id="starting-equipment-arg"
+                   type="text"
+                   disabled="disabled"
+                   style="display: none">
+            <input id="item-locations-arg"
+                   type="text"
+                   disabled="disabled"
+                   style="display: none">
+            <input id="prologue-rewards-arg"
+                   type="text"
+                   disabled="disabled"
+                   style="display: none">
+            <input id="relic-locations-arg"
                    type="text"
                    disabled="disabled"
                    style="display: none">
@@ -140,7 +160,7 @@
     <hr>
     <h2><a name="bugs">Bugs</a></h2>
     <p>
-      Think you found a bug? The best way to report it is using <a href="https://github.com/3snowp7im/SotN-Randomizer/issues/new?assignees=3snowp7im&template=bug-report.md">GitHub issues</a>.
+      Think you found a bug? The best way to report it is using <a href="https://github.com/3snowp7im/SotN-Randomizer/issues/new/choose">GitHub issues</a>.
     </p>
     <hr>
     <h2><a name="changelog">Changelog</a></h2>
