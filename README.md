@@ -90,49 +90,17 @@ writing the randomizations to your disc image:
 ```shell
 $ ./randomize -vvvr https://sotn.io/?3b7,myseed
 ```
-### Custom relic logic
+### Presets
 
-Relic placement is determind by relic location locks. Lock strings are a terse
-format of information meant solely for consumption by the randomizer. Creating
-your own lock strings is more easily done using a tool. Examples of such tools
-are `logic/safe.js`, `logic/agonize.js`, and `logic/glitch.js`.
+Presets are scripts that generate different randomizations from those found in
+the default mode. When run, preset scripts output an options string that can
+be used with the `randomize` utility. To create your own preset, save a copy of
+`presets/sample.js` and modify its contents with your own customizations.
 
-To create your own locks, try copying one of these tools and modifying the
-arguments passed to the `place` or `lock` function calls:
-
-```javascript
-// Place Heart of Vlad at Soul of Bat location.
-plan.place(
-  RELIC.HEART_OF_VLAD,
-  RELIC.SOUL_OF_BAT
-)
-
-// Place Ring of Vlad and Form of Mist at Ghost Card or Demon Card locations.
-plan.place(
-  RELIC.RING_OF_VLAD + RELIC.FORM_OF_MIST,
-  RELIC.GHOST_CARD + RELIC.DEMON_CARD
-)
-
-// Cube of Zoe location requires Leap Stone + Gravity Boots OR Jewel of Open.
-plan.lock(RELIC.CUBE_OF_ZOE, [
-  RELIC.LEAP_STONE + RELIC.GRAVITY_BOOTS,
-  RELIC.JEWEL_OF_OPEN,
-])
-```
-
-These scripts outline new rules for relic placement logic and output the
-corresponding lock string. The result can then be used as part of the
-randomizer options. For example, you have created your tool and named it
-`logic/mylogic.js`. To create a URL that allows others to randomize their game
-using your custom logic:
+For example, you have created your preset and named it `presets/mypreset.js`.
+To create a URL that allows others to randomize their game using your
+customizations:
 
 ```shell
-$ ./randomize -uo $(node logic/mylogic.js)
-```
-
-For more information on the specifics of the lock string format, refer to the
-help topic built in to the `randomize` script:
-
-```shell
-$ ./randomize --help relics
+$ ./randomize -uo $(node presets/mypreset.js)
 ```

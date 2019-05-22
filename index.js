@@ -266,24 +266,29 @@
       turkeyMode: elems.turkeyMode.checked,
     }
     if (elems.enemyDropsArg.value) {
-      options.enemyDrops = util.optionsFromString({
-        enemyDrops: elems.enemyDropsArg.value,
-      }).enemyDrops
+      options.enemyDrops = util.optionsFromString(
+        elems.enemyDropsArg.value,
+      ).enemyDrops
     }
     if (elems.startingEquipmentArg.value) {
-      options.startingEquipment = util.optionsFromString({
-        startingEquipment: elems.startingEquipmentArg.value,
-      }).startingEquipment
+      options.startingEquipment = util.optionsFromString(
+        elems.startingEquipmentArg.value,
+      ).startingEquipment
+    }
+    if (elems.itemLocationsArg.value) {
+      options.itemLocations = util.optionsFromString(
+        elems.itemLocationsArg.value,
+      ).itemLocations
     }
     if (elems.prologueRewardsArg.value) {
-      options.prologueRewards = util.optionsFromString({
-        prologueRewards: elems.prologueRewardsArg.value,
-      }).prologueRewards
+      options.prologueRewards = util.optionsFromString(
+        elems.prologueRewardsArg.value,
+      ).prologueRewards
     }
     if (elems.relicLocationsArg.value) {
-      options.relicLocations = util.optionsFromString({
-        relicLocations: elems.relicLocationsArg.value,
-      }).relicLocations
+      options.relicLocations = util.optionsFromString(
+        elems.relicLocationsArg.value,
+      ).relicLocations
     }
     return options
   }
@@ -348,7 +353,7 @@
     elems.seed.disabled = false
     elems.preset.disabled = false
     elems.enemyDrops.disabled = false
-    elems.enemyDropsArgs.value = ''
+    elems.enemyDropsArg.value = ''
     elems.startingEquipment.disabled = false
     elems.startingEquipmentArg.value = ''
     elems.itemLocations.disabled = false
@@ -991,7 +996,7 @@
       enemyDropsChange()
       let enemyDropsArg = ''
       if (typeof(options.enemyDrops) === 'object') {
-        enemyDropsArgs = util.optionsToString({
+        enemyDropsArg = util.optionsToString({
           enemyDrops: options.enemyDrops,
         })
       }
@@ -1009,7 +1014,7 @@
       let itemLocationsArg = ''
       if (typeof(options.itemLocations) === 'object') {
         itemLocationsArg = util.optionsToString({
-          itemLocations: options.itemLocation,
+          itemLocations: options.itemLocations,
         })
       }
       elems.itemLocationsArg.value = itemLocationsArg
