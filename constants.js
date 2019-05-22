@@ -1,6 +1,6 @@
 (function(self) {
 
-  const defaultOptions = 'deiprt'
+  const defaultOptions = 'P:safe'
 
   const TYPE = {
     HEART: 0,
@@ -222,6 +222,17 @@
 
   const tileIdOffset = 0x80
 
+  const SLOT = {
+    RIGHT_HAND: 'r',
+    LEFT_HAND: 'l',
+    HEAD: 'h',
+    BODY: 'b',
+    CLOAK: 'c',
+    OTHER: 'o',
+    AXEARMOR: 'a',
+    LUCK_MODE: 'x',
+  }
+
   const exports = {
     defaultOptions: defaultOptions,
     TYPE: TYPE,
@@ -236,6 +247,7 @@
     enemyDataLen: enemyDataLen,
     RELIC: RELIC,
     tileIdOffset: 0x80,
+    SLOT: SLOT,
   }
   if (self) {
     self.sotnRando = Object.assign(self.sotnRando || {}, {

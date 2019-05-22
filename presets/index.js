@@ -13,7 +13,7 @@
     ]
   }
   exports.sort(function(a, b) {
-    const weight = (a.weight || 0) - (b.weight || 0)
+    const weight = a.weight - b.weight
     if (weight === 0) {
       if (a.id < b.id) {
         return -1

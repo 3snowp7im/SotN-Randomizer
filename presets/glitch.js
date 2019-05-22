@@ -5,25 +5,25 @@
     id: 'glitch',
     name: 'Glitch',
     description: 'May require extensive glitch knowledge for completion. '
-      + 'Any% completion is assumed, but all Vlad relics are accessibly.',
+      + 'Any% completion is assumed, but all Vlad relics are accessible.',
     author: 'romscout',
   }
 
   // Boilerplate.
-  let PresetBuilder
-  let RELIC
+  let constants
+  let util
   if (self) {
-    PresetBuilder = self.sotnRando.util.PresetBuilder
-    RELIC = self.sotnRando.constants.RELIC
+    constants = self.sotnRando.constants
+    util = self.sotnRando.util
   } else {
-    PresetBuilder = require('../util').PresetBuilder
-    RELIC = require('../constants').RELIC
+    constants = require('../constants')
+    util = require('../util')
   }
+  const PresetBuilder = util.PresetBuilder
+  const RELIC = constants.RELIC
 
   // Create PresetBuilder.
   const preset = new PresetBuilder(metadata)
-
-  // Custom logic...
 
   // Soul of Wolf or Leap Stone will be early.
   preset.placeRelic(

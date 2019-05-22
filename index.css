@@ -85,7 +85,7 @@ fieldset .pure-g .pure-u-12-24, fieldset .pure-g .pure-u-1 {
     opacity: 0;
 }
 
-#relic-logic-field.hide {
+#preset-select.hide {
     visibility: hidden;
 }
 
@@ -175,7 +175,7 @@ fieldset .pure-g .pure-u-12-24, fieldset .pure-g .pure-u-1 {
     transform: translateY(0px);
 }
 
-#logic-author {
+#preset-author {
     position: absolute;
     bottom: 3px;
     right: 5px;

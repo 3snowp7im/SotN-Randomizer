@@ -10,24 +10,25 @@
   }
 
   // Boilerplate.
-  let PresetBuilder
-  let RELIC
+  let constants
+  let util
   if (self) {
-    PresetBuilder = self.sotnRando.util.PresetBuilder
-    RELIC = self.sotnRando.constants.RELIC
+    constants = self.sotnRando.constants
+    util = self.sotnRando.util
   } else {
-    PresetBuilder = require('../util').PresetBuilder
-    RELIC = require('../constants').RELIC
+    constants = require('../constants')
+    util = require('../util')
   }
+  const PresetBuilder = util.PresetBuilder
+  const RELIC = constants.RELIC
 
   // Create PresetBuilder.
   const builder = new PresetBuilder(metadata)
 
-  // Custom logic...
-
   // PlaceRelic relics.
   builder.placeRelic(RELIC.SOUL_OF_BAT, RELIC.CUBE_OF_ZOE)
   builder.placeRelic(RELIC.ECHO_OF_BAT, RELIC.SKILL_OF_WOLF)
+  builder.placeRelic(RELIC.POWER_OF_MIST, RELIC.BAT_CARD)
   builder.placeRelic(RELIC.GRAVITY_BOOTS, RELIC.SPIRIT_ORB)
   builder.placeRelic(RELIC.FORM_OF_MIST, RELIC.GRAVITY_BOOTS)
   builder.placeRelic(RELIC.JEWEL_OF_OPEN, RELIC.FORM_OF_MIST)

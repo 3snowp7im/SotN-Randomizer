@@ -6,7 +6,7 @@
   let constants
   let util
   let relics
-  let preset
+  let presets
 
   let info
   let lastSeed
@@ -26,13 +26,13 @@
     constants = sotnRando.constants
     util = sotnRando.util
     relics = sotnRando.relics
-    preset = sotnRando.preset
+    presets = sotnRando.presets
   } else {
     version = require('./package').version
     constants = require('./constants')
     util = require('./util')
     relics = require('./relics')
-    preset = require('./preset')
+    presets = require('./presets')
   }
 
   function loadOption(name, changeHandler, defaultValue) {
@@ -122,9 +122,38 @@
   function presetChange() {
     localStorage.setItem('preset', elems.preset.checked)
     if (elems.preset.checked) {
-      elems.presetField.classList.remove('hide')
+      elems.presetSelect.classList.remove('hide')
+      elems.enemyDrops.disabled = true
+      elems.startingEquipment.disabled = true
+      elems.itemLocations.disabled = true
+      elems.prologueRewards.disabled = true
+      elems.relicLocations.disabled = true
+      elems.turkeyMode.disabled = true
+      presetIdChange()
     } else {
-      elems.presetField.classList.add('hide')
+      elems.presetSelect.classList.add('hide')
+      elems.enemyDrops.disabled = false
+      elems.startingEquipment.disabled = false
+      elems.itemLocations.disabled = false
+      elems.prologueRewards.disabled = false
+      elems.relicLocations.disabled = false
+      elems.turkeyMode.disabled = false
+    }
+  }
+
+  function presetIdChange() {
+    const preset = presets[elems.presetId.selectedIndex]
+    elems.presetDescription.innerText = preset.description
+    elems.presetAuthor.innerText = 'by ' + preset.author
+    localStorage.setItem('presetId', preset.id)
+    if (elems.preset.checked) {
+      const options = preset.options()
+      elems.enemyDrops.checked = !!options.enemyDrops
+      elems.startingEquipment.checked = !!options.startingEquipment
+      elems.itemLocations.checked = !!options.itemLocations
+      elems.prologueRewards.checked = !!options.prologueRewards
+      elems.relicLocations.checked = !!options.relicLocations
+      elems.turkeyMode.checked = !!options.turkeyMode
     }
   }
 
@@ -181,13 +210,6 @@
     localStorage.setItem('showRelics', elems.showRelics.checked)
   }
 
-  function presetIdChange() {
-    const meta = preset[elems.preset.selectedIndex]
-    elems.presetDescription.innerText = meta.description
-    elems.presetAuthor.innerText = 'by ' + meta.author
-    localStorage.setItem('presetId', meta.id)
-  }
-
   function dragLeaveListener(event) {
     elems.target.classList.remove('active')
   }
@@ -233,7 +255,7 @@
 
   function getFormOptions() {
     if (elems.preset.checked) {
-      return preset[elems.preset.selectedIndex].options()
+      return {preset: presets[elems.presetId.selectedIndex].id}
     }
     const options = {
       enemyDrops: elems.enemyDrops.checked,
@@ -253,7 +275,7 @@
         startingEquipment: elems.startingEquipmentArg.value,
       }).startingEquipment
     }
-    if (elems.prologueRewards.value) {
+    if (elems.prologueRewardsArg.value) {
       options.prologueRewards = util.optionsFromString({
         prologueRewards: elems.prologueRewardsArg.value,
       }).prologueRewards
@@ -324,13 +346,18 @@
     event.stopPropagation()
     elems.seed.value = ''
     elems.seed.disabled = false
-    elems.relicLocations.disabled = false
-    elems.itemLocations.disabled = false
+    elems.preset.disabled = false
     elems.enemyDrops.disabled = false
+    elems.enemyDropsArgs.value = ''
     elems.startingEquipment.disabled = false
+    elems.startingEquipmentArg.value = ''
+    elems.itemLocations.disabled = false
+    elems.itemLocationsArg.value = ''
     elems.prologueRewards.disabled = false
+    elems.prologueRewardsArg.value = ''
+    elems.relicLocations.disabled = false
+    elems.relicLocationsArg.value = ''
     elems.turkeyMode.disabled = false
-    elems.relicPreset.disabled = false
     elems.clear.classList.add('hidden')
   }
 
@@ -409,10 +436,11 @@
     }
   }
 
-  const elems = {}
+  let elems
 
   const optionsHelp = [
     'The options string may contain any of the following:',
+    '  "P" for preset (`--help preset`)',
     '  "d" for enemy drops (`--help drops`)',
     '  "e" for starting equipment (`--help equipment`)',
     '  "i" for item locations (`--help items`)',
@@ -422,8 +450,7 @@
     '',
     'The default randomization mode is "'
       +  constants.defaultOptions
-      + '", which randomizes everything',
-    'while using default relic placement preset.',
+      + '", which randomizes everything.',
     '',
     'Examples:',
     '  $0 -o d    # Only randomize enemy drops.',
@@ -524,7 +551,7 @@
     '',
     'Examples:',
     '  i:ARE:BloodCloak:Banana     Replace Blood Cloak with Banana',
-    '  i:NO3:Potroast:LibraryCard  Replace Pot roast with Library Card',
+    '  i:NO3:PotRoast:LibraryCard  Replace Pot Roast with Library Card',
     '  i:TOP:Turkey-2:Peanuts      Replace 2nd Turkey with Peanuts',
     '',
     'If other randomization options follow an item, they must also be',
@@ -569,7 +596,7 @@
     'comprising any single lock.',
     '',
     'Relics format:',
-    '  r[:\'preset\':preset][:location[:abilities[-abilities...]][:...]',
+    '  r[:location[:abilities[-abilities...]][:...]',
     '',
     'Examples:',
     '  r:B:L      Soul of Bat relic location requires Leap Stone.',
@@ -587,24 +614,25 @@
 
   const presetHelp = [
     'This randomizer has several built-in presets:',
-  ].concat(preset.map(function(meta) {
+  ].concat(presets.map(function(meta) {
     return '  ' + meta.id + (meta.id === 'safe' ? ' (default)' : '')
   })).concat([
     '',
     'Use `--help <preset>` for information on a specific scheme.',
   ]).join('\n')
 
-  function presetMetaHelp(meta) {
+  function presetMetaHelp(preset) {
+    const options = preset.options()
     return [
-      meta.name + ' by ' + meta.author,
-      meta.description,
+      preset.name + ' by ' + preset.author,
+      preset.description,
       '',
     ].concat(relics.map(function(relic) {
       let label = '  (' + relic.ability + ') ' + relic.name
       label += Array(28).fill(' ').join('')
       return label.slice(0, 28) + relic.ability + ':'
-        + (meta.relicL[relic.ability] ?
-           meta.locks[relic.ability].join('-') : '')
+        + (options.relicLocations[relic.ability] ?
+           options.relicLocations[relic.ability].join('-') : '')
     })).join('\n')
   }
 
@@ -693,7 +721,7 @@
       Object.getOwnPropertyNames(topics).forEach(function(topic) {
         topics[topic] = topics[topic].replace(/\$0/g, script)
       }, {})
-      preset.forEach(function(meta) {
+      presets.forEach(function(meta) {
         topics[meta.id] = presetMetaHelp(meta)
       })
       if (argv.help in topics) {
@@ -818,8 +846,16 @@
     }
     const check = new util.checked(data)
     let returnVal = true
-    returnVal = randomizeItems(check, options, info) && returnVal
-    returnVal = randomizeRelics(check, options, info) && returnVal
+    let applied
+    try {
+      applied = util.Preset.options(options)
+    } catch (err) {
+      yargs.showHelp()
+      console.error('\n' + err.message)
+      process.exit(1)
+    }
+    returnVal = randomizeItems(check, applied, info) && returnVal
+    returnVal = randomizeRelics(check, applied, info) && returnVal
     util.setSeedText(check, seed)
     const checksum = check.sum()
     // Verify expected checksum matches actual checksum.
@@ -854,56 +890,64 @@
     body.addEventListener('dragover', dragOverListener)
     body.addEventListener('dragleave', dragLeaveListener)
     body.addEventListener('drop', dropListener)
-    elems.target = document.getElementById('target')
-    elems.status = document.getElementById('status')
-    elems.file = document.getElementById('file')
-    elems.file.addEventListener('change', fileChange)
-    elems.form = document.getElementById('form')
-    form.addEventListener('submit', submitListener)
-    elems.randomize = document.getElementById('randomize')
-    elems.seed = document.getElementById('seed')
-    elems.seed.addEventListener('change', seedChange)
-    elems.relicLabel = document.getElementById('relic-label')
-    elems.relicLocations = document.getElementById('relic-locations')
-    elems.relicLocations.addEventListener('change', relicLocationsChange)
-    elems.relicPresetField = document.getElementById('relic-preset-field')
-    elems.relicPreset = document.getElementById('relic-preset')
-    elems.relicPreset.addEventListener('change', relicPresetChange)
-    elems.presetDescription = document.getElementById('preset-description')
-    elems.presetAuthor = document.getElementById('preset-author')
-    elems.startingEquipment = document.getElementById('starting-equipment')
-    elems.startingEquipment.addEventListener('change', startingEquipmentChange)
-    elems.itemLocations = document.getElementById('item-locations')
-    elems.itemLocations.addEventListener('change', itemLocationsChange)
-    elems.enemyDrops = document.getElementById('enemy-drops')
-    elems.enemyDrops.addEventListener('change', enemyDropsChange)
-    elems.prologueRewards = document.getElementById('prologue-rewards')
-    elems.prologueRewards.addEventListener('change', prologueRewardsChange)
-    elems.turkeyMode = document.getElementById('turkey-mode')
-    elems.turkeyMode.addEventListener('change', turkeyModeChange)
-    elems.relicLocks = document.getElementById('relic-locks')
-    elems.clear = document.getElementById('clear')
-    elems.clear.addEventListener('click', clearHandler)
-    elems.appendSeed = document.getElementById('append-seed')
-    elems.appendSeed.addEventListener('change', appendSeedChange)
-    elems.showSpoilers = document.getElementById('show-spoilers')
-    elems.showSpoilers.addEventListener('change', spoilersChange)
-    elems.showRelics = document.getElementById('show-relics')
-    elems.showRelics.addEventListener('change', showRelicsChange)
-    elems.spoilers = document.getElementById('spoilers')
-    elems.download = document.getElementById('download')
-    elems.loader = document.getElementById('loader')
+    elems = {
+      target: document.getElementById('target'),
+      status: document.getElementById('status'),
+      file: document.getElementById('file'),
+      form: document.getElementById('form'),
+      randomize: document.getElementById('randomize'),
+      seed: document.getElementById('seed'),
+      preset: document.getElementById('preset'),
+      presetSelect: document.getElementById('preset-select'),
+      presetId: document.getElementById('preset-id'),
+      presetDescription: document.getElementById('preset-description'),
+      presetAuthor: document.getElementById('preset-author'),
+      enemyDrops: document.getElementById('enemy-drops'),
+      enemyDropsArg: document.getElementById('enemy-drops-arg'),
+      startingEquipment: document.getElementById('starting-equipment'),
+      startingEquipmentArg: document.getElementById('starting-equipment-arg'),
+      relicLocations: document.getElementById('relic-locations'),
+      relicLocationsArg: document.getElementById('relic-locations-arg'),
+      itemLocations: document.getElementById('item-locations'),
+      itemLocationsArg: document.getElementById('item-locations-arg'),
+      prologueRewards: document.getElementById('prologue-rewards'),
+      prologueRewardsArg: document.getElementById('prologue-rewards-arg'),
+      turkeyMode: document.getElementById('turkey-mode'),
+      clear: document.getElementById('clear'),
+      appendSeed: document.getElementById('append-seed'),
+      showSpoilers: document.getElementById('show-spoilers'),
+      showRelics: document.getElementById('show-relics'),
+      spoilers: document.getElementById('spoilers'),
+      download: document.getElementById('download'),
+      loader: document.getElementById('loader'),
+      copy: document.getElementById('copy'),
+      notification: document.getElementById('notification'),
+      seedUrl: document.getElementById('seed-url'),
+    }
     resetState()
-    elems.copy = document.getElementById('copy')
+    elems.file.addEventListener('change', fileChange)
+    elems.form.addEventListener('submit', submitListener)
+    elems.seed.addEventListener('change', seedChange)
+    elems.preset.addEventListener('change', presetChange)
+    elems.presetId.addEventListener('change', presetIdChange)
+    elems.enemyDrops.addEventListener('change', enemyDropsChange)
+    elems.startingEquipment.addEventListener('change', startingEquipmentChange)
+    elems.relicLocations.addEventListener('change', relicLocationsChange)
+    elems.presetId.addEventListener('change', presetIdChange)
+    elems.itemLocations.addEventListener('change', itemLocationsChange)
+    elems.prologueRewards.addEventListener('change', prologueRewardsChange)
+    elems.turkeyMode.addEventListener('change', turkeyModeChange)
+    elems.clear.addEventListener('click', clearHandler)
+    elems.appendSeed.addEventListener('change', appendSeedChange)
+    elems.showSpoilers.addEventListener('change', spoilersChange)
+    elems.showRelics.addEventListener('change', showRelicsChange)
     elems.copy.addEventListener('click', copyHandler)
-    elems.notification = document.getElementById('notification')
-    elems.seedUrl = document.getElementById('seed-url')
-    // Load relic preset.
-    preset.forEach(function(meta) {
+    // Load presets
+    presets.forEach(function(preset) {
       const option = document.createElement('option')
-      option.value = meta.id
-      option.innerText = meta.name
-      elems.relicPreset.appendChild(option)
+      option.value = preset.id
+      option.innerText = preset.name
+      elems.presetId.appendChild(option)
     })
     const url = new URL(window.location.href)
     if (url.protocol !== 'file:') {
@@ -923,69 +967,102 @@
       options = rs.options
       seed = rs.seed
       expectChecksum = rs.checksum
-      elems.startingEquipment.checked = options.startingEquipment
-      startingEquipmentChange()
-      elems.itemLocations.checked = options.itemLocations
-      itemLocationsChange()
-      elems.enemyDrops.checked = options.enemyDrops
-      enemyDropsChange()
-      elems.prologueRewards.checked = options.prologueRewards
-      prologueRewardsChange()
-      elems.turkeyMode.checked = options.turkeyMode
-      turkeyModeChange()
-      elems.relicLocations.checked = options.relicLocations
-      relicLocationsChange()
-      let relicLocks = ''
-      if (typeof(options.relicLocations) === 'object') {
-        relicLocks = util.optionsToString({
-          relicLocations: options.relicLocations,
-        })
-        if (options.relicLocations.preset) {
-          for (let i = 0; i < preset.length; i++) {
-            if (preset[i].id === options.relicLocations.preset) {
-              elems.relicPreset.selectedIndex = i
-              break
-            }
-          }
-        } else {
-          elems.relicPreset.selectedIndex = 0
-        }
-      }
-      relicPresetChange()
-      elems.relicLocks.value = relicLocks
       if (typeof(seed) === 'string') {
         elems.seed.value = seed
         seedChange()
         haveChecksum = true
       }
       elems.seed.disabled = true
-      elems.relicLocations.disabled = true
-      elems.itemLocations.disabled = true
+      if (options.preset) {
+        elems.preset.checked = true
+        for (let i = 0; i < presets.length; i++) {
+          if (presets[i].id === options.preset) {
+            elems.presetId.selectedIndex = i
+            break
+          }
+        }
+        presetIdChange()
+      } else {
+        elems.preset.checked = false
+        elems.presetId.selectedIndex = 0
+      }
+      presetChange()
+      elems.enemyDrops.checked = options.enemyDrops
+      enemyDropsChange()
+      let enemyDropsArg = ''
+      if (typeof(options.enemyDrops) === 'object') {
+        enemyDropsArgs = util.optionsToString({
+          enemyDrops: options.enemyDrops,
+        })
+      }
+      elems.enemyDropsArg.value = enemyDropsArg
+      elems.startingEquipment.checked = options.startingEquipment
+      startingEquipmentChange()
+      let startingEquipmentArg = ''
+      if (typeof(options.startingEquipment) === 'object') {
+        startingEquipmentArg = util.optionsToString({
+          startingEquipment: options.startingEquipment,
+        })
+      }
+      elems.startingEquipmentArg.value = startingEquipmentArg
+      elems.itemLocations.checked = options.itemLocations
+      let itemLocationsArg = ''
+      if (typeof(options.itemLocations) === 'object') {
+        itemLocationsArg = util.optionsToString({
+          itemLocations: options.itemLocation,
+        })
+      }
+      elems.itemLocationsArg.value = itemLocationsArg
+      itemLocationsChange()
+      elems.prologueRewards.checked = options.prologueRewards
+      let prologueRewardsArg = ''
+      if (typeof(options.prologueRewards) === 'object') {
+        prologueRewardsArg = util.optionsToString({
+          prologueRewards: options.prologueRewards,
+        })
+      }
+      elems.prologueRewardsArg.value = prologueRewardsArg
+      prologueRewardsChange()
+      elems.relicLocations.checked = options.relicLocations
+      relicLocationsChange()
+      let relicLocationsArg = ''
+      if (typeof(options.relicLocations) === 'object') {
+        relicLocationsArg = util.optionsToString({
+          relicLocations: options.relicLocations,
+        })
+      }
+      elems.relicLocationsArg.value = relicLocationsArg
+      elems.turkeyMode.checked = options.turkeyMode
+      turkeyModeChange()
+      elems.preset.disabled = true
       elems.enemyDrops.disabled = true
       elems.startingEquipment.disabled = true
+      elems.itemLocations.disabled = true
       elems.prologueRewards.disabled = true
+      elems.relicLocations.disabled = true
       elems.turkeyMode.disabled = true
-      elems.relicPreset.disabled = true
       elems.clear.classList.remove('hidden')
       const baseUrl = url.origin + url.pathname
       window.history.replaceState({}, document.title, baseUrl)
     } else {
-      loadOption('relicLocations', relicLocationsChange, true)
-      loadOption('itemLocations', itemLocationsChange, true)
+      loadOption('preset', presetChange, false)
+      loadOption('presetId', presetIdChange, 'safe')
       loadOption('enemyDrops', enemyDropsChange, true)
       loadOption('startingEquipment', startingEquipmentChange, true)
+      loadOption('itemLocations', itemLocationsChange, true)
       loadOption('prologueRewards', prologueRewardsChange, true)
+      loadOption('relicLocations', relicLocationsChange, true)
       loadOption('turkeyMode', turkeyModeChange, true)
-      const relicPreset = localStorage.getItem('relicPreset')
-      if (typeof(relicPreset) === 'string') {
-        for (let i = 0; i < preset.length; i++) {
-          if (preset[i].id === relicPreset) {
-            elems.relicPreset.selectedIndex = i
+      const presetId = localStorage.getItem('presetId')
+      if (typeof(presetId) === 'string') {
+        for (let i = 0; i < presets.length; i++) {
+          if (presets[i].id === presetId) {
+            elems.presetId.selectedIndex = i
             break
           }
         }
       }
-      relicPresetChange()
+      presetIdChange()
     }
     let path = url.pathname
     if (path.match(/index\.html$/)) {

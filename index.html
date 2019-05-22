@@ -35,7 +35,7 @@
               <input id="preset" type="checkbox">
               <label for="preset">Preset</label>
             </div>
-            <div id="presets-fields" class="pure-u-12-24">
+            <div id="preset-select" class="pure-u-12-24">
               <select id="preset-id"></select>
               <span class="tooltip-wrapper">
                 <span class="tooltip-indicator">?</span>
@@ -46,14 +46,6 @@
               </span>
             </div>
             <div class="pure-u-12-24">
-              <input id="relic-locations" type="checkbox">
-              <label id="relic-label" for="relic-locations"></label>
-            </div>
-            <div class="pure-u-12-24">
-              <input id="item-locations" type="checkbox">
-              <label for="item-locations">Item locations</label>
-            </div>
-            <div class="pure-u-12-24">
               <input id="enemy-drops" type="checkbox">
               <label for="enemy-drops">Enemy drops</label>
             </div>
@@ -62,8 +54,16 @@
               <label for="starting-equipment">Starting equipment</label>
             </div>
             <div class="pure-u-12-24">
+              <input id="item-locations" type="checkbox">
+              <label for="item-locations">Item locations</label>
+            </div>
+            <div class="pure-u-12-24">
               <input id="prologue-rewards" type="checkbox">
               <label for="prologue-rewards">Prologue rewards</label>
+            </div>
+            <div class="pure-u-12-24">
+              <input id="relic-locations" type="checkbox">
+              <label for="relic-locations">Relic locations</label>
             </div>
             <div class="pure-u-12-24">
               <input id="turkey-mode" type="checkbox">
@@ -164,15 +164,21 @@
     </p>
     <hr>
     <h2><a name="changelog">Changelog</a></h2>
-    <h3><time>Map 11, 2019</time></h3>
+    <h3><time>May 22, 2019</time></h3>
+    <ul>
+      <li>Add support for custom enemy drops, starting equipment, item
+        locations, and prologue rewards.</li>
+      <li>Deprecate relic logic in favor presets.</li>
+    </ul>
+    <h3><time>May 11, 2019</time></h3>
     <ul>
       <li>Add selector for built-in relic logic schemes.</li>
     </ul>
-    <h3><time>Map 8, 2019</time></h3>
+    <h3><time>May 8, 2019</time></h3>
     <ul>
       <li>Add support for <a href="https://github.com/3snowp7im/SotN-Randomizer#custom-relic-logic">custom relic logic</a>.</li>
     </ul>
-    <h3><time>Map 3, 2019</time></h3>
+    <h3><time>May 3, 2019</time></h3>
     <ul>
       <li>Add file input as alternative to drag API.</li>
     </ul>
@@ -280,14 +286,15 @@
     <div id="dev-border"></div>
     <a id="fork" href="https://github.com/3snowp7im/SotN-Randomizer"><img width="149" height="149" src="https://github.blog/wp-content/uploads/2008/12/forkme_left_darkblue_121621.png?resize=149%2C149" class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1"></a>
     <script src="constants.js"></script>
+    <script src="items.js"></script>
     <script src="relics.js"></script>
     <script src="util.js"></script>
-    <script src="logic/safe.js"></script>
-    <script src="logic/agonize.js"></script>
-    <script src="logic/glitch.js"></script>
-    <script src="logic/glitch-hard.js"></script>
-    <script src="logic/optimize.js"></script>
-    <script src="logic/index.js"></script>
+    <script src="presets/safe.js"></script>
+    <script src="presets/agonize.js"></script>
+    <script src="presets/glitch.js"></script>
+    <script src="presets/glitch-hard.js"></script>
+    <script src="presets/optimize.js"></script>
+    <script src="presets/index.js"></script>
     <script src="index.js"></script>
   </body>
 </html>

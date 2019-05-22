@@ -6647,7 +6647,7 @@
       byte: true,
     }],
   }, {
-    name: 'Pot roast',
+    name: 'Pot Roast',
     type: TYPE.USABLE,
     id: 67,
     food: true,

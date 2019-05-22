@@ -11,17 +11,17 @@
  */
 (function(self) {
   
+  let presets
   let relics
   let util
-  let preset
   if (self) {
+    presets = self.sotnRando.presets
     relics = self.sotnRando.relics
     util = self.sotnRando.util
-    preset = self.sotnRando.preset
   } else {
+    presets = require('./presets')
     relics = require('./relics')
     util = require('./util')
-    preset = require('./preset')
   }
 
   const ERROR = {
@@ -268,24 +268,22 @@
         const locks = {}
         if (typeof(options.relicLocations) === 'object') {
           Object.assign(locks, options.relicLocations)
+        } else {
+          const safe = presets.filter(function(preset) {
+            return preset.id === 'safe'
+          }).pop()
+          Object.assign(locks, safe.options().relicLocations)
         }
-        const id = locks.preset || 'safe'
-        const meta = preset.filter(function(meta) {
-          return meta.id === id
-        }).pop()
-        if (!meta) {
-          throw new Error('Unknown preset: ' + id)
-        }
-        Object.assign(locks, meta.locks)
         if (typeof(options.relicLocations) === 'object') {
           Object.assign(locks, options.relicLocations)
         }
-        delete locks.preset
         relics.forEach(function(relic) {
-          relic.locks = locks[relic.ability].map(function(lock) {
-            return new Set(lock)
-          })
-          if (!relic.locks.length) {
+          if (locks[relic.ability]) {
+            relic.locks = locks[relic.ability].map(function(lock) {
+              return new Set(lock)
+            })
+          } 
+          if (!relic.locks || !relic.locks.length) {
             relic.locks = [new Set()]
           }
         })

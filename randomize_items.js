@@ -255,6 +255,7 @@
   function writeTiles(data) {
     return function(item) {
       item.tiles.forEach(function(tile) {
+        util.assert(tile)
         const value = tileValue(item, tile)
         tile.addresses.forEach(function(address) {
           data.writeShort(address, value)
@@ -456,7 +457,7 @@
     pool = ['h', 'n', 'p'].map(function(item) {
       if (planned && item in planned) {
         if (planned[item]) {
-          const plannedItem = itemFromName(plannedItem)
+          const plannedItem = itemFromName(planned[item])
           let poolItem = (addon || []).concat(pool).filter(function(poolItem) {
             if (poolItem.id === plannedItem.id
                 && poolItem.type == plannedItem.type) {
@@ -615,7 +616,7 @@
             return tiles
           }, []).reverse()
           // Replaced tiles in item pool.
-          const map = items[item]
+          const map = items[itemName]
           Object.getOwnPropertyNames(map).forEach(function(index) {
             index = parseInt(index)
             pool.forEach(function(item) {
@@ -764,25 +765,25 @@
     // Place planned drops.
     if (planned) {
       Object.getOwnPropertyNames(planned).forEach(function(key) {
-        const dashIndex = enemyName.lastIndexOf('-')
+        const dashIndex = key.lastIndexOf('-')
         let enemyName = key
         let level
-        if (dashIndex) {
-          level = parseInt(enemyName.slice(0, dashIndex + 1))
+        if (dashIndex !== -1) {
+          level = parseInt(enemyName.slice(dashIndex + 1))
           enemyName = key.slice(0, dashIndex)
         }
         const enemy = enemies.filter(function(enemy) {
-          if (enemy.name === enemayName) {
+          if (enemy.name === enemyName) {
             if (typeof(level) !== 'undefined') {
               return enemy.level === level
             }
             return true
           }
         }).pop()
-        const items = pool.filter(itemTileFilter(function(tile) {
+        const matches = items.filter(itemTileFilter(function(tile) {
           return tile.enemy === enemy.id
         }))
-        const tiles = items.reduce(function(tiles, item) {
+        const tiles = matches.reduce(function(tiles, item) {
           const indexes = item.tiles.reduce(function(indexes, tile, index) {
             if (tile.enemy === enemy.id) {
               indexes.push(index)
@@ -1046,11 +1047,23 @@
       return false
     }
     let returnVal = true
-    if (options.startingEquipment) {
-      if (options.checkVanilla) {
-        // Check for vanilla starting equipment.
+    if (options.checkVanilla) {
+      if (options.startingEquipment) {
         returnVal = checkStartingEquipment(data, options.verbose) && returnVal
-      } else {
+      }
+      if (options.itemLocations) {
+        returnVal = checkItemLocations(data, options.verbose) && returnVal
+      }
+      if (options.prologueRewards) {
+        returnVal = checkPrologueRewards(data, options.verbose) && returnVal
+      }
+      if (options.enemyDrops) {
+        returnVal = checkEnemyDrops(data, options.verbose) && returnVal
+      }
+    } else {
+      let addon
+      let pool
+      if (options.startingEquipment) {
         // Randomize starting equipment.
         let planned
         if (typeof(options.startingEquipment) === 'object') {
@@ -1058,93 +1071,87 @@
         }
         randomizeStartingEquipment(data, info, planned)
       }
-    }
-    // Get pool of randomizable items.
-    const addon = []
-    const pool = items.filter(function(item) {
-      if (foodFilter(item)) {
-        return true
-      }
-      if (options.enemyDrops) {
-        if (itemTileFilter(dropTileFilter)(item)) {
-          return true
+      do {
+        try {
+          // Get pool of randomizable items.
+          addon = []
+          pool = items.filter(function(item) {
+            if (foodFilter(item)) {
+              return true
+            }
+            if (options.enemyDrops) {
+              if (itemTileFilter(dropTileFilter)(item)) {
+                return true
+              }
+            }
+            if (options.itemLocations) {
+              if (itemTileFilter(mapTileFilter)(item)
+                  || itemTileFilter(shopTileFilter)(item)
+                  || itemTileFilter(librarianDropTileFilter)(item)
+                  || heartFilter(item)
+                  || goldFilter(item)
+                  || subweaponFilter(item)) {
+                return true
+              }
+            }
+            if (options.prologueRewards) {
+              if (itemTileFilter(rewardTileFilter)(item)) {
+                return true
+              }
+            } 
+          }).map(function(item) {
+            item = Object.assign({}, item)
+            delete item.tiles
+            return item
+          })
+          // Randomizations.
+          if (options.itemLocations) {
+            // Randomize candles.
+            randomizeCandles(pool)
+            // Randomize tank items.
+            if (!options.turkeyMode) {
+              randomizeSubweaponTanks(pool)
+            }
+            // Randomize shop items.
+            randomizeShopItems(pool)
+            // Randomize map items.
+            let planned
+            if (typeof(options.itemLocations) === 'object') {
+              planned = options.itemLocations
+            }
+            randomizeMapItems(pool, addon, planned)
+          }
+          if (options.enemyDrops) {
+            // Randomize enemy drops.
+            let planned
+            if (typeof(options.enemyDrops) === 'object') {
+              planned = options.enemyDrops
+            }
+            randomizeEnemyDrops(pool, addon, planned)
+          }
+          if (options.prologueRewards) {
+            // Randomize prologue rewards.
+            let planned
+            if (typeof(options.prologueRewards) === 'object') {
+              planned = options.prologueRewards
+            }
+            randomizePrologueRewards(pool, addon, planned)
+          }
+          // Turkey mode.
+          if (options.turkeyMode) {
+            turkeyMode(pool)
+          }
+          // Write items to ROM.
+          if (!options.checkVanilla) {
+            (addon.concat(pool)).filter(tilesFilter).forEach(writeTiles(data))
+          }
+        } catch (err) {
+          if (err.name === 'AssertionError') {
+            continue
+          }
+          throw err
         }
-      }
-      if (options.itemLocations) {
-        if (itemTileFilter(mapTileFilter)(item)
-            || itemTileFilter(shopTileFilter)(item)
-            || itemTileFilter(librarianDropTileFilter)(item)
-            || heartFilter(item)
-            || goldFilter(item)
-            || subweaponFilter(item)) {
-          return true
-        }
-      }
-      if (options.prologueRewards) {
-        if (itemTileFilter(rewardTileFilter)(item)) {
-          return true
-        }
-      } 
-    }).map(function(item) {
-      item = Object.assign({}, item)
-      delete item.tiles
-      return item
-    })
-    // Randomizations.
-    if (options.itemLocations) {
-      if (options.checkVanilla) {
-        // Check for item locations.
-        returnVal = checkItemLocations(data, options.verbose) && returnVal
-      } else {
-        // Randomize candles.
-        randomizeCandles(pool)
-        // Randomize tank items.
-        if (!options.turkeyMode) {
-          randomizeSubweaponTanks(pool)
-        }
-        // Randomize shop items.
-        randomizeShopItems(pool)
-        // Randomize map items.
-        let planned
-        if (typeof(options.itemLocations) === 'object') {
-          planned = options.itemLocations
-        }
-        randomizeMapItems(pool, addon, planned)
-      }
-    }
-    if (options.enemyDrops) {
-      if (options.checkVanilla) {
-        // Check for vanilla enemy drops.
-        returnVal = checkEnemyDrops(data, options.verbose) && returnVal
-      } else {
-        // Randomize enemy drops.
-        let planned
-        if (typeof(options.enemyDrops) === 'object') {
-          planned = options.enemyDrops
-        }
-        randomizeEnemyDrops(pool, addon, planned)
-      }
-    }
-    if (options.prologueRewards) {
-      if (options.checkVanilla) {
-        // Check for vanilla rewards.
-        returnVal = checkPrologueRewards(data, options.verbose) && returnVal
-      } else {
-        // Randomize prologue rewards.
-        let planned
-        if (typeof(options.prologueRewards) === 'object') {
-          planned = options.prologueRewards
-        }
-        randomizePrologueRewards(pool, addon, planned)
-      }
-    }
-    // Turkey mode.
-    if (options.turkeyMode) {
-      turkeyMode(pool)
-    }
-    // Write items to ROM.
-    if (!options.checkVanilla) {
-      (addon.concat(pool)).filter(tilesFilter).forEach(writeTiles(data))
+      } while (false)
     }
     return returnVal
   }

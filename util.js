@@ -20,17 +20,42 @@
     sjcl = require('sjcl')
   }
 
+  function AssertionError(message) {
+    this.name = 'AssertionError'
+    this.message = message
+    this.stack = new Error(message).stack
+  }
+
+  const _error = function() {}
+  _error.prototype = Error.prototype
+  AssertionError.prototype = new _error()
+
   function assert(value, message) {
     if (!value) {
       message = message || 'Assertion failed: ' + value
-      throw new Error(message)
+      throw new AssertionError(message)
     }
   }
 
   assert.equal = function equal(actual, expected, message) {
     if (actual !== expected) {
+      message = message || 'Assertion failed: ' + actual + ' === ' + expected
+      throw new AssertionError(message)
+    }
+  }
+
+  assert.notEqual = function equal(actual, expected, message) {
+    if (actual === expected) {
       message = message || 'Assertion failed: ' + actual + ' !== ' + expected
-      throw new Error(message)
+      throw new AssertionError(message)
+    }
+  }
+
+  assert.oneOf = function equal(actual, expected, message) {
+    if (expected.indexOf(actual) === -1) {
+      message = message || 'Assertion failed: ' + actual + ' one of '
+        + expected.join(', ')
+      throw new AssertionError(message)
     }
   }
 
@@ -142,6 +167,28 @@
     while (i < randomize.length) {
       let c = randomize[i++]
       switch (c) {
+      case 'P':
+        // Check for an argument.
+        if (randomize[i] !== ':') {
+          throw new Error('Expected argument')
+        }
+        let arg
+        let start
+        // Parse the arg name.
+        start = ++i
+        while (i < randomize.length
+               && [',', ':'].indexOf(randomize[i]) === -1) {
+          i++
+        }
+        arg = randomize.slice(start, i)
+        if (!arg.length) {
+          throw new Error('Expected argument')
+        }
+        options.preset = arg
+        if (randomize[i] === ',') {
+          i++
+        }
+        break
       case 'd':
         let enemyDrops = options.enemyDrops || true
         // Check for an argument.
@@ -149,7 +196,6 @@
           i++
           let args = 0
           while (i < randomize.length && randomize[i] !== ',') {
-            let enemy
             let arg
             let start
             // Parse the arg name.
@@ -174,10 +220,10 @@
               return name === arg.toLowerCase()
             })
             let enemy
-            if (matches.length > 1) {
+            if (matches.length > 1 && typeof(level) !== 'undefined') {
               enemy = matches.filter(function(enemy) {
                 return enemy.level === level
-              }).[0]
+              })[0]
             } else {
               enemy = matches[0]
             }
@@ -224,18 +270,18 @@
             }
             args++
           }
+          if (randomize[i] === ',') {
+            i++
+          }
           if (!args) {
-            throw new Error('Expected argument')
+            throw new Error('Expected arguments')
           }
         } else if (typeof(enemyDrops) === 'undefined') {
           // Otherwise it's just turning on drop randomization.
           enemyDrops = true
         }
-        if (randomize[i] === ',') {
-          i++
-        }
         if (typeof(enemyDrops) === 'object'
-            && enemyDrops.entries().length === 0) {
+            && Object.getOwnPropertyNames(enemyDrops).length === 0) {
           enemyDrops = true
         }
         options.enemyDrops = enemyDrops
@@ -359,15 +405,15 @@
             }
             args++
           }
+          if (randomize[i] === ',') {
+            i++
+          }
           if (!args) {
             throw new Error('Expected argument')
           }
         } else if (typeof(startingEquipment) === 'undefined') {
           // Otherwise it's just turning on equipment randomization.
           startingEquipment = true
-        }
-        if (randomize[i] === ',') {
-          i++
         }
         if (typeof(startingEquipment) === 'object'
             && Object.getOwnPropertyNames(startingEquipment).length === 0) {
@@ -420,7 +466,8 @@
             } else {
               index = parseInt(arg.slice(dashIndex + 1)) - 1
               if (index < 0) {
-                throw new Error('Unknown index: ' + arg.slice(dashIndex + 1))
+                throw new Error('Unknown item number: '
+                                + arg.slice(dashIndex + 1))
               }
               arg = arg.slice(0, dashIndex)
             }
@@ -471,15 +518,15 @@
             }
             args++
           }
+          if (randomize[i] === ',') {
+            i++
+          }
           if (!args) {
             throw new Error('Expected argument')
           }
         } else if (typeof(itemLocations) === 'undefined') {
           // Otherwise it's just turning on item randomization.
           itemLocations = true
-        }
-        if (randomize[i] === ',') {
-          i++
         }
         if (typeof(itemLocations) === 'object'
             && Object.getOwnPropertyNames(itemLocations).length === 0) {
@@ -540,15 +587,15 @@
             }
             args++
           }
+          if (randomize[i] === ',') {
+            i++
+          }
           if (!args) {
             throw new Error('Expected argument')
           }
         } else if (typeof(prologueRewards) === 'undefined') {
           // Otherwise it's just turning on reward randomization.
           prologueRewards = true
-        }
-        if (randomize[i] === ',') {
-          i++
         }
         if (typeof(prologueRewards) === 'object'
             && Object.getOwnPropertyNames(prologueRewards).length === 0) {
@@ -561,6 +608,7 @@
         // Check for an argument.
         if (randomize[i] === ':') {
           i++
+          let args = 0
           while (i < randomize.length && randomize[i] !== ',') {
             // If there's an argument it's either a relic preset scheme name 
             // or a location lock.
@@ -622,13 +670,17 @@
             if (randomize[i] === ':') {
               i++
             }
+            args++
+          }
+          if (randomize[i] === ',') {
+            i++
+          }
+          if (!args) {
+            throw new Error('Expected argument')
           }
         } else if (typeof(relicLocations) === 'undefined') {
           // Otherwise it's just turning on relic randomization.
           relicLocations = true
-        }
-        if (randomize[i] === ',') {
-          i++
         }
         if (typeof(relicLocations) === 'object'
             && Object.getOwnPropertyNames(relicLocations).length === 0) {
@@ -649,7 +701,7 @@
     return options
   }
 
-  function optionsToString(options) {
+  function optionsToString(options, disableRecurse) {
     options = Object.assign({}, options)
     delete options.checkVanilla
     delete options.verbose
@@ -658,22 +710,53 @@
         delete options[opt]
       }
     })
+    let presets
+    if (self) {
+      presets = self.sotnRando.presets
+    } else {
+      presets = require('./presets')
+    }
+    const safe = presets.filter(function(preset) {
+      return preset.id === 'safe'
+    }).pop()
+    // Handle the edge case where there is a preset, but the remaining
+    // options are the same as the preset options.
+    if ('preset' in options
+        && Object.getOwnPropertyNames(options).length > 1) {
+      // If relicLocations is strictly true, replace it with the safe preset
+      // location locks.
+      const copy = Object.assign({}, options)
+      delete copy.preset
+      if (copy.relicLocations === true) {
+        copy.relicLocations = clone(safe.options().relicLocations)
+      }
+      // Now compare the remaining options to the preset options.
+      const preset = presets.filter(function(preset) {
+        return preset.id === options.preset
+      }).pop()
+      if (optionsToString(copy) === optionsToString(preset.options())) {
+        // If they match, the options become the preset by itself.
+        options = {preset: preset.id}
+      }
+    }
     let randomize = ''
     while (Object.getOwnPropertyNames(options).length) {
-      if ('enemyDrops' in options) {
+      if ('preset' in options) {
+        randomize += 'P:' + options.preset
+        if (Object.getOwnPropertyNames(options).length > 1) {
+          randomize += ','
+        }
+        delete options.preset
+      } else if ('enemyDrops' in options) {
         if (options.enemyDrops) {
+          randomize += 'd'
           if (typeof(options.enemyDrops) === 'object') {
             const drops = options.enemyDrops
             Object.getOwnPropertyNames(drops).forEach(function(enemyName) {
-              const firstEnemy = enemies.filter(function(ref) {
-                return ref.name === enenyName
-              }).shift()
-              let disambig = firstEnemy !== enemy
-              randomize += ':' + enemyName.replace(/[^a-zA-Z0-9]/g, '')
-                + (disambig ? '-' + enemy.level : '')
-              if (drops.length) {
+              randomize += ':' + enemyName.replace(/[^a-zA-Z0-9\-]/g, '')
+              if (drops[enemyName].length) {
                 randomize += ':'
-                randomize += drops.map(function(dropName) {
+                randomize += drops[enemyName].map(function(dropName) {
                   if (dropName) {
                     return dropName.replace(/[^a-zA-Z0-9]/g, '')
                   }
@@ -692,52 +775,55 @@
           const eq = options.startingEquipment
           if (typeof(eq) === 'object') {
             if ('r' in eq) {
-              randomize += ':'
+              randomize += ':r:'
               if (eq.r) {
                 randomize += eq.r.replace(/[^a-zA-Z0-9]/g, '')
               }
             }
             if ('l' in eq) {
-              randomize += ':'
+              randomize += ':l:'
               if (eq.r) {
                 randomize += eq.l.replace(/[^a-zA-Z0-9]/g, '')
               }
             }
             if ('h' in eq) {
-              randomize += ':'
+              randomize += ':h:'
               if (eq.h) {
                 randomize += eq.h.replace(/[^a-zA-Z0-9]/g, '')
               }
             }
             if ('b' in eq) {
-              randomize += ':'
+              randomize += ':b:'
               if (eq.b) {
                 randomize += eq.b.replace(/[^a-zA-Z0-9]/g, '')
               }
             }
             if ('c' in eq) {
-              randomize += ':'
+              randomize += ':c:'
               if (eq.c) {
                 randomize += eq.c.replace(/[^a-zA-Z0-9]/g, '')
               }
             }
             if ('o' in eq) {
-              randomize += ':'
+              randomize += ':o:'
               if (eq.o) {
                 randomize += eq.o.replace(/[^a-zA-Z0-9]/g, '')
               }
             }
             if ('a' in eq) {
-              randomize += ':'
+              randomize += ':a:'
               if (eq.a) {
                 randomize += eq.a.replace(/[^a-zA-Z0-9]/g, '')
               }
             }
             if ('x' in eq) {
-              randomize += ':'
+              randomize += ':x:'
               if (eq.x) {
                 randomize += eq.x.replace(/[^a-zA-Z0-9]/g, '')
               }
+            }
+            if (Object.getOwnPropertyNames(options).length > 1) {
+              randomize += ','
             }
           }
         }
@@ -750,9 +836,10 @@
               if (zone in options.itemLocations) {
                 const items = options.itemLocations[zone]
                 Object.getOwnPropertyNames(items).forEach(function(itemName) {
-                  const map = items.get(itemName)
+                  const map = items[itemName]
                   const indexes = Object.getOwnPropertyNames(map)
                   indexes.forEach(function(index) {
+                    index = parseInt(index)
                     const replaceName = map[index]
                     randomize += ':' + zone
                       + ':' + itemName.replace(/[^a-zA-Z0-9]/g, '')
@@ -766,24 +853,24 @@
               randomize += ','
             }
           }
-          delete options.itemLocations
-        } else if ('prologueRewards' in options) {
-          if (options.prologueRewards) {
-            randomize += 'p'
-            if (typeof(options.prologueRewards) === 'object') {
-              const rewards = ['h', 'n', 'p']
-              rewards.forEach(function(reward) {
-                if (reward in options.prologueRewards) {
-                  randomize += ':' + reward
-                  if (options.prologueRewards[reward]) {
-                    const itemName = options.prologueRewards[reward]
-                    randomize += ':' + itemName.replace(/[^a-zA-Z0-9]/g, '')
-                  }
+        }
+        delete options.itemLocations
+      } else if ('prologueRewards' in options) {
+        if (options.prologueRewards) {
+          randomize += 'p'
+          if (typeof(options.prologueRewards) === 'object') {
+            const rewards = ['h', 'n', 'p']
+            rewards.forEach(function(reward) {
+              if (reward in options.prologueRewards) {
+                randomize += ':' + reward
+                if (options.prologueRewards[reward]) {
+                  const itemName = options.prologueRewards[reward]
+                  randomize += ':' + itemName.replace(/[^a-zA-Z0-9]/g, '')
                 }
-              })
-              if (Object.getOwnPropertyNames(options).length > 1) {
-                randomize += ','
               }
+            })
+            if (Object.getOwnPropertyNames(options).length > 1) {
+              randomize += ','
             }
           }
         }
@@ -824,6 +911,19 @@
     if (!randomize.length) {
       throw new Error('No randomizations')
     }
+    // Handle the edge case where the options are the same as a preset.
+    if (!disableRecurse) {
+      const preset = presets.filter(function(preset) {
+        const options = preset.options()
+        if (preset === safe) {
+          options.relicLocations = true
+        }
+        return optionsToString(options, true) === randomize
+      }).pop()
+      if (preset) {
+        randomize = 'P:' + preset.id
+      }
+    }
     return randomize
   }
 
@@ -849,9 +949,6 @@
 
   function optionsToUrl(options, checksum, seed, baseUrl) {
     options = optionsToString(options)
-    if (baseUrl[baseUrl.length - 1] === '/') {
-      baseUrl = baseUrl.slice(0, baseUrl.length - 1)
-    }
     const args = []
     if (options !== constants.defaultOptions) {
       args.push(options)
@@ -1019,15 +1116,23 @@
   }
 
   function Preset(
-    metadata,
+    id,
+    name,
+    description,
+    author,
+    weight,
     enemyDrops,
     startingEquipment,
     itemLocations,
-    prologueReward,
+    prologueRewards,
     relicLocations,
     turkeyMode,
   ) {
-    this.metadata = metadata
+    this.id = id
+    this.name = name
+    this.description = description
+    this.author = author
+    this.weight = weight
     this.enemyDrops = enemyDrops
     this.startingEquipment = startingEquipment
     this.itemLocations = itemLocations
@@ -1036,14 +1141,82 @@
     this.turkeyMode = turkeyMode
   }
 
+  function clone(obj) {
+    if (Array.isArray(obj)) {
+      return obj.slice().map(clone)
+    } else if (typeof(obj) === 'object') {
+      return Object.getOwnPropertyNames(obj).reduce(function(copy, prop) {
+        copy[prop] = clone(obj[prop])
+        return copy
+      }, {})
+    }
+    return obj
+  }
+
+  function merge(obj) {
+    const self = this
+    Object.getOwnPropertyNames(obj).forEach(function(prop) {
+      if (Array.isArray(obj[prop])) {
+        self[prop] = clone(obj[prop])
+      } else if (typeof(obj[prop]) === 'object') {
+        if (Array.isArray(self[prop])) {
+          self[prop] = clone(obj[prop])
+        } else if (typeof(self[prop]) === 'object') {
+          merge(self[prop], obj[prop])
+        } else {
+          self[prop] = clone(obj[prop])
+        }
+      } else {
+        self[prop] = clone(obj[prop])
+      }
+    })
+  }
+
+  Preset.options = function options(options) {
+    options = clone(options)
+    if (options.preset) {
+      let presets
+      if (self) {
+        presets = self.sotnRando.presets
+      } else {
+        presets = require('./presets')
+      }
+      let preset = presets.filter(function(preset) {
+        return preset.id === options.preset
+      }).pop()
+      if (!preset && !self) {
+        try {
+          preset = require('./presets/' + options.preset)
+        } catch (err) {
+          if (err.code !== 'MODULE_NOT_FOUND') {
+            console.error(err.stack)
+            throw new Error('Error loading preset: ' + options.preset)
+          }
+        }
+      }
+      if (!preset) {
+        throw new Error('Unknown preset: ' + options.preset)
+      }
+      delete options.preset
+      const presetOptions = preset.options()
+      merge.call(presetOptions, options)
+      return presetOptions
+    }
+    return options
+  }
+
   Preset.prototype.toString = function toString() {
     return optionsToString(this.options())
   }
 
   Preset.prototype.options = function options() {
     const options = Object.assign({}, this)
-    delete options.metadata
-    return Object.assign({}, options)
+    delete options.id
+    delete options.name
+    delete options.description
+    delete options.author
+    delete options.weight
+    return clone(options)
   }
 
   // Helper class to create relic location locks.
@@ -1068,8 +1241,194 @@
     }, ''))
   }
 
+  PresetBuilder.prototype.enemyDrops =
+    function enemyDrops(enemyName, level, commonDropName, rareDropName) {
+      if (typeof(enemy) === 'boolean') {
+        this.drops = enemy
+      } else {
+        if (typeof(this.drops) !== 'object') {
+          this.drops = new Map()
+        }
+        if (typeof(level) === 'string') {
+          rareDropName = commonDropName
+          commonDropName = level
+          level = undefined
+        }
+        const enemy = enemies.filter(function(enemy) {
+          if (enemy.name === enemyName) {
+            if (typeof(level) !== 'undefined') {
+              return enemy.level === level
+            }
+            return true
+          }
+        }).pop()
+        assert(enemy, 'Unknown enemy: ' + enemyName)
+        const dropNames = [ commonDropName, rareDropName ]
+        const drops = dropNames.map(function(dropName) {
+          if (dropName) {
+            const item = items.filter(function(item) {
+              return item.name === dropName
+            }).pop()
+            assert(item, 'Unknown item: ' + dropName)
+            return item
+          }
+        })
+        this.drops.set(enemy, drops)
+      }
+    }
+
+  PresetBuilder.prototype.startingEquipment =
+    function startingEquipment(slot, itemName) {
+      assert.oneOf(slot, [
+        true,
+        false,
+        constants.SLOT.RIGHT_HAND,
+        constants.SLOT.LEFT_HAND,
+        constants.SLOT.HEAD,
+        constants.SLOT.BODY,
+        constants.SLOT.CLOAK,
+        constants.SLOT.OTHER,
+        constants.SLOT.AXEARMOR,
+        constants.SLOT.LUCK_MODE,
+      ])
+      if (typeof(slot) === 'boolean') {
+        this.equipment = slot
+      } else {
+        if (typeof(this.equipment) !== 'object') {
+          this.equipment = {}
+        }
+        let item
+        if (itemName) {
+          item = items.filter(function(item) {
+            return item.name === itemName
+          }).pop()
+          assert(item, 'Unknown item: ' + itemName)
+          switch (slot) {
+          case constants.SLOT.RIGHT_HAND:
+            assert.oneOf(item.type, [
+              constants.TYPE.WEAPON1,
+              constants.TYPE.WEAPON2,
+              constants.TYPE.SHIELD,
+              constants.TYPE.USABLE,
+            ])
+            if (this.equipment[constants.SLOT.LEFT_HAND]) {
+              throw new Error(
+                'Cannot equipment '
+                  + this.equipment[constants.SLOT.LEFT_HAND].name
+                  + ' and ' + item.name
+              )
+            }
+            break
+          case constants.SLOT.LEFT_HAND:
+            assert.oneOf(item.type, [
+              constants.TYPE.WEAPON1,
+              constants.TYPE.SHIELD,
+              constants.TYPE.USABLE,
+            ])
+            if (this.equipment[constants.SLOT.RIGHT_HAND]) {
+              assert.notEqual(
+                this.equipment[constants.SLOT.RIGHT_HAND].type,
+                constants.TYPE.WEAPON2,
+                'Cannot equipment '
+                  + this.equipment[constants.SLOT.RIGHT_HAND].name
+                  + ' and ' + item.name
+              )
+            }
+            break
+          case constants.SLOT.HEAD:
+            assert.equal(item.type, constants.TYPE.HELMET,
+                        'Cannot equip ' + item.name + ' on head')
+            break
+          case constants.SLOT.BODY:
+            assert.equal(item.type, constants.TYPE.ARMOR,
+                        'Cannot equip ' + item.name + ' on body')
+            break
+          case constants.SLOT.CLOAK:
+            assert.equal(item.type, constants.TYPE.CLOAK,
+                        'Cannot equip ' + item.name + ' as cloak')
+            break
+          case constants.SLOT.OTHER:
+            assert.equal(item.type, constants.TYPE.ACCESSORY,
+                        'Cannot equip ' + item.name + ' as other')
+            break
+          case constants.SLOT.AXEARMOR:
+            assert.equal(item.type, constants.TYPE.ARMOR,
+                        'Cannot equip ' + item.name + ' as armor')
+            break
+          case constants.SLOT.LUCK_MODE:
+            assert.equal(item.type, constants.TYPE.ACCESSORY,
+                        'Cannot equip ' + item.name + ' as other')
+            break
+          }
+        }
+        this.equipment[slot] = item
+      }
+    }
+
+  PresetBuilder.prototype.itemLocations =
+    function itemLocations(zoneId, itemName, number, replaceName) {
+      if (typeof(zoneId) === 'boolean') {
+        this.items = zoneId
+      } else {
+        if (typeof(number) === 'string') {
+          replaceName = number
+          number = 1
+        }
+        assert(typeof(number) === 'number', 'Unknown item number: ' + number)
+        const index = number - 1
+        assert.oneOf(zoneId, constants.zoneNames.map(function(zoneName) {
+          return constants.ZONE[zoneName]
+        }), 'Unknown zone: ' + zoneId)
+        const item = items.filter(function(item) {
+          return item.name === itemName
+        })[0]
+        assert(item, 'Unknown item: ' + itemName)
+        const tiles = (item.tiles || []).filter(function(tile) {
+          return tile.zone === zoneId
+        })
+        assert(tiles[index], 'Unknown item tile: ' + itemName + ' ' + number)
+        const replace = items.filter(function(item) {
+          return item.name === replaceName
+        })[0]
+        assert(replace, 'Unknown item: ' + replaceName)
+        if (typeof(this.items) !== 'object') {
+          this.items = {}
+        }
+        const zoneName = constants.zoneNames[zoneId]
+        this.items[zoneName] = this.items[zoneName] || new Map()
+        const map = this.items[zoneName].get(item) || {}
+        map[number - 1] = replace
+        this.items[zoneName].set(item, map)
+      }
+    }
+
+  PresetBuilder.prototype.prologueRewards =
+    function prologueRewards(itemName, replaceName) {
+      if (typeof(itemName) === 'boolean') {
+        this.rewards = itemName
+      } else {
+        const map = {
+          'Heart Refresh': 'h',
+          'Neutron Bomb': 'n',
+          'Potion': 'p',
+        }
+        assert.oneOf(itemName, Object.getOwnPropertyNames(map),
+                    'Unknown reward item: ' + itemName)
+        const replace = items.filter(function(item) {
+          return item.name === replaceName
+        })[0]
+        if (typeof(this.rewards) !== 'object') {
+          this.rewards = {}
+        }
+        this.rewards[map[itemName]] = replace
+      }
+    }
+
   // Lock relic location behind abilities.
   PresetBuilder.prototype.lockLocation = function lockLocation(where, what) {
+    if (typeof(this.relics) !== 'object') {
+      this.relics = new Set()
+    }
     this.relics[where] = this.relics[where] || []
     Array.prototype.push.apply(this.relics[where], what.map(function(lock) {
       return new Set(lock)
@@ -1080,11 +1439,14 @@
   // same number of relics.
   PresetBuilder.prototype.placeRelic = function placeRelic(what, where) {
     assert.equal(what.length, where.length)
+    if (typeof(this.relics) !== 'object') {
+      this.relics = {}
+    }
     const unplaced = this.unplaced
-    const relics = this.relics
     what.split('').forEach(function(relic) {
-      relics.delete(relic)
+      unplaced.delete(relic)
     })
+    const relics = this.relics
     where.split('').forEach(function(location) {
       relics[location] = relics[location] || []
       relics[location].push(new Set(unplaced))
@@ -1099,68 +1461,80 @@
 
   // Convert lock sets into strings.
   PresetBuilder.prototype.build = function build() {
-    let drops = this.drops
+    const self = this
+    let drops = self.drops
     if (typeof(drops) === 'object') {
       drops = {}
-      Array.from(this.drops.keys()).forEach(function(enemy) {
-        let enemyName = enemy.name.replace(/[^a-zA-Z0-9]/g, '')
+      Array.from(self.drops.keys()).forEach(function(enemy) {
+        let enemyName = enemy.name
         const amb = enemies.filter(function(enemy) {
           return enemy.name === enemyName
         })
         if (amb.length > 1 && enemy !== amb[0]) {
           enemyName += '-' + enemy.level
         }
-        drops[enemyName] = drops.get(enemy).slice()
+        drops[enemyName] = self.drops.get(enemy).slice().map(function(item) {
+          return item.name
+        })
       })
     }
-    let equipment = this.equipment
+    let equipment = self.equipment
     if (typeof(equipment) === 'object') {
       equipment = {}
-      Object.getOwnPropertyNames(this.equipment).forEach(function(slot) {
-        const item = this.equipment[slot]
-        const itemName = item.name.replace(/[^a-zA-Z0-9]/g, '')
-        equipment[slot] = itemName
+      Object.getOwnPropertyNames(self.equipment).forEach(function(slot) {
+        const item = self.equipment[slot]
+        if (item) {
+          const itemName = item.name
+          equipment[slot] = itemName
+        } else {
+          equipment[slot] = ''
+        }
       })
     }
-    let items = this.items
+    let items = self.items
     if (typeof(items) === 'object') {
       items = {}
-      Object.getOwnPropertyNames(this.items).forEach(function(zone) {
+      Object.getOwnPropertyNames(self.items).forEach(function(zone) {
         items[zone] = {}
-        Array.from(items[zone].keys()).forEach(function(item) {
-          const indexes = this.items[zone].get(item)
-          const itemName = item.name.replace(/[^a-zA-Z0-9]/g, '')
+        Array.from(self.items[zone].keys()).forEach(function(item) {
+          const indexes = self.items[zone].get(item)
+          const itemName = item.name
           items[zone][itemName] = {}
           Object.getOwnPropertyNames(indexes).forEach(function(index) {
-            const item = this.items[zone].get(item)[index]
-            const itemName = item.name.replace(/[^a-zA-Z0-9]/g, '')
-            items[zone][itemName][index] = itemName
+            const replace = self.items[zone].get(item)[index]
+            const replaceName = replace.name
+            items[zone][itemName][index] = replaceName
           })
         })
       })
     }
-    let rewards = this.rewards
+    let rewards = self.rewards
     if (typeof(rewards) === 'object') {
       rewards = {}
-      Object.getOwnPropertyNames(this.rewards).forEach(function(reward) {
-        const item = this.rewards[reward]
-        const itemName = item.name.replace(/[^a-zA-Z0-9]/g, '')
+      Object.getOwnPropertyNames(self.rewards).forEach(function(reward) {
+        const item = self.rewards[reward]
+        const itemName = item.name
         rewards[reward] = itemName
       })
     }
-    const relics = Object.assign({}, this.relics)
-    relicAbilities().forEach(function(ability) {
-      if (relics[ability]) {
-        relics[ability] = relics[ability].map(function(lock) {
-          return Array.from(lock).join('')
-        })
-      } else {
-        relics[ability] = ['']
-      }
-    })
-    const turkey = this.turkey
+    let relics = self.relics
+    if (typeof(relics) === 'object') {
+      relics = {}
+      relicAbilities().forEach(function(ability) {
+        if (self.relics[ability]) {
+          relics[ability] = self.relics[ability].map(function(lock) {
+            return Array.from(lock).join('')
+          })
+        }
+      })
+    }
+    const turkey = self.turkey
     return new Preset(
-      this.metadata,
+      self.metadata.id,
+      self.metadata.name,
+      self.metadata.description,
+      self.metadata.author,
+      self.metadata.weight || 0,
       drops,
       equipment,
       items,
@@ -1185,6 +1559,7 @@
     restoreFile: restoreFile,
     formatObject: formatObject,
     shuffled: shuffled,
+    Preset: Preset,
     PresetBuilder: PresetBuilder,
   }
   if (self) {

@@ -9,20 +9,20 @@
   }
 
   // Boilerplate.
-  let PresetBuilder
-  let RELIC
+  let constants
+  let util
   if (self) {
-    PresetBuilder = self.sotnRando.util.PresetBuilder
-    RELIC = self.sotnRando.constants.RELIC
+    constants = self.sotnRando.constants
+    util = self.sotnRando.util
   } else {
-    PresetBuilder = require('../util').PresetBuilder
-    RELIC = require('../constants').RELIC
+    constants = require('../constants')
+    util = require('../util')
   }
+  const PresetBuilder = util.PresetBuilder
+  const RELIC = constants.RELIC
 
   // Create preset.
   const builder = new PresetBuilder(metadata)
-
-  // Custom logic...
 
   // Form of Mist will be early
   builder.placeRelic(
@@ -82,7 +82,7 @@
   // Export.
   const preset = builder.build()
   if (self) {
-    const presets = (self.sotnRando || {}).preset || []
+    const presets = (self.sotnRando || {}).presets || []
     presets.push(preset)
     self.sotnRando = Object.assign(self.sotnRando || {}, {
       presets: presets,

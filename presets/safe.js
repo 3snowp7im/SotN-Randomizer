@@ -10,15 +10,17 @@
   }
 
   // Boilerplate.
-  let PresetBuilder
-  let RELIC
+  let constants
+  let util
   if (self) {
-    PresetBuilder = self.sotnRando.util.PresetBuilder
-    RELIC = self.sotnRando.constants.RELIC
+    constants = self.sotnRando.constants
+    util = self.sotnRando.util
   } else {
-    PresetBuilder = require('../util').PresetBuilder
-    RELIC = require('../constants').RELIC
+    constants = require('../constants')
+    util = require('../util')
   }
+  const PresetBuilder = util.PresetBuilder
+  const RELIC = constants.RELIC
 
   // Create PresetBuilder.
   const builder = new PresetBuilder(metadata)
