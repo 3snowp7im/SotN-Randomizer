@@ -938,7 +938,6 @@
     elems.enemyDrops.addEventListener('change', enemyDropsChange)
     elems.startingEquipment.addEventListener('change', startingEquipmentChange)
     elems.relicLocations.addEventListener('change', relicLocationsChange)
-    elems.presetId.addEventListener('change', presetIdChange)
     elems.itemLocations.addEventListener('change', itemLocationsChange)
     elems.prologueRewards.addEventListener('change', prologueRewardsChange)
     elems.turkeyMode.addEventListener('change', turkeyModeChange)
@@ -1050,24 +1049,24 @@
       const baseUrl = url.origin + url.pathname
       window.history.replaceState({}, document.title, baseUrl)
     } else {
-      loadOption('preset', presetChange, false)
-      loadOption('presetId', presetIdChange, 'safe')
       loadOption('enemyDrops', enemyDropsChange, true)
       loadOption('startingEquipment', startingEquipmentChange, true)
       loadOption('itemLocations', itemLocationsChange, true)
       loadOption('prologueRewards', prologueRewardsChange, true)
       loadOption('relicLocations', relicLocationsChange, true)
       loadOption('turkeyMode', turkeyModeChange, true)
-      const presetId = localStorage.getItem('presetId')
-      if (typeof(presetId) === 'string') {
-        for (let i = 0; i < presets.length; i++) {
-          if (presets[i].id === presetId) {
-            elems.presetId.selectedIndex = i
-            break
-          }
+      let presetId = localStorage.getItem('presetId')
+      if (typeof(presetId) !== 'string') {
+        presetId = 'safe'
+      }
+      for (let i = 0; i < presets.length; i++) {
+        if (presets[i].id === presetId) {
+          elems.presetId.selectedIndex = i
+          break
         }
       }
       presetIdChange()
+      loadOption('preset', presetChange, false)
     }
     let path = url.pathname
     if (path.match(/index\.html$/)) {
