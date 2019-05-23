@@ -352,6 +352,7 @@
     elems.seed.value = ''
     elems.seed.disabled = false
     elems.preset.disabled = false
+    elems.presetId.disabled = false
     elems.enemyDrops.disabled = false
     elems.enemyDropsArg.value = ''
     elems.startingEquipment.disabled = false
@@ -364,6 +365,7 @@
     elems.relicLocationsArg.value = ''
     elems.turkeyMode.disabled = false
     elems.clear.classList.add('hidden')
+    presetChange()
   }
 
   let animationDone = true
@@ -969,6 +971,7 @@
     if (url.search.length) {
       const rs = util.optionsFromUrl(window.location.href)
       options = rs.options
+      const applied = util.Preset.options(options)
       seed = rs.seed
       expectChecksum = rs.checksum
       if (typeof(seed) === 'string') {
@@ -991,7 +994,7 @@
         elems.presetId.selectedIndex = 0
       }
       presetChange()
-      elems.enemyDrops.checked = options.enemyDrops
+      elems.enemyDrops.checked = applied.enemyDrops
       enemyDropsChange()
       let enemyDropsArg = ''
       if (typeof(options.enemyDrops) === 'object') {
@@ -1000,7 +1003,7 @@
         })
       }
       elems.enemyDropsArg.value = enemyDropsArg
-      elems.startingEquipment.checked = options.startingEquipment
+      elems.startingEquipment.checked = applied.startingEquipment
       startingEquipmentChange()
       let startingEquipmentArg = ''
       if (typeof(options.startingEquipment) === 'object') {
@@ -1009,7 +1012,8 @@
         })
       }
       elems.startingEquipmentArg.value = startingEquipmentArg
-      elems.itemLocations.checked = options.itemLocations
+      elems.itemLocations.checked = applied.itemLocations
+      itemLocationsChange()
       let itemLocationsArg = ''
       if (typeof(options.itemLocations) === 'object') {
         itemLocationsArg = util.optionsToString({
@@ -1017,8 +1021,8 @@
         })
       }
       elems.itemLocationsArg.value = itemLocationsArg
-      itemLocationsChange()
-      elems.prologueRewards.checked = options.prologueRewards
+      elems.prologueRewards.checked = applied.prologueRewards
+      prologueRewardsChange()
       let prologueRewardsArg = ''
       if (typeof(options.prologueRewards) === 'object') {
         prologueRewardsArg = util.optionsToString({
@@ -1026,8 +1030,7 @@
         })
       }
       elems.prologueRewardsArg.value = prologueRewardsArg
-      prologueRewardsChange()
-      elems.relicLocations.checked = options.relicLocations
+      elems.relicLocations.checked = applied.relicLocations
       relicLocationsChange()
       let relicLocationsArg = ''
       if (typeof(options.relicLocations) === 'object') {
@@ -1036,9 +1039,10 @@
         })
       }
       elems.relicLocationsArg.value = relicLocationsArg
-      elems.turkeyMode.checked = options.turkeyMode
+      elems.turkeyMode.checked = applied.turkeyMode
       turkeyModeChange()
       elems.preset.disabled = true
+      elems.presetId.disabled = true
       elems.enemyDrops.disabled = true
       elems.startingEquipment.disabled = true
       elems.itemLocations.disabled = true
