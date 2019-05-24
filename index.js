@@ -835,8 +835,8 @@
         options,
         seed,
       ), {global: true})
-      // Add seed to log info if not provided through arg or url.
-      if (!('seed' in argv) && !('url' in argv) && !argv._[0]) {
+      // Add seed to log info if not provided through command line.
+      if (!('seed' in argv) && (!('url' in argv) || argv._[0])) {
         info[1]['Seed'] = seed
       }
     }
