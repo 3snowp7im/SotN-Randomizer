@@ -10,279 +10,282 @@
   </head>
   <body>
     <div id="version"></div>
-    <h1>Castlevania: Symphony of the Night Randomizer</h1>
-    <div>
-      by Wild Mouse
-      <a href="https://twitter.com/3snow_p7im"><img height="16" width="16" src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/twitter.svg"></a>
-      <a href="https://twitch.tv/3snow_p7im"><img height="16" width="16" src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/twitch.svg"></a>
-    </div>
-    <form id="form" class="pure-g">
-      <p id="target" class="pure-u-1">
-        <span id="status"></span>
-        <input id="file" type="file" accept=".bin,.iso">
-      </p>
-      <div class="pure-u-14-24">
-        <fieldset>
-          <legend>Randomizations</legend>
-          <div class="pure-g">
-            <div class="pure-u-12-24">
-              <label for="seed">Seed:</label>
-            </div>
-            <div class="pure-u-12-24">
-              <input id="seed" type="text" placeholder="Optional">
-            </div>
-            <div class="pure-u-12-24">
-              <input id="preset" type="checkbox">
-              <label for="preset">Preset</label>
-            </div>
-            <div id="preset-select" class="pure-u-12-24">
-              <select id="preset-id"></select>
-              <span class="tooltip-wrapper">
-                <span class="tooltip-indicator">?</span>
-                <span class="tooltip hidden">
-                  <span id="preset-description"></span>
-                  <span id="preset-author"></span>
+    <div id="content">
+      <h1>Castlevania: Symphony of the Night Randomizer</h1>
+      <div>
+        by Wild Mouse
+        <a href="https://twitter.com/3snow_p7im"><img height="16" width="16" src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/twitter.svg"></a>
+        <a href="https://twitch.tv/3snow_p7im"><img height="16" width="16" src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/twitch.svg"></a>
+      </div>
+      <form id="form" class="pure-g">
+        <p id="target" class="pure-u-1">
+          <span id="status"></span>
+          <input id="file" type="file" accept=".bin,.iso">
+        </p>
+        <div class="pure-u-14-24">
+          <fieldset>
+            <legend>Randomizations</legend>
+            <div class="pure-g">
+              <div class="pure-u-12-24">
+                <label for="seed">Seed:</label>
+              </div>
+              <div class="pure-u-12-24">
+                <input id="seed" type="text" placeholder="Optional">
+              </div>
+              <div class="pure-u-12-24">
+                <input id="preset" type="checkbox">
+                <label for="preset">Preset</label>
+              </div>
+              <div id="preset-select" class="pure-u-12-24">
+                <select id="preset-id"></select>
+                <span class="tooltip-wrapper">
+                  <span class="tooltip-indicator">?</span>
+                  <span class="tooltip hidden">
+                    <span id="preset-description"></span>
+                    <span id="preset-author"></span>
+                  </span>
                 </span>
-              </span>
+              </div>
+              <div class="pure-u-12-24">
+                <input id="enemy-drops" type="checkbox">
+                <label for="enemy-drops">Enemy drops</label>
+              </div>
+              <div class="pure-u-12-24">
+                <input id="starting-equipment" type="checkbox">
+                <label for="starting-equipment">Starting equipment</label>
+              </div>
+              <div class="pure-u-12-24">
+                <input id="item-locations" type="checkbox">
+                <label for="item-locations">Item locations</label>
+              </div>
+              <div class="pure-u-12-24">
+                <input id="prologue-rewards" type="checkbox">
+                <label for="prologue-rewards">Prologue rewards</label>
+              </div>
+              <div class="pure-u-12-24">
+                <input id="relic-locations" type="checkbox">
+                <label for="relic-locations">Relic locations</label>
+              </div>
+              <div class="pure-u-12-24">
+                <input id="turkey-mode" type="checkbox">
+                <label for="turkey-mode">Turkey mode</label>
+              </div>
+              <input id="enemy-drops-arg"
+                     type="text"
+                     disabled="disabled"
+                     style="display: none">
+              <input id="starting-equipment-arg"
+                     type="text"
+                     disabled="disabled"
+                     style="display: none">
+              <input id="item-locations-arg"
+                     type="text"
+                     disabled="disabled"
+                     style="display: none">
+              <input id="prologue-rewards-arg"
+                     type="text"
+                     disabled="disabled"
+                     style="display: none">
+              <input id="relic-locations-arg"
+                     type="text"
+                     disabled="disabled"
+                     style="display: none">
+              <div class="pure-u-1">
+                <input id="clear"
+                       type="submit"
+                       class="pure-button hidden"
+                       value="Clear">
+              </div>
             </div>
-            <div class="pure-u-12-24">
-              <input id="enemy-drops" type="checkbox">
-              <label for="enemy-drops">Enemy drops</label>
+          </fieldset>
+          <fieldset>
+            <legend>Options</legend>
+            <div class="pure-g">
+              <div class="pure-u-1">
+                <input id="append-seed" type="checkbox">
+                <label for="append-seed">Append seed to filename</label>
+              </div>
+              <div class="pure-u-1">
+                <input id="show-spoilers" type="checkbox">
+                <label for="show-spoilers">Show spoilers</label>
+              </div>
+              <div class="pure-u-1">
+                <input id="show-relics" type="checkbox">
+                <label for="show-relics">Show relic locations</label>
+              </div>
             </div>
-            <div class="pure-u-12-24">
-              <input id="starting-equipment" type="checkbox">
-              <label for="starting-equipment">Starting equipment</label>
-            </div>
-            <div class="pure-u-12-24">
-              <input id="item-locations" type="checkbox">
-              <label for="item-locations">Item locations</label>
-            </div>
-            <div class="pure-u-12-24">
-              <input id="prologue-rewards" type="checkbox">
-              <label for="prologue-rewards">Prologue rewards</label>
-            </div>
-            <div class="pure-u-12-24">
-              <input id="relic-locations" type="checkbox">
-              <label for="relic-locations">Relic locations</label>
-            </div>
-            <div class="pure-u-12-24">
-              <input id="turkey-mode" type="checkbox">
-              <label for="turkey-mode">Turkey mode</label>
-            </div>
-            <input id="enemy-drops-arg"
-                   type="text"
-                   disabled="disabled"
-                   style="display: none">
-            <input id="starting-equipment-arg"
-                   type="text"
-                   disabled="disabled"
-                   style="display: none">
-            <input id="item-locations-arg"
-                   type="text"
-                   disabled="disabled"
-                   style="display: none">
-            <input id="prologue-rewards-arg"
-                   type="text"
-                   disabled="disabled"
-                   style="display: none">
-            <input id="relic-locations-arg"
-                   type="text"
-                   disabled="disabled"
-                   style="display: none">
-            <div class="pure-u-1">
-              <input id="clear"
-                     type="submit"
-                     class="pure-button hidden"
-                     value="Clear">
-            </div>
-          </div>
-        </fieldset>
-        <fieldset>
-          <legend>Options</legend>
-          <div class="pure-g">
-            <div class="pure-u-1">
-              <input id="append-seed" type="checkbox">
-              <label for="append-seed">Append seed to filename</label>
-            </div>
-            <div class="pure-u-1">
-              <input id="show-spoilers" type="checkbox">
-              <label for="show-spoilers">Show spoilers</label>
-            </div>
-            <div class="pure-u-1">
-              <input id="show-relics" type="checkbox">
-              <label for="show-relics">Show relic locations</label>
-            </div>
-          </div>
-        </fieldset>
-      </div>
-      <div class="pure-u-10-24 spoilers">
-        <textarea id="spoilers" rows="8" cols="32" disabled="disabled">
-        </textarea>
-      </div>
-      <p class="pure-u-1">
-        <input id="randomize"
-               type="submit"
-               class="pure-button pure-button-primary"
-               disabled="disabled"
-               value="Randomize">
-        <input id="copy"
-               type="submit"
-               class="pure-button"
-               disabled="disabled"
-               value="Copy seed">
+          </fieldset>
+        </div>
+        <div class="pure-u-10-24 spoilers">
+          <textarea id="spoilers" rows="8" cols="32" disabled="disabled">
+          </textarea>
+        </div>
+        <p class="pure-u-1">
+          <input id="randomize"
+                 type="submit"
+                 class="pure-button pure-button-primary"
+                 disabled="disabled"
+                 value="Randomize">
+          <input id="copy"
+                 type="submit"
+                 class="pure-button"
+                 disabled="disabled"
+                 value="Copy seed">
+        </p>
+        <a id="download" style="display:none"></a>
+        <div id="loader"></div>
+      </form>
+      <div id="notification">Copied to clipboard</div>
+      <hr>
+      <h2><a name="help">Help</a></h2>
+      <p>
+        This randomizer targets the original NTSC-U release of
+        <a href="http://redump.org/disc/3379/"><i>Castlevania: Symphony of the
+            Night</i> (SLU-00067)</a>. You will need an image of your game
+        disc in BIN/CUE format. If your disc image is split across two .bin
+        files, drag only the first .bin file (track 1) into the drop zone.
       </p>
-      <a id="download" style="display:none"></a>
-      <div id="loader"></div>
-    </form>
-    <div id="notification">Copied to clipboard</div>
-    <hr>
-    <h2><a name="help">Help</a></h2>
-    <p>
-      This randomizer targets the original NTSC-U release of
-      <a href="http://redump.org/disc/3379/"><i>Castlevania: Symphony of the
-      Night</i> (SLU-00067)</a>. You will need an image of your game disc in
-      BIN/CUE format. If your disc image is split across two .bin files, drag
-      only the first .bin file (track 1) into the drop zone.
-    </p>
-    <p>
-      If the seed name is appended to your randomized image filename after
-      downloading, you will need to modify your cue file track listing to
-      reference the new filename.
-    </p>
-    <hr>
-    <h2><a name="links">Links</a></h2>
-    <ul>
-      <li><a href="https://testrunnersrl.github.io/sotn-tracker">Relic tracker</a> (thanks TestRunner)</li>
-      <li><a href="relics">Relic distribution table</a> (thanks Soba)</li>
-      <li><a href="https://discord.gg/wGMdDRG">The Long Library</a>, a SotN
-      discord server</li>
-    </ul>
-    <hr>
-    <h2><a name="bugs">Bugs</a></h2>
-    <p>
-      Think you found a bug? The best way to report it is using <a href="https://github.com/3snowp7im/SotN-Randomizer/issues/new/choose">GitHub issues</a>.
-    </p>
-    <hr>
-    <h2><a name="changelog">Changelog</a></h2>
-    <h3><time>May 23, 2019</time></h3>
-    <ul>
-      <li>Add support for custom enemy drops, starting equipment, item
-        locations, and prologue rewards.</li>
-      <li>Deprecate relic logic selector in favor presets.</li>
-    </ul>
-    <h3><time>May 11, 2019</time></h3>
-    <ul>
-      <li>Add selector for built-in relic logic schemes.</li>
-    </ul>
-    <h3><time>May 8, 2019</time></h3>
-    <ul>
-      <li>Add support for <a href="https://github.com/3snowp7im/SotN-Randomizer#custom-relic-logic">custom relic logic</a>.</li>
-    </ul>
-    <h3><time>May 3, 2019</time></h3>
-    <ul>
-      <li>Add file input as alternative to drag API.</li>
-    </ul>
-    <h3><time>April 30, 2019</time></h3>
-    <ul>
-      <li>Use web worker.</li>
-    </ul>
-    <h3><time>April 28, 2019</time></h3>
-    <ul>
-      <li>Add drop randomization.</li>
-    </ul>
-    <h3><time>April 23, 2019</time></h3>
-    <ul>
-      <li>Add checksum verification.</li>
-    </ul>
-    <h3><time>April 22, 2019</time></h3>
-    <ul>
-      <li>Add turkey mode.</li>
-    </ul>
-    <h3><time>April 20, 2019</time></h3>
-    <ul>
-      <li>Add candle randomization.</li>
-      <li>Add prologue reward item randomization.</li>
-      <li>Add Axe Lord and Luck Mode starting equipment randomization.</li>
-      <li>Add copy seed button.</li>
-    </ul>
-    <h3><time>April 15, 2019</time></h3>
-    <ul>
-      <li>Add link to the <a href="https://testrunnersrl.github.io/sotn-tracker/">relic tracker</a> (thanks TestRunner)</li>
-    </ul>
-    <h3><time>April 15, 2019</time></h3>
-    <ul>
-      <li>Display seed at file select menu.</li>
-      <li>Distribute jewel types with same frequency as vanilla.</li>
-    </ul>
-    <h3><time>April 14, 2019</time></h3>
-    <ul>
-      <li>Add option to show relic locations in spoilers.</li>
-    </ul>
-    <h3><time>April 13, 2019</time></h3>
-    <ul>
-      <li>Fix Maria cutscene skip in Richter mode.</li>
-    </ul>
-    <h3><time>April 11, 2019</time></h3>
-    <ul>
-      <li>Remove Maria cutscene in Marble Gallery to avoid confusion.</li>
-      <li>Add spoilers option.</li>
-    </ul>
-    <h3><time>April 8, 2019</time></h3>
-    <ul>
-      <li>Fix bug that allowed salable gems to be sold in shop menu.</li>
-      <li>Items are now placed by type with same frequency as vanilla.</li>
-    </ul>
-    <h3><time>April 7, 2019</time></h3>
-    <ul>
-      <li>Add item location randomization.</li>
-    </ul>
-    <h3><time>April 5, 2019</time></h3>
-    <ul>
-      <li>Add <a href="relics">relic distribution</a>
-        (thx Soba)</li>
-      <li>Fix relic duping in Medusa room.</li>
-      <li>Fix shop relic name not being updated in shop menu.</li>
-      <li>Produce more uniform relic distribution (thx Soba).</li>
-    </ul>
-    <h3><time>April 4, 2019</time></h3>
-    <ul>
-      <li>Remove Maria cutscene in Alchemy Lab to avoid softlock.</li>
-      <li>Fix 2nd castle relic locations (thx Soba).</li>
-      <li>Fix randomized equipment by same type.</li>
-    </ul>
-    <h3><time>April 3, 2019</time></h3>
-    <ul>
-      <li>Fix random seed not being reproducible.</li>
-      <li>Fix crash after Scylla fight.</li>
-      <li>Fix faerie scroll duping.</li>
-      <li>Fix same seed causes different randomizations.</li>
-    </ul>
-    <h3><time>April 2, 2019</time></h3>
-    <ul>
-      <li>Fix equipment randomization.</li>
-      <li>
-        Fix bug that allowed bat relic to be placed in 2nd castle without
-        ability to get spike breaker armor.
-      </li>
-      <li>Download file name contains seed value.</li>
-    </ul>
-    <h3><time>April 1, 2019</time></h3>
-    <ul>
-      <li>Fix shop relic glitch.</li>
-      <li>Fix relic duping in clock tower and outer wall.</li>
-    </ul>
-    <h3><time>March 31, 2019</time></h3>
-    <ul>
-      <li>Add equipment location randomization.</li>
-    </ul>
-    <h3><time>March 28, 2019</time></h3>
-    <ul>
-      <li>Add starting equipment randomization.</li>
-    </ul>
-    <h3><time>March 27, 2019</time></h3>
-    <ul>
-      <li>Ported setz's <a href="https://github.com/josephstevenspgh/SotN-Relic-Randomizer">relic randomizer</a> to javascript.</li>
-    </ul>
+      <p>
+        If the seed name is appended to your randomized image filename after
+        downloading, you will need to modify your cue file track listing to
+        reference the new filename.
+      </p>
+      <hr>
+      <h2><a name="links">Links</a></h2>
+      <ul>
+        <li><a href="https://testrunnersrl.github.io/sotn-tracker">Relic
+          tracker</a> (thanks TestRunner)</li>
+        <li><a href="relics">Relic distribution table</a> (thanks Soba)</li>
+        <li><a href="https://discord.gg/wGMdDRG">The Long Library</a>, a SotN
+          discord server</li>
+      </ul>
+      <hr>
+      <h2><a name="bugs">Bugs</a></h2>
+      <p>
+        Think you found a bug? The best way to report it is using <a href="https://github.com/3snowp7im/SotN-Randomizer/issues/new/choose">GitHub issues</a>.
+      </p>
+      <hr>
+      <h2><a name="changelog">Changelog</a></h2>
+      <h3><time>May 23, 2019</time></h3>
+      <ul>
+        <li>Add support for custom enemy drops, starting equipment, item
+          locations, and prologue rewards.</li>
+        <li>Deprecate relic logic selector in favor presets.</li>
+      </ul>
+      <h3><time>May 11, 2019</time></h3>
+      <ul>
+        <li>Add selector for built-in relic logic schemes.</li>
+      </ul>
+      <h3><time>May 8, 2019</time></h3>
+      <ul>
+        <li>Add support for <a href="https://github.com/3snowp7im/SotN-Randomizer#custom-relic-logic">custom relic logic</a>.</li>
+      </ul>
+      <h3><time>May 3, 2019</time></h3>
+      <ul>
+        <li>Add file input as alternative to drag API.</li>
+      </ul>
+      <h3><time>April 30, 2019</time></h3>
+      <ul>
+        <li>Use web worker.</li>
+      </ul>
+      <h3><time>April 28, 2019</time></h3>
+      <ul>
+        <li>Add drop randomization.</li>
+      </ul>
+      <h3><time>April 23, 2019</time></h3>
+      <ul>
+        <li>Add checksum verification.</li>
+      </ul>
+      <h3><time>April 22, 2019</time></h3>
+      <ul>
+        <li>Add turkey mode.</li>
+      </ul>
+      <h3><time>April 20, 2019</time></h3>
+      <ul>
+        <li>Add candle randomization.</li>
+        <li>Add prologue reward item randomization.</li>
+        <li>Add Axe Lord and Luck Mode starting equipment randomization.</li>
+        <li>Add copy seed button.</li>
+      </ul>
+      <h3><time>April 15, 2019</time></h3>
+      <ul>
+        <li>Add link to the <a href="https://testrunnersrl.github.io/sotn-tracker/">relic tracker</a> (thanks TestRunner)</li>
+      </ul>
+      <h3><time>April 15, 2019</time></h3>
+      <ul>
+        <li>Display seed at file select menu.</li>
+        <li>Distribute jewel types with same frequency as vanilla.</li>
+      </ul>
+      <h3><time>April 14, 2019</time></h3>
+      <ul>
+        <li>Add option to show relic locations in spoilers.</li>
+      </ul>
+      <h3><time>April 13, 2019</time></h3>
+      <ul>
+        <li>Fix Maria cutscene skip in Richter mode.</li>
+      </ul>
+      <h3><time>April 11, 2019</time></h3>
+      <ul>
+        <li>Remove Maria cutscene in Marble Gallery to avoid confusion.</li>
+        <li>Add spoilers option.</li>
+      </ul>
+      <h3><time>April 8, 2019</time></h3>
+      <ul>
+        <li>Fix bug that allowed salable gems to be sold in shop menu.</li>
+        <li>Items are now placed by type with same frequency as vanilla.</li>
+      </ul>
+      <h3><time>April 7, 2019</time></h3>
+      <ul>
+        <li>Add item location randomization.</li>
+      </ul>
+      <h3><time>April 5, 2019</time></h3>
+      <ul>
+        <li>Add <a href="relics">relic distribution</a>
+          (thx Soba)</li>
+        <li>Fix relic duping in Medusa room.</li>
+        <li>Fix shop relic name not being updated in shop menu.</li>
+        <li>Produce more uniform relic distribution (thx Soba).</li>
+      </ul>
+      <h3><time>April 4, 2019</time></h3>
+      <ul>
+        <li>Remove Maria cutscene in Alchemy Lab to avoid softlock.</li>
+        <li>Fix 2nd castle relic locations (thx Soba).</li>
+        <li>Fix randomized equipment by same type.</li>
+      </ul>
+      <h3><time>April 3, 2019</time></h3>
+      <ul>
+        <li>Fix random seed not being reproducible.</li>
+        <li>Fix crash after Scylla fight.</li>
+        <li>Fix faerie scroll duping.</li>
+        <li>Fix same seed causes different randomizations.</li>
+      </ul>
+      <h3><time>April 2, 2019</time></h3>
+      <ul>
+        <li>Fix equipment randomization.</li>
+        <li>
+          Fix bug that allowed bat relic to be placed in 2nd castle without
+          ability to get spike breaker armor.
+        </li>
+        <li>Download file name contains seed value.</li>
+      </ul>
+      <h3><time>April 1, 2019</time></h3>
+      <ul>
+        <li>Fix shop relic glitch.</li>
+        <li>Fix relic duping in clock tower and outer wall.</li>
+      </ul>
+      <h3><time>March 31, 2019</time></h3>
+      <ul>
+        <li>Add equipment location randomization.</li>
+      </ul>
+      <h3><time>March 28, 2019</time></h3>
+      <ul>
+        <li>Add starting equipment randomization.</li>
+      </ul>
+      <h3><time>March 27, 2019</time></h3>
+      <ul>
+        <li>Ported setz's <a href="https://github.com/josephstevenspgh/SotN-Relic-Randomizer">relic randomizer</a> to javascript.</li>
+      </ul>
+    </div>
     <div id="dev-border"></div>
     <a id="fork" href="https://github.com/3snowp7im/SotN-Randomizer"><img width="149" height="149" src="https://github.blog/wp-content/uploads/2008/12/forkme_left_darkblue_121621.png?resize=149%2C149" class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1"></a>
     <script src="constants.js"></script>

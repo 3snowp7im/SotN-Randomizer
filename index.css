@@ -2,14 +2,18 @@ html, body {
     height: 100%;
 }
 
-body {
-    padding-left: 15%;
-    padding-right: 15%;
+#content {
+    padding: 0 15%;
 }
 
 #version {
     float: right;
     font-size: small;
+    margin: 1em 1em 0 0;
+}
+
+h1 {
+    clear: both;
 }
 
 #dev-border.dev {
