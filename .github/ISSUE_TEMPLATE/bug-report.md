@@ -14,6 +14,11 @@ to relic placement.
 # Seed URL
 After randomizing, click the "Copy seed" button then paste here.
 
+# Randomizer version:
+Found in upper-right hand corner of web page.
+
+# Operating system and version:
+
 # Emulator and version:
 
 # Bug description

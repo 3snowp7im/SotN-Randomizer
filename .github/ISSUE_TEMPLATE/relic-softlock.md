@@ -15,6 +15,9 @@ getting the better or best ending.
 # Seed URL
 After randomizing, click the "Copy seed" button then paste here.
 
+# Randomizer version:
+Found in upper-right hand corner of web page.
+
 # Spoilers:
 Recreate the seed with "Show spoilers" AND "Show relic locations" options
 checked, then paste the "Relic locations" list here.
