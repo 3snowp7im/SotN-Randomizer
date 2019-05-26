@@ -1070,7 +1070,7 @@
         }
       }
       presetIdChange()
-      loadOption('preset', presetChange, false)
+      loadOption('preset', presetChange, true)
     }
     let path = url.pathname
     if (path.match(/index\.html$/)) {
