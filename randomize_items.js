@@ -1087,9 +1087,8 @@
             if (options.itemLocations) {
               if (itemTileFilter(mapTileFilter)(item)
                   || itemTileFilter(shopTileFilter)(item)
+                  || itemTileFilter(candleTileFilter)(item)
                   || itemTileFilter(librarianDropTileFilter)(item)
-                  || heartFilter(item)
-                  || goldFilter(item)
                   || subweaponFilter(item)) {
                 return true
               }
