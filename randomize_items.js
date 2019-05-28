@@ -100,9 +100,12 @@
   }
 
   function mapTileFilter(tile) {
-    return !tile.shop && !tile.tank && !tile.reward
-      && !candleTileFilter(tile) && !dropTileFilter(tile)
-      && !tile.librarian
+    return !shopTileFilter(tile)
+      && !tankTileFilter(tile)
+      && !rewardTileFilter(tile)
+      && !candleTileFilter(tile)
+      && !dropTileFilter(tile)
+      && !librarianDropTileFilter(tile)
   }
 
   function shopTileFilter(tile) {
@@ -123,6 +126,10 @@
 
   function candleTileFilter(tile) {
     return typeof(tile.candle) !== 'undefined'
+  }
+
+  function tankTileFilter(tile) {
+    return tile.tank
   }
 
   function typeReduce(types, item) {
@@ -394,25 +401,25 @@
       st0: [ZONE.ST0],
       lib: [ZONE.LIB, ZONE.RLIB],
     }
-    const specials = {}
-    const specialIds = []
+    const specialZones = {}
+    const specialItems = []
     Object.getOwnPropertyNames(zones).forEach(function(name) {
-      specials[name] = items.filter(function(item) {
+      specialZones[name] = items.filter(function(item) {
         return !typeFilter([TYPE.HEART, TYPE.GOLD, TYPE.SUBWEAPON])(item)
           && item.tiles && item.tiles.some(function(tile) {
             return candleTileFilter(tile)
               && zones[name].indexOf(tile.zone) !== -1
           })
       })
-      const ids = specials[name].map(function(item) {
+      const ids = specialZones[name].map(function(item) {
         return item.id
       })
-      Array.prototype.push.apply(specialIds, ids)
+      Array.prototype.push.apply(specialItems, ids)
     })
     // Randomize these special cases by replacing them with the same item type.
     const itemTypes = shuffled(pool).reduce(typeReduce, [])
     Object.getOwnPropertyNames(zones).forEach(function(name) {
-      specials[name].forEach(function(item) {
+      specialZones[name].forEach(function(item) {
         let replacement
         do replacement = itemTypes[item.type].pop()
         while (foodFilter(replacement))
@@ -426,9 +433,10 @@
       return candleTileFilter(tile) && tile.zone !== ZONE.ST0
     }
     const candleItems = items.filter(function(item) {
-      return specialIds.indexOf(item.id) === -1
+      return specialItems.indexOf(item) === -1
         && (item.tiles || []).some(tileFilter)
     })
+    console.log(candleItems)
     const candleTileCounts = candleItems.map(function(items) {
       return items.tiles.filter(tileFilter).length
     })
@@ -1089,7 +1097,7 @@
                   || itemTileFilter(shopTileFilter)(item)
                   || itemTileFilter(candleTileFilter)(item)
                   || itemTileFilter(librarianDropTileFilter)(item)
-                  || subweaponFilter(item)) {
+                  || itemTileFilter(tankTileFilter)(item)) {
                 return true
               }
             }
