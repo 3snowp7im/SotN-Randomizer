@@ -436,7 +436,6 @@
       return specialItems.indexOf(item) === -1
         && (item.tiles || []).some(tileFilter)
     })
-    console.log(candleItems)
     const candleTileCounts = candleItems.map(function(items) {
       return items.tiles.filter(tileFilter).length
     })
