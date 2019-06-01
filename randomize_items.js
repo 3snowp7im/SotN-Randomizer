@@ -89,6 +89,10 @@
     return accessoryFilter(item) && !salableFilter(item)
   }
 
+  function nonprogressionFilter(item) {
+    return !item.progression
+  }
+
   function tilesFilter(item) {
     return Array.isArray(item.tiles)
   }
@@ -272,38 +276,39 @@
   }
 
   function randomizeStartingEquipment(data, info, planned) {
+    const pool = items.filter(nonprogressionFilter)
     // Select starting equipment.
     planned = planned || {}
     let weapon, shield, helmet, armor, cloak, other
     if ('r' in planned) {
       weapon = itemFromName(planned.r)
     } else {
-      weapon = randItem(items.filter(typeFilter([TYPE.WEAPON1])))
+      weapon = randItem(pool.filter(typeFilter([TYPE.WEAPON1])))
     }
     if ('l' in planned) {
       shield = itemFromName(planned.l)
     } else if (!planned.r || planned.r.type !== TYPE.WEAPON2) {
-      shield = randItem(items.filter(shieldFilter))
+      shield = randItem(pool.filter(shieldFilter))
     }
     if ('b' in planned) {
       armor = itemFromName(planned.b)
     } else {
-      armor = randItem(items.filter(armorFilter))
+      armor = randItem(pool.filter(armorFilter))
     }
     if ('h' in planned) {
       helmet = itemFromName(planned.h)
     } else {
-      helmet = randItem(items.filter(helmetFilter))
+      helmet = randItem(pool.filter(helmetFilter))
     }
     if ('c' in planned) {
       cloak = itemFromName(planned.c)
     } else {
-      cloak = randItem(items.filter(cloakFilter))
+      cloak = randItem(pool.filter(cloakFilter))
     }
     if ('o' in planned) {
       other = itemFromName(planned.o)
     } else {
-      other = randItem(items.filter(accessoryFilter))
+      other = randItem(pool.filter(accessoryFilter))
     }
     // Their values when equipped.
     const weaponEquipVal = weapon ? weapon.id : 0
@@ -363,7 +368,7 @@
     if ('a' in planned) {
       axeLordArmor = itemFromName(planned.a)
     } else {
-      axeLordArmor = randItem(items.filter(armorFilter))
+      axeLordArmor = randItem(pool.filter(armorFilter))
     }
     const axeLordEquipVal = axeLordArmor ? axeLordArmor.id + equipIdOffset : 0
     data.writeByte(0x11a230, axeLordEquipVal)
@@ -372,7 +377,7 @@
     if ('x' in planned) {
       luckItem = itemFromName(planned.x)
     } else {
-      luckItem = randItem(items.filter(accessoryFilter)).id
+      luckItem = randItem(pool.filter(accessoryFilter)).id
     }
     if (luckItem) {
       const luckItemEquipVal = luckItem ? luckItem.id : 0
@@ -1086,27 +1091,22 @@
             if (foodFilter(item)) {
               return true
             }
-            if (options.enemyDrops) {
-              if (itemTileFilter(dropTileFilter)(item)) {
-                return true
-              }
+            if (options.enemyDrops
+                && itemTileFilter(dropTileFilter)(item)) {
+              return true
             }
-            if (options.itemLocations) {
-              if (item.progression) {
-                return false
-              }
-              if (itemTileFilter(mapTileFilter)(item)
-                  || itemTileFilter(shopTileFilter)(item)
-                  || itemTileFilter(candleTileFilter)(item)
-                  || itemTileFilter(librarianDropTileFilter)(item)
-                  || itemTileFilter(tankTileFilter)(item)) {
-                return true
-              }
+            if (options.itemLocations
+                && nonprogressionFilter(item)
+                && (itemTileFilter(mapTileFilter)(item)
+                    || itemTileFilter(shopTileFilter)(item)
+                    || itemTileFilter(candleTileFilter)(item)
+                    || itemTileFilter(librarianDropTileFilter)(item)
+                    || itemTileFilter(tankTileFilter)(item))) {
+              return true
             }
-            if (options.prologueRewards) {
-              if (itemTileFilter(rewardTileFilter)(item)) {
-                return true
-              }
+            if (options.prologueRewards
+                && itemTileFilter(rewardTileFilter)(item)) {
+              return true
             } 
           }).map(function(item) {
             item = Object.assign({}, item)
