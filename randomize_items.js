@@ -640,7 +640,7 @@
               return ref.id === map[index].id && ref.type === map[index].type
             })[0]
             if (!target) {
-              target = Object.assign({}, map[index])
+              target = Object.assign({}, itemFromName(map[index]))
               addon.push(target)
             }
             switch (target.type) {
@@ -648,7 +648,7 @@
             case TYPE.ARMOR:
             case TYPE.CLOAK:
             case TYPE.ACCESSORY:
-              if (tile.byte && target.id >= tileIdOffset) {
+              if (tiles[index].byte && target.id >= tileIdOffset) {
                 throw new Error('Cannot place item: ' + target.name)
               }
               break
@@ -813,7 +813,7 @@
                 return drop.id === item.id && drop.type === item.type
               })[0]
               if (!target) {
-                target = Object.assign({}, item)
+                target = Object.assign({}, itemFromName(item))
                 addon.push(target)
               }
               pushTile.call(target, tile)
