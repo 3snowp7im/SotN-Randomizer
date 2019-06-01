@@ -1092,6 +1092,9 @@
               }
             }
             if (options.itemLocations) {
+              if (item.progression) {
+                return false
+              }
               if (itemTileFilter(mapTileFilter)(item)
                   || itemTileFilter(shopTileFilter)(item)
                   || itemTileFilter(candleTileFilter)(item)

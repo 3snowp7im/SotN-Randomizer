@@ -8263,6 +8263,15 @@
       addresses: [ 0x049d3676 ],
     }],
   }, {
+    name: 'Spike Breaker',
+    type: TYPE.ARMOR,
+    id: 183,
+    progression: true,
+    tiles: [{
+      zone: ZONE.CAT,
+      addresses: [ 0x04491304 ],
+    }],
+  }, {
     name: 'Alucard Mail',
     type: TYPE.ARMOR,
     id: 184,

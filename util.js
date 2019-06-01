@@ -914,11 +914,13 @@
     // Handle the edge case where the options are the same as a preset.
     if (!disableRecurse) {
       const preset = presets.filter(function(preset) {
-        const options = preset.options()
-        if (preset === safe) {
-          options.relicLocations = true
+        if (preset instanceof Preset) {
+          const options = preset.options()
+          if (preset === safe) {
+            options.relicLocations = true
+          }
+          return optionsToString(options, true) === randomize
         }
-        return optionsToString(options, true) === randomize
       }).pop()
       if (preset) {
         randomize = 'P:' + preset.id

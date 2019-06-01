@@ -4,8 +4,10 @@
   const metadata = {
     id: 'glitch',
     name: 'Glitch',
-    description: 'May require extensive glitch knowledge for completion. '
-      + 'Any% completion is assumed, but all Vlad relics are accessible.',
+    description: [
+      'May require extensive glitch knowledge for completion.',
+      'Any% completion is assumed, but all Vlad relics are accessible.',
+    ].join(' '),
     author: 'romscout',
   }
 
