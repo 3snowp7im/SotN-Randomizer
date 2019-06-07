@@ -1083,7 +1083,7 @@
         }
         randomizeStartingEquipment(data, info, planned)
       }
-      do {
+      while (true) {
         try {
           // Get pool of randomizable items.
           addon = []
@@ -1160,7 +1160,8 @@
           }
           throw err
         }
-      } while (false)
+        break
+      }
     }
     return returnVal
   }
