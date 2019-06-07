@@ -455,7 +455,7 @@
   }
 
   function randomizePrologueRewards(pool, addon, planned) {
-    const rewardItems = items.filter(itemTileFilter, rewardTileFilter)
+    const rewardItems = items.filter(itemTileFilter(rewardTileFilter))
     rewardItems.sort(function(a, b) {
       if (a < b) {
         return -1
@@ -571,7 +571,9 @@
     // Shuffle items.
     const shuffledItems = shuffled(pool)
     // Get all map tiles.
-    const mapItems = items.filter(itemTileFilter(mapTileFilter))
+    const mapItems = items.filter(function(item) {
+      return nonprogressionFilter(item) && itemTileFilter(mapTileFilter)(item)
+    })
     const tileItems = mapItems.map(cloneTilesMap(mapTileFilter))
     // Shuffle all map tiles.
     const shuffledTiles = shuffled(collectTiles(tileItems))
