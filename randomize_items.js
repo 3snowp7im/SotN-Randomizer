@@ -690,13 +690,16 @@
       }
     })
     // Duplicate equipment as necessary.
+    const dupped = []
     const types = pool.reduce(typeReduce, [])
     types[TYPE.ACCESSORY] = types[TYPE.ACCESSORY].filter(nonsalableFilter)
     Object.getOwnPropertyNames(dupTypes).forEach(function(type) {
       type = parseInt(type)
       const items = shuffled(types[type])
       dupTypes[type].forEach(function(count) {
-        Array.prototype.push.apply(pool, Array(count).fill(items.shift()))
+        const item = items.shift()
+        dupped.push(item)
+        Array.prototype.push.apply(pool, Array(count).fill(item))
       })
     })
     // Shuffle items.
@@ -868,6 +871,14 @@
     }
     pushReplacement('Short Sword')
     pushReplacement('Red Rust')
+    // Remove duplicated items.
+    dupped.forEach(function(dupped) {
+      let count
+      do {
+        count = pool.filter(function(item) { return item === dupped }).length
+        pool.splice(pool.indexOf(dupped), 1)
+      } while (--count > 1)
+    })
   }
 
   function checkItemAddresses(data) {
