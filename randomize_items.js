@@ -438,7 +438,7 @@
       return candleTileFilter(tile) && tile.zone !== ZONE.ST0
     }
     const candleItems = items.filter(function(item) {
-      return specialItems.indexOf(item) === -1
+      return specialItems.indexOf(item.id) === -1
         && (item.tiles || []).some(tileFilter)
     })
     const candleTileCounts = candleItems.map(function(items) {
