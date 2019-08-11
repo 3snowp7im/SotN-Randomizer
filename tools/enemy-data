@@ -15,6 +15,7 @@ const enemyDataOff = constants.enemyDataOff
 const enemyDataLen = constants.enemyDataLen
 const exeRamOffset = 0xa0000
 const enemyLevelOffset = 0x16
+const enemyDropsOff = 0x1a
 
 // Read input bin.
 const bin = fs.readFileSync(process.argv[2])
@@ -50,6 +51,12 @@ enemies.forEach(function(enemy) {
     enemy.name += String.fromCharCode(c)
   }
   enemy.level = exeData[offset + enemyLevelOffset]
+  enemy.dropAddresses = [
+    offset + enemyDropsOff + 0,
+    offset + enemyDropsOff + 2,
+  ].map(function(offset) {
+    return exe.pos + offset + Math.floor(offset / 0x800) * 0x130
+  })
 })
 
 // Format data.

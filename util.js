@@ -1094,7 +1094,7 @@
           break
         default:
           let hexWidth
-          if (['addresses', 'blacklist'].indexOf(entry[0]) !== -1) {
+          if (['addresses', 'blacklist', 'dropAddresses'].indexOf(entry[0]) !== -1) {
             hexWidth = 8
           }
           value = formatObject(entry[1], indent + 2, hexWidth)

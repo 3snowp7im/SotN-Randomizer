@@ -17,6 +17,8 @@
     util = require('./util')
   }
 
+  const MAX_RETRIES = 64
+
   const TYPE = constants.TYPE
   const typeNames = constants.typeNames
   const ZONE = constants.ZONE
@@ -783,14 +785,14 @@
     if (planned) {
       Object.getOwnPropertyNames(planned).forEach(function(key) {
         const dashIndex = key.lastIndexOf('-')
-        let enemyName = key
+        let enemyName = key.toLowerCase()
         let level
         if (dashIndex !== -1) {
           level = parseInt(enemyName.slice(dashIndex + 1))
-          enemyName = key.slice(0, dashIndex)
+          enemyName = key.slice(0, dashIndex).toLowerCase()
         }
         const enemy = enemies.filter(function(enemy) {
-          if (enemy.name === enemyName) {
+          if (enemy.name.toLowerCase().replace(/[^a-zA-Z0-9]/g, '') === enemyName) {
             if (typeof(level) !== 'undefined') {
               return enemy.level === level
             }
@@ -800,20 +802,30 @@
         const matches = items.filter(itemTileFilter(function(tile) {
           return tile.enemy === enemy.id
         }))
-        const tiles = matches.reduce(function(tiles, item) {
-          const indexes = item.tiles.reduce(function(indexes, tile, index) {
-            if (tile.enemy === enemy.id) {
-              indexes.push(index)
-            }
-            return indexes
-          }, []).reverse()
-          indexes.forEach(function(index) {
-            Array.prototype.push.apply(tiles, item.tiles.splice(index, 1))
+        let tiles
+        if (matches.length > 0) {
+          tiles = matches.reduce(function(tiles, item) {
+            const indexes = item.tiles.reduce(function(indexes, tile, index) {
+              if (tile.enemy === enemy.id) {
+                indexes.push(index)
+              }
+              return indexes
+            }, []).reverse()
+            indexes.forEach(function(index) {
+              Array.prototype.push.apply(tiles, item.tiles.splice(index, 1))
+            })
+            return tiles
+          }, []).sort(function(a, b) {
+            return a.addresses[0] - b.addresses[0]
           })
-          return tiles
-        }, []).sort(function(a, b) {
-          return a.addresses[0] - b.addresses[0]
-        })
+        } else {
+          tiles = enemy.dropAddresses.map(function(address) {
+            return {
+              addresses: [address],
+              enemy: enemy.id,
+            }
+          })
+        }
         if (planned[key].length) {
           planned[key].forEach(function(itemName) {
             const item = itemFromName(itemName)
@@ -1096,6 +1108,7 @@
         }
         randomizeStartingEquipment(data, info, planned)
       }
+      let retries = 0
       while (true) {
         try {
           // Get pool of randomizable items.
@@ -1168,7 +1181,7 @@
             (addon.concat(pool)).filter(tilesFilter).forEach(writeTiles(data))
           }
         } catch (err) {
-          if (err.name === 'AssertionError') {
+          if (err.name === 'AssertionError' && retries++ < MAX_RETRIES) {
             continue
           }
           throw err

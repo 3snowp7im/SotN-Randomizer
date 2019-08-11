@@ -53,7 +53,7 @@
   // Library Card in Entrance Turkey spot.
   builder.itemLocations(ZONE.NO3, 'Turkey', 'Library Card')
   // Toadstool at Entrance Warp switch.
-  builder.itemLocations(ZONE.NO3, 'Heart Vessel', 1, 'Toadstool')
+  builder.itemLocations(ZONE.NO3, 'Heart Vessel', 'Toadstool')
   // Heart Refresh at Catacombs library card.
   builder.itemLocations(ZONE.CAT, 'Library Card', 'Heart Refresh')
   // Axe Lord Armor at Spike Breaker.
