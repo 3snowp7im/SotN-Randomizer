@@ -306,14 +306,18 @@
     }
     lastSeed = seed
     info[1]['Seed'] = seed
-    worker.postMessage({
-      version: version,
-      file: selectedFile,
-      checksum: expectChecksum,
-      options: options,
-      seed: seed,
-      info: info,
-    })
+    const reader = new FileReader()
+    reader.onload = function() {
+      worker.postMessage({
+        version: version,
+        fileData: this.result,
+        checksum: expectChecksum,
+        options: options,
+        seed: seed,
+        info: info,
+      }, [this.result])
+    }
+    reader.readAsArrayBuffer(selectedFile)
   }
 
   function workerMessage(message) {
