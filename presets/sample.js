@@ -30,7 +30,7 @@
   // ENEMY DROPS //
   // Make Warg drop $400 and Combat Knife.
   builder.enemyDrops('Warg', '$400', 'Combat Knife')
-  // Make Meran level 3 drop Duplicator and Manna Prism.
+  // Make Merman level 3 drop Duplicator and Manna Prism.
   builder.enemyDrops('Merman', 3, 'Duplicator', 'Manna Prism')
   // To disable randomization:
   //   builder.enemyDrops(false)
