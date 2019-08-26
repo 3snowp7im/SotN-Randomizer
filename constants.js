@@ -1,5 +1,7 @@
 (function(self) {
 
+  const releaseBaseUrl = 'https://sotn.io/'
+  const devBaseUrl = 'https://dev.sotn.io/'
   const defaultOptions = 'P:safe'
 
   const TYPE = {
@@ -234,6 +236,8 @@
   }
 
   const exports = {
+    releaseBaseUrl: releaseBaseUrl,
+    devBaseUrl: devBaseUrl,
     defaultOptions: defaultOptions,
     TYPE: TYPE,
     typeNames: typeNames,

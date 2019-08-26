@@ -4,20 +4,25 @@
   let enemies
   let items
   let relics
-  let sjcl
+  let sha256
 
   if (self) {
     constants = self.sotnRando.constants
     enemies = self.sotnRando.enemies
     items = self.sotnRando.items
     relics = self.sotnRando.relics
-    sjcl = self.sjcl
+    sha256 = function(input) {
+      return self.sjcl.codec.hex.fromBits(self.sjcl.hash.sha256.hash(input))
+    }
   } else {
     constants = require('./constants')
     enemies = require('./enemies')
     items = require('./items')
     relics = require('./relics')
-    sjcl = require('sjcl')
+    const crypto = require('crypto')
+    sha256 = function(input) {
+      return crypto.createHash('sha256').update(input).digest().toString('hex')
+    }
   }
 
   function AssertionError(message) {
@@ -153,7 +158,7 @@
 
   checked.prototype.sum = function sum() {
     const state = JSON.stringify(this.writes)
-    let hex = sjcl.codec.hex.fromBits(sjcl.hash.sha256.hash(state))
+    let hex = sha256(state)
     let zeros = 0
     while (hex.length > 3 && hex[zeros] === '0') {
       zeros++
@@ -929,6 +934,23 @@
     return randomize
   }
 
+  function optionsToUrl(version, options, checksum, seed, baseUrl) {
+    options = optionsToString(options)
+    const args = []
+    if (options !== constants.defaultOptions) {
+      args.push(options)
+    }
+    args.push(checksum.toString(16))
+    args.push(encodeURIComponent(seed))
+    let versionBaseUrl
+    if (version.match(/-/)) {
+      versionBaseUrl = constants.devBaseUrl
+    } else {
+      versionBaseUrl = constants.releaseBaseUrl
+    }
+    return (baseUrl || versionBaseUrl) + '?' + args.join(',')
+  }
+
   function optionsFromUrl(url) {
     url = new URL(url)
     const args = url.search.slice(1).split(',')
@@ -947,17 +969,6 @@
       checksum: checksum,
       seed: seed,
     }
-  }
-
-  function optionsToUrl(options, checksum, seed, baseUrl) {
-    options = optionsToString(options)
-    const args = []
-    if (options !== constants.defaultOptions) {
-      args.push(options)
-    }
-    args.push(checksum.toString(16))
-    args.push(encodeURIComponent(seed))
-    return baseUrl + '?' + args.join(',')
   }
 
   const map = {
@@ -1035,7 +1046,7 @@
       options: optionsToString(options),
       seed: seed,
     })
-    const hex = sjcl.codec.hex.fromBits(sjcl.hash.sha256.hash(str))
+    const hex = sha256(str)
     return hex.match(/[0-9a-f]{2}/g).map(function(byte) {
       return String.fromCharCode(byte)
     }).join('')
@@ -1105,6 +1116,44 @@
       return '{\n' + lines.join('\n') + '\n' + outer + '}'
     }
     return obj.toString()
+  }
+
+  function formatInfo(info, verbosity) {
+    if (!info) {
+      return ''
+    }
+    const props = []
+    for (let level = 0; level <= verbosity; level++) {
+      Object.getOwnPropertyNames(info[level]).forEach(function(prop) {
+        if (props.indexOf(prop) === -1) {
+          props.push(prop)
+        }
+      })
+    }
+    const lines = []
+    props.forEach(function(prop) {
+      for (let level = 0; level <= verbosity; level++) {
+        if (info[level][prop]) {
+          let text = prop + ':'
+          if (Array.isArray(info[level][prop])) {
+            text += '\n' + info[level][prop].map(function(item) {
+              return '  ' + item
+            }).join('\n')
+          } else {
+            text += ' ' + info[level][prop]
+          }
+          lines.push(text)
+        }
+      }
+    })
+    return lines.join('\n')
+  }
+
+  function newInfo() {
+    const MAX_VERBOSITY = 5
+    return Array(MAX_VERBOSITY + 1).fill(null).map(function() {
+      return {}
+    })
   }
 
   function shuffled(array) {
@@ -1560,6 +1609,8 @@
     saltSeed: saltSeed,
     restoreFile: restoreFile,
     formatObject: formatObject,
+    formatInfo: formatInfo,
+    newInfo: newInfo,
     shuffled: shuffled,
     Preset: Preset,
     PresetBuilder: PresetBuilder,
