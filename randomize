@@ -299,6 +299,12 @@ let seed
 let baseUrl
 let expectChecksum
 let haveChecksum
+// Require at least one argument.
+if (process.argv.length < 3) {
+  yargs.showHelp()
+  console.error('\nAt least 1 argument or option required')
+  process.exit(1)
+}
 // Check for help.
 if ('help' in argv) {
   if (!argv.help) {
