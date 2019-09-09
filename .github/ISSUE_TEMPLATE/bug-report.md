@@ -19,6 +19,8 @@ Found in upper-right hand corner of web page.
 
 # Operating system and version:
 
+# Browser and version:
+
 # Emulator and version:
 
 # Bug description
