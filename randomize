@@ -371,7 +371,9 @@ if (argv._[0]) {
     options = url.options
     seed = url.seed
     expectChecksum = url.checksum
-    haveChecksum = true
+    if (expectChecksum) {
+      haveChecksum = true
+    }
   } catch (e) {
     yargs.showHelp()
     console.error('\nInvalid url')
