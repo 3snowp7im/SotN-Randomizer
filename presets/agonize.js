@@ -42,8 +42,8 @@
   // Soul of Bat at Power of Wolf.
   builder.placeRelic(RELIC.SOUL_OF_BAT, RELIC.POWER_OF_WOLF)
 
-  // Echo of Bat at Fire of Bat.
-  builder.placeRelic(RELIC.ECHO_OF_BAT, RELIC.FIRE_OF_BAT)
+  // Echo of Bat at Power of Mist.
+  builder.placeRelic(RELIC.ECHO_OF_BAT, RELIC.POWER_OF_MIST)
 
   // Gravity Boots at Eye of Vlad.
   builder.placeRelic(RELIC.GRAVITY_BOOTS, RELIC.EYE_OF_VLAD)
@@ -59,7 +59,7 @@
       + RELIC.RING_OF_VLAD,
   )
 
-  // Any Vlad relic at Power of Mist, Tooth of Vlad, Rib of Vlad, Force of Echo,
+  // Any Vlad relic at Fire of Bat, Tooth of Vlad, Rib of Vlad, Force of Echo,
   // or Holy Sympbol.
   builder.placeRelic(
     RELIC.HEART_OF_VLAD
@@ -67,7 +67,7 @@
       + RELIC.RIB_OF_VLAD
       + RELIC.RING_OF_VLAD
       + RELIC.EYE_OF_VLAD,
-    RELIC.POWER_OF_MIST
+    RELIC.FIRE_OF_BAT
       + RELIC.TOOTH_OF_VLAD
       + RELIC.RIB_OF_VLAD
       + RELIC.FORCE_OF_ECHO
