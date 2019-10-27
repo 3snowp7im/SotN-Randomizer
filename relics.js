@@ -31,14 +31,14 @@
     id: 0x01,
     location: 0x01,
     addresses: [ 0x0557535e ],
-    ability: 'f',
+    ability: RELIC.FIRE_OF_BAT,
   }, {
     name: 'Echo of Bat',
     id: 0x02,
     location: 0x02,
     addresses: [ 0x04aa4156 ],
-    ability: 'E',
-  },  {
+    ability: RELIC.ECHO_OF_BAT,
+  }, {
     name: 'Force of Echo',
     id: 0x03,
     location: 0x03,
