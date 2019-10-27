@@ -27,14 +27,20 @@
 
   // Custom logic...
 
+  // Power of Wolf at Spirit Orb.
+  builder.placeRelic(RELIC.POWER_OF_WOLF, RELIC.SPIRIT_ORB)
+
   // Vanilla Jewel of Open.
   builder.placeRelic(RELIC.JEWEL_OF_OPEN, RELIC.JEWEL_OF_OPEN)
 
-  // Leap Stone at Merman Statue.
-  builder.placeRelic(RELIC.LEAP_STONE, RELIC.MERMAN_STATUE)
+  // Form of Wolf at Merman Statue.
+  builder.placeRelic(RELIC.SOUL_OF_WOLF, RELIC.MERMAN_STATUE)
 
-  // Form of Mist at Demon Card.
-  builder.placeRelic(RELIC.FORM_OF_MIST, RELIC.DEMON_CARD)
+  // Leap Stone at Demon Card.
+  builder.placeRelic(RELIC.LEAP_STONE, RELIC.DEMON_CARD)
+
+  // Form of Mist at Leap Stone.
+  builder.placeRelic(RELIC.FORM_OF_MIST, RELIC.LEAP_STONE)
 
   // Power of Mist at Soul of Bat.
   builder.placeRelic(RELIC.POWER_OF_MIST, RELIC.SOUL_OF_BAT)
@@ -51,13 +57,8 @@
   // Merman Statue at Gas Cloud.
   builder.placeRelic(RELIC.MERMAN_STATUE, RELIC.GAS_CLOUD)
 
-  // Soul of Wolf and Cube of Zoe in 2nd castle.
-  builder.placeRelic(
-    RELIC.SOUL_OF_WOLF
-      + RELIC.CUBE_OF_ZOE,
-    RELIC.HEART_OF_VLAD
-      + RELIC.RING_OF_VLAD,
-  )
+  // Cube of Zoe in 2nd castle.
+  builder.placeRelic(RELIC.CUBE_OF_ZOE, RELIC.RING_OF_VLAD)
 
   // Any Vlad relic at Fire of Bat, Tooth of Vlad, Rib of Vlad, Force of Echo,
   // or Holy Sympbol.
