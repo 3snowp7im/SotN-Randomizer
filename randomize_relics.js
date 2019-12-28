@@ -231,9 +231,10 @@
             return relic.location === location
           }).pop()
           const address = relic.addresses[0]
-          if (data.readByte(address) !== relic.id) {
+          const actualRelicId = data.readByte(address)
+          if (actualRelicId !== relic.id) {
             const actual = relics.filter(function(relic) {
-              return relic.id === data.readByte(address)
+              return relic.id === actualRelicId
             }).pop()
             let name
             if (actual) {
@@ -243,7 +244,7 @@
             }
             mismatches.push({
               relic: name,
-              location: location.vanilla,
+              location: relics[location].name,
             })
           }
         })
