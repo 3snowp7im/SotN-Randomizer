@@ -1488,20 +1488,24 @@
 
   // Add relics to locations. The what and where arguments must contain the
   // same number of relics.
-  PresetBuilder.prototype.placeRelic = function placeRelic(what, where) {
-    assert.equal(what.length, where.length)
-    if (typeof(this.relics) !== 'object') {
-      this.relics = {}
+  PresetBuilder.prototype.relicLocations = function relicLocations(what, where) {
+    if (typeof(what) === 'boolean') {
+      this.relics = what
+    } else {
+      assert.equal(what.length, where.length)
+      if (typeof(this.relics) !== 'object') {
+        this.relics = {}
+      }
+      const unplaced = this.unplaced
+      what.split('').forEach(function(relic) {
+        unplaced.delete(relic)
+      })
+      const relics = this.relics
+      where.split('').forEach(function(location) {
+        relics[location] = relics[location] || []
+        relics[location].push(new Set(unplaced))
+      })
     }
-    const unplaced = this.unplaced
-    what.split('').forEach(function(relic) {
-      unplaced.delete(relic)
-    })
-    const relics = this.relics
-    where.split('').forEach(function(location) {
-      relics[location] = relics[location] || []
-      relics[location].push(new Set(unplaced))
-    })
   }
 
   function relicAbilities() {

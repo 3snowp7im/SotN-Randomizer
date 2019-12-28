@@ -28,7 +28,7 @@
   const preset = new PresetBuilder(metadata)
 
   // Soul of Wolf or Leap Stone will be early.
-  preset.placeRelic(
+  preset.relicLocations(
     RELIC.SOUL_OF_WOLF
       + RELIC.LEAP_STONE
       + RELIC.SWORD_CARD
@@ -44,7 +44,7 @@
   )
 
   // Mist will be accessible with Wolf and Leap Stone.
-  preset.placeRelic(
+  preset.relicLocations(
     RELIC.FORM_OF_MIST
       + RELIC.SPIRIT_ORB
       + RELIC.FAERIE_SCROLL,
