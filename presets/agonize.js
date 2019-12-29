@@ -28,41 +28,41 @@
   // Custom logic...
 
   // Power of Wolf at Spirit Orb.
-  builder.relicLocations(RELIC.POWER_OF_WOLF, RELIC.SPIRIT_ORB)
+  builder.placeRelic(RELIC.POWER_OF_WOLF, RELIC.SPIRIT_ORB)
 
   // Vanilla Jewel of Open.
-  builder.relicLocations(RELIC.JEWEL_OF_OPEN, RELIC.JEWEL_OF_OPEN)
+  builder.placeRelic(RELIC.JEWEL_OF_OPEN, RELIC.JEWEL_OF_OPEN)
 
   // Form of Wolf at Merman Statue.
-  builder.relicLocations(RELIC.SOUL_OF_WOLF, RELIC.MERMAN_STATUE)
+  builder.placeRelic(RELIC.SOUL_OF_WOLF, RELIC.MERMAN_STATUE)
 
   // Leap Stone at Demon Card.
-  builder.relicLocations(RELIC.LEAP_STONE, RELIC.DEMON_CARD)
+  builder.placeRelic(RELIC.LEAP_STONE, RELIC.DEMON_CARD)
 
   // Form of Mist at Leap Stone.
-  builder.relicLocations(RELIC.FORM_OF_MIST, RELIC.LEAP_STONE)
+  builder.placeRelic(RELIC.FORM_OF_MIST, RELIC.LEAP_STONE)
 
   // Power of Mist at Soul of Bat.
-  builder.relicLocations(RELIC.POWER_OF_MIST, RELIC.SOUL_OF_BAT)
+  builder.placeRelic(RELIC.POWER_OF_MIST, RELIC.SOUL_OF_BAT)
 
   // Soul of Bat at Power of Wolf.
-  builder.relicLocations(RELIC.SOUL_OF_BAT, RELIC.POWER_OF_WOLF)
+  builder.placeRelic(RELIC.SOUL_OF_BAT, RELIC.POWER_OF_WOLF)
 
   // Echo of Bat at Power of Mist.
-  builder.relicLocations(RELIC.ECHO_OF_BAT, RELIC.POWER_OF_MIST)
+  builder.placeRelic(RELIC.ECHO_OF_BAT, RELIC.POWER_OF_MIST)
 
   // Gravity Boots at Eye of Vlad.
-  builder.relicLocations(RELIC.GRAVITY_BOOTS, RELIC.EYE_OF_VLAD)
+  builder.placeRelic(RELIC.GRAVITY_BOOTS, RELIC.EYE_OF_VLAD)
 
   // Merman Statue at Gas Cloud.
-  builder.relicLocations(RELIC.MERMAN_STATUE, RELIC.GAS_CLOUD)
+  builder.placeRelic(RELIC.MERMAN_STATUE, RELIC.GAS_CLOUD)
 
   // Cube of Zoe in 2nd castle.
-  builder.relicLocations(RELIC.CUBE_OF_ZOE, RELIC.RING_OF_VLAD)
+  builder.placeRelic(RELIC.CUBE_OF_ZOE, RELIC.RING_OF_VLAD)
 
   // Any Vlad relic at Fire of Bat, Tooth of Vlad, Rib of Vlad, Force of Echo,
   // or Holy Sympbol.
-  builder.relicLocations(
+  builder.placeRelic(
     RELIC.HEART_OF_VLAD
       + RELIC.TOOTH_OF_VLAD
       + RELIC.RIB_OF_VLAD

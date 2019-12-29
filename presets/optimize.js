@@ -25,19 +25,19 @@
   // Create PresetBuilder.
   const builder = new PresetBuilder(metadata)
 
-  // PlaceRelic relics.
-  builder.relicLocations(RELIC.SOUL_OF_BAT, RELIC.CUBE_OF_ZOE)
-  builder.relicLocations(RELIC.ECHO_OF_BAT, RELIC.SKILL_OF_WOLF)
-  builder.relicLocations(RELIC.POWER_OF_MIST, RELIC.BAT_CARD)
-  builder.relicLocations(RELIC.GRAVITY_BOOTS, RELIC.SPIRIT_ORB)
-  builder.relicLocations(RELIC.FORM_OF_MIST, RELIC.GRAVITY_BOOTS)
-  builder.relicLocations(RELIC.JEWEL_OF_OPEN, RELIC.FORM_OF_MIST)
-  builder.relicLocations(RELIC.LEAP_STONE, RELIC.DEMON_CARD)
-  builder.relicLocations(RELIC.RIB_OF_VLAD, RELIC.LEAP_STONE)
-  builder.relicLocations(RELIC.TOOTH_OF_VLAD, RELIC.GHOST_CARD)
-  builder.relicLocations(RELIC.EYE_OF_VLAD, RELIC.POWER_OF_MIST)
-  builder.relicLocations(RELIC.RING_OF_VLAD, RELIC.RING_OF_VLAD)
-  builder.relicLocations(RELIC.HEART_OF_VLAD, RELIC.HEART_OF_VLAD)
+  // Place relics.
+  builder.placeRelic(RELIC.SOUL_OF_BAT, RELIC.CUBE_OF_ZOE)
+  builder.placeRelic(RELIC.ECHO_OF_BAT, RELIC.SKILL_OF_WOLF)
+  builder.placeRelic(RELIC.POWER_OF_MIST, RELIC.BAT_CARD)
+  builder.placeRelic(RELIC.GRAVITY_BOOTS, RELIC.SPIRIT_ORB)
+  builder.placeRelic(RELIC.FORM_OF_MIST, RELIC.GRAVITY_BOOTS)
+  builder.placeRelic(RELIC.JEWEL_OF_OPEN, RELIC.FORM_OF_MIST)
+  builder.placeRelic(RELIC.LEAP_STONE, RELIC.DEMON_CARD)
+  builder.placeRelic(RELIC.RIB_OF_VLAD, RELIC.LEAP_STONE)
+  builder.placeRelic(RELIC.TOOTH_OF_VLAD, RELIC.GHOST_CARD)
+  builder.placeRelic(RELIC.EYE_OF_VLAD, RELIC.POWER_OF_MIST)
+  builder.placeRelic(RELIC.RING_OF_VLAD, RELIC.RING_OF_VLAD)
+  builder.placeRelic(RELIC.HEART_OF_VLAD, RELIC.HEART_OF_VLAD)
 
   // Export.
   const preset = builder.build()

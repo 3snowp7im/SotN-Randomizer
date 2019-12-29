@@ -66,7 +66,7 @@
 
   // RELICS //
   // Sprit Orb at Form of Mist location.
-  builder.relicLocations(RELIC.SPIRIT_ORB, RELIC.FORM_OF_MIST)
+  builder.placeRelic(RELIC.SPIRIT_ORB, RELIC.FORM_OF_MIST)
   // Soul of Bat location requires Gravity Boots + Leapstone.
   builder.lockLocation(RELIC.SOUL_OF_BAT, [
     RELIC.LEAP_STONE + RELIC.GRAVITY_BOOTS,
