@@ -57,15 +57,15 @@ $ ./randomize -rb sotn.bin -s myseed
 To use a copied seed URL and print its starting equipment:
 
 ```shell
-$ ./randomize -rb sotn.bin https://sotn.io/?3b7,myseed
+$ ./randomize -rb sotn.bin https://sotn.io/?myseed
 ```
 
 The `--race` option implies a verbosity level of 2. You can override this by
 supplying your own `--verbose` flag(s):
 
 ```shell
-$ ./randomize -vrb sotn.bin https://sotn.io/?3b7,myseed    # Less verbose
-$ ./randomize -vvvrb sotn.bin https://sotn.io/?3b7,myseed  # More verbose
+$ ./randomize -vrb sotn.bin https://sotn.io/?myseed    # Less verbose
+$ ./randomize -vvvrb sotn.bin https://sotn.io/?myseed  # More verbose
 ```
 
 ### `--check-vanilla`
@@ -88,7 +88,7 @@ To print starting equipment and relic locations for a URL without actually
 writing the randomizations to your disc image:
 
 ```shell
-$ ./randomize -vvvr https://sotn.io/?3b7,myseed
+$ ./randomize -vvvr https://sotn.io/?myseed
 ```
 ### Presets
 
