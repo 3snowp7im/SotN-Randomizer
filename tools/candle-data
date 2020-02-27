@@ -12,7 +12,6 @@ const tileIdOffset = constants.tileIdOffset
 const TYPE = constants.TYPE
 const typeNames = constants.typeNames
 const ZONE = constants.ZONE
-const zoneNames = constants.zoneNames
 const zones = constants.zones
 
 function isCandle(zoneId) {
@@ -103,9 +102,7 @@ function isCandle(zoneId) {
   }
   return function(entity) {
     const id = entity.entity.readUInt16LE(4)
-    if (id === 0xa001 && states.indexOf(entity.entity[9] & 0xf0) !== -1) {
-      return true
-    }
+    return id === 0xa001 && states.indexOf(entity.entity[9] & 0xf0) !== -1
   }
 }
 
@@ -135,8 +132,7 @@ function findCandleAddresses(zoneId, zone, data) {
     item.tiles.push({
       zone: zoneId,
       addresses: entity.addresses.map(function(address) {
-        address += 8
-        return zone.pos + address + Math.floor(address / 0x800) * 0x130
+        return util.romOffset(zone, address + 8)
       }),
       candle: candle,
     })

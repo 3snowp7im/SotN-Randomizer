@@ -112,6 +112,10 @@
     }, [])
   }
 
+  function romOffset(zone, address) {
+    return zone.pos + address + Math.floor(address / 0x800) * 0x130
+  }
+
   function bufToHex(buf) {
     return Array.from(buf).map(function(byte) {
       return ('00' + byte.toString(16)).slice(-2)
@@ -1094,6 +1098,12 @@
         let name = inner + entry[0] + ': '
         let value
         switch (entry[0]) {
+        case 'ability':
+          const names = Object.getOwnPropertyNames(constants.RELIC)
+          value = 'RELIC.' + names.filter(function(name) {
+            return constants.RELIC[name] === entry[1]
+          })[0]
+          break
         case 'type':
           value = 'TYPE.' + constants.typeNames[entry[1]]
           break
@@ -1105,7 +1115,8 @@
           break
         default:
           let hexWidth
-          if (['addresses', 'blacklist', 'dropAddresses'].indexOf(entry[0]) !== -1) {
+          const hexTypes = ['addresses', 'blacklist', 'dropAddresses']
+          if (hexTypes.indexOf(entry[0]) !== -1) {
             hexWidth = 8
           }
           value = formatObject(entry[1], indent + 2, hexWidth)
@@ -1604,6 +1615,7 @@
   const exports = {
     assert: assert,
     entityOffsets: entityOffsets,
+    romOffset: romOffset,
     bufToHex: bufToHex,
     numToHex: numToHex,
     checked: checked,
