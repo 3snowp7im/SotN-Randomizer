@@ -148,16 +148,19 @@
       this.data[address] = val
     }
     this.writes[address] = val
+    return address + 1
   }
 
   checked.prototype.writeShort = function writeShort(address, val) {
     this.writeByte(address + 0, val & 0xff)
     this.writeByte(address + 1, val >>> 8)
+    return address + 2
   }
 
   checked.prototype.writeWord = function writeShort(address, val) {
     this.writeShort(address + 0, val & 0xffff)
     this.writeShort(address + 2, val >>> 16)
+    return address + 4
   }
 
   checked.prototype.sum = function sum() {

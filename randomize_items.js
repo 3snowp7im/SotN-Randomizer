@@ -793,7 +793,8 @@
           enemyName = key.slice(0, dashIndex).toLowerCase()
         }
         const enemy = enemies.filter(function(enemy) {
-          if (enemy.name.toLowerCase().replace(/[^a-zA-Z0-9]/g, '') === enemyName) {
+          const name = enemy.name.toLowerCase().replace(/[^a-zA-Z0-9]/g, '')
+          if (name === enemyName) {
             if (typeof(level) !== 'undefined') {
               return enemy.level === level
             }
@@ -894,6 +895,30 @@
         pool.splice(pool.indexOf(dupped), 1)
       } while (--count > 1)
     })
+  }
+
+  function randomizeCapeColors(data) {
+    const colors = [
+      Math.floor(Math.random() * 32),
+      Math.floor(Math.random() * 32),
+      Math.floor(Math.random() * 32),
+      Math.floor(Math.random() * 32),
+      Math.floor(Math.random() * 32),
+      Math.floor(Math.random() * 32),
+    ]
+    // Write the jump to injected code.
+    // Note: Use 0x0fe030 -> 0x08039eea for code to be run on every frame.
+    data.writeWord(0x0fa97c, 0x0c04eabc)
+    // Write the color setting instructions.
+    let address = 0x15D508
+    for (let i = 0; i < colors.length; i++) {
+      address = data.writeWord(address, 0x3c020003)
+      address = data.writeWord(address, 0x3442caa8 + 4 * i)
+      address = data.writeWord(address, 0x24030000 + colors[i])
+      address = data.writeWord(address, 0xa0430000)
+    }
+    // Write the jump from injected code.
+    data.writeWord(address, 0x0803924f)
   }
 
   function checkItemAddresses(data) {
@@ -1176,6 +1201,7 @@
           // Turkey mode.
           if (options.turkeyMode) {
             turkeyMode(pool)
+            randomizeCapeColors(data)
           }
           // Write items to ROM.
           if (!options.checkVanilla) {
