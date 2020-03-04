@@ -5,6 +5,7 @@
     exports = self.sotnRando.presets
   } else {
     exports = [
+      require('./josephscloak'),
       require('./safe'),
       require('./agonize'),
       require('./optimize'),
