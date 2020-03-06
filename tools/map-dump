@@ -1,0 +1,38 @@
+#!/usr/bin/env node
+// This tool parses a SotN bin for entity data for a tile data.
+// Usage: tools/map-dump <path-to-rom> <zone>
+
+const fs = require('fs')
+const constants = require('../constants')
+const util = require('../util')
+
+const tileIdOffset = constants.tileIdOffset
+const ZONE = constants.ZONE
+const zones = constants.zones
+
+function isItem(entity) {
+  return entity.data.readUInt16LE(4) === 0xc
+}
+
+// Read input bin.
+const bin = fs.readFileSync(process.argv[2])
+
+// Read zone data.
+const zoneId = ZONE[process.argv[3]]
+const data = util.restoreFile(bin, zones[zoneId])
+
+// Read map as visual aid.
+const map = util.tileData(data).map(function(room, index) {
+  const lines = ['room ' + index + '\n']
+  if (room) {
+    lines.push(room.map(function(row) {
+      return row.map(function(tile) {
+        return tile ? (String.fromCharCode(9608) + String.fromCharCode(9608)) : '  '
+      }).join('')
+    }).join('\n'))
+  }
+  return lines.join('')
+})
+
+// Dump data.
+console.log(map.join('\n'))

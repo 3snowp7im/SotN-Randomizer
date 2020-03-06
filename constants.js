@@ -101,88 +101,88 @@
   // Offsets in the bin of each zone file.
   const zones = [{
     // ZONE.ST0
-    pos: 0x0533efc8, len: 271812,
+    pos: 0x0533efc8, len: 271812, items: 0x0a60,
   }, {
     // ZONE.ARE
-    pos: 0x043c2018, len: 352636,
+    pos: 0x043c2018, len: 352636, items: 0x0fe8,
   }, {
     // ZONE.CAT
-    pos: 0x0448f938, len: 361920,
+    pos: 0x0448f938, len: 361920, items: 0x174c,
   }, {
     // ZONE.CHI
-    pos: 0x045e8ae8, len: 193576,
+    pos: 0x045e8ae8, len: 193576, items: 0x09e4,
   }, {
     // ZONE.DAI
-    pos: 0x04675f08, len: 373764,
+    pos: 0x04675f08, len: 373764, items: 0x0ec0,
   }, {
     // ZONE.LIB
-    pos: 0x047a1ae8, len: 348876,
+    pos: 0x047a1ae8, len: 348876, items: 0x1a90,
   }, {
     // ZONE.NO0
-    pos: 0x048f9a38, len: 390540,
+    pos: 0x048f9a38, len: 390540, items: 0x19ac,
   }, {
     // ZONE.NO1
-    pos: 0x049d18b8, len: 356452,
+    pos: 0x049d18b8, len: 356452, items: 0x1a2c,
   }, {
     // ZONE.NO2
-    pos: 0x04aa0438, len: 327100,
+    pos: 0x04aa0438, len: 327100, items: 0x0fec,
   }, {
     // ZONE.NO3
-    pos: 0x04b665e8, len: 359960,
+    pos: 0x04b665e8, len: 359960, items: 0x1c8c,
   }, {
     // ZONE.NP3
-    pos: 0x053f4708, len: 341044,
+    pos: 0x053f4708, len: 341044, items: 0x1618,
   }, {
     // ZONE.NO4
-    pos: 0x04c307e8, len: 391260,
+    pos: 0x04c307e8, len: 391260, items: 0x1928,
   }, {
     // ZONE.NZ0
-    pos: 0x054b0c88, len: 309120,
+    pos: 0x054b0c88, len: 309120, items: 0x13b0,
   }, {
     // ZONE.NZ1
-    pos: 0x055724b8, len: 271168,
+    pos: 0x055724b8, len: 271168, items: 0x111c,
   }, {
     // ZONE.TOP
-    pos: 0x0560e7b8, len: 247132,
+    pos: 0x0560e7b8, len: 247132, items: 0x0d10,
   }, {
     // ZONE.RARE
-    pos: 0x057509e8, len: 234384,
+    pos: 0x057509e8, len: 234384, items: 0x0a3c,
   }, {
     // ZONE.RCAT
-    pos: 0x04cfa0b8, len: 278188,
+    pos: 0x04cfa0b8, len: 278188, items: 0x13c8,
   }, {
     // ZONE.RCHI
-    pos: 0x04da4968, len: 174880,
+    pos: 0x04da4968, len: 174880, items: 0x07cc,
   }, {
     // ZONE.RDAI
-    pos: 0x04e31458, len: 295736,
+    pos: 0x04e31458, len: 295736, items: 0x0d2c,
   }, {
     // ZONE.RLIB
-    pos: 0x04ee2218, len: 201776,
+    pos: 0x04ee2218, len: 201776, items: 0x0bc8,
   }, {
     // ZONE.RNO0
-    pos: 0x04f84a28, len: 347020,
+    pos: 0x04f84a28, len: 347020, items: 0x0f8c,
   }, {
     // ZONE.RNO1
-    pos: 0x0504f558, len: 357020,
+    pos: 0x0504f558, len: 357020, items: 0x0ae4,
   }, {
     // ZONE.RNO2
-    pos: 0x050f7948, len: 313816,
+    pos: 0x050f7948, len: 313816, items: 0x0d40,
   }, {
     // ZONE.RNO3
-    pos: 0x051ac758, len: 304428,
+    pos: 0x051ac758, len: 304428, items: 0x0f10,
   }, {
     // ZONE.RNO4
-    pos: 0x0526a868, len: 384020,
+    pos: 0x0526a868, len: 384020, items: 0x1620,
   }, {
     // ZONE.RNZ0
-    pos: 0x05902278, len: 281512,
+    pos: 0x05902278, len: 281512, items: 0x0cc8,
   }, {
     // ZONE.RNZ1
-    pos: 0x059bb0d8, len: 260960,
+    pos: 0x059bb0d8, len: 260960, items: 0x0ec8,
   }, {
     // ZONE.RTOP
-    pos: 0x057df998, len: 200988,
+    pos: 0x057df998, len: 200988, items: 0x07c8,
   }]
 
   const exe = { pos: 0x0abb28, len: 703272 }

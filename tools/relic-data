@@ -41,15 +41,14 @@ const rewardAddresses = [
   0x06a61adc,
 ]
 
-function isRelic(entity) {
-  return entity.entity.readUInt16LE(4) === 0x000b
-}
-
 function findRelicAddresses(zoneId, zone, data) {
   data = util.restoreFile(data, zone)
-  const entities = util.entityOffsets(data)
-  entities.filter(isRelic).forEach(function(entity) {
-    const id = entity.entity[8]
+  const entities = util.entityData(data).reduce(function(flat, array) {
+    return flat.concat(array)
+  }, [])
+  entities.filter(util.isRelic).forEach(function(entity) {
+    console.log(constants.zoneNames[zoneId], entity.data.toString('hex'))
+    const id = entity.data[8]
     const relic = relics.filter(function(relic) {
       return relic.id === id
     })[0]

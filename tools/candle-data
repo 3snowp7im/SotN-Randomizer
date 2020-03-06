@@ -14,120 +14,22 @@ const typeNames = constants.typeNames
 const ZONE = constants.ZONE
 const zones = constants.zones
 
-function isCandle(zoneId) {
-  const states = []
-  switch (zoneId) {
-  case ZONE.ST0:
-    states.push(0x20, 0x30, 0x80, 0x90)
-    break
-  case ZONE.ARE:
-    states.push(0x10)
-    break
-  case ZONE.CAT:
-    states.push(0x00, 0x10, 0x20)
-    break
-  case ZONE.CHI:
-    states.push(0x00, 0x10)
-    break
-  case ZONE.DAI:
-    states.push(0x00, 0x10)
-    break
-  case ZONE.LIB:
-    states.push(0x00)
-    break
-  case ZONE.NO0:
-    states.push(0x00, 0x10, 0x20, 0x80)
-    break
-  case ZONE.NO1:
-    states.push(0x50, 0x60)
-    break
-  case ZONE.NO2:
-    states.push(0x00, 0x10, 0x20, 0x30, 0x40, 0x60)
-    break
-  case ZONE.NO3:
-  case ZONE.NP3:
-    states.push(0x00)
-    break
-  case ZONE.NO4:
-    states.push(0x00, 0x50, 0x60)
-    break
-  case ZONE.NZ0:
-    states.push(0x00, 0x10, 0x20)
-    break
-  case ZONE.NZ1:
-    states.push(0x00, 0x10, 0x40, 0x50, 0x60)
-    break
-  case ZONE.TOP:
-    states.push(0x20, 0x30, 0x60)
-    break
-  case ZONE.RARE:
-    states.push(0x10)
-    break
-  case ZONE.RCAT:
-    states.push(0x00, 0x10, 0x20)
-    break
-  case ZONE.RCHI:
-    states.push(0x00, 0x10)
-    break
-  case ZONE.RDAI:
-    states.push(0x00, 0x10)
-    break
-  case ZONE.RLIB:
-    states.push(0x00)
-    break
-  case ZONE.RNO0:
-    states.push(0x00, 0x10, 0x20, 0x80)
-    break
-  case ZONE.RNO1:
-    states.push(0x50, 0x60)
-    break
-  case ZONE.RNO2:
-    states.push(0x00, 0x10, 0x20, 0x30, 0x40, 0x60)
-    break
-  case ZONE.RNO3:
-    states.push(0x00)
-    break
-  case ZONE.RNO4:
-    states.push(0x00, 0x50, 0x60)
-    break
-  case ZONE.RNZ0:
-    states.push(0x00, 0x10, 0x20)
-    break
-  case ZONE.RNZ1:
-    states.push(0x10, 0x40, 0x50, 0x60)
-    break
-  case ZONE.RTOP:
-    states.push(0x20, 0x30, 0x60)
-    break
-  }
+function isCandleFilter(zoneId) {
   return function(entity) {
-    const id = entity.entity.readUInt16LE(4)
-    return id === 0xa001 && states.indexOf(entity.entity[9] & 0xf0) !== -1
+    return util.isCandle(zoneId, entity)
   }
 }
 
 function findCandleAddresses(zoneId, zone, data) {
   data = util.restoreFile(data, zone)
-  const entities = util.entityOffsets(data)
-  entities.filter(isCandle(zoneId)).forEach(function(entity) {
-    const state = (entity.entity[9] << 8) + entity.entity[8]
+  const entities = util.entityData(data).reduce(function(flat, array) {
+    return flat.concat(array)
+  }, [])
+  entities.filter(isCandleFilter(zoneId)).forEach(function(entity) {
+    const state = (entity.data[9] << 8) + entity.data[8]
     const candle = (state & 0xf000) >>> 8
     const id = state & 0x0fff
-    const item = items.filter(function(item) {
-      if (id > tileIdOffset) {
-        return item.id === (id - tileIdOffset) && [
-          TYPE.WEAPON1,
-          TYPE.WEAPON2,
-          TYPE.SHIELD,
-          TYPE.HELMET,
-          TYPE.ARMOR,
-          TYPE.CLOAK,
-          TYPE.ACCESSORY,
-          TYPE.USABLE,
-        ].indexOf(item.type) !== -1
-      }
-      return item.id === id
-    })[0]
+    const item = util.itemFromTileId(items, id)
     item.tiles = item.tiles || []
     item.tiles.push({
       zone: zoneId,

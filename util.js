@@ -64,13 +64,90 @@
     }
   }
 
-  function entityOffsets(zone) {
-    // Get room count.
+  function roomCount(zone) {
     let layout = zone.readUInt32LE(0x10) - 0x80180000
     let rooms = 0
     while (zone[layout] != 0x40) {
       rooms++
       layout += 8
+    }
+    return rooms
+  }
+
+  function itemFromTileId(items, id) {
+    return items.filter(function(item) {
+      if (id > constants.tileIdOffset) {
+        return item.id === (id - constants.tileIdOffset) && [
+          constants.TYPE.WEAPON1,
+          constants.TYPE.WEAPON2,
+          constants.TYPE.SHIELD,
+          constants.TYPE.HELMET,
+          constants.TYPE.ARMOR,
+          constants.TYPE.CLOAK,
+          constants.TYPE.ACCESSORY,
+          constants.TYPE.USABLE,
+        ].indexOf(item.type) !== -1
+      }
+      return item.id === id
+    })[0]
+  }
+
+  function tileData(zone) {
+    // Get room count.
+    const rooms = roomCount(zone)
+    const layouts = zone.readUInt32LE(0x20) - 0x80180000
+    const room = zone.readUInt32LE(0x10) - 0x80180000
+    const ids = []
+    for (let i = 0; i < rooms; i++) {
+      const gfxId = zone[room + 0x8 * i + 0x5]
+      if (gfxId == 0xff) {
+        // Parsing the tiles layout data doesn't work for loading zone like
+        // the other rooms, so they must be skipped.
+        ids.push(undefined)
+        continue
+      }
+      ids.push(zone[room + 0x8 * i + 0x4])
+    }
+    return ids.map(function(id) {
+      if (id !== undefined) {
+        // Get pointer to layout data.
+        const offset = zone.readUInt32LE(layouts + 0x8 * id) - 0x80180000
+        // Parse the layout data.
+        const tiles  = zone.readUInt32LE(offset) - 0x80180000
+        const defs   = zone.readUInt32LE(offset + 0x4) - 0x80180000
+        const dims   = zone.readUInt32LE(offset + 0x8) & 0xffffff
+        const endy   = dims >> 18
+        const endx   = (dims >> 12) & 0x3f
+        const starty = (dims >> 6) & 0x3f
+        const startx = dims & 0x3f
+        const width  = endx - startx + 1
+        const height = endy - starty + 1
+        // Parse the tile map
+        const map = Array(16 * height)
+        for (let y = 0; y < 16 * height; y++) {
+          map[y] = Array(16 * width)
+          for (let x = 0; x < 16 * width; x++) {
+            const index = zone.readUInt16LE(tiles + 0x2 * (16 * width * y + x))
+            if (index) {
+              map[y][x] = zone.readUInt32LE(defs + 0x20 * index)
+            } else {
+              map[y][x] = 0
+            }
+          }
+        }
+        return map
+      }
+    })
+  }
+
+  function entityData(zone) {
+    // Get room count.
+    const rooms = roomCount(zone)
+    // Get entity layout IDs.
+    const room = zone.readUInt32LE(0x10) - 0x80180000
+    const ids = []
+    for (let i = 0; i < rooms; i++) {
+      ids.push(zone[room + 0x8 * i + 0x4])
     }
     // Get pointers to sorted tile layout structures.
     const enter = zone.readUInt32LE(0x0c) - 0x80180000
@@ -87,29 +164,36 @@
         const ptr = zone.readUInt32LE(offset) - 0x80180000
         let entitiy
         let count = 0
-        do {
+        while (true) {
           const p = ptr + 10 * count++
           entity = zone.slice(p, p + 10)
           const key = bufToHex(entity)
+          const header = entity.readUInt32LE()
+          if (header == 0xffffffff) {
+            break
+          } else if (header == 0xfffefffe) {
+            continue
+          }
           entities[i][key] = entities[i][key] || []
           entities[i][key].push(p)
-        } while (entity.readUInt32LE() != 0xffffffff)
+        }
         offset += 4
       }
     })
-    return entities.map(function(room) {
+    const data = entities.map(function(room) {
       return Object.getOwnPropertyNames(room).map(function(key) {
         const bytes = key.match(/[0-9a-f]{2}/g).map(function(byte) {
           return parseInt(byte, 16)
         })
         return {
-          entity: Buffer.from(bytes),
+          data: Buffer.from(bytes),
           addresses: room[key],
         }
       })
-    }).reduce(function(flat, array) {
-      return flat.concat(array)
-    }, [])
+    })
+    return ids.map(function(id) {
+      return data[id] || []
+    })
   }
 
   function romOffset(zone, address) {
@@ -1180,6 +1264,104 @@
     return shuffled
   }
 
+  function isRelic(entity) {
+    return entity.data.readUInt16LE(4) === 0x000b
+  }
+
+  function isItem(entity) {
+    return entity.data.readUInt16LE(4) === 0x000c
+  }
+
+  function isCandle(zoneId, entity) {
+    const states = []
+    switch (zoneId) {
+    case constants.ZONE.ST0:
+      states.push(0x20, 0x30, 0x80, 0x90)
+      break
+    case constants.ZONE.ARE:
+      states.push(0x10)
+      break
+    case constants.ZONE.CAT:
+      states.push(0x00, 0x10, 0x20)
+      break
+    case constants.ZONE.CHI:
+      states.push(0x00, 0x10)
+      break
+    case constants.ZONE.DAI:
+      states.push(0x00, 0x10)
+      break
+    case constants.ZONE.LIB:
+      states.push(0x00)
+      break
+    case constants.ZONE.NO0:
+      states.push(0x00, 0x10, 0x20, 0x80)
+      break
+    case constants.ZONE.NO1:
+      states.push(0x50, 0x60)
+      break
+    case constants.ZONE.NO2:
+      states.push(0x00, 0x10, 0x20, 0x30, 0x40, 0x60)
+      break
+    case constants.ZONE.NO3:
+    case constants.ZONE.NP3:
+      states.push(0x00)
+      break
+    case constants.ZONE.NO4:
+      states.push(0x00, 0x50, 0x60)
+      break
+    case constants.ZONE.NZ0:
+      states.push(0x00, 0x10, 0x20)
+      break
+    case constants.ZONE.NZ1:
+      states.push(0x00, 0x10, 0x40, 0x50, 0x60)
+      break
+    case constants.ZONE.TOP:
+      states.push(0x20, 0x30, 0x60)
+      break
+    case constants.ZONE.RARE:
+      states.push(0x10)
+      break
+    case constants.ZONE.RCAT:
+      states.push(0x00, 0x10, 0x20)
+      break
+    case constants.ZONE.RCHI:
+      states.push(0x00, 0x10)
+      break
+    case constants.ZONE.RDAI:
+      states.push(0x00, 0x10)
+      break
+    case constants.ZONE.RLIB:
+      states.push(0x00)
+      break
+    case constants.ZONE.RNO0:
+      states.push(0x00, 0x10, 0x20, 0x80)
+      break
+    case constants.ZONE.RNO1:
+      states.push(0x50, 0x60)
+      break
+    case constants.ZONE.RNO2:
+      states.push(0x00, 0x10, 0x20, 0x30, 0x40, 0x60)
+      break
+    case constants.ZONE.RNO3:
+      states.push(0x00)
+      break
+    case constants.ZONE.RNO4:
+      states.push(0x00, 0x50, 0x60)
+      break
+    case constants.ZONE.RNZ0:
+      states.push(0x00, 0x10, 0x20)
+      break
+    case constants.ZONE.RNZ1:
+      states.push(0x10, 0x40, 0x50, 0x60)
+      break
+    case constants.ZONE.RTOP:
+      states.push(0x20, 0x30, 0x60)
+      break
+    }
+    const id = entity.data.readUInt16LE(4)
+    return id === 0xa001 && states.indexOf(entity.data[9] & 0xf0) !== -1
+  }
+
   function Preset(
     id,
     name,
@@ -1617,7 +1799,9 @@
 
   const exports = {
     assert: assert,
-    entityOffsets: entityOffsets,
+    itemFromTileId: itemFromTileId,
+    tileData: tileData,
+    entityData: entityData,
     romOffset: romOffset,
     bufToHex: bufToHex,
     numToHex: numToHex,
@@ -1633,6 +1817,9 @@
     formatInfo: formatInfo,
     newInfo: newInfo,
     shuffled: shuffled,
+    isItem: isItem,
+    isRelic: isRelic,
+    isCandle: isCandle,
     Preset: Preset,
     PresetBuilder: PresetBuilder,
   }
