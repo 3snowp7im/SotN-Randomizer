@@ -26,29 +26,34 @@ const rooms = util.entityData(data).map(function(entities, index) {
   const lines = []
   lines.push('room ' + index)
   entities.forEach(function(entity) {
-    lines.push(' addresses: ' + entity.addresses.map(function(address) {
-      return util.numToHex(util.romOffset(zones[zoneId], address))
-    }).join(' '))
-    lines.push('    data: ' + entity.data.toString('hex'))
     if (util.isCandle(zoneId, entity)) {
       const state = (entity.data[9] << 8) + entity.data[8]
       const candle = (state & 0xf000) >>> 8
       const id = state & 0x0fff
       const item = util.itemFromTileId(items, id)
-      lines.push('    candle: ' + item.name)
+      lines.push('  candle: ' + item.name)
     } else if (util.isRelic(entity)) {
       const relic = relics.filter(function(relic) {
         return relic.id === entity.data[8]
       })[0]
-      lines.push('    relic: ' + relic.name)
+      lines.push('  relic: ' + relic.name)
     } else if (util.isItem(entity)) {
       const index = entity.data[8]
       const id = data.readUInt16LE(zones[zoneId].items + 0x2 * index)
       const item = util.itemFromTileId(items, id)
       if (item) {
-        lines.push('    item: ' + item.name)
+        lines.push('  item: ' + item.name)
       }
+    } else {
+      lines.push('  entity')
     }
+    lines.push('    zone: ' + entity.addresses.map(function(address) {
+      return util.numToHex(address)
+    }).join(', '))
+    lines.push('    rom: ' + entity.addresses.map(function(address) {
+      return util.numToHex(util.romOffset(zones[zoneId], address))
+    }).join(', '))
+    lines.push('    data: ' + entity.data.toString('hex'))
   })
   return lines.join('\n')
 })

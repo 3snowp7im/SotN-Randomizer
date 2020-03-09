@@ -63,8 +63,47 @@
                 <label for="prologue-rewards">Prologue rewards</label>
               </div>
               <div class="pure-u-12-24">
-                <input id="relic-locations" type="checkbox">
-                <label for="relic-locations">Relic locations</label>
+                <fieldset id="relic-locations-set">
+                  <legend>
+                    <input id="relic-locations" type="checkbox">
+                    <label for="relic-locations">Relic locations</label>
+                  </legend>
+                  <div>
+                    <input id="extension-guarded"
+                           name="extension"
+                           type="radio"
+                           value="guarded">
+                    <label for="extension-guarded">
+                      Guarded
+                      <span class="tooltip-wrapper">
+                        <span class="tooltip-indicator">?</span>
+                        <span class="tooltip hidden">
+                          <span id="extension-description">
+                            Relics may appear in rooms guarded by bosses
+                          </span>
+                        </span>
+                      </span>
+                    </label>
+                  </div>
+                  <div>
+                    <input id="extension-classic"
+                           name="extension"
+                           type="radio"
+                           value="classic">
+                    <label for="extension-classic">
+                      Classic
+                      <span class="tooltip-wrapper">
+                        <span class="tooltip-indicator">?</span>
+                        <span class="tooltip hidden">
+                          <span id="extension-description">
+                            Relics will only be randomized among the game's
+                            original relic locations.
+                          </span>
+                        </span>
+                      </span>
+                    </label>
+                  </div>
+                </fieldset>
               </div>
               <div class="pure-u-12-24">
                 <input id="turkey-mode" type="checkbox">
@@ -335,8 +374,10 @@
     <script src="enemies.js"></script>
     <script src="items.js"></script>
     <script src="relics.js"></script>
+    <script src="extension.js"></script>
     <script src="util.js"></script>
     <script src="presets/safe.js"></script>
+    <script src="presets/casual.js"></script>
     <script src="presets/agonize.js"></script>
     <script src="presets/glitch.js"></script>
     <script src="presets/glitch-hard.js"></script>

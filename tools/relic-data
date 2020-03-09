@@ -15,31 +15,8 @@ const typeNames = constants.typeNames
 const RELIC = constants.RELIC
 const ZONE = constants.ZONE
 const zones = constants.zones
-
-const rewardAddresses = [
-  0x047a53c4,
-  0x04aa26b0,
-  0x054b3ac8,
-  0x05574d60,
-  0x059bdb08,
-  0x05fac75c,
-  0x0606f9e0,
-  0x060fe614,
-  0x061a80a8,
-  0x0624b968,
-  0x06306a90,
-  0x063ad9c8,
-  0x06472310,
-  0x06509e30,
-  0x065921c8,
-  0x06622610,
-  0x066b4998,
-  0x067437b0,
-  0x067d160c,
-  0x06866130,
-  0x069d2af8,
-  0x06a61adc,
-]
+const BOSS = constants.BOSS
+const bosses = constants.bosses
 
 function findRelicAddresses(zoneId, zone, data) {
   data = util.restoreFile(data, zone)
@@ -47,7 +24,6 @@ function findRelicAddresses(zoneId, zone, data) {
     return flat.concat(array)
   }, [])
   entities.filter(util.isRelic).forEach(function(entity) {
-    console.log(constants.zoneNames[zoneId], entity.data.toString('hex'))
     const id = entity.data[8]
     const relic = relics.filter(function(relic) {
       return relic.id === id
@@ -94,21 +70,17 @@ zones.forEach(function(zone, zoneId) {
 })
 
 // Patch reward data.
-const vladRelics = [
-  RELIC.HEART_OF_VLAD,
-  RELIC.TOOTH_OF_VLAD,
-  RELIC.RIB_OF_VLAD,
-  RELIC.RING_OF_VLAD,
-  RELIC.EYE_OF_VLAD,
-].map(function(ability) {
-  return relics.filter(function(relic) {
-    return relic.ability === ability
-  })[0]
-})
-rewardAddresses.forEach(function(address) {
-  vladRelics.forEach(function(relic, index) {
-    relic.addresses.push(address + 0x22 + 2 * index)
-  })
+const relicRewards = [
+  [ RELIC.HEART_OF_VLAD, bosses[BOSS.RBO3] ],
+  [ RELIC.TOOTH_OF_VLAD, bosses[BOSS.RBO4] ],
+  [ RELIC.RIB_OF_VLAD, bosses[BOSS.RBO7] ],
+  [ RELIC.RING_OF_VLAD, zones[ZONE.RNZ1] ],
+  [ RELIC.EYE_OF_VLAD, bosses[BOSS.RBO2] ],
+]
+relicRewards.forEach(function(relicReward, index) {
+  const relic = relicFromAbility(relicReward[0])
+  const zone = relicReward[1]
+  relic.addresses.push(util.romOffset(zone, zone.rewards + 0x22 + 2 * index))
 })
 
 // Format data.

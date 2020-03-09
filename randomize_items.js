@@ -921,302 +921,99 @@
     data.writeWord(address, 0x0803924f)
   }
 
-  function checkItemAddresses(data) {
-    const addresses = {}
-    const tiles = flattened(items.map(function(item) {
-      return (item.tiles || []).map(function(tile) {
-        return {
-          name: item.name,
-          tile: Object.assign({}, tile, {
-            zone: zoneNames[tile.zone],
-            addresses: tile.addresses,
-          }),
-        }
-      })
-    }))
-    tiles.forEach(function(item) {
-      item.tile.addresses.forEach(function(address) {
-        address = util.numToHex(address, 8)
-        addresses[address] = addresses[address] || []
-        const dup = Object.assign({}, item, {
-          tile: Object.assign({}, item.tile),
-        })
-        const tile = dup.tile
-        delete tile.addresses
-        addresses[address].push(dup)
-      })
-    })
-    const dups = []
-    Object.getOwnPropertyNames(addresses).forEach(function(address) {
-      if (addresses[address].length > 1) {
-        dups.push({
-          address: address,
-          items: addresses[address],
-        })
-      }
-    })
-    if (dups.length) {
-      const console = require('console')
-      stderr = new console.Console(process.stderr, process.stderr)
-      stderr.error('duped addresses:')
-      dups.forEach(function(dup) {
-        stderr.dir(dup, {depth: null})
-      })
-      return false
-    }
-    return true
-  }
-
-  function checkStartingEquipment(data, verbose) {
-    const equipment = [
-      itemFromName('Alucard Sword'),
-      itemFromName('Alucard Shield'),
-      itemFromName('Dragon Helm'),
-      itemFromName('Alucard Mail'),
-      itemFromName('Twilight Cloak'),
-      itemFromName('Necklace of J'),
-    ]
-    const mismatches = []
-    for (let i = 0; i < 6; i++) {
-      let expected = equipment[i].id
-      let actual = data.readByte(equipBaseAddress + i * 12)
-      if (i > 1) {
-        actual -= equipIdOffset
-      }
-      if (actual !== expected) {
-        const item = itemFromId(actual, typeFilter([equipment[i].type]))
-        if (item) {
-          mismatches.push(item.name)
-        } else {
-          mismatches.push('Unknown')
-        }
-      }
-    }
-    if (mismatches.length) {
-      if (verbose) {
-        console.error('starting equipment mismatches:')
-        mismatches.forEach(function(item) {
-          console.error(item)
-        })
-        console.error('starting equipment is NOT vanilla:')
-      }
-      return false
-    } else if (verbose) {
-      console.log('starting equipment is vanilla')
-    }
-    return true
-  }
-
-  function checkAddresses(data, tileFilter) {
-    if (!tileFilter) {
-      tileFilter = function() {
-        return true
-      }
-    }
-    return function(mismatches, item) {
-      if (item.tiles) {
-        item.tiles.filter(tileFilter).forEach(function(tile) {
-          tile.addresses.forEach(function(address) {
-            let found
-            const value = tileValue(item, tile)
-            const m = {
-              name: item.name,
-            }
-            if (typeof(tile.zone) !== 'undefined') {
-              m.zone = zoneNames[tile.zone]
-            }
-            m.address = util.numToHex(address, 8)
-            if (tile.byte) {
-              const actual = data.readByte(address)
-              found = (actual === value)
-              m.expected = util.numToHex(value, 2)
-              m.actual = util.numToHex(actual, 2)
-            } else {
-              const actual = data.readShort(address)
-              found = (actual === value)
-              m.expected = util.numToHex(value, 4)
-              m.actual = util.numToHex(actual, 4)
-            }
-            if (!found) {
-              mismatches.push(m)
-            }
-          })
-        })
-      }
-      return mismatches
-    }
-  }
-
-  function checkItemLocations(data, verbose) {
-    const mismatches = items.reduce(checkAddresses(data, function(tile) {
-      return !tile.reward && !tile.librarian
-    }), [])
-    if (mismatches.length) {
-      if (verbose) {
-        console.error('item location mismatches:')
-        mismatches.forEach(function(item) {
-          console.error(item)
-        })
-        console.error('item locations are NOT vanilla')
-      }
-      return false
-    } else if (verbose) {
-      console.log('item locations are vanilla')
-    }
-    return true
-  }
-
-  function checkPrologueRewards(data, verbose) {
-    const mismatches = items.reduce(checkAddresses(data, function(tile) {
-      return tile.reward
-    }), [])
-    if (mismatches.length) {
-      if (verbose) {
-        console.error('prologue reward mismatches:')
-        mismatches.forEach(function(item) {
-          console.error(item)
-        })
-        console.error('prologue rewards are NOT vanilla')
-      }
-      return false
-    } else if (verbose) {
-      console.log('prologue rewards are vanilla')
-    }
-    return true
-  }
-
-  function checkEnemyDrops(data, verbose) {
-    const mismatches = items.reduce(checkAddresses(data, function(tile) {
-      return typeof(tile.enemy) !== 'undefined' || tile.librarian
-    }), [])
-    if (mismatches.length) {
-      if (verbose) {
-        console.error('enemy drop mismatches:')
-        mismatches.forEach(function(item) {
-          console.error(item)
-        })
-        console.error('enemy drops are NOT vanilla')
-      }
-      return false
-    } else if (verbose) {
-      console.log('enemy drops are vanilla')
-    }
-    return true
-  }
-
   function randomizeItems(data, options, info) {
-    // Check for duped addresses.
-    if (!checkItemAddresses(data)) {
-      return false
+    let addon
+    let pool
+    if (options.startingEquipment) {
+      // Randomize starting equipment.
+      let planned
+      if (typeof(options.startingEquipment) === 'object') {
+        planned = options.startingEquipment
+      }
+      randomizeStartingEquipment(data, info, planned)
     }
-    let returnVal = true
-    if (options.checkVanilla) {
-      if (options.startingEquipment) {
-        returnVal = checkStartingEquipment(data, options.verbose) && returnVal
-      }
-      if (options.itemLocations) {
-        returnVal = checkItemLocations(data, options.verbose) && returnVal
-      }
-      if (options.prologueRewards) {
-        returnVal = checkPrologueRewards(data, options.verbose) && returnVal
-      }
-      if (options.enemyDrops) {
-        returnVal = checkEnemyDrops(data, options.verbose) && returnVal
-      }
-    } else {
-      let addon
-      let pool
-      if (options.startingEquipment) {
-        // Randomize starting equipment.
-        let planned
-        if (typeof(options.startingEquipment) === 'object') {
-          planned = options.startingEquipment
+    let retries = 0
+    while (true) {
+      try {
+        // Get pool of randomizable items.
+        addon = []
+        pool = items.filter(function(item) {
+          if (foodFilter(item)) {
+            return true
+          }
+          if (options.enemyDrops
+              && itemTileFilter(dropTileFilter)(item)) {
+            return true
+          }
+          if (options.itemLocations
+              && nonprogressionFilter(item)
+              && (itemTileFilter(mapTileFilter)(item)
+                  || itemTileFilter(shopTileFilter)(item)
+                  || itemTileFilter(candleTileFilter)(item)
+                  || itemTileFilter(librarianDropTileFilter)(item)
+                  || itemTileFilter(tankTileFilter)(item))) {
+            return true
+          }
+          if (options.prologueRewards
+              && itemTileFilter(rewardTileFilter)(item)) {
+            return true
+          } 
+        }).map(function(item) {
+          item = Object.assign({}, item)
+          delete item.tiles
+          return item
+        })
+        // Randomizations.
+        if (options.itemLocations) {
+          // Randomize candles.
+          randomizeCandles(pool)
+          // Randomize tank items.
+          if (!options.turkeyMode) {
+            randomizeSubweaponTanks(pool)
+          }
+          // Randomize shop items.
+          randomizeShopItems(pool)
+          // Randomize map items.
+          let planned
+          if (typeof(options.itemLocations) === 'object') {
+            planned = options.itemLocations
+          }
+          randomizeMapItems(pool, addon, planned)
         }
-        randomizeStartingEquipment(data, info, planned)
-      }
-      let retries = 0
-      while (true) {
-        try {
-          // Get pool of randomizable items.
-          addon = []
-          pool = items.filter(function(item) {
-            if (foodFilter(item)) {
-              return true
-            }
-            if (options.enemyDrops
-                && itemTileFilter(dropTileFilter)(item)) {
-              return true
-            }
-            if (options.itemLocations
-                && nonprogressionFilter(item)
-                && (itemTileFilter(mapTileFilter)(item)
-                    || itemTileFilter(shopTileFilter)(item)
-                    || itemTileFilter(candleTileFilter)(item)
-                    || itemTileFilter(librarianDropTileFilter)(item)
-                    || itemTileFilter(tankTileFilter)(item))) {
-              return true
-            }
-            if (options.prologueRewards
-                && itemTileFilter(rewardTileFilter)(item)) {
-              return true
-            } 
-          }).map(function(item) {
-            item = Object.assign({}, item)
-            delete item.tiles
-            return item
-          })
-          // Randomizations.
-          if (options.itemLocations) {
-            // Randomize candles.
-            randomizeCandles(pool)
-            // Randomize tank items.
-            if (!options.turkeyMode) {
-              randomizeSubweaponTanks(pool)
-            }
-            // Randomize shop items.
-            randomizeShopItems(pool)
-            // Randomize map items.
-            let planned
-            if (typeof(options.itemLocations) === 'object') {
-              planned = options.itemLocations
-            }
-            randomizeMapItems(pool, addon, planned)
+        if (options.enemyDrops) {
+          // Randomize enemy drops.
+          let planned
+          if (typeof(options.enemyDrops) === 'object') {
+            planned = options.enemyDrops
           }
-          if (options.enemyDrops) {
-            // Randomize enemy drops.
-            let planned
-            if (typeof(options.enemyDrops) === 'object') {
-              planned = options.enemyDrops
-            }
-            randomizeEnemyDrops(pool, addon, planned)
-          }
-          if (options.prologueRewards) {
-            // Randomize prologue rewards.
-            let planned
-            if (typeof(options.prologueRewards) === 'object') {
-              planned = options.prologueRewards
-            }
-            randomizePrologueRewards(pool, addon, planned)
-          }
-          // Turkey mode.
-          if (options.turkeyMode) {
-            turkeyMode(pool)
-            randomizeCapeColors(data)
-          }
-          // Write items to ROM.
-          if (!options.checkVanilla) {
-            (addon.concat(pool)).filter(tilesFilter).forEach(writeTiles(data))
-          }
-        } catch (err) {
-          if (err.name === 'AssertionError' && retries++ < MAX_RETRIES) {
-            continue
-          }
-          throw err
+          randomizeEnemyDrops(pool, addon, planned)
         }
-        break
+        if (options.prologueRewards) {
+          // Randomize prologue rewards.
+          let planned
+          if (typeof(options.prologueRewards) === 'object') {
+            planned = options.prologueRewards
+          }
+          randomizePrologueRewards(pool, addon, planned)
+        }
+        // Turkey mode.
+        if (options.turkeyMode) {
+          turkeyMode(pool)
+          randomizeCapeColors(data)
+        }
+        // Write items to ROM.
+        if (!options.checkVanilla) {
+          (addon.concat(pool)).filter(tilesFilter).forEach(writeTiles(data))
+        }
+      } catch (err) {
+        if (err.name === 'AssertionError' && retries++ < MAX_RETRIES) {
+          continue
+        }
+        throw err
       }
+      break
     }
-    return returnVal
+    return true
   }
 
   const exports = randomizeItems

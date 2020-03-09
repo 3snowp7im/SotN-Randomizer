@@ -10,15 +10,24 @@
  * twitch.tv/3snow_p7im
  */
 (function(self) {
-  
+
+  let constants
+  let extension
+  let items
   let presets
   let relics
   let util
   if (self) {
+    constants = self.sotnRando.constants
+    extension = self.sotnRando.extension
+    items = self.sotnRando.items
     presets = self.sotnRando.presets
     relics = self.sotnRando.relics
     util = self.sotnRando.util
   } else {
+    constants = require('./constants')
+    extension = require('./extension')
+    items = require('./items')
     presets = require('./presets')
     relics = require('./relics')
     util = require('./util')
@@ -31,6 +40,7 @@
   const shopRelicNameAddress = 0x47d5650
   const shopRelicIdAddress = 0x47dbde0
   const shopRelicIdOffset = 0x64
+  const tileItems = items.filter(util.tileIdOffsetFilter)
 
   function relicFromId(id) {
     return relics.filter(function(relic) {
@@ -44,16 +54,21 @@
     }).pop()
   }
 
-  function writeMapping(mapping, data) {
+  function writeMapping(mapping, locations, data) {
+    // Collect any vanilla locations that did not receive a relic.
+    const vanilla = extension.relics.reduce(function(vanilla, relic, index) {
+      if (!(index in mapping)) {
+        vanilla.push(relic)
+      }
+      return vanilla
+    }, [])
+    // Write new relic locations.
     Object.getOwnPropertyNames(mapping).forEach(function(location) {
-      location = parseInt(location)
-      const relic = mapping[location]
-      relics[location].addresses.forEach(function(address) {
-        data.writeByte(address, relic.id)
-      })
+      location = locations[parseInt(location)]
+      const relic = mapping[location.location]
       // Check if placing in the shop.
       const jewelOfOpen = relicFromId(0x10)
-      if (location === jewelOfOpen.location) {
+      if (location.location === 0x10) {
         // Fix shop menu check.
         data.writeByte(shopRelicIdAddress, relic.id + shopRelicIdOffset)
         // Change shop menu name.
@@ -68,6 +83,93 @@
           data.writeByte(shopRelicNameAddress + i, value)
         }
       }
+      // Check for extended location.
+      if ('extension' in location) {
+        // Replace or erase item displaced by randomized extension location.
+        let replacementItem
+        const replaceLocation = vanilla.shift()
+        if (!replaceLocation.erase) {
+          // Get item being displaced.
+          const item = tileItems.filter(function(item) {
+            return item.id === location.item.id
+          }).pop()
+          // Get tile being replaced.
+          const tile = item.tiles.filter(function(tile) {
+            return tile.zone === location.zone
+          })[location.item.index]
+          const address = tile.addresses[0]
+          try {
+            // This will fail if doing a dry run without item randomization.
+            const id = data.readShort(address, true)
+            replacementItem = util.itemFromTileId(items, id)
+          } catch (err) {
+            // Use vanilla item.
+            replacementItem = item
+          }
+        }
+        if (replaceLocation.entities) {
+          replaceLocation.entities.forEach(function(entity) {
+            const zone = constants.zones[entity.zone]
+            entity.addresses.forEach(function(address) {
+              if (entity.erase) {
+                // Erase the entity.
+                data.writeWord(address + 0, 0xfffefffe)
+                data.writeShort(address + 4, 0)
+                data.writeShort(address + 6, 0)
+                data.writeShort(address + 8, 0)
+              } else {
+                // Update the entity as a tile item.
+                if ('x' in entity) {
+                  data.writeShort(address + 0, entity.x)
+                }
+                let y
+                if ('y' in entity) {
+                  y = entity.y
+                } else {
+                  y = data.readShort(address + 2) + 9
+                }
+                data.writeShort(address + 2, y)
+                data.writeShort(address + 4, entity.entityId)
+                data.writeShort(address + 8, entity.itemIndex)
+                // Update the item table.
+                data.writeShort(
+                  util.romOffset(zone, zone.items + 2 * entity.itemIndex),
+                  replacementItem.id + constants.tileIdOffset,
+                )
+              }
+            })
+          })
+        }
+        if (replaceLocation.instructions) {
+          replaceLocation.instructions.forEach(function(instruction) {
+            instruction.addresses.forEach(function(address) {
+              data.writeWord(address, instruction.instruction)
+            })
+          })
+        }
+      }
+      location.addresses.forEach(function(address) {
+        if ('extension' in location) {
+          // For extension locations, an optional position can be updated.
+          if ('x' in location) {
+            data.writeShort(address + 0, location.x)
+          }
+          let y
+          if ('y' in location) {
+            y = location.y
+          } else {
+            y = data.readShort(address + 2) - 9
+          }
+          data.writeShort(address + 2, y)
+          // Change entity type.
+          data.writeShort(address + 4, 0xb)
+          // Write relic ID.
+          data.writeShort(address + 8, relic.id)
+        } else {
+          // For vanilla locations, just write the relic ID.
+          data.writeByte(address, relic.id)
+        }
+      })
     })
   }
 
@@ -184,37 +286,45 @@
     }
   }
 
-  function checkForSoftLock(mapping) {
-    let locs = [ 0x04, 0x0a, 0x0b, 0x0f, 0x10 ]
-    const visited = {}
+  function checkForSoftLock(mapping, locations) {
+    let locs = locations.filter(function(location) {
+      return location.locks.length == 1
+        && location.locks[0].size == 0
+    }).map(function(location) {
+      return location.location
+    })
+    const visited = new Set()
     locs.forEach(function(l) {
       return visited[l] = true
     })
-    const abilities = {}
+    const abilities = new Set()
     while (locs.length) {
       const loc = locs.shift()
-      visited[loc] = true
+      visited.add(loc)
       const relic = mapping[loc]
-      if (relic.ability) {
-        abilities[relic.ability] = true
+      if (!relic) {
+        continue
       }
-      locs = locs.concat(relics.filter(function(relic) {
-        if (visited[relic.location]) {
+      if (relic.ability) {
+        abilities.add(relic.ability)
+      }
+      locs = locs.concat(locations.filter(function(location) {
+        if (visited.has(location.location)) {
           return false
         }
-        if (locs.indexOf(relic.location) !== -1) {
+        if (locs.indexOf(location.location) !== -1) {
           return false
         }
-        return relic.locks.some(function(lock) {
+        return location.locks.some(function(lock) {
           return Array.from(lock).every(function(requirement) {
-            return abilities[requirement]
+            return abilities.has(requirement)
           })
         })
-      }).map(function(relic) {
-        return relic.location
+      }).map(function(location) {
+        return location.location
       }))
     }
-    if (Object.keys(visited).length !== relics.length) {
+    if (visited.size < relics.length) {
       throw new Error('soft lock generated')
     }
   }
@@ -222,164 +332,134 @@
   function randomizeRelics(data, options, info) {
     let returnVal = true
     if (options.relicLocations) {
-      // Run a sanity check.
-      if (options.checkVanilla) {
-        const mismatches = []
-        relics.forEach(function(relic) {
-          const location = relic.location
-          relic = relics.filter(function(relic) {
-            return relic.location === location
-          }).pop()
-          const address = relic.addresses[0]
-          const actualRelicId = data.readByte(address)
-          if (actualRelicId !== relic.id) {
-            const actual = relics.filter(function(relic) {
-              return relic.id === actualRelicId
-            }).pop()
-            let name
-            if (actual) {
-              name = actual.name
-            } else {
-              name = 'Unknown'
-            }
-            mismatches.push({
-              relic: name,
-              location: relics[location].name,
-            })
-          }
-        })
-        if (mismatches.length) {
-          if (options.verbose) {
-            console.error('relic mismatches:')
-            mismatches.sort(function(a, b) {
-              a = relicFromName(a.relic) || { id: 0 }
-              b = relicFromName(b.relic) || { id: 0 }
-              return a.id - b.id
-            }).forEach(function(relic) {
-              console.error(relic)
-            })
-            console.error('relic data is NOT vanilla')
-          }
-          returnVal = false
-        } else if (options.verbose) {
-          console.log('relic locations are vanilla')
-        }
+      // Initialize location locks.
+      const locksMap = {}
+      if (typeof(options.relicLocations) === 'object') {
+        Object.assign(locksMap, options.relicLocations)
       } else {
-        // Initialize location locks.
-        const locks = {}
-        if (typeof(options.relicLocations) === 'object') {
-          Object.assign(locks, options.relicLocations)
-        } else {
-          const safe = presets.filter(function(preset) {
-            return preset.id === 'safe'
-          }).pop()
-          Object.assign(locks, safe.options().relicLocations)
-        }
-        if (typeof(options.relicLocations) === 'object') {
-          Object.assign(locks, options.relicLocations)
-        }
-        relics.forEach(function(relic) {
-          if (locks[relic.ability]) {
-            relic.locks = locks[relic.ability].map(function(lock) {
-              return new Set(lock)
-            })
-          } 
-          if (!relic.locks || !relic.locks.length) {
-            relic.locks = [new Set()]
-          }
+        const safe = presets.filter(function(preset) {
+          return preset.id === 'safe'
+        }).pop()
+        Object.assign(locksMap, safe.options().relicLocations)
+      }
+      if (typeof(options.relicLocations) === 'object') {
+        Object.assign(locksMap, options.relicLocations)
+      }
+      let locations = relics
+      switch (options.relicLocationsExtension) {
+      case constants.EXTENSION.GUARDED:
+        const guarded = extension.locations.filter(function(location) {
+          return location.extension === constants.EXTENSION.GUARDED
         })
-        // Separate location locks into their own collection.
-        const locations = relics.map(function(relic) {
-          return {
-            location: relic.location,
-            locks: relic.locks.map(function(lock) {
+        locations = locations.concat(guarded)
+        break
+      }
+      locations.forEach(function(location) {
+        let key
+        if (typeof(location.ability) === 'string') {
+          key = location.ability
+        } else {
+          key = location.name
+        }
+        if (locksMap[key]) {
+          location.locks = locksMap[key].map(function(lock) {
+            return new Set(lock)
+          })
+        } 
+        if (!location.locks || !location.locks.length) {
+          location.locks = [new Set()]
+        }
+      })
+      // Create a context that holds the current relic and location pools.
+      const pool = {
+        relics: util.shuffled(relics),
+        locations: locations.map(function(location, index) {
+          return Object.assign({
+            location: index,
+            locks: location.locks.map(function(lock) {
               return new Set(lock)
             }),
-          }
-        })
-        // Create a context that holds the current relic and location pools.
-        const pool = {
-          locations: locations,
-          relics: util.shuffled(relics),
-        }
-        // Attempt to place all relics.
-        let attempts = 0
-        let result
-        while (attempts++ < 1024) {
-          result = pickRelicLocations(pool)
-          if (result.error) {
-            switch (result.error.message) {
-            case ERROR.SOFTLOCK:
-              // If a softlock was generated, move the unplaced relics to the
-              // beginning of the relics pool list and try again.
-              result.relics.forEach(function(relic) {
-                pool.relics.splice(pool.relics.indexOf(relic), 1)
-              })
-              pool.relics = result.relics.concat(pool.relics)
-              continue
-            default:
-              throw result.error
-            }
-          }
-          break
-        }
-        // If the final attempt resulted in an error, throw it.
-        if (result.error) {
-          throw result.error
-        }
-        // Safety check against softlocks.
-        checkForSoftLock(result)
-        // Write data to ROM.
-        writeMapping(result, data)
-        // Write spoilers.
-        const spoilers = []
-        relics.forEach(function(relic) {
-          const id = relic.id
-          const name = relic.name
-          const location = relics.filter(function(relic) {
-            return result[relic.location].id === id
-          }).pop()
-          spoilers.push(name + ' at ' + location.name)
-        })
-        if (info) {
-          info[3]['Relic locations'] = spoilers
-        }
-        // Entering the room between jewel door and red door in alchemy lab
-        // triggers a cutscene with Maria. The game will softlock if the player
-        // enters alchemy lab through the red door in chapel before fighting
-        // hippogryph. This can only happen if the player has access to olrox
-        // quarters without soul of bat, which isn't possible in the vanilla
-        // game without a speedrun trick. In a randomized relic run, however,
-        // it is possible to have early movement options that trigger this
-        // softlock for unwitting players. To be safe, disable the cutscene
-        // from ever taking place.
-        // The flag that gets set after the maria cutscene is @ 0x3be71.
-        // The instruction that checks that flag is:
-        // 0x54f0f44:    bne r2, r0, 0x1b8a58    144002da
-        // Change the instruction so it always branches:
-        // 0x54f0f44:    beq r0, r0, 0x1b8a58    100002da
-        data.writeByte(0x054f0f44 + 2, 0x00)
-        data.writeByte(0x054f0f44 + 3, 0x10)
-        // Entering the clock room for the first time triggers a cutscene with
-        // Maria. The cutscene takes place in a separately loaded room that
-        // does not connect to the rest of the castle through the statue doors
-        // or the vertical climb to gravity boots. If the player has early
-        // movement options, they may attempt to leave the room through one of
-        // these top exits but find themselves blocked, with the only option
-        // being to reload the room through the left or right exit first. To
-        // make it more convenient and less confusing, disable the cutscene
-        // from ever taking place.
-        // The specific room has a time attack entry that needs to be zeroed
-        // out.
-        data.writeByte(0x0aeaa0, 0x00)
-        // The time attack check occurs in Richter mode too, but the game gets
-        // around this by writing the seconds elapsed between pressing Start on
-        // the main screen and on the name entry screen to the time attack
-        // table for events that aren't in Richter mode.
-        // Zero out the time attack entry for the clock room, or Richter will
-        // load the cutscene version every time he enters.
-        data.writeByte(0x119af4, 0x00)
+          }, location)
+        }),
       }
+      // Attempt to place all relics.
+      let attempts = 0
+      let result
+      while (attempts++ < 1024) {
+        result = pickRelicLocations(pool)
+        if (result.error) {
+          switch (result.error.message) {
+          case ERROR.SOFTLOCK:
+            // If a softlock was generated, move the unplaced relics to the
+            // beginning of the relics pool list and try again.
+            result.relics.forEach(function(relic) {
+              pool.relics.splice(pool.relics.indexOf(relic), 1)
+            })
+            pool.relics = result.relics.concat(pool.relics)
+            continue
+          default:
+            throw result.error
+          }
+        }
+        break
+      }
+      // If the final attempt resulted in an error, throw it.
+      if (result.error) {
+        throw result.error
+      }
+      // Safety check against softlocks.
+      checkForSoftLock(result, pool.locations)
+      // Write data to ROM.
+      writeMapping(result, pool.locations, data)
+      // Write spoilers.
+      const spoilers = []
+      relics.forEach(function(relic) {
+        const id = relic.id
+        const name = relic.name
+        const locationIds = Object.getOwnPropertyNames(result)
+        const locationId = parseInt(locationIds.filter(function(locationId) {
+          return result[locationId] === relic
+        })[0])
+        const location = pool.locations[locationId]
+        spoilers.push(name + ' at ' + location.name)
+      })
+      if (info) {
+        info[3]['Relic locations'] = spoilers
+      }
+      // Entering the room between jewel door and red door in alchemy lab
+      // triggers a cutscene with Maria. The game will softlock if the player
+      // enters alchemy lab through the red door in chapel before fighting
+      // hippogryph. This can only happen if the player has access to olrox
+      // quarters without soul of bat, which isn't possible in the vanilla
+      // game without a speedrun trick. In a randomized relic run, however,
+      // it is possible to have early movement options that trigger this
+      // softlock for unwitting players. To be safe, disable the cutscene
+      // from ever taking place.
+      // The flag that gets set after the maria cutscene is @ 0x03be71.
+      // The instruction that checks that flag is:
+      // 0x54f0f44:    bne r2, r0, 0x1b8a58    144002da
+      // Change the instruction so it always branches:
+      // 0x54f0f44:    beq r0, r0, 0x1b8a58    100002da
+      data.writeShort(0x054f0f44 + 2, 0x1000)
+      // Entering the clock room for the first time triggers a cutscene with
+      // Maria. The cutscene takes place in a separately loaded room that
+      // does not connect to the rest of the castle through the statue doors
+      // or the vertical climb to gravity boots. If the player has early
+      // movement options, they may attempt to leave the room through one of
+      // these top exits but find themselves blocked, with the only option
+      // being to reload the room through the left or right exit first. To
+      // make it more convenient and less confusing, disable the cutscene
+      // from ever taking place.
+      // The specific room has a time attack entry that needs to be zeroed
+      // out.
+      data.writeByte(0x0aeaa0, 0x00)
+      // The time attack check occurs in Richter mode too, but the game gets
+      // around this by writing the seconds elapsed between pressing Start on
+      // the main screen and on the name entry screen to the time attack
+      // table for events that aren't in Richter mode.
+      // Zero out the time attack entry for the clock room, or Richter will
+      // load the cutscene version every time he enters.
+      data.writeByte(0x119af4, 0x00)
     }
     return returnVal
   }

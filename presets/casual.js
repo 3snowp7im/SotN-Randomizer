@@ -2,11 +2,14 @@
 
   // Logic metadata.
   const metadata = {
-    id: 'safe',
-    name: 'Safe',
-    description: 'Requires no speedrun or glitch knowledge for completion.',
+    id: 'casual',
+    name: 'Casual',
+    description: [
+      'Use safe logic, but randomize relics among vanilla locations',
+      'only.',
+    ].join(' '),
     author: '3snow_p7im, setz, and soba',
-    weight: -200,
+    weight: -100,
   }
 
   // Boilerplate.
@@ -21,10 +24,12 @@
   }
   const PresetBuilder = util.PresetBuilder
   const RELIC = constants.RELIC
-  const LOCATION = constants.LOCATION
 
   // Create PresetBuilder.
   const builder = new PresetBuilder(metadata)
+
+  // Disable relic location extension.
+  builder.relicLocationsExtension(false)
 
   // Soul of Bat requires Mist + at least Leap Stone.
   builder.lockLocation(RELIC.SOUL_OF_BAT, [
@@ -178,31 +183,6 @@
 
   // Eye of Vlad in second castle.
   builder.lockLocation(RELIC.EYE_OF_VLAD, [
-    RELIC.JEWEL_OF_OPEN + RELIC.FORM_OF_MIST
-      + RELIC.SOUL_OF_BAT + RELIC.ECHO_OF_BAT,
-  ])
-
-  // Scylla location requires Jewel of Open.
-  builder.lockLocation(LOCATION.SCYLLA, [
-    RELIC.JEWEL_OF_OPEN,
-  ])
-
-  // Granfalloon requires Jewel of Open + at least Leap Stone.
-  builder.lockLocation(LOCATION.GRANFALLOON, [
-    RELIC.JEWEL_OF_OPEN + RELIC.LEAP_STONE,
-    RELIC.JEWEL_OF_OPEN + RELIC.SOUL_OF_BAT,
-    RELIC.JEWEL_OF_OPEN + RELIC.FORM_OF_MIST + RELIC.POWER_OF_MIST,
-    RELIC.JEWEL_OF_OPEN + RELIC.SOUL_OF_WOLF + RELIC.POWER_OF_WOLF,
-  ])
-
-  // Doppleganger40 in second castle.
-  builder.lockLocation(LOCATION.DOPPLEGANGER40, [
-    RELIC.JEWEL_OF_OPEN + RELIC.FORM_OF_MIST
-      + RELIC.SOUL_OF_BAT + RELIC.ECHO_OF_BAT,
-  ])
-
-  // Beezlebub in second castle.
-  builder.lockLocation(LOCATION.BEEZLEBUB, [
     RELIC.JEWEL_OF_OPEN + RELIC.FORM_OF_MIST
       + RELIC.SOUL_OF_BAT + RELIC.ECHO_OF_BAT,
   ])

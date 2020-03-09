@@ -71,6 +71,8 @@
   builder.lockLocation(RELIC.SOUL_OF_BAT, [
     RELIC.LEAP_STONE + RELIC.GRAVITY_BOOTS,
   ])
+  // To disable relic locations extension:
+  //   builder.relicLocationsExtension(false)
   // To disable randomization:
   //   builder.relicLocations(false)
 

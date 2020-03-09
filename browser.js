@@ -75,6 +75,7 @@
       elems.itemLocations.disabled = true
       elems.prologueRewards.disabled = true
       elems.relicLocations.disabled = true
+      elems.relicLocationsSet.disabled = true
       elems.turkeyMode.disabled = true
       presetIdChange()
     } else {
@@ -84,6 +85,7 @@
       elems.itemLocations.disabled = false
       elems.prologueRewards.disabled = false
       elems.relicLocations.disabled = false
+      elems.relicLocationsSet.disabled = !elems.relicLocations.checked
       elems.turkeyMode.disabled = false
     }
   }
@@ -100,6 +102,10 @@
       elems.itemLocations.checked = !!options.itemLocations
       elems.prologueRewards.checked = !!options.prologueRewards
       elems.relicLocations.checked = !!options.relicLocations
+      elems.relicLocationsExtension.guarded.checked =
+        options.relicLocationsExtension === 'guarded'
+      elems.relicLocationsExtension.classic.checked =
+        !options.relicLocationsExtension
       elems.turkeyMode.checked = !!options.turkeyMode
     }
   }
@@ -120,8 +126,33 @@
     localStorage.setItem('prologueRewards', elems.prologueRewards.checked)
   }
 
+  let relicLocationsExtensionCache
+
   function relicLocationsChange() {
     localStorage.setItem('relicLocations', elems.relicLocations.checked)
+    if (!elems.relicLocations.checked) {
+      console.log('disabled')
+      elems.relicLocationsSet.disabled = true
+      elems.relicLocationsExtension.guarded.checked = false
+      elems.relicLocationsExtension.classic.checked = false
+    } else {
+      elems.relicLocationsSet.disabled = false
+      elems.relicLocationsExtension.guarded.checked =
+        relicLocationsExtensionCache === 'guarded'
+      elems.relicLocationsExtension.classic.checked =
+        !relicLocationsExtensionCache
+    }
+  }
+
+  function relicLocationsExtensionChange() {
+    let value
+    if (elems.relicLocationsExtension.guarded.checked) {
+      value = 'guarded'
+    } else {
+      value = false
+    }
+    relicLocationsExtensionCache = value
+    localStorage.setItem('relicLocationsExtension', value)
   }
 
   function turkeyModeChange() {
@@ -200,6 +231,13 @@
     ].join('')
   }
 
+  function getFormRelicLocationsExtension() {
+    if (elems.relicLocationsExtension.guarded.checked) {
+      return 'guarded'
+    }
+    return false
+  }
+
   function getFormOptions() {
     if (elems.preset.checked) {
       return {preset: presets[elems.presetId.selectedIndex].id}
@@ -210,6 +248,7 @@
       itemLocations: elems.itemLocations.checked,
       prologueRewards: elems.prologueRewards.checked,
       relicLocations: elems.relicLocations.checked,
+      relicLocationsExtension: getFormRelicLocationsExtension(),
       turkeyMode: elems.turkeyMode.checked,
     }
     if (elems.enemyDropsArg.value) {
@@ -313,6 +352,7 @@
     elems.prologueRewards.disabled = false
     elems.prologueRewardsArg.value = ''
     elems.relicLocations.disabled = false
+    elems.relicLocationsSet.disabled = false
     elems.relicLocationsArg.value = ''
     elems.turkeyMode.disabled = false
     elems.clear.classList.add('hidden')
@@ -394,7 +434,12 @@
     enemyDropsArg: document.getElementById('enemy-drops-arg'),
     startingEquipment: document.getElementById('starting-equipment'),
     startingEquipmentArg: document.getElementById('starting-equipment-arg'),
+    relicLocationsSet: document.getElementById('relic-locations-set'),
     relicLocations: document.getElementById('relic-locations'),
+    relicLocationsExtension: {
+      guarded: document.getElementById('extension-guarded'),
+      classic: document.getElementById('extension-classic'),
+    },
     relicLocationsArg: document.getElementById('relic-locations-arg'),
     itemLocations: document.getElementById('item-locations'),
     itemLocationsArg: document.getElementById('item-locations-arg'),
@@ -421,6 +466,14 @@
   elems.enemyDrops.addEventListener('change', enemyDropsChange)
   elems.startingEquipment.addEventListener('change', startingEquipmentChange)
   elems.relicLocations.addEventListener('change', relicLocationsChange)
+  elems.relicLocationsExtension.guarded.addEventListener(
+    'change',
+    relicLocationsExtensionChange,
+  )
+  elems.relicLocationsExtension.classic.addEventListener(
+    'change',
+    relicLocationsExtensionChange,
+  )
   elems.itemLocations.addEventListener('change', itemLocationsChange)
   elems.prologueRewards.addEventListener('change', prologueRewardsChange)
   elems.turkeyMode.addEventListener('change', turkeyModeChange)
@@ -525,6 +578,11 @@
       })
     }
     elems.relicLocationsArg.value = relicLocationsArg
+    elems.relicLocationsExtension.guarded.checked =
+      applied.relicLocationsExtension === 'guarded'
+    elems.relicLocationsExtension.classic.checked =
+      !applied.relicLocationsExtension
+    relicLocationsExtensionChange()
     elems.turkeyMode.checked = applied.turkeyMode
     turkeyModeChange()
     elems.preset.disabled = true
@@ -534,6 +592,7 @@
     elems.itemLocations.disabled = true
     elems.prologueRewards.disabled = true
     elems.relicLocations.disabled = true
+    elems.relicLocationsSet.disabled = true
     elems.turkeyMode.disabled = true
     elems.clear.classList.remove('hidden')
     const baseUrl = url.origin + url.pathname
@@ -545,6 +604,23 @@
     loadOption('prologueRewards', prologueRewardsChange, true)
     loadOption('relicLocations', relicLocationsChange, true)
     loadOption('turkeyMode', turkeyModeChange, true)
+    let relicLocationsExtension =
+        localStorage.getItem('relicLocationsExtension')
+    if (typeof(relicLocationsExtension) === 'string') {
+      switch (relicLocationsExtension) {
+      case 'guarded':
+        elems.relicLocationsExtension.guarded.checked = true
+        break
+      default:
+        elems.relicLocationsExtension.classic.checked = true
+        break
+      }
+    } else if (constants.defaultExtension) {
+      elems.relicLocationsExtension[constants.defaultExtension].checked = true
+    } else {
+      elems.relicLocationsExtension.classic.checked = true
+    }
+    relicLocationsExtensionChange()
     let presetId = localStorage.getItem('presetId')
     if (typeof(presetId) !== 'string') {
       presetId = 'safe'

@@ -68,21 +68,9 @@ $ ./randomize -vrb sotn.bin https://sotn.io/?myseed    # Less verbose
 $ ./randomize -vvvrb sotn.bin https://sotn.io/?myseed  # More verbose
 ```
 
-### `--check-vanilla`
-
-The `--check-vanilla` option will check your disc image for any non-vanilla
-values:
-
-```shell
-$ ./randomize -cvb sotn.bin
-```
-
-Note that `--check-vanilla` does not modify your disc image.
-
 ### Dry running
 
-The `--check-vanilla` option is the only action that requires a bin file. You
-can omit the `--bin` option from all other actions to perform a dry run.
+You can omit the `--bin` option to perform a dry run.
 
 To print starting equipment and relic locations for a URL without actually
 writing the randomizations to your disc image:
@@ -90,6 +78,7 @@ writing the randomizations to your disc image:
 ```shell
 $ ./randomize -vvvr https://sotn.io/?myseed
 ```
+
 ### Presets
 
 Presets are scripts that generate different randomizations from those found in

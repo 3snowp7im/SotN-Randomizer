@@ -6,6 +6,7 @@
   } else {
     exports = [
       require('./safe'),
+      require('./casual'),
       require('./agonize'),
       require('./optimize'),
       require('./glitch'),

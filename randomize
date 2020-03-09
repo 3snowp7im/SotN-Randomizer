@@ -128,7 +128,7 @@ const itemsHelp = [
   '',
   'If other randomization options follow an item, they must also be',
   'separated from the item with a comma:',
-  '  $0 -o e:TOP:Turkey-2:Peanuts,dpt',
+  '  $0 -o i:TOP:Turkey-2:Peanuts,dpt',
 ].join('\n')
 
 const rewardsHelp = [
@@ -259,11 +259,6 @@ const yargs = require('yargs')
     alias: 'o',
     describe: 'Randomizations (`--help options`)',
     type: 'string',
-  })
-  .option('check-vanilla', {
-    alias: 'c',
-    describe: 'Check .bin file (does not modify image)',
-    type: 'boolean',
   })
   .option('expect-checksum', {
     alias: 'e',
@@ -419,32 +414,22 @@ if (!options) {
   options = util.optionsFromString(constants.defaultOptions)
 }
 // Set misc options.
-if ('checkVanilla' in argv) {
-  options.checkVanilla = argv.checkVanilla
-}
 if ('verbose' in argv) {
   options.verbose = argv.verbose
 }
 info = util.newInfo()
-// Set seed if not running a sanity check.
-if (!argv.checkVanilla) {
-  require('seedrandom')(util.saltSeed(
-    version,
-    options,
-    seed,
-  ), {global: true})
-  // Add seed to log info if not provided through command line.
-  if (!('seed' in argv) && (!('url' in argv) || argv._[0])) {
-    info[1]['Seed'] = seed
-  }
+// Set seed.
+require('seedrandom')(util.saltSeed(
+  version,
+  options,
+  seed,
+), {global: true})
+// Add seed to log info if not provided through command line.
+if (!('seed' in argv) && (!('url' in argv) || argv._[0])) {
+  info[1]['Seed'] = seed
 }
 let data
-// If checking a vanilla .bin file, the path to the file must be given.
-if (options.checkVanilla && !('bin' in argv)) {
-  yargs.showHelp()
-  console.error('\nDid not specify path to .bin file')
-  process.exit(1)
-}
+// Read bin file if provided.
 if ('bin' in argv) {
   eccEdcCalc = require('./ecc-edc-recalc-js')
   data = fs.readFileSync(argv.bin)

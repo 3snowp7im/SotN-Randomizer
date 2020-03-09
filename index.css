@@ -60,6 +60,10 @@ fieldset .pure-g .pure-u-12-24, fieldset .pure-g .pure-u-1 {
     margin: .1em 0;
 }
 
+fieldset .pure-g .pure-u-12-24 fieldset {
+    margin-right: 1em;
+}
+
 .spoilers {
     float: right;
 }

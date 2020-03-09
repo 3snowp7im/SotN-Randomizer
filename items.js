@@ -7374,7 +7374,7 @@
     type: TYPE.WEAPON1,
     id: 118,
     tiles: [{
-      zone: ZONE.RARE,
+      zone: ZONE.RNO4,
       addresses: [ 0x0526c116 ],
     }],
   }, {

@@ -2,6 +2,8 @@
 <html>
   <head>
     <script src="../constants.js"></script>
+    <script src="../extension.js"></script>
+    <script src="../items.js"></script>
     <script src="../relics.js"></script>
     <script src="../util.js"></script>
     <script src="../presets/safe.js"></script>
@@ -10,116 +12,116 @@
     const doStuff = function() {
       const relics = [{
         name: 'Soul of Bat',
-        id: 0x00,
-        address: 0x47a5b66
+        id: 0,
+        address: 0x047a5b66,
       }, {
         name: 'Fire of Bat',
-        id: 0x01,
-        address: 0x557535e
+        id: 1,
+        address: 0x0557535e,
       }, {
         name: 'Echo of Bat',
-        id: 0x02,
-        address: 0x4aa4156
+        id: 2,
+        address: 0x04aa4156,
       }, {
         name: 'Force of Echo',
-        id: 0x03,
-        address: 0x526e6a8
+        id: 3,
+        address: 0x0526e6a8,
       }, {
         name: 'Soul of Wolf',
-        id: 0x04,
-        address: 0x49d6596
+        id: 4,
+        address: 0x049d6596,
       }, {
         name: 'Power of Wolf',
-        id: 0x05,
-        address: 0x4b6b9b4
+        id: 5,
+        address: 0x04b6b9b4,
       }, {
         name: 'Skill of Wolf',
-        id: 0x06,
-        address: 0x54b1d5a
+        id: 6,
+        address: 0x054b1d5a,
       }, {
         name: 'Form of Mist',
-        id: 0x07,
-        address: 0x43c578a
+        id: 7,
+        address: 0x043c578a,
       }, {
         name: 'Power of Mist',
-        id: 0x08,
-        address: 0x5610db8
+        id: 8,
+        address: 0x05610db8
       }, {
         name: 'Gas Cloud',
-        id: 0x09,
-        address: 0x4cfcb16
+        id: 9,
+        address: 0x04cfcb16,
       }, {
         name: 'Cube of Zoe',
-        id: 0x0a,
-        address: 0x4b6b946
+        id: 10,
+        address: 0x04b6b946,
       }, {
         name: 'Spirit Orb',
-        id: 0x0b,
-        address: 0x48fd1fe
+        id: 11,
+        address: 0x048fd1fe,
       }, {
         name: 'Gravity Boots',
-        id: 0x0c,
-        address: 0x48fc9ba
+        id: 12,
+        address: 0x048fc9ba,
       }, {
         name: 'Leap Stone',
-        id: 0x0d,
-        address: 0x5610dc2
+        id: 13,
+        address: 0x05610dc2,
       }, {
         name: 'Holy Symbol',
-        id: 0x0e,
-        address: 0x4c34ee6
+        id: 14,
+        address: 0x04c34ee6,
       }, {
         name: 'Faerie Scroll',
-        id: 0x0f,
-        address: 0x47a5720
+        id: 15,
+        address: 0x047a5720,
       }, {
         name: 'Jewel of Open',
-        id: 0x10,
-        address: 0x47a321c
+        id: 16,
+        address: 0x047a321c,
       }, {
         name: 'Merman Statue',
-        id: 0x11,
-        address: 0x4c35174
+        id: 17,
+        address: 0x04c35174,
       }, {
         name: 'Bat Card',
-        id: 0x12,
-        address: 0x54b1d58
+        id: 18,
+        address: 0x054b1d58,
       }, {
         name: 'Ghost Card',
-        id: 0x13,
-        address: 0x5611958
+        id: 19,
+        address: 0x05611958,
       }, {
         name: 'Faerie Card',
-        id: 0x14,
-        address: 0x47a5784
+        id: 20,
+        address: 0x047a5784,
       }, {
         name: 'Demon Card',
-        id: 0x15,
-        address: 0x45ea95e
+        id: 21,
+        address: 0x045ea95e,
       }, {
         name: 'Sword Card',
-        id: 0x16,
-        address: 0x4aa3f76
+        id: 22,
+        address: 0x04aa3f76,
       }, {
         name: 'Heart of Vlad',
-        id: 0x19,
-        address: 0x6306ab2
+        id: 25,
+        address: 0x067437d2,
       }, {
         name: 'Tooth of Vlad',
-        id: 0x1a,
-        address: 0x5051d52
+        id: 26,
+        address: 0x05051d52,
       }, {
         name: 'Rib of Vlad',
-        id: 0x1b,
-        address: 0x69d2b1e
+        id: 27,
+        address: 0x069d2b1e,
       }, {
         name: 'Ring of Vlad',
-        id: 0x1c,
-        address: 0x59bdb30
+        id: 28,
+        address: 0x059bdb30,
       }, {
         name: 'Eye of Vlad',
-        id: 0x1d,
-        address: 0x4da65f2
+        id: 29,
+        address: 0x04da65f2,
       }]
 
       const addresses = {}

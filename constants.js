@@ -179,7 +179,7 @@
     pos: 0x05902278, len: 281512, items: 0x0cc8,
   }, {
     // ZONE.RNZ1
-    pos: 0x059bb0d8, len: 260960, items: 0x0ec8,
+    pos: 0x059bb0d8, len: 260960, items: 0x0ec8, rewards: 0x2570,
   }, {
     // ZONE.RTOP
     pos: 0x057df998, len: 200988, items: 0x07c8,
@@ -235,6 +235,92 @@
     LUCK_MODE: 'x',
   }
 
+  const BOSS = {
+    BO0: 0,    // Olrox
+    BO1: 1,    // Legion
+    BO2: 2,    // Werewolf & Minotaur
+    BO3: 3,    // Scylla
+    BO4: 4,    // Doppleganger10
+    BO5: 5,    // Hippogryph
+    BO6: 6,    // Richter
+    BO7: 7,    // Cerberus
+    RBO0: 8,   // Trio
+    RBO1: 9,   // Beezlebub
+    RBO2: 10,  // Death
+    RBO3: 11,  // Medusa
+    RBO4: 12,  // Creature
+    RBO5: 13,  // Doppleganger40
+    RBO6: 14,  // Shaft/Dracula
+    RBO7: 15,  // Akmodan
+    RBO8: 16,  // Galamoth
+  }
+
+  const bosses = [{
+    // BO0
+    pos: 0x05fa9dc8, len: 320948, rewards: 0x24d4,
+  }, {
+    // BO1
+    pos: 0x0606dab8, len: 205756, rewards: 0x1b98,
+  }, {
+    // BO2
+    pos: 0x060fca68, len: 223540, rewards: 0x181c,
+  }, {
+    // BO3
+    pos: 0x061a60b8, len: 210224, rewards: 0x1c60,
+  }, {
+    // BO4
+    pos: 0x06246d38, len: 347704, rewards: 0x42b0,
+  }, {
+    // BO5
+    pos: 0x06304e48, len: 218672, rewards: 0x18b8,
+  }, {
+    // BO6
+    pos: 0x063aa448, len: 333544, rewards: 0x2f90,
+  }, {
+    // BO7
+    pos: 0x066b32f8, len: 144480, rewards: 0x1440,
+  }, {
+    // RBO0
+    pos: 0x064705f8, len: 160988, rewards: 0x1988,
+  }, {
+    // RBO1
+    pos: 0x06590a18, len: 139104, rewards: 0x1550,
+  }, {
+    // RBO2
+    pos: 0x06620c28, len: 190792, rewards: 0x1788,
+  }, {
+    // RBO3
+    pos: 0x067422a8, len: 132656, rewards: 0x12a8,
+  }, {
+    // RBO4
+    pos: 0x067cfff8, len: 154660, rewards: 0x13b4,
+  }, {
+    // RBO5
+    pos: 0x06861468, len: 345096, rewards: 0x4348,
+  }, {
+    // RBO6
+    pos: 0x0692b668, len: 213060,
+  }, {
+    // RBO7
+    pos: 0x069d1598, len: 142572, rewards: 0x1300,
+  }, {
+    // RBO8
+    pos: 0x06a5f2e8, len: 161212, rewards: 0x2334,
+  }]
+
+  const EXTENSION = {
+    GUARDED: 'guarded',
+  }
+
+  const defaultExtension = EXTENSION.GUARDED
+
+  const LOCATION = {
+    SCYLLA:          'Scylla',
+    GRANFALLOON:     'Granfalloon',
+    DOPPLEGANGER40:  'Doppleganger 40',
+    BEEZLEBUB:       'Beezlebub',
+  }
+
   const exports = {
     releaseBaseUrl: releaseBaseUrl,
     devBaseUrl: devBaseUrl,
@@ -252,6 +338,11 @@
     RELIC: RELIC,
     tileIdOffset: 0x80,
     SLOT: SLOT,
+    BOSS: BOSS,
+    bosses: bosses,
+    EXTENSION: EXTENSION,
+    defaultExtension: defaultExtension,
+    LOCATION: LOCATION,
   }
   if (self) {
     self.sotnRando = Object.assign(self.sotnRando || {}, {
