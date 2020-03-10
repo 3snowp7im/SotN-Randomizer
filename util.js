@@ -70,7 +70,7 @@
   function roomCount(zone) {
     let layout = zone.readUInt32LE(0x10) - 0x80180000
     let rooms = 0
-    while (zone[layout] != 0x40) {
+    while (zone[layout] !== 0x40) {
       rooms++
       layout += 8
     }
@@ -100,7 +100,43 @@
     })[0]
   }
 
-  function tileData(zone) {
+  function tileValue(item, tile) {
+    if (!tile) {
+      tile = {}
+    }
+    if (tile.byte) {
+      return item.id
+    }
+    let id = ((tile.candle || 0x00) << 8) | item.id
+    if (tile.shop) {
+      // Apply offset for some item types in the shop menu.
+      switch (item.type) {
+      case constants.TYPE.HELMET:
+      case constants.TYPE.ARMOR:
+      case constants.TYPE.CLOAK:
+      case constants.TYPE.ACCESSORY:
+        id += constants.equipIdOffset
+        break
+      }
+    } else if (tile.candle && item.id >= constants.tileIdOffset) {
+      id += constants.tileIdOffset
+    } else {
+      // Apply tile offset for some tile items.
+      switch (item.type) {
+      case constants.TYPE.POWERUP:
+      case constants.TYPE.HEART:
+      case constants.TYPE.GOLD:
+      case constants.TYPE.SUBWEAPON:
+        break
+      default:
+        id += constants.tileIdOffset
+        break
+      }
+    }
+    return id
+  }
+
+  function getRooms(zone) {
     // Get room count.
     const rooms = roomCount(zone)
     const layouts = zone.readUInt32LE(0x20) - 0x80180000
@@ -130,14 +166,31 @@
         const startx = dims & 0x3f
         const width  = endx - startx + 1
         const height = endy - starty + 1
-        // Parse the tile map
-        const map = Array(16 * height)
-        for (let y = 0; y < 16 * height; y++) {
-          map[y] = Array(16 * width)
-          for (let x = 0; x < 16 * width; x++) {
-            const index = zone.readUInt16LE(tiles + 0x2 * (16 * width * y + x))
+        const flags  = zone[8]
+        return {
+          id: id,
+          tiles: tiles,
+          defs: defs,
+          x: startx,
+          y: starty,
+          width: width,
+          height: height,
+          flags: flags,
+        }
+      }
+    })
+  }
+
+  function tileData(zone) {
+    return getRooms(zone).map(function(room) {
+      if (room !== undefined) {
+        const map = Array(16 * room.height)
+        for (let y = 0; y < 16 * room.height; y++) {
+          map[y] = Array(16 * room.width)
+          for (let x = 0; x < 16 * room.width; x++) {
+            const index = zone.readUInt16LE(room.tiles + 0x2 * (16 * room.width * y + x))
             if (index) {
-              map[y][x] = zone.readUInt32LE(defs + 0x20 * index)
+              map[y][x] = zone.readUInt32LE(room.defs + 0x20 * index)
             } else {
               map[y][x] = 0
             }
@@ -149,13 +202,13 @@
   }
 
   function entityData(zone) {
-    // Get room count.
-    const rooms = roomCount(zone)
+    // Get rooms.
+    const rooms = getRooms(zone)
     // Get entity layout IDs.
     const room = zone.readUInt32LE(0x10) - 0x80180000
     const ids = []
-    for (let i = 0; i < rooms; i++) {
-      ids.push(zone[room + 0x8 * i + 0x4])
+    for (let i = 0; i < rooms.length; i++) {
+      ids.push(zone[room + 0x4 + 0x8 * i + 0x3])
     }
     // Get pointers to sorted tile layout structures.
     const enter = zone.readUInt32LE(0x0c) - 0x80180000
@@ -164,12 +217,16 @@
       zone.readUInt16LE(enter + 0x28),
     ]
     // Get sorted lists.
-    const entities = Array(rooms).fill(null).map(function() {
+    const entities = Array(rooms.length).fill(null).map(function() {
       return {}
     })
     offsets.forEach(function(offset) {
-      for (let i = 0; i < rooms; i++) {
-        const ptr = zone.readUInt32LE(offset) - 0x80180000
+      for (let i = 0; i < rooms.length; i++) {
+        const room = rooms[i]
+        if (!room) {
+          continue
+        }
+        const ptr = zone.readUInt32LE(offset + 4 * ids[i]) - 0x80180000
         let entitiy
         let count = 0
         while (true) {
@@ -185,10 +242,9 @@
           entities[i][key] = entities[i][key] || []
           entities[i][key].push(p)
         }
-        offset += 4
       }
     })
-    const data = entities.map(function(room) {
+    return entities.map(function(room) {
       return Object.getOwnPropertyNames(room).map(function(key) {
         const bytes = key.match(/[0-9a-f]{2}/g).map(function(byte) {
           return parseInt(byte, 16)
@@ -198,9 +254,6 @@
           addresses: room[key],
         }
       })
-    })
-    return ids.map(function(id) {
-      return data[id] || []
     })
   }
 
@@ -1885,6 +1938,7 @@
     assert: assert,
     tileIdOffsetFilter: tileIdOffsetFilter,
     itemFromTileId: itemFromTileId,
+    tileValue: tileValue,
     tileData: tileData,
     entityData: entityData,
     romOffset: romOffset,

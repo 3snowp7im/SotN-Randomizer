@@ -127,47 +127,11 @@
       candle: 0x20,
     }, {
       zone: ZONE.CAT,
-      addresses: [ 0x04493342, 0x04493d84 ],
-      candle: 0x20,
-    }, {
-      zone: ZONE.CAT,
-      addresses: [ 0x0449334c, 0x04493d8e ],
-      candle: 0x20,
-    }, {
-      zone: ZONE.CAT,
-      addresses: [ 0x0449337e, 0x04493da2 ],
-      candle: 0x20,
-    }, {
-      zone: ZONE.CAT,
-      addresses: [ 0x04493388, 0x04493d98 ],
-      candle: 0x20,
-    }, {
-      zone: ZONE.CAT,
       addresses: [ 0x04492db2, 0x044937a4 ],
       candle: 0x20,
     }, {
       zone: ZONE.CAT,
       addresses: [ 0x04492c2c, 0x04493632 ],
-      candle: 0x20,
-    }, {
-      zone: ZONE.CAT,
-      addresses: [ 0x044933e2, 0x04493dfc ],
-      candle: 0x20,
-    }, {
-      zone: ZONE.CAT,
-      addresses: [ 0x044933f6, 0x04493df2 ],
-      candle: 0x20,
-    }, {
-      zone: ZONE.CAT,
-      addresses: [ 0x0449340a, 0x04493e2e ],
-      candle: 0x20,
-    }, {
-      zone: ZONE.CAT,
-      addresses: [ 0x0449341e, 0x04493e1a ],
-      candle: 0x20,
-    }, {
-      zone: ZONE.CAT,
-      addresses: [ 0x04493446, 0x04493e06 ],
       candle: 0x20,
     }, {
       zone: ZONE.CAT,
@@ -216,6 +180,42 @@
     }, {
       zone: ZONE.CAT,
       addresses: [ 0x044931c6, 0x04493bb8 ],
+      candle: 0x20,
+    }, {
+      zone: ZONE.CAT,
+      addresses: [ 0x04493342, 0x04493d84 ],
+      candle: 0x20,
+    }, {
+      zone: ZONE.CAT,
+      addresses: [ 0x0449334c, 0x04493d8e ],
+      candle: 0x20,
+    }, {
+      zone: ZONE.CAT,
+      addresses: [ 0x0449337e, 0x04493da2 ],
+      candle: 0x20,
+    }, {
+      zone: ZONE.CAT,
+      addresses: [ 0x04493388, 0x04493d98 ],
+      candle: 0x20,
+    }, {
+      zone: ZONE.CAT,
+      addresses: [ 0x044933e2, 0x04493dfc ],
+      candle: 0x20,
+    }, {
+      zone: ZONE.CAT,
+      addresses: [ 0x044933f6, 0x04493df2 ],
+      candle: 0x20,
+    }, {
+      zone: ZONE.CAT,
+      addresses: [ 0x0449340a, 0x04493e2e ],
+      candle: 0x20,
+    }, {
+      zone: ZONE.CAT,
+      addresses: [ 0x0449341e, 0x04493e1a ],
+      candle: 0x20,
+    }, {
+      zone: ZONE.CAT,
+      addresses: [ 0x04493446, 0x04493e06 ],
       candle: 0x20,
     }, {
       zone: ZONE.CAT,
@@ -289,6 +289,10 @@
       zone: ZONE.DAI,
       addresses: [ 0x046793be, 0x04679fb0 ],
       candle: 0x00,
+    }, {
+      zone: ZONE.DAI,
+      addresses: [ 0x0467969c, 0x0467a14a ],
+      candle: 0x10,
     }, {
       zone: ZONE.LIB,
       addresses: [ 0x047a5932, 0x047a6228 ],
@@ -571,60 +575,12 @@
       candle: 0x10,
     }, {
       zone: ZONE.NO0,
-      addresses: [ 0x048fd316, 0x048fe428 ],
-      candle: 0x10,
-    }, {
-      zone: ZONE.NO0,
-      addresses: [ 0x048fd32a, 0x048fe40a ],
-      candle: 0x20,
-    }, {
-      zone: ZONE.NO0,
-      addresses: [ 0x048fd33e, 0x048fe478 ],
-      candle: 0x10,
-    }, {
-      zone: ZONE.NO0,
-      addresses: [ 0x048fd370, 0x048fe464 ],
-      candle: 0x10,
-    }, {
-      zone: ZONE.NO0,
-      addresses: [ 0x048fd38e, 0x048fe400 ],
-      candle: 0x10,
-    }, {
-      zone: ZONE.NO0,
-      addresses: [ 0x048fd398, 0x048fe450 ],
-      candle: 0x10,
-    }, {
-      zone: ZONE.NO0,
       addresses: [ 0x048fd492, 0x048fe572 ],
       candle: 0x10,
     }, {
       zone: ZONE.NO0,
       addresses: [ 0x048fd4d8, 0x048fe586 ],
       candle: 0x10,
-    }, {
-      zone: ZONE.NO0,
-      addresses: [ 0x048fd69a, 0x048fe770 ],
-      candle: 0x20,
-    }, {
-      zone: ZONE.NO0,
-      addresses: [ 0x048fd6a4, 0x048fe798 ],
-      candle: 0x10,
-    }, {
-      zone: ZONE.NO0,
-      addresses: [ 0x048fd6b8, 0x048fe766 ],
-      candle: 0x20,
-    }, {
-      zone: ZONE.NO0,
-      addresses: [ 0x048fd6c2, 0x048fe7c0 ],
-      candle: 0x10,
-    }, {
-      zone: ZONE.NO0,
-      addresses: [ 0x048fd6ea, 0x048fe7ca ],
-      candle: 0x10,
-    }, {
-      zone: ZONE.NO0,
-      addresses: [ 0x048fd6fe, 0x048fe77a ],
-      candle: 0x20,
     }, {
       zone: ZONE.NO0,
       addresses: [ 0x048fd578, 0x048fe680 ],
@@ -683,12 +639,60 @@
       candle: 0x10,
     }, {
       zone: ZONE.NO0,
+      addresses: [ 0x048fd316, 0x048fe428 ],
+      candle: 0x10,
+    }, {
+      zone: ZONE.NO0,
+      addresses: [ 0x048fd32a, 0x048fe40a ],
+      candle: 0x20,
+    }, {
+      zone: ZONE.NO0,
+      addresses: [ 0x048fd33e, 0x048fe478 ],
+      candle: 0x10,
+    }, {
+      zone: ZONE.NO0,
+      addresses: [ 0x048fd370, 0x048fe464 ],
+      candle: 0x10,
+    }, {
+      zone: ZONE.NO0,
+      addresses: [ 0x048fd38e, 0x048fe400 ],
+      candle: 0x10,
+    }, {
+      zone: ZONE.NO0,
+      addresses: [ 0x048fd398, 0x048fe450 ],
+      candle: 0x10,
+    }, {
+      zone: ZONE.NO0,
       addresses: [ 0x048fd852, 0x048fe928 ],
       candle: 0x10,
     }, {
       zone: ZONE.NO0,
       addresses: [ 0x048fd85c, 0x048fe946 ],
       candle: 0x10,
+    }, {
+      zone: ZONE.NO0,
+      addresses: [ 0x048fd69a, 0x048fe770 ],
+      candle: 0x20,
+    }, {
+      zone: ZONE.NO0,
+      addresses: [ 0x048fd6a4, 0x048fe798 ],
+      candle: 0x10,
+    }, {
+      zone: ZONE.NO0,
+      addresses: [ 0x048fd6b8, 0x048fe766 ],
+      candle: 0x20,
+    }, {
+      zone: ZONE.NO0,
+      addresses: [ 0x048fd6c2, 0x048fe7c0 ],
+      candle: 0x10,
+    }, {
+      zone: ZONE.NO0,
+      addresses: [ 0x048fd6ea, 0x048fe7ca ],
+      candle: 0x10,
+    }, {
+      zone: ZONE.NO0,
+      addresses: [ 0x048fd6fe, 0x048fe77a ],
+      candle: 0x20,
     }, {
       zone: ZONE.NO1,
       addresses: [ 0x049d5ac8, 0x049d63b6 ],
@@ -1095,14 +1099,6 @@
       candle: 0x50,
     }, {
       zone: ZONE.NO4,
-      addresses: [ 0x04c346f4, 0x04c358ce ],
-      candle: 0x00,
-    }, {
-      zone: ZONE.NO4,
-      addresses: [ 0x04c346fe, 0x04c358c4 ],
-      candle: 0x00,
-    }, {
-      zone: ZONE.NO4,
       addresses: [ 0x04c3433e, 0x04c3561c ],
       candle: 0x00,
     }, {
@@ -1112,6 +1108,26 @@
     }, {
       zone: ZONE.NO4,
       addresses: [ 0x04c3430c, 0x04c355fe ],
+      candle: 0x60,
+    }, {
+      zone: ZONE.NO4,
+      addresses: [ 0x04c34370, 0x04c3566c ],
+      candle: 0x00,
+    }, {
+      zone: ZONE.NO4,
+      addresses: [ 0x04c34398, 0x04c35658 ],
+      candle: 0x00,
+    }, {
+      zone: ZONE.NO4,
+      addresses: [ 0x04c34280, 0x04c35568 ],
+      candle: 0x60,
+    }, {
+      zone: ZONE.NO4,
+      addresses: [ 0x04c34294, 0x04c35586 ],
+      candle: 0x60,
+    }, {
+      zone: ZONE.NO4,
+      addresses: [ 0x04c342b2, 0x04c35572 ],
       candle: 0x60,
     }, {
       zone: ZONE.NO4,
@@ -1195,24 +1211,16 @@
       candle: 0x00,
     }, {
       zone: ZONE.NO4,
-      addresses: [ 0x04c34370, 0x04c3566c ],
+      addresses: [ 0x04c346f4, 0x04c358ce ],
       candle: 0x00,
     }, {
       zone: ZONE.NO4,
-      addresses: [ 0x04c34398, 0x04c35658 ],
+      addresses: [ 0x04c346fe, 0x04c358c4 ],
       candle: 0x00,
     }, {
-      zone: ZONE.NO4,
-      addresses: [ 0x04c34280, 0x04c35568 ],
-      candle: 0x60,
-    }, {
-      zone: ZONE.NO4,
-      addresses: [ 0x04c34294, 0x04c35586 ],
-      candle: 0x60,
-    }, {
-      zone: ZONE.NO4,
-      addresses: [ 0x04c342b2, 0x04c35572 ],
-      candle: 0x60,
+      zone: ZONE.NZ0,
+      addresses: [ 0x054b3cf8, 0x054b4776 ],
+      candle: 0x10,
     }, {
       zone: ZONE.NZ0,
       addresses: [ 0x054b420c, 0x054b4d88 ],
@@ -1247,12 +1255,12 @@
       candle: 0x10,
     }, {
       zone: ZONE.NZ0,
-      addresses: [ 0x054b4108, 0x054b4b7c ],
-      candle: 0x20,
+      addresses: [ 0x054b44ae, 0x054b4f22 ],
+      candle: 0x10,
     }, {
       zone: ZONE.NZ0,
-      addresses: [ 0x054b4112, 0x054b4b86 ],
-      candle: 0x20,
+      addresses: [ 0x054b44cc, 0x054b4f18 ],
+      candle: 0x10,
     }, {
       zone: ZONE.NZ0,
       addresses: [ 0x054b43fa, 0x054b4e6e ],
@@ -1366,18 +1374,6 @@
       addresses: [ 0x054b4486, 0x054b4efa ],
       candle: 0x20,
     }, {
-      zone: ZONE.NZ0,
-      addresses: [ 0x054b44ae, 0x054b4f22 ],
-      candle: 0x10,
-    }, {
-      zone: ZONE.NZ0,
-      addresses: [ 0x054b44cc, 0x054b4f18 ],
-      candle: 0x10,
-    }, {
-      zone: ZONE.NZ0,
-      addresses: [ 0x054b3cf8, 0x054b4776 ],
-      candle: 0x10,
-    }, {
       zone: ZONE.NZ1,
       addresses: [ 0x055757f0, 0x05576372 ],
       candle: 0x10,
@@ -1443,6 +1439,18 @@
       candle: 0x40,
     }, {
       zone: ZONE.NZ1,
+      addresses: [ 0x05574fe0, 0x05575c88 ],
+      candle: 0x40,
+    }, {
+      zone: ZONE.NZ1,
+      addresses: [ 0x0557506c, 0x05575d3c ],
+      candle: 0x40,
+    }, {
+      zone: ZONE.NZ1,
+      addresses: [ 0x05575076, 0x05575d28 ],
+      candle: 0x40,
+    }, {
+      zone: ZONE.NZ1,
       addresses: [ 0x05575386, 0x05576034 ],
       candle: 0x50,
     }, {
@@ -1481,18 +1489,6 @@
       zone: ZONE.NZ1,
       addresses: [ 0x05575552, 0x05575f76 ],
       candle: 0x00,
-    }, {
-      zone: ZONE.NZ1,
-      addresses: [ 0x05574fe0, 0x05575c88 ],
-      candle: 0x40,
-    }, {
-      zone: ZONE.NZ1,
-      addresses: [ 0x0557506c, 0x05575d3c ],
-      candle: 0x40,
-    }, {
-      zone: ZONE.NZ1,
-      addresses: [ 0x05575076, 0x05575d28 ],
-      candle: 0x40,
     }, {
       zone: ZONE.TOP,
       addresses: [ 0x05610d86, 0x05611656 ],
@@ -1655,47 +1651,11 @@
       candle: 0x20,
     }, {
       zone: ZONE.RCAT,
-      addresses: [ 0x04cfd40c, 0x04cfe19a ],
-      candle: 0x20,
-    }, {
-      zone: ZONE.RCAT,
-      addresses: [ 0x04cfd42a, 0x04cfe1a4 ],
-      candle: 0x20,
-    }, {
-      zone: ZONE.RCAT,
-      addresses: [ 0x04cfd466, 0x04cfe190 ],
-      candle: 0x20,
-    }, {
-      zone: ZONE.RCAT,
-      addresses: [ 0x04cfd470, 0x04cfe186 ],
-      candle: 0x20,
-    }, {
-      zone: ZONE.RCAT,
       addresses: [ 0x04cfd1fa, 0x04cfde76 ],
       candle: 0x20,
     }, {
       zone: ZONE.RCAT,
       addresses: [ 0x04cfcce2, 0x04cfda66 ],
-      candle: 0x20,
-    }, {
-      zone: ZONE.RCAT,
-      addresses: [ 0x04cfd4a2, 0x04cfe21c ],
-      candle: 0x20,
-    }, {
-      zone: ZONE.RCAT,
-      addresses: [ 0x04cfd506, 0x04cfe230 ],
-      candle: 0x20,
-    }, {
-      zone: ZONE.RCAT,
-      addresses: [ 0x04cfd592, 0x04cfe244 ],
-      candle: 0x20,
-    }, {
-      zone: ZONE.RCAT,
-      addresses: [ 0x04cfd5ec, 0x04cfe24e ],
-      candle: 0x20,
-    }, {
-      zone: ZONE.RCAT,
-      addresses: [ 0x04cfd650, 0x04cfe258 ],
       candle: 0x20,
     }, {
       zone: ZONE.RCAT,
@@ -1744,6 +1704,42 @@
     }, {
       zone: ZONE.RCAT,
       addresses: [ 0x04cfcfe8, 0x04cfdbba ],
+      candle: 0x20,
+    }, {
+      zone: ZONE.RCAT,
+      addresses: [ 0x04cfd40c, 0x04cfe19a ],
+      candle: 0x20,
+    }, {
+      zone: ZONE.RCAT,
+      addresses: [ 0x04cfd42a, 0x04cfe1a4 ],
+      candle: 0x20,
+    }, {
+      zone: ZONE.RCAT,
+      addresses: [ 0x04cfd466, 0x04cfe190 ],
+      candle: 0x20,
+    }, {
+      zone: ZONE.RCAT,
+      addresses: [ 0x04cfd470, 0x04cfe186 ],
+      candle: 0x20,
+    }, {
+      zone: ZONE.RCAT,
+      addresses: [ 0x04cfd4a2, 0x04cfe21c ],
+      candle: 0x20,
+    }, {
+      zone: ZONE.RCAT,
+      addresses: [ 0x04cfd506, 0x04cfe230 ],
+      candle: 0x20,
+    }, {
+      zone: ZONE.RCAT,
+      addresses: [ 0x04cfd592, 0x04cfe244 ],
+      candle: 0x20,
+    }, {
+      zone: ZONE.RCAT,
+      addresses: [ 0x04cfd5ec, 0x04cfe24e ],
+      candle: 0x20,
+    }, {
+      zone: ZONE.RCAT,
+      addresses: [ 0x04cfd650, 0x04cfe258 ],
       candle: 0x20,
     }, {
       zone: ZONE.RCAT,
@@ -1817,6 +1813,10 @@
       zone: ZONE.RDAI,
       addresses: [ 0x04e33d1a, 0x04e34680 ],
       candle: 0x00,
+    }, {
+      zone: ZONE.RDAI,
+      addresses: [ 0x04e33e32, 0x04e348b0 ],
+      candle: 0x10,
     }, {
       zone: ZONE.RLIB,
       addresses: [ 0x04ee4100, 0x04ee48f2 ],
@@ -2095,71 +2095,11 @@
       candle: 0x10,
     }, {
       zone: ZONE.RNO0,
-      addresses: [ 0x04f89544, 0x04f8a89a ],
-      candle: 0x10,
-    }, {
-      zone: ZONE.RNO0,
-      addresses: [ 0x04f8954e, 0x04f8a82c ],
-      candle: 0x10,
-    }, {
-      zone: ZONE.RNO0,
-      addresses: [ 0x04f89576, 0x04f8a804 ],
-      candle: 0x10,
-    }, {
-      zone: ZONE.RNO0,
-      addresses: [ 0x04f895c6, 0x04f8a84a ],
-      candle: 0x10,
-    }, {
-      zone: ZONE.RNO0,
-      addresses: [ 0x04f895d0, 0x04f8a7fa ],
-      candle: 0x10,
-    }, {
-      zone: ZONE.RNO0,
-      addresses: [ 0x04f895da, 0x04f8a886 ],
-      candle: 0x20,
-    }, {
-      zone: ZONE.RNO0,
-      addresses: [ 0x04f895f8, 0x04f8a872 ],
-      candle: 0x10,
-    }, {
-      zone: ZONE.RNO0,
       addresses: [ 0x04f89490, 0x04f8a764 ],
       candle: 0x10,
     }, {
       zone: ZONE.RNO0,
       addresses: [ 0x04f89508, 0x04f8a750 ],
-      candle: 0x10,
-    }, {
-      zone: ZONE.RNO0,
-      addresses: [ 0x04f89220, 0x04f8a624 ],
-      candle: 0x10,
-    }, {
-      zone: ZONE.RNO0,
-      addresses: [ 0x04f89234, 0x04f8a660 ],
-      candle: 0x20,
-    }, {
-      zone: ZONE.RNO0,
-      addresses: [ 0x04f89248, 0x04f8a61a ],
-      candle: 0x10,
-    }, {
-      zone: ZONE.RNO0,
-      addresses: [ 0x04f893aa, 0x04f8a610 ],
-      candle: 0x10,
-    }, {
-      zone: ZONE.RNO0,
-      addresses: [ 0x04f893b4, 0x04f8a66a ],
-      candle: 0x20,
-    }, {
-      zone: ZONE.RNO0,
-      addresses: [ 0x04f893dc, 0x04f8a64c ],
-      candle: 0x10,
-    }, {
-      zone: ZONE.RNO0,
-      addresses: [ 0x04f893e6, 0x04f8a656 ],
-      candle: 0x20,
-    }, {
-      zone: ZONE.RNO0,
-      addresses: [ 0x04f893fa, 0x04f8a62e ],
       candle: 0x10,
     }, {
       zone: ZONE.RNO0,
@@ -2223,6 +2163,34 @@
       candle: 0x20,
     }, {
       zone: ZONE.RNO0,
+      addresses: [ 0x04f89544, 0x04f8a89a ],
+      candle: 0x10,
+    }, {
+      zone: ZONE.RNO0,
+      addresses: [ 0x04f8954e, 0x04f8a82c ],
+      candle: 0x10,
+    }, {
+      zone: ZONE.RNO0,
+      addresses: [ 0x04f89576, 0x04f8a804 ],
+      candle: 0x10,
+    }, {
+      zone: ZONE.RNO0,
+      addresses: [ 0x04f895c6, 0x04f8a84a ],
+      candle: 0x10,
+    }, {
+      zone: ZONE.RNO0,
+      addresses: [ 0x04f895d0, 0x04f8a7fa ],
+      candle: 0x10,
+    }, {
+      zone: ZONE.RNO0,
+      addresses: [ 0x04f895da, 0x04f8a886 ],
+      candle: 0x20,
+    }, {
+      zone: ZONE.RNO0,
+      addresses: [ 0x04f895f8, 0x04f8a872 ],
+      candle: 0x10,
+    }, {
+      zone: ZONE.RNO0,
       addresses: [ 0x04f898c8, 0x04f8aba6 ],
       candle: 0x10,
     }, {
@@ -2236,6 +2204,38 @@
     }, {
       zone: ZONE.RNO0,
       addresses: [ 0x04f898e6, 0x04f8ab92 ],
+      candle: 0x10,
+    }, {
+      zone: ZONE.RNO0,
+      addresses: [ 0x04f89220, 0x04f8a624 ],
+      candle: 0x10,
+    }, {
+      zone: ZONE.RNO0,
+      addresses: [ 0x04f89234, 0x04f8a660 ],
+      candle: 0x20,
+    }, {
+      zone: ZONE.RNO0,
+      addresses: [ 0x04f89248, 0x04f8a61a ],
+      candle: 0x10,
+    }, {
+      zone: ZONE.RNO0,
+      addresses: [ 0x04f893aa, 0x04f8a610 ],
+      candle: 0x10,
+    }, {
+      zone: ZONE.RNO0,
+      addresses: [ 0x04f893b4, 0x04f8a66a ],
+      candle: 0x20,
+    }, {
+      zone: ZONE.RNO0,
+      addresses: [ 0x04f893dc, 0x04f8a64c ],
+      candle: 0x10,
+    }, {
+      zone: ZONE.RNO0,
+      addresses: [ 0x04f893e6, 0x04f8a656 ],
+      candle: 0x20,
+    }, {
+      zone: ZONE.RNO0,
+      addresses: [ 0x04f893fa, 0x04f8a62e ],
       candle: 0x10,
     }, {
       zone: ZONE.RNO1,
@@ -2523,14 +2523,6 @@
       candle: 0x50,
     }, {
       zone: ZONE.RNO4,
-      addresses: [ 0x0526e04a, 0x0526f2f4 ],
-      candle: 0x00,
-    }, {
-      zone: ZONE.RNO4,
-      addresses: [ 0x0526e054, 0x0526f2ea ],
-      candle: 0x00,
-    }, {
-      zone: ZONE.RNO4,
       addresses: [ 0x0526dcfe, 0x0526eed6 ],
       candle: 0x00,
     }, {
@@ -2540,6 +2532,26 @@
     }, {
       zone: ZONE.RNO4,
       addresses: [ 0x0526dc86, 0x0526ee2c ],
+      candle: 0x60,
+    }, {
+      zone: ZONE.RNO4,
+      addresses: [ 0x0526dd44, 0x0526eef4 ],
+      candle: 0x00,
+    }, {
+      zone: ZONE.RNO4,
+      addresses: [ 0x0526dd76, 0x0526ef08 ],
+      candle: 0x00,
+    }, {
+      zone: ZONE.RNO4,
+      addresses: [ 0x0526dbf0, 0x0526ede6 ],
+      candle: 0x60,
+    }, {
+      zone: ZONE.RNO4,
+      addresses: [ 0x0526dc2c, 0x0526edaa ],
+      candle: 0x60,
+    }, {
+      zone: ZONE.RNO4,
+      addresses: [ 0x0526dc4a, 0x0526eddc ],
       candle: 0x60,
     }, {
       zone: ZONE.RNO4,
@@ -2615,24 +2627,16 @@
       candle: 0x00,
     }, {
       zone: ZONE.RNO4,
-      addresses: [ 0x0526dd44, 0x0526eef4 ],
+      addresses: [ 0x0526e04a, 0x0526f2f4 ],
       candle: 0x00,
     }, {
       zone: ZONE.RNO4,
-      addresses: [ 0x0526dd76, 0x0526ef08 ],
+      addresses: [ 0x0526e054, 0x0526f2ea ],
       candle: 0x00,
     }, {
-      zone: ZONE.RNO4,
-      addresses: [ 0x0526dbf0, 0x0526ede6 ],
-      candle: 0x60,
-    }, {
-      zone: ZONE.RNO4,
-      addresses: [ 0x0526dc2c, 0x0526edaa ],
-      candle: 0x60,
-    }, {
-      zone: ZONE.RNO4,
-      addresses: [ 0x0526dc4a, 0x0526eddc ],
-      candle: 0x60,
+      zone: ZONE.RNZ0,
+      addresses: [ 0x05904ab2, 0x059054cc ],
+      candle: 0x10,
     }, {
       zone: ZONE.RNZ0,
       addresses: [ 0x05904e68, 0x059059c6 ],
@@ -2667,12 +2671,12 @@
       candle: 0x10,
     }, {
       zone: ZONE.RNZ0,
-      addresses: [ 0x05904d8c, 0x059057a6 ],
-      candle: 0x20,
+      addresses: [ 0x05905100, 0x05905b24 ],
+      candle: 0x10,
     }, {
       zone: ZONE.RNZ0,
-      addresses: [ 0x05904d96, 0x059057b0 ],
-      candle: 0x20,
+      addresses: [ 0x0590511e, 0x05905b2e ],
+      candle: 0x10,
     }, {
       zone: ZONE.RNZ0,
       addresses: [ 0x0590506a, 0x05905a98 ],
@@ -2786,18 +2790,6 @@
       addresses: [ 0x059050d8, 0x05905ad4 ],
       candle: 0x20,
     }, {
-      zone: ZONE.RNZ0,
-      addresses: [ 0x05905100, 0x05905b24 ],
-      candle: 0x10,
-    }, {
-      zone: ZONE.RNZ0,
-      addresses: [ 0x0590511e, 0x05905b2e ],
-      candle: 0x10,
-    }, {
-      zone: ZONE.RNZ0,
-      addresses: [ 0x05904ab2, 0x059054cc ],
-      candle: 0x10,
-    }, {
       zone: ZONE.RNZ1,
       addresses: [ 0x059be412, 0x059bedaa ],
       candle: 0x10,
@@ -2863,6 +2855,18 @@
       candle: 0x40,
     }, {
       zone: ZONE.RNZ1,
+      addresses: [ 0x059bdeea, 0x059be6c6 ],
+      candle: 0x40,
+    }, {
+      zone: ZONE.RNZ1,
+      addresses: [ 0x059be002, 0x059be940 ],
+      candle: 0x40,
+    }, {
+      zone: ZONE.RNZ1,
+      addresses: [ 0x059be00c, 0x059be954 ],
+      candle: 0x40,
+    }, {
+      zone: ZONE.RNZ1,
       addresses: [ 0x059be16a, 0x059beb8e ],
       candle: 0x60,
     }, {
@@ -2877,18 +2881,6 @@
       zone: ZONE.RNZ1,
       addresses: [ 0x059be228, 0x059beb0c ],
       candle: 0x50,
-    }, {
-      zone: ZONE.RNZ1,
-      addresses: [ 0x059bdeea, 0x059be6c6 ],
-      candle: 0x40,
-    }, {
-      zone: ZONE.RNZ1,
-      addresses: [ 0x059be002, 0x059be940 ],
-      candle: 0x40,
-    }, {
-      zone: ZONE.RNZ1,
-      addresses: [ 0x059be00c, 0x059be954 ],
-      candle: 0x40,
     }, {
       zone: ZONE.RTOP,
       addresses: [ 0x057e1802, 0x057e1cee ],
@@ -3003,6 +2995,10 @@
       addresses: [ 0x05341df4, 0x05341f34 ],
       candle: 0x30,
     }, {
+      zone: ZONE.ST0,
+      addresses: [ 0x05341c4c, 0x05341f0c ],
+      candle: 0x30,
+    }, {
       zone: ZONE.ARE,
       addresses: [ 0x043c5542, 0x043c5d18 ],
       candle: 0x10,
@@ -3040,15 +3036,7 @@
       candle: 0x20,
     }, {
       zone: ZONE.CAT,
-      addresses: [ 0x0449336a, 0x04493d5c ],
-      candle: 0x20,
-    }, {
-      zone: ZONE.CAT,
       addresses: [ 0x04492dbc, 0x044937ae ],
-      candle: 0x20,
-    }, {
-      zone: ZONE.CAT,
-      addresses: [ 0x04493414, 0x04493e24 ],
       candle: 0x20,
     }, {
       zone: ZONE.CAT,
@@ -3069,6 +3057,14 @@
     }, {
       zone: ZONE.CAT,
       addresses: [ 0x0449318a, 0x04493b4a ],
+      candle: 0x20,
+    }, {
+      zone: ZONE.CAT,
+      addresses: [ 0x0449336a, 0x04493d5c ],
+      candle: 0x20,
+    }, {
+      zone: ZONE.CAT,
+      addresses: [ 0x04493414, 0x04493e24 ],
       candle: 0x20,
     }, {
       zone: ZONE.CAT,
@@ -3200,19 +3196,7 @@
       candle: 0x10,
     }, {
       zone: ZONE.NO0,
-      addresses: [ 0x048fd366, 0x048fe3f6 ],
-      candle: 0x10,
-    }, {
-      zone: ZONE.NO0,
-      addresses: [ 0x048fd384, 0x048fe43c ],
-      candle: 0x20,
-    }, {
-      zone: ZONE.NO0,
       addresses: [ 0x048fd4e2, 0x048fe590 ],
-      candle: 0x10,
-    }, {
-      zone: ZONE.NO0,
-      addresses: [ 0x048fd690, 0x048fe7a2 ],
       candle: 0x10,
     }, {
       zone: ZONE.NO0,
@@ -3236,7 +3220,19 @@
       candle: 0x10,
     }, {
       zone: ZONE.NO0,
+      addresses: [ 0x048fd366, 0x048fe3f6 ],
+      candle: 0x10,
+    }, {
+      zone: ZONE.NO0,
+      addresses: [ 0x048fd384, 0x048fe43c ],
+      candle: 0x20,
+    }, {
+      zone: ZONE.NO0,
       addresses: [ 0x048fd866, 0x048fe932 ],
+      candle: 0x10,
+    }, {
+      zone: ZONE.NO0,
+      addresses: [ 0x048fd690, 0x048fe7a2 ],
       candle: 0x10,
     }, {
       zone: ZONE.NO1,
@@ -3376,6 +3372,10 @@
       candle: 0x60,
     }, {
       zone: ZONE.NO4,
+      addresses: [ 0x04c3429e, 0x04c35590 ],
+      candle: 0x60,
+    }, {
+      zone: ZONE.NO4,
       addresses: [ 0x04c34e64, 0x04c3614c ],
       candle: 0x00,
     }, {
@@ -3390,10 +3390,6 @@
       zone: ZONE.NO4,
       addresses: [ 0x04c34bf8, 0x04c35d8c ],
       candle: 0x00,
-    }, {
-      zone: ZONE.NO4,
-      addresses: [ 0x04c3429e, 0x04c35590 ],
-      candle: 0x60,
     }, {
       zone: ZONE.NZ0,
       addresses: [ 0x054b41e4, 0x054b4dba ],
@@ -3440,6 +3436,10 @@
       candle: 0x10,
     }, {
       zone: ZONE.NZ1,
+      addresses: [ 0x05575102, 0x05575d32 ],
+      candle: 0x40,
+    }, {
+      zone: ZONE.NZ1,
       addresses: [ 0x055752dc, 0x05575dfa ],
       candle: 0x40,
     }, {
@@ -3459,9 +3459,9 @@
       addresses: [ 0x0557555c, 0x05575fe4 ],
       candle: 0x50,
     }, {
-      zone: ZONE.NZ1,
-      addresses: [ 0x05575102, 0x05575d32 ],
-      candle: 0x40,
+      zone: ZONE.TOP,
+      addresses: [ 0x05611074, 0x0561175a ],
+      candle: 0x30,
     }, {
       zone: ZONE.TOP,
       addresses: [ 0x05610dea, 0x0561166a ],
@@ -3481,10 +3481,6 @@
     }, {
       zone: ZONE.TOP,
       addresses: [ 0x05611218, 0x05611908 ],
-      candle: 0x30,
-    }, {
-      zone: ZONE.TOP,
-      addresses: [ 0x05611074, 0x0561175a ],
       candle: 0x30,
     }, {
       zone: ZONE.RARE,
@@ -3524,15 +3520,7 @@
       candle: 0x20,
     }, {
       zone: ZONE.RCAT,
-      addresses: [ 0x04cfd434, 0x04cfe1d6 ],
-      candle: 0x20,
-    }, {
-      zone: ZONE.RCAT,
       addresses: [ 0x04cfd1f0, 0x04cfde80 ],
-      candle: 0x20,
-    }, {
-      zone: ZONE.RCAT,
-      addresses: [ 0x04cfd556, 0x04cfe23a ],
       candle: 0x20,
     }, {
       zone: ZONE.RCAT,
@@ -3553,6 +3541,14 @@
     }, {
       zone: ZONE.RCAT,
       addresses: [ 0x04cfcfa2, 0x04cfdbb0 ],
+      candle: 0x20,
+    }, {
+      zone: ZONE.RCAT,
+      addresses: [ 0x04cfd434, 0x04cfe1d6 ],
+      candle: 0x20,
+    }, {
+      zone: ZONE.RCAT,
+      addresses: [ 0x04cfd556, 0x04cfe23a ],
       candle: 0x20,
     }, {
       zone: ZONE.RCAT,
@@ -3684,14 +3680,6 @@
       candle: 0x10,
     }, {
       zone: ZONE.RNO0,
-      addresses: [ 0x04f89562, 0x04f8a836 ],
-      candle: 0x20,
-    }, {
-      zone: ZONE.RNO0,
-      addresses: [ 0x04f8956c, 0x04f8a890 ],
-      candle: 0x10,
-    }, {
-      zone: ZONE.RNO0,
       addresses: [ 0x04f89486, 0x04f8a76e ],
       candle: 0x10,
     }, {
@@ -3710,6 +3698,14 @@
       zone: ZONE.RNO0,
       addresses: [ 0x04f88754, 0x04f89a14 ],
       candle: 0x80,
+    }, {
+      zone: ZONE.RNO0,
+      addresses: [ 0x04f89562, 0x04f8a836 ],
+      candle: 0x20,
+    }, {
+      zone: ZONE.RNO0,
+      addresses: [ 0x04f8956c, 0x04f8a890 ],
+      candle: 0x10,
     }, {
       zone: ZONE.RNO1,
       addresses: [ 0x05051b4a, 0x05052370 ],
@@ -3856,6 +3852,10 @@
       candle: 0x60,
     }, {
       zone: ZONE.RNO4,
+      addresses: [ 0x0526dc18, 0x0526edb4 ],
+      candle: 0x60,
+    }, {
+      zone: ZONE.RNO4,
       addresses: [ 0x0526e676, 0x0526f83a ],
       candle: 0x00,
     }, {
@@ -3870,10 +3870,6 @@
       zone: ZONE.RNO4,
       addresses: [ 0x0526e28e, 0x0526f40c ],
       candle: 0x00,
-    }, {
-      zone: ZONE.RNO4,
-      addresses: [ 0x0526dc18, 0x0526edb4 ],
-      candle: 0x60,
     }, {
       zone: ZONE.RNZ0,
       addresses: [ 0x05904e9a, 0x059059bc ],
@@ -3920,6 +3916,10 @@
       candle: 0x10,
     }, {
       zone: ZONE.RNZ1,
+      addresses: [ 0x059bdf76, 0x059be94a ],
+      candle: 0x40,
+    }, {
+      zone: ZONE.RNZ1,
       addresses: [ 0x059be02a, 0x059be9d6 ],
       candle: 0x40,
     }, {
@@ -3935,10 +3935,6 @@
       addresses: [ 0x059be200, 0x059beae4 ],
       candle: 0x50,
     }, {
-      zone: ZONE.RNZ1,
-      addresses: [ 0x059bdf76, 0x059be94a ],
-      candle: 0x40,
-    }, {
       zone: ZONE.RTOP,
       addresses: [ 0x057e1aa0, 0x057e2012 ],
       candle: 0x30,
@@ -3953,11 +3949,11 @@
       candle: 0x10,
     }, {
       zone: ZONE.CAT,
-      addresses: [ 0x04493450, 0x04493de8 ],
+      addresses: [ 0x04493112, 0x04493b0e ],
       candle: 0x20,
     }, {
       zone: ZONE.CAT,
-      addresses: [ 0x04493112, 0x04493b0e ],
+      addresses: [ 0x04493450, 0x04493de8 ],
       candle: 0x20,
     }, {
       zone: ZONE.CHI,
@@ -4061,11 +4057,11 @@
       candle: 0x10,
     }, {
       zone: ZONE.RCAT,
-      addresses: [ 0x04cfd498, 0x04cfe262 ],
+      addresses: [ 0x04cfcff2, 0x04cfdc46 ],
       candle: 0x20,
     }, {
       zone: ZONE.RCAT,
-      addresses: [ 0x04cfcff2, 0x04cfdc46 ],
+      addresses: [ 0x04cfd498, 0x04cfe262 ],
       candle: 0x20,
     }, {
       zone: ZONE.RCHI,
@@ -4234,15 +4230,15 @@
       candle: 0x10,
     }, {
       zone: ZONE.NO0,
-      addresses: [ 0x048fd6ae, 0x048fe7b6 ],
-      candle: 0x10,
-    }, {
-      zone: ZONE.NO0,
       addresses: [ 0x048fd582, 0x048fe68a ],
       candle: 0x00,
     }, {
       zone: ZONE.NO0,
       addresses: [ 0x048fd870, 0x048fe93c ],
+      candle: 0x10,
+    }, {
+      zone: ZONE.NO0,
+      addresses: [ 0x048fd6ae, 0x048fe7b6 ],
       candle: 0x10,
     }, {
       zone: ZONE.NO1,
@@ -4298,6 +4294,10 @@
       candle: 0x00,
     }, {
       zone: ZONE.NZ0,
+      addresses: [ 0x054b3d16, 0x054b476c ],
+      candle: 0x10,
+    }, {
+      zone: ZONE.NZ0,
       addresses: [ 0x054b4252, 0x054b4dec ],
       candle: 0x20,
     }, {
@@ -4332,10 +4332,6 @@
       zone: ZONE.NZ0,
       addresses: [ 0x054b3e92, 0x054b48e8 ],
       candle: 0x20,
-    }, {
-      zone: ZONE.NZ0,
-      addresses: [ 0x054b3d16, 0x054b476c ],
-      candle: 0x10,
     }, {
       zone: ZONE.NZ1,
       addresses: [ 0x05575804, 0x05576368 ],
@@ -4414,16 +4410,16 @@
       candle: 0x10,
     }, {
       zone: ZONE.RNO0,
-      addresses: [ 0x04f893be, 0x04f8a4d6 ],
-      candle: 0x10,
-    }, {
-      zone: ZONE.RNO0,
       addresses: [ 0x04f89666, 0x04f8a912 ],
       candle: 0x00,
     }, {
       zone: ZONE.RNO0,
       addresses: [ 0x04f896e8, 0x04f8a9a8 ],
       candle: 0x00,
+    }, {
+      zone: ZONE.RNO0,
+      addresses: [ 0x04f893be, 0x04f8a4d6 ],
+      candle: 0x10,
     }, {
       zone: ZONE.RNO1,
       addresses: [ 0x05051c94, 0x0505249c ],
@@ -4462,6 +4458,10 @@
       candle: 0x00,
     }, {
       zone: ZONE.RNZ0,
+      addresses: [ 0x05904a94, 0x059054c2 ],
+      candle: 0x10,
+    }, {
+      zone: ZONE.RNZ0,
       addresses: [ 0x05904e7c, 0x059059d0 ],
       candle: 0x20,
     }, {
@@ -4471,10 +4471,6 @@
     }, {
       zone: ZONE.RNZ0,
       addresses: [ 0x05904b2a, 0x05905530 ],
-      candle: 0x10,
-    }, {
-      zone: ZONE.RNZ0,
-      addresses: [ 0x05904a94, 0x059054c2 ],
       candle: 0x10,
     }, {
       zone: ZONE.RNZ1,
@@ -4511,11 +4507,11 @@
       candle: 0x10,
     }, {
       zone: ZONE.CAT,
-      addresses: [ 0x04493360, 0x04493d52 ],
+      addresses: [ 0x044930ae, 0x04493ad2 ],
       candle: 0x20,
     }, {
       zone: ZONE.CAT,
-      addresses: [ 0x044930ae, 0x04493ad2 ],
+      addresses: [ 0x04493360, 0x04493d52 ],
       candle: 0x20,
     }, {
       zone: ZONE.CHI,
@@ -4563,12 +4559,12 @@
       candle: 0x50,
     }, {
       zone: ZONE.NO4,
-      addresses: [ 0x04c34b4e, 0x04c35db4 ],
-      candle: 0x00,
-    }, {
-      zone: ZONE.NO4,
       addresses: [ 0x04c342a8, 0x04c3559a ],
       candle: 0x60,
+    }, {
+      zone: ZONE.NO4,
+      addresses: [ 0x04c34b4e, 0x04c35db4 ],
+      candle: 0x00,
     }, {
       zone: ZONE.NZ0,
       addresses: [ 0x054b4202, 0x054b4da6 ],
@@ -4615,15 +4611,15 @@
       candle: 0x10,
     }, {
       zone: ZONE.RCAT,
-      addresses: [ 0x04cfd43e, 0x04cfe1cc ],
-      candle: 0x20,
-    }, {
-      zone: ZONE.RCAT,
       addresses: [ 0x04cfd182, 0x04cfddcc ],
       candle: 0x20,
     }, {
       zone: ZONE.RCAT,
       addresses: [ 0x04cfcbac, 0x04cfda48 ],
+      candle: 0x20,
+    }, {
+      zone: ZONE.RCAT,
+      addresses: [ 0x04cfd43e, 0x04cfe1cc ],
       candle: 0x20,
     }, {
       zone: ZONE.RCHI,
@@ -4679,12 +4675,12 @@
       candle: 0x50,
     }, {
       zone: ZONE.RNO4,
-      addresses: [ 0x0526e284, 0x0526f420 ],
-      candle: 0x00,
-    }, {
-      zone: ZONE.RNO4,
       addresses: [ 0x0526dc04, 0x0526edbe ],
       candle: 0x60,
+    }, {
+      zone: ZONE.RNO4,
+      addresses: [ 0x0526e284, 0x0526f420 ],
+      candle: 0x00,
     }, {
       zone: ZONE.RNZ0,
       addresses: [ 0x05904d5a, 0x0590572e ],
@@ -4740,6 +4736,9 @@
     id: 5,
     blacklist: [ 0x000b6b3c, 0x000b6b3a ],
     tiles: [{
+      addresses: [ 0x000b6c04 ],
+      enemy: 5,
+    }, {
       zone: ZONE.ARE,
       addresses: [ 0x043c5ab4, 0x043c62c6 ],
       candle: 0x10,
@@ -4753,11 +4752,11 @@
       candle: 0x10,
     }, {
       zone: ZONE.CAT,
-      addresses: [ 0x04493432, 0x04493e10 ],
+      addresses: [ 0x04492c04, 0x044935ce ],
       candle: 0x20,
     }, {
       zone: ZONE.CAT,
-      addresses: [ 0x04492c04, 0x044935ce ],
+      addresses: [ 0x04493432, 0x04493e10 ],
       candle: 0x20,
     }, {
       zone: ZONE.CHI,
@@ -4923,9 +4922,6 @@
       zone: ZONE.RNZ1,
       addresses: [ 0x059be2fa, 0x059becf6 ],
       candle: 0x10,
-    }, {
-      addresses: [ 0x000b6c04 ],
-      enemy: 5,
     }],
   }, {
     name: '$250',
@@ -5014,6 +5010,15 @@
     id: 7,
     blacklist: [ 0x000b6b3c, 0x000b6b3a ],
     tiles: [{
+      addresses: [ 0x000b7464 ],
+      enemy: 19,
+    }, {
+      addresses: [ 0x000b6e34 ],
+      enemy: 25,
+    }, {
+      addresses: [ 0x000b6bb4 ],
+      enemy: 32,
+    }, {
       zone: ZONE.NP3,
       addresses: [ 0x053f8ec4, 0x053f973a ],
       candle: 0x00,
@@ -5045,15 +5050,6 @@
       zone: ZONE.RNZ0,
       addresses: [ 0x05904be8, 0x0590559e ],
       candle: 0x20,
-    }, {
-      addresses: [ 0x000b7464 ],
-      enemy: 19,
-    }, {
-      addresses: [ 0x000b6e34 ],
-      enemy: 25,
-    }, {
-      addresses: [ 0x000b6bb4 ],
-      enemy: 32,
     }],
   }, {
     name: '$1000',
@@ -5061,6 +5057,9 @@
     id: 9,
     blacklist: [ 0x000b6b3c, 0x000b6b3a ],
     tiles: [{
+      addresses: [ 0x000b83cc ],
+      enemy: 40,
+    }, {
       zone: ZONE.ARE,
       addresses: [ 0x043c58ca, 0x043c60b4 ],
       candle: 0x10,
@@ -5068,9 +5067,6 @@
       zone: ZONE.RARE,
       addresses: [ 0x05752fe0, 0x05753562 ],
       candle: 0x10,
-    }, {
-      addresses: [ 0x000b83cc ],
-      enemy: 40,
     }],
   }, {
     name: '$2000',
@@ -5078,6 +5074,9 @@
     id: 10,
     blacklist: [ 0x000b6b3c, 0x000b6b3a ],
     tiles: [{
+      addresses: [ 0x000b859c ],
+      enemy: 50,
+    }, {
       zone: ZONE.NO4,
       addresses: [ 0x04c3491e, 0x04c35b84 ],
       candle: 0x00,
@@ -5085,9 +5084,6 @@
       zone: ZONE.RNO4,
       addresses: [ 0x0526e572, 0x0526f74a ],
       candle: 0x00,
-    }, {
-      addresses: [ 0x000b859c ],
-      enemy: 50,
     }],
   }, {
     name: 'Dagger',
@@ -5194,6 +5190,12 @@
       byte: true,
       tank: true,
     }, {
+      addresses: [ 0x000b83a4 ],
+      enemy: 12,
+    }, {
+      addresses: [ 0x000b5964 ],
+      enemy: 30,
+    }, {
       zone: ZONE.ARE,
       addresses: [ 0x043c5820, 0x043c5eb2 ],
       candle: 0x10,
@@ -5269,12 +5271,6 @@
       zone: ZONE.RNZ1,
       addresses: [ 0x059be12e, 0x059beb98 ],
       candle: 0x50,
-    }, {
-      addresses: [ 0x000b83a4 ],
-      enemy: 12,
-    }, {
-      addresses: [ 0x000b5964 ],
-      enemy: 30,
     }],
   }, {
     name: 'Cross',
@@ -5566,11 +5562,11 @@
       candle: 0x10,
     }, {
       zone: ZONE.CAT,
-      addresses: [ 0x04493392, 0x04493d66 ],
+      addresses: [ 0x04492b8c, 0x0449359c ],
       candle: 0x20,
     }, {
       zone: ZONE.CAT,
-      addresses: [ 0x04492b8c, 0x0449359c ],
+      addresses: [ 0x04493392, 0x04493d66 ],
       candle: 0x20,
     }, {
       zone: ZONE.CHI,
@@ -5598,11 +5594,11 @@
       candle: 0x10,
     }, {
       zone: ZONE.RCAT,
-      addresses: [ 0x04cfd402, 0x04cfe1c2 ],
+      addresses: [ 0x04cfcb84, 0x04cfd8fe ],
       candle: 0x20,
     }, {
       zone: ZONE.RCAT,
-      addresses: [ 0x04cfcb84, 0x04cfd8fe ],
+      addresses: [ 0x04cfd402, 0x04cfe1c2 ],
       candle: 0x20,
     }, {
       zone: ZONE.RCHI,
@@ -6031,12 +6027,12 @@
     type: TYPE.SHIELD,
     id: 10,
     tiles: [{
+      addresses: [ 0x000b8214 ],
+      enemy: 126,
+    }, {
       zone: ZONE.ST0,
       addresses: [ 0x05341db8, 0x05341f52 ],
       candle: 0x80,
-    }, {
-      addresses: [ 0x000b8214 ],
-      enemy: 126,
     }],
   }, {
     name: 'Goddess Shield',
@@ -7303,12 +7299,12 @@
       addresses: [ 0x047a3146 ],
       shop: true,
     }, {
+      addresses: [ 0x000b6f4a ],
+      enemy: 81,
+    }, {
       zone: ZONE.ST0,
       addresses: [ 0x05341dc2, 0x05341f5c ],
       candle: 0x80,
-    }, {
-      addresses: [ 0x000b6f4a ],
-      enemy: 81,
     }],
   }, {
     name: 'Thunderbrand',
@@ -7603,10 +7599,6 @@
       byte: true,
       reward: true,
     }, {
-      zone: ZONE.ST0,
-      addresses: [ 0x05341dcc, 0x05341f66 ],
-      candle: 0x80,
-    }, {
       addresses: [ 0x000b752a ],
       enemy: 95,
     }, {
@@ -7615,6 +7607,10 @@
     }, {
       addresses: [ 0x000b9e02 ],
       enemy: 128,
+    }, {
+      zone: ZONE.ST0,
+      addresses: [ 0x05341dcc, 0x05341f66 ],
+      candle: 0x80,
     }],
   }, {
     name: 'Runesword',
@@ -7663,6 +7659,9 @@
       addresses: [ 0x047a30c6 ],
       shop: true,
     }, {
+      addresses: [ 0x000b6764 ],
+      enemy: 42,
+    }, {
       zone: ZONE.LIB,
       addresses: [ 0x047a5658, 0x047a5eae ],
       candle: 0x00,
@@ -7678,9 +7677,6 @@
       zone: ZONE.RLIB,
       addresses: [ 0x04ee4434, 0x04ee4b0e ],
       candle: 0x00,
-    }, {
-      addresses: [ 0x000b6764 ],
-      enemy: 42,
     }],
   }, {
     name: 'Life Apple',

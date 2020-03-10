@@ -1,6 +1,6 @@
 #!/usr/bin/env node
-// This tool parses a SotN bin for entity data for a specific zone.
-// Usage: tools/entity-dump <path-to-rom> <zone>
+// This tool parses a SotN bin and displays map data.
+// Usage: tools/map-dump <path-to-rom> <zone>
 
 const fs = require('fs')
 const constants = require('../constants')
@@ -8,23 +8,43 @@ const items = require('../items')
 const relics = require('../relics')
 const util = require('../util')
 
-const tileIdOffset = constants.tileIdOffset
 const TYPE = constants.TYPE
-const typeNames = constants.typeNames
 const ZONE = constants.ZONE
 const zones = constants.zones
+const BOSS = constants.BOSS
+const bosses = constants.bosses
 
 // Read input bin.
 const bin = fs.readFileSync(process.argv[2])
 
 // Read zone data.
-const zoneId = ZONE[process.argv[3]]
-const data = util.restoreFile(bin, zones[zoneId])
+let zoneId = ZONE[process.argv[3]]
+let zone
+let data
+if (zoneId !== undefined) {
+  zone = zones[zoneId]
+} else {
+  zoneId = BOSS[process.argv[3]]
+  zone = bosses[zoneId]
+}
+data = util.restoreFile(bin, zone)
 
-// Read data.
+const filled = (String.fromCharCode(9608) + String.fromCharCode(9608))
+
+// Read map as visual aid.
+const map = util.tileData(data)
+
+// Read entities.
 const rooms = util.entityData(data).map(function(entities, index) {
   const lines = []
   lines.push('room ' + index)
+  if (map[index]) {
+    lines.push(map[index].map(function(row) {
+      return row.map(function(tile) {
+        return tile ? filled : '  '
+      }).join('')
+    }).join('\n'))
+  }
   entities.forEach(function(entity) {
     if (util.isCandle(zoneId, entity)) {
       const state = (entity.data[9] << 8) + entity.data[8]
@@ -39,10 +59,12 @@ const rooms = util.entityData(data).map(function(entities, index) {
       lines.push('  relic: ' + relic.name)
     } else if (util.isItem(entity)) {
       const index = entity.data[8]
-      const id = data.readUInt16LE(zones[zoneId].items + 0x2 * index)
+      const id = data.readUInt16LE(zone.items + 0x2 * index)
       const item = util.itemFromTileId(items, id)
       if (item) {
         lines.push('  item: ' + item.name)
+      } else {
+        lines.push('  item: ' + util.numToHex(index))
       }
     } else {
       lines.push('  entity')
@@ -51,7 +73,7 @@ const rooms = util.entityData(data).map(function(entities, index) {
       return util.numToHex(address)
     }).join(', '))
     lines.push('    rom: ' + entity.addresses.map(function(address) {
-      return util.numToHex(util.romOffset(zones[zoneId], address))
+      return util.numToHex(util.romOffset(zone, address))
     }).join(', '))
     lines.push('    data: ' + entity.data.toString('hex'))
   })

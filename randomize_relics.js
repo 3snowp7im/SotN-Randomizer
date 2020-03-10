@@ -40,7 +40,6 @@
   const shopRelicNameAddress = 0x47d5650
   const shopRelicIdAddress = 0x47dbde0
   const shopRelicIdOffset = 0x64
-  const tileItems = items.filter(util.tileIdOffsetFilter)
 
   function relicFromId(id) {
     return relics.filter(function(relic) {
@@ -90,13 +89,12 @@
         const replaceLocation = vanilla.shift()
         if (!replaceLocation.erase) {
           // Get item being displaced.
-          const item = tileItems.filter(function(item) {
-            return item.id === location.item.id
+          const item = items.filter(function(item) {
+            return item.type === location.item.type
+              && item.id === location.item.id
           }).pop()
-          // Get tile being replaced.
-          const tile = item.tiles.filter(function(tile) {
-            return tile.zone === location.zone
-          })[location.item.index]
+          // Get a tile being replaced.
+          const tile = item.tiles[location.item.tileIndex]
           const address = tile.addresses[0]
           try {
             // This will fail if doing a dry run without item randomization.
@@ -122,19 +120,15 @@
                 if ('x' in entity) {
                   data.writeShort(address + 0, entity.x)
                 }
-                let y
                 if ('y' in entity) {
-                  y = entity.y
-                } else {
-                  y = data.readShort(address + 2) + 9
+                  data.writeShort(address + 2, entity.y)
                 }
-                data.writeShort(address + 2, y)
                 data.writeShort(address + 4, entity.entityId)
                 data.writeShort(address + 8, entity.itemIndex)
                 // Update the item table.
                 data.writeShort(
                   util.romOffset(zone, zone.items + 2 * entity.itemIndex),
-                  replacementItem.id + constants.tileIdOffset,
+                  util.tileValue(replacementItem),
                 )
               }
             })
@@ -148,28 +142,28 @@
           })
         }
       }
-      location.addresses.forEach(function(address) {
-        if ('extension' in location) {
-          // For extension locations, an optional position can be updated.
-          if ('x' in location) {
-            data.writeShort(address + 0, location.x)
-          }
-          let y
-          if ('y' in location) {
-            y = location.y
-          } else {
-            y = data.readShort(address + 2) - 9
-          }
-          data.writeShort(address + 2, y)
-          // Change entity type.
-          data.writeShort(address + 4, 0xb)
-          // Write relic ID.
-          data.writeShort(address + 8, relic.id)
-        } else {
-          // For vanilla locations, just write the relic ID.
+      if ('extension' in location) {
+        location.entities.forEach(function(entity) {
+          entity.addresses.forEach(function(address) {
+            // For extension locations, an optional position can be updated.
+            if ('x' in entity) {
+              data.writeShort(address + 0, entity.x)
+            }
+            if ('y' in entity) {
+              data.writeShort(address + 2, entity.y)
+            }
+            // Change entity type.
+            data.writeShort(address + 4, 0xb)
+            // Write relic ID.
+            data.writeShort(address + 8, relic.id)
+          })
+        })
+      } else {
+        // For vanilla locations, just write the relic ID.
+        location.addresses.forEach(function(address) {
           data.writeByte(address, relic.id)
-        }
-      })
+        })
+      }
     })
   }
 

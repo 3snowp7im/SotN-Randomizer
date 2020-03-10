@@ -24,15 +24,12 @@
   const ZONE = constants.ZONE
   const zoneNames = constants.zoneNames
   const tileIdOffset = constants.tileIdOffset
+  const equipIdOffset = constants.equipIdOffset
 
   const shuffled = util.shuffled
 
   // The base address of Alucard's equipped item list.
   const equipBaseAddress = 0x11a0d0
-
-  // This is applied to helmet, armor, cloak, and other ids that are sold in
-  // the librarian's shop menu or are in an equipment slot.
-  const equipIdOffset = -0xa9
 
   // This is applied to equipment ids to get the inventory slot it occupies.
   const equipmentInvIdOffset = 0x798a
@@ -232,44 +229,11 @@
     })
   }
 
-  function tileValue(item, tile) {
-    if (tile.byte) {
-      return item.id
-    }
-    let id = ((tile.candle || 0x00) << 8) | item.id
-    if (tile && tile.shop) {
-      // Apply offset for some item types in the shop menu.
-      switch (item.type) {
-      case TYPE.HELMET:
-      case TYPE.ARMOR:
-      case TYPE.CLOAK:
-      case TYPE.ACCESSORY:
-        id += equipIdOffset
-        break
-      }
-    } else if (candleTileFilter(tile) && item.id >= tileIdOffset) {
-      id += tileIdOffset
-    } else {
-      // Apply tile offset for some tile items.
-      switch (item.type) {
-      case TYPE.POWERUP:
-      case TYPE.HEART:
-      case TYPE.GOLD:
-      case TYPE.SUBWEAPON:
-        break
-      default:
-        id += tileIdOffset
-        break
-      }
-    }
-    return id
-  }
-
   function writeTiles(data) {
     return function(item) {
       item.tiles.forEach(function(tile) {
         util.assert(tile)
-        const value = tileValue(item, tile)
+        const value = util.tileValue(item, tile)
         tile.addresses.forEach(function(address) {
           data.writeShort(address, value)
         })

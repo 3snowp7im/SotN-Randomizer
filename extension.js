@@ -9,46 +9,69 @@
   const ZONE = constants.ZONE
   const EXTENSION = constants.EXTENSION
   const LOCATION = constants.LOCATION
+  const TYPE = constants.TYPE
 
   const locations = [{
     name: LOCATION.SCYLLA,
-    zone: ZONE.NO4,
-    item: {
-      id: 221,
-      index: 0,
-    },
     extension: EXTENSION.GUARDED,
-    addresses: [ 0x04c3425a, 0x04c35542 ],
+    item: {
+      // Crystal Cloak
+      type: TYPE.CLOAK,
+      id: 221,
+      tileIndex: 0,
+    },
+    entities: [{
+      zone: ZONE.NO4,
+      addresses: [ 0x04c3425a, 0x04c35542 ],
+      y: 0x00a0,
+    }, {
+      zone: ZONE.BO3,
+      addresses: [ 0x061a828a, 0x061a857e ],
+      y: 0x00a0,
+    }],
   }, {
     name: LOCATION.GRANFALLOON,
-    zone: ZONE.CAT,
-    item: {
-      id: 110,
-      index: 0,
-    },
     extension: EXTENSION.GUARDED,
-    addresses: [ 0x04492b2a, 0x0449353a ],
+    item: {
+      // Mormegil
+      type: TYPE.WEAPON1,
+      id: 110,
+      tileIndex: 0,
+    },
+    entities: [{
+      zone: ZONE.CAT,
+      addresses: [ 0x04492b2a, 0x0449353a ],
+      y: 0x0098,
+    }],
   }, {
     name: LOCATION.DOPPLEGANGER40,
-    zone: ZONE.RNO4,
-    item: {
-      id: 118,
-      index: 0,
-    },
     extension: EXTENSION.GUARDED,
-    addresses: [ 0x0526e024, 0x0526f0a4 ],
-    y: 0x0080,
+    item: {
+      // Dark Blade
+      type: TYPE.WEAPON1,
+      id: 118,
+      tileIndex: 0,
+    },
+    entities: [{
+      zone: ZONE.RNO4,
+      addresses: [ 0x0526e024, 0x0526f0a4 ],
+      y: 0x0080,
+    }],
   }, {
     name: LOCATION.BEEZLEBUB,
-    zone: ZONE.RNZ0,
-    item: {
-      id: 244,
-      index: 0,
-    },
     extension: EXTENSION.GUARDED,
-    addresses: [ 0x05904aa0, 0x059054b0 ],
-    x: 0x0082,
-    y: 0x0080,
+    item: {
+      // Ring of Arcana
+      type: TYPE.ACCESSORY,
+      id: 244,
+      tileIndex: 0,
+    },
+    entities: [{
+      zone: ZONE.RNZ0,
+      addresses: [ 0x05904aa0, 0x059054b0 ],
+      x: 0x0082,
+      y: 0x0080,
+    }],
   }]
 
   const relics = [{
@@ -59,6 +82,7 @@
       addresses: [ 0x047a5b5e, 0x047a623e ],
       entityId: 0x000c,
       itemIndex: 11,
+      y: 0x00a9,
     }],
   }, {
     // Fire of Bat
@@ -68,6 +92,7 @@
       addresses: [ 0x05575356, 0x05575e92 ],
       entityId: 0x000c,
       itemIndex: 12,
+      y: 0x00cd,
     }],
   }, {
     // Echo of Bat
@@ -77,6 +102,7 @@
       addresses: [ 0x04aa414e, 0x04aa49a6 ],
       entityId: 0x000c,
       itemIndex: 12,
+      y: 0x009d,
     }],
   }, {
     // Force of Echo
@@ -86,6 +112,7 @@
       addresses: [ 0x0526e6a0, 0x0526f86e ],
       entityId: 0x000c,
       itemIndex: 39,
+      y: 0x0089,
     }],
   }, {
     // Soul of Wolf
@@ -95,6 +122,7 @@
       addresses: [ 0x049d5d36, 0x049d658e ],
       entityId: 0x000c,
       itemIndex: 7,
+      y: 0x0089,
     }],
   }, {
     // Power of Wolf
@@ -104,11 +132,13 @@
       addresses: [ 0x04b6b14a, 0x04b6b9ac ],
       entityId: 0x000c,
       itemIndex: 10,
+      y: 0x00c8,
     }, {
       zone: ZONE.NP3,
       addresses: [ 0x053f8f16, 0x053f9714 ],
       entityId: 0x000c,
       itemIndex: 10,
+      y: 0x00c8,
     }],
   }, {
     // Skill of Wolf
@@ -129,6 +159,7 @@
       addresses: [ 0x043c5782, 0x043c5e00 ],
       entityId: 0x000c,
       itemIndex: 11,
+      y: 0x0099,
     }],
   }, {
     // Power of Mist
@@ -138,6 +169,7 @@
       addresses: [ 0x05610db0, 0x05611424 ],
       entityId: 0x000c,
       itemIndex: 21,
+      y: 0x00cd,
     }],
   }, {
     // Gas Cloud
@@ -147,6 +179,8 @@
       addresses: [ 0x04cfcb0e, 0x04cfd892 ],
       entityId: 0x000c,
       itemIndex: 39,
+      x: 0x0016,
+      y: 0x00b1,
     }],
   }, {
     // Cube of Zoe
@@ -156,11 +190,13 @@
       addresses: [ 0x04b6b082, 0x04b6b93e ],
       entityId: 0x000c,
       itemIndex: 11,
+      y: 0x007b,
     }, {
       zone: ZONE.NP3,
       addresses: [ 0x053f8e26, 0x053f9692 ],
       entityId: 0x000c,
       itemIndex: 11,
+      y: 0x007b,
     }],
   }, {
     // Spirit Orb
@@ -169,7 +205,8 @@
       zone: ZONE.NO0,
       addresses: [ 0x048fd1f6, 0x048fe278 ],
       entityId: 0x000c,
-      itemIndex: 39,
+      itemIndex: 14,
+      x: 0x0043,
     }],
   }, {
     // Gravity Boots
@@ -179,6 +216,7 @@
       addresses: [ 0x048fc9b2, 0x048fd944 ],
       entityId: 0x000c,
       itemIndex: 41,
+      y: 0x00b9,
     }],
   }, {
     // Leap Stone
@@ -197,6 +235,7 @@
       addresses: [ 0x04c34ede, 0x04c361d0 ],
       entityId: 0x000c,
       itemIndex: 42,
+      y: 0x00bd,
     }],
   }, {
     // Faerie Scroll
@@ -205,7 +244,8 @@
       zone: ZONE.LIB,
       addresses: [ 0x047a5718, 0x047a5dca ],
       entityId: 0x000c,
-      itemIndex: 28,
+      itemIndex: 33,
+      y: 0x00b9,
     }],
   }, {
     // Jewel of Open
@@ -244,6 +284,7 @@
       addresses: [ 0x05611274, 0x05611950 ],
       entityId: 0x000c,
       itemIndex: 22,
+      y: 0x00a9,
     }],
   }, {
     // Faerie Card
@@ -252,7 +293,8 @@
       zone: ZONE.LIB,
       addresses: [ 0x047a577c, 0x047a5f64 ],
       entityId: 0x000c,
-      itemIndex: 29,
+      itemIndex: 34,
+      y: 0x00ba,
     }],
   }, {
     // Demon Card
@@ -262,6 +304,7 @@
       addresses: [ 0x045ea956, 0x045eacda ],
       entityId: 0x000c,
       itemIndex: 13,
+      y: 0x00c2,
     }],
   }, {
     // Sword Card
@@ -271,6 +314,7 @@
       addresses: [ 0x04aa3f6e, 0x04aa47c6 ],
       entityId: 0x000c,
       itemIndex: 13,
+      y: 0x009d,
     }],
   }, {
     // Heart of Vlad

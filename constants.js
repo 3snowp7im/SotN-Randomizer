@@ -119,7 +119,7 @@
     pos: 0x047a1ae8, len: 348876, items: 0x1a90,
   }, {
     // ZONE.NO0
-    pos: 0x048f9a38, len: 390540, items: 0x19ac,
+    pos: 0x048f9a38, len: 390540, items: 0x1100,
   }, {
     // ZONE.NO1
     pos: 0x049d18b8, len: 356452, items: 0x1a2c,
@@ -224,6 +224,10 @@
 
   const tileIdOffset = 0x80
 
+  // This is applied to helmet, armor, cloak, and other ids that are sold in
+  // the librarian's shop menu or are in an equipment slot.
+  const equipIdOffset = -0xa9
+
   const SLOT = {
     RIGHT_HAND: 'r',
     LEFT_HAND: 'l',
@@ -236,23 +240,23 @@
   }
 
   const BOSS = {
-    BO0: 0,    // Olrox
-    BO1: 1,    // Legion
-    BO2: 2,    // Werewolf & Minotaur
-    BO3: 3,    // Scylla
-    BO4: 4,    // Doppleganger10
-    BO5: 5,    // Hippogryph
-    BO6: 6,    // Richter
-    BO7: 7,    // Cerberus
-    RBO0: 8,   // Trio
-    RBO1: 9,   // Beezlebub
-    RBO2: 10,  // Death
-    RBO3: 11,  // Medusa
-    RBO4: 12,  // Creature
-    RBO5: 13,  // Doppleganger40
-    RBO6: 14,  // Shaft/Dracula
-    RBO7: 15,  // Akmodan
-    RBO8: 16,  // Galamoth
+    BO0: 0,   // Olrox
+    BO1: 1,   // Legion
+    BO2: 2,   // Werewolf & Minotaur
+    BO3: 3,   // Scylla
+    BO4: 4,   // Doppleganger10
+    BO5: 5,   // Hippogryph
+    BO6: 6,   // Richter
+    BO7: 7,   // Cerberus
+    RBO0: 8,  // Trio
+    RBO1: 9,  // Beezlebub
+    RBO2: 10, // Death
+    RBO3: 11, // Medusa
+    RBO4: 12, // Creature
+    RBO5: 13, // Doppleganger40
+    RBO6: 14, // Shaft/Dracula
+    RBO7: 15, // Akmodan
+    RBO8: 16, // Galamoth
   }
 
   const bosses = [{
@@ -266,7 +270,7 @@
     pos: 0x060fca68, len: 223540, rewards: 0x181c,
   }, {
     // BO3
-    pos: 0x061a60b8, len: 210224, rewards: 0x1c60,
+    pos: 0x061a60b8, len: 210224, rewards: 0x1c60, items: 0x108c,
   }, {
     // BO4
     pos: 0x06246d38, len: 347704, rewards: 0x42b0,
@@ -336,7 +340,8 @@
     enemyDataOff: enemyDataOff,
     enemyDataLen: enemyDataLen,
     RELIC: RELIC,
-    tileIdOffset: 0x80,
+    tileIdOffset: tileIdOffset,
+    equipIdOffset: equipIdOffset,
     SLOT: SLOT,
     BOSS: BOSS,
     bosses: bosses,
