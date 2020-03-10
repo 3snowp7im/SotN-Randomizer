@@ -283,7 +283,7 @@
     while (i < randomize.length) {
       let c = randomize[i++]
       switch (c) {
-      case 'P':
+      case 'P': {
         // Check for an argument.
         if (randomize[i] !== ':') {
           throw new Error('Expected argument')
@@ -304,7 +304,8 @@
           i++
         }
         break
-      case 'd':
+      }
+      case 'd': {
         let enemyDrops = options.enemyDrops || true
         // Check for an argument.
         if (randomize[i] === ':') {
@@ -401,7 +402,8 @@
         }
         options.enemyDrops = enemyDrops
         break
-      case 'e':
+      }
+      case 'e': {
         let startingEquipment = options.startingEquipment || true
         // Check for an argument.
         if (randomize[i] === ':') {
@@ -536,7 +538,8 @@
         }
         options.startingEquipment = startingEquipment
         break
-      case 'i':
+      }
+      case 'i': {
         let itemLocations = options.itemLocations || true
         // Check for an argument.
         if (randomize[i] === ':') {
@@ -649,7 +652,8 @@
         }
         options.itemLocations = itemLocations
         break
-      case 'p':
+      }
+      case 'p': {
         let prologueRewards = options.prologueRewards || true
         // Check for an argument
         if (randomize[i] === ':') {
@@ -718,7 +722,8 @@
         }
         options.prologueRewards = prologueRewards
         break
-      case 'r':
+      }
+      case 'r': {
         let relicLocations = options.relicLocations || true
         // Check for an argument.
         if (randomize[i] === ':') {
@@ -726,7 +731,7 @@
           let args = 0
           while (i < randomize.length && randomize[i] !== ',') {
             // If there's an argument it's either a location lock.
-            const relics = Object.getOwnPropertyNames(constants.RELIC)
+            const relicNames = Object.getOwnPropertyNames(constants.RELIC)
             let arg
             let start
             // Parse the arg name.
@@ -739,9 +744,16 @@
             if (!arg.length) {
               throw new Error('Expected argument')
             }
-            const location = constants.RELIC[relics.filter(function(relic) {
-              return constants.RELIC[relic] === arg
-            }).pop()]
+            const locations = relics.map(function(relic) {
+              return relic.ability
+            }).concat(extension.locations.map(function(location) {
+              let name = location.name.replace(/[^a-zA-Z0-9]/g, '')
+              name = name.toLowerCase()
+              return name
+            }))
+            const location = locations.filter(function(name) {
+              return name === arg.toLowerCase()
+            }).pop()
             if (!location) {
               throw new Error('Invalid relic location: ' + arg)
             }
@@ -759,7 +771,7 @@
                 if (c === '-') {
                   return false
                 }
-                return !relics.some(function(relic) {
+                return !relicNames.some(function(relic) {
                   return constants.RELIC[relic] === c
                 })
               })
@@ -802,7 +814,8 @@
         }
         options.relicLocations = relicLocations
         break
-      case 'x':
+      }
+      case 'x': {
         let extension = options.relicLocationsExtension
           || constants.defaultExtension
         // Check for an argument.
@@ -833,9 +846,11 @@
         }
         options.relicLocationsExtension = extension
         break
-      case 't':
+      }
+      case 't': {
         options.turkeyMode = true
         break
+      }
       default:
         throw new Error('Invalid randomization: ' + c)
       }
