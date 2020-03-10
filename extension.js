@@ -112,7 +112,7 @@
       addresses: [ 0x0526e6a0, 0x0526f86e ],
       entityId: 0x000c,
       itemIndex: 39,
-      y: 0x0089,
+      y: 0x00b9,
     }],
   }, {
     // Soul of Wolf
