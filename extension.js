@@ -81,7 +81,7 @@
       zone: ZONE.LIB,
       addresses: [ 0x047a5b5e, 0x047a623e ],
       entityId: 0x000c,
-      itemIndex: 11,
+      itemIndex: 33,
       y: 0x00a9,
     }],
   }, {
@@ -92,7 +92,7 @@
       addresses: [ 0x05575356, 0x05575e92 ],
       entityId: 0x000c,
       itemIndex: 12,
-      y: 0x00cd,
+      y: 0x00c9,
     }],
   }, {
     // Echo of Bat
@@ -131,13 +131,13 @@
       zone: ZONE.NO3,
       addresses: [ 0x04b6b14a, 0x04b6b9ac ],
       entityId: 0x000c,
-      itemIndex: 10,
+      itemIndex: 48,
       y: 0x00c8,
     }, {
       zone: ZONE.NP3,
       addresses: [ 0x053f8f16, 0x053f9714 ],
       entityId: 0x000c,
-      itemIndex: 10,
+      itemIndex: 48,
       y: 0x00c8,
     }],
   }, {
@@ -169,7 +169,7 @@
       addresses: [ 0x05610db0, 0x05611424 ],
       entityId: 0x000c,
       itemIndex: 21,
-      y: 0x00cd,
+      y: 0x04c8,
     }],
   }, {
     // Gas Cloud
@@ -189,13 +189,13 @@
       zone: ZONE.NO3,
       addresses: [ 0x04b6b082, 0x04b6b93e ],
       entityId: 0x000c,
-      itemIndex: 11,
+      itemIndex: 49,
       y: 0x007b,
     }, {
       zone: ZONE.NP3,
       addresses: [ 0x053f8e26, 0x053f9692 ],
       entityId: 0x000c,
-      itemIndex: 11,
+      itemIndex: 49,
       y: 0x007b,
     }],
   }, {
@@ -226,6 +226,7 @@
       addresses: [ 0x05610dba, 0x05611612 ],
       entityId: 0x000c,
       itemIndex: 22,
+      y: 0x0729,
     }],
   }, {
     // Holy Symbol
@@ -235,7 +236,7 @@
       addresses: [ 0x04c34ede, 0x04c361d0 ],
       entityId: 0x000c,
       itemIndex: 42,
-      y: 0x00bd,
+      y: 0x00b9,
     }],
   }, {
     // Faerie Scroll
@@ -244,7 +245,7 @@
       zone: ZONE.LIB,
       addresses: [ 0x047a5718, 0x047a5dca ],
       entityId: 0x000c,
-      itemIndex: 33,
+      itemIndex: 34,
       y: 0x00b9,
     }],
   }, {
@@ -284,7 +285,7 @@
       addresses: [ 0x05611274, 0x05611950 ],
       entityId: 0x000c,
       itemIndex: 22,
-      y: 0x00a9,
+      y: 0x02a8,
     }],
   }, {
     // Faerie Card
@@ -293,8 +294,8 @@
       zone: ZONE.LIB,
       addresses: [ 0x047a577c, 0x047a5f64 ],
       entityId: 0x000c,
-      itemIndex: 34,
-      y: 0x00ba,
+      itemIndex: 35,
+      y: 0x00b9,
     }],
   }, {
     // Demon Card
@@ -304,7 +305,7 @@
       addresses: [ 0x045ea956, 0x045eacda ],
       entityId: 0x000c,
       itemIndex: 13,
-      y: 0x00c2,
+      y: 0x00b8,
     }],
   }, {
     // Sword Card
@@ -314,7 +315,7 @@
       addresses: [ 0x04aa3f6e, 0x04aa47c6 ],
       entityId: 0x000c,
       itemIndex: 13,
-      y: 0x009d,
+      y: 0x009c,
     }],
   }, {
     // Heart of Vlad
