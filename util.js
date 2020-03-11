@@ -2,14 +2,16 @@
 
   let constants
   let enemies
+  let errors
+  let extension
   let items
   let relics
-  let extension
   let sha256
 
   if (self) {
     constants = self.sotnRando.constants
     enemies = self.sotnRando.enemies
+    errors = self.sotnRando.errors
     extension = self.sotnRando.extension
     items = self.sotnRando.items
     relics = self.sotnRando.relics
@@ -19,6 +21,7 @@
   } else {
     constants = require('./constants')
     enemies = require('./enemies')
+    errors = require('./errors')
     extension = require('./extension')
     items = require('./items')
     relics = require('./relics')
@@ -28,34 +31,24 @@
     }
   }
 
-  function AssertionError(message) {
-    this.name = 'AssertionError'
-    this.message = message
-    this.stack = new Error(message).stack
-  }
-
-  const _error = function() {}
-  _error.prototype = Error.prototype
-  AssertionError.prototype = new _error()
-
   function assert(value, message) {
     if (!value) {
       message = message || 'Assertion failed: ' + value
-      throw new AssertionError(message)
+      throw new errors.AssertionError(message)
     }
   }
 
   assert.equal = function equal(actual, expected, message) {
     if (actual !== expected) {
       message = message || 'Assertion failed: ' + actual + ' === ' + expected
-      throw new AssertionError(message)
+      throw new errors.AssertionError(message)
     }
   }
 
   assert.notEqual = function equal(actual, expected, message) {
     if (actual === expected) {
       message = message || 'Assertion failed: ' + actual + ' !== ' + expected
-      throw new AssertionError(message)
+      throw new errors.AssertionError(message)
     }
   }
 
@@ -63,7 +56,7 @@
     if (expected.indexOf(actual) === -1) {
       message = message || 'Assertion failed: ' + actual + ' one of '
         + expected.join(', ')
-      throw new AssertionError(message)
+      throw new errors.AssertionError(message)
     }
   }
 

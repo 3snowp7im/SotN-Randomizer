@@ -3,6 +3,7 @@
 const fs = require('fs')
 const path = require('path')
 const constants = require('./constants')
+const errors = require('./errors')
 const presets = require('./presets')
 const randomizeItems = require('./randomize_items')
 const randomizeRelics = require('./randomize_relics')
@@ -444,8 +445,16 @@ try {
   console.error('\n' + err.message)
   process.exit(1)
 }
-returnVal = randomizeItems(check, applied, info) && returnVal
-returnVal = randomizeRelics(check, applied, info) && returnVal
+try {
+  returnVal = randomizeItems(check, applied, info) && returnVal
+  returnVal = randomizeRelics(check, applied, info) && returnVal
+} catch (err) {
+  if (errors.isError(err)) {
+    console.error('Error: ' + err.message)
+    process.exit(1)
+  }
+  throw err
+}
 util.setSeedText(check, seed)
 const checksum = check.sum()
 // Verify expected checksum matches actual checksum.

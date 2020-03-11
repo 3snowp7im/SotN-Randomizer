@@ -12,6 +12,7 @@
 (function(self) {
 
   let constants
+  let errors
   let extension
   let items
   let presets
@@ -19,6 +20,7 @@
   let util
   if (self) {
     constants = self.sotnRando.constants
+    errors = self.sotnRando.errors
     extension = self.sotnRando.extension
     items = self.sotnRando.items
     presets = self.sotnRando.presets
@@ -26,15 +28,12 @@
     util = self.sotnRando.util
   } else {
     constants = require('./constants')
+    errors = require('./errors')
     extension = require('./extension')
     items = require('./items')
     presets = require('./presets')
     relics = require('./relics')
     util = require('./util')
-  }
-
-  const ERROR = {
-    SOFTLOCK: 'softlock generated',
   }
 
   const shopRelicNameAddress = 0x47d5650
@@ -275,7 +274,7 @@
       }
     }
     return {
-      error: new Error(ERROR.SOFTLOCK),
+      error: new errors.SoftlockError(),
       relics: pool.relics,
     }
   }
@@ -326,6 +325,29 @@
   function randomizeRelics(data, options, info) {
     let returnVal = true
     if (options.relicLocations) {
+      // Perform a sanity check if location extension enabled.
+      if ('data' in data && options.relicLocationsExtension) {
+        extension.relics.forEach(function(relic) {
+          if (relic.entities) {
+            relic.entities.forEach(function(entity) {
+              entity.addresses.forEach(function(address) {
+                if (data.readShort(address + 4) === entity.entityId) {
+                  throw new errors.RandomizedFileError()
+                }
+              })
+            })
+          }
+          if (relic.instructions) {
+            relic.instructions.forEach(function(instruction) {
+              instruction.addresses.forEach(function(address) {
+                if (data.readWord(address) === instruction.instruction) {
+                  throw new errors.RandomizedFileError()
+                }
+              })
+            })
+          }
+        })
+      }
       // Initialize location locks.
       const locksMap = {}
       if (typeof(options.relicLocations) === 'object') {
@@ -382,8 +404,7 @@
       while (attempts++ < 1024) {
         result = pickRelicLocations(pool)
         if (result.error) {
-          switch (result.error.message) {
-          case ERROR.SOFTLOCK:
+          if (result.error instanceof errors.SoftlockError) {
             // If a softlock was generated, move the unplaced relics to the
             // beginning of the relics pool list and try again.
             result.relics.forEach(function(relic) {
@@ -391,7 +412,7 @@
             })
             pool.relics = result.relics.concat(pool.relics)
             continue
-          default:
+          } else {
             throw result.error
           }
         }

@@ -168,6 +168,7 @@
       resetState()
       selectedFile = elems.file.files[0]
       resetTarget()
+      elems.target.classList.add('active')
     }
   }
 
