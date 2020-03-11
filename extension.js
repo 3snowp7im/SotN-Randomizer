@@ -121,8 +121,8 @@
       zone: ZONE.NO1,
       addresses: [ 0x049d5d36, 0x049d658e ],
       entityId: 0x000c,
-      itemIndex: 7,
-      y: 0x0089,
+      itemIndex: 46,
+      y: 0x0331,
     }],
   }, {
     // Power of Wolf
