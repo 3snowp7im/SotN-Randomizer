@@ -79,9 +79,9 @@
     id: 0,
     entities: [{
       zone: ZONE.LIB,
+      itemIndex: 33,
       addresses: [ 0x047a5b5e, 0x047a623e ],
       entityId: 0x000c,
-      itemIndex: 33,
       y: 0x00a9,
     }],
   }, {
@@ -89,9 +89,9 @@
     id: 1,
     entities: [{
       zone: ZONE.NZ1,
+      itemIndex: 12,
       addresses: [ 0x05575356, 0x05575e92 ],
       entityId: 0x000c,
-      itemIndex: 12,
       y: 0x00c9,
     }],
   }, {
@@ -99,9 +99,9 @@
     id: 2,
     entities: [{
       zone: ZONE.NO2,
+      itemIndex: 12,
       addresses: [ 0x04aa414e, 0x04aa49a6 ],
       entityId: 0x000c,
-      itemIndex: 12,
       y: 0x009d,
     }],
   }, {
@@ -109,9 +109,9 @@
     id: 3,
     entities: [{
       zone: ZONE.RNO4,
+      itemIndex: 39,
       addresses: [ 0x0526e6a0, 0x0526f86e ],
       entityId: 0x000c,
-      itemIndex: 39,
       y: 0x00b9,
     }],
   }, {
@@ -119,9 +119,9 @@
     id: 4,
     entities: [{
       zone: ZONE.NO1,
+      itemIndex: 46,
       addresses: [ 0x049d5d36, 0x049d658e ],
       entityId: 0x000c,
-      itemIndex: 46,
       y: 0x0331,
     }],
   }, {
@@ -129,15 +129,15 @@
     id: 5,
     entities: [{
       zone: ZONE.NO3,
+      itemIndex: 48,
       addresses: [ 0x04b6b14a, 0x04b6b9ac ],
       entityId: 0x000c,
-      itemIndex: 48,
       y: 0x00c8,
     }, {
       zone: ZONE.NP3,
+      itemIndex: 48,
       addresses: [ 0x053f8f16, 0x053f9714 ],
       entityId: 0x000c,
-      itemIndex: 48,
       y: 0x00c8,
     }],
   }, {
@@ -145,20 +145,20 @@
     id: 6,
     entities: [{
       zone: ZONE.NZ0,
-      addresses: [ 0x054b43fc, 0x054b4e70 ],
-      entityId: 0x0034,
       itemIndex: 13,
-      x: 0x0080,
-      y: 0x00a8,
+      addresses: [ 0x054b43fc, 0x054b4e70 ],
+      entityId: 0x000c,
+      x: 0x007e,
+      y: 0x00b9,
     }],
   }, {
     // Form of Mist
     id: 7,
     entities: [{
       zone: ZONE.ARE,
+      itemIndex: 11,
       addresses: [ 0x043c5782, 0x043c5e00 ],
       entityId: 0x000c,
-      itemIndex: 11,
       y: 0x0099,
     }],
   }, {
@@ -166,9 +166,9 @@
     id: 8,
     entities: [{
       zone: ZONE.TOP,
+      itemIndex: 21,
       addresses: [ 0x05610db0, 0x05611424 ],
       entityId: 0x000c,
-      itemIndex: 21,
       y: 0x04c8,
     }],
   }, {
@@ -176,9 +176,9 @@
     id: 9,
     entities: [{
       zone: ZONE.RCAT,
+      itemIndex: 39,
       addresses: [ 0x04cfcb0e, 0x04cfd892 ],
       entityId: 0x000c,
-      itemIndex: 39,
       x: 0x0016,
       y: 0x00b1,
     }],
@@ -187,15 +187,15 @@
     id: 10,
     entities: [{
       zone: ZONE.NO3,
+      itemIndex: 49,
       addresses: [ 0x04b6b082, 0x04b6b93e ],
       entityId: 0x000c,
-      itemIndex: 49,
       y: 0x007b,
     }, {
       zone: ZONE.NP3,
+      itemIndex: 49,
       addresses: [ 0x053f8e26, 0x053f9692 ],
       entityId: 0x000c,
-      itemIndex: 49,
       y: 0x007b,
     }],
   }, {
@@ -203,9 +203,9 @@
     id: 11,
     entities: [{
       zone: ZONE.NO0,
+      itemIndex: 14,
       addresses: [ 0x048fd1f6, 0x048fe278 ],
       entityId: 0x000c,
-      itemIndex: 14,
       x: 0x0043,
     }],
   }, {
@@ -213,9 +213,9 @@
     id: 12,
     entities: [{
       zone: ZONE.NO0,
+      itemIndex: 41,
       addresses: [ 0x048fc9b2, 0x048fd944 ],
       entityId: 0x000c,
-      itemIndex: 41,
       y: 0x00b9,
     }],
   }, {
@@ -223,9 +223,9 @@
     id: 13,
     entities: [{
       zone: ZONE.TOP,
+      itemIndex: 22,
       addresses: [ 0x05610dba, 0x05611612 ],
       entityId: 0x000c,
-      itemIndex: 22,
       y: 0x0729,
     }],
   }, {
@@ -233,9 +233,9 @@
     id: 14,
     entities: [{
       zone: ZONE.NO4,
+      itemIndex: 42,
       addresses: [ 0x04c34ede, 0x04c361d0 ],
       entityId: 0x000c,
-      itemIndex: 42,
       y: 0x00b9,
     }],
   }, {
@@ -243,9 +243,9 @@
     id: 15,
     entities: [{
       zone: ZONE.LIB,
+      itemIndex: 34,
       addresses: [ 0x047a5718, 0x047a5dca ],
       entityId: 0x000c,
-      itemIndex: 34,
       y: 0x00b9,
     }],
   }, {
@@ -261,9 +261,9 @@
     id: 17,
     entities: [{
       zone: ZONE.NO4,
+      itemIndex: 43,
       addresses: [ 0x04c3516c, 0x04c36472 ],
       entityId: 0x000c,
-      itemIndex: 43,
       y: 0x00b9,
     }],
   }, {
@@ -271,20 +271,20 @@
     id: 18,
     entities: [{
       zone: ZONE.NZ0,
-      addresses: [ 0x054b3d04, 0x054b4778 ],
-      entityId: 0x0034,
       itemIndex: 14,
-      x: 0x0080,
-      y: 0x00a8,
+      addresses: [ 0x054b3d04, 0x054b4778 ],
+      entityId: 0x000c,
+      x: 0x007e,
+      y: 0x00b9,
     }],
   }, {
     // Ghost Card
     id: 19,
     entities: [{
       zone: ZONE.TOP,
+      itemIndex: 22,
       addresses: [ 0x05611274, 0x05611950 ],
       entityId: 0x000c,
-      itemIndex: 22,
       y: 0x02a8,
     }],
   }, {
@@ -292,9 +292,9 @@
     id: 20,
     entities: [{
       zone: ZONE.LIB,
+      itemIndex: 35,
       addresses: [ 0x047a577c, 0x047a5f64 ],
       entityId: 0x000c,
-      itemIndex: 35,
       y: 0x00b9,
     }],
   }, {
@@ -302,9 +302,9 @@
     id: 21,
     entities: [{
       zone: ZONE.CHI,
+      itemIndex: 13,
       addresses: [ 0x045ea956, 0x045eacda ],
       entityId: 0x000c,
-      itemIndex: 13,
       y: 0x00b8,
     }],
   }, {
@@ -312,9 +312,9 @@
     id: 22,
     entities: [{
       zone: ZONE.NO2,
+      itemIndex: 13,
       addresses: [ 0x04aa3f6e, 0x04aa47c6 ],
       entityId: 0x000c,
-      itemIndex: 13,
       y: 0x009c,
     }],
   }, {

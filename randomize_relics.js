@@ -122,8 +122,14 @@
                 if ('y' in entity) {
                   data.writeShort(address + 2, entity.y)
                 }
-                data.writeShort(address + 4, entity.entityId)
-                data.writeShort(address + 8, entity.itemIndex)
+                if ('entityId' in entity) {
+                  data.writeShort(address + 4, entity.entityId)
+                }
+                if ('state' in entity) {
+                  data.writeShort(address + 8, entity.state)
+                } else {
+                  data.writeShort(address + 8, entity.itemIndex)
+                }
                 // Update the item table.
                 data.writeShort(
                   util.romOffset(zone, zone.items + 2 * entity.itemIndex),
