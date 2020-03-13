@@ -429,57 +429,64 @@ require('seedrandom')(util.saltSeed(
 if (!('seed' in argv) && (!('url' in argv) || argv._[0])) {
   info[1]['Seed'] = seed
 }
-let data
+let fd
+let size
 // Read bin file if provided.
 if ('bin' in argv) {
   eccEdcCalc = require('./ecc-edc-recalc-js')
-  data = fs.readFileSync(argv.bin)
-}
-const check = new util.checked(data)
-let returnVal = true
-let applied
-try {
-  applied = util.Preset.options(options)
-} catch (err) {
-  yargs.showHelp()
-  console.error('\n' + err.message)
-  process.exit(1)
+  const stats = fs.statSync(argv.bin)
+  size = stats.size
+  fd = fs.openSync(argv.bin, 'r+')
 }
 try {
-  returnVal = randomizeItems(check, applied, info) && returnVal
-  returnVal = randomizeRelics(check, applied, info) && returnVal
-} catch (err) {
-  if (errors.isError(err)) {
-    console.error('Error: ' + err.message)
+  const check = new util.checked(fd)
+  let returnVal = true
+  let applied
+  try {
+    applied = util.Preset.options(options)
+  } catch (err) {
+    yargs.showHelp()
+    console.error('\n' + err.message)
     process.exit(1)
   }
-  throw err
-}
-util.setSeedText(check, seed)
-const checksum = check.sum()
-// Verify expected checksum matches actual checksum.
-if (haveChecksum && expectChecksum !== checksum) {
-  console.error('Checksum mismatch.')
-  process.exit(1)
-}
-// Show url if not provided as arg.
-if ('url' in argv && !argv._[0]) {
-  console.log(util.optionsToUrl(
-    version,
-    options,
-    checksum,
-    seed,
-    baseUrl,
-  ).toString())
-}
-if (argv.verbose >= 1) {
-  const text = util.formatInfo(info, argv.verbose)
-  if (text.length) {
-    console.log(text)
+  try {
+    randomizeRelics(check, applied, info)
+    randomizeItems(check, applied, info)
+  } catch (err) {
+    if (errors.isError(err)) {
+      console.error('Error: ' + err.message)
+      process.exit(1)
+    }
+    throw err
+  }
+  util.setSeedText(check, seed)
+  const checksum = check.sum()
+  // Verify expected checksum matches actual checksum.
+  if (haveChecksum && expectChecksum !== checksum) {
+    console.error('Checksum mismatch.')
+    process.exit(1)
+  }
+  // Show url if not provided as arg.
+  if ('url' in argv && !argv._[0]) {
+    console.log(util.optionsToUrl(
+      version,
+      options,
+      checksum,
+      seed,
+      baseUrl,
+    ).toString())
+  }
+  if (argv.verbose >= 1) {
+    const text = util.formatInfo(info, argv.verbose)
+    if (text.length) {
+      console.log(text)
+    }
+  }
+  if (fd) {
+    eccEdcCalc(fd, size)
+  }
+} finally {
+  if (fd) {
+    fs.closeSync(fd)
   }
 }
-if (argv.checkVanilla || !('bin' in argv)) {
-  process.exit(returnVal ? 0 : 1)
-}
-eccEdcCalc(data)
-fs.writeFileSync(argv.bin, data)

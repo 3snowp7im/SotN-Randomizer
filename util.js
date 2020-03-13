@@ -6,6 +6,7 @@
   let extension
   let items
   let relics
+  let fs
   let sha256
 
   if (self) {
@@ -26,6 +27,7 @@
     items = require('./items')
     relics = require('./relics')
     const crypto = require('crypto')
+    fs = require('fs')
     sha256 = function(input) {
       return crypto.createHash('sha256').update(input).digest().toString('hex')
     }
@@ -269,47 +271,114 @@
     return '0x' + hex
   }
 
-  function checked(data) {
-    if (data) {
-      this.data = data
+  function checked(file) {
+    if (file) {
+      this.file = file
     }
     this.writes = {}
   }
 
-  checked.prototype.readByte = function readByte(address, readWritten) {
-    if (readWritten && address in this.writes) {
-      return this.writes[address]
+  checked.prototype.readByte = function readByte(address) {
+    let buf
+    if (self) {
+      buf = [
+        this.file[address + 0],
+      ]
+    } else {
+      buf = Buffer.alloc(1)
+      fs.readSync(this.file, buf, 0, 1, address)
     }
-    return this.data[address]
+    return buf[0]
+  }
+
+  checked.prototype.isWriteOnly = function isWriteOnly() {
+    return !('file' in this)
   }
 
   checked.prototype.readShort = function readShort(address, readWritten) {
-    return (this.readByte(address + 1, readWritten) << 8)
-      + (this.readByte(address + 0, readWritten))
+    let buf
+    if (self) {
+      buf = [
+        this.file[address + 0],
+        this.file[address + 1],
+      ]
+    } else {
+      buf = Buffer.alloc(2)
+      fs.readSync(this.file, buf, 0, 2, address)
+    }
+    return (buf[1] << 8) + buf[0]
   }
 
   checked.prototype.readWord = function readWord(address, readWritten) {
-    return (this.readShort(address + 2, readWritten) << 16)
-      + (this.readShort(address + 0, readWritten))
+    let buf
+    if (self) {
+      buf = [
+        this.file[address + 0],
+        this.file[address + 1],
+        this.file[address + 2],
+        this.file[address + 3],
+      ]
+    } else {
+      buf = Buffer.alloc(4)
+      fs.readSync(this.file, buf, 0, 4, address)
+    }
+    return (buf[3] << 24) + (buf[2] << 16) + (buf[3] << 8) + buf[0]
   }
 
   checked.prototype.writeByte = function writeByte(address, val) {
-    if (this.data) {
-      this.data[address] = val
+    if (this.file) {
+      if (self) {
+        this.file[address] = val & 0xff
+      } else {
+        const buf = Buffer.from([val & 0xff])
+        fs.writeSync(this.file, buf, 0, 1, address)
+      }
     }
-    this.writes[address] = val
+    this.writes[address] = val & 0xff
     return address + 1
   }
 
   checked.prototype.writeShort = function writeShort(address, val) {
-    this.writeByte(address + 0, val & 0xff)
-    this.writeByte(address + 1, val >>> 8)
+    const bytes = [
+      val & 0xff,
+      (val >>> 8) & 0xff,
+    ]
+    if (this.file) {
+      if (self) {
+        for (let i = 0; i < 2; i++) {
+          this.file[address + i] = bytes[i]
+        }
+      } else {
+        const buf = Buffer.from(bytes)
+        fs.writeSync(this.file, buf, 0, 2, address)
+      }
+    }
+    for (let i = 0; i < 2; i++) {
+      this.writes[address + i] = bytes[i]
+    }
     return address + 2
   }
 
   checked.prototype.writeWord = function writeShort(address, val) {
-    this.writeShort(address + 0, val & 0xffff)
-    this.writeShort(address + 2, val >>> 16)
+    const bytes = [
+      val & 0xff,
+      (val >>> 8) & 0xff,
+      (val >>> 16) & 0xff,
+      (val >>> 24) & 0xff,
+    ]
+    if (this.file) {
+      if (self) {
+        for (let i = 0; i < 4; i++) {
+          this.file[address + i] = bytes[i]
+        }
+      } else {
+        const buf = Buffer.from(bytes)
+        fs.writeSync(this.file, buf, 0, 4, address)
+      }
+    }
+    for (let i = 0; i < 4; i++) {
+      this.writes[address + i] = bytes[i]
+    }
     return address + 4
   }
 
@@ -1124,11 +1193,11 @@
     if (!randomize.length) {
       throw new Error('No randomizations')
     }
-    randomize = randomize.reduce(function(randomize, opt, index) {
+    randomize = randomize.reduce(function(str, opt, index) {
       if (opt.length > 1 && index < randomize.length - 1) {
         opt += ','
       }
-      return randomize + opt
+      return str + opt
     }, '')
     // Handle the edge case where the options are the same as a preset.
     if (!disableRecurse) {

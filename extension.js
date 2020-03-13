@@ -18,7 +18,7 @@
       // Crystal Cloak
       type: TYPE.CLOAK,
       id: 221,
-      tileIndex: 0,
+      tileIndexes: [ 0 ],
     },
     entities: [{
       zone: ZONE.NO4,
@@ -36,7 +36,7 @@
       // Mormegil
       type: TYPE.WEAPON1,
       id: 110,
-      tileIndex: 0,
+      tileIndexes: [ 0 ],
     },
     entities: [{
       zone: ZONE.CAT,
@@ -50,7 +50,7 @@
       // Dark Blade
       type: TYPE.WEAPON1,
       id: 118,
-      tileIndex: 0,
+      tileIndexes: [ 0 ],
     },
     entities: [{
       zone: ZONE.RNO4,
@@ -64,7 +64,7 @@
       // Ring of Arcana
       type: TYPE.ACCESSORY,
       id: 244,
-      tileIndex: 0,
+      tileIndexes: [ 0 ],
     },
     entities: [{
       zone: ZONE.RNZ0,
@@ -251,7 +251,6 @@
   }, {
     // Jewel of Open
     id: 16,
-    erase: true,
     instructions: [{
       addresses: [ 0x047dbdf8 ],
       instruction: 0x0806cadc,
@@ -320,7 +319,6 @@
   }, {
     // Heart of Vlad
     id: 25,
-    erase: true,
     entities: [{
       zone: ZONE.RDAI,
       addresses: [ 0x04e335ac, 0x04e34048 ],
@@ -333,7 +331,6 @@
   }, {
     // Tooth of Vlad
     id: 26,
-    erase: true,
     entities: [{
       zone: ZONE.RNO1,
       addresses: [ 0x05051d4a, 0x05052566 ],
@@ -346,7 +343,6 @@
   }, {
     // Rib of Vlad
     id: 27,
-    erase: true,
     entities: [{
       zone: ZONE.RNO2,
       addresses: [ 0x050fa90c, 0x050fb220 ],
@@ -359,7 +355,6 @@
   }, {
     // Ring of Vlad
     id: 28,
-    erase: true,
     instructions: [{
       addresses: [ 0x059ee594 ],
       instruction: 0x34020000,
@@ -370,7 +365,6 @@
   }, {
     // Eye of Vlad
     id: 29,
-    erase: true,
     entities: [{
       zone: ZONE.RCHI,
       addresses: [ 0x04da65ea, 0x04da6a4a ],

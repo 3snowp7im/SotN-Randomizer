@@ -29,14 +29,14 @@ self.addEventListener('message', function(message) {
       data.seed,
     ))
     const options = self.sotnRando.util.Preset.options(data.options)
+    sotnRando.randomizeRelics(check, options, data.info)
     sotnRando.randomizeItems(check, options, data.info)
-    sotnRando.randomizeRelics(check,options, data.info)
     sotnRando.util.setSeedText(check, data.seed)
     const checksum = check.sum()
     if (data.checksum && data.checksum !== checksum) {
       throw new errors.VersionError()
     }
-    eccEdcCalc(array)
+    eccEdcCalc(array, array.length)
     self.postMessage({
       seed: data.seed,
       data: fileData,

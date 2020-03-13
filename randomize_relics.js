@@ -83,30 +83,33 @@
       }
       // Check for extended location.
       if ('extension' in location) {
-        // Replace or erase item displaced by randomized extension location.
-        let replacementItem
+        // Get item being displaced by relic.
         const replaceLocation = vanilla.shift()
-        if (!replaceLocation.erase) {
-          // Get item being displaced.
-          const item = items.filter(function(item) {
-            return item.type === location.item.type
-              && item.id === location.item.id
-          }).pop()
-          // Get a tile being replaced.
-          const tile = item.tiles[location.item.tileIndex]
-          const address = tile.addresses[0]
-          try {
-            // This will fail if doing a dry run without item randomization.
-            const id = data.readShort(address, true)
-            replacementItem = util.itemFromTileId(items, id)
-          } catch (err) {
-            // Use vanilla item.
-            replacementItem = item
-          }
-        }
+        // Get item being displaced.
+        const replaceItem = items.filter(function(item) {
+          return item.type === location.item.type
+            && item.id === location.item.id
+        }).pop()
+        // Remove the displaced item tiles.
+        location.item.tileIndexes.forEach(function(index) {
+          replaceItem.tiles.splice(index, 1)
+        })
         if (replaceLocation.entities) {
           replaceLocation.entities.forEach(function(entity) {
-            const zone = constants.zones[entity.zone]
+            if (!entity.erase) {
+              // Replace item.
+              const zone = constants.zones[entity.zone]
+              const offset = zone.items + 2 * entity.itemIndex
+              const addr = util.romOffset(zone, offset)
+              // Add the new tiles.
+              replaceItem.tiles.push({
+                zone: entity.zone,
+                addresses: [ addr ],
+              })
+              // Update the item table.
+              data.writeShort(addr, util.tileValue(replaceItem.id))
+            }
+            // Write entities.
             entity.addresses.forEach(function(address) {
               if (entity.erase) {
                 // Erase the entity.
@@ -130,11 +133,6 @@
                 } else {
                   data.writeShort(address + 8, entity.itemIndex)
                 }
-                // Update the item table.
-                data.writeShort(
-                  util.romOffset(zone, zone.items + 2 * entity.itemIndex),
-                  util.tileValue(replacementItem),
-                )
               }
             })
           })
@@ -329,10 +327,9 @@
   }
 
   function randomizeRelics(data, options, info) {
-    let returnVal = true
     if (options.relicLocations) {
       // Perform a sanity check if location extension enabled.
-      if ('data' in data && options.relicLocationsExtension) {
+      if (!data.isWriteOnly() && options.relicLocationsExtension) {
         extension.relics.forEach(function(relic) {
           if (relic.entities) {
             relic.entities.forEach(function(entity) {
@@ -482,7 +479,6 @@
       // load the cutscene version every time he enters.
       data.writeByte(0x119af4, 0x00)
     }
-    return returnVal
   }
 
   const exports = randomizeRelics

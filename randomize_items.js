@@ -962,7 +962,6 @@
       }
       break
     }
-    return true
   }
 
   const exports = randomizeItems
