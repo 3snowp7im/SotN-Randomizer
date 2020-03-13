@@ -5,8 +5,8 @@
     exports = self.sotnRando.presets
   } else {
     exports = [
-      require('./safe'),
       require('./casual'),
+      require('./safe'),
       require('./agonize'),
       require('./optimize'),
       require('./glitch'),

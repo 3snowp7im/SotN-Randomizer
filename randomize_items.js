@@ -749,22 +749,7 @@
     // Place planned drops.
     if (planned) {
       Object.getOwnPropertyNames(planned).forEach(function(key) {
-        const dashIndex = key.lastIndexOf('-')
-        let enemyName = key.toLowerCase()
-        let level
-        if (dashIndex !== -1) {
-          level = parseInt(enemyName.slice(dashIndex + 1))
-          enemyName = key.slice(0, dashIndex).toLowerCase()
-        }
-        const enemy = enemies.filter(function(enemy) {
-          const name = enemy.name.toLowerCase().replace(/[^a-zA-Z0-9]/g, '')
-          if (name === enemyName) {
-            if (typeof(level) !== 'undefined') {
-              return enemy.level === level
-            }
-            return true
-          }
-        }).pop()
+        const enemy = util.enetiesFromIdString(key)
         const matches = items.filter(itemTileFilter(function(tile) {
           return tile.enemy === enemy.id
         }))
