@@ -61,8 +61,10 @@
       return vanilla
     }, [])
     // Write new relic locations.
-    Object.getOwnPropertyNames(mapping).forEach(function(location) {
-      location = locations[parseInt(location)]
+    Object.getOwnPropertyNames(mapping).forEach(function(index) {
+      const location = locations.filter(function(location) {
+        return location.location === parseInt(index)
+      }).pop()
       const relic = mapping[location.location]
       // Check if placing in the shop.
       const jewelOfOpen = relicFromId(0x10)
@@ -226,12 +228,8 @@
     for (let i = 0; i < pool.relics.length; i++) {
       const remainingRelics = pool.relics.slice()
       const relic = remainingRelics.splice(i, 1)[0]
-      // Find a location not locked by this current relic.
+      // Find a location not locked by the current relic.
       const locationsAvailable = pool.locations.filter(function(location) {
-        if (mapping[location.location]) {
-          return false
-        }
-        // Find a location with a lock set that doesn't contain this relic.
         return location.locks.some(function(lock) {
           return !lock.has(relic.ability)
         })
@@ -241,7 +239,9 @@
         // After placing the relic in this location, anything previously
         // locked by the relic is now locked by the requirements of the new
         // location.
-        const newLocations = pool.locations.map(function(newLocation) {
+        const newLocations = pool.locations.filter(function(newLocation) {
+          return newLocation !== location
+        }).map(function(newLocation) {
           newLocation = Object.assign({}, newLocation)
           const newLocks = replaceLocks(
             newLocation.locks,
@@ -322,7 +322,7 @@
       }))
     }
     if (visited.size < relics.length) {
-      throw new Error('soft lock generated')
+      throw new errors.SoftlockError()
     }
   }
 

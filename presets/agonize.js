@@ -26,6 +26,9 @@
   // Create preset builder.
   const builder = new PresetBuilder(metadata)
 
+  // Disable relic location extension.
+  builder.relicLocationsExtension(false)
+
   // Custom logic...
 
   // Power of Wolf at Spirit Orb.
@@ -38,7 +41,7 @@
   builder.placeRelic(RELIC.SOUL_OF_WOLF, RELIC.MERMAN_STATUE)
 
   // Leap Stone at Demon Card.
-  builder.placeRelic(RELIC.LEAP_STONE, LOCATION.GRANFALLOON)
+  builder.placeRelic(RELIC.LEAP_STONE, RELIC.DEMON_CARD)
 
   // Form of Mist at Leap Stone.
   builder.placeRelic(RELIC.FORM_OF_MIST, RELIC.LEAP_STONE)

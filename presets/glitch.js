@@ -25,10 +25,13 @@
   const RELIC = constants.RELIC
 
   // Create PresetBuilder.
-  const preset = new PresetBuilder(metadata)
+  const builder = new PresetBuilder(metadata)
+
+  // Disable relic location extension.
+  builder.relicLocationsExtension(false)
 
   // Soul of Wolf or Leap Stone will be early.
-  preset.placeRelic([
+  builder.placeRelic([
     RELIC.SOUL_OF_WOLF,
     RELIC.LEAP_STONE,
     RELIC.SWORD_CARD,
@@ -45,7 +48,7 @@
   ])
 
   // Mist will be accessible with Wolf and Leap Stone.
-  preset.placeRelic([
+  builder.placeRelic([
     RELIC.FORM_OF_MIST,
     RELIC.SPIRIT_ORB,
     RELIC.FAERIE_SCROLL,
@@ -56,15 +59,16 @@
   ])
 
   // Export.
+  const preset = builder.build()
   if (self) {
     const presets = (self.sotnRando || {}).presets || []
-    presets.push(preset.build())
+    presets.push(preset)
     self.sotnRando = Object.assign(self.sotnRando || {}, {
       presets: presets,
     })
   } else if (!module.parent) {
     console.log(preset.toString())
   } else {
-    module.exports = preset.build()
+    module.exports = preset
   }
 })(typeof(self) !== 'undefined' ? self : null)

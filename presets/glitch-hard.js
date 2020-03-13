@@ -30,6 +30,9 @@
   // Create PresetBuilder.
   const builder = new PresetBuilder(metadata)
 
+  // Disable relic location extension.
+  builder.relicLocationsExtension(false)
+
   // STARTING EQUIPMENT //
 
   builder.startingEquipment(SLOT.RIGHT_HAND, 'Tyrfing')
