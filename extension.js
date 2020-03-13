@@ -79,7 +79,7 @@
     id: 0,
     entities: [{
       zone: ZONE.LIB,
-      itemIndex: 33,
+      itemIndex: 32,
       addresses: [ 0x047a5b5e, 0x047a623e ],
       entityId: 0x000c,
       y: 0x00a9,
@@ -243,7 +243,7 @@
     id: 15,
     entities: [{
       zone: ZONE.LIB,
-      itemIndex: 34,
+      itemIndex: 33,
       addresses: [ 0x047a5718, 0x047a5dca ],
       entityId: 0x000c,
       y: 0x00b9,
@@ -292,7 +292,7 @@
     id: 20,
     entities: [{
       zone: ZONE.LIB,
-      itemIndex: 35,
+      itemIndex: 34,
       addresses: [ 0x047a577c, 0x047a5f64 ],
       entityId: 0x000c,
       y: 0x00b9,
