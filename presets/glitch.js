@@ -28,30 +28,32 @@
   const preset = new PresetBuilder(metadata)
 
   // Soul of Wolf or Leap Stone will be early.
-  preset.placeRelic(
-    RELIC.SOUL_OF_WOLF
-      + RELIC.LEAP_STONE
-      + RELIC.SWORD_CARD
-      + RELIC.GHOST_CARD
-      + RELIC.FAERIE_CARD
-      + RELIC.BAT_CARD,
-    RELIC.CUBE_OF_ZOE
-      + RELIC.SPIRIT_ORB
-      + RELIC.SOUL_OF_WOLF
-      + RELIC.JEWEL_OF_OPEN
-      + RELIC.FAERIE_SCROLL
-      + RELIC.LEAP_STONE,
-  )
+  preset.placeRelic([
+    RELIC.SOUL_OF_WOLF,
+    RELIC.LEAP_STONE,
+    RELIC.SWORD_CARD,
+    RELIC.GHOST_CARD,
+    RELIC.FAERIE_CARD,
+    RELIC.BAT_CARD,
+  ], [
+    RELIC.CUBE_OF_ZOE,
+    RELIC.SPIRIT_ORB,
+    RELIC.SOUL_OF_WOLF,
+    RELIC.JEWEL_OF_OPEN,
+    RELIC.FAERIE_SCROLL,
+    RELIC.LEAP_STONE,
+  ])
 
   // Mist will be accessible with Wolf and Leap Stone.
-  preset.placeRelic(
-    RELIC.FORM_OF_MIST
-      + RELIC.SPIRIT_ORB
-      + RELIC.FAERIE_SCROLL,
-    RELIC.FAERIE_CARD
-      + RELIC.BAT_CARD
-      + RELIC.FORM_OF_MIST,
-  )
+  preset.placeRelic([
+    RELIC.FORM_OF_MIST,
+    RELIC.SPIRIT_ORB,
+    RELIC.FAERIE_SCROLL,
+  ], [
+    RELIC.FAERIE_CARD,
+    RELIC.BAT_CARD,
+    RELIC.FORM_OF_MIST,
+  ])
 
   // Export.
   if (self) {

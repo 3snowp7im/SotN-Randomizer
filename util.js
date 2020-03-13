@@ -1080,12 +1080,16 @@
           let opt = 'r'
           if (typeof(options.relicLocations) === 'object') {
             const locks = []
-            const relics = Object.getOwnPropertyNames(constants.RELIC)
-            relics.forEach(function(relic) {
-              relic = constants.RELIC[relic]
-              if (options.relicLocations[relic]) {
-                let lock = relic
-                lock += ':' + options.relicLocations[relic].join('-')
+            const locations = relics.concat(extension.locations)
+            locations.map(function(location) {
+              if (location.ability) {
+                return location.ability
+              }
+              return location.name
+            }).forEach(function(location) {
+              if (options.relicLocations[location]) {
+                let lock = location.replace(/[^a-zA-Z0-9]/g, '')
+                lock += ':' + options.relicLocations[location].join('-')
                 locks.push(lock)
               }
             })
@@ -1599,7 +1603,7 @@
     // The collection of prologue rewards.
     this.rewards = true
     // The collection of location locks.
-    this.relics = true
+    this.locations = true
     // The relic locations extension
     this.extension = constants.EXTENSION.GUARDED
     // Turkey mode.
@@ -1796,11 +1800,11 @@
 
   // Lock relic location behind abilities.
   PresetBuilder.prototype.lockLocation = function lockLocation(where, what) {
-    if (typeof(this.relics) !== 'object') {
-      this.relics = new Set()
+    if (typeof(this.locations) !== 'object') {
+      this.locations = new Set()
     }
-    this.relics[where] = this.relics[where] || []
-    Array.prototype.push.apply(this.relics[where], what.map(function(lock) {
+    this.locations[where] = this.locations[where] || []
+    Array.prototype.push.apply(this.locations[where], what.map(function(lock) {
       return new Set(lock)
     }))
   }
@@ -1808,25 +1812,31 @@
   // Add relics to locations. The what and where arguments must contain the
   // same number of relics.
   PresetBuilder.prototype.placeRelic = function placeRelic(what, where) {
+    if (!Array.isArray(what)) {
+      what = [what]
+    }
+    if (!Array.isArray(where)) {
+      where = [where]
+    }
     assert.equal(what.length, where.length)
-    if (typeof(this.relics) !== 'object') {
-      this.relics = {}
+    if (typeof(this.locations) !== 'object') {
+      this.locations = {}
     }
     const unplaced = this.unplaced
-    what.split('').forEach(function(relic) {
+    what.forEach(function(relic) {
       unplaced.delete(relic)
     })
-    const relics = this.relics
-    where.split('').forEach(function(location) {
-      relics[location] = relics[location] || []
-      relics[location].push(new Set(unplaced))
+    const self = this
+    where.forEach(function(location) {
+      self.locations[location] = self.locations[location] || []
+      self.locations[location].push(new Set(unplaced))
     })
   }
 
   // Enable/disable relic location randomization.
   PresetBuilder.prototype.relicLocations = function relicLocations(enabled) {
     assert.equal(typeof(enabled), 'boolean')
-    this.relics = enabled
+    this.locations = enabled
   }
 
   // Enable guarded relic locations.
@@ -1894,7 +1904,7 @@
         rewards[reward] = itemName
       })
     }
-    let relicLocations = self.relics
+    let relicLocations = self.locations
     if (typeof(relics) === 'object') {
       relicLocations = {}
       relics.concat(extension.locations).map(function(location) {
@@ -1903,10 +1913,11 @@
         }
         return location.name
       }).forEach(function(location) {
-        if (self.relics[location]) {
-          relicLocations[location] = self.relics[location].map(function(lock) {
-            return Array.from(lock).join('')
-          })
+        if (self.locations[location]) {
+          relicLocations[location] =
+            self.locations[location].map(function(lock) {
+              return Array.from(lock).join('')
+            })
         }
       })
     }

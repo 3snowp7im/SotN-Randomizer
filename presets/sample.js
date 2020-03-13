@@ -67,6 +67,14 @@
   // RELICS //
   // Sprit Orb at Form of Mist location.
   builder.placeRelic(RELIC.SPIRIT_ORB, RELIC.FORM_OF_MIST)
+  // Soul of Wolf or Power of Wolf can be at Leap Stone or Gas Cloud locations.
+  builder.placeRelic([
+    RELIC.SOUL_OF_WOLF,
+    RELIC.POWER_OF_WOLF,
+  ], [
+    RELIC.LEAP_STONE,
+    RELIC.GAS_CLOUD,
+  ])
   // Soul of Bat location requires Gravity Boots + Leapstone.
   builder.lockLocation(RELIC.SOUL_OF_BAT, [
     RELIC.LEAP_STONE + RELIC.GRAVITY_BOOTS,

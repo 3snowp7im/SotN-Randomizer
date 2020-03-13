@@ -20,6 +20,7 @@
     util = require('../util')
   }
   const PresetBuilder = util.PresetBuilder
+  const LOCATION = constants.LOCATION
   const RELIC = constants.RELIC
 
   // Create preset builder.
@@ -37,7 +38,7 @@
   builder.placeRelic(RELIC.SOUL_OF_WOLF, RELIC.MERMAN_STATUE)
 
   // Leap Stone at Demon Card.
-  builder.placeRelic(RELIC.LEAP_STONE, RELIC.DEMON_CARD)
+  builder.placeRelic(RELIC.LEAP_STONE, LOCATION.GRANFALLOON)
 
   // Form of Mist at Leap Stone.
   builder.placeRelic(RELIC.FORM_OF_MIST, RELIC.LEAP_STONE)
@@ -62,18 +63,19 @@
 
   // Any Vlad relic at Fire of Bat, Tooth of Vlad, Rib of Vlad, Force of Echo,
   // or Holy Sympbol.
-  builder.placeRelic(
-    RELIC.HEART_OF_VLAD
-      + RELIC.TOOTH_OF_VLAD
-      + RELIC.RIB_OF_VLAD
-      + RELIC.RING_OF_VLAD
-      + RELIC.EYE_OF_VLAD,
-    RELIC.FIRE_OF_BAT
-      + RELIC.TOOTH_OF_VLAD
-      + RELIC.RIB_OF_VLAD
-      + RELIC.FORCE_OF_ECHO
-      + RELIC.HOLY_SYMBOL,
-  )
+  builder.placeRelic([
+    RELIC.HEART_OF_VLAD,
+    RELIC.TOOTH_OF_VLAD,
+    RELIC.RIB_OF_VLAD,
+    RELIC.RING_OF_VLAD,
+    RELIC.EYE_OF_VLAD,
+  ], [
+    RELIC.FIRE_OF_BAT,
+    RELIC.TOOTH_OF_VLAD,
+    RELIC.RIB_OF_VLAD,
+    RELIC.FORCE_OF_ECHO,
+    RELIC.HOLY_SYMBOL,
+  ])
 
   // Export.
   const preset = builder.build()
