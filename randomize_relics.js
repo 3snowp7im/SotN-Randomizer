@@ -401,6 +401,26 @@
           }, location)
         }),
       }
+      // If there are more pool locations than relics, the randomizer is likely
+      // to break plandomizers by placing relics in starting locations instead
+      // of where the author intended them to be.
+      // To prevent this witouth breaking Safe logic, cull the pool of starting
+      // locations until there are as many locations as there are relics to
+      // place, but only if there are more starting locations than in vanilla.
+      const startLocations = locations.filter(function(location) {
+        return location.locks.length == 1
+          && location.locks[0].size === 0
+      })
+      if (options.relicLocationsExtension && startLocations.length > 4) {
+        while (pool.locations.length > pool.relics.length) {
+          const locations = util.shuffled(pool.locations)
+          const startLocation = locations.filter(function(location) {
+            return location.locks.length == 1
+              && location.locks[0].size === 0
+          }).pop()
+          pool.locations.splice(pool.locations.indexOf(startLocation), 1)
+        }
+      }
       // Attempt to place all relics.
       let attempts = 0
       let result
@@ -438,7 +458,9 @@
         const locationId = parseInt(locationIds.filter(function(locationId) {
           return result[locationId] === relic
         })[0])
-        const location = pool.locations[locationId]
+        const location = pool.locations.filter(function(location) {
+          return location.location === locationId
+        }).pop()
         spoilers.push(name + ' at ' + location.name)
       })
       if (info) {

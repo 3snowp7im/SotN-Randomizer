@@ -25,9 +25,6 @@
   // Create PresetBuilder.
   const builder = new PresetBuilder(metadata)
 
-  // Disable relic location extension.
-  builder.relicLocationsExtension(false)
-
   // Place relics.
   builder.placeRelic(RELIC.SOUL_OF_BAT, RELIC.CUBE_OF_ZOE)
   builder.placeRelic(RELIC.ECHO_OF_BAT, RELIC.SKILL_OF_WOLF)
