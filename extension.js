@@ -79,10 +79,9 @@
     id: 0,
     entities: [{
       zone: ZONE.LIB,
-      itemIndex: 32,
+      itemIndex: 11,
       addresses: [ 0x047a5b5e, 0x047a623e ],
       entityId: 0x000c,
-      y: 0x00a9,
     }],
   }, {
     // Fire of Bat
