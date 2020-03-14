@@ -4,7 +4,7 @@
   const metadata = {
     id: 'agonize',
     name: 'Agonize',
-    description: 'Use safe logic, but maximize backtracking.',
+    description: 'Maximize backtracking.',
     author: '3snow_p7im',
     weight: -1,
   }
@@ -59,7 +59,7 @@
   // Cube of Zoe in 2nd castle.
   builder.placeRelic(RELIC.CUBE_OF_ZOE, RELIC.RING_OF_VLAD)
 
-  // Any Vlad relic at Fire of Bat, Tooth of Vlad, Rib of Vlad, Force of Echo,
+  // Any Vlad relic at Fire of Bat, Tooth of Vlad, Beezlebub, Force of Echo,
   // or Holy Sympbol.
   builder.placeRelic([
     RELIC.HEART_OF_VLAD,
@@ -70,7 +70,7 @@
   ], [
     RELIC.FIRE_OF_BAT,
     RELIC.TOOTH_OF_VLAD,
-    RELIC.RIB_OF_VLAD,
+    LOCATION.BEEZLEBUB,
     RELIC.FORCE_OF_ECHO,
     RELIC.HOLY_SYMBOL,
   ])
