@@ -97,23 +97,27 @@
           replaceItem.tiles.splice(index, 1)
         })
         if (replaceLocation.entities) {
-          replaceLocation.entities.forEach(function(entity) {
-            if (!entity.erase) {
-              // Replace item.
+          if (!replaceLocation.erase) {
+            // Replace item.
+            const addresses = []
+            replaceLocation.entities.forEach(function(entity) {
               const zone = constants.zones[entity.zone]
               const offset = zone.items + 2 * entity.itemIndex
               const addr = util.romOffset(zone, offset)
-              // Add the new tiles.
-              replaceItem.tiles.push({
-                zone: entity.zone,
-                addresses: [ addr ],
-              })
+              addresses.push(addr)
               // Update the item table.
               data.writeShort(addr, util.tileValue(replaceItem.id))
-            }
+            })
+            // Add the new tiles.
+            replaceItem.tiles.push({
+              zone: constants.zones[replaceLocation.entities[0].zone],
+              addresses: addresses,
+            })
+          }
+          replaceLocation.entities.forEach(function(entity) {
             // Write entities.
             entity.addresses.forEach(function(address) {
-              if (entity.erase) {
+              if (replaceLocation.erase) {
                 // Erase the entity.
                 data.writeWord(address + 0, 0xfffefffe)
                 data.writeShort(address + 4, 0)

@@ -25,7 +25,7 @@
       addresses: [ 0x04c3425a, 0x04c35542 ],
       y: 0x00a0,
     }, {
-      zone: ZONE.BO3,
+      zone: ZONE.NO3,
       addresses: [ 0x061a828a, 0x061a857e ],
       y: 0x00a0,
     }],
@@ -250,6 +250,7 @@
   }, {
     // Jewel of Open
     id: 16,
+    erase: true,
     instructions: [{
       addresses: [ 0x047dbdf8 ],
       instruction: 0x0806cadc,
@@ -318,10 +319,10 @@
   }, {
     // Heart of Vlad
     id: 25,
+    erase: true,
     entities: [{
       zone: ZONE.RDAI,
       addresses: [ 0x04e335ac, 0x04e34048 ],
-      erase: true,
     }],
     instructions: [{
       addresses: [ 0x06757b54 ],
@@ -330,10 +331,10 @@
   }, {
     // Tooth of Vlad
     id: 26,
+    erase: true,
     entities: [{
       zone: ZONE.RNO1,
       addresses: [ 0x05051d4a, 0x05052566 ],
-      erase: true,
     }],
     instructions: [{
       addresses: [ 0x067ec398 ],
@@ -342,10 +343,10 @@
   }, {
     // Rib of Vlad
     id: 27,
+    erase: true,
     entities: [{
       zone: ZONE.RNO2,
       addresses: [ 0x050fa90c, 0x050fb220 ],
-      erase: true,
     }],
     instructions: [{
       addresses: [ 0x069e8524 ],
@@ -364,10 +365,10 @@
   }, {
     // Eye of Vlad
     id: 29,
+    erase: true,
     entities: [{
       zone: ZONE.RCHI,
       addresses: [ 0x04da65ea, 0x04da6a4a ],
-      erase: true,
     }],
     instructions: [{
       addresses: [ 0x06644cf0 ],
