@@ -91,11 +91,16 @@
           replaceLocation.entities.forEach(function(entity) {
             // Write entities.
             entity.addresses.forEach(function(address) {
-              // Erase the entity.
-              data.writeWord(address + 0, 0xfffefffe)
-              data.writeShort(address + 4, 0)
-              data.writeShort(address + 6, 0)
-              data.writeShort(address + 8, 0)
+              // Replace relic entity with candle.
+              if ('x' in entity) {
+                data.writeShort(address + 0, entity.x)
+              }
+              if ('y' in entity) {
+                data.writeShort(address + 2, entity.y)
+              }
+              data.writeShort(address + 4, 0xa001)
+              data.writeShort(address + 6, entity.deathSlot)
+              data.writeShort(address + 8, entity.state)
             })
           })
         }
@@ -371,7 +376,7 @@
         return location.locks.length == 1
           && location.locks[0].size === 0
       })
-      if (options.relicLocationsExtension && startLocations.length > 4) {
+      if (options.relicLocationsExtension && startLocations.length > 5) {
         while (pool.locations.length > pool.relics.length) {
           const locations = util.shuffled(pool.locations)
           const startLocation = locations.filter(function(location) {

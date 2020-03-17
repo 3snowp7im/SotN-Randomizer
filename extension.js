@@ -80,6 +80,10 @@
     entities: [{
       zone: ZONE.LIB,
       addresses: [ 0x047a5b5e, 0x047a623e ],
+      x: 0x0430,
+      y: 0x034e,
+      deathSlot: 0x0e60,
+      state: 0x0000,
     }],
   }, {
     // Fire of Bat
@@ -87,6 +91,9 @@
     entities: [{
       zone: ZONE.NZ1,
       addresses: [ 0x05575356, 0x05575e92 ],
+      y: 0x00af,
+      deathSlot: 0x3131,
+      state: 0x5000,
     }],
   }, {
     // Echo of Bat
@@ -94,6 +101,9 @@
     entities: [{
       zone: ZONE.NO2,
       addresses: [ 0x04aa414e, 0x04aa49a6 ],
+      y: 0x007f,
+      deathSlot: 0x0303,
+      state: 0x4000,
     }],
   }, {
     // Force of Echo
@@ -101,6 +111,8 @@
     entities: [{
       zone: ZONE.RNO4,
       addresses: [ 0x0526e6a0, 0x0526f86e ],
+      deathSlot: 0x0101,
+      state: 0x0000,
     }],
   }, {
     // Soul of Wolf
@@ -108,6 +120,9 @@
     entities: [{
       zone: ZONE.NO1,
       addresses: [ 0x049d5d36, 0x049d658e ],
+      y: 0x031f,
+      deathSlot: 0x1c33,
+      state: 0x5000,
     }],
   }, {
     // Power of Wolf
@@ -115,9 +130,13 @@
     entities: [{
       zone: ZONE.NO3,
       addresses: [ 0x04b6b14a, 0x04b6b9ac ],
+      deathSlot: 0x0101,
+      state: 0x0000,
     }, {
       zone: ZONE.NP3,
       addresses: [ 0x053f8f16, 0x053f9714 ],
+      deathSlot: 0x052d,
+      state: 0x0000,
     }],
   }, {
     // Skill of Wolf
@@ -125,6 +144,9 @@
     entities: [{
       zone: ZONE.NZ0,
       addresses: [ 0x054b43fc, 0x054b4e70 ],
+      x: 0x007f,
+      deathSlot: 0x0315,
+      state: 0x0000,
     }],
   }, {
     // Form of Mist
@@ -132,6 +154,9 @@
     entities: [{
       zone: ZONE.ARE,
       addresses: [ 0x043c5782, 0x043c5e00 ],
+      y: 0x008a,
+      deathSlot: 0x0a0a,
+      state: 0x1000,
     }],
   }, {
     // Power of Mist
@@ -139,6 +164,8 @@
     entities: [{
       zone: ZONE.TOP,
       addresses: [ 0x05610db0, 0x05611424 ],
+      deathSlot: 0x1f2e,
+      state: 0x6000,
     }],
   }, {
     // Gas Cloud
@@ -146,6 +173,8 @@
     entities: [{
       zone: ZONE.RCAT,
       addresses: [ 0x04cfcb0e, 0x04cfd892 ],
+      x: 0x0016,
+      y: 0x00b1,
     }],
   }, {
     // Cube of Zoe
@@ -153,9 +182,14 @@
     entities: [{
       zone: ZONE.NO3,
       addresses: [ 0x04b6b082, 0x04b6b93e ],
+      deathSlot: 0x0606,
+      state: 0x0000,
     }, {
       zone: ZONE.NP3,
       addresses: [ 0x053f8e26, 0x053f9692 ],
+      y: 0x0078,
+      deathSlot: 0x0606,
+      state: 0x0000,
     }],
   }, {
     // Spirit Orb
@@ -163,6 +197,7 @@
     entities: [{
       zone: ZONE.NO0,
       addresses: [ 0x048fd1f6, 0x048fe278 ],
+      x: 0x0043,
     }],
   }, {
     // Gravity Boots
@@ -170,6 +205,7 @@
     entities: [{
       zone: ZONE.NO0,
       addresses: [ 0x048fc9b2, 0x048fd944 ],
+      y: 0x00b9,
     }],
   }, {
     // Leap Stone
@@ -177,6 +213,8 @@
     entities: [{
       zone: ZONE.TOP,
       addresses: [ 0x05610dba, 0x05611612 ],
+      deathSlot: 0x202f,
+      state: 0x6000,
     }],
   }, {
     // Holy Symbol
@@ -184,6 +222,8 @@
     entities: [{
       zone: ZONE.NO4,
       addresses: [ 0x04c34ede, 0x04c361d0 ],
+      //deathSlot
+      //state:
     }],
   }, {
     // Faerie Scroll
@@ -191,6 +231,9 @@
     entities: [{
       zone: ZONE.LIB,
       addresses: [ 0x047a5718, 0x047a5dca ],
+      y: 0x004e,
+      deathSlot: 0x2d50,
+      state: 0x0000,
     }],
   }, {
     // Jewel of Open
@@ -205,6 +248,7 @@
     entities: [{
       zone: ZONE.NO4,
       addresses: [ 0x04c3516c, 0x04c36472 ],
+      y: 0x00b9,
     }],
   }, {
     // Bat Card
@@ -212,6 +256,9 @@
     entities: [{
       zone: ZONE.NZ0,
       addresses: [ 0x054b3d04, 0x054b4778 ],
+      x: 0x007f,
+      deathSlot: 0x0f1c,
+      state: 0x0000,
     }],
   }, {
     // Ghost Card
@@ -219,6 +266,9 @@
     entities: [{
       zone: ZONE.TOP,
       addresses: [ 0x05611274, 0x05611950 ],
+      y: 0x028f,
+      deathSlot: 0x1f2e,
+      state: 0x3000,
     }],
   }, {
     // Faerie Card
@@ -226,6 +276,9 @@
     entities: [{
       zone: ZONE.LIB,
       addresses: [ 0x047a577c, 0x047a5f64 ],
+      y: 0x004e,
+      deathSlot: 0x0307,
+      state: 0x0000,
     }],
   }, {
     // Demon Card
@@ -233,6 +286,9 @@
     entities: [{
       zone: ZONE.CHI,
       addresses: [ 0x045ea956, 0x045eacda ],
+      y: 0x00ae,
+      deathSlot: 0x0100,
+      state: 0x0000,
     }],
   }, {
     // Sword Card
@@ -240,6 +296,8 @@
     entities: [{
       zone: ZONE.NO2,
       addresses: [ 0x04aa3f6e, 0x04aa47c6 ],
+      deathSlot: 0x0101,
+      state: 0x0000,
     }],
   }, {
     // Heart of Vlad
