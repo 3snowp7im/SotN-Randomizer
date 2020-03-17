@@ -85,61 +85,17 @@
       }
       // Check for extended location.
       if ('extension' in location) {
-        // Get item being displaced by relic.
+        // Get location being replaced by relic.
         const replaceLocation = vanilla.shift()
-        // Get item being displaced.
-        const replaceItem = items.filter(function(item) {
-          return item.type === location.item.type
-            && item.id === location.item.id
-        }).pop()
-        // Remove the displaced item tiles.
-        location.item.tileIndexes.forEach(function(index) {
-          replaceItem.tiles.splice(index, 1)
-        })
         if (replaceLocation.entities) {
-          if (!replaceLocation.erase) {
-            // Replace item.
-            const addresses = []
-            replaceLocation.entities.forEach(function(entity) {
-              const zone = constants.zones[entity.zone]
-              const offset = zone.items + 2 * entity.itemIndex
-              const addr = util.romOffset(zone, offset)
-              addresses.push(addr)
-              // Update the item table.
-              data.writeShort(addr, util.tileValue(replaceItem.id))
-            })
-            // Add the new tiles.
-            replaceItem.tiles.push({
-              zone: constants.zones[replaceLocation.entities[0].zone],
-              addresses: addresses,
-            })
-          }
           replaceLocation.entities.forEach(function(entity) {
             // Write entities.
             entity.addresses.forEach(function(address) {
-              if (replaceLocation.erase) {
-                // Erase the entity.
-                data.writeWord(address + 0, 0xfffefffe)
-                data.writeShort(address + 4, 0)
-                data.writeShort(address + 6, 0)
-                data.writeShort(address + 8, 0)
-              } else {
-                // Update the entity as a tile item.
-                if ('x' in entity) {
-                  data.writeShort(address + 0, entity.x)
-                }
-                if ('y' in entity) {
-                  data.writeShort(address + 2, entity.y)
-                }
-                if ('entityId' in entity) {
-                  data.writeShort(address + 4, entity.entityId)
-                }
-                if ('state' in entity) {
-                  data.writeShort(address + 8, entity.state)
-                } else {
-                  data.writeShort(address + 8, entity.itemIndex)
-                }
-              }
+              // Erase the entity.
+              data.writeWord(address + 0, 0xfffefffe)
+              data.writeShort(address + 4, 0)
+              data.writeShort(address + 6, 0)
+              data.writeShort(address + 8, 0)
             })
           })
         }
