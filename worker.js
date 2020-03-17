@@ -34,7 +34,7 @@ self.addEventListener('message', function(message) {
     sotnRando.util.setSeedText(check, data.seed)
     const checksum = check.sum()
     if (data.checksum && data.checksum !== checksum) {
-      throw new errors.VersionError()
+      throw new self.sotnRando.errors.VersionError()
     }
     eccEdcCalc(array, array.length)
     self.postMessage({
