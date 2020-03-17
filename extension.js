@@ -173,8 +173,9 @@
     entities: [{
       zone: ZONE.RCAT,
       addresses: [ 0x04cfcb0e, 0x04cfd892 ],
-      x: 0x0016,
-      y: 0x00b1,
+      x: 0x0000,
+      deathSlot: 0x0101,
+      state: 0x0000,
     }],
   }, {
     // Cube of Zoe
@@ -197,7 +198,8 @@
     entities: [{
       zone: ZONE.NO0,
       addresses: [ 0x048fd1f6, 0x048fe278 ],
-      x: 0x0043,
+      deathSlot: 0x2008,
+      state: 0x1000,
     }],
   }, {
     // Gravity Boots
@@ -205,7 +207,8 @@
     entities: [{
       zone: ZONE.NO0,
       addresses: [ 0x048fc9b2, 0x048fd944 ],
-      y: 0x00b9,
+      deathSlot: 0x2008,
+      state: 0x0000,
     }],
   }, {
     // Leap Stone
@@ -222,8 +225,8 @@
     entities: [{
       zone: ZONE.NO4,
       addresses: [ 0x04c34ede, 0x04c361d0 ],
-      //deathSlot
-      //state:
+      deathSlot: 0x0101,
+      state: 0x0000,
     }],
   }, {
     // Faerie Scroll
@@ -248,7 +251,8 @@
     entities: [{
       zone: ZONE.NO4,
       addresses: [ 0x04c3516c, 0x04c36472 ],
-      y: 0x00b9,
+      deathSlot: 0x0101,
+      state: 0x0000,
     }],
   }, {
     // Bat Card
