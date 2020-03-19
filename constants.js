@@ -39,31 +39,32 @@
     ST0:  0,  // Final Stage: Bloodlines
     ARE:  1,  // Colosseum
     CAT:  2,  // Catacombs
-    CHI:  3,  // Abandoned Mine
-    DAI:  4,  // Royal Chapel
-    LIB:  5,  // Long Library
-    NO0:  6,  // Marble Gallery
-    NO1:  7,  // Outer Wall
-    NO2:  8,  // Olrox's Quarters
-    NO3:  9,  // Castle Entrance
-    NP3:  10, // Castle Entrance (after visiting Alchemy Laboratory)
-    NO4:  11, // Underground Caverns
-    NZ0:  12, // Alchemy Laboratory
-    NZ1:  13, // Clock Tower
-    TOP:  14, // Castle Keep
-    RARE: 15, // Reverse Colosseum
-    RCAT: 16, // Floating Catacombs
-    RCHI: 17, // Cave
-    RDAI: 18, // Anti-Chapel
-    RLIB: 19, // Forbidden Library
-    RNO0: 20, // Black Marble Gallery
-    RNO1: 21, // Reverse Outer Wall
-    RNO2: 22, // Death Wing's Lair
-    RNO3: 23, // Reverse Entrance
-    RNO4: 24, // Reverse Caverns
-    RNZ0: 25, // Necromancy Laboratory
-    RNZ1: 26, // Reverse Clock Tower
-    RTOP: 27, // Reverse Castle Keep
+    CEN:  3,  // Center Cube
+    CHI:  4,  // Abandoned Mine
+    DAI:  5,  // Royal Chapel
+    LIB:  6,  // Long Library
+    NO0:  7,  // Marble Gallery
+    NO1:  8,  // Outer Wall
+    NO2:  9,  // Olrox's Quarters
+    NO3:  10, // Castle Entrance
+    NP3:  11, // Castle Entrance (after visiting Alchemy Laboratory)
+    NO4:  12, // Underground Caverns
+    NZ0:  13, // Alchemy Laboratory
+    NZ1:  14, // Clock Tower
+    TOP:  15, // Castle Keep
+    RARE: 16, // Reverse Colosseum
+    RCAT: 17, // Floating Catacombs
+    RCHI: 18, // Cave
+    RDAI: 19, // Anti-Chapel
+    RLIB: 20, // Forbidden Library
+    RNO0: 21, // Black Marble Gallery
+    RNO1: 22, // Reverse Outer Wall
+    RNO2: 23, // Death Wing's Lair
+    RNO3: 24, // Reverse Entrance
+    RNO4: 25, // Reverse Caverns
+    RNZ0: 26, // Necromancy Laboratory
+    RNZ1: 27, // Reverse Clock Tower
+    RTOP: 28, // Reverse Castle Keep
   }
 
   // List of zone strings for logging.
@@ -71,6 +72,7 @@
     'ST0',
     'ARE',
     'CAT',
+    'CEN',
     'CHI',
     'DAI',
     'LIB',
@@ -108,6 +110,9 @@
   }, {
     // ZONE.CAT
     pos: 0x0448f938, len: 361920, items: 0x174c,
+  }, {
+    // ZONE.CEN
+    pos: 0x0455bff8, len: 119916,
   }, {
     // ZONE.CHI
     pos: 0x045e8ae8, len: 193576, items: 0x09e4,
@@ -204,12 +209,12 @@
     GAS_CLOUD: 'c',
     CUBE_OF_ZOE: 'z',
     SPIRIT_ORB: 'o',
-    GRAVITY_BOOTS: 'G',
+    GRAVITY_BOOTS: 'V',
     LEAP_STONE: 'L',
     HOLY_SYMBOL: 'y',
     FAERIE_SCROLL: 'l',
     JEWEL_OF_OPEN: 'J',
-    MERMAN_STATUE: 'S',
+    MERMAN_STATUE: 'U',
     BAT_CARD: 'b',
     GHOST_CARD: 'g',
     FAERIE_CARD: 'a',
@@ -220,6 +225,10 @@
     RIB_OF_VLAD: 'r',
     RING_OF_VLAD: 'n',
     EYE_OF_VLAD: 'i',
+    GOLD_RING: 'G',
+    SILVER_RING: 'S',
+    SPIKE_BREAKER: 'K',
+    HOLY_GLASSES: 'H',
   }
 
   const tileIdOffset = 0x80
