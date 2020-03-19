@@ -15,7 +15,7 @@ importScripts("presets/glitch.js")
 importScripts("presets/glitch-hard.js")
 importScripts("randomize_items.js")
 importScripts("randomize_relics.js")
-importScripts("ecc-edc-recalc-js/index.js")
+importScripts("ecc-edc-recalc-js.js")
 
 self.addEventListener('message', function(message) {
   try {
