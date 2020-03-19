@@ -325,7 +325,7 @@
     return (buf[3] << 24) + (buf[2] << 16) + (buf[3] << 8) + buf[0]
   }
 
-  checked.prototype.writeByte = function writeByte(address, val) {
+  checked.prototype.writeChar = function writeChar(address, val) {
     if (this.file) {
       if (self) {
         this.file[address] = val & 0xff
@@ -1306,19 +1306,19 @@
         if (seed[s] in map) {
           if ((a + 1) < maxSeedLength) {
             const val = map[seed[s++]]
-            data.writeByte(address.start + a++, val >>> 8)
-            data.writeByte(address.start + a++, val & 0xff)
+            data.writeChar(address.start + a++, val >>> 8)
+            data.writeChar(address.start + a++, val & 0xff)
           } else {
             break
           }
         } else if (seed[s].match(/[a-zA-Z ]/)) {
-          data.writeByte(address.start + a++, seed.charCodeAt(s++))
+          data.writeChar(address.start + a++, seed.charCodeAt(s++))
         } else {
           s++
         }
       }
       while (a < address.length) {
-        data.writeByte(address.start + a++, 0)
+        data.writeChar(address.start + a++, 0)
       }
     })
   }

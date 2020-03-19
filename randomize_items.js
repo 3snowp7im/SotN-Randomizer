@@ -337,7 +337,7 @@
       axeLordArmor = randItem(pool.filter(armorFilter))
     }
     const axeLordEquipVal = axeLordArmor ? axeLordArmor.id + equipIdOffset : 0
-    data.writeByte(0x11a230, axeLordEquipVal)
+    data.writeChar(0x11a230, axeLordEquipVal)
     // Replace Lapis Lazuli.
     let luckItem
     if ('x' in planned) {
@@ -347,7 +347,7 @@
     }
     if (luckItem) {
       const luckItemEquipVal = luckItem ? luckItem.id : 0
-      data.writeByte(0x11a198, luckItemEquipVal + equipIdOffset)
+      data.writeChar(0x11a198, luckItemEquipVal + equipIdOffset)
     } else {
       data.writeWord(0x11a1d8, 0)
     }

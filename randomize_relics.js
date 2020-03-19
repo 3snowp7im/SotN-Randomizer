@@ -70,7 +70,7 @@
       const jewelOfOpen = relicFromId(0x10)
       if (location.location === 0x10) {
         // Fix shop menu check.
-        data.writeByte(shopRelicIdAddress, relic.id + shopRelicIdOffset)
+        data.writeChar(shopRelicIdAddress, relic.id + shopRelicIdOffset)
         // Change shop menu name.
         for (let i = 0; i < jewelOfOpen.name.length; i++) {
           let value
@@ -80,7 +80,7 @@
           } else {
             value = relic.name.charCodeAt(i) - 0x20
           }
-          data.writeByte(shopRelicNameAddress + i, value)
+          data.writeChar(shopRelicNameAddress + i, value)
         }
       }
       // Check for extended location.
@@ -131,7 +131,7 @@
       } else {
         // For vanilla locations, just write the relic ID.
         location.addresses.forEach(function(address) {
-          data.writeByte(address, relic.id)
+          data.writeChar(address, relic.id)
         })
       }
     })
@@ -457,14 +457,14 @@
       // from ever taking place.
       // The specific room has a time attack entry that needs to be zeroed
       // out.
-      data.writeByte(0x0aeaa0, 0x00)
+      data.writeChar(0x0aeaa0, 0x00)
       // The time attack check occurs in Richter mode too, but the game gets
       // around this by writing the seconds elapsed between pressing Start on
       // the main screen and on the name entry screen to the time attack
       // table for events that aren't in Richter mode.
       // Zero out the time attack entry for the clock room, or Richter will
       // load the cutscene version every time he enters.
-      data.writeByte(0x119af4, 0x00)
+      data.writeChar(0x119af4, 0x00)
     }
   }
 
