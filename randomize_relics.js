@@ -299,7 +299,7 @@
           if (relic.entities) {
             relic.entities.forEach(function(entity) {
               entity.addresses.forEach(function(address) {
-                if (data.readShort(address + 4) === entity.entityId) {
+                if (data.readShort(address + 4) === entity.state) {
                   throw new errors.RandomizedFileError()
                 }
               })
