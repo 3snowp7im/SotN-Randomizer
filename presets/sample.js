@@ -84,6 +84,24 @@
   // To disable randomization:
   //   builder.relicLocations(false)
 
+  // COMPLEXITY TARGET //
+  // Require Leap Stone + Gravity Boots or Silver + Gold ring to complete game.
+  const minComplexity = 3
+  builder.complexityTarget(minComplexity, [
+    RELIC.LEAP_STONE + RELIC.GRAVITY_BOOTS,
+    RELIC.SILVER_RING + RELIC.GOLD_RING,
+  ])
+  // Complexity targets are optional. They allow you to specify a set of locks,
+  // any one of which is required to consider a seed completable.
+  // The minimum and maximum complexity depth specify how many relics must be
+  // obtained in series to unlock this win condition.
+  // To specify a maximum complexity depth:
+  //   const maxComplexity = 5
+  //   builder.complexityTarget(minComplexity, maxComplexity, [
+  //     RELIC.LEAP_STONE + RELIC.GRAVITY_BOOTS,
+  //     RELIC.SILVER_RING + RELIC.GOLD_RING,
+  //  ])
+
   // Export.
   const preset = builder.build()
   if (self) {

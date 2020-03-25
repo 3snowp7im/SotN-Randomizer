@@ -422,6 +422,11 @@
     }
   }
 
+  function showOlderHandler(event) {
+    elems.showOlder.classList.add('hidden')
+    elems.older.classList.remove('hidden')
+  }
+
   function loadOption(name, changeHandler, defaultValue) {
     const value = localStorage.getItem(name)
     if (typeof(value) === 'string') {
@@ -485,6 +490,8 @@
     copy: document.getElementById('copy'),
     notification: document.getElementById('notification'),
     seedUrl: document.getElementById('seed-url'),
+    showOlder: document.getElementById('show-older'),
+    older: document.getElementById('older'),
   }
   resetState()
   elems.file.addEventListener('change', fileChange)
@@ -511,6 +518,7 @@
   elems.showSpoilers.addEventListener('change', spoilersChange)
   elems.showRelics.addEventListener('change', showRelicsChange)
   elems.copy.addEventListener('click', copyHandler)
+  elems.showOlder.addEventListener('click', showOlderHandler)
   // Load presets
   presets.forEach(function(preset) {
     const option = document.createElement('option')
