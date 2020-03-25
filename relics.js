@@ -324,7 +324,12 @@
     entity: {
       zones: [ ZONE.NZ0 ],
       entities: [ 0x3054, 0x3998 ],
+      replaceWithRelic: false,
     },
+    ids: [{
+      zone: ZONE.NZ0,
+      addresses: [ 0x054b1d5a ],
+    }],
     asItem: {
       x: 0x007e,
       y: 0x00b9,
@@ -464,7 +469,12 @@
     entity: {
       zones: [ ZONE.NZ0, ZONE.NZ0 ],
       entities: [ 0x2a8c, 0x33d0, 0x2ad2, 0x343e ],
+      replaceWithRelic: false,
     },
+    ids: [{
+      zone: ZONE.NZ0,
+      addresses: [ 0x054b1d58 ],
+    }],
     asItem: {
       x: 0x007e,
       y: 0x00b9,
@@ -521,6 +531,10 @@
       zones: [ ZONE.RDAI ],
       entities: [ 0x1dc4, 0x2730 ],
     },
+    reward: {
+      zone: ZONE.RBO3,
+      index: 0x11,
+    },
     erase: {
       instructions: [{
         addresses: [ 0x06757b54 ],
@@ -540,6 +554,10 @@
       zones: [ ZONE.RNO1 ],
       entities: [ 0x2332, 0x2a1e ],
     },
+    reward: {
+      zone: ZONE.RBO4,
+      index: 0x12,
+    },
     erase: {
       instructions: [{
         addresses: [ 0x067ec398 ],
@@ -558,6 +576,10 @@
     entity: {
       zones: [ ZONE.RNO2 ],
       entities: [ 0x29d4, 0x31b8 ],
+    },
+    reward: {
+      zone: ZONE.RBO7,
+      index: 0x13,
     },
     erase: {
       instructions: [{
@@ -595,6 +617,10 @@
     entity: {
       zones: [ ZONE.RCHI ],
       entities: [ 0x18f2, 0x1d52 ],
+    },
+    reward: {
+      zone: ZONE.RBO2,
+      index: 0x15,
     },
     erase: {
       instructions: [{

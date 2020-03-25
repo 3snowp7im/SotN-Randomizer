@@ -29,23 +29,23 @@
     entity.entities.forEach(function(addr, index) {
       const zone = constants.zones[entity.zones[Math.floor(index / 2)]]
       if ('x' in opts) {
-        data.writeShort(util.romOffset(zone, addr + 0x0), opts.x)
+        data.writeShort(util.romOffset(zone, addr + 0x00), opts.x)
       }
       if ('y' in opts) {
-        data.writeShort(util.romOffset(zone, addr + 0x2), opts.y)
+        data.writeShort(util.romOffset(zone, addr + 0x02), opts.y)
       }
       if ('id' in opts) {
-        data.writeShort(util.romOffset(zone, addr + 0x4), opts.id)
+        data.writeShort(util.romOffset(zone, addr + 0x04), opts.id)
       }
       if ('state' in opts) {
-        data.writeShort(util.romOffset(zone, addr + 0x8), opts.state)
+        data.writeShort(util.romOffset(zone, addr + 0x08), opts.state)
       }
     })
   }
 
   function writeTileId(data, zone, index, itemId) {
     zone = constants.zones[zone]
-    const addr = util.romOffset(zone, zone.items + 0x2 * index)
+    const addr = util.romOffset(zone, zone.items + 0x02 * index)
     data.writeShort(addr, itemId + constants.tileIdOffset)
   }
 
@@ -223,8 +223,16 @@
         if ('replaceWithRelic' in location) {
           location.replaceWithRelic(data, location, relic)
         } else {
-          if ('entity' in location) {
+          if ('entity' in location
+              && (!('replaceWithRelic' in location.entity)
+                  || location.entity.replaceWithRelic)) {
             writeEntity(data, location.entity, {state: relic.relicId})
+          }
+          if ('reward' in location) {
+            const zone = constants.zones[location.reward.zone]
+            const index = location.reward.index
+            const addr = util.romOffset(zone, zone.rewards + 0x02 * index)
+            data.writeShort(addr, relic.relicId)
           }
           if ('ids' in location) {
             writeIds(data, location.ids, relic.relicId)

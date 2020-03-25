@@ -7,7 +7,7 @@ const randomizeItems = require('./randomize_items')
 const randomizeRelics = require('./randomize_relics')
 const relics = require('./relics')
 const util = require('./util')
-const version = require('./package').version
+let version = require('./package').version
 
 const optionsHelp = [
   'The options string may contain any of the following:',
@@ -300,6 +300,10 @@ const yargs = require('yargs')
     describe: 'Verbosity level',
     type: 'count',
   })
+  .option('compat', {
+    type: 'boolean',
+  })
+  .hide('compat')
   .help(false)
   .option('help', {
     alias: 'h',
@@ -349,6 +353,9 @@ if ('help' in argv) {
     console.error('\nUnknown help topic: ' + argv.help)
     process.exit(1)
   }
+}
+if (argv.compat) {
+  version = '0.0.0-0'
 }
 // Check for seed string.
 if ('seed' in argv) {
