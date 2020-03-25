@@ -22,7 +22,7 @@
   const TYPE = constants.TYPE
   const typeNames = constants.typeNames
   const ZONE = constants.ZONE
-  const zoneNames = constants.zoneNames
+  const zones = constants.zones
   const tileIdOffset = constants.tileIdOffset
   const equipIdOffset = constants.equipIdOffset
 
@@ -88,53 +88,6 @@
     return accessoryFilter(item) && !salableFilter(item)
   }
 
-  function nonprogressionFilter(item) {
-    return !item.progression
-  }
-
-  function tilesFilter(item) {
-    return Array.isArray(item.tiles)
-  }
-
-  function itemTileFilter(tileFilter) {
-    return function(item) {
-      return item.tiles && item.tiles.some(tileFilter)
-    }
-  }
-
-  function mapTileFilter(tile) {
-    return !shopTileFilter(tile)
-      && !tankTileFilter(tile)
-      && !rewardTileFilter(tile)
-      && !candleTileFilter(tile)
-      && !dropTileFilter(tile)
-      && !librarianDropTileFilter(tile)
-  }
-
-  function shopTileFilter(tile) {
-    return tile.shop
-  }
-
-  function librarianDropTileFilter(tile) {
-    return tile.librarian
-  }
-
-  function dropTileFilter(tile) {
-    return typeof(tile.enemy) !== 'undefined'
-  }
-
-  function rewardTileFilter(tile) {
-    return tile.reward
-  }
-
-  function candleTileFilter(tile) {
-    return typeof(tile.candle) !== 'undefined'
-  }
-
-  function tankTileFilter(tile) {
-    return tile.tank
-  }
-
   function typeReduce(types, item) {
     if (!types[item.type]) {
       types[item.type] = []
@@ -147,8 +100,20 @@
     return function(tile) {
       if (item.blacklist) {
         for (let i = 0; i < item.blacklist.length; i++) {
-          if (tile.addresses.indexOf(item.blacklist[i]) !== -1) {
-            return false
+          if ('index' in tile) {
+            for (let j = 0; j < tile.zones.length; j++) {
+              const zone = zones[tile.zones[j]]
+              const offset = zone.items + 0x2 * tile.index
+              const address = util.romOffset(zone, offset)
+              if (item.blacklist[i] === address) {
+                return false
+              }
+            }
+          }
+          if ('address' in tile) {
+            if (tile.addresses.indexOf(item.blacklist[i]) !== -1) {
+              return false
+            }
           }
         }
       }
@@ -234,15 +199,25 @@
       item.tiles.forEach(function(tile) {
         util.assert(tile)
         const value = util.tileValue(item, tile)
-        tile.addresses.forEach(function(address) {
-          data.writeShort(address, value)
-        })
+        if ('index' in tile) {
+          tile.zones.forEach(function(zoneId) {
+            const zone = zones[zoneId]
+            const offset = zone.items + 0x2 * tile.index
+            const address = util.romOffset(zone, offset)
+            data.writeShort(address, value)
+          })
+        }
+        if ('addresses' in tile) {
+          tile.addresses.forEach(function(address) {
+            data.writeShort(address, value)
+          })
+        }
       })
     }
   }
 
   function randomizeStartingEquipment(data, info, planned) {
-    const pool = items.filter(nonprogressionFilter)
+    const pool = items.filter(util.nonProgressionFilter)
     // Select starting equipment.
     planned = planned || {}
     let weapon, shield, helmet, armor, cloak, other
@@ -329,6 +304,13 @@
     data.writeShort(0x119764, cloakInvOffset)
     data.writeShort(0x1197b0, otherInvOffset)
     data.writeShort(0x1197c4, otherInvOffset)
+    // Death cutscene draws these items.
+    data.writeShort(0x04b6844c, weapon ? weapon.id : 0)
+    data.writeShort(0x04b6844e, shield ? shield.id : 0)
+    data.writeShort(0x04b68452, helmet ? helmet.id : 0)
+    data.writeShort(0x04b68450, armor ? armor.id : 0)
+    data.writeShort(0x04b68454, cloak ? cloak.id : 0)
+    data.writeShort(0x04b68456, other ? other.id : 0)
     // Replace Axe Lord Armor.
     let axeLordArmor
     if ('a' in planned) {
@@ -378,8 +360,8 @@
       specialZones[name] = items.filter(function(item) {
         return !typeFilter([TYPE.HEART, TYPE.GOLD, TYPE.SUBWEAPON])(item)
           && item.tiles && item.tiles.some(function(tile) {
-            return candleTileFilter(tile)
-              && zones[name].indexOf(tile.zone) !== -1
+            return util.candleTileFilter(tile)
+              && zones[name].indexOf(tile.zones[0]) !== -1
           })
       })
       const ids = specialZones[name].map(function(item) {
@@ -394,14 +376,14 @@
         let replacement
         do replacement = itemTypes[item.type].pop()
         while (foodFilter(replacement))
-        const tiles = collectTiles([item], candleTileFilter)
+        const tiles = collectTiles([item], util.candleTileFilter)
         pushTile.apply(replacement, tiles)
       })
     })
     // Randomize the rest of the candles, except for Final Stage, which
     // doesn't have map tiles for all subweapons, so it must be ignored.
     const tileFilter = function(tile) {
-      return candleTileFilter(tile) && tile.zone !== ZONE.ST0
+      return util.candleTileFilter(tile) && tile.zones[0] !== ZONE.ST0
     }
     const candleItems = items.filter(function(item) {
       return (specialItems.indexOf(item.id) === -1
@@ -422,7 +404,8 @@
   }
 
   function randomizePrologueRewards(pool, addon, planned) {
-    const rewardItems = items.filter(itemTileFilter(rewardTileFilter))
+    const rewardItemFilter = util.itemTileFilter(util.rewardTileFilter)
+    const rewardItems = items.filter(rewardItemFilter)
     rewardItems.sort(function(a, b) {
       if (a < b) {
         return -1
@@ -431,7 +414,7 @@
       }
       return 0
     })
-    const rewardTiles = collectTiles(items, rewardTileFilter)
+    const rewardTiles = collectTiles(items, util.rewardTileFilter)
     const usableItems = shuffled(pool.filter(usableFilter))
     pool = ['h', 'n', 'p'].map(function(item) {
       if (planned && item in planned) {
@@ -484,8 +467,8 @@
     // Separate tank tiles by zone.
     const tankZones = {}
     tankTiles.forEach(function(tile) {
-      tankZones[tile.zone] = tankZones[tile.zone] || []
-      tankZones[tile.zone].push(tile)
+      tankZones[tile.zones[0]] = tankZones[tile.zones[0]] || []
+      tankZones[tile.zones[0]].push(tile)
     })
     // Randomize tank items.
     Object.getOwnPropertyNames(tankZones).forEach(function(zone) {
@@ -539,9 +522,10 @@
     const shuffledItems = shuffled(pool)
     // Get all map tiles.
     const mapItems = items.filter(function(item) {
-      return nonprogressionFilter(item) && itemTileFilter(mapTileFilter)(item)
+      return util.nonProgressionFilter(item)
+        && util.itemTileFilter(util.mapTileFilter)(item)
     })
-    const tileItems = mapItems.map(cloneTilesMap(mapTileFilter))
+    const tileItems = mapItems.map(cloneTilesMap(util.mapTileFilter))
     // Shuffle all map tiles.
     const shuffledTiles = shuffled(collectTiles(tileItems))
     // Equipment is unique and placed in non-despawn tiles.
@@ -591,7 +575,7 @@
           const item = itemFromName(itemName)
           // Collect tiles for the item.
           const tiles = item.tiles.reduce(function(tiles, tile) {
-            if (tile.zone === constants.ZONE[zone] && !tile.reward) {
+            if (tile.zones[0] === constants.ZONE[zone] && !tile.reward) {
               tiles.push(tile)
             }
             return tiles
@@ -617,16 +601,6 @@
               target = Object.assign({}, itemFromName(map[index]))
               addon.push(target)
             }
-            switch (target.type) {
-            case TYPE.HELMET:
-            case TYPE.ARMOR:
-            case TYPE.CLOAK:
-            case TYPE.ACCESSORY:
-              if (tiles[index].byte && target.id >= tileIdOffset) {
-                throw new Error('Cannot place item: ' + target.name)
-              }
-              break
-            }
             pushTile.call(target, tiles[index])
           })
         })
@@ -638,8 +612,9 @@
     // Replace the axe subweapon drop with a random subweapon.
     const subweapon = shuffled(pool.filter(subweaponFilter)).pop()
     const subweaponTiles = collectTiles(items.filter(function(item) {
-      return itemTileFilter(dropTileFilter)(item) && subweaponFilter(item)
-    }), dropTileFilter)
+      return util.itemTileFilter(util.dropTileFilter)(item)
+        && subweaponFilter(item)
+    }), util.dropTileFilter)
     while (subweaponTiles.length) {
       pushTile.call(subweapon, takeTile(subweaponTiles))
     }
@@ -661,9 +636,11 @@
     // Duplicate equipment as necessary.
     const dupped = []
     const types = pool.reduce(typeReduce, [])
+    types[TYPE.ACCESSORY] = types[TYPE.ACCESSORY] || []
     types[TYPE.ACCESSORY] = types[TYPE.ACCESSORY].filter(nonsalableFilter)
     Object.getOwnPropertyNames(dupTypes).forEach(function(type) {
       type = parseInt(type)
+      types[type] = types[type] || []
       const items = shuffled(types[type])
       dupTypes[type].forEach(function(count) {
         const item = items.shift()
@@ -675,10 +652,11 @@
     const shuffledItems = shuffled(pool)
     // Get all drop items.
     const dropItems = items.filter(function(item) {
-      return itemTileFilter(dropTileFilter)(item) && !subweaponFilter(item)
+      return util.itemTileFilter(util.dropTileFilter)(item)
+        && !subweaponFilter(item)
     })
     const tileItems = dropItems.map(cloneTilesMap(function(tile) {
-      return dropTileFilter(tile) && !tile.byte
+      return util.dropTileFilter(tile)
     }))
     // Create filter that ensures enemies don't drop the same item twice.
     const drops = {}
@@ -750,7 +728,7 @@
     if (planned) {
       Object.getOwnPropertyNames(planned).forEach(function(key) {
         const enemy = util.enetiesFromIdString(key)
-        const matches = items.filter(itemTileFilter(function(tile) {
+        const matches = items.filter(util.itemTileFilter(function(tile) {
           return tile.enemy === enemy.id
         }))
         let tiles
@@ -767,7 +745,21 @@
             })
             return tiles
           }, []).sort(function(a, b) {
-            return a.addresses[0] - b.addresses[0]
+            if ('addresses' in a) {
+              a = a.addresses[0]
+            } else if ('index' in a) {
+              const zone = zones[a.zones[0]]
+              const offset = zone.items + 0x2 * a.index
+              a = util.romOffset(zone, offset)
+            }
+            if ('addresses' in b) {
+              b = b.addresses[0]
+            } else if ('index' in b) {
+              const zone = zones[b.zones[0]]
+              const ofset = zone.items + 0x2 * b.index
+              b = util.romOffset(zone, offset)
+            }
+            return a - b
           })
         } else {
           tiles = enemy.dropAddresses.map(function(address) {
@@ -808,30 +800,20 @@
     // Push those tiles onto whatever item they ended up being replaced with.
     const pushReplacement = function(name) {
       const tiles = itemFromName(name).tiles
-      const byteTile = tiles.filter(function(tile) {
-        return tile.byte
+      const noOffsetTile = tiles.filter(function(tile) {
+        return tile.noOffset
       })[0]
-      const shortTile = tiles.filter(function(tile) {
-        return !tile.byte
+      const offsetTile = tiles.filter(function(tile) {
+        return !tile.noOffset
       })[0]
       const replacement = (addon || []).concat(pool).filter(function(item) {
-        return item.tiles && item.tiles.indexOf(shortTile) !== -1
+        return item.tiles && item.tiles.indexOf(offsetTile) !== -1
       })[0]
       if (replacement) {
         if (replacement.id === 0) {
           throw new Error('Cannot drop item: ' + replacement.name)
         }
-        switch (replacement.type) {
-        case TYPE.HELMET:
-        case TYPE.ARMOR:
-        case TYPE.CLOAK:
-        case TYPE.ACCESSORY:
-          if (replacement.id >= tileIdOffset) {
-            throw new Error('Cannot drop item: ' + replacement.name)
-          }
-          break
-        }
-        replacement.tiles.push(byteTile)
+        replacement.tiles.push(tiles[0])
       }
     }
     pushReplacement('Short Sword')
@@ -856,10 +838,9 @@
       Math.floor(Math.random() * 32),
     ]
     // Write the jump to injected code.
-    // Note: Use 0x0fe030 -> 0x08039eea for code to be run on every frame.
     data.writeWord(0x0fa97c, 0x0c04eabc)
     // Write the color setting instructions.
-    let address = 0x15D508
+    let address = 0x15d508
     for (let i = 0; i < colors.length; i++) {
       address = data.writeWord(address, 0x3c020003)
       address = data.writeWord(address, 0x3442caa8 + 4 * i)
@@ -887,24 +868,30 @@
         // Get pool of randomizable items.
         addon = []
         pool = items.filter(function(item) {
+          if (!util.nonProgressionFilter(item)) {
+            return false
+          }
           if (foodFilter(item)) {
             return true
           }
-          if (options.enemyDrops
-              && itemTileFilter(dropTileFilter)(item)) {
+          if (options.itemLocations
+              && (util.itemTileFilter(util.mapTileFilter)(item)
+                  || util.itemTileFilter(util.shopTileFilter)(item)
+                  || util.itemTileFilter(util.candleTileFilter)(item)
+                  || util.itemTileFilter(util.librarianDropTileFilter)(item)
+                  || util.itemTileFilter(util.tankTileFilter)(item))) {
             return true
           }
-          if (options.itemLocations
-              && nonprogressionFilter(item)
-              && (itemTileFilter(mapTileFilter)(item)
-                  || itemTileFilter(shopTileFilter)(item)
-                  || itemTileFilter(candleTileFilter)(item)
-                  || itemTileFilter(librarianDropTileFilter)(item)
-                  || itemTileFilter(tankTileFilter)(item))) {
+          if (options.enemyDrops
+              && util.itemTileFilter(util.dropTileFilter)(item)) {
+            return true
+          }
+          if (options.startingEquipment
+              && equipmentFilter(item)) {
             return true
           }
           if (options.prologueRewards
-              && itemTileFilter(rewardTileFilter)(item)) {
+              && util.itemTileFilter(util.rewardTileFilter)(item)) {
             return true
           } 
         }).map(function(item) {
@@ -952,7 +939,8 @@
         }
         // Write items to ROM.
         if (!options.checkVanilla) {
-          (addon.concat(pool)).filter(tilesFilter).forEach(writeTiles(data))
+          const tilesToWrite = (addon.concat(pool)).filter(util.tilesFilter)
+          tilesToWrite.forEach(writeTiles(data))
         }
       } catch (err) {
         if (err.name === 'AssertionError' && retries++ < MAX_RETRIES) {

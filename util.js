@@ -72,6 +72,53 @@
     return rooms
   }
 
+  function shopTileFilter(tile) {
+    return tile.shop
+  }
+
+  function librarianDropTileFilter(tile) {
+    return tile.librarian
+  }
+
+  function dropTileFilter(tile) {
+    return typeof(tile.enemy) !== 'undefined'
+  }
+
+  function rewardTileFilter(tile) {
+    return tile.reward
+  }
+
+  function candleTileFilter(tile) {
+    return typeof(tile.candle) !== 'undefined'
+  }
+
+  function tankTileFilter(tile) {
+    return tile.tank
+  }
+
+  function mapTileFilter(tile) {
+    return !shopTileFilter(tile)
+      && !tankTileFilter(tile)
+      && !rewardTileFilter(tile)
+      && !candleTileFilter(tile)
+      && !dropTileFilter(tile)
+      && !librarianDropTileFilter(tile)
+  }
+
+  function nonProgressionFilter(item) {
+    return !item.progression
+  }
+
+  function tilesFilter(item) {
+    return Array.isArray(item.tiles)
+  }
+
+  function itemTileFilter(tileFilter) {
+    return function(item) {
+      return item.tiles && item.tiles.some(tileFilter)
+    }
+  }
+
   function tileIdOffsetFilter(item) {
     return [
       constants.TYPE.WEAPON1,
@@ -99,7 +146,7 @@
     if (!tile) {
       tile = {}
     }
-    if (tile.byte) {
+    if (tile.noOffset) {
       return item.id
     }
     let id = ((tile.candle || 0x00) << 8) | item.id
@@ -263,12 +310,17 @@
   }
 
   function numToHex(num, width) {
+    let sign = 1
+    if (num < 0) {
+      sign = -1
+      num *= -1
+    }
     if (width === undefined) {
       width = 2 * Math.ceil(num.toString(16).length / 2)
     }
     const zeros = Array(width).fill('0').join('')
     const hex = (zeros + num.toString(16)).slice(-width)
-    return '0x' + hex
+    return (sign < 0 ? '-' : '') + '0x' + hex
   }
 
   function checked(file) {
@@ -278,7 +330,7 @@
     this.writes = {}
   }
 
-  checked.prototype.readByte = function readByte(address) {
+  checked.prototype.readChar = function readChar(address) {
     let buf
     if (self) {
       buf = [
@@ -325,7 +377,14 @@
     return (buf[3] << 24) + (buf[2] << 16) + (buf[3] << 8) + buf[0]
   }
 
+  function checkAddressRange(address) {
+    if (!address || address > 0xffffffff || Number.isNaN(address)) {
+      throw Error('bad address: ' + address)
+    }
+  }
+
   checked.prototype.writeChar = function writeChar(address, val) {
+    checkAddressRange(address)
     if (this.file) {
       if (self) {
         this.file[address] = val & 0xff
@@ -339,6 +398,7 @@
   }
 
   checked.prototype.writeShort = function writeShort(address, val) {
+    checkAddressRange(address)
     const bytes = [
       val & 0xff,
       (val >>> 8) & 0xff,
@@ -360,6 +420,7 @@
   }
 
   checked.prototype.writeWord = function writeShort(address, val) {
+    checkAddressRange(address)
     const bytes = [
       val & 0xff,
       (val >>> 8) & 0xff,
@@ -714,8 +775,8 @@
             }
             const itemName = item.name
             const tile = item.tiles && item.tiles.filter(function(tile) {
-              if (typeof(tile.zone) !== 'undefined') {
-                return tile.zone === constants.ZONE[zone]
+              if (typeof(tile.zones) !== 'undefined') {
+                return tile.zones.indexOf(constants.ZONE[zone]) !== -1
               }
             })[index]
             if (!tile) {
@@ -1348,7 +1409,7 @@
     return file
   }
 
-  function formatObject(obj, indent, hexWidth) {
+  function formatObject(obj, indent, hex) {
     indent = indent || 0
     if (Array.isArray(obj)) {
       let padFirst
@@ -1358,15 +1419,15 @@
         padLast = typeof(obj[obj.length - 1]) !== 'object'
       }
       return '[' + (padFirst ? ' ' : '') + obj.map(function(el) {
-        return formatObject(el, indent, hexWidth)
+        return formatObject(el, indent, hex)
       }).join(', ') + (padLast ? ' ' : '') + ']'
     }
     switch (typeof(obj)) {
     case 'string':
       return '\'' + entry[1].replace(/'/, '\\\'') + '\''
     case 'number':
-      if (typeof(hexWidth) === 'number') {
-        return numToHex(obj, hexWidth)
+      if (hex) {
+        return numToHex(obj)
       }
       return obj.toString(10)
     case 'object':
@@ -1386,19 +1447,26 @@
         case 'type':
           value = 'TYPE.' + constants.typeNames[entry[1]]
           break
-        case 'zone':
-          value = 'ZONE.' + constants.zoneNames[entry[1]]
+        case 'zones':
+          value = '[ ' + entry[1].map(function(zoneId) {
+            return 'ZONE.' + constants.zoneNames[zoneId]
+          }).join(', ') + ' ]'
           break
         case 'candle':
           value = numToHex(entry[1], 2)
           break
         default:
-          let hexWidth
-          const hexTypes = ['addresses', 'blacklist', 'dropAddresses']
+          let hex
+          const hexTypes = [
+            'addresses',
+            'blacklist',
+            'entities',
+            'dropAddresses',
+          ]
           if (hexTypes.indexOf(entry[0]) !== -1) {
-            hexWidth = 8
+            hex = true
           }
-          value = formatObject(entry[1], indent + 2, hexWidth)
+          value = formatObject(entry[1], indent + 2, hex)
           break
         }
         lines.push(name + value + ',')
@@ -1464,9 +1532,9 @@
     return entity.data.readUInt16LE(4) === 0x000c
   }
 
-  function isCandle(zoneId, entity) {
+  function isCandle(zone, entity) {
     const states = []
-    switch (zoneId) {
+    switch (zone.id) {
     case constants.ZONE.ST0:
       states.push(0x20, 0x30, 0x80, 0x90)
       break
@@ -1552,6 +1620,252 @@
     }
     const id = entity.data.readUInt16LE(4)
     return id === 0xa001 && states.indexOf(entity.data[9] & 0xf0) !== -1
+  }
+
+  function isContainer(zone, entity) {
+    const id = entity.data.readUInt16LE(4)
+    const ids = []
+    switch (zone.id) {
+    case constants.ZONE.CAT:
+      if (id == 0x002c) {
+        return entity.data[8] > 0
+      }
+      ids.push({
+        id: 0x0025,
+      })
+      ids.push({
+        id: 0xa001,
+        states: [ 0x70 ],
+      })
+      break
+    case constants.ZONE.CHI:
+      ids.push({
+        id: 0x0018,
+      })
+      break
+    case constants.ZONE.DAI:
+    case constants.ZONE.RDAI:
+    case constants.ZONE.RNO4:
+      ids.push({
+        id: 0xa001,
+        states: [ 0x70, 0x80 ],
+      })
+      break
+    case constants.ZONE.RLIB:
+      ids.push({
+        id: 0x0029,
+      })
+      ids.push({
+        id: 0xa001,
+        states: [ 0x70, 0x90 ],
+      })
+      break
+    case constants.ZONE.LIB:
+      if (id == 0x003d) {
+        return entity.data[9] === 0
+      }
+      ids.push({
+        id: 0xa001,
+        states: [ 0x70, 0x90 ],
+      })
+      break
+    case constants.ZONE.NO1:
+      ids.push({
+        id: 0x0032,
+      })
+      break
+    case constants.ZONE.NO2:
+    case constants.ZONE.RNO2:
+      ids.push({
+        id: 0xa001,
+        states: [ 0x70 ],
+      })
+      break
+    case constants.ZONE.NO4:
+    case constants.ZONE.BO3:
+      ids.push({
+        id: 0xa001,
+        states: [ 0x70 ],
+      })
+      break
+    case constants.ZONE.NZ0:
+      ids.push({
+        id: 0x0034,
+      }, {
+        id: 0x0035,
+      }, {
+        id: 0x0036,
+      }, {
+        id: 0x0037,
+      })
+      break
+    case constants.ZONE.TOP:
+    case constants.ZONE.RTOP:
+      ids.push({
+        id: 0xa001,
+        states: [ 0x70, 0x80, 0x90 ],
+      })
+      ids.push({
+        id: 0x001b,
+      })
+      break
+    case constants.ZONE.RCAT:
+      ids.push({
+        id: 0xa001,
+        states: [ 0x70 ],
+      })
+      ids.push({
+        id: 0x002e,
+      })
+      break
+    case constants.ZONE.RNO1:
+      ids.push({
+        id: 0x0025,
+      })
+      ids.push({
+        id: 0x0026,
+      })
+      break
+    case constants.ZONE.RNO3:
+      ids.push({
+        id: 0x0045,
+      })
+      break
+    case constants.ZONE.RNZ0:
+      ids.push({
+        id: 0x0027,
+      })
+      ids.push({
+        id: 0x0028,
+      })
+      ids.push({
+        id: 0x0029,
+      })
+      ids.push({
+        id: 0x002a,
+      })
+      ids.push({
+        id: 0x002b,
+      })
+      break
+    }
+    for (let i = 0; i < ids.length; i++) {
+      if (ids[i].id === id) {
+        if ('states' in ids[i]
+            && ids[i].states.indexOf(entity.data[9]) === -1) {
+          return false
+        }
+        return true
+      }
+    }
+  }
+
+  function containedItem(data, zone, entity) {
+    let index
+    const entId = entity.data.readUInt16LE(4)
+    const state = entity.data.readUInt16LE(8)
+    switch (zone.id) {
+    case constants.ZONE.CHI: {
+      index = state + 3
+      break
+    }
+    case constants.ZONE.NZ0: {
+      switch (entId) {
+      case 0x0034:
+        switch (state) {
+        case 0x0003:
+          index = 6
+          break
+        case 0x0004:
+          index = 10
+          break
+        default:
+          index = state
+          break
+        }
+        break
+      case 0x0035:
+        index = state + 3
+        break
+      case 0x0036:
+        index = state + 7
+        break
+      case 0x0037:
+        switch (state) {
+        case 0x002:
+          return {
+            index: state,
+            item: relicFromName('Bat Card')
+          }
+        case 0x0003:
+          return {
+            index: state,
+            item: relicFromName('Skill of Wolf')
+          }
+        }
+      }
+      break
+    }
+    case constants.ZONE.TOP:
+      if (entId === 0x001b) {
+        index = 2 - state
+        break
+      }
+    case constants.ZONE.LIB:
+      if (entId === 0x003d) {
+        index = state + 1
+        break
+      }
+    case constants.ZONE.RLIB:
+      if (entId === 0x0029) {
+        index = state + 6
+        break
+      }
+    case constants.ZONE.CAT: {
+      if (entId === 0x0025) {
+        index = 4 * state 
+        break
+      }
+    }
+    case constants.ZONE.RCAT: {
+      if (entId === 0x002e) {
+        index = 7 * state + 1
+        break
+      }
+    }
+    case constants.ZONE.DAI:
+    case constants.ZONE.LIB:
+    case constants.ZONE.NO2:
+    case constants.ZONE.NO4:
+    case constants.ZONE.BO3:
+    case constants.ZONE.RDAI:
+    case constants.ZONE.RNO2:
+    case constants.ZONE.RNO4:
+    case constants.ZONE.RTOP:
+      index = entity.data[8]
+      break
+    default:
+      index = entity.data.readUInt16LE(8)
+      break
+    }
+    const id = data.readUInt16LE(zone.items + 0x2 * index)
+    const item = itemFromTileId(items, id)
+    return {
+      index: index,
+      item: item,
+    }
+  }
+
+  function relicFromAbility(ability) {
+    return relics.filter(function(relic) {
+      return relic.ability === ability
+    }).pop()
+  }
+
+  function relicFromName(name) {
+    return relics.filter(function(relic) {
+      return relic.name === name
+    }).pop()
   }
 
   function enemyFromIdString(idString) {
@@ -1943,7 +2257,7 @@
         })[0]
         assert(item, 'Unknown item: ' + itemName)
         const tiles = (item.tiles || []).filter(function(tile) {
-          return tile.zone === zoneId
+          return 'zones' in tile && tile.zones.indexOf(zoneId) !== -1
         })
         assert(tiles[index], 'Unknown item tile: ' + itemName + ' ' + number)
         const replace = items.filter(function(item) {
@@ -2125,6 +2439,16 @@
 
   const exports = {
     assert: assert,
+    shopTileFilter: shopTileFilter,
+    librarianDropTileFilter: librarianDropTileFilter,
+    dropTileFilter: dropTileFilter,
+    rewardTileFilter: rewardTileFilter,
+    candleTileFilter: candleTileFilter,
+    tankTileFilter: tankTileFilter,
+    mapTileFilter: mapTileFilter,
+    nonProgressionFilter: nonProgressionFilter,
+    tilesFilter: tilesFilter,
+    itemTileFilter: itemTileFilter,
     tileIdOffsetFilter: tileIdOffsetFilter,
     itemFromTileId: itemFromTileId,
     tileValue: tileValue,
@@ -2148,6 +2472,10 @@
     isItem: isItem,
     isRelic: isRelic,
     isCandle: isCandle,
+    isContainer: isContainer,
+    containedItem: containedItem,
+    relicFromName: relicFromName,
+    relicFromAbility: relicFromAbility,
     enemyFromIdString: enemyFromIdString,
     Preset: Preset,
     PresetBuilder: PresetBuilder,

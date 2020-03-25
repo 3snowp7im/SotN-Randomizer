@@ -86,7 +86,7 @@ const shortSword = items.filter(function(item) {
 shortSword.tiles.push({
   addresses: [ 0x04bc9324 ],
   enemy: 9,
-  byte: true,
+  noOffset: true,
 })
 const redRust = items.filter(function(item) {
   return item.name === 'Red Rust'
@@ -94,7 +94,7 @@ const redRust = items.filter(function(item) {
 redRust.tiles.push({
   addresses: [ 0x04bc9328 ],
   enemy: 9,
-  byte: true,
+  noOffset: true,
 })
 
 // Format data.

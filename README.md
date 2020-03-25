@@ -21,20 +21,20 @@ To randomize your disc image, just pass in the path to your .bin file using the
 `--bin` option. This will use the current time as the seed:
 
 ```shell
-$ ./randomize -b sotn.bin
+$ node randomize -b sotn.bin
 ```
 
 You can print the seed used with the `--verbose` flag:
 
 ```shell
-$ ./randomize -vb sotn.bin
+$ node randomize -vb sotn.bin
 ```
 
 The more `--verbose` flags you include, the more information about the
 randomization gets printed:
 
 ```shell
-$ ./randomize -vvvb sotn.bin
+$ node randomize -vvvb sotn.bin
 ```
 
 ### Seed URLs
@@ -44,27 +44,27 @@ the `--race` option and seed URLs. To use the current time as a seed and print
 its URL and starting equipment:
 
 ```shell
-$ ./randomize -rb sotn.bin
+$ node randomize -rb sotn.bin
 ```
 
 To use a custom seed and print its URL and starting equipment:
 
 ```shell
-$ ./randomize -rb sotn.bin -s myseed
+$ node randomize -rb sotn.bin -s myseed
 ```
 
 To use a copied seed URL and print its starting equipment:
 
 ```shell
-$ ./randomize -rb sotn.bin https://sotn.io/?myseed
+$ node randomize -rb sotn.bin https://sotn.io/?myseed
 ```
 
 The `--race` option implies a verbosity level of 2. You can override this by
 supplying your own `--verbose` flag(s):
 
 ```shell
-$ ./randomize -vrb sotn.bin https://sotn.io/?myseed    # Less verbose
-$ ./randomize -vvvrb sotn.bin https://sotn.io/?myseed  # More verbose
+$ node randomize -vrb sotn.bin https://sotn.io/?myseed    # Less verbose
+$ node randomize -vvvrb sotn.bin https://sotn.io/?myseed  # More verbose
 ```
 
 ### Dry running
@@ -75,7 +75,7 @@ To print starting equipment and relic locations for a URL without actually
 writing the randomizations to your disc image:
 
 ```shell
-$ ./randomize -vvvr https://sotn.io/?myseed
+$ node randomize -vvvr https://sotn.io/?myseed
 ```
 
 ### Presets
@@ -90,5 +90,5 @@ To create a URL that allows others to randomize their game using your
 customizations:
 
 ```shell
-$ ./randomize -uo $(node presets/mypreset.js)
+$ node randomize -uo $(node presets/mypreset.js)
 ```

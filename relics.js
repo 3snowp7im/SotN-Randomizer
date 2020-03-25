@@ -7,147 +7,650 @@
     constants = require('./constants')
   }
   const RELIC = constants.RELIC
+  const TYPE = constants.TYPE
+  const ZONE = constants.ZONE
+
+  function items() {
+    let items
+    if (self) {
+      items = self.sotnRando.items
+    } else {
+      items = require('./items')
+    }
+    return items
+  }
+
+  function util() {
+    let util
+    if (self) {
+      util = self.sotnRando.util
+    } else {
+      util = require('./util')
+    }
+    return util
+  }
+
+  function replaceShopRelicWithRelic(data, jewelOfOpen, relic) {
+    const shopRelicNameAddress = 0x47d5650
+    const shopRelicIdAddress = 0x47dbde0
+    const shopRelicIdOffset = 0x64
+    // Fix shop menu check.
+    data.writeChar(shopRelicIdAddress, relic.relicId + shopRelicIdOffset)
+    // Change shop menu name.
+    for (let i = 0; i < jewelOfOpen.name.length; i++) {
+      let value
+      if (i >= relic.name.length
+          || relic.name.charCodeAt(i) === ' '.charCodeAt()) {
+        value = ' '
+      } else {
+        value = relic.name.charCodeAt(i) - 0x20
+      }
+      data.writeChar(shopRelicNameAddress + i, value)
+    }
+  }
+
+  function replaceShopRelicWithItem(data, jewelOfOpen, item) {
+    let offset
+    const id = item.id - 0xa9
+    const type = 0x02
+    const zone = constants.zones[constants.ZONE.LIB]
+    // Write item tpe.
+    data.writeChar(util().romOffset(zone, 0x134c), type)
+    // Write item id.
+    data.writeShort(util().romOffset(zone, 0x134e), id)
+    data.writeShort(util().romOffset(zone, 0x14d4), id)
+    // Replace relic check for inventory check.
+    offset = util().romOffset(zone, 0x032b08)
+    //                                          // lbu v0, 0x7a33 + id (v0)
+    offset = data.writeWord(offset, 0x90427a33 + id)
+    // Injection point.
+    offset = util().romOffset(zone, 0x033050)
+    offset = data.writeWord(offset, 0x08075180) // j 0x801d4600
+    // Load base address.
+    offset = util().romOffset(zone, 0x054600)
+    offset = data.writeWord(offset, 0x3c02801d) // lui v0, 0x801d
+    offset = data.writeWord(offset, 0x34424364) // ori v0, v0, 0x4364
+    offset = data.writeWord(offset, 0x14450002) // bne a1, v0, 0x801b4614
+    offset = data.writeWord(offset, 0x94a30000) // lhu v1, 0x0000 (a1)
+    offset = data.writeWord(offset, 0x34030005) // ori v1, r0, 0x0005
+    // Return.
+    offset = data.writeWord(offset, 0x0806cc16) // j 0x801b3058
+    offset = data.writeWord(offset, 0x00000000) // nop
+    // Patch checker.
+    offset = util().romOffset(zone, 0x03317c)
+    offset = data.writeWord(offset, 0x36620000) // ori v0, s3, 0x0000
+    offset = data.writeWord(offset, 0x00000000) // nop
+    offset = data.writeWord(offset, 0x00000000) // nop
+    offset = data.writeWord(offset, 0x00000000) // nop
+    offset = data.writeWord(offset, 0x00000000) // nop
+    offset = util().romOffset(zone, 0x033198)
+    offset = data.writeWord(offset, 0x90427a33) // lbu v0, 0x7a33 (v0)
+    offset = util().romOffset(zone, 0x0331a0)
+    offset = data.writeWord(offset, 0x00000000) // nop
+  }
+
+  function replaceRingOfVladWithItem(data, relic, item, index) {
+    let offset
+    const id = item.id - 0xa9
+    const zone = constants.zones[ZONE.RNZ1]
+    // Patch instructions that load a relic.
+    data.writeWord(
+      relic.erase.instructions[0].addresses[0],
+      relic.erase.instructions[0].instruction,
+    )
+    data.writeWord(0x059ee2c8, 0x3402000c)
+    data.writeWord(0x059ee2d4, 0x24423a54)
+    data.writeShort(0x059ee2e4, index)
+    offset = util().romOffset(zone, 0x2dd6)
+    data.writeShort(offset, index)
+    // Replace item in rewards table.
+    offset = util().romOffset(zone, zone.rewards)
+    data.writeShort(offset, id + 0x129)
+    // Replace item in items table.
+    offset = util().romOffset(zone, zone.items + 0x2 * index)
+    data.writeShort(offset, id + 0x129)
+    // Injection point.
+    offset = util().romOffset(zone, 0x02c860)
+    data.writeWord(offset, 0x0807bc40)          // j 0x801ef100
+    offset = util().romOffset(zone, 0x02c868)
+    data.writeWord(offset, 0x00000000)          // nop
+    // Zero out tile function pointer if item is in inventory.
+    offset = util().romOffset(zone, 0x03f100)
+    offset = data.writeWord(offset, 0x3c108009) // lui s0, 0x8009
+    //                                          // addiu s0, id
+    offset = data.writeWord(offset, 0x26100000 + id)
+    offset = data.writeWord(offset, 0x92107a33) // lbu s0, 0x7a33 (s0)
+    offset = data.writeWord(offset, 0x12000002) // beq s0, r0, 0x801ef114
+    offset = data.writeWord(offset, 0x3c108007) // lui s0, 0x8007
+    offset = data.writeWord(offset, 0xae0065f0) // sw r0, 0x65f0 (s0)
+    // Return.
+    offset = data.writeWord(offset, 0x0806b21a) // j 0x801ac868
+    offset = data.writeWord(offset, 0x00000000) // nop
+  }
+
+  function replaceVladRelicWithItem(opts) {
+    const boss = constants.zones[opts.boss]
+    return function(data, relic, item, index) {
+      let offset
+      const id = item.id - 0xa9
+      const zone = constants.zones[relic.entity.zones[0]]
+      // Patch item table.
+      offset = util().romOffset(zone, zone.items + 0x2 * index)
+      data.writeShort(offset, id + 0x129)
+      // Patch entities table.
+      relic.entity.entities.forEach(function(addr) {
+        if ('asItem' in relic) {
+          if ('x' in relic.asItem) {
+            offset = util().romOffset(zone, addr + 0)
+            data.writeShort(offset, relic.asItem.x)
+          }
+          if ('y' in relic.asItem) {
+            offset = util().romOffset(zone, addr + 2)
+            data.writeShort(offset, relic.asItem.y)
+          }
+        }
+        offset = util().romOffset(zone, addr + 4)
+        data.writeShort(offset, 0x000c)
+        offset = util().romOffset(zone, addr + 8)
+        data.writeShort(offset, index)
+      })
+      // Patch instructions that load a relic.
+      data.writeWord(
+        relic.erase.instructions[0].addresses[0],
+        relic.erase.instructions[0].instruction,
+      )
+      // Patch boss reward.
+      data.writeShort(util().romOffset(boss, boss.rewards), id + 0x129)
+      // Entry point.
+      offset = util().romOffset(zone, opts.entry)
+      //                                          // j inj
+      offset = data.writeWord(offset, 0x08060000 + (opts.inj >> 2))
+      offset = data.writeWord(offset, 0x00041400) // sll v0, a0, 10
+      // Zero tile function if item is in inventory.
+      offset = util().romOffset(zone, opts.inj)
+      offset = data.writeWord(offset, 0x3c088009) // lui t0, 0x8009
+      //                                          // addiu t0, t0, id
+      offset = data.writeWord(offset, 0x25080000 + id)
+      offset = data.writeWord(offset, 0x91087a33) // lbu t0, 0x7a33 (t0)
+      offset = data.writeWord(offset, 0x11000004) // beq t0, r0, pc + 0x04
+      offset = data.writeWord(offset, 0x3c088018) // lui t0, 0x8018
+      offset = data.writeWord(offset, 0x3409000f) // ori t1, r0, 0x000f
+      relic.entity.entities.forEach(function(addr) {
+        //                                        // sh t1, entity + 4 (t0)
+        offset = data.writeWord(offset, 0xa5090000 + addr + 4)
+      })
+      // Return.
+      offset = data.writeWord(offset, 0x03e00008) // jr ra
+      offset = data.writeWord(offset, 0x00000000) // nop
+    }
+  }
+
+  function replaceGoldRingWithRelic(data, item, relic) {
+    let offset
+    const zone = constants.zones[constants.ZONE.NO4]
+    // Put relic in entity table.
+    const itemId = item.itemId + constants.tileIdOffset
+    const goldRing = util().itemFromTileId(items(), itemId)
+    const entity = goldRing.tiles[0]
+    entity.entities.forEach(function(addr) {
+      data.writeShort(util().romOffset(zone, addr + 8), relic.relicId)
+    })
+    // Injection point.
+    offset = util().romOffset(zone, 0x04c590)
+    offset = data.writeWord(offset, 0x08077aed) // j 0x801debb4
+    // Branch.
+    offset = util().romOffset(zone, 0x05ebb4)
+    offset = data.writeWord(offset, 0x10400003) // beq v0, r0, pc + 12
+    offset = data.writeWord(offset, 0x00000000) // nop
+    // Return.
+    offset = data.writeWord(offset, 0x08073166) // j 0x801cc598
+    offset = data.writeWord(offset, 0x00000000) // nop
+    // Get Succubus defeat time.
+    offset = data.writeWord(offset, 0x3c020003) // lui v0, 0x0003
+    offset = data.writeWord(offset, 0x3442ca4c) // ori v0, v0, 0xca4c
+    offset = data.writeWord(offset, 0x84420000) // lh v0, 0x0000 (v0)
+    offset = data.writeWord(offset, 0x00000000) // nop
+    // Branch if zero.
+    offset = data.writeWord(offset, 0x10400006) // beq v0, r0, pc + 24
+    offset = data.writeWord(offset, 0x00000000) // nop
+    // Patch entity type.
+    offset = data.writeWord(offset, 0x3403000b) // ori v1, r0, 0x000b
+    offset = data.writeWord(offset, 0x3c028018) // lui v0, 0x8018
+    entity.entities.forEach(function(addr) {
+      //                                        // sh v1, addr + 4 (v0)
+      offset = data.writeWord(offset, 0xa4430000 + addr + 4)
+    })
+    offset = data.writeWord(offset, 0x34020000) // ori v0, r0, 0x0000
+    // Return.
+    offset = data.writeWord(offset, 0x0807316f) // j 0x801cc5bc
+    offset = data.writeWord(offset, 0x00000000) // nop
+  }
+
+  function replaceHolyGlassesWithRelic(data, item, relic) {
+    let offset
+    const zone = constants.zones[constants.ZONE.CEN]
+    // Injection point.
+    offset = util().romOffset(zone, 0xfe98)
+    offset = data.writeWord(offset, 0x08067208) // j 0x8019c820
+    offset = data.writeWord(offset, 0x3404000b) // ori a0, r0, 0x000b
+    //                                          // ori v0, r0, id
+    offset = data.writeWord(offset, 0x34020000 + relic.relicId)
+    offset = util().romOffset(zone, 0xfebc)
+    offset = data.writeWord(offset, 0x00000000) // nop
+    // Create entity.
+    offset = util().romOffset(zone, 0x01c820)
+    offset = data.writeWord(offset, 0x0c064d31) // jal 0x8001934c4, ra
+    offset = data.writeWord(offset, 0x00000000) // nop
+    // Add timeout and visual data.
+    offset = data.writeWord(offset, 0x3c018007) // lui at, 0x8007
+    offset = data.writeWord(offset, 0x3421c9f0) // ori at, at, 0xc9f0
+    offset = data.writeWord(offset, 0x3c020da0) // lui v0, 0x0da0
+    offset = data.writeWord(offset, 0x34422000) // ori v0, v0, 0x2000
+    offset = data.writeWord(offset, 0xac22ffec) // sw v0, 0xffec (at)
+    offset = data.writeWord(offset, 0x3402002b) // ori v0, r0, 0x002b
+    offset = data.writeWord(offset, 0xa022001c) // sb v0, 0x001c (at)
+    // Return.
+    offset = data.writeWord(offset, 0x08063fa8) // j 0x8018fea0
+    offset = data.writeWord(offset, 0x00000000) // nop
+  }
 
   const relics = [{
     name: 'Soul of Bat',
-    id: 0,
-    addresses: [ 0x047a5b66, 0x047a6246 ],
     ability: RELIC.SOUL_OF_BAT,
+    relicId: 0,
+    entity: {
+      zones: [ ZONE.LIB ],
+      entities: [ 0x3826, 0x3f06 ],
+    },
   }, {
     name: 'Fire of Bat',
-    id: 1,
-    addresses: [ 0x0557535e, 0x05575e9a ],
     ability: RELIC.FIRE_OF_BAT,
+    relicId: 1,
+    entity: {
+      zones: [ ZONE.NZ1 ],
+      entities: [ 0x28ae, 0x32ba ],
+    },
+    asItem: {
+      y: 0x00c9,
+    },
   }, {
     name: 'Echo of Bat',
-    id: 2,
-    addresses: [ 0x04aa4156, 0x04aa49ae ],
     ability: RELIC.ECHO_OF_BAT,
+    relicId: 2,
+    entity: {
+      zones: [ ZONE.NO2 ],
+      entities: [ 0x35f6, 0x3d1e ],
+    },
+    asItem: {
+      y: 0x009d,
+    },
   }, {
     name: 'Force of Echo',
-    id: 3,
-    addresses: [ 0x0526e6a8, 0x0526f876 ],
     ability: RELIC.FORCE_OF_ECHO,
+    relicId: 3,
+    entity: {
+      zones: [ ZONE.RNO4 ],
+      entities: [ 0x3718, 0x4686 ],
+    },
+    asItem: {
+      y: 0x00b9,
+    },
   }, {
     name: 'Soul of Wolf',
-    id: 4,
-    addresses: [ 0x049d5d3e, 0x049d6596 ],
     ability: RELIC.SOUL_OF_WOLF,
+    relicId: 4,
+    entity: {
+      zones: [ ZONE.NO1 ],
+      entities: [ 0x3c2e, 0x4356 ],
+    },
+    asItem: {
+      y: 0x0331,
+    },
   }, {
     name: 'Power of Wolf',
-    id: 5,
-    addresses: [ 0x04b6b152, 0x04b6b9b4, 0x053f8f1e, 0x053f971c ],
     ability: RELIC.POWER_OF_WOLF,
+    relicId: 5,
+    entity: {
+      zones: [ ZONE.NO3, ZONE.NP3 ],
+      entities: [ 0x41e2, 0x4914, 0x3fbe, 0x468c ],
+    },
+    asItem: {
+      y: 0x00c8,
+    },
   }, {
     name: 'Skill of Wolf',
-    id: 6,
-    addresses: [ 0x054b1d5a ],
     ability: RELIC.SKILL_OF_WOLF,
+    relicId: 6,
+    entity: {
+      zones: [ ZONE.NZ0 ],
+      entities: [ 0x3054, 0x3998 ],
+    },
+    asItem: {
+      x: 0x007e,
+      y: 0x00b9,
+    },
   }, {
     name: 'Form of Mist',
-    id: 7,
-    addresses: [ 0x043c578a, 0x043c5e08 ],
     ability: RELIC.FORM_OF_MIST,
+    relicId: 7,
+    entity: {
+      zones: [ ZONE.ARE ],
+      entities: [ 0x304a, 0x36c8 ],
+    },
+    asItem: {
+      y: 0x0099,
+    },
   }, {
     name: 'Power of Mist',
-    id: 8,
-    addresses: [ 0x05610db8, 0x0561142c ],
     ability: RELIC.POWER_OF_MIST,
+    relicId: 8,
+    entity: {
+      zones: [ ZONE.TOP ],
+      entities: [ 0x2138, 0x27ac ],
+    },
+    asItem: {
+      y: 0x04c8,
+    },
   }, {
     name: 'Gas Cloud',
-    id: 9,
-    addresses: [ 0x04cfcb16, 0x04cfd89a ],
     ability: RELIC.GAS_CLOUD,
+    relicId: 9,
+    entity: {
+      zones: [ ZONE.RCAT ],
+      entities: [ 0x2596, 0x30ba ],
+    },
+    asItem: {
+      x: 0x0016,
+      y: 0x00b1,
+    },
   }, {
     name: 'Cube of Zoe',
-    id: 10,
-    addresses: [ 0x04b6b08a, 0x04b6b946, 0x053f8e2e, 0x053f969a ],
     ability: RELIC.CUBE_OF_ZOE,
+    relicId: 10,
+    entity: {
+      zones: [ ZONE.NO3, ZONE.NP3 ],
+      entities: [ 0x411a, 0x48a6, 0x3ece, 0x460a ],
+    },
+    asItem: {
+      y: 0x007b,
+    },
   }, {
     name: 'Spirit Orb',
-    id: 11,
-    addresses: [ 0x048fd1fe, 0x048fe280, 0x048fd1fe, 0x048fe280 ],
     ability: RELIC.SPIRIT_ORB,
+    relicId: 11,
+    entity: {
+      zones: [ ZONE.NO0 ],
+      entities: [ 0x309e, 0x3ff0 ],
+    },
+    asItem: {
+      x: 0x0043,
+    },
   }, {
     name: 'Gravity Boots',
-    id: 12,
-    addresses: [ 0x048fc9ba, 0x048fd94c ],
     ability: RELIC.GRAVITY_BOOTS,
+    relicId: 12,
+    entity: {
+      zones: [ ZONE.NO0 ],
+      entities: [ 0x298a, 0x37ec ],
+    },
+    asItem: {
+      y: 0x00b9,
+    },
   }, {
     name: 'Leap Stone',
-    id: 13,
-    addresses: [ 0x05610dc2, 0x0561161a ],
     ability: RELIC.LEAP_STONE,
+    relicId: 13,
+    entity: {
+      zones: [ ZONE.TOP ],
+      entities: [ 0x2142, 0x286a ],
+    },
+    asItem: {
+      y: 0x0729,
+    },
   }, {
     name: 'Holy Symbol',
-    id: 14,
-    addresses: [ 0x04c34ee6, 0x04c361d8 ],
     ability: RELIC.HOLY_SYMBOL,
+    relicId: 14,
+    entity: {
+      zones: [ ZONE.NO4 ],
+      entities: [ 0x3ea6, 0x4f38 ],
+    },
+    asItem: {
+      y: 0x00b9,
+    },
   }, {
     name: 'Faerie Scroll',
-    id: 15,
-    addresses: [ 0x047a5720, 0x047a5dd2 ],
     ability: RELIC.FAERIE_SCROLL,
+    relicId: 15,
+    entity: {
+      zones: [ ZONE.LIB ],
+      entities: [ 0x3510, 0x3a92 ],
+    },
+    asItem: {
+      y: 0x00b9,
+    },
   }, {
     name: 'Jewel of Open',
-    id: 16,
-    addresses: [ 0x047a321c ],
     ability: RELIC.JEWEL_OF_OPEN,
+    relicId: 16,
+    ids: [{
+      zone: ZONE.LIB,
+      addresses: [ 0x047a321c ],
+    }],
+    erase: {
+      instructions: [{
+        addresses: [ 0x047dbde0 ],
+        instruction: 0x34020001,
+      }],
+    },
+    replaceWithRelic: replaceShopRelicWithRelic,
+    replaceWithItem: replaceShopRelicWithItem,
+    consumesItem: false,
   }, {
     name: 'Merman Statue',
-    id: 17,
-    addresses: [ 0x04c35174, 0x04c3647a ],
     ability: RELIC.MERMAN_STATUE,
+    relicId: 17,
+    entity: {
+      zones: [ ZONE.NO4 ],
+      entities: [ 0x4004, 0x50aa ],
+    },
+    asItem: {
+      y: 0x00b9,
+    },
   }, {
     name: 'Bat Card',
-    id: 18,
-    addresses: [ 0x054b1d58 ],
     ability: RELIC.BAT_CARD,
+    relicId: 18,
+    entity: {
+      zones: [ ZONE.NZ0, ZONE.NZ0 ],
+      entities: [ 0x2a8c, 0x33d0, 0x2ad2, 0x343e ],
+    },
+    asItem: {
+      x: 0x007e,
+      y: 0x00b9,
+    },
   }, {
     name: 'Ghost Card',
-    id: 19,
-    addresses: [ 0x0561127c, 0x05611958 ],
     ability: RELIC.GHOST_CARD,
+    relicId: 19,
+    entity: {
+      zones: [ ZONE.TOP ],
+      entities: [ 0x25fc, 0x2ba8 ],
+    },
+    asItem: {
+      y: 0x02a8,
+    },
   }, {
     name: 'Faerie Card',
-    id: 20,
-    addresses: [ 0x047a5784, 0x047a5f6c ],
     ability: RELIC.FAERIE_CARD,
+    relicId: 20,
+    entity: {
+      zones: [ ZONE.LIB ],
+      entities: [ 0x3574, 0x3c2c ],
+    },
+    asItem: {
+      y: 0x00b9,
+    },
   }, {
     name: 'Demon Card',
-    id: 21,
-    addresses: [ 0x045ea95e, 0x045eace2 ],
     ability: RELIC.DEMON_CARD,
+    relicId: 21,
+    entity: {
+      zones: [ ZONE.CHI ],
+      entities: [ 0x1ade, 0x1e62 ],
+    },
+    asItem: {
+      y: 0x00b8,
+    },
   }, {
     name: 'Sword Card',
-    id: 22,
-    addresses: [ 0x04aa3f76, 0x04aa47ce ],
     ability: RELIC.SWORD_CARD,
+    relicId: 22,
+    entity: {
+      zones: [ ZONE.NO2 ],
+      entities: [ 0x3416, 0x3b3e ],
+    },
+    asItem: {
+      y: 0x009c,
+    },
   }, {
     name: 'Heart of Vlad',
-    id: 25,
-    addresses: [ 0x04e335b4, 0x04e34050, 0x067437d2 ],
     ability: RELIC.HEART_OF_VLAD,
+    relicId: 25,
+    entity: {
+      zones: [ ZONE.RDAI ],
+      entities: [ 0x1dc4, 0x2730 ],
+    },
+    erase: {
+      instructions: [{
+        addresses: [ 0x06757b54 ],
+        instruction: 0x34020000,
+      }],
+    },
+    replaceWithItem: replaceVladRelicWithItem({
+      boss:   ZONE.RBO3,
+      entry:  0x034950,
+      inj:    0x047900,
+    }),
   }, {
     name: 'Tooth of Vlad',
-    id: 26,
-    addresses: [ 0x05051d52, 0x0505256e, 0x067d1630 ],
     ability: RELIC.TOOTH_OF_VLAD,
+    relicId: 26,
+    entity: {
+      zones: [ ZONE.RNO1 ],
+      entities: [ 0x2332, 0x2a1e ],
+    },
+    erase: {
+      instructions: [{
+        addresses: [ 0x067ec398 ],
+        instruction: 0x34020000,
+      }],
+    },
+    replaceWithItem: replaceVladRelicWithItem({
+      boss:   ZONE.RBO4,
+      entry:  0x029fc0,
+      inj:    0x037500,
+    }),
   }, {
     name: 'Rib of Vlad',
-    id: 27,
-    addresses: [ 0x050fa914, 0x050fb228, 0x069d2b1e ],
     ability: RELIC.RIB_OF_VLAD,
+    relicId: 27,
+    entity: {
+      zones: [ ZONE.RNO2 ],
+      entities: [ 0x29d4, 0x31b8 ],
+    },
+    erase: {
+      instructions: [{
+        addresses: [ 0x069e8524 ],
+        instruction: 0x34020000,
+      }],
+    },
+    replaceWithItem: replaceVladRelicWithItem({
+      boss:   ZONE.RBO7,
+      entry:  0x037014,
+      inj:    0x04bf00,
+    }),
   }, {
     name: 'Ring of Vlad',
-    id: 28,
-    addresses: [ 0x059e8074, 0x059ee2e4, 0x059bdb30 ],
     ability: RELIC.RING_OF_VLAD,
+    relicId: 28,
+    ids: [{
+      zone: ZONE.RNZ1,
+      addresses: [ 0x059e8074, 0x059ee2e4, 0x059bdb30 ]
+    }],
+    erase: {
+      instructions: [{
+        addresses: [ 0x059ee594 ],
+        instruction: 0x34020000,
+      }, {
+        addresses: [ 0x059ee2f0 ],
+        instruction: 0x00000000,
+      }],
+    },
+    replaceWithItem: replaceRingOfVladWithItem,
   }, {
     name: 'Eye of Vlad',
-    id: 29,
-    addresses: [ 0x04da65f2, 0x04da6a52, 0x0662263a ],
     ability: RELIC.EYE_OF_VLAD,
+    relicId: 29,
+    entity: {
+      zones: [ ZONE.RCHI ],
+      entities: [ 0x18f2, 0x1d52 ],
+    },
+    erase: {
+      instructions: [{
+        addresses: [ 0x06644cf0 ],
+        instruction: 0x34020000,
+      }],
+    },
+    replaceWithItem: replaceVladRelicWithItem({
+      boss:   ZONE.RBO2,
+      entry:  0x01af18,
+      inj:    0x02a000,
+    }),
+    asItem: {
+      y: 0x0079,
+    },
+  }, {
+    name: 'Spike Breaker',
+    ability: RELIC.SPIKE_BREAKER,
+    itemId: 183,
+    tileIndex: 0,
+    asRelic: {
+      y: 0x0094,
+    },
+  }, {
+    name: 'Gold Ring',
+    ability: RELIC.GOLD_RING,
+    itemId: 241,
+    ids: [{
+      zone: ZONE.NO4,
+      addresses: [ 0x04c324b4 ],
+      tileId: true,
+    }],
+    replaceWithRelic: replaceGoldRingWithRelic,
+  }, {
+    name: 'Silver Ring',
+    ability: RELIC.SILVER_RING,
+    itemId: 242,
+    tileIndex: 0,
+    asRelic: {
+      y: 0x009a,
+    },
+  }, {
+    name: 'Holy Glasses',
+    ability: RELIC.HOLY_GLASSES,
+    itemId: 203,
+    ids: [{
+      zone: ZONE.CEN,
+      addresses: [ 0x0456e368 ],
+    }],
+    erase: {
+      instructions: [{
+        addresses: [ 0x0456e360 ],
+        instruction: 0x08063ff6,
+      }],
+    },
+    replaceWithRelic: replaceHolyGlassesWithRelic,
   }]
 
   const exports = relics

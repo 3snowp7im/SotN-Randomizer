@@ -15,8 +15,6 @@ const typeNames = constants.typeNames
 const RELIC = constants.RELIC
 const ZONE = constants.ZONE
 const zones = constants.zones
-const BOSS = constants.BOSS
-const bosses = constants.bosses
 
 function findRelicAddresses(zoneId, zone, data) {
   data = util.restoreFile(data, zone)
@@ -71,11 +69,11 @@ zones.forEach(function(zone, zoneId) {
 
 // Patch reward data.
 const relicRewards = [
-  [ RELIC.HEART_OF_VLAD, bosses[BOSS.RBO3] ],
-  [ RELIC.TOOTH_OF_VLAD, bosses[BOSS.RBO4] ],
-  [ RELIC.RIB_OF_VLAD, bosses[BOSS.RBO7] ],
+  [ RELIC.HEART_OF_VLAD, zones[ZONE.RBO3] ],
+  [ RELIC.TOOTH_OF_VLAD, zones[ZONE.RBO4] ],
+  [ RELIC.RIB_OF_VLAD, zones[ZONE.RBO7] ],
   [ RELIC.RING_OF_VLAD, zones[ZONE.RNZ1] ],
-  [ RELIC.EYE_OF_VLAD, bosses[BOSS.RBO2] ],
+  [ RELIC.EYE_OF_VLAD, zones[ZONE.RBO2] ],
 ]
 relicRewards.forEach(function(relicReward, index) {
   const relic = relicFromAbility(relicReward[0])

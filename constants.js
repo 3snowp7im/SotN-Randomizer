@@ -65,6 +65,23 @@
     RNZ0: 26, // Necromancy Laboratory
     RNZ1: 27, // Reverse Clock Tower
     RTOP: 28, // Reverse Castle Keep
+    BO0:  29, // Olrox
+    BO1:  30, // Legion
+    BO2:  31, // Werewolf & Minotaur
+    BO3:  32, // Scylla
+    BO4:  33, // Doppleganger10
+    BO5:  34, // Hippogryph
+    BO6:  35, // Richter
+    BO7:  36, // Cerberus
+    RBO0: 37, // Trio
+    RBO1: 38, // Beezlebub
+    RBO2: 39, // Death
+    RBO3: 40, // Medusa
+    RBO4: 41, // Creature
+    RBO5: 42, // Doppleganger40
+    RBO6: 43, // Shaft/Dracula
+    RBO7: 44, // Akmodan II
+    RBO8: 45, // Galamoth
   }
 
   // List of zone strings for logging.
@@ -98,96 +115,256 @@
     'RNZ0',
     'RNZ1',
     'RTOP',
+    'BO0',
+    'BO1',
+    'BO2',
+    'BO3',
+    'BO4',
+    'BO5',
+    'BO6',
+    'BO7',
+    'RBO0',
+    'RBO1',
+    'RBO2',
+    'RBO3',
+    'RBO4',
+    'RBO5',
+    'RBO6',
+    'RBO7',
+    'RBO8',
   ]
 
   // Offsets in the bin of each zone file.
   const zones = [{
-    // ZONE.ST0
-    pos: 0x0533efc8, len: 271812, items: 0x0a60,
+    id: ZONE.ST0,
+    pos: 0x0533efc8,
+    len: 271812,
+    items: 0x0a60,
   }, {
-    // ZONE.ARE
-    pos: 0x043c2018, len: 352636, items: 0x0fe8,
+    id: ZONE.ARE,
+    pos: 0x043c2018,
+    len: 352636,
+    items: 0x0fe8,
   }, {
-    // ZONE.CAT
-    pos: 0x0448f938, len: 361920, items: 0x174c,
+    id: ZONE.CAT,
+    pos: 0x0448f938,
+    len: 361920,
+    items: 0x174c,
   }, {
-    // ZONE.CEN
-    pos: 0x0455bff8, len: 119916,
+    id: ZONE.CEN,
+    pos: 0x0455bff8,
+    len: 119916,
   }, {
-    // ZONE.CHI
-    pos: 0x045e8ae8, len: 193576, items: 0x09e4,
+    id: ZONE.CHI,
+    pos: 0x045e8ae8,
+    len: 193576,
+    items: 0x09e4,
   }, {
-    // ZONE.DAI
-    pos: 0x04675f08, len: 373764, items: 0x0ec0,
+    id: ZONE.DAI,
+    pos: 0x04675f08,
+    len: 373764,
+    items: 0x0ec0,
   }, {
-    // ZONE.LIB
-    pos: 0x047a1ae8, len: 348876, items: 0x1a90,
+    id: ZONE.LIB,
+    pos: 0x047a1ae8,
+    len: 348876,
+    items: 0x1a90,
   }, {
-    // ZONE.NO0
-    pos: 0x048f9a38, len: 390540, items: 0x1100,
+    id: ZONE.NO0,
+    pos: 0x048f9a38,
+    len: 390540,
+    items: 0x1100,
   }, {
-    // ZONE.NO1
-    pos: 0x049d18b8, len: 356452, items: 0x1a2c,
+    id: ZONE.NO1,
+    pos: 0x049d18b8,
+    len: 356452,
+    items: 0x1a2c,
   }, {
-    // ZONE.NO2
-    pos: 0x04aa0438, len: 327100, items: 0x0fec,
+    id: ZONE.NO2,
+    pos: 0x04aa0438,
+    len: 327100,
+    items: 0x0fec,
   }, {
-    // ZONE.NO3
-    pos: 0x04b665e8, len: 359960, items: 0x1c8c,
+    id: ZONE.NO3,
+    pos: 0x04b665e8,
+    len: 359960,
+    items: 0x1c8c,
   }, {
-    // ZONE.NP3
-    pos: 0x053f4708, len: 341044, items: 0x1618,
+    id: ZONE.NP3,
+    pos: 0x053f4708,
+    len: 341044,
+    items: 0x1618,
   }, {
-    // ZONE.NO4
-    pos: 0x04c307e8, len: 391260, items: 0x1928,
+    id: ZONE.NO4,
+    pos: 0x04c307e8,
+    len: 391260,
+    items: 0x1928,
   }, {
-    // ZONE.NZ0
-    pos: 0x054b0c88, len: 309120, items: 0x13b0,
+    id: ZONE.NZ0,
+    pos: 0x054b0c88,
+    len: 309120,
+    items: 0x13b0,
   }, {
-    // ZONE.NZ1
-    pos: 0x055724b8, len: 271168, items: 0x111c,
+    id: ZONE.NZ1,
+    pos: 0x055724b8,
+    len: 271168,
+    items: 0x111c,
   }, {
-    // ZONE.TOP
-    pos: 0x0560e7b8, len: 247132, items: 0x0d10,
+    id: ZONE.TOP,
+    pos: 0x0560e7b8,
+    len: 247132,
+    items: 0x0d10,
   }, {
-    // ZONE.RARE
-    pos: 0x057509e8, len: 234384, items: 0x0a3c,
+    id: ZONE.RARE,
+    pos: 0x057509e8,
+    len: 234384,
+    items: 0x0a3c,
   }, {
-    // ZONE.RCAT
-    pos: 0x04cfa0b8, len: 278188, items: 0x13c8,
+    id: ZONE.RCAT,
+    pos: 0x04cfa0b8,
+    len: 278188,
+    items: 0x13c8,
   }, {
-    // ZONE.RCHI
-    pos: 0x04da4968, len: 174880, items: 0x07cc,
+    id: ZONE.RCHI,
+    pos: 0x04da4968,
+    len: 174880,
+    items: 0x07cc,
   }, {
-    // ZONE.RDAI
-    pos: 0x04e31458, len: 295736, items: 0x0d2c,
+    id: ZONE.RDAI,
+    pos: 0x04e31458,
+    len: 295736,
+    items: 0x0d2c,
   }, {
-    // ZONE.RLIB
-    pos: 0x04ee2218, len: 201776, items: 0x0bc8,
+    id: ZONE.RLIB,
+    pos: 0x04ee2218,
+    len: 201776,
+    items: 0x0bc8,
   }, {
-    // ZONE.RNO0
-    pos: 0x04f84a28, len: 347020, items: 0x0f8c,
+    id: ZONE.RNO0,
+    pos: 0x04f84a28,
+    len: 347020,
+    items: 0x0f8c,
   }, {
-    // ZONE.RNO1
-    pos: 0x0504f558, len: 357020, items: 0x0ae4,
+    id: ZONE.RNO1,
+    pos: 0x0504f558,
+    len: 357020,
+    items: 0x0ae4,
   }, {
-    // ZONE.RNO2
-    pos: 0x050f7948, len: 313816, items: 0x0d40,
+    id: ZONE.RNO2,
+    pos: 0x050f7948,
+    len: 313816,
+    items: 0x0d40,
   }, {
-    // ZONE.RNO3
-    pos: 0x051ac758, len: 304428, items: 0x0f10,
+    id: ZONE.RNO3,
+    pos: 0x051ac758,
+    len: 304428,
+    items: 0x0f10,
   }, {
-    // ZONE.RNO4
-    pos: 0x0526a868, len: 384020, items: 0x1620,
+    id: ZONE.RNO4,
+    pos: 0x0526a868,
+    len: 384020,
+    items: 0x1620,
   }, {
-    // ZONE.RNZ0
-    pos: 0x05902278, len: 281512, items: 0x0cc8,
+    id: ZONE.RNZ0,
+    pos: 0x05902278,
+    len: 281512,
+    items: 0x0cc8,
   }, {
-    // ZONE.RNZ1
-    pos: 0x059bb0d8, len: 260960, items: 0x0ec8, rewards: 0x2570,
+    id: ZONE.RNZ1,
+    pos: 0x059bb0d8,
+    len: 260960,
+    items: 0x0ec8,
+    rewards: 0x2570,
   }, {
-    // ZONE.RTOP
-    pos: 0x057df998, len: 200988, items: 0x07c8,
+    id: ZONE.RTOP,
+    pos: 0x057df998,
+    len: 200988,
+    items: 0x07c8,
+  }, {
+    id: ZONE.BO0,
+    pos: 0x05fa9dc8,
+    len: 320948,
+    rewards: 0x24d4,
+  }, {
+    id: ZONE.BO1,
+    pos: 0x0606dab8,
+    len: 205756,
+    rewards: 0x1b98,
+  }, {
+    id: ZONE.BO2,
+    pos: 0x060fca68,
+    len: 223540,
+    rewards: 0x181c,
+  }, {
+    id: ZONE.BO3,
+    pos: 0x061a60b8,
+    len: 210224,
+    rewards: 0x1c60,
+    items: 0x108c,
+  }, {
+    id: ZONE.BO4,
+    pos: 0x06246d38,
+    len: 347704,
+    rewards: 0x42b0,
+  }, {
+    id: ZONE.BO5,
+    pos: 0x06304e48,
+    len: 218672,
+    rewards: 0x18b8,
+  }, {
+    id: ZONE.BO6,
+    pos: 0x063aa448,
+    len: 333544,
+    rewards: 0x2f90,
+  }, {
+    id: ZONE.BO7,
+    pos: 0x066b32f8,
+    len: 144480,
+    rewards: 0x1440,
+  }, {
+    id: ZONE.RBO0,
+    pos: 0x064705f8,
+    len: 160988,
+    rewards: 0x1988,
+  }, {
+    id: ZONE.RBO1,
+    pos: 0x06590a18,
+    len: 139104,
+    rewards: 0x1550,
+  }, {
+    id: ZONE.RBO2,
+    pos: 0x06620c28,
+    len: 190792,
+    rewards: 0x1788,
+  }, {
+    id: ZONE.RBO3,
+    pos: 0x067422a8,
+    len: 132656,
+    rewards: 0x12a8,
+  }, {
+    id: ZONE.RBO4,
+    pos: 0x067cfff8,
+    len: 154660,
+    rewards: 0x13b4,
+  }, {
+    id: ZONE.RBO5,
+    pos: 0x06861468,
+    len: 345096,
+    rewards: 0x4348,
+  }, {
+    id: ZONE.RBO6,
+    pos: 0x0692b668,
+    len: 213060,
+  }, {
+    id: ZONE.RBO7,
+    pos: 0x069d1598,
+    len: 142572,
+    rewards: 0x1300,
+  }, {
+    id: ZONE.RBO8,
+    pos: 0x06a5f2e8,
+    len: 161212,
+    rewards: 0x2334,
   }]
 
   const exe = { pos: 0x0abb28, len: 703272 }
@@ -248,79 +425,6 @@
     LUCK_MODE: 'x',
   }
 
-  const BOSS = {
-    BO0: 0,   // Olrox
-    BO1: 1,   // Legion
-    BO2: 2,   // Werewolf & Minotaur
-    BO3: 3,   // Scylla
-    BO4: 4,   // Doppleganger10
-    BO5: 5,   // Hippogryph
-    BO6: 6,   // Richter
-    BO7: 7,   // Cerberus
-    RBO0: 8,  // Trio
-    RBO1: 9,  // Beezlebub
-    RBO2: 10, // Death
-    RBO3: 11, // Medusa
-    RBO4: 12, // Creature
-    RBO5: 13, // Doppleganger40
-    RBO6: 14, // Shaft/Dracula
-    RBO7: 15, // Akmodan
-    RBO8: 16, // Galamoth
-  }
-
-  const bosses = [{
-    // BO0
-    pos: 0x05fa9dc8, len: 320948, rewards: 0x24d4,
-  }, {
-    // BO1
-    pos: 0x0606dab8, len: 205756, rewards: 0x1b98,
-  }, {
-    // BO2
-    pos: 0x060fca68, len: 223540, rewards: 0x181c,
-  }, {
-    // BO3
-    pos: 0x061a60b8, len: 210224, rewards: 0x1c60, items: 0x108c,
-  }, {
-    // BO4
-    pos: 0x06246d38, len: 347704, rewards: 0x42b0,
-  }, {
-    // BO5
-    pos: 0x06304e48, len: 218672, rewards: 0x18b8,
-  }, {
-    // BO6
-    pos: 0x063aa448, len: 333544, rewards: 0x2f90,
-  }, {
-    // BO7
-    pos: 0x066b32f8, len: 144480, rewards: 0x1440,
-  }, {
-    // RBO0
-    pos: 0x064705f8, len: 160988, rewards: 0x1988,
-  }, {
-    // RBO1
-    pos: 0x06590a18, len: 139104, rewards: 0x1550,
-  }, {
-    // RBO2
-    pos: 0x06620c28, len: 190792, rewards: 0x1788,
-  }, {
-    // RBO3
-    pos: 0x067422a8, len: 132656, rewards: 0x12a8,
-  }, {
-    // RBO4
-    pos: 0x067cfff8, len: 154660, rewards: 0x13b4,
-  }, {
-    // RBO5
-    pos: 0x06861468, len: 345096, rewards: 0x4348,
-  }, {
-    // RBO6
-    pos: 0x0692b668, len: 213060,
-  }, {
-    // RBO7
-    pos: 0x069d1598, len: 142572, rewards: 0x1300,
-  }, {
-    // RBO8
-    pos: 0x06a5f2e8, len: 161212, rewards: 0x2334,
-  }]
-
   const EXTENSION = {
     GUARDED: 'guarded',
   }
@@ -352,8 +456,6 @@
     tileIdOffset: tileIdOffset,
     equipIdOffset: equipIdOffset,
     SLOT: SLOT,
-    BOSS: BOSS,
-    bosses: bosses,
     EXTENSION: EXTENSION,
     defaultExtension: defaultExtension,
     LOCATION: LOCATION,

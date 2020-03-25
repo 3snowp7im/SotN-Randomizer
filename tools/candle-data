@@ -14,39 +14,57 @@ const typeNames = constants.typeNames
 const ZONE = constants.ZONE
 const zones = constants.zones
 
-function isCandleFilter(zoneId) {
+function isCandleFilter(zone) {
   return function(entity) {
-    return util.isCandle(zoneId, entity)
+    return util.isCandle(zone, entity)
   }
 }
 
-function findCandleAddresses(zoneId, zone, data) {
+function getZoneCandles(zone, data) {
   data = util.restoreFile(data, zone)
   const entities = util.entityData(data).reduce(function(flat, array) {
     return flat.concat(array)
   }, [])
-  entities.filter(isCandleFilter(zoneId)).forEach(function(entity) {
+  return entities.filter(isCandleFilter(zone)).reduce(function(map, entity) {
     const state = (entity.data[9] << 8) + entity.data[8]
     const candle = (state & 0xf000) >>> 8
     const id = state & 0x0fff
     const item = util.itemFromTileId(items, id)
-    item.tiles = item.tiles || []
-    item.tiles.push({
-      zone: zoneId,
-      addresses: entity.addresses.map(function(address) {
-        return util.romOffset(zone, address + 8)
-      }),
+    map[entity.data.toString('hex')] = {
+      item: item,
+      zones: [ zone.id ],
+      entities: entity.addresses,
       candle: candle,
+    }
+    return map
+  }, {})
+}
+
+function findCandleAddresses(zone, data) {
+  const candles = getZoneCandles(zone, data)
+  if (zone.id === ZONE.NO3) {
+    const dups = getZoneCandles(zones[ZONE.NP3], data)
+    Object.getOwnPropertyNames(candles).forEach(function(key) {
+      if (key in dups) {
+        Array.prototype.push.apply(candles[key].zones, dups[key].zones)
+        Array.prototype.push.apply(candles[key].entities, dups[key].entities)
+      }
     })
+  }
+  Object.getOwnPropertyNames(candles).forEach(function(key) {
+    const item = candles[key].item
+    delete candles[key].item
+    item.tiles = item.tiles || []
+    item.tiles.push(candles[key])
   })
 }
 
 // Clear existing candle data from item list.
 items.filter(function(item) {
-  return !!item.tiles
+  return 'tiles' in item
 }).forEach(function(item) {
-  item.tiles = (item.tiles || []).filter(function(tile) {
-    return typeof(tile.candle) === 'undefined'
+  item.tiles = item.tiles.filter(function(tile) {
+    return !('candle' in tile)
   })
 })
 
@@ -54,8 +72,10 @@ items.filter(function(item) {
 const bin = fs.readFileSync(process.argv[2])
 
 // Read candle data.
-zones.forEach(function(zone, zoneId) {
-  findCandleAddresses(zoneId, zone, bin)
+zones.filter(function(zone) {
+  return zone.id !== ZONE.NP3
+}).forEach(function(zone) {
+  findCandleAddresses(zone, bin)
 })
 
 // Format data.

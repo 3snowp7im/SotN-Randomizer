@@ -3,6 +3,7 @@
   "version": "1.9.12-0",
   "description": "This is a romhacking tool to randomize some things about `Castlevania: Symphony of the Night`.",
   "dependencies": {
+    "colors": "^1.4.0",
     "seedrandom": "^3.0.1",
     "yargs": "^13.2.2"
   },

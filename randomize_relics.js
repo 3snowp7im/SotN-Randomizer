@@ -1,14 +1,3 @@
-/**
- * Let's Randomize Relics
- *
- * Originally by setz
- * @splixel on twitter
- * twitch.tv/skiffain
- *
- * Javascript port and improvements by Wild Mouse
- * @3snow_p7im on twitter
- * twitch.tv/3snow_p7im
- */
 (function(self) {
 
   let constants
@@ -36,103 +25,211 @@
     util = require('./util')
   }
 
-  const shopRelicNameAddress = 0x47d5650
-  const shopRelicIdAddress = 0x47dbde0
-  const shopRelicIdOffset = 0x64
-
-  function relicFromId(id) {
-    return relics.filter(function(relic) {
-      return relic.id === id
-    }).pop()
-  }
-
-  function relicFromName(name) {
-    return relics.filter(function(relic) {
-      return relic.name === name
-    }).pop()
-  }
-
-  function writeMapping(mapping, locations, data) {
-    // Collect any vanilla locations that did not receive a relic.
-    const vanilla = extension.relics.reduce(function(vanilla, relic, index) {
-      if (!(index in mapping)) {
-        vanilla.push(relic)
+  function writeEntity(data, entity, opts) {
+    entity.entities.forEach(function(addr, index) {
+      const zone = constants.zones[entity.zones[Math.floor(index / 2)]]
+      if ('x' in opts) {
+        data.writeShort(util.romOffset(zone, addr + 0x0), opts.x)
       }
-      return vanilla
-    }, [])
-    // Write new relic locations.
-    Object.getOwnPropertyNames(mapping).forEach(function(index) {
-      const location = locations.filter(function(location) {
-        return location.location === parseInt(index)
-      }).pop()
-      const relic = mapping[location.location]
-      // Check if placing in the shop.
-      const jewelOfOpen = relicFromId(0x10)
-      if (location.location === 0x10) {
-        // Fix shop menu check.
-        data.writeChar(shopRelicIdAddress, relic.id + shopRelicIdOffset)
-        // Change shop menu name.
-        for (let i = 0; i < jewelOfOpen.name.length; i++) {
-          let value
-          if (i >= relic.name.length
-              || relic.name.charCodeAt(i) === ' '.charCodeAt()) {
-            value = ' '
-          } else {
-            value = relic.name.charCodeAt(i) - 0x20
+      if ('y' in opts) {
+        data.writeShort(util.romOffset(zone, addr + 0x2), opts.y)
+      }
+      if ('id' in opts) {
+        data.writeShort(util.romOffset(zone, addr + 0x4), opts.id)
+      }
+      if ('state' in opts) {
+        data.writeShort(util.romOffset(zone, addr + 0x8), opts.state)
+      }
+    })
+  }
+
+  function writeTileId(data, zone, index, itemId) {
+    zone = constants.zones[zone]
+    const addr = util.romOffset(zone, zone.items + 0x2 * index)
+    data.writeShort(addr, itemId + constants.tileIdOffset)
+  }
+
+  function writeIds(data, ids, itemId) {
+    ids.forEach(function(id) {
+      let value = itemId
+      if (itemId && id.tileId) {
+        value += constants.tileIdOffset
+      }
+      id.addresses.forEach(function(address) {
+        data.writeShort(address, value)
+      })
+    })
+  }
+
+  function writeInstructions(data, instructions) {
+    instructions.forEach(function(instruction) {
+      instruction.addresses.forEach(function(address) {
+        data.writeWord(address, instruction.instruction)
+      })
+    })
+  }
+
+  function writeMapping(data, mapping, pool) {
+    // Collect ids of items that can be replaced for location extension.
+    const extensionIds = pool.filter(function(location) {
+      return 'extension' in location
+    }).map(function(location) {
+      return location.itemId
+    })
+    // Erase any vanilla location that did not receive a relic.
+    const locations = Object.getOwnPropertyNames(mapping).map(function(key) {
+      return mapping[key].ability
+    })
+    relics.forEach(function(location) {
+      if (locations.indexOf(location.ability) === -1) {
+        // Erase entities.
+        if ('entity' in location) {
+          writeEntity(data, location.entity, {id: 0x000f})
+        }
+        if ('tileIndex' in location) {
+          const itemId = location.itemId + constants.tileIdOffset
+          const item = util.itemFromTileId(items, itemId)
+          const entity = item.tiles[location.tileIndex]
+          writeEntity(data, entity, Object.assign({id: 0x000f}))
+        }
+        if ('erase' in location) {
+          // Write erase instructions.
+          if ('instructions' in location.erase) {
+            writeInstructions(data, location.erase.instructions)
           }
-          data.writeChar(shopRelicNameAddress + i, value)
         }
       }
-      // Check for extended location.
-      if ('extension' in location) {
-        // Get location being replaced by relic.
-        const replaceLocation = vanilla.shift()
-        if (replaceLocation.entities) {
-          replaceLocation.entities.forEach(function(entity) {
-            // Write entities.
-            entity.addresses.forEach(function(address) {
-              // Replace relic entity with candle.
-              if ('x' in entity) {
-                data.writeShort(address + 0, entity.x)
-              }
-              if ('y' in entity) {
-                data.writeShort(address + 2, entity.y)
-              }
-              data.writeShort(address + 4, 0xa001)
-              data.writeShort(address + 6, entity.deathSlot)
-              data.writeShort(address + 8, entity.state)
-            })
-          })
-        }
-        if (replaceLocation.instructions) {
-          replaceLocation.instructions.forEach(function(instruction) {
-            instruction.addresses.forEach(function(address) {
-              data.writeWord(address, instruction.instruction)
-            })
-          })
-        }
+    })
+    // Write new relic locations.
+    Object.getOwnPropertyNames(mapping).forEach(function(key) {
+      // Get the relic being placed.
+      const relic = util.relicFromAbility(key)
+      // The item data if this relic is actually a progression item.
+      let item
+      if ('itemId' in relic) {
+        const tileId = relic.itemId + constants.tileIdOffset
+        item = util.itemFromTileId(items, tileId)
       }
-      if ('extension' in location) {
-        location.entities.forEach(function(entity) {
-          entity.addresses.forEach(function(address) {
-            // For extension locations, an optional position can be updated.
-            if ('x' in entity) {
-              data.writeShort(address + 0, entity.x)
+      // Get the location to place the relic in.
+      const location = mapping[key]
+      if ('itemId' in location) {
+        if (item) {
+          // Replacing item location with item.
+          if ('replaceWithItem' in location) {
+            location.replaceWithItem(data, location, item)
+          } else {
+            if ('tileIndex' in location) {
+              const itemId = location.itemId + constants.tileIdOffset
+              const item = util.itemFromTileId(items, itemId)
+              const entity = item.tiles[location.tileIndex]
+              writeTileId(data, entity.zones[0], entity.index, relic.itemId)
             }
-            if ('y' in entity) {
-              data.writeShort(address + 2, entity.y)
+            if ('ids' in location) {
+              writeIds(data, location.ids, item.id)
             }
-            // Change entity type.
-            data.writeShort(address + 4, 0xb)
-            // Write relic ID.
-            data.writeShort(address + 8, relic.id)
+          }
+        } else {
+          // Replacing item location with relic.
+          if ('replaceWithRelic' in location) {
+            location.replaceWithRelic(data, location, relic)
+          } else {
+            // Get item entity.
+            const itemId = location.itemId + constants.tileIdOffset
+            const item = util.itemFromTileId(items, itemId)
+            const entity = item.tiles[location.tileIndex]
+            const asRelic = location.asRelic || {}
+            try {
+            writeEntity(data, entity, Object.assign({
+              id: 0x000b,
+              state: relic.relicId,
+            }, asRelic))
+            } catch (err) {
+              console.error(err)
+            }
+          }
+          // Remove replaced item's tile from randomization pool.
+          if ('tileIndex' in location) {
+            const itemId = location.itemId + constants.tileIdOffset
+            const item = util.itemFromTileId(items, itemId)
+            const tileId = item.id + constants.tileIdOffset
+            const replacedItem = util.itemFromTileId(items, tileId)
+            replacedItem.tiles.splice(location.tileIndex, 1)
+          }
+        }
+      } else if (item) {
+        // Replacing relic location with item.
+        let index
+        if (!('consumesItem' in location) || location.consumesItem) {
+          // There are a limited number of item tiles. Replacing a relic
+          // with an item can only consume an existing item in its zone.
+          let zones
+          if ('entity' in location) {
+            zones = location.entity.zones
+          } else if ('ids' in location) {
+            zones = location.ids.map(function(id) {
+              return id.zone
+            })
+          }
+          const zoneTiles = zones.reduce(function(all, zone) {
+            const tiles = items.reduce(function(all, item) {
+              if (util.nonProgressionFilter(item)
+                  && extensionIds.indexOf(item.id) === -1) {
+                const tiles = (item.tiles || []).filter(function(tile) {
+                  return util.mapTileFilter(tile)
+                    && tile.zones.indexOf(zone) !== -1
+                    && 'index' in tile // Should always be the case
+                })
+                Array.prototype.push.apply(all, tiles.map(function(tile) {
+                  return {
+                    item: item,
+                    tile: tile,
+                  }
+                }))
+              }
+              return all
+            }, [])
+            Array.prototype.push.apply(all, tiles)
+            return all
+          }, [])
+          // Pick a random item to replace.
+          const tileItem = zoneTiles[randIdx(zoneTiles)]
+          index = tileItem.tile.index
+          // Remove the tile from the replaced item's tile collection.
+          const tileIndex = tileItem.item.tiles.indexOf(tileItem.tile)
+          tileItem.item.tiles.splice(tileIndex, 1)
+          // Erase the replaced item's entity.
+          writeEntity(data, tileItem.tile, Object.assign({id: 0x000f}))
+          // Write id in item table.
+          zones.forEach(function(zone) {
+            writeTileId(data, zone, index, item.id)
           })
-        })
+        }
+        if ('replaceWithItem' in location) {
+          location.replaceWithItem(data, location, item, index)
+        } else {
+          if ('entity' in location) {
+            location.entity.zones.forEach(function(zone) {
+              writeTileId(data, zone, index, item.id)
+            })
+            const asItem = location.asItem || {}
+            writeEntity(data, location.entity, Object.assign({
+              id: 0x000c,
+              state: index,
+            }, asItem))
+          }
+        }
       } else {
-        // For vanilla locations, just write the relic ID.
-        location.addresses.forEach(function(address) {
-          data.writeChar(address, relic.id)
-        })
+        // Replacing relic location with relic.
+        if ('replaceWithRelic' in location) {
+          location.replaceWithRelic(data, location, relic)
+        } else {
+          if ('entity' in location) {
+            writeEntity(data, location.entity, {state: relic.relicId})
+          }
+          if ('ids' in location) {
+            writeIds(data, location.ids, relic.relicId)
+          }
+        }
       }
     })
   }
@@ -234,7 +331,7 @@
         })
         // Add selection to mapping.
         const newMapping = Object.assign({}, mapping)
-        newMapping[location.location] = relic
+        newMapping[relic.ability] = location
         // Pick from remaining pool.
         return pickRelicLocations({
           locations: newLocations,
@@ -253,28 +350,31 @@
       return location.locks.length == 1
         && location.locks[0].size == 0
     }).map(function(location) {
-      return location.location
+      return location.id
     })
     const visited = new Set()
     locs.forEach(function(l) {
       return visited[l] = true
     })
     const abilities = new Set()
+    const keys = Object.getOwnPropertyNames(mapping)
     while (locs.length) {
       const loc = locs.shift()
       visited.add(loc)
-      const relic = mapping[loc]
-      if (!relic) {
+      const ability = keys.filter(function(ability) {
+        return mapping[ability].id === loc
+      }).pop()
+      if (!ability) {
         continue
       }
-      if (relic.ability) {
-        abilities.add(relic.ability)
+      if (ability) {
+        abilities.add(ability)
       }
       locs = locs.concat(locations.filter(function(location) {
-        if (visited.has(location.location)) {
+        if (visited.has(location.id)) {
           return false
         }
-        if (locs.indexOf(location.location) !== -1) {
+        if (locs.indexOf(location.id) !== -1) {
           return false
         }
         return location.locks.some(function(lock) {
@@ -283,7 +383,7 @@
           })
         })
       }).map(function(location) {
-        return location.location
+        return location.id
       }))
     }
     if (visited.size < relics.length) {
@@ -291,31 +391,166 @@
     }
   }
 
-  function randomizeRelics(data, options, info) {
-    if (options.relicLocations) {
-      // Perform a sanity check if location extension enabled.
-      if (!data.isWriteOnly() && options.relicLocationsExtension) {
-        extension.relics.forEach(function(relic) {
-          if (relic.entities) {
-            relic.entities.forEach(function(entity) {
-              entity.addresses.forEach(function(address) {
-                if (data.readShort(address + 4) === entity.state) {
-                  throw new errors.RandomizedFileError()
-                }
-              })
-            })
+  function depth(item, visited) {
+    visited = visited || new Set()
+    if (visited.has(item)) {
+      return visited.size
+    }
+    visited.add(item)
+    return (item.locks || []).map((lock) => {
+      const newVisited = new Set(visited.values())
+      return Array.from(lock.values()).reduce((sum, item) => {
+        return depth(item, newVisited)
+      }, 0)
+    }).reduce((max, depth) => {
+      if (depth > max) {
+        return depth
+      }
+      return max
+    }, 0)
+  }
+
+  function removeCircular(item, visited) {
+    visited = visited || new Set()
+    visited.add(item.item)
+    return item.locks.reduce((locks, lock) => {
+      const newVisited = new Set(visited.values())
+      const items = Array.from(lock.values()).sort((a, b) => {
+        return depth(b) - depth(a)
+      })
+      let erase
+      for (let i = 0; i < items.length; i++) {
+        const lockItem = Object.assign({}, items[i])
+        items[i] = lockItem
+        if (newVisited.has(lockItem.item)) {
+          erase = true
+          break
+        }
+        if (lockItem.locks && lockItem.locks.length) {
+          lockItem.locks = removeCircular(lockItem, newVisited)
+          if (lockItem.locks.length === 0) {
+            erase = true
+            break
           }
-          if (relic.instructions) {
-            relic.instructions.forEach(function(instruction) {
-              instruction.addresses.forEach(function(address) {
-                if (data.readWord(address) === instruction.instruction) {
-                  throw new errors.RandomizedFileError()
-                }
-              })
-            })
+        }
+      }
+      if (!erase) {
+        locks.push(new Set(items))
+      }
+      return locks
+    }, [])
+  }
+
+  function isDuplicated(a, b) {
+    if (a.item === b.item) {
+      return true
+    }
+    return b.locks && b.locks.some((lock) => {
+      return Array.from(lock.values()).some((item) => {
+        return isDuplicated(a, item)
+      })
+    })
+  }
+
+  function removeSubsets(item) {
+    return item.locks.reduce((locks, lock) => {
+      const items = Array.from(lock.values())
+      for (let i = 0; i < items.length; i++) {
+        const item = items[i]
+        let erase
+        for (let j = 0; j < items.length; j++) {
+          if (i !== j) {
+            if (isDuplicated(items[i], items[j])) {
+              erase = true
+              break
+            }
           }
+        }
+        if (erase) {
+          items.splice(i--, 1)
+        }
+        if (item.locks && item.locks.length) {
+          item.locks = removeSubsets(item)
+        }
+      }
+      locks.push(new Set(items))
+      return locks
+    }, [])
+  }
+
+  function clean(item) {
+    if (item.locks) {
+      if (!item.locks.length) {
+        delete item.locks
+      } else {
+        item.locks.forEach((lock) => {
+          Array.from(lock.values()).forEach(item => clean(item))
         })
       }
+    }
+  }
+
+  function lockDepth(min, locks) {
+    const curr = Array.from(locks.values()).reduce(function(max, item) {
+      let curr = 1
+      if (item.locks) {
+        curr += item.locks.reduce(lockDepth, 0)
+      }
+      if (curr > max) {
+        return curr
+      }
+      return max
+    }, 0)
+    if (min === 0 || curr < min) {
+      return curr
+    }
+  }
+
+  function complexity(mapping, requirements) {
+    const graph = Object.getOwnPropertyNames(mapping).map(function(key) {
+      let locks = mapping[key].locks || []
+      if (locks.length === 1 && locks[0].size === 0) {
+        locks = []
+      }
+      return {
+        item: key,
+        locks: locks,
+      }
+    })
+    // Build lock graph.
+    graph.forEach((node) => {
+      node.locks = node.locks.map((lock) => {
+        return new Set(Array.from(lock.values()).map((item) => {
+          return graph.filter(node => node.item === item).pop()
+        }))
+      })
+    })
+    // Solve for each requirement.
+    const abilities = {}
+    const solutions = requirements.map(function(requirement) {
+      return new Set(requirement.split('').map(function(ability)  {
+        if (abilities[ability]) {
+          return abilities[ability]
+        }
+        const root = graph.filter((location) => {
+          return location.item === ability
+        }).pop()
+        // Remove circular locks.
+        root.locks = removeCircular(root)
+        // Remove locks that are fulfilled by other locks.
+        root.locks = removeSubsets(root)
+        // Clean up tree.
+        clean(root)
+        abilities[ability] = root
+        return root
+      }))
+    })
+    // Calculate deepest minimum depth.
+    return solutions.reduce(lockDepth, 0)
+  }
+
+  function randomizeRelics(data, options, info) {
+    if (options.relicLocations) {
       // Initialize location locks.
       const locksMap = {}
       if (typeof(options.relicLocations) === 'object') {
@@ -339,14 +574,14 @@
         break
       }
       locations.forEach(function(location) {
-        let key
-        if (typeof(location.ability) === 'string') {
-          key = location.ability
-        } else {
-          key = location.name
+        let id
+        if ('ability' in location) {
+          id = location.ability
+        } else if ('name' in location) {
+          id = location.name
         }
-        if (locksMap[key]) {
-          location.locks = locksMap[key].map(function(lock) {
+        if (locksMap[id]) {
+          location.locks = locksMap[id].map(function(lock) {
             return new Set(lock)
           })
         } 
@@ -357,9 +592,15 @@
       // Create a context that holds the current relic and location pools.
       const pool = {
         relics: util.shuffled(relics),
-        locations: locations.map(function(location, index) {
+        locations: locations.map(function(location) {
+          let id
+          if ('ability' in location) {
+            id = location.ability
+          } else if ('name' in location) {
+            id = location.name
+          }
           return Object.assign({
-            location: index,
+            id: id,
             locks: location.locks.map(function(lock) {
               return new Set(lock)
             }),
@@ -369,7 +610,7 @@
       // If there are more pool locations than relics, the randomizer is likely
       // to break plandomizers by placing relics in starting locations instead
       // of where the author intended them to be.
-      // To prevent this witouth breaking Safe logic, cull the pool of starting
+      // To prevent this witout breaking Safe logic, drain the pool of starting
       // locations until there are as many locations as there are relics to
       // place, but only if there are more starting locations than in vanilla.
       const startLocations = locations.filter(function(location) {
@@ -404,6 +645,11 @@
             throw result.error
           }
         }
+        // Get progression complexity
+        const target = 5
+        if (complexity(result, ['Hhtrni']) < target) {
+          continue
+        }
         break
       }
       // If the final attempt resulted in an error, throw it.
@@ -413,20 +659,12 @@
       // Safety check against softlocks.
       checkForSoftLock(result, pool.locations)
       // Write data to ROM.
-      writeMapping(result, pool.locations, data)
+      writeMapping(data, result, pool.locations)
       // Write spoilers.
       const spoilers = []
       relics.forEach(function(relic) {
-        const id = relic.id
-        const name = relic.name
-        const locationIds = Object.getOwnPropertyNames(result)
-        const locationId = parseInt(locationIds.filter(function(locationId) {
-          return result[locationId] === relic
-        })[0])
-        const location = pool.locations.filter(function(location) {
-          return location.location === locationId
-        }).pop()
-        spoilers.push(name + ' at ' + location.name)
+        const location = result[relic.ability]
+        spoilers.push(relic.name + ' at ' + location.name)
       })
       if (info) {
         info[3]['Relic locations'] = spoilers

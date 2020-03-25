@@ -1,33 +1,35 @@
 #!/usr/bin/env node
 // This tool parses a SotN bin and displays map data.
-// Usage: tools/map-dump <path-to-rom> <zone>
+// Usage: tools/map-view <path-to-rom> <zone>
 
+require('colors')
 const fs = require('fs')
 const constants = require('../constants')
 const items = require('../items')
 const relics = require('../relics')
 const util = require('../util')
 
-const TYPE = constants.TYPE
 const ZONE = constants.ZONE
 const zones = constants.zones
-const BOSS = constants.BOSS
-const bosses = constants.bosses
+
+const colors = [
+  'gray',
+  'red',
+  'green',
+  'yellow',
+  'blue',
+  'magenta',
+  'cyan',
+  'white',
+]
 
 // Read input bin.
 const bin = fs.readFileSync(process.argv[2])
 
 // Read zone data.
-let zoneId = ZONE[process.argv[3]]
-let zone
-let data
-if (zoneId !== undefined) {
-  zone = zones[zoneId]
-} else {
-  zoneId = BOSS[process.argv[3]]
-  zone = bosses[zoneId]
-}
-data = util.restoreFile(bin, zone)
+const zoneId = ZONE[process.argv[3]]
+const zone = zones[zoneId]
+const data = util.restoreFile(bin, zone)
 
 const filled = (String.fromCharCode(9608) + String.fromCharCode(9608))
 
@@ -41,12 +43,12 @@ const rooms = util.entityData(data).map(function(entities, index) {
   if (map[index]) {
     lines.push(map[index].map(function(row) {
       return row.map(function(tile) {
-        return tile ? filled : '  '
+        return tile ? filled[colors[tile % colors.length]] : '  '
       }).join('')
     }).join('\n'))
   }
   entities.forEach(function(entity) {
-    if (util.isCandle(zoneId, entity)) {
+    if (util.isCandle(zone, entity)) {
       const state = (entity.data[9] << 8) + entity.data[8]
       const candle = (state & 0xf000) >>> 8
       const id = state & 0x0fff
@@ -54,7 +56,7 @@ const rooms = util.entityData(data).map(function(entities, index) {
       lines.push('  candle: ' + item.name)
     } else if (util.isRelic(entity)) {
       const relic = relics.filter(function(relic) {
-        return relic.id === entity.data[8]
+        return relic.relicId === entity.data[8]
       })[0]
       lines.push('  relic: ' + relic.name)
     } else if (util.isItem(entity)) {
@@ -66,16 +68,31 @@ const rooms = util.entityData(data).map(function(entities, index) {
       } else {
         lines.push('  item: ' + util.numToHex(index))
       }
+      lines.push('    id: ' + util.numToHex(id) + ',')
+      lines.push('    index: ' + index + ',')
+    } else if (util.isContainer(zone, entity)) {
+      const item = util.containedItem(data, zone, entity)
+      if (item.item) {
+        lines.push('  container: ' + item.item.name)
+        if (item.item.id) {
+          lines.push('    id: ' + util.numToHex(item.item.id) + ',')
+        }
+      } else {
+        lines.push('  container: ' + util.numToHex(index))
+      }
+      if ('index' in item) {
+        lines.push('    index: ' + item.index + ',')
+      }
     } else {
       lines.push('  entity')
     }
-    lines.push('    zone: ' + entity.addresses.map(function(address) {
+    lines.push('    offsets: [ ' + entity.addresses.map(function(address) {
       return util.numToHex(address)
-    }).join(', '))
-    lines.push('    rom: ' + entity.addresses.map(function(address) {
+    }).join(', ') + ' ],')
+    lines.push('    rom: [ ' + entity.addresses.map(function(address) {
       return util.numToHex(util.romOffset(zone, address))
-    }).join(', '))
-    lines.push('    data: ' + entity.data.toString('hex'))
+    }).join(', ') + ' ],')
+    lines.push('    data: ' + entity.data.toString('hex') + ',')
   })
   return lines.join('\n')
 })
