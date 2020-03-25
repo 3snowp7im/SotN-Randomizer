@@ -3,8 +3,6 @@
   const util = sotnRando.util
   const relics = sotnRando.relics
   const presets = sotnRando.presets
-  const worker = new Worker('worker.js')
-  worker.addEventListener('message', workerMessage);
 
   let info
   let lastSeed
@@ -14,6 +12,35 @@
   let downloadReady
   let selectedFile
   let version
+  let worker
+
+  function getWorker() {
+    if (!worker) {
+      const url = new URL(window.location.href)
+      if (url.protocol === 'file:') {
+        const source = '(' + randomizeWorker.toString() + ')()'
+        worker = new Worker(
+          URL.createObjectURL(new Blob([source], {
+            type: 'text/javascript',
+          }))
+        )
+      } else {
+        worker = new Worker('worker.js')
+      }
+      worker.addEventListener('message', workerMessage);
+    }
+    return worker
+  }
+
+  function getUrl() {
+    const url = new URL(window.location.href)
+    if (url.protocol === 'file:') {
+      return 'file://'
+        + window.location.pathname.split('/').slice(0, -1).join('/') + '/'
+    } else {
+      return window.location.protocol + '//' + window.location.host + '/'
+    }
+  }
 
   function disableDownload() {
     downloadReady = false
@@ -295,7 +322,8 @@
     info[1]['Seed'] = seed
     const reader = new FileReader()
     reader.onload = function() {
-      worker.postMessage({
+      getWorker().postMessage({
+        url: getUrl(),
         version: version,
         fileData: this.result,
         checksum: expectChecksum,

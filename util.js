@@ -2008,6 +2008,8 @@
     this.locations = true
     // The relic locations extension
     this.extension = constants.EXTENSION.GUARDED
+    // The complexity goal.
+    this.goal = undefined
     // Turkey mode.
     this.turkey = true
     // Unplaced relics collection.
@@ -2099,11 +2101,24 @@
       self.locations = {}
       const locations = Object.getOwnPropertyNames(preset.relicLocations)
       locations.forEach(function(location) {
-        const locks = self.locations[location] || []
-        preset.relicLocations[location].forEach(function(lock) {
-          locks.push(new Set(lock))
-        })
-        self.locations[location] = locks
+        if ((/^[0-9]+(-[0-9]+)?$/).test(location)) {
+          self.goal = preset.relicLocations[location].map(function(lock) {
+            return new Set(lock)
+          })
+          const parts = location.split('-')
+          self.target = {
+            min: parts[0],
+          }
+          if (parts.length === 2) {
+            self.target.max = parts[1]
+          }
+        } else {
+          const locks = self.locations[location] || []
+          preset.relicLocations[location].forEach(function(lock) {
+            locks.push(new Set(lock))
+          })
+          self.locations[location] = locks
+        }
       })
     } else {
       this.locations = preset.relicLocations
@@ -2338,6 +2353,37 @@
     this.locations = enabled
   }
 
+  // Set complexity target.
+  PresetBuilder.prototype.complexityGoal =
+    function goal(complexityMin, complexityMax, goal) {
+      assert(
+        typeof(complexityMin) === 'number',
+        'expected complexityMin to be a number'
+      )
+      if (Array.isArray(complexityMax)) {
+        goal = complexityMax
+        complexityMax = undefined
+      } else {
+        assert(
+          typeof(complexityMax) === 'number',
+          'expected complexityMax to be a number'
+        )
+      }
+      assert(goal.every(function(lock) {
+        return typeof(lock) === 'string'
+      }), 'expected goal to be an array of strings')
+      assert(Array.isArray(goal), 'expected goal to be an array of strings')
+      this.goal = goal.map(function(lock) {
+        return new Set(lock)
+      })
+      this.target = {
+        min: complexityMin,
+      }
+      if (typeof(complexityMax) !== 'undefined') {
+        this.target.max = complexityMax
+      }
+    }
+
   // Enable guarded relic locations.
   PresetBuilder.prototype.relicLocationsExtension =
     function relicLocationsExtension(extension) {
@@ -2419,6 +2465,15 @@
             })
         }
       })
+      if (self.goal) {
+        let target = self.target.min.toString()
+        if ('max' in self.target) {
+          target += '-' + self.target.max.toString()
+        }
+        relicLocations[target] = self.goal.map(function(lock) {
+          return Array.from(lock).join('')
+        })
+      }
     }
     const turkey = self.turkey
     return new Preset(

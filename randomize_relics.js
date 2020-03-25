@@ -397,12 +397,12 @@
       return visited.size
     }
     visited.add(item)
-    return (item.locks || []).map((lock) => {
-      const newVisited = new Set(visited.values())
-      return Array.from(lock.values()).reduce((sum, item) => {
+    return (item.locks || []).map(function(lock) {
+      const newVisited = new Set(visited)
+      return Array.from(lock).reduce(function(sum, item) {
         return depth(item, newVisited)
       }, 0)
-    }).reduce((max, depth) => {
+    }).reduce(function(max, depth) {
       if (depth > max) {
         return depth
       }
@@ -413,9 +413,9 @@
   function removeCircular(item, visited) {
     visited = visited || new Set()
     visited.add(item.item)
-    return item.locks.reduce((locks, lock) => {
-      const newVisited = new Set(visited.values())
-      const items = Array.from(lock.values()).sort((a, b) => {
+    return item.locks.reduce(function(locks, lock) {
+      const newVisited = new Set(visited)
+      const items = Array.from(lock).sort(function(a, b) {
         return depth(b) - depth(a)
       })
       let erase
@@ -445,16 +445,16 @@
     if (a.item === b.item) {
       return true
     }
-    return b.locks && b.locks.some((lock) => {
-      return Array.from(lock.values()).some((item) => {
+    return b.locks && b.locks.some(function(lock) {
+      return Array.from(lock).some(function(item) {
         return isDuplicated(a, item)
       })
     })
   }
 
   function removeSubsets(item) {
-    return item.locks.reduce((locks, lock) => {
-      const items = Array.from(lock.values())
+    return item.locks.reduce(function(locks, lock) {
+      const items = Array.from(lock)
       for (let i = 0; i < items.length; i++) {
         const item = items[i]
         let erase
@@ -483,15 +483,17 @@
       if (!item.locks.length) {
         delete item.locks
       } else {
-        item.locks.forEach((lock) => {
-          Array.from(lock.values()).forEach(item => clean(item))
+        item.locks.forEach(function(lock) {
+          Array.from(lock).forEach(function(item) {
+            clean(item)
+          })
         })
       }
     }
   }
 
   function lockDepth(min, locks) {
-    const curr = Array.from(locks.values()).reduce(function(max, item) {
+    const curr = Array.from(locks).reduce(function(max, item) {
       let curr = 1
       if (item.locks) {
         curr += item.locks.reduce(lockDepth, 0)
@@ -518,10 +520,12 @@
       }
     })
     // Build lock graph.
-    graph.forEach((node) => {
-      node.locks = node.locks.map((lock) => {
-        return new Set(Array.from(lock.values()).map((item) => {
-          return graph.filter(node => node.item === item).pop()
+    graph.forEach(function(node) {
+      node.locks = node.locks.map(function(lock) {
+        return new Set(Array.from(lock).map(function(item) {
+          return graph.filter(function(node) {
+            return node.item === item
+          }).pop()
         }))
       })
     })
@@ -532,7 +536,7 @@
         if (abilities[ability]) {
           return abilities[ability]
         }
-        const root = graph.filter((location) => {
+        const root = graph.filter(function(location) {
           return location.item === ability
         }).pop()
         // Remove circular locks.
@@ -564,6 +568,23 @@
       if (typeof(options.relicLocations) === 'object') {
         Object.assign(locksMap, options.relicLocations)
       }
+      // Get the goal and complexity target.
+      let target
+      let goal
+      Object.getOwnPropertyNames(locksMap).forEach(function(name) {
+        if (!(/^[0-9]+(-[0-9]+)?$/).test(name)) {
+          return true
+        }
+        const parts = name.split('-')
+        target = {
+          min: parseInt(parts[0]),
+        }
+        if (parts.length === 2) {
+          target.max = parseInt(parts[1])
+        }
+        goal = locksMap[name]
+      })
+      // Create location collection.
       let locations = relics
       switch (options.relicLocationsExtension) {
       case constants.EXTENSION.GUARDED:
@@ -646,9 +667,16 @@
           }
         }
         // Get progression complexity
-        const target = 5
-        if (complexity(result, ['Hhtrni']) < target) {
-          continue
+        if (typeof(target) !== 'undefined') {
+          const depth = complexity(result, goal)
+          if (!Number.isNaN(target.min)
+              && depth < target.min) {
+            continue
+          }
+          if ('max' in target
+              && depth > target.max) {
+            continue
+          }
         }
         break
       }
