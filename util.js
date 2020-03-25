@@ -927,11 +927,16 @@
               name = name.toLowerCase()
               return name
             }))
-            const location = locations.filter(function(name) {
-              return name === arg.toLowerCase()
-            }).pop()
-            if (!location) {
-              throw new Error('Invalid relic location: ' + arg)
+            let location
+            if (/^[0-9]+(-[0-9]+)?$/.test(arg)) {
+              location = arg
+            } else {
+              location = locations.filter(function(name) {
+                return name === arg.toLowerCase()
+              }).pop()
+              if (!location) {
+                throw new Error('Invalid relic location: ' + arg)
+              }
             }
             if (typeof(relicLocations) !== 'object') {
               relicLocations = {}
@@ -963,7 +968,7 @@
               })
               if (emptyLocks.length > 1
                   || (locks.length && emptyLocks.length)) {
-                throw new Error('Invald lock: ' + location + lock)
+                throw new Error('Invald lock: ' + location + ':' + arg)
               }
               relicLocations[location] = locks
             } else {
@@ -1210,6 +1215,15 @@
           let opt = 'r'
           if (typeof(options.relicLocations) === 'object') {
             const locks = []
+            const keys = Object.getOwnPropertyNames(options.relicLocations)
+            for (let i = 0; i < keys.length; i++) {
+              if (/^[0-9]+(-[0-9]+)?$/.test(keys[i])) {
+                let lock = keys[i]
+                lock += ':' + options.relicLocations[keys[i]].join('-')
+                locks.push(lock)
+                break
+              }
+            }
             const locations = relics.concat(extension.locations)
             locations.map(function(location) {
               if (typeof(location.ability) === 'string') {
@@ -2107,10 +2121,10 @@
           })
           const parts = location.split('-')
           self.target = {
-            min: parts[0],
+            min: parseInt(parts[0]),
           }
           if (parts.length === 2) {
-            self.target.max = parts[1]
+            self.target.max = parseInt(parts[1])
           }
         } else {
           const locks = self.locations[location] || []

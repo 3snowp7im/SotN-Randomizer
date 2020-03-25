@@ -91,10 +91,10 @@
     RELIC.LEAP_STONE + RELIC.GRAVITY_BOOTS,
     RELIC.SILVER_RING + RELIC.GOLD_RING,
   ])
-  // Complexity targets are optional. They allow you to specify a set of locks,
-  // any one of which is required to consider a seed completable.
+  // Complexity targets are optional. They allow you to specify a set of locks
+  // that are considered win conditions.
   // The minimum and maximum complexity depth specify how many relics must be
-  // obtained in series to unlock this win condition.
+  // obtained in series to unlock a win condition.
   // To specify a maximum complexity depth:
   //   const maxComplexity = 5
   //   builder.complexityTarget(minComplexity, maxComplexity, [
