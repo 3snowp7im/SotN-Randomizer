@@ -2,6 +2,7 @@ const fs = require('fs')
 const path = require('path')
 const constants = require('./constants')
 const errors = require('./errors')
+const extension = require('./extension')
 const presets = require('./presets')
 const randomizeItems = require('./randomize_items')
 const randomizeRelics = require('./randomize_relics')
@@ -245,17 +246,57 @@ const presetHelp = [
 
 function presetMetaHelp(preset) {
   const options = preset.options()
-  return [
+  let locations = relics
+  switch (options.relicLocationsExtension) {
+  case constants.EXTENSION.GUARDED:
+    const guarded = extension.locations.filter(function(location) {
+      return location.extension === constants.EXTENSION.GUARDED
+    })
+    locations = locations.concat(guarded)
+    break
+  }
+  locations = locations.map(function(location) {
+    let id
+    if ('ability' in location) {
+      id = location.ability
+    } else {
+      id = location.name
+    }
+    return {
+      id: id,
+      name: location.name,
+      ability: location.ability,
+    }
+  })
+  let info = [
     preset.name + ' by ' + preset.author,
     preset.description,
     '',
-  ].concat(relics.map(function(relic) {
-    let label = '  (' + relic.ability + ') ' + relic.name
+  ].concat(locations.map(function(location) {
+    let label
+    if (location.ability) {
+      label = '  (' + location.ability + ') ' + location.name.slice(0, 21)
+    } else {
+      label = '      ' + location.name.slice(0, 21)
+    }
     label += Array(28).fill(' ').join('')
-    return label.slice(0, 28) + relic.ability + ':'
-      + (options.relicLocations[relic.ability] ?
-         options.relicLocations[relic.ability].join('-') : '')
-  })).join('\n')
+    return label.slice(0, 28) + location.id.replace(/[^a-zA-Z0-9]/g, '') + ':'
+      + (options.relicLocations[location.id] ?
+         options.relicLocations[location.id].join('-') : '')
+  }))
+  const keys = Object.getOwnPropertyNames(options.relicLocations)
+  const target = keys.filter(function(key) {
+    return /^[0-9]+(-[0-9]+)?$/.test(key)
+  }).pop()
+  if (target) {
+    const parts = target.split('-')
+    info.push('')
+    info.push('  Complexity target: '
+              + parts[0] + ' <= depth'
+              + (parts.length === 2 ? ' <= ' + parts[1] : ''))
+    info.push('  Goals: ' + options.relicLocations[target].join('-'))
+  }
+  return info.join('\n')
 }
 
 let eccEdcCalc
