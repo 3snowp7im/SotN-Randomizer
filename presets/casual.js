@@ -31,32 +31,6 @@
   // Disable relic location extension.
   builder.relicLocationsExtension(false)
 
-  // Spike Breaker requires Jewel of Open + Soul of Bat + Echo of Bat.
-  builder.lockLocation(RELIC.SPIKE_BREAKER, [
-    RELIC.JEWEL_OF_OPEN + RELIC.SOUL_OF_BAT + RELIC.ECHO_OF_BAT,
-  ])
-
-  // Gold Ring requires Jewel of Open + flight.
-  builder.lockLocation(RELIC.GOLD_RING, [
-    RELIC.JEWEL_OF_OPEN + RELIC.SOUL_OF_BAT,
-    RELIC.JEWEL_OF_OPEN + RELIC.LEAP_STONE + RELIC.GRAVITY_BOOTS,
-    RELIC.JEWEL_OF_OPEN + RELIC.FORM_OF_MIST + RELIC.POWER_OF_MIST,
-  ])
-
-  // Silver Ring requires Jewel of Open + Spike Breaker + Form of Mist.
-  builder.lockLocation(RELIC.SILVER_RING, [
-    RELIC.JEWEL_OF_OPEN + RELIC.SPIKE_BREAKER + RELIC.FORM_OF_MIST,
-  ])
-
-  // Holy Glasses requires Rings + flight.
-  builder.lockLocation(RELIC.HOLY_GLASSES, [
-    RELIC.SILVER_RING + RELIC.GOLD_RING + RELIC.SOUL_OF_BAT,
-    RELIC.SILVER_RING + RELIC.GOLD_RING
-      + RELIC.LEAP_STONE + RELIC.GRAVITY_BOOTS,
-    RELIC.SILVER_RING + RELIC.GOLD_RING
-      + RELIC.FORM_OF_MIST + RELIC.POWER_OF_MIST,
-  ])
-
   // Soul of Bat requires Mist + at least Leap Stone.
   builder.lockLocation(RELIC.SOUL_OF_BAT, [
     RELIC.FORM_OF_MIST + RELIC.LEAP_STONE,
@@ -175,7 +149,6 @@
     RELIC.JEWEL_OF_OPEN + RELIC.LEAP_STONE,
     RELIC.JEWEL_OF_OPEN + RELIC.SOUL_OF_BAT,
     RELIC.JEWEL_OF_OPEN + RELIC.FORM_OF_MIST + RELIC.POWER_OF_MIST,
-    RELIC.JEWEL_OF_OPEN + RELIC.SOUL_OF_WOLF + RELIC.POWER_OF_WOLF,
   ])
 
   // Sword Card requires flight.
@@ -218,6 +191,32 @@
     RELIC.HOLY_GLASSES + RELIC.SOUL_OF_BAT,
     RELIC.HOLY_GLASSES + RELIC.LEAP_STONE + RELIC.GRAVITY_BOOTS,
     RELIC.HOLY_GLASSES + RELIC.FORM_OF_MIST + RELIC.POWER_OF_MIST,
+  ])
+
+  // Spike Breaker requires Jewel of Open + Soul of Bat + Echo of Bat.
+  builder.lockLocation(RELIC.SPIKE_BREAKER, [
+    RELIC.JEWEL_OF_OPEN + RELIC.SOUL_OF_BAT + RELIC.ECHO_OF_BAT,
+  ])
+
+  // Gold Ring requires Jewel of Open + flight.
+  builder.lockLocation(RELIC.GOLD_RING, [
+    RELIC.JEWEL_OF_OPEN + RELIC.SOUL_OF_BAT,
+    RELIC.JEWEL_OF_OPEN + RELIC.LEAP_STONE + RELIC.GRAVITY_BOOTS,
+    RELIC.JEWEL_OF_OPEN + RELIC.FORM_OF_MIST + RELIC.POWER_OF_MIST,
+  ])
+
+  // Silver Ring requires Jewel of Open + Spike Breaker + Form of Mist.
+  builder.lockLocation(RELIC.SILVER_RING, [
+    RELIC.JEWEL_OF_OPEN + RELIC.SPIKE_BREAKER + RELIC.FORM_OF_MIST,
+  ])
+
+  // Holy Glasses requires Rings + flight.
+  builder.lockLocation(RELIC.HOLY_GLASSES, [
+    RELIC.SILVER_RING + RELIC.GOLD_RING + RELIC.SOUL_OF_BAT,
+    RELIC.SILVER_RING + RELIC.GOLD_RING
+      + RELIC.LEAP_STONE + RELIC.GRAVITY_BOOTS,
+    RELIC.SILVER_RING + RELIC.GOLD_RING
+      + RELIC.FORM_OF_MIST + RELIC.POWER_OF_MIST,
   ])
 
   // Game completion requires Holy Glasses + Vlad Relics.
