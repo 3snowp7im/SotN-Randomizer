@@ -6622,14 +6622,6 @@
     id: 70,
     tiles: [{
       zones: [ ZONE.NO4 ],
-      index: 16,
-      entities: [ 0x362c, 0x46c8 ],
-    }, {
-      zones: [ ZONE.NO4 ],
-      index: 17,
-      entities: [ 0x3636, 0x46d2 ],
-    }, {
-      zones: [ ZONE.NO4 ],
       index: 14,
       entities: [ 0x3640, 0x46b4 ],
     }, {
@@ -6637,7 +6629,19 @@
       index: 15,
       entities: [ 0x364a, 0x46be ],
     }, {
+      zones: [ ZONE.NO4 ],
+      index: 16,
+      entities: [ 0x362c, 0x46c8 ],
+    }, {
+      zones: [ ZONE.NO4 ],
+      index: 17,
+      entities: [ 0x3636, 0x46d2 ],
+    }, {
       zones: [ ZONE.RNO0 ],
+      index: 9,
+      offsets: [ 0x407c, 0x510e ],
+    }, {
+      zones: [ ZONE.RNO4 ],
       index: 16,
       entities: [ 0x3056, 0x3fce ],
     }, {
@@ -6646,20 +6650,16 @@
       entities: [ 0x3060, 0x3fba ],
     }, {
       zones: [ ZONE.RNO4 ],
-      index: 20,
-      entities: [ 0x306a, 0x3fb0 ],
-    }, {
-      zones: [ ZONE.RNO4 ],
-      index: 18,
-      entities: [ 0x3074, 0x3fc4 ],
-    }, {
-      zones: [ ZONE.RNO4 ],
       index: 18,
       entities: [ 0x3074, 0x3fc4 ],
     }, {
       zones: [ ZONE.RNO4 ],
       index: 19,
       entities: [ 0x307e, 0x3fa6 ],
+    }, {
+      zones: [ ZONE.RNO4 ],
+      index: 20,
+      entities: [ 0x306a, 0x3fb0 ],
     }, {
       zones: [ ZONE.LIB ],
       addresses: [ 0x047a3126 ],

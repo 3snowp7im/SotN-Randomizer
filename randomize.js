@@ -342,7 +342,8 @@ const yargs = require('yargs')
     type: 'count',
   })
   .option('compat', {
-    type: 'boolean',
+    type: 'string',
+    requiresArg: true,
   })
   .hide('compat')
   .help(false)
@@ -396,7 +397,7 @@ if ('help' in argv) {
   }
 }
 if (argv.compat) {
-  version = '0.0.0-0'
+  version = argv.compat
 }
 // Check for seed string.
 if ('seed' in argv) {
