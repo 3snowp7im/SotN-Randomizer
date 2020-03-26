@@ -34,6 +34,9 @@
     const shopRelicNameAddress = 0x047d5650
     const shopRelicIdAddress = 0x047dbde0
     const shopRelicIdOffset = 0x64
+    // Write relic id.
+    const address = jewelOfOpen.ids[0].addresses[0]
+    data.writeChar(address, relic.relicId)
     // Fix shop menu check.
     data.writeChar(shopRelicIdAddress, relic.relicId + shopRelicIdOffset)
     // Change shop menu name.
