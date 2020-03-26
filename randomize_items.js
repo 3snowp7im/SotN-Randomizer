@@ -208,10 +208,9 @@
           })
         }
         if ('candle' in tile) {
-          tile.zones.forEach(function(zoneId, index) {
-            const zone = zones[zoneId]
-            const offset = tile.entities[index >>> 1] + 0x08
-            const address = util.romOffset(zone, offset)
+          tile.entities.forEach(function(entity, index) {
+            const zone = zones[tile.zones[index >>> 1]]
+            const address = util.romOffset(zone, entity + 0x08)
             data.writeShort(address, value)
           })
         }

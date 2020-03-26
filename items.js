@@ -7634,9 +7634,9 @@
     type: TYPE.USABLE,
     id: 146,
     tiles: [{
-      zones: [ ZONE.NO3 ],
+      zones: [ ZONE.NO3, ZONE.NP3 ],
       index: 2,
-      entities: [ 0x40a2, 0x4824 ],
+      entities: [ 0x40a2, 0x4824, 0x3e60, 0x4588 ],
     }, {
       zones: [ ZONE.NO0 ],
       index: 3,
@@ -7761,9 +7761,9 @@
     type: TYPE.USABLE,
     id: 152,
     tiles: [{
-      zones: [ ZONE.NO3 ],
+      zones: [ ZONE.NO3, ZONE.NP3 ],
       index: 4,
-      entities: [ 0x4156, 0x48ba ],
+      entities: [ 0x4156, 0x48ba, 0x3f1e, 0x4632 ],
     }, {
       zones: [ ZONE.RNO1 ],
       index: 5,
@@ -8333,9 +8333,9 @@
     id: 187,
     blacklist: [ 0x0b6b3c, 0x0b6b3a ],
     tiles: [{
-      zones: [ ZONE.NO3 ],
+      zones: [ ZONE.NO3, ZONE.NP3 ],
       index: 5,
-      entities: [ 0x3ea4, 0x4630 ],
+      entities: [ 0x3ea4, 0x4630, 0x3c44, 0x4380 ],
     }],
   }, {
     name: 'Walk Armor',
