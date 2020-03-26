@@ -7,8 +7,6 @@
     exports = [
       require('./casual'),
       require('./safe'),
-      require('./agonize'),
-      require('./optimize'),
       require('./glitch'),
       require('./glitch-hard'),
     ]

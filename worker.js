@@ -12,8 +12,6 @@ function randomizeWorker() {
     importScripts(url + "util.js")
     importScripts(url + "presets/casual.js")
     importScripts(url + "presets/safe.js")
-    importScripts(url + "presets/agonize.js")
-    importScripts(url + "presets/optimize.js")
     importScripts(url + "presets/glitch.js")
     importScripts(url + "presets/glitch-hard.js")
     importScripts(url + "randomize_items.js")
