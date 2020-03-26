@@ -27,7 +27,7 @@
 
   function writeEntity(data, entity, opts) {
     entity.entities.forEach(function(addr, index) {
-      const zone = constants.zones[entity.zones[Math.floor(index / 2)]]
+      const zone = constants.zones[entity.zones[index >>> 1]]
       if ('x' in opts) {
         data.writeShort(util.romOffset(zone, addr + 0x00), opts.x)
       }
@@ -138,14 +138,10 @@
             const item = util.itemFromTileId(items, itemId)
             const entity = item.tiles[location.tileIndex]
             const asRelic = location.asRelic || {}
-            try {
             writeEntity(data, entity, Object.assign({
               id: 0x000b,
               state: relic.relicId,
             }, asRelic))
-            } catch (err) {
-              console.error(err)
-            }
           }
           // Remove replaced item's tile from randomization pool.
           if ('tileIndex' in location) {
