@@ -850,9 +850,10 @@
       Math.floor(Math.random() * 32),
     ]
     // Write the jump to injected code.
-    data.writeWord(0x0fa97c, 0x0c04eabc)
+    const inj = 0x13af00
+    data.writeWord(0x0fa97c, 0x0c000000 + (inj >> 2))
     // Write the color setting instructions.
-    let address = 0x15d508
+    let address = inj + 0x22a18
     for (let i = 0; i < colors.length; i++) {
       address = data.writeWord(address, 0x3c020003)
       address = data.writeWord(address, 0x3442caa8 + 4 * i)
@@ -950,7 +951,9 @@
           randomizeCapeColors(data)
         }
         // Write items to ROM.
-        if (!options.checkVanilla) {
+        if (options.itemLocations
+            || options.enemyDrops
+            || options.prologueRewards) {
           const itemsToWrite = (addon.concat(pool)).filter(util.tilesFilter)
           itemsToWrite.forEach(writeTiles(data))
         }
