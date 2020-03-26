@@ -202,7 +202,15 @@
         if ('index' in tile) {
           tile.zones.forEach(function(zoneId) {
             const zone = zones[zoneId]
-            const offset = zone.items + 0x2 * tile.index
+            const offset = zone.items + 0x02 * tile.index
+            const address = util.romOffset(zone, offset)
+            data.writeShort(address, value)
+          })
+        }
+        if ('candle' in tile) {
+          tile.zones.forEach(function(zoneId, index) {
+            const zone = zones[zoneId]
+            const offset = tile.entities[index >>> 1] + 0x08
             const address = util.romOffset(zone, offset)
             data.writeShort(address, value)
           })
@@ -378,6 +386,10 @@
         while (foodFilter(replacement))
         const tiles = collectTiles([item], util.candleTileFilter)
         pushTile.apply(replacement, tiles)
+        while (tiles.length) {
+          let index = item.tiles.indexOf(tiles.shift())
+          item.tiles.splice(index, 1)
+        }
       })
     })
     // Randomize the rest of the candles, except for Final Stage, which
@@ -939,8 +951,8 @@
         }
         // Write items to ROM.
         if (!options.checkVanilla) {
-          const tilesToWrite = (addon.concat(pool)).filter(util.tilesFilter)
-          tilesToWrite.forEach(writeTiles(data))
+          const itemsToWrite = (addon.concat(pool)).filter(util.tilesFilter)
+          itemsToWrite.forEach(writeTiles(data))
         }
       } catch (err) {
         if (err.name === 'AssertionError' && retries++ < MAX_RETRIES) {

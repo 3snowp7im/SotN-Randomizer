@@ -31,8 +31,8 @@
   }
 
   function replaceShopRelicWithRelic(data, jewelOfOpen, relic) {
-    const shopRelicNameAddress = 0x47d5650
-    const shopRelicIdAddress = 0x47dbde0
+    const shopRelicNameAddress = 0x047d5650
+    const shopRelicIdAddress = 0x047dbde0
     const shopRelicIdOffset = 0x64
     // Fix shop menu check.
     data.writeChar(shopRelicIdAddress, relic.relicId + shopRelicIdOffset)
