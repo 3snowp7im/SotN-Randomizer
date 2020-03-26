@@ -493,7 +493,7 @@ require('seedrandom')(util.saltSeed(
   seed,
 ), {global: true})
 // Add seed to log info if not provided through command line.
-if (!('seed' in argv) && (!('url' in argv) || argv._[0])) {
+if (!('url' in argv) || argv._[0]) {
   info[1]['Seed'] = seed
 }
 let fd
