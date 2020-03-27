@@ -6704,6 +6704,10 @@
       index: 0,
       entities: [ 0x1910, 0x1d7a ],
     }, {
+      zones: [ ZONE.RCHI ],
+      index: 4,
+      offsets: [ 0x1942, 0x1da2 ],
+    }, {
       zones: [ ZONE.ST0 ],
       entities: [ 0x282a, 0x29c4 ],
       candle: 0x90,
