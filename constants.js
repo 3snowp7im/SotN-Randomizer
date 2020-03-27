@@ -414,6 +414,9 @@
   // the librarian's shop menu or are in an equipment slot.
   const equipIdOffset = -0xa9
 
+  // This is applied to equipment ids to get the inventory slot it occupies.
+  const equipmentInvIdOffset = 0x798a
+
   const SLOT = {
     RIGHT_HAND: 'r',
     LEFT_HAND: 'l',
@@ -421,8 +424,19 @@
     BODY: 'b',
     CLOAK: 'c',
     OTHER: 'o',
+    OTHER2: 'o2',
     AXEARMOR: 'a',
     LUCK_MODE: 'x',
+  }
+
+  const slots = {
+    'r':  0x097c00,
+    'l':  0x097c04,
+    'h':  0x097c08,
+    'b':  0x097c0c,
+    'c':  0x097c10,
+    'o':  0x097c14,
+    'o2': 0x097c18,
   }
 
   const EXTENSION = {
@@ -455,7 +469,9 @@
     RELIC: RELIC,
     tileIdOffset: tileIdOffset,
     equipIdOffset: equipIdOffset,
+    equipmentInvIdOffset: equipmentInvIdOffset,
     SLOT: SLOT,
+    slots: slots,
     EXTENSION: EXTENSION,
     defaultExtension: defaultExtension,
     LOCATION: LOCATION,

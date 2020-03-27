@@ -9,6 +9,11 @@
   const RELIC = constants.RELIC
   const TYPE = constants.TYPE
   const ZONE = constants.ZONE
+  const SLOT = constants.SLOT
+  const slots = constants.slots
+  const equipIdOffset = constants.equipIdOffset
+  const invOffset = constants.equipmentInvIdOffset
+  const tileIdOffset = constants.tileIdOffset
 
   function items() {
     let items
@@ -28,6 +33,18 @@
       util = require('./util')
     }
     return util
+  }
+
+  function getItemSlots(item) {
+    switch (item.type) {
+    case TYPE.HELMET:
+      return [ slots[SLOT.HEAD] ]
+    case TYPE.ARMOR:
+      return [ slots[SLOT.BODY] ]
+    case TYPE.ACCESSORY:
+      return [ slots[SLOT.OTHER], slots[SLOT.OTHER2] ]
+      break
+    }
   }
 
   function replaceShopRelicWithRelic(data, jewelOfOpen, relic) {
@@ -54,48 +71,100 @@
 
   function replaceShopRelicWithItem(data, jewelOfOpen, item) {
     let offset
-    const id = item.id - 0xa9
+    const id = item.id
     const type = 0x02
     const zone = constants.zones[constants.ZONE.LIB]
-    // Write item tpe.
+    const slots = getItemSlots(item)
+    // Write item type.
     data.writeChar(util().romOffset(zone, 0x134c), type)
     // Write item id.
-    data.writeShort(util().romOffset(zone, 0x134e), id)
-    data.writeShort(util().romOffset(zone, 0x14d4), id)
-    // Replace relic check for inventory check.
+    data.writeShort(util().romOffset(zone, 0x134e), id + equipIdOffset)
+    data.writeShort(util().romOffset(zone, 0x14d4), id + equipIdOffset)
+    // Entry point.
     offset = util().romOffset(zone, 0x032b08)
-    //                                          // lbu v0, 0x7a33 + id (v0)
-    offset = data.writeWord(offset, 0x90427a33 + id)
-    // Injection point.
-    offset = util().romOffset(zone, 0x033050)
     offset = data.writeWord(offset, 0x08075180) // j 0x801d4600
-    // Load base address.
+    offset = data.writeWord(offset, 0x00000000) // nop
+    // Equipped check.
     offset = util().romOffset(zone, 0x054600)
+    //                                          // ori v1, r0, id
+    offset = data.writeWord(offset, 0x34030000 + id + equipIdOffset)
+    slots.forEach(function(slot, index) {
+      //                                          // lui v0, 0x8009
+      offset = data.writeWord(offset, 0x3c028000 + (slot >>> 16))
+      //                                          // lbu v0, slot (v0)
+      offset = data.writeWord(offset, 0x90420000 + (slot & 0xffff))
+      offset = data.writeWord(offset, 0x00000000) // nop
+      const next = 4 + 5 * (slots.length - index - 1)
+      //                                          // beq v0, v1, pc + next
+      offset = data.writeWord(offset, 0x10430000 + next)
+      offset = data.writeWord(offset, 0x00000000) // nop
+    })
+    // Inventory check.
+    offset = data.writeWord(offset, 0x3c028009) // lui v0, 0x8009
+    //                                          // lbu v0, 0x798a + id (v0)
+    offset = data.writeWord(offset, 0x90420000 + id + invOffset)
+    offset = data.writeWord(offset, 0x00000000) // nop
+    // Return.
+    offset = data.writeWord(offset, 0x0806cac7) // j 0x801b2b1c
+    offset = data.writeWord(offset, 0x00000000) // nop
+    // Entry point.
+    offset = util().romOffset(zone, 0x033050)
+    offset = data.writeWord(offset, 0x08075190) // j 0x801d4640
+    // Load base address.
+    offset = util().romOffset(zone, 0x054640)
     offset = data.writeWord(offset, 0x3c02801d) // lui v0, 0x801d
     offset = data.writeWord(offset, 0x34424364) // ori v0, v0, 0x4364
-    offset = data.writeWord(offset, 0x14450002) // bne a1, v0, 0x801b4614
+    offset = data.writeWord(offset, 0x14450003) // bne a1, v0, pc + 0x10
     offset = data.writeWord(offset, 0x94a30000) // lhu v1, 0x0000 (a1)
+    offset = data.writeWord(offset, 0x00000000) // nop
     offset = data.writeWord(offset, 0x34030005) // ori v1, r0, 0x0005
     // Return.
     offset = data.writeWord(offset, 0x0806cc16) // j 0x801b3058
     offset = data.writeWord(offset, 0x00000000) // nop
     // Patch checker.
     offset = util().romOffset(zone, 0x03317c)
-    offset = data.writeWord(offset, 0x36620000) // ori v0, s3, 0x0000
+    offset = data.writeWord(offset, 0x080751a0) // j 0x801d4680
+    offset = data.writeWord(offset, 0x34020000) // ori v0, r0, 0x0000
     offset = data.writeWord(offset, 0x00000000) // nop
     offset = data.writeWord(offset, 0x00000000) // nop
     offset = data.writeWord(offset, 0x00000000) // nop
     offset = data.writeWord(offset, 0x00000000) // nop
-    offset = util().romOffset(zone, 0x033198)
-    offset = data.writeWord(offset, 0x90427a33) // lbu v0, 0x7a33 (v0)
-    offset = util().romOffset(zone, 0x0331a0)
+    offset = data.writeWord(offset, 0x00000000) // nop
+    offset = data.writeWord(offset, 0x00000000) // nop
+    offset = data.writeWord(offset, 0x00000000) // nop
+    offset = data.writeWord(offset, 0x00000000) // nop
+    // Injection.
+    offset = util().romOffset(zone, 0x054680)
+    slots.forEach(function(slot, index) {
+      //                                          // lui v0, 0x8009
+      offset = data.writeWord(offset, 0x3c028000 + (slot >>> 16))
+      //                                          // lbu v0, slot (v0)
+      offset = data.writeWord(offset, 0x90420000 + (slot & 0xffff))
+      offset = data.writeWord(offset, 0x00000000) // nop
+      const next = 5 + 5 * (slots.length - index - 1)
+      //                                          // beq v0, s3, pc + next
+      offset = data.writeWord(offset, 0x10530000 + next)
+      offset = data.writeWord(offset, 0x00000000) // nop
+    })
+    // Inventory check.
+    offset = data.writeWord(offset, 0x3c028009) // lui v0, 0x8009
+    //                                          // lbu v0, 0x798a + id (v0)
+    offset = data.writeWord(offset, 0x90420000 + id + invOffset)
+    offset = data.writeWord(offset, 0x00000000) // nop
+    // Return.
+    offset = data.writeWord(offset, 0x10400002) // beq v0, r0, pc + 0x0c
+    offset = data.writeWord(offset, 0x00000000) // nop
+    offset = data.writeWord(offset, 0x0806cc1f) // j 0x801b307c
+    offset = data.writeWord(offset, 0x00000000) // nop
+    offset = data.writeWord(offset, 0x0806cc61) // j 0x801b3184
     offset = data.writeWord(offset, 0x00000000) // nop
   }
 
   function replaceRingOfVladWithItem(data, relic, item, index) {
     let offset
-    const id = item.id - 0xa9
+    const id = item.id
     const zone = constants.zones[ZONE.RNZ1]
+    const slots = getItemSlots(item)
     // Patch instructions that load a relic.
     data.writeWord(
       relic.erase.instructions[0].addresses[0],
@@ -108,10 +177,10 @@
     data.writeShort(offset, index)
     // Replace item in rewards table.
     offset = util().romOffset(zone, zone.rewards)
-    data.writeShort(offset, id + 0x129)
+    data.writeShort(offset, id + tileIdOffset)
     // Replace item in items table.
-    offset = util().romOffset(zone, zone.items + 0x2 * index)
-    data.writeShort(offset, id + 0x129)
+    offset = util().romOffset(zone, zone.items + 0x02 * index)
+    data.writeShort(offset, id + tileIdOffset)
     // Injection point.
     offset = util().romOffset(zone, 0x02c860)
     data.writeWord(offset, 0x0807bc40)          // j 0x801ef100
@@ -119,11 +188,25 @@
     data.writeWord(offset, 0x00000000)          // nop
     // Zero out tile function pointer if item is in inventory.
     offset = util().romOffset(zone, 0x03f100)
-    offset = data.writeWord(offset, 0x3c108009) // lui s0, 0x8009
+    //                                          // ori v0, r0, id
+    offset = data.writeWord(offset, 0x34020000 + id + equipIdOffset)
+    slots.forEach(function(slot, index) {
+      //                                          // lui s0, 0x8009
+      offset = data.writeWord(offset, 0x3c108000 + (slot >>> 16))
+      //                                          // lbu s0, slot (s0)
+      offset = data.writeWord(offset, 0x92100000 + (slot & 0xffff))
+      offset = data.writeWord(offset, 0x00000000) // nop
+      const next = 4 + 5 * (slots.length - index - 1)
+      //                                          // beq s0, v0, pc + next
+      offset = data.writeWord(offset, 0x12020000 + next)
+      offset = data.writeWord(offset, 0x00000000) // nop
+    })
     //                                          // addiu s0, id
     offset = data.writeWord(offset, 0x26100000 + id)
-    offset = data.writeWord(offset, 0x92107a33) // lbu s0, 0x7a33 (s0)
-    offset = data.writeWord(offset, 0x12000002) // beq s0, r0, 0x801ef114
+    //                                          // lbu s0, 0x798a (s0)
+    offset = data.writeWord(offset, 0x92100000 + invOffset)
+    offset = data.writeWord(offset, 0x00000000) // nop
+    offset = data.writeWord(offset, 0x12000002) // beq s0, r0, pc + 0x0c
     offset = data.writeWord(offset, 0x3c108007) // lui s0, 0x8007
     offset = data.writeWord(offset, 0xae0065f0) // sw r0, 0x65f0 (s0)
     // Return.
@@ -135,26 +218,27 @@
     const boss = constants.zones[opts.boss]
     return function(data, relic, item, index) {
       let offset
-      const id = item.id - 0xa9
+      const id = item.id
       const zone = constants.zones[relic.entity.zones[0]]
+      const slots = getItemSlots(item)
       // Patch item table.
-      offset = util().romOffset(zone, zone.items + 0x2 * index)
-      data.writeShort(offset, id + 0x129)
+      offset = util().romOffset(zone, zone.items + 0x02 * index)
+      data.writeShort(offset, id + tileIdOffset)
       // Patch entities table.
       relic.entity.entities.forEach(function(addr) {
         if ('asItem' in relic) {
           if ('x' in relic.asItem) {
-            offset = util().romOffset(zone, addr + 0)
+            offset = util().romOffset(zone, addr + 0x00)
             data.writeShort(offset, relic.asItem.x)
           }
           if ('y' in relic.asItem) {
-            offset = util().romOffset(zone, addr + 2)
+            offset = util().romOffset(zone, addr + 0x02)
             data.writeShort(offset, relic.asItem.y)
           }
         }
-        offset = util().romOffset(zone, addr + 4)
+        offset = util().romOffset(zone, addr + 0x04)
         data.writeShort(offset, 0x000c)
-        offset = util().romOffset(zone, addr + 8)
+        offset = util().romOffset(zone, addr + 0x08)
         data.writeShort(offset, index)
       })
       // Patch instructions that load a relic.
@@ -163,7 +247,7 @@
         relic.erase.instructions[0].instruction,
       )
       // Patch boss reward.
-      data.writeShort(util().romOffset(boss, boss.rewards), id + 0x129)
+      data.writeShort(util().romOffset(boss, boss.rewards), id + tileIdOffset)
       // Entry point.
       offset = util().romOffset(zone, opts.entry)
       //                                          // j inj
@@ -171,16 +255,29 @@
       offset = data.writeWord(offset, 0x00041400) // sll v0, a0, 10
       // Zero tile function if item is in inventory.
       offset = util().romOffset(zone, opts.inj)
+      //                                          // ori t1, r0, id
+      offset = data.writeWord(offset, 0x34090000 + id + equipIdOffset)
+      slots.forEach(function(slot, index) {
+        //                                          // lui t0, 0x8009
+        offset = data.writeWord(offset, 0x3c080000 + (slot >>> 16))
+        //                                          // lbu t0, slot (t0)
+        offset = data.writeWord(offset, 0x91080000 + (slot & 0xffff))
+        offset = data.writeWord(offset, 0x00000000) // nop
+        const next = 5 + 5 * (slots.length - index - 1)
+        //                                          // beq t0, t1, pc + next
+        offset = data.writeWord(offset, 0x11090000 + next)
+        offset = data.writeWord(offset, 0x00000000) // nop
+      })
+      // Inventory check.
       offset = data.writeWord(offset, 0x3c088009) // lui t0, 0x8009
-      //                                          // addiu t0, t0, id
-      offset = data.writeWord(offset, 0x25080000 + id)
-      offset = data.writeWord(offset, 0x91087a33) // lbu t0, 0x7a33 (t0)
-      offset = data.writeWord(offset, 0x11000004) // beq t0, r0, pc + 0x04
-      offset = data.writeWord(offset, 0x3c088018) // lui t0, 0x8018
+      //                                          // lbu t0, 0x798a + id (v0)
+      offset = data.writeWord(offset, 0x91080000 + id + invOffset)
+      offset = data.writeWord(offset, 0x00000000) // nop
+      offset = data.writeWord(offset, 0x15090003) // beq t0, r0, pc + 0x10
       offset = data.writeWord(offset, 0x3409000f) // ori t1, r0, 0x000f
       relic.entity.entities.forEach(function(addr) {
         //                                        // sh t1, entity + 4 (t0)
-        offset = data.writeWord(offset, 0xa5090000 + addr + 4)
+        offset = data.writeWord(offset, 0xa5090000 + addr + 0x04)
       })
       // Return.
       offset = data.writeWord(offset, 0x03e00008) // jr ra
@@ -203,7 +300,7 @@
     offset = data.writeWord(offset, 0x08077aed) // j 0x801debb4
     // Branch.
     offset = util().romOffset(zone, 0x05ebb4)
-    offset = data.writeWord(offset, 0x10400003) // beq v0, r0, pc + 12
+    offset = data.writeWord(offset, 0x10400003) // beq v0, r0, pc + 0x10
     offset = data.writeWord(offset, 0x00000000) // nop
     // Return.
     offset = data.writeWord(offset, 0x08073166) // j 0x801cc598
@@ -214,7 +311,7 @@
     offset = data.writeWord(offset, 0x84420000) // lh v0, 0x0000 (v0)
     offset = data.writeWord(offset, 0x00000000) // nop
     // Branch if zero.
-    offset = data.writeWord(offset, 0x10400006) // beq v0, r0, pc + 24
+    offset = data.writeWord(offset, 0x10400006) // beq v0, r0, pc + 0x1c
     offset = data.writeWord(offset, 0x00000000) // nop
     // Patch entity type.
     offset = data.writeWord(offset, 0x3403000b) // ori v1, r0, 0x000b

@@ -521,6 +521,7 @@ try {
     randomizeItems(check, applied, info)
   } catch (err) {
     if (errors.isError(err)) {
+      console.error('Seed:  ' + seed)
       console.error('Error: ' + err.message)
       process.exit(1)
     }

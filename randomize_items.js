@@ -25,14 +25,12 @@
   const zones = constants.zones
   const tileIdOffset = constants.tileIdOffset
   const equipIdOffset = constants.equipIdOffset
+  const equipmentInvIdOffset = constants.equipmentInvIdOffset
 
   const shuffled = util.shuffled
 
   // The base address of Alucard's equipped item list.
   const equipBaseAddress = 0x11a0d0
-
-  // This is applied to equipment ids to get the inventory slot it occupies.
-  const equipmentInvIdOffset = 0x798a
 
   function itemFromName(name) {
     return items.filter(function(item) {

@@ -6639,7 +6639,7 @@
     }, {
       zones: [ ZONE.RNO0 ],
       index: 9,
-      offsets: [ 0x407c, 0x510e ],
+      entities: [ 0x407c, 0x510e ],
     }, {
       zones: [ ZONE.RNO4 ],
       index: 16,
@@ -6706,7 +6706,7 @@
     }, {
       zones: [ ZONE.RCHI ],
       index: 4,
-      offsets: [ 0x1942, 0x1da2 ],
+      entities: [ 0x1942, 0x1da2 ],
     }, {
       zones: [ ZONE.ST0 ],
       entities: [ 0x282a, 0x29c4 ],
