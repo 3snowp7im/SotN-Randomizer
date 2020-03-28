@@ -190,3 +190,12 @@ fieldset .pure-g .pure-u-12-24 fieldset {
     font-size: small;
     color: #999;
 }
+
+form > div > fieldset > div > div > input,
+form > div > fieldset > div > div > select{
+    margin-left: .85em;
+}
+
+#seed {
+    width: 15ex;
+}
