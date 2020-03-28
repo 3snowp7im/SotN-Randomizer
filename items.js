@@ -5517,10 +5517,6 @@
       entities: [ 0x3316, 0x439e ],
     }, {
       zones: [ ZONE.NO4 ],
-      index: 0,
-      entities: [ 0x380c, 0x4ace ],
-    }, {
-      zones: [ ZONE.NO4 ],
       index: 29,
       entities: [ 0x4176, 0x5208 ],
     }, {
@@ -8791,10 +8787,6 @@
       zones: [ ZONE.RNO3 ],
       index: 4,
       entities: [ 0x2d96, 0x3476 ],
-    }, {
-      zones: [ ZONE.DAI ],
-      index: 13,
-      entities: [ 0x2f5e, 0x38aa ],
     }, {
       zones: [ ZONE.RARE ],
       index: 1,
