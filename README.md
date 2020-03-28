@@ -113,7 +113,7 @@ Linux version [here](https://github.com/makefu/cue2pops-linux).
 
 It it is important to note that the file names and capitalization in this
 section must be matched. POPStarter is very strict and this will not work if
-your files are names any differently.
+your files are named differently.
 
 1) Create a directory on your USB drive named `POPS` and copy `POPS_IOX.PAK`
    into it.
