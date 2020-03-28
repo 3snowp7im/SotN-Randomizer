@@ -78,6 +78,81 @@ writing the randomizations to your disc image:
 $ node randomize -vvvr https://sotn.io/?myseed
 ```
 
+## Console
+
+Randomized disc images can be played on all consoles that run game backups.
+This includes hardmodded PlayStations and softmodded PS2s. The latter approach
+is more accessible and will be outlined in this section.
+
+### Hardware needed
+
+#### PS2 console compatible with FreeMcBoot
+Check the compatibility list [here](https://www.ps2-home.com/forum/app.php/page/fmcb-compatible-ps2-models-chart).
+
+#### PS2 memcard with FreeMcBoot and uLaunchELF
+You can find these on Amazon or make one yourself.
+
+### USB thumb drive
+This will store your randomized disc image.
+
+### Software needed
+
+#### POPStarter r13 WIP 06 Beta 17
+It must be this specific version. Symphony of the Night will not run on other
+versions of POPStarter. Download from [here](https://www.ps2-home.com/forum/viewtopic.php?p=13938#p13938).
+
+#### `POPS_IOX.PAK`
+You will need to locate this yourself. MD5: `a625d0b3036823cdbf04a3c0e1648901`
+
+#### CUE2POPS
+Windows version [here](https://www.ps2-home.com/forum/viewtopic.php?t=2148).
+Mac version [here](https://github.com/suicvne/cue2pops-gui-mac).
+Linux version [here](https://github.com/makefu/cue2pops-linux).
+
+### Process
+
+It it is important to note that the file names and capitalization in this
+section must be matched. POPStarter is very strict and this will not work if
+your files are names any differently.
+
+1) Create a directory on your USB drive named `POPS` and copy `POPS_IOX.PAK`
+   into it.
+
+2) Install `POPSTARTER.ELF` as `XX.SOTN.ELF` on your USB drive.
+
+3) Using a text editor, create a file named `SOTN.CUE` with this content and
+   save it in the `POPS` directory:
+
+```
+FILE "SOTN.BIN" BINARY
+  TRACK 01 MODE2/2352
+    INDEX 01 00:00:00
+```
+
+4) Randomize your bin and rename the output to `SOTN.BIN`. Put this file in the
+   `POPS` directory of your USB drive.
+
+5) Use CUE2POPS to convert `SOTN.CUE` to a VCD. Save the output to the `POPS`
+   directory on your USB drive. It should be named `SOTN.VCD`.
+
+At this point the file layout on your USB drive should look like this:
+
+```
+POPS/POPS_IOX.PAK
+POPS/SOTN.VCD
+XX.SOTN.ELF
+```
+
+6) Remove any game disc from your PS2 and insert your FreeMcBoot memcard and
+USB drive.
+
+7) Start your PS2 and on the FreeMcBoot system menu, select uLaunchELF.
+
+8) Once uLaunchELF has started, select `mass0` and then `XX.SOTN.ELF`.
+
+Whenever you randomize a new disc image, you will need to follow the above
+directions starting at step 4.
+
 ### Presets
 
 Presets are scripts that generate different randomizations from those found in
