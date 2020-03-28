@@ -28,8 +28,8 @@ function randomizeWorker() {
         data.seed,
       ))
       const options = self.sotnRando.util.Preset.options(data.options)
-      self.sotnRando.randomizeRelics(check, options, data.info)
-      self.sotnRando.randomizeItems(check, options, data.info)
+      self.sotnRando.randomizeRelics.randomizeRelics(check, options, data.info)
+      self.sotnRando.randomizeItems.randomizeItems(check, options, data.info)
       self.sotnRando.util.setSeedText(check, data.seed)
       const checksum = check.sum()
       if (data.checksum && data.checksum !== checksum) {

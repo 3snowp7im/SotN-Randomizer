@@ -557,145 +557,154 @@
     return solutions.reduce(lockDepth, 0)
   }
 
-  function randomizeRelics(data, options, info) {
-    if (options.relicLocations) {
-      // Initialize location locks.
-      const locksMap = {}
-      if (typeof(options.relicLocations) === 'object') {
-        Object.assign(locksMap, options.relicLocations)
-      } else {
-        const safe = presets.filter(function(preset) {
-          return preset.id === 'safe'
-        }).pop()
-        Object.assign(locksMap, safe.options().relicLocations)
+  function getMapping(options) {
+    // Initialize location locks.
+    const locksMap = {}
+    if (typeof(options.relicLocations) === 'object') {
+      Object.assign(locksMap, options.relicLocations)
+    } else {
+      const safe = presets.filter(function(preset) {
+        return preset.id === 'safe'
+      }).pop()
+      Object.assign(locksMap, safe.options().relicLocations)
+    }
+    if (typeof(options.relicLocations) === 'object') {
+      Object.assign(locksMap, options.relicLocations)
+    }
+    // Get the goal and complexity target.
+    let target
+    let goal
+    Object.getOwnPropertyNames(locksMap).forEach(function(name) {
+      if (!(/^[0-9]+(-[0-9]+)?$/).test(name)) {
+        return true
       }
-      if (typeof(options.relicLocations) === 'object') {
-        Object.assign(locksMap, options.relicLocations)
+      const parts = name.split('-')
+      target = {
+        min: parseInt(parts[0]),
       }
-      // Get the goal and complexity target.
-      let target
-      let goal
-      Object.getOwnPropertyNames(locksMap).forEach(function(name) {
-        if (!(/^[0-9]+(-[0-9]+)?$/).test(name)) {
-          return true
-        }
-        const parts = name.split('-')
-        target = {
-          min: parseInt(parts[0]),
-        }
-        if (parts.length === 2) {
-          target.max = parseInt(parts[1])
-        }
-        goal = locksMap[name]
+      if (parts.length === 2) {
+        target.max = parseInt(parts[1])
+      }
+      goal = locksMap[name]
+    })
+    // Create location collection.
+    let locations = relics
+    switch (options.relicLocationsExtension) {
+    case constants.EXTENSION.GUARDED:
+      const guarded = extension.locations.filter(function(location) {
+        return location.extension === constants.EXTENSION.GUARDED
       })
-      // Create location collection.
-      let locations = relics
-      switch (options.relicLocationsExtension) {
-      case constants.EXTENSION.GUARDED:
-        const guarded = extension.locations.filter(function(location) {
-          return location.extension === constants.EXTENSION.GUARDED
-        })
-        locations = locations.concat(guarded)
-        break
+      locations = locations.concat(guarded)
+      break
+    }
+    locations.forEach(function(location) {
+      let id
+      if ('ability' in location) {
+        id = location.ability
+      } else if ('name' in location) {
+        id = location.name
       }
-      locations.forEach(function(location) {
+      if (locksMap[id]) {
+        location.locks = locksMap[id].map(function(lock) {
+          return new Set(lock)
+        })
+      } 
+      if (!location.locks || !location.locks.length) {
+        location.locks = [new Set()]
+      }
+    })
+    // Create a context that holds the current relic and location pools.
+    const pool = {
+      relics: util.shuffled(relics),
+      locations: locations.map(function(location) {
         let id
         if ('ability' in location) {
           id = location.ability
         } else if ('name' in location) {
           id = location.name
         }
-        if (locksMap[id]) {
-          location.locks = locksMap[id].map(function(lock) {
+        return Object.assign({
+          id: id,
+          locks: location.locks.map(function(lock) {
             return new Set(lock)
-          })
-        } 
-        if (!location.locks || !location.locks.length) {
-          location.locks = [new Set()]
-        }
-      })
-      // Create a context that holds the current relic and location pools.
-      const pool = {
-        relics: util.shuffled(relics),
-        locations: locations.map(function(location) {
-          let id
-          if ('ability' in location) {
-            id = location.ability
-          } else if ('name' in location) {
-            id = location.name
-          }
-          return Object.assign({
-            id: id,
-            locks: location.locks.map(function(lock) {
-              return new Set(lock)
-            }),
-          }, location)
-        }),
+          }),
+        }, location)
+      }),
+    }
+    // If there are more pool locations than relics, the randomizer is likely
+    // to break plandomizers by placing relics in starting locations instead
+    // of where the author intended them to be.
+    // To prevent this witout breaking Safe logic, drain the pool of starting
+    // locations until there are as many locations as there are relics to
+    // place, but only if there are more starting locations than in vanilla.
+    const startLocations = locations.filter(function(location) {
+      return location.locks.length == 1
+        && location.locks[0].size === 0
+    })
+    if (options.relicLocationsExtension && startLocations.length > 5) {
+      while (pool.locations.length > pool.relics.length) {
+        const locations = util.shuffled(pool.locations)
+        const startLocation = locations.filter(function(location) {
+          return location.locks.length == 1
+            && location.locks[0].size === 0
+        }).pop()
+        pool.locations.splice(pool.locations.indexOf(startLocation), 1)
       }
-      // If there are more pool locations than relics, the randomizer is likely
-      // to break plandomizers by placing relics in starting locations instead
-      // of where the author intended them to be.
-      // To prevent this witout breaking Safe logic, drain the pool of starting
-      // locations until there are as many locations as there are relics to
-      // place, but only if there are more starting locations than in vanilla.
-      const startLocations = locations.filter(function(location) {
-        return location.locks.length == 1
-          && location.locks[0].size === 0
-      })
-      if (options.relicLocationsExtension && startLocations.length > 5) {
-        while (pool.locations.length > pool.relics.length) {
-          const locations = util.shuffled(pool.locations)
-          const startLocation = locations.filter(function(location) {
-            return location.locks.length == 1
-              && location.locks[0].size === 0
-          }).pop()
-          pool.locations.splice(pool.locations.indexOf(startLocation), 1)
-        }
-      }
-      // Attempt to place all relics.
-      let attempts = 0
-      let result
-      while (attempts++ < 1024) {
-        result = pickRelicLocations(pool)
-        if (result.error) {
-          if (result.error instanceof errors.SoftlockError) {
-            // If a softlock was generated, move the unplaced relics to the
-            // beginning of the relics pool list and try again.
-            result.relics.forEach(function(relic) {
-              pool.relics.splice(pool.relics.indexOf(relic), 1)
-            })
-            pool.relics = result.relics.concat(pool.relics)
-            continue
-          } else {
-            throw result.error
-          }
-        }
-        // Get progression complexity
-        if (typeof(target) !== 'undefined') {
-          const depth = complexity(result, goal)
-          if (!Number.isNaN(target.min)
-              && depth < target.min) {
-            continue
-          }
-          if ('max' in target
-              && depth > target.max) {
-            continue
-          }
-        }
-        break
-      }
-      // If the final attempt resulted in an error, throw it.
+    }
+    // Attempt to place all relics.
+    let attempts = 0
+    let result
+    while (attempts++ < 1024) {
+      result = pickRelicLocations(pool)
       if (result.error) {
-        throw result.error
+        if (result.error instanceof errors.SoftlockError) {
+          // If a softlock was generated, move the unplaced relics to the
+          // beginning of the relics pool list and try again.
+          result.relics.forEach(function(relic) {
+            pool.relics.splice(pool.relics.indexOf(relic), 1)
+          })
+          pool.relics = result.relics.concat(pool.relics)
+          continue
+        } else {
+          throw result.error
+        }
       }
-      // Safety check against softlocks.
-      checkForSoftLock(result, pool.locations)
+      // Get progression complexity
+      if (typeof(target) !== 'undefined') {
+        const depth = complexity(result, goal)
+        if (!Number.isNaN(target.min)
+            && depth < target.min) {
+          continue
+        }
+        if ('max' in target
+            && depth > target.max) {
+          continue
+        }
+      }
+      break
+    }
+    // If the final attempt resulted in an error, throw it.
+    if (result.error) {
+      throw result.error
+    }
+    // Safety check against softlocks.
+    checkForSoftLock(result, pool.locations)
+    return {
+      mapping: result,
+      locations: pool.locations,
+    }
+  }
+
+  function randomizeRelics(data, options, info) {
+    if (options.relicLocations) {
+      // Get random relic placements.
+      const result = getMapping(options)
       // Write data to ROM.
-      writeMapping(data, result, pool.locations)
+      writeMapping(data, result.mapping, result.locations)
       // Write spoilers.
       const spoilers = []
       relics.forEach(function(relic) {
-        const location = result[relic.ability]
+        const location = result.mapping[relic.ability]
         spoilers.push(relic.name + ' at ' + location.name)
       })
       if (info) {
@@ -738,7 +747,10 @@
     }
   }
 
-  const exports = randomizeRelics
+  const exports = {
+    randomizeRelics: randomizeRelics,
+    getMapping: getMapping,
+  }
   if (self) {
     self.sotnRando = Object.assign(self.sotnRando || {}, {
       randomizeRelics: exports,

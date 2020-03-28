@@ -847,10 +847,11 @@
       Math.floor(Math.random() * 32),
     ]
     // Write the jump to injected code.
-    const inj = 0x13af00
-    data.writeWord(0x0fa97c, 0x0c000000 + (inj >> 2))
+    const romAddress = 0x158f18
+    const ramAddress = 0x136e80
+    data.writeWord(0x0fa97c, 0x0c000000 + (ramAddress >> 2))
     // Write the color setting instructions.
-    let address = inj + 0x22a18
+    let address = romAddress
     for (let i = 0; i < colors.length; i++) {
       address = data.writeWord(address, 0x3c020003)
       address = data.writeWord(address, 0x3442caa8 + 4 * i)
@@ -964,7 +965,9 @@
     }
   }
 
-  const exports = randomizeItems
+  const exports = {
+    randomizeItems: randomizeItems,
+  }
   if (self) {
     self.sotnRando = Object.assign(self.sotnRando || {}, {
       randomizeItems: exports,
