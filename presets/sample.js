@@ -87,7 +87,7 @@
   // COMPLEXITY TARGET //
   // Require Leap Stone + Gravity Boots or Silver + Gold ring to complete game.
   const minComplexity = 3
-  builder.complexityTarget(minComplexity, [
+  builder.complexityGoal(minComplexity, [
     RELIC.LEAP_STONE + RELIC.GRAVITY_BOOTS,
     RELIC.SILVER_RING + RELIC.GOLD_RING,
   ])
@@ -97,7 +97,7 @@
   // obtained in series to unlock a win condition.
   // To specify a maximum complexity depth:
   //   const maxComplexity = 5
-  //   builder.complexityTarget(minComplexity, maxComplexity, [
+  //   builder.complexityGoal(minComplexity, maxComplexity, [
   //     RELIC.LEAP_STONE + RELIC.GRAVITY_BOOTS,
   //     RELIC.SILVER_RING + RELIC.GOLD_RING,
   //  ])

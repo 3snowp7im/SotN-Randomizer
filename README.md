@@ -90,5 +90,5 @@ To create a URL that allows others to randomize their game using your
 customizations:
 
 ```shell
-$ node randomize -uo $(node presets/mypreset.js)
+$ node randomize -uo $(node presets/mypreset)
 ```
