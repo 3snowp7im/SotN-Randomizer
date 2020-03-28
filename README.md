@@ -78,6 +78,20 @@ writing the randomizations to your disc image:
 $ node randomize -vvvr https://sotn.io/?myseed
 ```
 
+### Presets
+
+Presets are scripts that generate different randomizations from those found in
+the default mode. When run, preset scripts output an options string that can
+be used with the `randomize` utility. To create your own preset, save a copy of
+`presets/sample.js` and modify its contents with your own customizations.
+
+For example, you have created your preset and named it `presets/mypreset.js`.
+To create a URL that allows others to randomize their game using your
+customizations:
+
+```shell
+$ node randomize -uo $(node presets/mypreset)
+```
 ## Console
 
 Randomized disc images can be played on all consoles that run game backups.
@@ -152,18 +166,3 @@ USB drive.
 
 Whenever you randomize a new disc image, you will need to follow the above
 directions starting at step 4.
-
-### Presets
-
-Presets are scripts that generate different randomizations from those found in
-the default mode. When run, preset scripts output an options string that can
-be used with the `randomize` utility. To create your own preset, save a copy of
-`presets/sample.js` and modify its contents with your own customizations.
-
-For example, you have created your preset and named it `presets/mypreset.js`.
-To create a URL that allows others to randomize their game using your
-customizations:
-
-```shell
-$ node randomize -uo $(node presets/mypreset)
-```
