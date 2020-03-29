@@ -3,20 +3,22 @@ function randomizeWorker() {
     importScripts('https://cdnjs.cloudflare.com/ajax/libs/seedrandom/3.0.1/seedrandom.min.js')
     importScripts('https://cdnjs.cloudflare.com/ajax/libs/sjcl/1.0.8/sjcl.min.js')
     const url = message.data.url
-    importScripts(url + "constants.js")
-    importScripts(url + 'enemies.js')
-    importScripts(url + 'errors.js')
-    importScripts(url + "extension.js")
-    importScripts(url + "items.js")
-    importScripts(url + "relics.js")
-    importScripts(url + "util.js")
-    importScripts(url + "presets/casual.js")
-    importScripts(url + "presets/safe.js")
-    importScripts(url + "presets/glitch.js")
-    importScripts(url + "presets/glitch-hard.js")
-    importScripts(url + "randomize_items.js")
-    importScripts(url + "randomize_relics.js")
-    importScripts(url + "ecc-edc-recalc-js.js")
+    importScripts(
+      url + "constants.js",
+      url + 'enemies.js',
+      url + 'errors.js',
+      url + "extension.js",
+      url + "items.js",
+      url + "relics.js",
+      url + "util.js",
+      url + "presets/casual.js",
+      url + "presets/safe.js",
+      url + "presets/glitch.js",
+      url + "presets/glitch-hard.js",
+      url + "randomize_items.js",
+      url + "randomize_relics.js",
+      url + "ecc-edc-recalc-js.js",
+    )
     try {
       const data = message.data
       const fileData = data.fileData

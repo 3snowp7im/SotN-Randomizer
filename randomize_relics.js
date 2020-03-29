@@ -654,7 +654,7 @@
     // Attempt to place all relics.
     let attempts = 0
     let result
-    while (attempts++ < 1024) {
+    while (attempts++ < 4096) {
       result = pickRelicLocations(pool)
       if (result.error) {
         if (result.error instanceof errors.SoftlockError) {

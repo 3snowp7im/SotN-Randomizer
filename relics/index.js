@@ -1,41 +1,94 @@
-const totals = {}
+const relics = window.sotnRando.relics
 const searchParams = new URLSearchParams(window.location.search)
-const runs = searchParams.get('runs') || 10
+const runs = searchParams.get('runs') || 1000
 const defaultOptions = window.sotnRando.constants.defaultOptions
-const optionsStr = searchParams.get('options') || defaultOptions
-const optionsObj = window.sotnRando.util.optionsFromString(optionsStr)
-const options = window.sotnRando.util.Preset.options(optionsObj)
-for (let i = 0; i < runs; i++) {
-  const result = window.sotnRando.randomizeRelics.getMapping(options)
+const options = searchParams.get('options') || defaultOptions
+const threads = window.navigator.hardwareConcurrency
+let locations
+
+const totals = {}
+let completed = 0
+let running = 0
+
+const progress = document.getElementById('progress')
+
+function handleMessage(message) {
+  running--
+  completed++
+  progress.style.width = (100 * (completed / runs)) + '%'
+  const result = message.data
+  if (result.error) {
+    throw result.error
+  }
+  if (!locations) {
+    locations = result.locations
+  }
   Object.getOwnPropertyNames(result.mapping).forEach(function(ability) {
     const location = result.mapping[ability]
-    if (!totals[location.name]) {
-      totals[location.name] = {}
+    if (!totals[location.id]) {
+      totals[location.id] = {}
     }
-    if (!totals[location.name][ability]) {
-      totals[location.name][ability] = 0
+    if (!totals[location.id][ability]) {
+      totals[location.id][ability] = 0
     }
-    totals[location.name][ability]++
+    totals[location.id][ability]++
+  })
+  if (completed + running < runs) {
+    running++
+    this.postMessage({options: options})
+  } else if (completed === runs) {
+    render()
+  }
+}
+
+let pool
+if (runs > threads) {
+  pool = threads
+} else {
+  pool = runs
+}
+
+for (let i = 0; i < pool; i++) {
+  running++
+  const worker = new Worker('/relics/worker.js')
+  worker.addEventListener('message', handleMessage)
+  worker.postMessage({options: options})
+}
+
+function render() {
+  document.getElementById('meter').classList.add('hidden')
+  const content = document.getElementById('content')
+  const row = document.createElement('div')
+  row.className = 'row'
+
+  row.appendChild(document.createElement('div'))
+  relics.forEach(function(relic) {
+    const cell = document.createElement('div')
+    cell.textContent = relic.name
+    cell.className = 'col-header'
+    row.appendChild(cell)
+  })
+  content.appendChild(row)
+
+  locations.forEach(function(location) {
+    const locRow = document.createElement('div')
+    locRow.className = 'row'
+    const loc = document.createElement('div')
+    loc.className = 'row-header'
+    loc.textContent = location.name
+    locRow.appendChild(loc)
+    relics.forEach(function(r) {
+      const count = document.createElement('div')
+      const amount = (totals[location.id] || {})[r.ability] || 0
+      count.textContent = amount
+      count.className = getClassname(amount)
+      locRow.appendChild(count)
+    })
+    content.appendChild(locRow)
   })
 }
 
-const content = document.getElementById('content')
-const newDiv = function() {
-  return document.createElement('div')
-}
-const row = newDiv()
-row.className = 'row'
-
-row.appendChild(newDiv())
-relics.forEach(function(relic) {
-  const cell = newDiv()
-  cell.textContent = relic.name
-  cell.className = 'col-header'
-  row.appendChild(cell)
-})
-content.appendChild(row)
-
-const getClassname = function(count) {
+function getClassname(count) {
   if (count === 0) {
     return 'zero'
   }
@@ -50,20 +103,3 @@ const getClassname = function(count) {
   }
   return 'a-lot'
 }
-
-relics.forEach(function(relic) {
-  const locRow = newDiv()
-  locRow.className = 'row'
-  const loc = newDiv()
-  loc.className = 'row-header'
-  loc.textContent = relic.name
-  locRow.appendChild(loc)
-  relics.forEach(function(r) {
-    const count = newDiv()
-    const amount = totals[relic.name][r.name] || 0
-    count.textContent = amount
-    count.className = getClassname(amount)
-    locRow.appendChild(count)
-  })
-  content.appendChild(locRow)
-})

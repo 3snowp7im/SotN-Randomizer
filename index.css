@@ -191,6 +191,10 @@ fieldset .pure-g .pure-u-12-24 fieldset {
     color: #999;
 }
 
+form > div > fieldset > div > div > label:first-child {
+    margin-left: 2em;
+}
+
 form > div > fieldset > div > div > input,
 form > div > fieldset > div > div > select{
     margin-left: .85em;

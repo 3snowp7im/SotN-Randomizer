@@ -27,7 +27,7 @@
       } else {
         worker = new Worker('worker.js')
       }
-      worker.addEventListener('message', workerMessage);
+      worker.addEventListener('message', workerMessage)
     }
     return worker
   }

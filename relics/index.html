@@ -1,55 +1,21 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <style>
-      #content {
-        display: table;
-        margin: auto;
-      }
-
-      .row {
-        display: table-row;
-      }
-      .row div {
-        display: table-cell;
-        border: 1px solid black;
-      }
-      .row .col-header, .row .row-header {
-        font-size: small;
-      }
-
-      .row div.zero {
-        background-color: #777;
-      }
-      .row div.below-average {
-        background-color: lightgreen;
-      }
-      .row div.average {
-        background-color: yellow;
-      }
-      .row div.above-average {
-        background-color: orangered;
-      }
-      .row div.a-lot {
-        background-color: darkred;
-      }
-    </style>
     <title>SotN Rando Relic Distribution</title>
+    <link rel="stylesheet" type="text/css" href="/relics/index.css">
   </head>
-  <body style="text-align: center">
+  <body>
     <h1>Current Symphony of the Night Randomizer Relic Distribution</h1>
-    <div>Change then number of runs by adding ?runs=# to the end of the url</div>
-    <div id='content'>
+    <div id="meter">
+      <div id="progress"></div>
     </div>
-    <script src="../constants.js"></script>
-    <script src="../errors.js"></script>
-    <script src="../extension.js"></script>
-    <script src="../items.js"></script>
-    <script src="../relics.js"></script>
-    <script src="../util.js"></script>
-    <script src="../presets/casual.js"></script>
-    <script src="../presets/safe.js"></script>
-    <script src="../randomize_relics.js"></script>
-    <script src="index.js"></script>
+    <div id="content"></div>
+    <script src="/constants.js"></script>
+    <script src="/extension.js"></script>
+    <script src="/relics.js"></script>
+    <script src="/util.js"></script>
+    <script src="/presets/casual.js"></script>
+    <script src="/presets/safe.js"></script>
+    <script src="/relics/index.js"></script>
   </body>
 </html>

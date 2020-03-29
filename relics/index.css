@@ -1,0 +1,58 @@
+body {
+    text-align: center;
+}
+
+#content {
+    display: table;
+    margin: auto;
+}
+
+.row {
+    display: table-row;
+}
+
+.row div {
+    display: table-cell;
+    border: 1px solid black;
+}
+
+.row .col-header, .row .row-header {
+    font-size: small;
+}
+
+.row div.zero {
+    background-color: #777;
+}
+
+.row div.below-average {
+    background-color: lightgreen;
+}
+
+.row div.average {
+    background-color: yellow;
+}
+
+.row div.above-average {
+    background-color: orangered;
+}
+
+.row div.a-lot {
+    background-color: darkred;
+}
+
+.hidden {
+    display: none;
+}
+
+#meter {
+    width: 50%;
+    padding: 3px;
+    border: 1px #000 solid;
+    margin: 2em auto;
+}
+
+#progress {
+    width: 0;
+    height: 1em;
+    background: #000;
+}
