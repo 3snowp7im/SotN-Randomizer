@@ -76,10 +76,12 @@
     })
   }
 
-  function writeTileId(data, zone, index, itemId) {
-    zone = constants.zones[zone]
-    const addr = util.romOffset(zone, zone.items + 0x02 * index)
-    data.writeShort(addr, itemId + constants.tileIdOffset)
+  function writeTileId(data, zones, index, itemId) {
+    zones.forEach(function(zone) {
+      zone = constants.zones[zone]
+      const addr = util.romOffset(zone, zone.items + 0x02 * index)
+      data.writeShort(addr, itemId + constants.tileIdOffset)
+    })
   }
 
   function writeIds(data, ids, itemId) {
@@ -151,7 +153,8 @@
               const itemId = location.itemId + constants.tileIdOffset
               const item = util.itemFromTileId(items, itemId)
               const entity = item.tiles[location.tileIndex]
-              writeTileId(data, entity.zones[0], entity.index, relic.itemId)
+              writeTileId(data, entity.zones, entity.index, relic.itemId)
+              item.tiles.splice(location.tileIndex, 1)
             }
             if ('ids' in location) {
               writeIds(data, location.ids, item.id)
@@ -203,9 +206,7 @@
           // Erase the replaced item's entity.
           writeEntity(data, tileItem.tile, Object.assign({id: 0x000f}))
           // Write id in item table.
-          zones.forEach(function(zone) {
-            writeTileId(data, zone, index, item.id)
-          })
+          writeTileId(data, zones, index, item.id)
           tileItem.tile.zones.forEach(function(zone) {
             zoneRemovedItems[zone] = zoneRemovedItems[zone] || 0
             zoneRemovedItems[zone]++
@@ -215,9 +216,7 @@
           location.replaceWithItem(data, location, item, index)
         } else {
           if ('entity' in location) {
-            location.entity.zones.forEach(function(zone) {
-              writeTileId(data, zone, index, item.id)
-            })
+            writeTileId(data, location.entity.zones, index, item.id)
             const asItem = location.asItem || {}
             writeEntity(data, location.entity, Object.assign({
               id: 0x000c,
