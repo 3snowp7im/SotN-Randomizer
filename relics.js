@@ -273,8 +273,9 @@
       //                                          // lbu t0, 0x798a + id (v0)
       offset = data.writeWord(offset, 0x91080000 + id + invOffset)
       offset = data.writeWord(offset, 0x00000000) // nop
-      offset = data.writeWord(offset, 0x15090003) // beq t0, r0, pc + 0x10
+      offset = data.writeWord(offset, 0x11000004) // beq t0, r0, pc + 0x14
       offset = data.writeWord(offset, 0x3409000f) // ori t1, r0, 0x000f
+      offset = data.writeWord(offset, 0x3c088018) // lui t0, 0x8018
       relic.entity.entities.forEach(function(addr) {
         //                                        // sh t1, entity + 4 (t0)
         offset = data.writeWord(offset, 0xa5090000 + addr + 0x04)
