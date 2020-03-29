@@ -134,8 +134,7 @@ your files are named differently.
 
 2) Install `POPSTARTER.ELF` as `XX.SOTN.ELF` on your USB drive.
 
-3) Using a text editor, create a file named `SOTN.CUE` with this content and
-   save it in the `POPS` directory:
+3) Using a text editor, create a file named `SOTN.CUE` with this content:
 
 ```
 FILE "SOTN.BIN" BINARY
@@ -144,7 +143,7 @@ FILE "SOTN.BIN" BINARY
 ```
 
 4) Randomize your bin and rename the output to `SOTN.BIN`. Put this file in the
-   `POPS` directory of your USB drive.
+   same directory as `SOTN.CUE`.
 
 5) Use CUE2POPS to convert `SOTN.CUE` to a VCD. Save the output to the `POPS`
    directory on your USB drive. It should be named `SOTN.VCD`.
@@ -158,7 +157,7 @@ XX.SOTN.ELF
 ```
 
 6) Remove any game disc from your PS2 and insert your FreeMcBoot memcard and
-USB drive.
+   USB drive.
 
 7) Start your PS2 and on the FreeMcBoot system menu, select uLaunchELF.
 
