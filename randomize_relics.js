@@ -25,6 +25,39 @@
     util = require('./util')
   }
 
+  function getRandomZoneItem(zones, pool) {
+    // Collect ids of items that can be replaced for location extension.
+    const extensionIds = pool.filter(function(location) {
+      return 'extension' in location
+    }).map(function(location) {
+      return location.itemId
+    })
+    // Collect item tiles in the zones.
+    const zoneTiles = zones.reduce(function(all, zone) {
+      const tiles = items.reduce(function(all, item) {
+        if (util.nonProgressionFilter(item)
+            && extensionIds.indexOf(item.id) === -1) {
+          const tiles = (item.tiles || []).filter(function(tile) {
+            return util.mapTileFilter(tile)
+              && tile.zones.indexOf(zone) !== -1
+              && 'index' in tile // Should always be the case
+          })
+          Array.prototype.push.apply(all, tiles.map(function(tile) {
+            return {
+              item: item,
+              tile: tile,
+            }
+          }))
+        }
+        return all
+      }, [])
+      Array.prototype.push.apply(all, tiles)
+      return all
+    }, [])
+    // Pick a random item to replace.
+    return zoneTiles[randIdx(zoneTiles)]
+  }
+
   function writeEntity(data, entity, opts) {
     entity.entities.forEach(function(addr, index) {
       const zone = constants.zones[entity.zones[index >>> 1]]
@@ -70,16 +103,12 @@
   }
 
   function writeMapping(data, mapping, pool) {
-    // Collect ids of items that can be replaced for location extension.
-    const extensionIds = pool.filter(function(location) {
-      return 'extension' in location
-    }).map(function(location) {
-      return location.itemId
-    })
     // Erase any vanilla location that did not receive a relic.
     const locations = Object.getOwnPropertyNames(mapping).map(function(key) {
       return mapping[key].ability
     })
+    // Keep track of zones where relics got replaced by an item.
+    const zoneRemovedItems = {}
     relics.forEach(function(location) {
       if (locations.indexOf(location.ability) === -1) {
         // Erase entities.
@@ -166,29 +195,7 @@
               return id.zone
             })
           }
-          const zoneTiles = zones.reduce(function(all, zone) {
-            const tiles = items.reduce(function(all, item) {
-              if (util.nonProgressionFilter(item)
-                  && extensionIds.indexOf(item.id) === -1) {
-                const tiles = (item.tiles || []).filter(function(tile) {
-                  return util.mapTileFilter(tile)
-                    && tile.zones.indexOf(zone) !== -1
-                    && 'index' in tile // Should always be the case
-                })
-                Array.prototype.push.apply(all, tiles.map(function(tile) {
-                  return {
-                    item: item,
-                    tile: tile,
-                  }
-                }))
-              }
-              return all
-            }, [])
-            Array.prototype.push.apply(all, tiles)
-            return all
-          }, [])
-          // Pick a random item to replace.
-          const tileItem = zoneTiles[randIdx(zoneTiles)]
+          const tileItem = getRandomZoneItem(zones, pool)
           index = tileItem.tile.index
           // Remove the tile from the replaced item's tile collection.
           const tileIndex = tileItem.item.tiles.indexOf(tileItem.tile)
@@ -198,6 +205,10 @@
           // Write id in item table.
           zones.forEach(function(zone) {
             writeTileId(data, zone, index, item.id)
+          })
+          tileItem.tile.zones.forEach(function(zone) {
+            zoneRemovedItems[zone] = zoneRemovedItems[zone] || 0
+            zoneRemovedItems[zone]++
           })
         }
         if ('replaceWithItem' in location) {
@@ -233,6 +244,39 @@
           if ('ids' in location) {
             writeIds(data, location.ids, relic.relicId)
           }
+        }
+      }
+    })
+    // If a zone has an item removed, it leaks information that a progression
+    // item has been randomized to relic location in that zone. To prevent this
+    // leak, remove 3 items from every zone.
+    constants.zones.filter(function(zone) {
+      return [
+        constants.ZONE.ST0,
+        constants.ZONE.NP3,
+        constants.ZONE.BO3,
+      ].indexOf(zone.id) === -1
+    }).forEach(function(zone) {
+      const zones = [zone.id]
+      switch (zones[0]) {
+      case constants.ZONE.NO3:
+        zones.push(constants.ZONE.NP3)
+        break
+      case constants.ZONE.NO4:
+        zones.push(constants.ZONE.BO3)
+        break
+      }
+      if ('items' in zone) {
+        const removed = zoneRemovedItems[zone.id] || 0
+        for (let i = 0; i < 3 - removed; i++) {
+          const tileItem = getRandomZoneItem(zones, pool)
+          const index = tileItem.tile.index
+          // Remove the tile from the item's tile collection.
+          const tileIndex = tileItem.item.tiles.indexOf(tileItem.tile)
+          util.assert(tileIndex !== -1)
+          tileItem.item.tiles.splice(tileIndex, 1)
+          // Erase the item's entity.
+          writeEntity(data, tileItem.tile, Object.assign({id: 0x000f}))
         }
       }
     })
