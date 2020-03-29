@@ -5502,7 +5502,7 @@
     }, {
       zones: [ ZONE.NO1 ],
       index: 2,
-      entities: [ 0x3a30, 0x4248 ],
+      entities: [ 0x3b34, 0x4220 ],
     }, {
       zones: [ ZONE.NO0 ],
       index: 2,
@@ -5636,7 +5636,7 @@
     }, {
       zones: [ ZONE.NO1 ],
       index: 5,
-      entities: [ 0x3a94, 0x4252 ],
+      entities: [ 0x3bc0, 0x4450 ],
     }, {
       zones: [ ZONE.NO0 ],
       index: 0,

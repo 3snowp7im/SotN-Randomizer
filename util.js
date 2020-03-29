@@ -1685,7 +1685,8 @@
       break
     case constants.ZONE.NO1:
       ids.push({
-        id: 0x0032,
+        id: 0xa001,
+        states: [ 0x70 ],
       })
       break
     case constants.ZONE.NO2:
@@ -1849,6 +1850,7 @@
     }
     case constants.ZONE.DAI:
     case constants.ZONE.LIB:
+    case constants.ZONE.NO1:
     case constants.ZONE.NO2:
     case constants.ZONE.NO4:
     case constants.ZONE.BO3:
