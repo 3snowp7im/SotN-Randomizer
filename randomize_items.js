@@ -32,12 +32,6 @@
   // The base address of Alucard's equipped item list.
   const equipBaseAddress = 0x11a0d0
 
-  function itemFromName(name) {
-    return items.filter(function(item) {
-      return item.name === name
-    })[0]
-  }
-
   function itemFromId(id, filter, list) {
     return (list || items).filter(function(item) {
       return item.id === id && (!filter || filter(item))
@@ -227,32 +221,32 @@
     planned = planned || {}
     let weapon, shield, helmet, armor, cloak, other
     if ('r' in planned) {
-      weapon = itemFromName(planned.r)
+      weapon = util.itemFromName(planned.r)
     } else {
       weapon = randItem(pool.filter(typeFilter([TYPE.WEAPON1])))
     }
     if ('l' in planned) {
-      shield = itemFromName(planned.l)
+      shield = util.itemFromName(planned.l)
     } else if (!planned.r || planned.r.type !== TYPE.WEAPON2) {
       shield = randItem(pool.filter(shieldFilter))
     }
     if ('b' in planned) {
-      armor = itemFromName(planned.b)
+      armor = util.itemFromName(planned.b)
     } else {
       armor = randItem(pool.filter(armorFilter))
     }
     if ('h' in planned) {
-      helmet = itemFromName(planned.h)
+      helmet = util.itemFromName(planned.h)
     } else {
       helmet = randItem(pool.filter(helmetFilter))
     }
     if ('c' in planned) {
-      cloak = itemFromName(planned.c)
+      cloak = util.itemFromName(planned.c)
     } else {
       cloak = randItem(pool.filter(cloakFilter))
     }
     if ('o' in planned) {
-      other = itemFromName(planned.o)
+      other = util.itemFromName(planned.o)
     } else {
       other = randItem(pool.filter(accessoryFilter))
     }
@@ -319,7 +313,7 @@
     // Replace Axe Lord Armor.
     let axeLordArmor
     if ('a' in planned) {
-      axeLordArmor = itemFromName(planned.a)
+      axeLordArmor = util.itemFromName(planned.a)
     } else {
       axeLordArmor = randItem(pool.filter(armorFilter))
     }
@@ -328,7 +322,7 @@
     // Replace Lapis Lazuli.
     let luckItem
     if ('x' in planned) {
-      luckItem = itemFromName(planned.x)
+      luckItem = util.itemFromName(planned.x)
     } else {
       luckItem = randItem(pool.filter(accessoryFilter)).id
     }
@@ -428,7 +422,7 @@
     pool = ['h', 'n', 'p'].map(function(item) {
       if (planned && item in planned) {
         if (planned[item]) {
-          const plannedItem = itemFromName(planned[item])
+          const plannedItem = util.itemFromName(planned[item])
           let poolItem = (addon || []).concat(pool).filter(function(poolItem) {
             if (poolItem.id === plannedItem.id
                 && poolItem.type == plannedItem.type) {
@@ -526,7 +520,7 @@
     })
   }
 
-  function randomizeMapItems(pool, addon, planned) {
+  function randomizeMapItems(pool, addon) {
     // Shuffle items.
     const shuffledItems = shuffled(pool)
     // Get all map tiles.
@@ -576,45 +570,6 @@
       })
     })
     util.assert.equal(shuffledTiles.length, 0)
-    // Place planned item locations.
-    if (planned) {
-      Object.getOwnPropertyNames(planned).forEach(function(zone) {
-        const items = planned[zone]
-        Object.getOwnPropertyNames(items).forEach(function(itemName) {
-          const item = itemFromName(itemName)
-          // Collect tiles for the item.
-          const tiles = item.tiles.reduce(function(tiles, tile) {
-            if (tile.zones[0] === constants.ZONE[zone] && !tile.reward) {
-              tiles.push(tile)
-            }
-            return tiles
-          }, []).reverse()
-          // Replaced tiles in item pool.
-          const map = items[itemName]
-          Object.getOwnPropertyNames(map).forEach(function(index) {
-            index = parseInt(index)
-            pool.forEach(function(item) {
-              if (item.tiles) {
-                for (let i = 0; i < item.tiles.length; i++) {
-                  if (item.tiles[i] === tiles[index]) {
-                    item.tiles.splice(i, 1)
-                  }
-                }
-              }
-            })
-            // Get target replacement in pool or add it.
-            let target = pool.filter(function(ref) {
-              return ref.id === map[index].id && ref.type === map[index].type
-            })[0]
-            if (!target) {
-              target = Object.assign({}, itemFromName(map[index]))
-              addon.push(target)
-            }
-            pushTile.call(target, tiles[index])
-          })
-        })
-      })
-    }
   }
 
   function randomizeEnemyDrops(pool, addon, planned) {
@@ -780,14 +735,14 @@
         }
         if (planned[key].length) {
           planned[key].forEach(function(itemName) {
-            const item = itemFromName(itemName)
+            const item = util.itemFromName(itemName)
             const tile = tiles.shift()
             if (item) {
               let target = pool.filter(function(drop) {
                 return drop.id === item.id && drop.type === item.type
               })[0]
               if (!target) {
-                target = Object.assign({}, itemFromName(item))
+                target = Object.assign({}, util.itemFromName(item))
                 addon.push(target)
               }
               pushTile.call(target, tile)
@@ -808,7 +763,7 @@
     // The required Short Sword and Red Rust drops were ignored.
     // Push those tiles onto whatever item they ended up being replaced with.
     const pushReplacement = function(name) {
-      const tiles = itemFromName(name).tiles
+      const tiles = util.itemFromName(name).tiles
       const noOffsetTile = tiles.filter(function(tile) {
         return tile.noOffset
       })[0]
@@ -862,8 +817,8 @@
     data.writeWord(address, 0x0803924f)
   }
 
-  function randomizeItems(data, options, info) {
-    let addon
+  function randomizeItems(data, options, planned, info) {
+    const addon = planned.addon
     let pool
     if (options.startingEquipment) {
       // Randomize starting equipment.
@@ -877,7 +832,6 @@
     while (true) {
       try {
         // Get pool of randomizable items.
-        addon = []
         pool = items.filter(function(item) {
           if (!util.nonProgressionFilter(item)) {
             return false
@@ -921,11 +875,7 @@
           // Randomize shop items.
           randomizeShopItems(pool)
           // Randomize map items.
-          let planned
-          if (typeof(options.itemLocations) === 'object') {
-            planned = options.itemLocations
-          }
-          randomizeMapItems(pool, addon, planned)
+          randomizeMapItems(pool, addon)
         }
         if (options.enemyDrops) {
           // Randomize enemy drops.
@@ -965,8 +915,50 @@
     }
   }
 
+  function placePlannedItems(options) {
+    const addon = []
+    const removed = []
+    if (typeof(options.itemLocations) === 'object') {
+      const planned = options.itemLocations
+      Object.getOwnPropertyNames(planned).forEach(function(zone) {
+        const zoneItems = planned[zone]
+        Object.getOwnPropertyNames(zoneItems).forEach(function(itemName) {
+          const item = util.itemFromName(itemName)
+          // Collect tiles for the item.
+          const tiles = item.tiles.reduce(function(tiles, tile) {
+            if ('zones' in tile
+                && tile.zones[0] === constants.ZONE[zone]
+                && !tile.reward) {
+              tiles.push(tile)
+            }
+            return tiles
+          }, []).reverse()
+          // Replace tiles.
+          const map = zoneItems[itemName]
+          Object.getOwnPropertyNames(map).forEach(function(index) {
+            index = parseInt(index)
+            const item = util.itemFromName(itemName)
+            const tileIndex = item.tiles.indexOf(tiles[index])
+            const target = Object.assign({}, util.itemFromName(map[index]), {
+              tiles: item.tiles.splice(tileIndex, 1)
+            })
+            addon.push(target)
+            if (item.progression) {
+              removed.push(item)
+            }
+          })
+        })
+      })
+    }
+    return {
+      addon: addon,
+      removed: removed,
+    }
+  }
+
   const exports = {
     randomizeItems: randomizeItems,
+    placePlannedItems: placePlannedItems,
   }
   if (self) {
     self.sotnRando = Object.assign(self.sotnRando || {}, {

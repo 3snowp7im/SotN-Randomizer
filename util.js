@@ -132,6 +132,12 @@
     ].indexOf(item.type) !== -1
   }
 
+  function itemFromName(name) {
+    return items.filter(function(item) {
+      return item.name === name
+    })[0]
+  }
+
   function itemFromTileId(items, id) {
     return items.filter(function(item) {
       if (id > constants.tileIdOffset) {
@@ -2521,6 +2527,7 @@
     tilesFilter: tilesFilter,
     itemTileFilter: itemTileFilter,
     tileIdOffsetFilter: tileIdOffsetFilter,
+    itemFromName: itemFromName,
     itemFromTileId: itemFromTileId,
     tileValue: tileValue,
     tileData: tileData,

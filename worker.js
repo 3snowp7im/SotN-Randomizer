@@ -19,6 +19,8 @@ function randomizeWorker() {
       url + "randomize_relics.js",
       url + "ecc-edc-recalc-js.js",
     )
+    const randomizeRelics = self.sotnRando.randomizeRelics
+    const randomizeItems = self.sotnRando.randomizeItems
     try {
       const data = message.data
       const fileData = data.fileData
@@ -30,8 +32,9 @@ function randomizeWorker() {
         data.seed,
       ))
       const options = self.sotnRando.util.Preset.options(data.options)
-      self.sotnRando.randomizeRelics.randomizeRelics(check, options, data.info)
-      self.sotnRando.randomizeItems.randomizeItems(check, options, data.info)
+      const planned = randomizeItems.placePlannedItems(options)
+      randomizeRelics.randomizeRelics(check, options, planned, data.info)
+      randomizeItems.randomizeItems(check, options, planned, data.info)
       self.sotnRando.util.setSeedText(check, data.seed)
       const checksum = check.sum()
       if (data.checksum && data.checksum !== checksum) {

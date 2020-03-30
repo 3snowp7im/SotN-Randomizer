@@ -600,7 +600,7 @@
     return solutions.reduce(lockDepth, 0)
   }
 
-  function getMapping(options) {
+  function getMapping(options, planned) {
     // Initialize location locks.
     const locksMap = {}
     if (typeof(options.relicLocations) === 'object') {
@@ -655,6 +655,16 @@
       if (!location.locks || !location.locks.length) {
         location.locks = [new Set()]
       }
+    })
+    // Filter out any progression items that have been placed by a preset.
+    const removedIds = planned.removed.map(function(item) {
+      return item.id
+    })
+    locations = locations.filter(function(location) {
+      return removedIds.indexOf(location.itemId) === -1
+    })
+    relics = relics.filter(function(relic) {
+      return removedIds.indexOf(relic.itemId) === -1
     })
     // Create a context that holds the current relic and location pools.
     const pool = {
@@ -730,18 +740,16 @@
     if (result.error) {
       throw result.error
     }
-    // Safety check against softlocks.
-    checkForSoftLock(result, pool.locations)
     return {
       mapping: result,
       locations: pool.locations,
     }
   }
 
-  function randomizeRelics(data, options, info) {
+  function randomizeRelics(data, options, planned, info) {
     if (options.relicLocations) {
       // Get random relic placements.
-      const result = getMapping(options)
+      const result = getMapping(options, planned)
       // Write data to ROM.
       writeMapping(data, result.mapping, result.locations)
       // Write spoilers.

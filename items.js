@@ -7204,7 +7204,7 @@
     type: TYPE.WEAPON1,
     id: 109,
     tiles: [{
-      zones: [ ZONE.NO3 ],
+      zones: [ ZONE.NP3 ],
       index: 9,
       entities: [ 0x3e56, 0x459c ],
     }, {

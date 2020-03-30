@@ -517,8 +517,9 @@ try {
     process.exit(1)
   }
   try {
-    randomizeRelics.randomizeRelics(check, applied, info)
-    randomizeItems.randomizeItems(check, applied, info)
+    const planned = randomizeItems.placePlannedItems(applied)
+    randomizeRelics.randomizeRelics(check, applied, planned, info)
+    randomizeItems.randomizeItems(check, applied, planned, info)
   } catch (err) {
     if (errors.isError(err)) {
       console.error('Seed:  ' + seed)
