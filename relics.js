@@ -749,6 +749,10 @@
     name: 'Gold Ring',
     ability: RELIC.GOLD_RING,
     itemId: 241,
+    entity: {
+      zones: [ ZONE.NO4 ],
+      entities: [ 0x4270, 0x52ee ],
+    },
     ids: [{
       zone: ZONE.NO4,
       addresses: [ 0x04c324b4 ],

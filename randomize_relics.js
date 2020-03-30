@@ -117,12 +117,14 @@
         if ('entity' in location) {
           writeEntity(data, location.entity, {id: 0x000f})
         }
+        // Erase tile.
         if ('tileIndex' in location) {
           const itemId = location.itemId + constants.tileIdOffset
           const item = util.itemFromTileId(items, itemId)
           const entity = item.tiles[location.tileIndex]
           writeEntity(data, entity, Object.assign({id: 0x000f}))
         }
+        // Erase instructions.
         if ('erase' in location) {
           // Write erase instructions.
           if ('instructions' in location.erase) {
