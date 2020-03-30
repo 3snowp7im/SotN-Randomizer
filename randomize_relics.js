@@ -250,7 +250,7 @@
     })
     // If a zone has an item removed, it leaks information that a progression
     // item has been randomized to relic location in that zone. To prevent this
-    // leak, remove 3 items from every zone.
+    // leak, remove at most 3 items from every zone.
     constants.zones.filter(function(zone) {
       return [
         constants.ZONE.ST0,
@@ -268,8 +268,9 @@
         break
       }
       if ('items' in zone) {
+        const rand = Math.floor(Math.random() * 4)
         const removed = zoneRemovedItems[zone.id] || 0
-        for (let i = 0; i < 3 - removed; i++) {
+        for (let i = 0; i < rand - removed; i++) {
           const tileItem = getRandomZoneItem(zones, pool)
           const index = tileItem.tile.index
           // Remove the tile from the item's tile collection.
