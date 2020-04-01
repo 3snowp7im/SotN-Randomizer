@@ -45,15 +45,8 @@ h3 time {
 #target {
     text-align: center;
     padding: 3em 0;
-    border: 10px #ccc dashed;
-}
-
-#target.active {
-    border-color: #cfc;
-}
-
-#target.error {
-    border-color: #fcc;
+    border-width: 10px;
+    border-style: dashed;
 }
 
 fieldset .pure-g .pure-u-12-24, fieldset .pure-g .pure-u-1 {
@@ -75,7 +68,6 @@ fieldset .pure-g .pure-u-12-24 fieldset {
 #notification {
     padding: 1em;
     margin: 10px;
-    background: #cfc;
     border-radius: .5em;
     position: fixed;
     bottom: 0;
@@ -138,8 +130,6 @@ fieldset .pure-g .pure-u-12-24 fieldset {
 .tooltip-indicator {
     font-size: small;
     font-weight: bold;
-    background: #999;
-    color: #fff;
     border-radius: 50%;
     display: inline-block;
     width: 1em;
@@ -153,7 +143,6 @@ fieldset .pure-g .pure-u-12-24 fieldset {
 }
 
 .tooltip-wrapper .tooltip {
-    background: #fff;
     bottom: 100%;
     display: block;
     margin-bottom: 1em;
@@ -202,4 +191,77 @@ form > div > fieldset > div > div > select{
 
 #seed {
     width: 15ex;
+}
+
+select, input {
+    background: #fff;
+    color: #000;
+}
+
+/* Light mode */
+
+body.light {
+    color: #00;
+    background: #fff;
+}
+
+.light #notification {
+    background: #cfc;
+}
+
+.light .tooltip-indicator {
+    background: #999;
+    color: #fff;
+}
+
+.light .tooltip-wrapper .tooltip {
+    background: #fff;
+}
+
+.light #target {
+    border-color: #ccc;
+}
+
+.light #target.active {
+    border-color: #cfc;
+}
+
+.light #target.error {
+    border-color: #fcc;
+}
+
+/* Dark mode */
+
+body.dark {
+    color: #fff;
+    background: #000;
+}
+
+.dark .contact {
+    filter: invert(1);
+}
+
+.dark #notification {
+    background: #cfc;
+}
+
+.dark .tooltip-indicator {
+    background: #fff;
+    color: #999;
+}
+
+.dark .tooltip-wrapper .tooltip {
+    background: #333;
+}
+
+.dark #target {
+    border-color: #ccc;
+}
+
+.dark #target.active {
+    border-color: #cfc;
+}
+
+.dark #target.error {
+    border-color: #fcc;
 }

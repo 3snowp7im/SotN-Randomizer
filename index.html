@@ -6,16 +6,18 @@
           href="https://unpkg.com/purecss@1.0.0/build/pure-min.css">
     <link rel="stylesheet"
           href="https://unpkg.com/purecss@1.0.0/build/grids-responsive-min.css">
+    <link rel="stylesheet"
+          href="https://d1azc1qln24ryf.cloudfront.net/114779/Socicon/style-cf.css?u8vidh">
     <link rel="stylesheet" href="index.css">
   </head>
-  <body>
+  <body class="dark">
     <div id="version"></div>
     <div id="content">
       <h1>Castlevania: Symphony of the Night Randomizer</h1>
       <div>
         by Wild Mouse
-        <a href="https://twitter.com/3snow_p7im"><img height="16" width="16" src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/twitter.svg"></a>
-        <a href="https://twitch.tv/3snow_p7im"><img height="16" width="16" src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/twitch.svg"></a>
+        <a class="contact" href="https://twitter.com/3snow_p7im"><img height="16" width="16" src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/twitter.svg"></a>
+        <a class="contact" href="https://twitch.tv/3snow_p7im"><img height="16" width="16" src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/twitch.svg"></a>
       </div>
       <form id="form" class="pure-g">
         <p id="target" class="pure-u-1">
@@ -140,6 +142,10 @@
           <fieldset>
             <legend>Options</legend>
             <div class="pure-g">
+              <div class="pure-u-1">
+                <input id="dark-theme" type="checkbox">
+                <label for="dark-theme">Night mode</label>
+              </div>
               <div class="pure-u-1">
                 <input id="append-seed" type="checkbox">
                 <label for="append-seed">Append seed to filename</label>
