@@ -8766,7 +8766,7 @@
     }, {
       zones: [ ZONE.NO1 ],
       index: 6,
-      entities: [ 0x3a9e, 0x4202 ],
+      entities: [ 0x3774, 0x3f3c ],
     }, {
       zones: [ ZONE.NO4 ],
       index: 9,
@@ -8876,7 +8876,7 @@
     tiles: [{
       zones: [ ZONE.NO1 ],
       index: 3,
-      entities: [ 0x3a26, 0x420c ],
+      entities: [ 0x37ba, 0x3f6e ],
     }, {
       zones: [ ZONE.NO2 ],
       index: 12,

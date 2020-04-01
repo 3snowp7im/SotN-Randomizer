@@ -1692,7 +1692,7 @@
     case constants.ZONE.NO1:
       ids.push({
         id: 0xa001,
-        states: [ 0x70 ],
+        states: [ 0x70, 0x80 ],
       })
       break
     case constants.ZONE.NO2:
@@ -1854,9 +1854,13 @@
         break
       }
     }
+    case constants.ZONE.NO1:
+      if ((state >> 8) === 0x80) {
+        index = 3 + (state & 0xff)
+        break
+      }
     case constants.ZONE.DAI:
     case constants.ZONE.LIB:
-    case constants.ZONE.NO1:
     case constants.ZONE.NO2:
     case constants.ZONE.NO4:
     case constants.ZONE.BO3:
