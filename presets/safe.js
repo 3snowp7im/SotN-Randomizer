@@ -282,7 +282,7 @@
   ])
 
   // Walk Armor requires Jewel of Open + at least Leap Stone.
-  builder.lockLocation(LOCATION.ICEBRAND, [
+  builder.lockLocation(LOCATION.WALK_ARMOR, [
     RELIC.JEWEL_OF_OPEN + RELIC.SOUL_OF_BAT,
     RELIC.JEWEL_OF_OPEN + RELIC.LEAP_STONE,
     RELIC.JEWEL_OF_OPEN + RELIC.FORM_OF_MIST + RELIC.POWER_OF_MIST,
