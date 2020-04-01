@@ -330,29 +330,25 @@
   function replaceHolyGlassesWithRelic(data, item, relic) {
     let offset
     const zone = constants.zones[constants.ZONE.CEN]
-    // Injection point.
-    offset = util().romOffset(zone, 0xfe98)
-    offset = data.writeWord(offset, 0x08067208) // j 0x8019c820
-    offset = data.writeWord(offset, 0x3404000b) // ori a0, r0, 0x000b
-    //                                          // ori v0, r0, id
-    offset = data.writeWord(offset, 0x34020000 + relic.relicId)
-    offset = util().romOffset(zone, 0xfebc)
-    offset = data.writeWord(offset, 0x00000000) // nop
-    // Create entity.
-    offset = util().romOffset(zone, 0x01c820)
-    offset = data.writeWord(offset, 0x0c064d31) // jal 0x8001934c4, ra
-    offset = data.writeWord(offset, 0x00000000) // nop
-    // Add timeout and visual data.
-    offset = data.writeWord(offset, 0x3c018007) // lui at, 0x8007
-    offset = data.writeWord(offset, 0x3421c9f0) // ori at, at, 0xc9f0
-    offset = data.writeWord(offset, 0x3c020da0) // lui v0, 0x0da0
-    offset = data.writeWord(offset, 0x34422000) // ori v0, v0, 0x2000
-    offset = data.writeWord(offset, 0xac22ffec) // sw v0, 0xffec (at)
-    offset = data.writeWord(offset, 0x3402002b) // ori v0, r0, 0x002b
-    offset = data.writeWord(offset, 0xa022001c) // sb v0, 0x001c (at)
-    // Return.
-    offset = data.writeWord(offset, 0x08063fa8) // j 0x8018fea0
-    offset = data.writeWord(offset, 0x00000000) // nop
+    // Erase Holy Glasses.
+    data.writeWord(
+      item.erase.instructions[0].addresses[0],
+      item.erase.instructions[0].instruction,
+    )
+    // Replace entity with relic.
+    const entity = [ 0x1328, 0x13be ]
+    entity.forEach(function(addr) {
+      offset = util().romOffset(zone, addr + 0x00)
+      data.writeShort(offset, 0x0180)
+      offset = util().romOffset(zone, addr + 0x02)
+      data.writeShort(offset, 0x022c)
+      offset = util().romOffset(zone, addr + 0x04)
+      data.writeShort(offset, 0x000b)
+      offset = util().romOffset(zone, addr + 0x06)
+      data.writeShort(offset, 0x0000)
+      offset = util().romOffset(zone, addr + 0x08)
+      data.writeShort(offset, relic.relicId)
+    })
   }
 
   const relics = [{
