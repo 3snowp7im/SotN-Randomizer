@@ -130,7 +130,9 @@
       elems.prologueRewards.checked = !!options.prologueRewards
       elems.relicLocations.checked = !!options.relicLocations
       elems.relicLocationsExtension.guarded.checked =
-        options.relicLocationsExtension === 'guarded'
+        options.relicLocationsExtension === constants.EXTENSION.GUARDED
+      elems.relicLocationsExtension.equipment.checked =
+        options.relicLocationsExtension === constants.EXTENSION.EQUIPMENT
       elems.relicLocationsExtension.classic.checked =
         !options.relicLocationsExtension
       elems.turkeyMode.checked = !!options.turkeyMode
@@ -161,11 +163,14 @@
       console.log('disabled')
       elems.relicLocationsSet.disabled = true
       elems.relicLocationsExtension.guarded.checked = false
+      elems.relicLocationsExtension.equipment.checked = false
       elems.relicLocationsExtension.classic.checked = false
     } else {
       elems.relicLocationsSet.disabled = false
       elems.relicLocationsExtension.guarded.checked =
-        relicLocationsExtensionCache === 'guarded'
+        relicLocationsExtensionCache === constants.EXTENSION.GUARDED
+      elems.relicLocationsExtension.equipment.checked =
+        relicLocationsExtensionCache === constants.EXTENSION.EQUIPMENT
       elems.relicLocationsExtension.classic.checked =
         !relicLocationsExtensionCache
     }
@@ -174,8 +179,10 @@
   function relicLocationsExtensionChange() {
     let value
     if (elems.relicLocationsExtension.guarded.checked) {
-      value = 'guarded'
-    } else {
+      value = constants.EXTENSION.GUARDED
+    } else if (elems.relicLocationsExtension.equipment.checked) {
+      value = constants.EXTENSION.EQUIPMENT
+    } else{
       value = false
     }
     relicLocationsExtensionCache = value
@@ -272,7 +279,9 @@
 
   function getFormRelicLocationsExtension() {
     if (elems.relicLocationsExtension.guarded.checked) {
-      return 'guarded'
+      return constants.EXTENSION.GUARDED
+    } else if (elems.relicLocationsExtension.equipment.checked) {
+      return constants.EXTENSION.EQUIPMENT
     }
     return false
   }
@@ -483,6 +492,7 @@
     relicLocations: document.getElementById('relic-locations'),
     relicLocationsExtension: {
       guarded: document.getElementById('extension-guarded'),
+      equipment: document.getElementById('extension-equipment'),
       classic: document.getElementById('extension-classic'),
     },
     relicLocationsArg: document.getElementById('relic-locations-arg'),
@@ -515,6 +525,10 @@
   elems.startingEquipment.addEventListener('change', startingEquipmentChange)
   elems.relicLocations.addEventListener('change', relicLocationsChange)
   elems.relicLocationsExtension.guarded.addEventListener(
+    'change',
+    relicLocationsExtensionChange,
+  )
+  elems.relicLocationsExtension.equipment.addEventListener(
     'change',
     relicLocationsExtensionChange,
   )
@@ -629,7 +643,9 @@
     }
     elems.relicLocationsArg.value = relicLocationsArg
     elems.relicLocationsExtension.guarded.checked =
-      applied.relicLocationsExtension === 'guarded'
+      applied.relicLocationsExtension === constants.EXTENSION.GUARDED
+    elems.relicLocationsExtension.equipment.checked =
+      applied.relicLocationsExtension === constants.EXTENSION.EQUIPMENT
     elems.relicLocationsExtension.classic.checked =
       !applied.relicLocationsExtension
     relicLocationsExtensionChange()
@@ -658,8 +674,11 @@
         localStorage.getItem('relicLocationsExtension')
     if (typeof(relicLocationsExtension) === 'string') {
       switch (relicLocationsExtension) {
-      case 'guarded':
+      case constants.EXTENSION.GUARDED:
         elems.relicLocationsExtension.guarded.checked = true
+        break
+      case constants.EXTENSION.EQUIPMENT:
+        elems.relicLocationsExtension.equipment.checked = true
         break
       default:
         elems.relicLocationsExtension.classic.checked = true

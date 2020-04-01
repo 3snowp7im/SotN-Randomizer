@@ -112,8 +112,10 @@ This will store your randomized disc image.
 ### Software needed
 
 ##### POPStarter r13 WIP 06 Beta 17
-It must be this specific version. Symphony of the Night will not run on other
-versions of POPStarter. Download from [here](https://www.ps2-home.com/forum/viewtopic.php?p=13938#p13938).
+Download from [here](https://www.ps2-home.com/forum/viewtopic.php?p=13938#p13938).
+*Note:* This version is known to cause random crashes on some PS2 revisions.
+Unfortunately, other recent POPStarter versions do not load the castle map
+corretly. Your mileage may vary.
 
 ##### `POPS_IOX.PAK`
 You will need to locate this yourself. MD5: `a625d0b3036823cdbf04a3c0e1648901`

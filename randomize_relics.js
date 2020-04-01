@@ -118,11 +118,8 @@
           writeEntity(data, location.entity, {id: 0x000f})
         }
         // Erase tile.
-        if ('tileIndex' in location) {
-          const itemId = location.itemId + constants.tileIdOffset
-          const item = util.itemFromTileId(items, itemId)
-          const entity = item.tiles[location.tileIndex]
-          writeEntity(data, entity, Object.assign({id: 0x000f}))
+        if ('tile' in location) {
+          writeEntity(data, location.tile, Object.assign({id: 0x000f}))
         }
         // Erase instructions.
         if ('erase' in location) {
@@ -151,12 +148,11 @@
           if ('replaceWithItem' in location) {
             location.replaceWithItem(data, location, item)
           } else {
-            if ('tileIndex' in location) {
-              const itemId = location.itemId + constants.tileIdOffset
-              const item = util.itemFromTileId(items, itemId)
-              const entity = item.tiles[location.tileIndex]
-              writeTileId(data, entity.zones, entity.index, relic.itemId)
-              item.tiles.splice(location.tileIndex, 1)
+            if ('tile' in location) {
+              const tile = location.tile
+              writeTileId(data, tile.zones, tile.index, relic.itemId)
+              const tileIndex = location.item.tiles.indexOf(tile)
+              location.item.tiles.splice(tileIndex, 1)
             }
             if ('ids' in location) {
               writeIds(data, location.ids, item.id)
@@ -168,22 +164,17 @@
             location.replaceWithRelic(data, location, relic)
           } else {
             // Get item entity.
-            const itemId = location.itemId + constants.tileIdOffset
-            const item = util.itemFromTileId(items, itemId)
-            const entity = item.tiles[location.tileIndex]
             const asRelic = location.asRelic || {}
-            writeEntity(data, entity, Object.assign({
+            writeEntity(data, location.tile, Object.assign({
               id: 0x000b,
               state: relic.relicId,
             }, asRelic))
           }
           // Remove replaced item's tile from randomization pool.
           if ('tileIndex' in location) {
-            const itemId = location.itemId + constants.tileIdOffset
-            const item = util.itemFromTileId(items, itemId)
-            const tileId = item.id + constants.tileIdOffset
-            const replacedItem = util.itemFromTileId(items, tileId)
-            replacedItem.tiles.splice(location.tileIndex, 1)
+            const tile = location.tile
+            const tileIndex = location.item.tiles.indexOf(tile)
+            location.item.tiles.splice(tileIndex, 1)
           }
         }
       } else if (item) {
@@ -635,14 +626,17 @@
     })
     // Create location collection.
     let locations = relics
+    const extensions = []
     switch (options.relicLocationsExtension) {
+    case constants.EXTENSION.EQUIPMENT:
+      extensions.push(constants.EXTENSION.EQUIPMENT)
     case constants.EXTENSION.GUARDED:
-      const guarded = extension.locations.filter(function(location) {
-        return location.extension === constants.EXTENSION.GUARDED
-      })
-      locations = locations.concat(guarded)
-      break
+      extensions.push(constants.EXTENSION.GUARDED)
     }
+    const extendedLocations = extension.locations.filter(function(location) {
+      return extensions.indexOf(location.extension) !== -1
+    })
+    locations = locations.concat(extendedLocations)
     locations.forEach(function(location) {
       let id
       if ('ability' in location) {
@@ -657,6 +651,14 @@
       } 
       if (!location.locks || !location.locks.length) {
         location.locks = [new Set()]
+      }
+      if ('itemId' in location) {
+        const itemId = location.itemId + constants.tileIdOffset
+        const item = util.itemFromTileId(items, itemId)
+        location.item = item
+        if ('tileIndex' in location) {
+          location.tile = item.tiles[location.tileIndex]
+        }
       }
     })
     // Filter out any progression items that have been placed by a preset.
@@ -687,30 +689,16 @@
         }, location)
       }),
     }
-    // If there are more pool locations than relics, the randomizer is likely
-    // to break plandomizers by placing relics in starting locations instead
-    // of where the author intended them to be.
-    // To prevent this witout breaking Safe logic, drain the pool of starting
-    // locations until there are as many locations as there are relics to
-    // place, but only if there are more starting locations than in vanilla.
-    const startLocations = locations.filter(function(location) {
-      return location.locks.length == 1
-        && location.locks[0].size === 0
-    })
-    if (options.relicLocationsExtension && startLocations.length > 5) {
-      while (pool.locations.length > pool.relics.length) {
-        const locations = util.shuffled(pool.locations)
-        const startLocation = locations.filter(function(location) {
-          return location.locks.length == 1
-            && location.locks[0].size === 0
-        }).pop()
-        pool.locations.splice(pool.locations.indexOf(startLocation), 1)
-      }
-    }
     // Attempt to place all relics.
     let attempts = 0
     let result
     while (attempts++ < 4096) {
+      // Get new locations pool.
+      pool.locations = util.shuffled(locations)
+      while (pool.locations.length > pool.relics.length) {
+        pool.locations.pop()
+      }
+      // place relics.
       result = pickRelicLocations(pool)
       if (result.error) {
         if (result.error instanceof errors.SoftlockError) {

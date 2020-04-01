@@ -9147,7 +9147,8 @@
     blacklist: [ 0x0b6b3c, 0x0b6b3a ],
     tiles: [{
       zones: [ ZONE.NO4 ],
-      addresses: [ 0x04c324de, 0x061a73e2 ],
+      index: 31,
+      entities: [ 0x37da, 0x47e0 ],
     }],
   }, {
     name: 'Alucart Mail',

@@ -247,14 +247,17 @@ const presetHelp = [
 function presetMetaHelp(preset) {
   const options = preset.options()
   let locations = relics
+  const extensions = []
   switch (options.relicLocationsExtension) {
+  case constants.EXTENSION.EQUIPMENT:
+    extensions.push(constants.EXTENSION.EQUIPMENT)
   case constants.EXTENSION.GUARDED:
-    const guarded = extension.locations.filter(function(location) {
-      return location.extension === constants.EXTENSION.GUARDED
-    })
-    locations = locations.concat(guarded)
-    break
+    extensions.push(constants.EXTENSION.GUARDED)
   }
+  const extendedLocations = extension.locations.filter(function(location) {
+    return extensions.indexOf(location.extension) !== -1
+  })
+  locations = locations.concat(extendedLocations)
   locations = locations.map(function(location) {
     let id
     if ('ability' in location) {
@@ -521,8 +524,8 @@ try {
     randomizeRelics.randomizeRelics(check, applied, planned, info)
     randomizeItems.randomizeItems(check, applied, planned, info)
   } catch (err) {
+    console.error('Seed:  ' + seed)
     if (errors.isError(err)) {
-      console.error('Seed:  ' + seed)
       console.error('Error: ' + err.message)
       process.exit(1)
     }

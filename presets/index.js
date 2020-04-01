@@ -7,6 +7,7 @@
     exports = [
       require('./casual'),
       require('./safe'),
+      require('./adventure'),
       require('./glitch'),
       require('./glitch-hard'),
     ]

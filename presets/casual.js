@@ -219,18 +219,9 @@
       + RELIC.FORM_OF_MIST + RELIC.POWER_OF_MIST,
   ])
 
-  // Game completion requires Holy Glasses + Vlad Relics.
-  builder.complexityGoal(5, [
-    RELIC.HOLY_GLASSES
-      + RELIC.HEART_OF_VLAD
-      + RELIC.TOOTH_OF_VLAD
-      + RELIC.RIB_OF_VLAD
-      + RELIC.RING_OF_VLAD
-      + RELIC.EYE_OF_VLAD,
-  ])
-
   // Export.
   const preset = builder.build()
+
   if (self) {
     const presets = (self.sotnRando || {}).presets || []
     presets.push(preset)

@@ -1053,6 +1053,25 @@
     return options
   }
 
+  function presets() {
+    try {
+      if (self) {
+        return self.sotnRando.presets
+      } else {
+        return require('./presets')
+      }
+    } catch (err) {
+      return []
+    }
+  }
+
+  function presetFromName(name) {
+    const all = presets()
+    return all.filter(function(preset) {
+      return preset.id === name
+    }).pop()
+  }
+
   function optionsToString(options, disableRecurse) {
     options = Object.assign({}, options)
     delete options.checkVanilla
@@ -1062,15 +1081,7 @@
         delete options[opt]
       }
     })
-    let presets
-    if (self) {
-      presets = self.sotnRando.presets
-    } else {
-      presets = require('./presets')
-    }
-    const safe = presets.filter(function(preset) {
-      return preset.id === 'safe'
-    }).pop()
+    const safe = presetFromName('safe')
     // Handle the edge case where there is a preset, but the remaining
     // options are the same as the preset options.
     if ('preset' in options
@@ -1083,9 +1094,7 @@
         copy.relicLocations = clone(safe.options().relicLocations)
       }
       // Now compare the remaining options to the preset options.
-      const preset = presets.filter(function(preset) {
-        return preset.id === options.preset
-      }).pop()
+      const preset = presetFromName(options.preset)
       if (optionsToString(copy) === optionsToString(preset.options())) {
         // If they match, the options become the preset by itself.
         options = {preset: preset.id}
@@ -1231,7 +1240,21 @@
               }
             }
             const locations = relics.concat(extension.locations)
-            locations.map(function(location) {
+            const self = this
+            locations.filter(function(location) {
+              const extensions = []
+              switch (options.relicLocationsExtension) {
+              case constants.EXTENSION.EQUIPMENT:
+                extensions.push(constants.EXTENSION.EQUIPMENT)
+              case constants.EXTENSION.GUARDED:
+                extensions.push(constants.EXTENSION.GUARDED)
+                break
+              default:
+                return !('extension' in location)
+              }
+              return !('extension' in location)
+                || extensions.indexOf(location.extension) !== -1
+            }).map(function(location) {
               if (typeof(location.ability) === 'string') {
                 return location.ability
               }
@@ -1282,7 +1305,7 @@
     }, '')
     // Handle the edge case where the options are the same as a preset.
     if (!disableRecurse) {
-      const preset = presets.filter(function(preset) {
+      const preset = presets().filter(function(preset) {
         if (preset instanceof Preset) {
           const options = preset.options()
           if (preset === safe) {
@@ -1975,13 +1998,7 @@
   Preset.options = function options(options) {
     options = clone(options)
     if (options.preset) {
-      let presets
-      if (self) {
-        presets = self.sotnRando.presets
-      } else {
-        presets = require('./presets')
-      }
-      let preset = presets.filter(function(preset) {
+      let preset = presets().filter(function(preset) {
         return preset.id === options.preset
       }).pop()
       if (!preset && !self) {
@@ -2006,7 +2023,7 @@
   }
 
   Preset.prototype.toString = function toString() {
-    return optionsToString(this.options())
+    return optionsToString.bind(this, this.options())()
   }
 
   Preset.prototype.options = function options() {
