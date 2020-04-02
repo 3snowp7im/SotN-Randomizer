@@ -265,3 +265,11 @@ body.dark {
 .dark #target.error {
     border-color: #fcc;
 }
+
+.dark input[type="radio"]:disabled {
+    visibility: hidden;
+}
+
+.dark input[type="radio"]:checked:disabled {
+    visibility: visible;
+}
