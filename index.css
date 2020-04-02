@@ -153,7 +153,6 @@ fieldset .pure-g .pure-u-12-24 fieldset {
     width: 320px;
     transform: translateY(10px);
     transition: all .25s ease-out;
-    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.28);
 }
 
 .tooltip-wrapper .tooltip:before {
@@ -193,16 +192,24 @@ form > div > fieldset > div > div > select{
     width: 15ex;
 }
 
-select, input {
-    background: #fff;
-    color: #000;
-}
-
 /* Light mode */
 
-body.light, .light textarea {
+.light {
     color: #00;
     background: #fff;
+}
+
+.light textarea,
+.light select,
+.light input,
+.light textarea {
+    color: #00;
+    background: #fff;
+}
+
+.light input[type="text"],
+.light select {
+    border: 1px #aaa solid;
 }
 
 .light #notification {
@@ -216,6 +223,7 @@ body.light, .light textarea {
 
 .light .tooltip-wrapper .tooltip {
     background: #fff;
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.28);
 }
 
 .light #target {
@@ -232,9 +240,22 @@ body.light, .light textarea {
 
 /* Dark mode */
 
-body.dark, .dark textarea {
+.dark {
     color: #fff;
     background: #222;
+}
+
+.dark textarea,
+.dark select,
+.dark input,
+.dark textarea {
+    color: #fff;
+    background: #222;
+}
+
+.dark input[type="text"],
+.dark select {
+    border: 1px #ccc solid;
 }
 
 .dark a:link {
@@ -260,6 +281,7 @@ body.dark, .dark textarea {
 
 .dark .tooltip-wrapper .tooltip {
     background: #333;
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, .8);
 }
 
 .dark #target {
@@ -272,6 +294,11 @@ body.dark, .dark textarea {
 
 .dark #target.error {
     border-color: #fcc;
+}
+
+.dark input[type="file"] {
+    color: #fff;
+    background: #222;
 }
 
 .dark input[type="radio"]:disabled {
