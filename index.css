@@ -234,7 +234,15 @@ body.light {
 
 body.dark {
     color: #fff;
-    background: #000;
+    background: #222;
+}
+
+.dark a:link {
+    color: #69f;
+}
+
+.dark a:visited {
+    color: #96f;
 }
 
 .dark .contact {
