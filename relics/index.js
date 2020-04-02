@@ -1,6 +1,6 @@
 const relics = window.sotnRando.relics
 const searchParams = new URLSearchParams(window.location.search)
-const runs = searchParams.get('runs') || 1000
+const runs = parseInt(searchParams.get('runs'), 10) || 1000
 const defaultOptions = window.sotnRando.constants.defaultOptions
 const options = searchParams.get('options') || defaultOptions
 const threads = window.navigator.hardwareConcurrency
@@ -25,13 +25,10 @@ function handleMessage(message) {
   }
   Object.getOwnPropertyNames(result.mapping).forEach(function(ability) {
     const location = result.mapping[ability]
-    if (!totals[location.id]) {
-      totals[location.id] = {}
-    }
-    if (!totals[location.id][ability]) {
-      totals[location.id][ability] = 0
-    }
-    totals[location.id][ability]++
+    const locationId = location.ability || location.name
+    totals[locationId] = totals[locationId] || {}
+    totals[locationId][ability] = totals[locationId][ability] || 0
+    totals[locationId][ability]++
   })
   if (completed + running < runs) {
     running++
@@ -71,6 +68,7 @@ function render() {
   content.appendChild(row)
 
   locations.forEach(function(location) {
+    const locationId = location.ability || location.name
     const locRow = document.createElement('div')
     locRow.className = 'row'
     const loc = document.createElement('div')
@@ -79,7 +77,7 @@ function render() {
     locRow.appendChild(loc)
     relics.forEach(function(r) {
       const count = document.createElement('div')
-      const amount = (totals[location.id] || {})[r.ability] || 0
+      const amount = (totals[locationId] || {})[r.ability] || 0
       count.textContent = amount
       count.className = getClassname(amount)
       locRow.appendChild(count)

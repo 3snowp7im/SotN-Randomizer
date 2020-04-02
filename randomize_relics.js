@@ -595,6 +595,8 @@
   }
 
   function getMapping(options, planned) {
+    planned = planned || {}
+    planned.removed = planned.removed || []
     // Initialize location locks.
     const locksMap = {}
     if (typeof(options.relicLocations) === 'object') {
@@ -731,9 +733,14 @@
     if (result.error) {
       throw result.error
     }
+    locations = locations.filter(function(location) {
+      const locationId = location.ability || location.name
+      const locations = Object.getOwnPropertyNames(pool.locations)
+      return locations.indexOf(locationId) === -1
+    })
     return {
       mapping: result,
-      locations: pool.locations,
+      locations: locations,
     }
   }
 
