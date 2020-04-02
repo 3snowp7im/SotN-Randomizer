@@ -201,7 +201,7 @@ form > div > fieldset > div > div > select{
 
 .light textarea,
 .light select,
-.light input,
+.light input[type="text"],
 .light textarea {
     color: #00;
     background: #fff;
@@ -247,7 +247,7 @@ form > div > fieldset > div > div > select{
 
 .dark textarea,
 .dark select,
-.dark input,
+.dark input[type="text"],
 .dark textarea {
     color: #fff;
     background: #222;

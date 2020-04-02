@@ -16,6 +16,7 @@ function randomizeWorker() {
       url + "presets/adventure.js",
       url + "presets/glitch.js",
       url + "presets/glitch-hard.js",
+      url + "presets/balance.js",
       url + "randomize_items.js",
       url + "randomize_relics.js",
       url + "ecc-edc-recalc-js.js",

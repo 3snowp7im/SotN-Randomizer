@@ -10,6 +10,7 @@
       require('./adventure'),
       require('./glitch'),
       require('./glitch-hard'),
+      require('./balance'),
     ]
   }
   exports.sort(function(a, b) {

@@ -1111,7 +1111,11 @@
           if (typeof(options.enemyDrops) === 'object') {
             const drops = options.enemyDrops
             Object.getOwnPropertyNames(drops).forEach(function(enemyName) {
-              opt += ':' + enemyName.replace(/[^a-zA-Z0-9\-]/g, '')
+              if (enemyName === '*') {
+                opt += ':*'
+              } else {
+                opt += ':' + enemyName.replace(/[^a-zA-Z0-9\-]/g, '')
+              }
               if (drops[enemyName].length) {
                 opt += ':'
                 opt += drops[enemyName].map(function(dropName) {
@@ -1186,17 +1190,22 @@
         if (options.itemLocations) {
           let opt = 'i'
           if (typeof(options.itemLocations) === 'object') {
-            Object.getOwnPropertyNames(constants.ZONE).forEach(function(zone) {
+            const zoneNames = Object.getOwnPropertyNames(constants.ZONE)
+            const zones = ['*'].concat(zoneNames)
+            zones.forEach(function(zone) {
               if (zone in options.itemLocations) {
                 const items = options.itemLocations[zone]
                 Object.getOwnPropertyNames(items).forEach(function(itemName) {
                   const map = items[itemName]
+                  if (itemName !== '*') {
+                    itemName = itemName.replace(/[^a-zA-Z0-9]/g, '')
+                  }
                   const indexes = Object.getOwnPropertyNames(map)
                   indexes.forEach(function(index) {
                     index = parseInt(index)
                     const replaceName = map[index]
                     opt += ':' + zone
-                      + ':' + itemName.replace(/[^a-zA-Z0-9]/g, '')
+                      + ':' + itemName
                       + (index > 0 ? '-' + (index + 1) : '')
                       + ':' + replaceName.replace(/[^a-zA-Z0-9]/g, '')
                   })
@@ -1218,6 +1227,8 @@
                 if (options.prologueRewards[reward]) {
                   const itemName = options.prologueRewards[reward]
                   opt += ':' + itemName.replace(/[^a-zA-Z0-9]/g, '')
+                } else {
+                  opt += ':'
                 }
               }
             })
@@ -2077,7 +2088,12 @@
       self.drops = new Map()
       const ids = Object.getOwnPropertyNames(preset.enemyDrops)
       ids.forEach(function(id) {
-        const enemy = enemyFromIdString(id)
+        let enemy
+        if (id === '*') {
+          enemy = '*'
+        } else {
+          enemy = enemyFromIdString(id)
+        }
         const dropNames = preset.enemyDrops[id]
         const drops = dropNames.map(function(name) {
           return items.filter(function(item) {
@@ -2110,9 +2126,14 @@
         const zoneItems = preset.itemLocations[zoneName]
         const itemNames = Object.getOwnPropertyNames(zoneItems)
         itemNames.forEach(function(itemName) {
-          const item = items.filter(function(item) {
-            return item.name === itemName
-          }).pop()
+          let item
+          if (itemName === '*') {
+            item = '*'
+          } else {
+            item = items.filter(function(item) {
+              return item.name === itemName
+            }).pop()
+          }
           const indexes = Object.getOwnPropertyNames(zoneItems[itemName])
           indexes.forEach(function(index) {
             const replace = items.filter(function(item) {
@@ -2183,15 +2204,20 @@
           commonDropName = level
           level = undefined
         }
-        const enemy = enemies.filter(function(enemy) {
-          if (enemy.name === enemyName) {
-            if (typeof(level) !== 'undefined') {
-              return enemy.level === level
+        let enemy
+        if (enemyName === '*') {
+          enemy = '*'
+        } else {
+          enemy = enemies.filter(function(enemy) {
+            if (enemy.name === enemyName) {
+              if (typeof(level) !== 'undefined') {
+                return enemy.level === level
+              }
+              return true
             }
-            return true
-          }
-        }).pop()
-        assert(enemy, 'Unknown enemy: ' + enemyName)
+          }).pop()
+          assert(enemy, 'Unknown enemy: ' + enemyName)
+        }
         const dropNames = [ commonDropName, rareDropName ]
         const drops = dropNames.map(function(dropName) {
           if (dropName) {
@@ -2307,17 +2333,29 @@
         }
         assert(typeof(number) === 'number', 'Unknown item number: ' + number)
         const index = number - 1
-        assert.oneOf(zoneId, constants.zoneNames.map(function(zoneName) {
+        const zones = ['*'].concat(constants.zoneNames.map(function(zoneName) {
           return constants.ZONE[zoneName]
-        }), 'Unknown zone: ' + zoneId)
-        const item = items.filter(function(item) {
-          return item.name === itemName
-        })[0]
-        assert(item, 'Unknown item: ' + itemName)
-        const tiles = (item.tiles || []).filter(function(tile) {
-          return 'zones' in tile && tile.zones.indexOf(zoneId) !== -1
-        })
-        assert(tiles[index], 'Unknown item tile: ' + itemName + ' ' + number)
+        }))
+        assert.oneOf(zoneId, zones, 'Unknown zone: ' + zoneId)
+        let zoneName
+        if (zoneId === '*') {
+          zoneName = '*'
+        } else {
+          zoneName = constants.zoneNames[zoneId]
+        }
+        let item
+        if (itemName === '*') {
+          item = '*'
+        } else {
+          item = items.filter(function(item) {
+            return item.name === itemName
+          })[0]
+          assert(item, 'Unknown item: ' + itemName)
+          const tiles = (item.tiles || []).filter(function(tile) {
+            return 'zones' in tile && tile.zones.indexOf(zoneId) !== -1
+          })
+          assert(tiles[index], 'Unknown item tile: ' + itemName + ' ' + number)
+        }
         const replace = items.filter(function(item) {
           return item.name === replaceName
         })[0]
@@ -2325,7 +2363,6 @@
         if (typeof(this.items) !== 'object') {
           this.items = {}
         }
-        const zoneName = constants.zoneNames[zoneId]
         this.items[zoneName] = this.items[zoneName] || new Map()
         const map = this.items[zoneName].get(item) || {}
         map[number - 1] = replace
@@ -2441,15 +2478,20 @@
     if (typeof(drops) === 'object') {
       drops = {}
       Array.from(self.drops.keys()).forEach(function(enemy) {
-        let enemyName = enemy.name
-        const amb = enemies.filter(function(enemy) {
-          return enemy.name === enemyName
-        })
-        if (amb.length > 1 && enemy !== amb[0]) {
-          enemyName += '-' + enemy.level
+        let enemyName
+        if (enemy === '*') {
+          enemyName = '*'
+        } else {
+          enemyName = enemy.name
+          const amb = enemies.filter(function(enemy) {
+            return enemy.name === enemyName
+          })
+          if (amb.length > 1 && enemy !== amb[0]) {
+            enemyName += '-' + enemy.level
+          }
         }
         drops[enemyName] = self.drops.get(enemy).slice().map(function(item) {
-          return item.name
+          return item ? item.name : undefined
         })
       })
     }
@@ -2462,7 +2504,7 @@
           const itemName = item.name
           equipment[slot] = itemName
         } else {
-          equipment[slot] = ''
+          equipment[slot] = undefined
         }
       })
     }
@@ -2473,7 +2515,12 @@
         items[zone] = {}
         Array.from(self.items[zone].keys()).forEach(function(item) {
           const indexes = self.items[zone].get(item)
-          const itemName = item.name
+          let itemName
+          if (item === '*') {
+            itemName = '*'
+          } else {
+            itemName = item.name
+          }
           items[zone][itemName] = {}
           Object.getOwnPropertyNames(indexes).forEach(function(index) {
             const replace = self.items[zone].get(item)[index]
@@ -2488,8 +2535,12 @@
       rewards = {}
       Object.getOwnPropertyNames(self.rewards).forEach(function(reward) {
         const item = self.rewards[reward]
-        const itemName = item.name
-        rewards[reward] = itemName
+        if (item) {
+          const itemName = item.name
+          rewards[reward] = itemName
+        } else {
+          rewards[reward] = undefined
+        }
       })
     }
     let relicLocations = self.locations
