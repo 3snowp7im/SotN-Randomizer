@@ -264,23 +264,13 @@
       + RELIC.FORM_OF_MIST + RELIC.POWER_OF_MIST,
   ])
 
-  // Game completion requires Holy Glasses + Vlad Relics.
-  builder.complexityGoal(5, [
-    RELIC.HOLY_GLASSES
-      + RELIC.HEART_OF_VLAD
-      + RELIC.TOOTH_OF_VLAD
-      + RELIC.RIB_OF_VLAD
-      + RELIC.RING_OF_VLAD
-      + RELIC.EYE_OF_VLAD,
-  ])
-
-  // Scylla location requires Jewel of Open.
-  builder.lockLocation(LOCATION.SCYLLA, [
+  // Crystal Cloak location requires Jewel of Open.
+  builder.lockLocation(LOCATION.CRYSTAL_CLOAK, [
     RELIC.SPIRIT_ORB + RELIC.JEWEL_OF_OPEN,
   ])
 
-  // Granfalloon requires Jewel of Open + at least Leap Stone.
-  builder.lockLocation(LOCATION.GRANFALLOON, [
+  // Mormegil requires Jewel of Open + at least Leap Stone.
+  builder.lockLocation(LOCATION.MORMEGIL, [
     RELIC.SPIRIT_ORB + RELIC.JEWEL_OF_OPEN + RELIC.LEAP_STONE,
     RELIC.SPIRIT_ORB + RELIC.JEWEL_OF_OPEN + RELIC.SOUL_OF_BAT,
     RELIC.SPIRIT_ORB + RELIC.JEWEL_OF_OPEN + RELIC.FORM_OF_MIST
@@ -289,8 +279,8 @@
       + RELIC.POWER_OF_WOLF + RELIC.GRAVITY_BOOTS,
   ])
 
-  // Doppleganger40 in second castle.
-  builder.lockLocation(LOCATION.DOPPLEGANGER40, [
+  // Dark Blade in second castle.
+  builder.lockLocation(LOCATION.DARK_BLADE, [
     RELIC.SPIRIT_ORB + RELIC.HOLY_GLASSES + RELIC.SOUL_OF_BAT,
     RELIC.SPIRIT_ORB + RELIC.HOLY_GLASSES + RELIC.LEAP_STONE
       + RELIC.GRAVITY_BOOTS,
@@ -298,13 +288,23 @@
       + RELIC.POWER_OF_MIST,
   ])
 
-  // Beezlebub in second castle.
-  builder.lockLocation(LOCATION.BEEZLEBUB, [
+  // Ring of Arcana in second castle.
+  builder.lockLocation(LOCATION.RING_OF_ARCANA, [
     RELIC.SPIRIT_ORB + RELIC.HOLY_GLASSES + RELIC.SOUL_OF_BAT,
     RELIC.SPIRIT_ORB + RELIC.HOLY_GLASSES + RELIC.LEAP_STONE
       + RELIC.GRAVITY_BOOTS,
     RELIC.SPIRIT_ORB + RELIC.HOLY_GLASSES + RELIC.FORM_OF_MIST
       + RELIC.POWER_OF_MIST,
+  ])
+
+  // Game completion requires Holy Glasses + Vlad Relics.
+  builder.complexityGoal(5, [
+    RELIC.HOLY_GLASSES
+      + RELIC.HEART_OF_VLAD
+      + RELIC.TOOTH_OF_VLAD
+      + RELIC.RIB_OF_VLAD
+      + RELIC.RING_OF_VLAD
+      + RELIC.EYE_OF_VLAD,
   ])
 
   // Export.
