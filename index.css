@@ -200,7 +200,7 @@ select, input {
 
 /* Light mode */
 
-body.light {
+body.light, .light textarea {
     color: #00;
     background: #fff;
 }
@@ -232,7 +232,7 @@ body.light {
 
 /* Dark mode */
 
-body.dark {
+body.dark, .dark textarea {
     color: #fff;
     background: #222;
 }
