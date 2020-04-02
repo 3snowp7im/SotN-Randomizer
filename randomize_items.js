@@ -733,7 +733,7 @@
     // Place planned drops.
     if (planned) {
       Object.getOwnPropertyNames(planned).forEach(function(key) {
-        let targets 
+        let targets
         if (key === '*') {
           targets = enemies
         } else {
