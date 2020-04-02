@@ -302,9 +302,9 @@ form > div > fieldset > div > div > select{
 }
 
 .dark input[type="radio"]:disabled {
-    visibility: hidden;
+    opacity: .45;
 }
 
 .dark input[type="radio"]:checked:disabled {
-    visibility: visible;
+    opacity: 1;
 }
