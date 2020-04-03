@@ -706,7 +706,7 @@
       while (pool.locations.length > pool.relics.length) {
         pool.locations.pop()
       }
-      // place relics.
+      // Place relics.
       result = pickRelicLocations(pool)
       if (result.error) {
         if (result.error instanceof errors.SoftlockError) {
@@ -721,7 +721,7 @@
           throw result.error
         }
       }
-      // Get progression complexity
+      // Get progression complexity.
       if (typeof(target) !== 'undefined') {
         const depth = complexity(result, goal)
         if (!Number.isNaN(target.min)

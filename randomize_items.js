@@ -872,7 +872,45 @@
     })
   }
 
-  function randomizeCapeColors(data) {
+  // function darken(color) {
+  //   const r = Math.floor(((color >>> 10) & 0x1f) * .75)
+  //   const g = Math.floor(((color >>> 5) & 0x1f) * .75)
+  //   const b = Math.floor((color & 0x1f) * .75)
+  //   return 0x80000000 | (r << 10) | (g << 10) | b
+  // }
+
+  function randomColor() {
+    return 0x8000 | Math.floor(Math.random() * 0x10000)
+  }
+
+  function capeColor(
+    data,
+    liningAddress,
+    outerAddress,
+    liningColor1,
+    liningColor2,
+    outerColor1,
+    outerColor2,
+  ) {
+    if (typeof(liningColor1) === 'undefined') {
+      liningColor1 = randomColor()
+    }
+    if (typeof(liningColor2) === 'undefined') {
+      liningColor2 = randomColor()
+    }
+    if (typeof(outerColor1) === 'undefined') {
+      outerColor1 = randomColor()
+    }
+    if (typeof(outerColor2) === 'undefined') {
+      outerColor2 = randomColor()
+    }
+    data.writeShort(liningAddress + 0x00, liningColor1)
+    data.writeShort(liningAddress + 0x02, liningColor2)
+    data.writeShort(outerAddress + 0x00, outerColor1)
+    data.writeShort(outerAddress + 0x02, outerColor2)
+  }
+
+  function randomizeJosephsCloak(data) {
     const colors = [
       Math.floor(Math.random() * 32),
       Math.floor(Math.random() * 32),
@@ -895,6 +933,37 @@
     }
     // Write the jump from injected code.
     data.writeWord(address, 0x0803924f)
+  }
+
+  function randomizeCapeColors(data) {
+    // Cloth Cape.
+    capeColor(data, 0x0afb84, 0x0afb88)
+    // Reverse Cloak & Inverted Cloak.
+    {
+      const lining1 = randomColor()
+      const lining2 = randomColor()
+      const outer1 = randomColor()
+      const outer2 = randomColor()
+      capeColor(data, 0x0afb7c, 0x0afb80, lining1, lining2, outer1, outer2)
+      capeColor(data, 0x0afbb8, 0x0afbbc, outer1, outer2, lining1, lining2)
+    }
+    // Elven Cloak.
+    capeColor(data, 0x0afb94, 0x0afb98)
+    // Crystal Cloak.
+    {
+      const lining1 = randomColor()
+      const lining2 = randomColor()
+      const outer = randomColor()
+      capeColor(data, 0x0afba4, 0x0afba8, lining1, lining2, 0x0000, outer)
+    }
+    // Royal Cloak.
+    capeColor(data, 0x0afb8c, 0x0afb90)
+    // Blood Cloak.
+    capeColor(data, 0x0afb9c, 0x0afba0)
+    // Joseph's Cloak.
+    randomizeJosephsCloak(data)
+    // Twilight Cloak.
+    capeColor(data, 0x0afa44, 0x0afbac)
   }
 
   function randomizeItems(data, options, info) {
