@@ -378,10 +378,6 @@
         while (foodFilter(replacement))
         const tiles = collectTiles([item], util.candleTileFilter)
         pushTile.apply(replacement, tiles)
-        while (tiles.length) {
-          let index = item.tiles.indexOf(tiles.shift())
-          item.tiles.splice(index, 1)
-        }
       })
     })
     // Randomize the rest of the candles, except for Final Stage, which
@@ -437,7 +433,9 @@
           }
           return poolItem
         }
-        return { id: 0 }
+        const poolItem = { id: 0 }
+        addon.push(poolItem)
+        return poolItem
       }
       return usableItems.pop()
     })
@@ -522,47 +520,6 @@
   }
 
   function randomizeMapItems(pool, planned, addon) {
-    // Handle wildcard placements.
-    if (typeof(planned) === 'object') {
-      Object.getOwnPropertyNames(planned).forEach(function(zone) {
-        const zoneItems = planned[zone]
-        Object.getOwnPropertyNames(zoneItems).forEach(function(itemName) {
-          if (itemName !== '*') {
-            return
-          }
-          const itemZoneNames = []
-          if (zone === '*') {
-            Array.prototype.push.apply(itemZoneNames, zoneNames)
-          } else {
-            itemZoneNames.push(zone)
-          }
-          const itemZones = itemZoneNames.map(function(zoneName) {
-            return constants.ZONE[zoneName]
-          })
-          // Collect tiles for the item.
-          const targets = items.filter(function(item) {
-            return util.nonProgressionFilter(item)
-              && util.tilesFilter(item)
-          })
-          const tiles = collectTiles(targets, function(tile) {
-            return 'zones' in tile
-              && itemZones.indexOf(tile.zones[0]) !== -1
-              && !util.rewardTileFilter(tile)
-              && !util.dropTileFilter(tile)
-          }).reverse()
-          // Replace tiles.
-          const map = zoneItems[itemName]
-          targets.forEach(function(item) {
-            const target = Object.assign({}, util.itemFromName(map['0']), {
-              tiles: item.tiles.splice(0, item.tiles.length)
-            })
-            if (addon.indexOf(target) === -1) {
-              addon.push(target)
-            }
-          })
-        })
-      })
-    }
     // Shuffle items.
     const shuffledItems = shuffled(pool)
     // Get all map tiles.
@@ -612,6 +569,57 @@
       })
     })
     util.assert.equal(shuffledTiles.length, 0)
+    // Handle planned placements.
+    if (typeof(planned) === 'object') {
+      Object.getOwnPropertyNames(planned).forEach(function(zone) {
+        const zoneItems = planned[zone]
+        Object.getOwnPropertyNames(zoneItems).forEach(function(itemName) {
+          const itemZoneNames = []
+          if (zone === '*') {
+            Array.prototype.push.apply(itemZoneNames, zoneNames)
+          } else {
+            itemZoneNames.push(zone)
+          }
+          const itemZones = itemZoneNames.map(function(zoneName) {
+            return constants.ZONE[zoneName]
+          })
+          // Collect tiles for the item.
+          const targets = items.filter(function(item) {
+            return (itemName === '*' || item.name === itemName)
+              && util.nonProgressionFilter(item)
+              && util.tilesFilter(item)
+          })
+          // Replace tiles.
+          let poolItem = util.itemFromName(zoneItems[itemName]['0'], pool)
+          if (!poolItem) {
+            const item = util.itemFromName(zoneItems[itemName]['0'])
+            poolItem = Object.assign({}, item)
+            delete poolItem.tiles
+            addon.push(poolItem)
+          }
+          poolItem.tiles = poolItem.tiles || []
+          targets.forEach(function(target) {
+            const tiles = collectTiles([target], function(tile) {
+              return 'zones' in tile
+                && itemZones.indexOf(tile.zones[0]) !== -1
+                && !util.rewardTileFilter(tile)
+                && !util.dropTileFilter(tile)
+            })
+            tiles.forEach(function(tile) {
+              pool.forEach(function(item) {
+                if (item !== poolItem && item.tiles) {
+                  const index = item.tiles.indexOf(tile)
+                  if (index !== -1) {
+                    item.tiles.splice(index, 1)
+                  }
+                }
+              })
+            })
+            pushTile.apply(poolItem, tiles)
+          })
+        })
+      })
+    }
   }
 
   function randomizeEnemyDrops(pool, addon, planned) {
@@ -660,9 +668,12 @@
     const dropItems = items.filter(function(item) {
       return util.itemTileFilter(util.dropTileFilter)(item)
         && !subweaponFilter(item)
+        && !util.itemTileFilter(function(tile) {
+          return tile.librarian
+        })
     })
     const tileItems = dropItems.map(cloneTilesMap(function(tile) {
-      return util.dropTileFilter(tile)
+      return util.dropTileFilter(tile) && !tile.librarian
     }))
     // Create filter that ensures enemies don't drop the same item twice.
     const drops = {}
@@ -733,85 +744,92 @@
     // Place planned drops.
     if (planned) {
       Object.getOwnPropertyNames(planned).forEach(function(key) {
+        // Get enemies being targeted.
         let targets
         if (key === '*') {
-          targets = enemies
+          targets = enemies.concat([{librarian: true}])
+        } else if (key.toLowerCase() === 'librarian') {
+          targets = [{librarian: true}]
         } else {
-          targets = util.enemyFromIdString(key)
+          targets = [util.enemyFromIdString(key)]
         }
-        const targetIds = targets.map(function(target) {
-          return target.id
-        })
-        const matches = items.filter(util.itemTileFilter(function(tile) {
-          return targetIds.indexOf(tile.enemy) !== -1
-        }))
-        let tiles
-        if (matches.length > 0) {
-          tiles = matches.reduce(function(tiles, item) {
-            const indexes = item.tiles.reduce(function(indexes, tile, index) {
-              if (targetIds.indexOf(tile.enemy) !== -1) {
-                indexes.push(index)
+        targets.forEach(function(target) {
+          const matches = items.filter(util.itemTileFilter(function(tile) {
+            if (target.librarian) {
+              return tile.librarian
+            }
+            return target.id === tile.enemy
+          }))
+          // Get drop tiles for targeted enemies.
+          let tiles
+          if (matches.length > 0) {
+            tiles = matches.reduce(function(tiles, item) {
+              const enemyTiles = item.tiles.filter(function(tile) {
+                if (target.librarian) {
+                  return tile.librarian
+                }
+                return !tile.noOffset && target.id === tile.enemy
+              })
+              Array.prototype.push.apply(tiles, enemyTiles)
+              return tiles
+            }, []).sort(function(a, b) {
+              if ('addresses' in a) {
+                a = a.addresses[0]
+              } else if ('index' in a) {
+                const zone = zones[a.zones[0]]
+                const offset = zone.items + 0x02 * a.index
+                a = util.romOffset(zone, offset)
               }
-              return indexes
-            }, []).reverse()
-            indexes.forEach(function(index) {
-              Array.prototype.push.apply(tiles, item.tiles.splice(index, 1))
+              if ('addresses' in b) {
+                b = b.addresses[0]
+              } else if ('index' in b) {
+                const zone = zones[b.zones[0]]
+                const offset = zone.items + 0x02 * b.index
+                b = util.romOffset(zone, offset)
+              }
+              return a - b
             })
-            return tiles
-          }, []).sort(function(a, b) {
-            if ('addresses' in a) {
-              a = a.addresses[0]
-            } else if ('index' in a) {
-              const zone = zones[a.zones[0]]
-              const offset = zone.items + 0x2 * a.index
-              a = util.romOffset(zone, offset)
-            }
-            if ('addresses' in b) {
-              b = b.addresses[0]
-            } else if ('index' in b) {
-              const zone = zones[b.zones[0]]
-              const ofset = zone.items + 0x2 * b.index
-              b = util.romOffset(zone, offset)
-            }
-            return a - b
-          })
-        } else {
-          tiles = targets.reduce(function(tiles, enemy) {
-            const enemyTiles = enemy.dropAddresses.map(function(address) {
+          } else {
+            // If the targeted enemy doesn't have drops, create tiles for them.
+            tiles = target.dropAddresses.map(function(address) {
               return {
                 addresses: [address],
-                enemy: enemy.id,
+                enemy: target.id,
               }
             })
-            Array.prototype.push.apply(tiles, enemyTiles)
-            return tiles
-          }, [])
-        }
-        if (planned[key].length) {
-          planned[key].forEach(function(itemName) {
-            const item = util.itemFromName(itemName)
-            const tile = tiles.shift()
-            if (item) {
+          }
+          // Remove collected tiles from the pool.
+          tiles.forEach(function(tile) {
+            pool.forEach(function(item) {
+              if (item.tiles) {
+                const index = item.tiles.indexOf(tile)
+                if (index !== -1) {
+                  item.tiles.splice(index, 1)
+                }
+              }
+            })
+          })
+          // Replace tiles with items.
+          const drops = planned[key] || [undefined, undefined]
+          drops.forEach(function(itemName) {
+            if (itemName) {
+              const item = util.itemFromName(itemName)
               let target = pool.filter(function(drop) {
                 return drop.id === item.id && drop.type === item.type
               })[0]
               if (!target) {
                 target = Object.assign({}, util.itemFromName(item))
+                delete target.tiles
                 addon.push(target)
               }
-              pushTile.call(target, tile)
+              pushTile.apply(target, tiles)
+            } else {
+              const item = {id: 0}
+              addon.push(item)
+              pushTile.apply(item, tiles)
             }
           })
-        } else {
-          tiles.forEach(function(tile) {
-            const target = {
-              name: 'nothing',
-              id: 0,
-            }
-            addon.push(target)
-            pushTile.call(target, tile)
-          })
-        }
+        })
       })
     }
     // The required Short Sword and Red Rust drops were ignored.
@@ -827,11 +845,16 @@
       const replacement = (addon || []).concat(pool).filter(function(item) {
         return item.tiles && item.tiles.indexOf(offsetTile) !== -1
       })[0]
-      if (replacement) {
-        if (replacement.id === 0) {
-          throw new Error('Cannot drop item: ' + replacement.name)
+      pool.forEach(function(item) {
+        if (item.tiles) {
+          const index = item.tiles.indexOf(noOffsetTile)
+          if (index !== -1) {
+            item.tiles.splice(index, 1)
+          }
         }
-        replacement.tiles.push(tiles[0])
+      })
+      if (replacement) {
+        pushTile.call(replacement, noOffsetTile)
       }
     }
     pushReplacement('Short Sword')
@@ -841,7 +864,10 @@
       let count
       do {
         count = pool.filter(function(item) { return item === dupped }).length
-        pool.splice(pool.indexOf(dupped), 1)
+        const index = pool.indexOf(dupped)
+        if (index !== -1) {
+          pool.splice(index, 1)
+        }
       } while (--count > 1)
     })
   }
@@ -871,8 +897,8 @@
     data.writeWord(address, 0x0803924f)
   }
 
-  function randomizeItems(data, options, planned, info) {
-    const addon = planned.addon
+  function randomizeItems(data, options, info) {
+    const addon = []
     let pool
     if (options.startingEquipment) {
       // Randomize starting equipment.
@@ -897,7 +923,6 @@
               && (util.itemTileFilter(util.mapTileFilter)(item)
                   || util.itemTileFilter(util.shopTileFilter)(item)
                   || util.itemTileFilter(util.candleTileFilter)(item)
-                  || util.itemTileFilter(util.librarianDropTileFilter)(item)
                   || util.itemTileFilter(util.tankTileFilter)(item))) {
             return true
           }
@@ -970,7 +995,6 @@
   }
 
   function placePlannedItems(options) {
-    const addon = []
     const removed = []
     if (typeof(options.itemLocations) === 'object') {
       const planned = options.itemLocations
@@ -981,6 +1005,12 @@
             return
           }
           const item = util.itemFromName(itemName)
+          if (util.nonProgressionFilter(item)) {
+            return
+          }
+          if (removed.indexOf(item) === -1) {
+            removed.push(item)
+          }
           const itemZoneNames = []
           if (zone === '*') {
             Array.prototype.push.apply(itemZoneNames, zoneNames)
@@ -991,9 +1021,6 @@
             return constants.ZONE[zoneName]
           })
           // Collect tiles for the item.
-          if (item.progression && removed.indexOf(item) === -1) {
-            removed.push(item)
-          }
           const tiles = collectTiles([item], function(tile) {
             return 'zones' in tile
               && itemZones.indexOf(tile.zones[0]) !== -1
@@ -1008,15 +1035,11 @@
             const target = Object.assign({}, util.itemFromName(map[index]), {
               tiles: item.tiles.splice(tileIndex, 1)
             })
-            addon.push(target)
           })
         })
       })
     }
-    return {
-      addon: addon,
-      removed: removed,
-    }
+    return removed
   }
 
   const exports = {

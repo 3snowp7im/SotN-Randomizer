@@ -23,6 +23,7 @@
     util = require('../util')
   }
   const PresetBuilder = util.PresetBuilder
+  const ZONE = constants.ZONE
   const SLOT = constants.SLOT
   const RELIC = constants.RELIC
   const LOCATION = constants.LOCATION
@@ -32,6 +33,13 @@
 
   // Disable items.
   builder.itemLocations('*', '*', 'Heart')
+
+  // Restore subweapons and big hearts in prologue.
+  builder.itemLocations(ZONE.ST0, 'Cross', 'Cross')
+  builder.itemLocations(ZONE.ST0, 'Holy Water', 'Holy Water')
+  builder.itemLocations(ZONE.ST0, 'Big heart', 1, 'Big heart')
+  builder.itemLocations(ZONE.ST0, 'Big heart', 2, 'Big heart')
+  builder.itemLocations(ZONE.ST0, 'Big heart', 3, 'Big heart')
 
   // Disable drops.
   builder.enemyDrops('*', undefined, undefined)

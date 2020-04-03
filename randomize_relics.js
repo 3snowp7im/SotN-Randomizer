@@ -25,6 +25,8 @@
     util = require('./util')
   }
 
+  const MAX_ATTEMPTS = 262144
+
   function getRandomZoneItem(zones, pool) {
     // Collect ids of items that can be replaced for location extension.
     const extensionIds = pool.filter(function(location) {
@@ -152,7 +154,9 @@
               const tile = location.tile
               writeTileId(data, tile.zones, tile.index, relic.itemId)
               const tileIndex = location.item.tiles.indexOf(tile)
-              location.item.tiles.splice(tileIndex, 1)
+              if (tileIndex !== -1) {
+                location.item.tiles.splice(tileIndex, 1)
+              }
             }
             if ('ids' in location) {
               writeIds(data, location.ids, item.id)
@@ -174,7 +178,9 @@
           if ('tileIndex' in location) {
             const tile = location.tile
             const tileIndex = location.item.tiles.indexOf(tile)
-            location.item.tiles.splice(tileIndex, 1)
+            if (tileIndex !== -1) {
+              location.item.tiles.splice(tileIndex, 1)
+            }
           }
         }
       } else if (item) {
@@ -195,7 +201,9 @@
           index = tileItem.tile.index
           // Remove the tile from the replaced item's tile collection.
           const tileIndex = tileItem.item.tiles.indexOf(tileItem.tile)
-          tileItem.item.tiles.splice(tileIndex, 1)
+          if (tileIndex !== -1) {
+            tileItem.item.tiles.splice(tileIndex, 1)
+          }
           // Erase the replaced item's entity.
           writeEntity(data, tileItem.tile, Object.assign({id: 0x000f}))
           // Write id in item table.
@@ -594,9 +602,7 @@
     return solutions.reduce(lockDepth, 0)
   }
 
-  function getMapping(options, planned) {
-    planned = planned || {}
-    planned.removed = planned.removed || []
+  function getMapping(options, removed) {
     // Initialize location locks.
     const locksMap = {}
     if (typeof(options.relicLocations) === 'object') {
@@ -664,7 +670,7 @@
       }
     })
     // Filter out any progression items that have been placed by a preset.
-    const removedIds = planned.removed.map(function(item) {
+    const removedIds = removed.map(function(item) {
       return item.id
     })
     locations = locations.filter(function(location) {
@@ -694,7 +700,7 @@
     // Attempt to place all relics.
     let attempts = 0
     let result
-    while (attempts++ < 4096) {
+    while (attempts++ < MAX_ATTEMPTS) {
       // Get new locations pool.
       pool.locations = util.shuffled(locations)
       while (pool.locations.length > pool.relics.length) {
@@ -744,10 +750,10 @@
     }
   }
 
-  function randomizeRelics(data, options, planned, info) {
+  function randomizeRelics(data, options, removed, info) {
     if (options.relicLocations) {
       // Get random relic placements.
-      const result = getMapping(options, planned)
+      const result = getMapping(options, removed)
       // Write data to ROM.
       writeMapping(data, result.mapping, result.locations)
       // Write spoilers.

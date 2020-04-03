@@ -34,9 +34,9 @@ function randomizeWorker() {
         data.seed,
       ))
       const options = self.sotnRando.util.Preset.options(data.options)
-      const planned = randomizeItems.placePlannedItems(options)
-      randomizeRelics.randomizeRelics(check, options, planned, data.info)
-      randomizeItems.randomizeItems(check, options, planned, data.info)
+      const removed = randomizeItems.placePlannedItems(options)
+      randomizeRelics.randomizeRelics(check, options, removed, data.info)
+      randomizeItems.randomizeItems(check, options, data.info)
       self.sotnRando.util.setSeedText(check, data.seed)
       const checksum = check.sum()
       if (data.checksum && data.checksum !== checksum) {

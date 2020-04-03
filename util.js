@@ -76,12 +76,8 @@
     return tile.shop
   }
 
-  function librarianDropTileFilter(tile) {
-    return tile.librarian
-  }
-
   function dropTileFilter(tile) {
-    return typeof(tile.enemy) !== 'undefined'
+    return 'enemy' in tile || tile.librarian
   }
 
   function rewardTileFilter(tile) {
@@ -102,7 +98,6 @@
       && !rewardTileFilter(tile)
       && !candleTileFilter(tile)
       && !dropTileFilter(tile)
-      && !librarianDropTileFilter(tile)
   }
 
   function nonProgressionFilter(item) {
@@ -132,8 +127,9 @@
     ].indexOf(item.type) !== -1
   }
 
-  function itemFromName(name) {
-    return items.filter(function(item) {
+  function itemFromName(name, from) {
+    from = from || items
+    return from.filter(function(item) {
       return item.name === name
     })[0]
   }
@@ -2589,7 +2585,6 @@
   const exports = {
     assert: assert,
     shopTileFilter: shopTileFilter,
-    librarianDropTileFilter: librarianDropTileFilter,
     dropTileFilter: dropTileFilter,
     rewardTileFilter: rewardTileFilter,
     candleTileFilter: candleTileFilter,
