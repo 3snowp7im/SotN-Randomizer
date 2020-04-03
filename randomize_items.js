@@ -668,9 +668,7 @@
     const dropItems = items.filter(function(item) {
       return util.itemTileFilter(util.dropTileFilter)(item)
         && !subweaponFilter(item)
-        && !util.itemTileFilter(function(tile) {
-          return tile.librarian
-        })
+        && util.itemTileFilter(function(tile) { return !tile.librarian })(item)
     })
     const tileItems = dropItems.map(cloneTilesMap(function(tile) {
       return util.dropTileFilter(tile) && !tile.librarian
