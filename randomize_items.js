@@ -890,16 +890,16 @@
     outerColor1,
     outerColor2,
   ) {
-    if (typeof(liningColor1) === 'undefined') {
+    if (liningColor1 === undefined || liningColor1 === null) {
       liningColor1 = randomColor()
     }
-    if (typeof(liningColor2) === 'undefined') {
+    if (liningColor2 === undefined || liningColor2 === null) {
       liningColor2 = randomColor()
     }
-    if (typeof(outerColor1) === 'undefined') {
+    if (outerColor1 === undefined || outerColor1 === null) {
       outerColor1 = randomColor()
     }
-    if (typeof(outerColor2) === 'undefined') {
+    if (outerColor2 === undefined || outerColor2 === null) {
       outerColor2 = randomColor()
     }
     data.writeShort(liningAddress + 0x00, liningColor1)
@@ -948,12 +948,7 @@
     // Elven Cloak.
     capeColor(data, 0x0afb94, 0x0afb98)
     // Crystal Cloak.
-    {
-      const lining1 = randomColor()
-      const lining2 = randomColor()
-      const outer = randomColor()
-      capeColor(data, 0x0afba4, 0x0afba8, lining1, lining2, 0x0000, outer)
-    }
+    capeColor(data, 0x0afba4, 0x0afba8, null, null, 0x0000, null)
     // Royal Cloak.
     capeColor(data, 0x0afb8c, 0x0afb90)
     // Blood Cloak.
