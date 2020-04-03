@@ -54,7 +54,7 @@
   }, {
     name: LOCATION.JEWEL_SWORD,
     extension: EXTENSION.EQUIPMENT,
-    itemId: 109, // Actually life apple because it's on the pedestal.
+    itemId: 146, // Actually life apple because it's on the pedestal.
     tileIndex: 0,
     asRelic: {
       y: 0x0090,
