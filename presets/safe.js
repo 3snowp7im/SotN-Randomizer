@@ -6,7 +6,7 @@
     name: 'Safe',
     description: 'Requires no speedrun or glitch knowledge for completion.',
     author: '3snow_p7im, setz, and soba',
-    weight: -300,
+    weight: -400,
   }
 
   // Boilerplate.

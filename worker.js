@@ -14,6 +14,7 @@ function randomizeWorker() {
       url + "presets/casual.js",
       url + "presets/safe.js",
       url + "presets/adventure.js",
+      url + "presets/speedrun.js",
       url + "presets/glitch.js",
       url + "presets/glitch-hard.js",
       url + "presets/balance.js",

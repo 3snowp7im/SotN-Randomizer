@@ -6,7 +6,7 @@
     name: 'Adventure',
     description: 'Requires extensive map coverage.',
     author: '3snow_p7im',
-    weight: -200,
+    weight: -300,
   }
 
   // Boilerplate.

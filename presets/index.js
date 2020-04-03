@@ -8,6 +8,7 @@
       require('./casual'),
       require('./safe'),
       require('./adventure'),
+      require('./speedrun'),
       require('./glitch'),
       require('./glitch-hard'),
       require('./balance'),
