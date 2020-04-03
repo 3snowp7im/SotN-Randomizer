@@ -702,7 +702,10 @@
         addresses: [ 0x059ee594 ],
         instruction: 0x34020000,
       }, {
-        addresses: [ 0x059ee2f0 ],
+        addresses: [ 0x059ee2d0 ],
+        instruction: 0x34020000,
+      }, {
+        addresses: [ 0x059ee2d4 ],
         instruction: 0x00000000,
       }],
     },

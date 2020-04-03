@@ -111,7 +111,6 @@
     const locations = Object.getOwnPropertyNames(mapping).map(function(key) {
       return mapping[key].ability
     })
-    // Keep track of zones where relics got replaced by an item.
     const zoneRemovedItems = {}
     relics.forEach(function(location) {
       if (locations.indexOf(location.ability) === -1) {
