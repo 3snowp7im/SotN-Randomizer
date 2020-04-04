@@ -98,7 +98,7 @@
   ])
 
   // Goggles requires Jewel of Open or at least Leap Stone.
-  builder.lockLocation(LOCATION.MORNING_STAR, [
+  builder.lockLocation(LOCATION.GOGGLES, [
     RELIC.JEWEL_OF_OPEN,
     RELIC.SOUL_OF_BAT,
     RELIC.LEAP_STONE,
