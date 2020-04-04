@@ -722,8 +722,6 @@
         } else {
           throw result.error
         }
-      } else {
-        pool.relics = util.shuffled(relics)
       }
       // Get progression complexity.
       if (typeof(target) !== 'undefined') {
@@ -734,13 +732,10 @@
         if (highDepth === undefined || depth > highDepth) {
           highDepth = depth
         }
-        if (!Number.isNaN(target.min)
-            && depth < target.min) {
-          result.error = new errors.ComplexityError(lowDepth, highDepth)
-          continue
-        }
-        if ('max' in target
-            && depth > target.max) {
+        // If the complexity target is not met, reshuffle the relics.
+        if ((!Number.isNaN(target.min) && depth < target.min)
+            || ('max' in target && depth > target.max)) {
+          pool.relics = util.shuffled(relics)
           result.error = new errors.ComplexityError(lowDepth, highDepth)
           continue
         }
