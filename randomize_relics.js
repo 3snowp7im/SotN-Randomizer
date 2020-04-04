@@ -25,7 +25,7 @@
     util = require('./util')
   }
 
-  const MAX_ATTEMPTS = 16384
+  const MAX_ATTEMPTS = 262144
 
   function getRandomZoneItem(zones, pool) {
     // Collect ids of items that can be replaced for location extension.
@@ -678,23 +678,24 @@
     relics = relics.filter(function(relic) {
       return removedIds.indexOf(relic.itemId) === -1
     })
+    // Consolidate location types into a standard format.
+    locations = locations.map(function(location) {
+      let id
+      if ('ability' in location) {
+        id = location.ability
+      } else if ('name' in location) {
+        id = location.name
+      }
+      return Object.assign({
+        id: id,
+        locks: location.locks.map(function(lock) {
+          return new Set(lock)
+        }),
+      }, location)
+    })
     // Create a context that holds the current relic and location pools.
     const pool = {
       relics: util.shuffled(relics),
-      locations: locations.map(function(location) {
-        let id
-        if ('ability' in location) {
-          id = location.ability
-        } else if ('name' in location) {
-          id = location.name
-        }
-        return Object.assign({
-          id: id,
-          locks: location.locks.map(function(lock) {
-            return new Set(lock)
-          }),
-        }, location)
-      }),
     }
     // Attempt to place all relics.
     let attempts = 0
@@ -721,6 +722,8 @@
         } else {
           throw result.error
         }
+      } else {
+        pool.relics = util.shuffled(relics)
       }
       // Get progression complexity.
       if (typeof(target) !== 'undefined') {
