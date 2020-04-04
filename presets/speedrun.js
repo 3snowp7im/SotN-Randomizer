@@ -5,7 +5,7 @@
     id: 'speedrun',
     name: 'Speedrun',
     description: [
-      'Requires knowledge of movement mechanics used in glitchess speedruns.',
+      'Requires knowledge of movement mechanics used in glitchless speedruns.',
     ].join(' '),
     author: '3snow_p7im',
     weight: -100,
