@@ -25,7 +25,7 @@
     util = require('./util')
   }
 
-  const MAX_ATTEMPTS = 262144
+  const MAX_ATTEMPTS = 16384
 
   function getRandomZoneItem(zones, pool) {
     // Collect ids of items that can be replaced for location extension.
@@ -699,6 +699,8 @@
     // Attempt to place all relics.
     let attempts = 0
     let result
+    let lowDepth
+    let highDepth
     while (attempts++ < MAX_ATTEMPTS) {
       // Get new locations pool.
       pool.locations = util.shuffled(locations)
@@ -723,12 +725,20 @@
       // Get progression complexity.
       if (typeof(target) !== 'undefined') {
         const depth = complexity(result, goal)
+        if (lowDepth === undefined || depth < lowDepth) {
+          lowDepth = depth
+        }
+        if (highDepth === undefined || depth > highDepth) {
+          highDepth = depth
+        }
         if (!Number.isNaN(target.min)
             && depth < target.min) {
+          result.error = new errors.ComplexityError(lowDepth, highDepth)
           continue
         }
         if ('max' in target
             && depth > target.max) {
+          result.error = new errors.ComplexityError(lowDepth, highDepth)
           continue
         }
       }

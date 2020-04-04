@@ -32,6 +32,16 @@
   // Enable equipment relic location extension.
   builder.relicLocationsExtension(EXTENSION.EQUIPMENT)
 
+  // Game completion requires Holy Glasses + Vlad Relics.
+  builder.complexityGoal(4, [
+    RELIC.HOLY_GLASSES
+      + RELIC.HEART_OF_VLAD
+      + RELIC.TOOTH_OF_VLAD
+      + RELIC.RIB_OF_VLAD
+      + RELIC.RING_OF_VLAD
+      + RELIC.EYE_OF_VLAD,
+  ])
+
   // Export.
   const preset = builder.build()
   if (self) {
