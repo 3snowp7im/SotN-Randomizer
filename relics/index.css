@@ -1,10 +1,16 @@
 body {
     text-align: center;
+    margin: 0;
 }
 
 #content {
     display: table;
     margin: auto;
+    border-collapse: collapse;
+}
+
+.empty {
+    border: none !important;
 }
 
 .row {
@@ -14,10 +20,19 @@ body {
 .row div {
     display: table-cell;
     border: 1px solid black;
+    vertical-align: middle;
 }
 
 .row .col-header, .row .row-header {
-    font-size: small;
+    font-size: x-small;
+}
+
+.row .col-header {
+    border-top: none;
+}
+
+.row .row-header {
+    border-left: none;
 }
 
 .row div.zero {
@@ -45,10 +60,13 @@ body {
 }
 
 #meter {
-    width: 50%;
     padding: 3px;
     border: 1px #000 solid;
-    margin: 2em auto;
+    position: absolute;
+    margin-top: -.5em;
+    top: 50%;
+    left: 25%;
+    right: 25%;
 }
 
 #progress {

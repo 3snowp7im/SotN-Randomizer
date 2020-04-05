@@ -1,10 +1,10 @@
-const relics = window.sotnRando.relics
 const searchParams = new URLSearchParams(window.location.search)
 const runs = parseInt(searchParams.get('runs'), 10) || 1000
 const defaultOptions = window.sotnRando.constants.defaultOptions
 const options = searchParams.get('options') || defaultOptions
 const threads = window.navigator.hardwareConcurrency
 let locations
+let relics
 
 const totals = {}
 let completed = 0
@@ -13,15 +13,16 @@ let running = 0
 const progress = document.getElementById('progress')
 
 function handleMessage(message) {
+  const result = message.data
+  if (completed === 0) {
+    relics = result.relics
+    locations = result.locations
+  }
   running--
   completed++
   progress.style.width = (100 * (completed / runs)) + '%'
-  const result = message.data
   if (result.error) {
     throw result.error
-  }
-  if (!locations) {
-    locations = result.locations
   }
   Object.getOwnPropertyNames(result.mapping).forEach(function(ability) {
     const location = result.mapping[ability]
@@ -58,7 +59,10 @@ function render() {
   const row = document.createElement('div')
   row.className = 'row'
 
-  row.appendChild(document.createElement('div'))
+  const empty = document.createElement('div')
+  empty.className = 'empty'
+  row.appendChild(empty)
+
   relics.forEach(function(relic) {
     const cell = document.createElement('div')
     cell.textContent = relic.name

@@ -20,15 +20,23 @@ self.addEventListener('message', function(message) {
   try {
     // Get random relic placement.
     result = getMapping(options)
-    // Clean up the relics so they ca nbe serialized.
+    // Clean up the relics so they can be serialized.
     Object.getOwnPropertyNames(result.mapping).forEach(function(location) {
       const relic = result.mapping[location]
       delete relic.replaceWithItem
       delete relic.replaceWithRelic
     })
-    result.locations.forEach(function(location) {
-      delete location.replaceWithItem
-      delete location.replaceWithRelic
+    result.relics = result.relics.map(function(relic) {
+      return Object.assign({}, relic, {
+        replaceWithItem: undefined,
+        replaceWithRelic: undefined,
+      })
+    })
+    result.locations = result.locations.map(function(location) {
+      return Object.assign({}, location, {
+        replaceWithItem: undefined,
+        replaceWithRelic: undefined,
+      })
     })
     result.id = message.data.id
   } catch (err) {

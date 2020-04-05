@@ -558,6 +558,9 @@
   }
 
   function getMapping(options, removed) {
+    if (removed === undefined) {
+      removed = []
+    }
     // Initialize location locks.
     const locksMap = {}
     if (typeof(options.relicLocations) === 'object') {
