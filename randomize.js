@@ -203,6 +203,8 @@ const relicsHelp = [
   '  (' + constants.RELIC.FAERIE_CARD + ') Faerie Card',
   '  (' + constants.RELIC.DEMON_CARD + ') Demon Card',
   '  (' + constants.RELIC.SWORD_CARD + ') Sword Card',
+  '  (' + constants.RELIC.SPRITE_CARD + ') Sprite Card',
+  '  (' + constants.RELIC.NOSEDEVIL_CARD + ') Nosedevil Card',
   '  (' + constants.RELIC.HEART_OF_VLAD + ') Heart of Vlad',
   '  (' + constants.RELIC.TOOTH_OF_VLAD + ') Tooth of Vlad',
   '  (' + constants.RELIC.RIB_OF_VLAD + ') Rib of Vlad',
@@ -256,7 +258,9 @@ const presetHelp = [
 
 function presetMetaHelp(preset) {
   const options = preset.options()
-  let locations = relics
+  let locations = relics.filter(function(relic) {
+    return !relic.extension
+  })
   const extensions = []
   switch (options.relicLocationsExtension) {
   case constants.EXTENSION.EQUIPMENT:

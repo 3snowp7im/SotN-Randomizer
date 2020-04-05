@@ -6,6 +6,7 @@
   } else {
     constants = require('./constants')
   }
+  const EXTENSION = constants.EXTENSION
   const RELIC = constants.RELIC
   const TYPE = constants.TYPE
   const ZONE = constants.ZONE
@@ -620,6 +621,16 @@
     asItem: {
       y: 0x009c,
     },
+  }, {
+    name: 'Sprite Card',
+    ability: RELIC.SPRITE_CARD,
+    relicId: 23,
+    extension: EXTENSION.GUARDED,
+  }, {
+    name: 'Nosedevil Card',
+    ability: RELIC.NOSEDEVIL_CARD,
+    relicId: 24,
+    extension: EXTENSION.GUARDED,
   }, {
     name: 'Heart of Vlad',
     ability: RELIC.HEART_OF_VLAD,

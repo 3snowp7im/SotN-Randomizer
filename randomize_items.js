@@ -918,8 +918,8 @@
       Math.floor(Math.random() * 32),
     ]
     // Write the jump to injected code.
-    const romAddress = 0x158f18
-    const ramAddress = 0x136e80
+    const romAddress = 0x158c98
+    const ramAddress = 0x136c00
     data.writeWord(0x0fa97c, 0x0c000000 + (ramAddress >> 2))
     // Write the color setting instructions.
     let address = romAddress
