@@ -395,6 +395,244 @@
     }
   }
 
+  function patchAlchemyLabCutscene(data) {
+    // Entering the room between jewel door and red door in alchemy lab
+    // triggers a cutscene with Maria. The game will softlock if the player
+    // enters alchemy lab through the red door in chapel before fighting
+    // hippogryph. This can only happen if the player has access to olrox
+    // quarters without soul of bat, which isn't possible in the vanilla
+    // game without a speedrun trick. In a randomized relic run, however,
+    // it is possible to have early movement options that trigger this
+    // softlock for unwitting players. To be safe, disable the cutscene
+    // from ever taking place.
+    // The flag that gets set after the maria cutscene is @ 0x03be71.
+    // The instruction that checks that flag is:
+    // 0x54f0f44:    bne r2, r0, 0x1b8a58    144002da
+    // Change the instruction so it always branches:
+    // 0x54f0f44:    beq r0, r0, 0x1b8a58    100002da
+    data.writeShort(0x054f0f44 + 2, 0x1000)
+  }
+
+  function patchClockRoomCutscene(data) {
+    // Entering the clock room for the first time triggers a cutscene with
+    // Maria. The cutscene takes place in a separately loaded room that
+    // does not connect to the rest of the castle through the statue doors
+    // or the vertical climb to gravity boots. If the player has early
+    // movement options, they may attempt to leave the room through one of
+    // these top exits but find themselves blocked, with the only option
+    // being to reload the room through the left or right exit first. To
+    // make it more convenient and less confusing, disable the cutscene
+    // from ever taking place.
+    // The specific room has a time attack entry that needs to be zeroed
+    // out.
+    data.writeChar(0x0aeaa0, 0x00)
+    // The time attack check occurs in Richter mode too, but the game gets
+    // around this by writing the seconds elapsed between pressing Start on
+    // the main screen and on the name entry screen to the time attack
+    // table for events that aren't in Richter mode.
+    // Zero out the time attack entry for the clock room, or Richter will
+    // load the cutscene version every time he enters.
+    data.writeChar(0x119af4, 0x00)
+  }
+
+  function patchRelicsMenu(data) {
+    // If relic locations are extended, the relic pool is padded out with the
+    // familiars disabled in the NTSC-U release. To make them usable, they will
+    // override their remaining counterparts in the menu if they have been
+    // collected.
+    // First, the menu code must be patched to reveal the state of the new
+    // familiars.
+    const romAddress = 0x158d18
+    const ramAddress = 0x136c80
+    const size = 4 * 0x20
+    let offset
+    // Patch menu code that draws the relic label.
+    data.writeWord(0x10e5b0, 0x08000000 + ((ramAddress + 0 * size) >> 2))
+    offset = romAddress + 0 * size
+    offset = data.writeWord(offset, 0x24090014) // addiu t1, r0, 0x0014
+    offset = data.writeWord(offset, 0x12290004) // beq s1, t1, pc + 0x14
+    offset = data.writeWord(offset, 0x00000000) // nop
+    offset = data.writeWord(offset, 0x24090015) // addiu t1, r0, 0x0015
+    offset = data.writeWord(offset, 0x16290015) // bne s1, t1, pc + 0x58
+    offset = data.writeWord(offset, 0x00000000) // nop
+    offset = data.writeWord(offset, 0x92830003) // lbu v1, 0x0003 (s4)
+    offset = data.writeWord(offset, 0x00000000) // nop
+    offset = data.writeWord(offset, 0x30690001) // andi t1, v1, 0x0001
+    offset = data.writeWord(offset, 0x29290001) // slti t1, t1, 0x0001
+    offset = data.writeWord(offset, 0x1520000f) // bne t1, r0, pc + 0x40
+    offset = data.writeWord(offset, 0x00000000) // nop
+    offset = data.writeWord(offset, 0x28690003) // slti t1, v1, 0x0003
+    offset = data.writeWord(offset, 0x15200003) // bne t1, r0, pc + 0x10
+    offset = data.writeWord(offset, 0x00000000) // nop
+    offset = data.writeWord(offset, 0x0803d7e0) // j 0x800f5f80
+    offset = data.writeWord(offset, 0x00000000) // nop
+    offset = data.writeWord(offset, 0x92830000) // lbu v1, 0x0000 (s4)
+    offset = data.writeWord(offset, 0x00000000) // nop
+    offset = data.writeWord(offset, 0x30690001) // andi t1, v1, 0x0001
+    offset = data.writeWord(offset, 0x29290001) // slti t1, t1, 0x0001
+    offset = data.writeWord(offset, 0x11200002) // beq t1, r0, pc + 0x0c
+    offset = data.writeWord(offset, 0x00000000) // nop
+    offset = data.writeWord(offset, 0x24030001) // addiu v1, r0, 0x0001
+    offset = data.writeWord(offset, 0x0803d7e0) // j 0x800f5f80
+    offset = data.writeWord(offset, 0x00000000) // nop
+    offset = data.writeWord(offset, 0x92830000) // lbu v1, 0x0000 (s4)
+    offset = data.writeWord(offset, 0x0803d7e0) // j 0x800f5f80
+    offset = data.writeWord(offset, 0x00000000) // nop
+    // Patch the menu code that toggles the on/off state of the familiar.
+    data.writeWord(0x10e7d8, 0x08000000 + ((ramAddress + 1 * size) >> 2))
+    offset = romAddress + 1 * size
+    offset = data.writeWord(offset, 0x24090014) // addiu t1, r0, 0x0014
+    offset = data.writeWord(offset, 0x12290004) // beq s1, t1, pc + 0x14
+    offset = data.writeWord(offset, 0x00000000) // nop
+    offset = data.writeWord(offset, 0x24090015) // addiu t1, r0, 0x0015
+    offset = data.writeWord(offset, 0x16290015) // bne s1, t1, pc + 0x58
+    offset = data.writeWord(offset, 0x00000000) // nop
+    offset = data.writeWord(offset, 0x92820003) // lbu v0, 0x0003 (s4)
+    offset = data.writeWord(offset, 0x00000000) // nop
+    offset = data.writeWord(offset, 0x30490001) // andi t1, v0, 0x0001
+    offset = data.writeWord(offset, 0x29290001) // slti t1, t1, 0x0001
+    offset = data.writeWord(offset, 0x1520000f) // bne t1, r0, pc + 0x40
+    offset = data.writeWord(offset, 0x00000000) // nop
+    offset = data.writeWord(offset, 0x2c490003) // slti t1, v0, 0x0003
+    offset = data.writeWord(offset, 0x15200003) // bne t1, r0, pc + 0x10
+    offset = data.writeWord(offset, 0x00000000) // nop
+    offset = data.writeWord(offset, 0x0803d81e) // j 0x800f6078
+    offset = data.writeWord(offset, 0x00000000) // nop
+    offset = data.writeWord(offset, 0x92820000) // lbu v0, 0x0000 (s4)
+    offset = data.writeWord(offset, 0x00000000) // nop
+    offset = data.writeWord(offset, 0x30490001) // andi t1, v0, 0x0001
+    offset = data.writeWord(offset, 0x29290001) // slti t1, t1, 0x0001
+    offset = data.writeWord(offset, 0x11200002) // beq t1, r0, pc + 0x0c
+    offset = data.writeWord(offset, 0x00000000) // nop
+    offset = data.writeWord(offset, 0x24020001) // addiu v0, r0, 0x0001
+    offset = data.writeWord(offset, 0x0803d81e) // j 0x800f6078
+    offset = data.writeWord(offset, 0x00000000) // nop
+    offset = data.writeWord(offset, 0x92820000) // lbu v0, 0x0000 (s4)
+    offset = data.writeWord(offset, 0x0803d81e) // j 0x800f6078
+    offset = data.writeWord(offset, 0x00000000) // nop
+    // Patch the menu code that draws the relic icon.
+    data.writeWord(0x11625c, 0x08000000 + ((ramAddress + 2 * size) >> 2))
+    offset = romAddress + 2 * size
+    offset = data.writeWord(offset, 0x24090014) // addiu t1, r0, 0x0014
+    offset = data.writeWord(offset, 0x12290004) // beq s1, t1, pc + 0x14
+    offset = data.writeWord(offset, 0x00000000) // nop
+    offset = data.writeWord(offset, 0x24090015) // addiu t1, r0, 0x0015
+    offset = data.writeWord(offset, 0x16290015) // bne s1, t1, pc + 0x58
+    offset = data.writeWord(offset, 0x00000000) // nop
+    offset = data.writeWord(offset, 0x90227967) // lbu v0, 0x7967 (at)
+    offset = data.writeWord(offset, 0x00000000) // nop
+    offset = data.writeWord(offset, 0x30490001) // andi t1, v0, 0x0001
+    offset = data.writeWord(offset, 0x29290001) // slti t1, t1, 0x0001
+    offset = data.writeWord(offset, 0x1520000f) // bne t1, r0, pc + 0x40
+    offset = data.writeWord(offset, 0x00000000) // nop
+    offset = data.writeWord(offset, 0x2c490003) // slti t1, v0, 0x0003
+    offset = data.writeWord(offset, 0x15200003) // bne t1, r0, pc + 0x10
+    offset = data.writeWord(offset, 0x00000000) // nop
+    offset = data.writeWord(offset, 0x0803f2e3) // j 0x800fcb8c
+    offset = data.writeWord(offset, 0x00000000) // nop
+    offset = data.writeWord(offset, 0x90227964) // lbu v0, 0x7964 (at)
+    offset = data.writeWord(offset, 0x00000000) // nop
+    offset = data.writeWord(offset, 0x30490001) // andi t1, v0, 0x0001
+    offset = data.writeWord(offset, 0x29290001) // slti t1, t1, 0x0001
+    offset = data.writeWord(offset, 0x11200002) // beq t1, r0, pc + 0x0c
+    offset = data.writeWord(offset, 0x00000000) // nop
+    offset = data.writeWord(offset, 0x24020001) // addiu v0, r0, 0x0001
+    offset = data.writeWord(offset, 0x0803f2e3) // j 0x800fcb8c
+    offset = data.writeWord(offset, 0x00000000) // nop
+    offset = data.writeWord(offset, 0x90227964) // lbu v0, 0x7964 (at)
+    offset = data.writeWord(offset, 0x0803f2e3) // j 0x800fcb8c
+    offset = data.writeWord(offset, 0x00000000) // nop
+    // Patch the code that loads relic description when loading the menu.
+    data.writeWord(0x115fe8, 0x08000000 + ((ramAddress + 3 * size) >> 2))
+    offset = romAddress + 3 * size
+    offset = data.writeWord(offset, 0x24090014) // addiu t1, r0, 0x0014
+    offset = data.writeWord(offset, 0x12090004) // beq s0, t1, pc + 0x14
+    offset = data.writeWord(offset, 0x00000000) // nop
+    offset = data.writeWord(offset, 0x24090015) // addiu t1, r0, 0x0015
+    offset = data.writeWord(offset, 0x16090016) // bne s0, t1, pc + 0x58
+    offset = data.writeWord(offset, 0x00000000) // nop
+    offset = data.writeWord(offset, 0x90227967) // lbu v0, 0x7967 (at)
+    offset = data.writeWord(offset, 0x00000000) // nop
+    offset = data.writeWord(offset, 0x30490001) // andi t1, v0, 0x0001
+    offset = data.writeWord(offset, 0x29290001) // slti t1, t1, 0x0001
+    offset = data.writeWord(offset, 0x15200010) // bne t1, r0, pc + 0x44
+    offset = data.writeWord(offset, 0x00000000) // nop
+    offset = data.writeWord(offset, 0x26100003) // addiu s0, s0, 0x0003
+    offset = data.writeWord(offset, 0x2c490003) // slti t1, v0, 0x0003
+    offset = data.writeWord(offset, 0x15200003) // bne t1, r0, pc + 0x10
+    offset = data.writeWord(offset, 0x00000000) // nop
+    offset = data.writeWord(offset, 0x0803f246) // j 0x800fc918
+    offset = data.writeWord(offset, 0x00000000) // nop
+    offset = data.writeWord(offset, 0x90227964) // lbu v0, 0x7964 (at)
+    offset = data.writeWord(offset, 0x00000000) // nop
+    offset = data.writeWord(offset, 0x30490001) // andi t1, v0, 0x0001
+    offset = data.writeWord(offset, 0x29290001) // slti t1, t1, 0x0001
+    offset = data.writeWord(offset, 0x11200002) // beq t1, r0, pc + 0x0c
+    offset = data.writeWord(offset, 0x00000000) // nop
+    offset = data.writeWord(offset, 0x24020001) // addiu v0, r0, 0x0001
+    offset = data.writeWord(offset, 0x0803f246) // j 0x800fc918
+    offset = data.writeWord(offset, 0x00000000) // nop
+    offset = data.writeWord(offset, 0x90227964) // lbu v0, 0x7964 (at)
+    offset = data.writeWord(offset, 0x0803f246) // j 0x800fc918
+    offset = data.writeWord(offset, 0x00000000) // nop
+    // Patch the code that loads relic description when changing selection.
+    data.writeWord(0x116220, 0x08000000 + ((ramAddress + 4 * size) >> 2))
+    offset = romAddress + 4 * size
+    offset = data.writeWord(offset, 0x24090014) // addiu t1, r0, 0x0014
+    offset = data.writeWord(offset, 0x12090004) // beq s1, t1, pc + 0x14
+    offset = data.writeWord(offset, 0x00000000) // nop
+    offset = data.writeWord(offset, 0x24090015) // addiu t1, r0, 0x0015
+    offset = data.writeWord(offset, 0x16090016) // bne s1, t1, pc + 0x58
+    offset = data.writeWord(offset, 0x00000000) // nop
+    offset = data.writeWord(offset, 0x90227967) // lbu v0, 0x7967 (at)
+    offset = data.writeWord(offset, 0x00000000) // nop
+    offset = data.writeWord(offset, 0x30490001) // andi t1, v0, 0x0001
+    offset = data.writeWord(offset, 0x29290001) // slti t1, t1, 0x0001
+    offset = data.writeWord(offset, 0x15200010) // bne t1, r0, pc + 0x44
+    offset = data.writeWord(offset, 0x00000000) // nop
+    offset = data.writeWord(offset, 0x26100003) // addiu s0, s0, 0x0003
+    offset = data.writeWord(offset, 0x2c490003) // slti t1, v0, 0x0003
+    offset = data.writeWord(offset, 0x15200003) // bne t1, r0, pc + 0x10
+    offset = data.writeWord(offset, 0x00000000) // nop
+    offset = data.writeWord(offset, 0x0803f2d4) // j 0x800fcb48
+    offset = data.writeWord(offset, 0x00000000) // nop
+    offset = data.writeWord(offset, 0x90227964) // lbu v0, 0x7964 (at)
+    offset = data.writeWord(offset, 0x00000000) // nop
+    offset = data.writeWord(offset, 0x30490001) // andi t1, v0, 0x0001
+    offset = data.writeWord(offset, 0x29290001) // slti t1, t1, 0x0001
+    offset = data.writeWord(offset, 0x11200002) // beq t1, r0, pc + 0x0c
+    offset = data.writeWord(offset, 0x00000000) // nop
+    offset = data.writeWord(offset, 0x24020001) // addiu v0, r0, 0x0001
+    offset = data.writeWord(offset, 0x0803f2d4) // j 0x800fcb48
+    offset = data.writeWord(offset, 0x00000000) // nop
+    offset = data.writeWord(offset, 0x90227964) // lbu v0, 0x7964 (at)
+    offset = data.writeWord(offset, 0x0803f2d4) // j 0x800fcb48
+    offset = data.writeWord(offset, 0x00000000) // nop
+    // Patch the code that enables/disables a familiar.
+    data.writeWord(0x1160cc, 0x08000000 + ((ramAddress + 5 * size) >> 2))
+    offset = romAddress + 5 * size
+    offset = data.writeWord(offset, 0x90227964) // lbu v0, 0x7964 (at)
+    offset = data.writeWord(offset, 0x24090014) // addiu t1, r0, 0x0014
+    offset = data.writeWord(offset, 0x12090004) // beq s0, t1, pc + 0x14
+    offset = data.writeWord(offset, 0x00000000) // nop
+    offset = data.writeWord(offset, 0x24090015) // addiu t1, r0, 0x0015
+    offset = data.writeWord(offset, 0x1609000c) // bne s0, t1, pc + 0x34
+    offset = data.writeWord(offset, 0x00000000) // nop
+    offset = data.writeWord(offset, 0x28490003) // slti t1, v0, 0x0003
+    offset = data.writeWord(offset, 0x11200009) // beq t1, r0, pc + 0x28
+    offset = data.writeWord(offset, 0x00000000) // nop
+    offset = data.writeWord(offset, 0x902a7967) // lbu t2, 0x7967 (at)
+    offset = data.writeWord(offset, 0x00000000) // nop
+    offset = data.writeWord(offset, 0x31490001) // andi t1, t2, 0x0001
+    offset = data.writeWord(offset, 0x2d290001) // slti t1, t1, 0x0001
+    offset = data.writeWord(offset, 0x15200003) // bne t1, r0, pc + 0x10
+    offset = data.writeWord(offset, 0x00000000) // nop
+    offset = data.writeWord(offset, 0x25420000) // addiu v0, t2, 0x0000
+    offset = data.writeWord(offset, 0x26100003) // addiu s0, s0, 0x0003
+    offset = data.writeWord(offset, 0x0803f27f) // j 0x800fc9fc
+    offset = data.writeWord(offset, 0x00000000) // nop
+  }
+
   function depth(item, visited) {
     visited = visited || new Set()
     if (visited.has(item)) {
@@ -558,9 +796,7 @@
   }
 
   function getMapping(options, removed) {
-    if (removed === undefined) {
-      removed = []
-    }
+    removed = removed || []
     // Initialize location locks.
     const locksMap = {}
     if (typeof(options.relicLocations) === 'object') {
@@ -731,6 +967,15 @@
       const result = getMapping(options, removed)
       // Write data to ROM.
       writeMapping(data, result.mapping, result.locations)
+      // Patch out cutscenes.
+      patchAlchemyLabCutscene(data)
+      patchClockRoomCutscene(data)
+      // Patch relics menu.
+      switch (options.relicLocationsExtension) {
+      case constants.EXTENSION.EQUIPMENT:
+      case constants.EXTENSION.GUARDED:
+        patchRelicsMenu(data)
+      }
       // Write spoilers.
       const spoilers = []
       result.relics.forEach(function(relic) {
@@ -740,235 +985,6 @@
       if (info) {
         info[3]['Relic locations'] = spoilers
       }
-      // Entering the room between jewel door and red door in alchemy lab
-      // triggers a cutscene with Maria. The game will softlock if the player
-      // enters alchemy lab through the red door in chapel before fighting
-      // hippogryph. This can only happen if the player has access to olrox
-      // quarters without soul of bat, which isn't possible in the vanilla
-      // game without a speedrun trick. In a randomized relic run, however,
-      // it is possible to have early movement options that trigger this
-      // softlock for unwitting players. To be safe, disable the cutscene
-      // from ever taking place.
-      // The flag that gets set after the maria cutscene is @ 0x03be71.
-      // The instruction that checks that flag is:
-      // 0x54f0f44:    bne r2, r0, 0x1b8a58    144002da
-      // Change the instruction so it always branches:
-      // 0x54f0f44:    beq r0, r0, 0x1b8a58    100002da
-      data.writeShort(0x054f0f44 + 2, 0x1000)
-      // Entering the clock room for the first time triggers a cutscene with
-      // Maria. The cutscene takes place in a separately loaded room that
-      // does not connect to the rest of the castle through the statue doors
-      // or the vertical climb to gravity boots. If the player has early
-      // movement options, they may attempt to leave the room through one of
-      // these top exits but find themselves blocked, with the only option
-      // being to reload the room through the left or right exit first. To
-      // make it more convenient and less confusing, disable the cutscene
-      // from ever taking place.
-      // The specific room has a time attack entry that needs to be zeroed
-      // out.
-      data.writeChar(0x0aeaa0, 0x00)
-      // The time attack check occurs in Richter mode too, but the game gets
-      // around this by writing the seconds elapsed between pressing Start on
-      // the main screen and on the name entry screen to the time attack
-      // table for events that aren't in Richter mode.
-      // Zero out the time attack entry for the clock room, or Richter will
-      // load the cutscene version every time he enters.
-      data.writeChar(0x119af4, 0x00)
-      // If relic locations are extended, the relic pool is padded out with the
-      // familiars disabled in the NTSC-U release. To make them usable, they
-      // will override their remaining counterparts in the menu if they have
-      // been collected.
-      // First, the menu code must be patched to reveal the state of the new
-      // familiars.
-      const romAddress = 0x158d18
-      const ramAddress = 0x136c80
-      const size = 4 * 0x20
-      let offset
-      // Patch menu code that draws the relic label.
-      data.writeWord(0x10e5b0, 0x08000000 + ((ramAddress + 0 * size) >> 2))
-      offset = romAddress + 0 * size
-      offset = data.writeWord(offset, 0x24090014) // addiu t1, r0, 0x0014
-      offset = data.writeWord(offset, 0x12290004) // beq s1, t1, pc + 0x14
-      offset = data.writeWord(offset, 0x00000000) // nop
-      offset = data.writeWord(offset, 0x24090015) // addiu t1, r0, 0x0015
-      offset = data.writeWord(offset, 0x16290015) // bne s1, t1, pc + 0x58
-      offset = data.writeWord(offset, 0x00000000) // nop
-      offset = data.writeWord(offset, 0x92830003) // lbu v1, 0x0003 (s4)
-      offset = data.writeWord(offset, 0x00000000) // nop
-      offset = data.writeWord(offset, 0x30690001) // andi t1, v1, 0x0001
-      offset = data.writeWord(offset, 0x29290001) // slti t1, t1, 0x0001
-      offset = data.writeWord(offset, 0x1520000f) // bne t1, r0, pc + 0x40
-      offset = data.writeWord(offset, 0x00000000) // nop
-      offset = data.writeWord(offset, 0x28690003) // slti t1, v1, 0x0003
-      offset = data.writeWord(offset, 0x15200003) // bne t1, r0, pc + 0x10
-      offset = data.writeWord(offset, 0x00000000) // nop
-      offset = data.writeWord(offset, 0x0803d7e0) // j 0x800f5f80
-      offset = data.writeWord(offset, 0x00000000) // nop
-      offset = data.writeWord(offset, 0x92830000) // lbu v1, 0x0000 (s4)
-      offset = data.writeWord(offset, 0x00000000) // nop
-      offset = data.writeWord(offset, 0x30690001) // andi t1, v1, 0x0001
-      offset = data.writeWord(offset, 0x29290001) // slti t1, t1, 0x0001
-      offset = data.writeWord(offset, 0x11200002) // beq t1, r0, pc + 0x0c
-      offset = data.writeWord(offset, 0x00000000) // nop
-      offset = data.writeWord(offset, 0x24030001) // addiu v1, r0, 0x0001
-      offset = data.writeWord(offset, 0x0803d7e0) // j 0x800f5f80
-      offset = data.writeWord(offset, 0x00000000) // nop
-      offset = data.writeWord(offset, 0x92830000) // lbu v1, 0x0000 (s4)
-      offset = data.writeWord(offset, 0x0803d7e0) // j 0x800f5f80
-      offset = data.writeWord(offset, 0x00000000) // nop
-      // Patch the menu code that toggles the on/off state of the familiar.
-      data.writeWord(0x10e7d8, 0x08000000 + ((ramAddress + 1 * size) >> 2))
-      offset = romAddress + 1 * size
-      offset = data.writeWord(offset, 0x24090014) // addiu t1, r0, 0x0014
-      offset = data.writeWord(offset, 0x12290004) // beq s1, t1, pc + 0x14
-      offset = data.writeWord(offset, 0x00000000) // nop
-      offset = data.writeWord(offset, 0x24090015) // addiu t1, r0, 0x0015
-      offset = data.writeWord(offset, 0x16290015) // bne s1, t1, pc + 0x58
-      offset = data.writeWord(offset, 0x00000000) // nop
-      offset = data.writeWord(offset, 0x92820003) // lbu v0, 0x0003 (s4)
-      offset = data.writeWord(offset, 0x00000000) // nop
-      offset = data.writeWord(offset, 0x30490001) // andi t1, v0, 0x0001
-      offset = data.writeWord(offset, 0x29290001) // slti t1, t1, 0x0001
-      offset = data.writeWord(offset, 0x1520000f) // bne t1, r0, pc + 0x40
-      offset = data.writeWord(offset, 0x00000000) // nop
-      offset = data.writeWord(offset, 0x2c490003) // slti t1, v0, 0x0003
-      offset = data.writeWord(offset, 0x15200003) // bne t1, r0, pc + 0x10
-      offset = data.writeWord(offset, 0x00000000) // nop
-      offset = data.writeWord(offset, 0x0803d81e) // j 0x800f6078
-      offset = data.writeWord(offset, 0x00000000) // nop
-      offset = data.writeWord(offset, 0x92820000) // lbu v0, 0x0000 (s4)
-      offset = data.writeWord(offset, 0x00000000) // nop
-      offset = data.writeWord(offset, 0x30490001) // andi t1, v0, 0x0001
-      offset = data.writeWord(offset, 0x29290001) // slti t1, t1, 0x0001
-      offset = data.writeWord(offset, 0x11200002) // beq t1, r0, pc + 0x0c
-      offset = data.writeWord(offset, 0x00000000) // nop
-      offset = data.writeWord(offset, 0x24020001) // addiu v0, r0, 0x0001
-      offset = data.writeWord(offset, 0x0803d81e) // j 0x800f6078
-      offset = data.writeWord(offset, 0x00000000) // nop
-      offset = data.writeWord(offset, 0x92820000) // lbu v0, 0x0000 (s4)
-      offset = data.writeWord(offset, 0x0803d81e) // j 0x800f6078
-      offset = data.writeWord(offset, 0x00000000) // nop
-      // Patch the menu code that draws the relic icon.
-      data.writeWord(0x11625c, 0x08000000 + ((ramAddress + 2 * size) >> 2))
-      offset = romAddress + 2 * size
-      offset = data.writeWord(offset, 0x24090014) // addiu t1, r0, 0x0014
-      offset = data.writeWord(offset, 0x12290004) // beq s1, t1, pc + 0x14
-      offset = data.writeWord(offset, 0x00000000) // nop
-      offset = data.writeWord(offset, 0x24090015) // addiu t1, r0, 0x0015
-      offset = data.writeWord(offset, 0x16290015) // bne s1, t1, pc + 0x58
-      offset = data.writeWord(offset, 0x00000000) // nop
-      offset = data.writeWord(offset, 0x90227967) // lbu v0, 0x7967 (at)
-      offset = data.writeWord(offset, 0x00000000) // nop
-      offset = data.writeWord(offset, 0x30490001) // andi t1, v0, 0x0001
-      offset = data.writeWord(offset, 0x29290001) // slti t1, t1, 0x0001
-      offset = data.writeWord(offset, 0x1520000f) // bne t1, r0, pc + 0x40
-      offset = data.writeWord(offset, 0x00000000) // nop
-      offset = data.writeWord(offset, 0x2c490003) // slti t1, v0, 0x0003
-      offset = data.writeWord(offset, 0x15200003) // bne t1, r0, pc + 0x10
-      offset = data.writeWord(offset, 0x00000000) // nop
-      offset = data.writeWord(offset, 0x0803f2e3) // j 0x800fcb8c
-      offset = data.writeWord(offset, 0x00000000) // nop
-      offset = data.writeWord(offset, 0x90227964) // lbu v0, 0x7964 (at)
-      offset = data.writeWord(offset, 0x00000000) // nop
-      offset = data.writeWord(offset, 0x30490001) // andi t1, v0, 0x0001
-      offset = data.writeWord(offset, 0x29290001) // slti t1, t1, 0x0001
-      offset = data.writeWord(offset, 0x11200002) // beq t1, r0, pc + 0x0c
-      offset = data.writeWord(offset, 0x00000000) // nop
-      offset = data.writeWord(offset, 0x24020001) // addiu v0, r0, 0x0001
-      offset = data.writeWord(offset, 0x0803f2e3) // j 0x800fcb8c
-      offset = data.writeWord(offset, 0x00000000) // nop
-      offset = data.writeWord(offset, 0x90227964) // lbu v0, 0x7964 (at)
-      offset = data.writeWord(offset, 0x0803f2e3) // j 0x800fcb8c
-      offset = data.writeWord(offset, 0x00000000) // nop
-      // Patch the code that loads relic description when loading the menu.
-      data.writeWord(0x115fe8, 0x08000000 + ((ramAddress + 3 * size) >> 2))
-      offset = romAddress + 3 * size
-      offset = data.writeWord(offset, 0x24090014) // addiu t1, r0, 0x0014
-      offset = data.writeWord(offset, 0x12090004) // beq s0, t1, pc + 0x14
-      offset = data.writeWord(offset, 0x00000000) // nop
-      offset = data.writeWord(offset, 0x24090015) // addiu t1, r0, 0x0015
-      offset = data.writeWord(offset, 0x16090016) // bne s0, t1, pc + 0x58
-      offset = data.writeWord(offset, 0x00000000) // nop
-      offset = data.writeWord(offset, 0x90227967) // lbu v0, 0x7967 (at)
-      offset = data.writeWord(offset, 0x00000000) // nop
-      offset = data.writeWord(offset, 0x30490001) // andi t1, v0, 0x0001
-      offset = data.writeWord(offset, 0x29290001) // slti t1, t1, 0x0001
-      offset = data.writeWord(offset, 0x15200010) // bne t1, r0, pc + 0x44
-      offset = data.writeWord(offset, 0x00000000) // nop
-      offset = data.writeWord(offset, 0x26100003) // addiu s0, s0, 0x0003
-      offset = data.writeWord(offset, 0x2c490003) // slti t1, v0, 0x0003
-      offset = data.writeWord(offset, 0x15200003) // bne t1, r0, pc + 0x10
-      offset = data.writeWord(offset, 0x00000000) // nop
-      offset = data.writeWord(offset, 0x0803f246) // j 0x800fc918
-      offset = data.writeWord(offset, 0x00000000) // nop
-      offset = data.writeWord(offset, 0x90227964) // lbu v0, 0x7964 (at)
-      offset = data.writeWord(offset, 0x00000000) // nop
-      offset = data.writeWord(offset, 0x30490001) // andi t1, v0, 0x0001
-      offset = data.writeWord(offset, 0x29290001) // slti t1, t1, 0x0001
-      offset = data.writeWord(offset, 0x11200002) // beq t1, r0, pc + 0x0c
-      offset = data.writeWord(offset, 0x00000000) // nop
-      offset = data.writeWord(offset, 0x24020001) // addiu v0, r0, 0x0001
-      offset = data.writeWord(offset, 0x0803f246) // j 0x800fc918
-      offset = data.writeWord(offset, 0x00000000) // nop
-      offset = data.writeWord(offset, 0x90227964) // lbu v0, 0x7964 (at)
-      offset = data.writeWord(offset, 0x0803f246) // j 0x800fc918
-      offset = data.writeWord(offset, 0x00000000) // nop
-      // Patch the code that loads relic description when changing selection.
-      data.writeWord(0x116220, 0x08000000 + ((ramAddress + 4 * size) >> 2))
-      offset = romAddress + 4 * size
-      offset = data.writeWord(offset, 0x24090014) // addiu t1, r0, 0x0014
-      offset = data.writeWord(offset, 0x12090004) // beq s1, t1, pc + 0x14
-      offset = data.writeWord(offset, 0x00000000) // nop
-      offset = data.writeWord(offset, 0x24090015) // addiu t1, r0, 0x0015
-      offset = data.writeWord(offset, 0x16090016) // bne s1, t1, pc + 0x58
-      offset = data.writeWord(offset, 0x00000000) // nop
-      offset = data.writeWord(offset, 0x90227967) // lbu v0, 0x7967 (at)
-      offset = data.writeWord(offset, 0x00000000) // nop
-      offset = data.writeWord(offset, 0x30490001) // andi t1, v0, 0x0001
-      offset = data.writeWord(offset, 0x29290001) // slti t1, t1, 0x0001
-      offset = data.writeWord(offset, 0x15200010) // bne t1, r0, pc + 0x44
-      offset = data.writeWord(offset, 0x00000000) // nop
-      offset = data.writeWord(offset, 0x26100003) // addiu s0, s0, 0x0003
-      offset = data.writeWord(offset, 0x2c490003) // slti t1, v0, 0x0003
-      offset = data.writeWord(offset, 0x15200003) // bne t1, r0, pc + 0x10
-      offset = data.writeWord(offset, 0x00000000) // nop
-      offset = data.writeWord(offset, 0x0803f2d4) // j 0x800fcb48
-      offset = data.writeWord(offset, 0x00000000) // nop
-      offset = data.writeWord(offset, 0x90227964) // lbu v0, 0x7964 (at)
-      offset = data.writeWord(offset, 0x00000000) // nop
-      offset = data.writeWord(offset, 0x30490001) // andi t1, v0, 0x0001
-      offset = data.writeWord(offset, 0x29290001) // slti t1, t1, 0x0001
-      offset = data.writeWord(offset, 0x11200002) // beq t1, r0, pc + 0x0c
-      offset = data.writeWord(offset, 0x00000000) // nop
-      offset = data.writeWord(offset, 0x24020001) // addiu v0, r0, 0x0001
-      offset = data.writeWord(offset, 0x0803f2d4) // j 0x800fcb48
-      offset = data.writeWord(offset, 0x00000000) // nop
-      offset = data.writeWord(offset, 0x90227964) // lbu v0, 0x7964 (at)
-      offset = data.writeWord(offset, 0x0803f2d4) // j 0x800fcb48
-      offset = data.writeWord(offset, 0x00000000) // nop
-      // Patch the code that enables/disables a familiar.
-      data.writeWord(0x1160cc, 0x08000000 + ((ramAddress + 5 * size) >> 2))
-      offset = romAddress + 5 * size
-      offset = data.writeWord(offset, 0x90227964) // lbu v0, 0x7964 (at)
-      offset = data.writeWord(offset, 0x24090014) // addiu t1, r0, 0x0014
-      offset = data.writeWord(offset, 0x12090004) // beq s0, t1, pc + 0x14
-      offset = data.writeWord(offset, 0x00000000) // nop
-      offset = data.writeWord(offset, 0x24090015) // addiu t1, r0, 0x0015
-      offset = data.writeWord(offset, 0x1609000c) // bne s0, t1, pc + 0x34
-      offset = data.writeWord(offset, 0x00000000) // nop
-      offset = data.writeWord(offset, 0x28490003) // slti t1, v0, 0x0003
-      offset = data.writeWord(offset, 0x11200009) // beq t1, r0, pc + 0x28
-      offset = data.writeWord(offset, 0x00000000) // nop
-      offset = data.writeWord(offset, 0x902a7967) // lbu t2, 0x7967 (at)
-      offset = data.writeWord(offset, 0x00000000) // nop
-      offset = data.writeWord(offset, 0x31490001) // andi t1, t2, 0x0001
-      offset = data.writeWord(offset, 0x2d290001) // slti t1, t1, 0x0001
-      offset = data.writeWord(offset, 0x15200003) // bne t1, r0, pc + 0x10
-      offset = data.writeWord(offset, 0x00000000) // nop
-      offset = data.writeWord(offset, 0x25420000) // addiu v0, t2, 0x0000
-      offset = data.writeWord(offset, 0x26100003) // addiu s0, s0, 0x0003
-      offset = data.writeWord(offset, 0x0803f27f) // j 0x800fc9fc
-      offset = data.writeWord(offset, 0x00000000) // nop
     }
   }
 
