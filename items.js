@@ -5595,6 +5595,10 @@
       zones: [ ZONE.RARE ],
       index: 7,
       entities: [ 0x21b2, 0x27c0 ],
+    }, {
+      zones: [ ZONE.RNO2 ],
+      index: 11,
+      entities: [ 0x2aa6, 0x329e ],
     }],
   }, {
     name: 'Life Vessel',
