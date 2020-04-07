@@ -2,18 +2,15 @@
 
   let constants
   let enemies
-  let items
   let util
 
   if (self) {
     constants = self.sotnRando.constants
     enemies = self.sotnRando.enemies
-    items = self.sotnRando.items
     util = self.sotnRando.util
   } else {
     constants = require('./constants')
     enemies = require('./enemies')
-    items = require('./items')
     util = require('./util')
   }
 
@@ -160,8 +157,8 @@
     }
   }
 
-  function randItem(array) {
-    return array[Math.floor(Math.random() * array.length)]
+  function randItem(rng, array) {
+    return array[Math.floor(rng() * array.length)]
   }
 
   function flattened() {
@@ -216,7 +213,7 @@
     }
   }
 
-  function randomizeStartingEquipment(data, info, planned) {
+  function randomizeStartingEquipment(data, rng, items, info, planned) {
     const pool = items.filter(util.nonProgressionFilter)
     // Select starting equipment.
     planned = planned || {}
@@ -224,32 +221,32 @@
     if ('r' in planned) {
       weapon = util.itemFromName(planned.r)
     } else {
-      weapon = randItem(pool.filter(typeFilter([TYPE.WEAPON1])))
+      weapon = randItem(rng, pool.filter(typeFilter([TYPE.WEAPON1])))
     }
     if ('l' in planned) {
       shield = util.itemFromName(planned.l)
     } else if (!planned.r || planned.r.type !== TYPE.WEAPON2) {
-      shield = randItem(pool.filter(shieldFilter))
+      shield = randItem(rng, pool.filter(shieldFilter))
     }
     if ('b' in planned) {
       armor = util.itemFromName(planned.b)
     } else {
-      armor = randItem(pool.filter(armorFilter))
+      armor = randItem(rng, pool.filter(armorFilter))
     }
     if ('h' in planned) {
       helmet = util.itemFromName(planned.h)
     } else {
-      helmet = randItem(pool.filter(helmetFilter))
+      helmet = randItem(rng, pool.filter(helmetFilter))
     }
     if ('c' in planned) {
       cloak = util.itemFromName(planned.c)
     } else {
-      cloak = randItem(pool.filter(cloakFilter))
+      cloak = randItem(rng, pool.filter(cloakFilter))
     }
     if ('o' in planned) {
       other = util.itemFromName(planned.o)
     } else {
-      other = randItem(pool.filter(accessoryFilter))
+      other = randItem(rng, pool.filter(accessoryFilter))
     }
     // Their values when equipped.
     const weaponEquipVal = weapon ? weapon.id : 0
@@ -316,7 +313,7 @@
     if ('a' in planned) {
       axeLordArmor = util.itemFromName(planned.a)
     } else {
-      axeLordArmor = randItem(pool.filter(armorFilter))
+      axeLordArmor = randItem(rng, pool.filter(armorFilter))
     }
     const axeLordEquipVal = axeLordArmor ? axeLordArmor.id + equipIdOffset : 0
     data.writeChar(0x11a230, axeLordEquipVal)
@@ -325,7 +322,7 @@
     if ('x' in planned) {
       luckItem = util.itemFromName(planned.x)
     } else {
-      luckItem = randItem(pool.filter(accessoryFilter)).id
+      luckItem = randItem(rng, pool.filter(accessoryFilter)).id
     }
     if (luckItem) {
       const luckItemEquipVal = luckItem ? luckItem.id : 0
@@ -344,7 +341,7 @@
     ]
   }
 
-  function randomizeCandles(pool) {
+  function randomizeCandles(rng, items, pool) {
     // There are statues and pots in the hidden room of Final Stage stage that
     // drop equipment and usable items. Note that these are unique in the game
     // in that they are handled by the candle code, but their sprites are
@@ -370,7 +367,7 @@
       Array.prototype.push.apply(specialItems, ids)
     })
     // Randomize these special cases by replacing them with the same item type.
-    const itemTypes = shuffled(pool).reduce(typeReduce, [])
+    const itemTypes = shuffled(rng, pool).reduce(typeReduce, [])
     Object.getOwnPropertyNames(zones).forEach(function(name) {
       specialZones[name].forEach(function(item) {
         let replacement
@@ -393,7 +390,7 @@
     const candleTileCounts = candleItems.map(function(items) {
       return items.tiles.filter(tileFilter).length
     })
-    const candleTiles = shuffled(collectTiles(candleItems, tileFilter))
+    const candleTiles = shuffled(rng, collectTiles(candleItems, tileFilter))
     candleItems.forEach(function(item, index) {
       item = itemFromId(item.id, typeFilter([item.type]), pool)
       let count = candleTileCounts[index]
@@ -403,7 +400,7 @@
     })
   }
 
-  function randomizePrologueRewards(pool, addon, planned) {
+  function randomizePrologueRewards(rng, items, pool, addon, planned) {
     const rewardItemFilter = util.itemTileFilter(util.rewardTileFilter)
     const rewardItems = items.filter(rewardItemFilter)
     rewardItems.sort(function(a, b) {
@@ -415,7 +412,7 @@
       return 0
     })
     const rewardTiles = collectTiles(items, util.rewardTileFilter)
-    const usableItems = shuffled(pool.filter(usableFilter))
+    const usableItems = shuffled(rng, pool.filter(usableFilter))
     pool = ['h', 'n', 'p'].map(function(item) {
       if (planned && item in planned) {
         if (planned[item]) {
@@ -455,7 +452,7 @@
     }
   }
 
-  function randomizeSubweaponTanks(pool) {
+  function randomizeSubweaponTanks(rng, items, pool) {
     // Get subweapon tank tiles.
     const tankTiles = flattened(items.filter(function(item) {
       return item.tiles && item.tiles.some(function(tile) {
@@ -474,14 +471,14 @@
     })
     // Randomize tank items.
     Object.getOwnPropertyNames(tankZones).forEach(function(zone) {
-      const subweapons = shuffled(pool.filter(subweaponFilter))
+      const subweapons = shuffled(rng, pool.filter(subweaponFilter))
       while (tankZones[zone].length) {
         pushTile.call(subweapons.pop(), tankZones[zone].pop())
       }
     })
   }
 
-  function turkeyMode(pool) {
+  function turkeyMode(items, pool) {
     pool.push({
       name: 'Turkey',
       type: TYPE.SUBWEAPON,
@@ -492,7 +489,7 @@
     })
   }
 
-  function randomizeShopItems(pool) {
+  function randomizeShopItems(rng, items, pool) {
     // Get shop items by type.
     const shopTypes = items.filter(function(item) {
       return item.tiles && item.tiles.some(function(tile) {
@@ -507,7 +504,7 @@
       }
     }).reduce(typeReduce, [])
     // Assign random shop addresses.
-    const shuffledTypes = shuffled(pool.filter(function(item) {
+    const shuffledTypes = shuffled(rng, pool.filter(function(item) {
       return !foodFilter(item) && !salableFilter(item)
     })).reduce(typeReduce, [])
     shopTypes.forEach(function(items, type) {
@@ -519,9 +516,9 @@
     })
   }
 
-  function randomizeMapItems(pool, planned, addon) {
+  function randomizeMapItems(rng, items, pool, planned, addon) {
     // Shuffle items.
-    const shuffledItems = shuffled(pool)
+    const shuffledItems = shuffled(rng, pool)
     // Get all map tiles.
     const mapItems = items.filter(function(item) {
       return util.nonProgressionFilter(item)
@@ -529,7 +526,7 @@
     })
     const tileItems = mapItems.map(cloneTilesMap(util.mapTileFilter))
     // Shuffle all map tiles.
-    const shuffledTiles = shuffled(collectTiles(tileItems))
+    const shuffledTiles = shuffled(rng, collectTiles(tileItems))
     // Equipment is unique and placed in non-despawn tiles.
     const equipment = [
       weaponFilter,
@@ -547,7 +544,7 @@
     })
     // Powerups are in multiple non-despawn tiles.
     eachTileItem(tileItems, shuffledItems, powerupFilter, function(items) {
-      const item = randItem(items)
+      const item = randItem(rng, items)
       pushTile.call(item, takePermaTile(shuffledTiles, blacklist(item)))
     })
     // Distribute jewels with same id frequency as vanilla.
@@ -564,7 +561,7 @@
     const usable = [ usableFilter, foodFilter ]
     usable.forEach(function(filter) {
       eachTileItem(tileItems, shuffledItems, filter, function(items) {
-        const item = randItem(items)
+        const item = randItem(rng, items)
         pushTile.call(item, takeTile(shuffledTiles, blacklist(item)))
       })
     })
@@ -622,9 +619,9 @@
     }
   }
 
-  function randomizeEnemyDrops(pool, addon, planned) {
+  function randomizeEnemyDrops(rng, items, pool, addon, planned) {
     // Replace the axe subweapon drop with a random subweapon.
-    const subweapon = shuffled(pool.filter(subweaponFilter)).pop()
+    const subweapon = shuffled(rng, pool.filter(subweaponFilter)).pop()
     const subweaponTiles = collectTiles(items.filter(function(item) {
       return util.itemTileFilter(util.dropTileFilter)(item)
         && subweaponFilter(item)
@@ -655,7 +652,7 @@
     Object.getOwnPropertyNames(dupTypes).forEach(function(type) {
       type = parseInt(type)
       types[type] = types[type] || []
-      const items = shuffled(types[type])
+      const items = shuffled(rng, types[type])
       dupTypes[type].forEach(function(count) {
         const item = items.shift()
         dupped.push(item)
@@ -663,7 +660,7 @@
       })
     })
     // Shuffle items.
-    const shuffledItems = shuffled(pool)
+    const shuffledItems = shuffled(rng, pool)
     // Get all drop items.
     const dropItems = items.filter(function(item) {
       return util.itemTileFilter(util.dropTileFilter)(item)
@@ -685,7 +682,7 @@
       }
     }
     // Shuffle all drop tiles.
-    const shuffledTiles = shuffled(collectTiles(tileItems))
+    const shuffledTiles = shuffled(rng, collectTiles(tileItems))
     // Distribute gold with same id frequency as vanilla.
     const goldItems = dropItems.filter(goldFilter)
     goldItems.forEach(function(goldItem) {
@@ -725,7 +722,7 @@
     const usable = [ usableFilter, foodFilter ]
     usable.forEach(function(filter) {
       eachTileItem(tileItems, shuffledItems, filter, function(items) {
-        const item = randItem(items)
+        const item = randItem(rng, items)
         pushTile.call(item, takeTile(shuffledTiles, uniqueDrops(item)))
       })
     })
@@ -734,7 +731,7 @@
     const libTiles = collectTiles(items, function(tile) {
       return tile.librarian
     })
-    const shuffledEquip = shuffled(pool.filter(equipmentFilter))
+    const shuffledEquip = shuffled(rng, pool.filter(equipmentFilter))
     const libItems = shuffledEquip.slice(0, libTiles.length)
     libItems.forEach(function(item) {
       pushTile.call(item, takeTile(libTiles, blacklist(item)))
@@ -877,30 +874,34 @@
   //   return 0x80000000 | (r << 10) | (g << 10) | b
   // }
 
-  function randomColor() {
-    return 0x8000 | Math.floor(Math.random() * 0x10000)
+  function randomColor(rng) {
+    return 0x8000 | Math.floor(rng() * 0x10000)
   }
 
   function capeColor(
     data,
     liningAddress,
     outerAddress,
-    liningColor1,
-    liningColor2,
-    outerColor1,
-    outerColor2,
+    opts,
   ) {
-    if (liningColor1 === undefined || liningColor1 === null) {
-      liningColor1 = randomColor()
+    let liningColor1
+    let liningColor2
+    let outerColor1
+    let outerColor2
+    if ('liningColor1' in opts) {
+      liningColor1 = opts.liningColor1
+    } else {
+      liningColor1 = randomColor(opts.rng)
     }
-    if (liningColor2 === undefined || liningColor2 === null) {
-      liningColor2 = randomColor()
+    if ('liningColor2' in opts) {
+      liningColor2 = opts.liningColor2
+    } else {
+      liningColor2 = randomColor(opts.rng)
     }
-    if (outerColor1 === undefined || outerColor1 === null) {
-      outerColor1 = randomColor()
-    }
-    if (outerColor2 === undefined || outerColor2 === null) {
-      outerColor2 = randomColor()
+    if ('outerColor1' in opts) {
+      outerColor1 = opts.outerColor1
+    } else {
+      outerColor1 = randomColor(opts.rng)
     }
     data.writeShort(liningAddress + 0x00, liningColor1)
     data.writeShort(liningAddress + 0x02, liningColor2)
@@ -908,14 +909,14 @@
     data.writeShort(outerAddress + 0x02, outerColor2)
   }
 
-  function randomizeJosephsCloak(data) {
+  function randomizeJosephsCloak(data, rng) {
     const colors = [
-      Math.floor(Math.random() * 32),
-      Math.floor(Math.random() * 32),
-      Math.floor(Math.random() * 32),
-      Math.floor(Math.random() * 32),
-      Math.floor(Math.random() * 32),
-      Math.floor(Math.random() * 32),
+      Math.floor(rng() * 32),
+      Math.floor(rng() * 32),
+      Math.floor(rng() * 32),
+      Math.floor(rng() * 32),
+      Math.floor(rng() * 32),
+      Math.floor(rng() * 32),
     ]
     // Write the jump to injected code.
     const romAddress = 0x158c98
@@ -933,33 +934,48 @@
     data.writeWord(address, 0x0803924f)
   }
 
-  function randomizeCapeColors(data) {
+  function randomizeCapeColors(data, rng) {
     // Cloth Cape.
-    capeColor(data, 0x0afb84, 0x0afb88)
+    capeColor(data, 0x0afb84, 0x0afb88, {rng: rng})
     // Reverse Cloak & Inverted Cloak.
     {
-      const lining1 = randomColor()
-      const lining2 = randomColor()
-      const outer1 = randomColor()
-      const outer2 = randomColor()
-      capeColor(data, 0x0afb7c, 0x0afb80, lining1, lining2, outer1, outer2)
-      capeColor(data, 0x0afbb8, 0x0afbbc, outer1, outer2, lining1, lining2)
+      const lining1 = randomColor(rng)
+      const lining2 = randomColor(rng)
+      const outer1 = randomColor(rng)
+      const outer2 = randomColor(rng)
+      capeColor(data, 0x0afb7c, 0x0afb80, {
+        liningColor1: lining1,
+        liningColor2: lining2,
+        outerColor1: outer1,
+        outerColor2: outer2,
+      })
+      capeColor(data, 0x0afbb8, 0x0afbbc, {
+        liningColor1: outer1,
+        liningColor2: outer2,
+        outerColor1: lining1,
+        outerColor2: lining2,
+      })
     }
     // Elven Cloak.
-    capeColor(data, 0x0afb94, 0x0afb98)
+    capeColor(data, 0x0afb94, 0x0afb98, {rng: rng})
     // Crystal Cloak.
-    capeColor(data, 0x0afba4, 0x0afba8, null, null, 0x0000, null)
+    capeColor(data, 0x0afba4, 0x0afba8, {
+      rng: rng,
+      outerColor1: 0x0000,
+    })
     // Royal Cloak.
-    capeColor(data, 0x0afb8c, 0x0afb90)
+    capeColor(data, 0x0afb8c, 0x0afb90, {rng: rng})
     // Blood Cloak.
-    capeColor(data, 0x0afb9c, 0x0afba0)
+    capeColor(data, 0x0afb9c, 0x0afba0, {rng: rng})
     // Joseph's Cloak.
-    randomizeJosephsCloak(data)
+    randomizeJosephsCloak(data, rng)
     // Twilight Cloak.
-    capeColor(data, 0x0afa44, 0x0afbac)
+    capeColor(data, 0x0afa44, 0x0afbac, {rng: rng})
   }
 
-  function randomizeItems(data, options, info) {
+  function randomizeItems(rng, items, options) {
+    const data = new util.checked()
+    const info = util.newInfo()
     const addon = []
     let pool
     if (options.startingEquipment) {
@@ -968,7 +984,7 @@
       if (typeof(options.startingEquipment) === 'object') {
         planned = options.startingEquipment
       }
-      randomizeStartingEquipment(data, info, planned)
+      randomizeStartingEquipment(data, rng, items, info, planned)
     }
     let retries = 0
     while (true) {
@@ -1008,15 +1024,15 @@
         // Randomizations.
         if (options.itemLocations) {
           // Randomize candles.
-          randomizeCandles(pool)
+          randomizeCandles(rng, items, pool)
           // Randomize tank items.
           if (!options.turkeyMode) {
-            randomizeSubweaponTanks(pool)
+            randomizeSubweaponTanks(rng, items, pool)
           }
           // Randomize shop items.
-          randomizeShopItems(pool)
+          randomizeShopItems(rng, items, pool)
           // Randomize map items.
-          randomizeMapItems(pool, options.itemLocations, addon)
+          randomizeMapItems(rng, items, pool, options.itemLocations, addon)
         }
         if (options.enemyDrops) {
           // Randomize enemy drops.
@@ -1024,7 +1040,7 @@
           if (typeof(options.enemyDrops) === 'object') {
             planned = options.enemyDrops
           }
-          randomizeEnemyDrops(pool, addon, planned)
+          randomizeEnemyDrops(rng, items, pool, addon, planned)
         }
         if (options.prologueRewards) {
           // Randomize prologue rewards.
@@ -1032,12 +1048,12 @@
           if (typeof(options.prologueRewards) === 'object') {
             planned = options.prologueRewards
           }
-          randomizePrologueRewards(pool, addon, planned)
+          randomizePrologueRewards(rng, items, pool, addon, planned)
         }
         // Turkey mode.
         if (options.turkeyMode) {
-          turkeyMode(pool)
-          randomizeCapeColors(data)
+          turkeyMode(items, pool)
+          randomizeCapeColors(data, rng)
         }
         // Write items to ROM.
         if (options.itemLocations
@@ -1053,6 +1069,10 @@
         throw err
       }
       break
+    }
+    return {
+      data: data,
+      info: info,
     }
   }
 

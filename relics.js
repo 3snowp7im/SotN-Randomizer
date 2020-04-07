@@ -182,26 +182,29 @@
     // Replace item in items table.
     offset = util().romOffset(zone, zone.items + 0x02 * index)
     data.writeShort(offset, id + tileIdOffset)
-    // Change entity's position.
-    relic.entity.entities.forEach(function(addr) {
-      if ('asItem' in relic) {
-        if ('x' in relic.asItem) {
-          offset = util().romOffset(zone, addr + 0x00)
-          data.writeShort(offset, relic.asItem.x)
-        }
-        if ('y' in relic.asItem) {
-          offset = util().romOffset(zone, addr + 0x02)
-          data.writeShort(offset, relic.asItem.y)
-        }
-      }
-    })
     // Injection point.
     offset = util().romOffset(zone, 0x02c860)
     data.writeWord(offset, 0x0807bc40)          // j 0x801ef100
     offset = util().romOffset(zone, 0x02c868)
     data.writeWord(offset, 0x00000000)          // nop
-    // Zero out tile function pointer if item is in inventory.
+    // Get Bat defeat time.
     offset = util().romOffset(zone, 0x03f100)
+    offset = data.writeWord(offset, 0x3c020003) // lui v0, 0x0003
+    offset = data.writeWord(offset, 0x3442ca78) // ori v0, v0, 0xca78
+    offset = data.writeWord(offset, 0x8c420000) // lw v0, 0x0000 (v0)
+    offset = data.writeWord(offset, 0x00000000) // nop
+    // Branch if zero.
+    offset = data.writeWord(offset, 0x10400005) // beq v0, r0, pc + 0x18
+    offset = data.writeWord(offset, 0x00000000) // nop
+    // Change entity's position.
+    offset = data.writeWord(offset, 0x3c088018) // lui t0, 0x8018
+    //                                          // ori t1, r0, y
+    offset = data.writeWord(offset, 0x34090000 + relic.asItem.y)
+    relic.entity.entities.forEach(function(addr) {
+      //                                        // sh t1, entity + 0x02 (t0)
+      offset = data.writeWord(offset, 0xa5090000 + addr + 0x02)
+    })
+    // Zero out tile function pointer if item is in inventory.
     //                                          // ori v0, r0, id
     offset = data.writeWord(offset, 0x34020000 + id + equipIdOffset)
     slots.forEach(function(slot, index) {
@@ -323,7 +326,7 @@
     // Get Succubus defeat time.
     offset = data.writeWord(offset, 0x3c020003) // lui v0, 0x0003
     offset = data.writeWord(offset, 0x3442ca4c) // ori v0, v0, 0xca4c
-    offset = data.writeWord(offset, 0x84420000) // lh v0, 0x0000 (v0)
+    offset = data.writeWord(offset, 0x8c420000) // lw v0, 0x0000 (v0)
     offset = data.writeWord(offset, 0x00000000) // nop
     // Branch if zero.
     offset = data.writeWord(offset, 0x10400006) // beq v0, r0, pc + 0x1c

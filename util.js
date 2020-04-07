@@ -325,58 +325,11 @@
     return (sign < 0 ? '-' : '') + '0x' + hex
   }
 
-  function checked(file) {
+  function checked(file, writes) {
     if (file) {
       this.file = file
     }
-    this.writes = {}
-  }
-
-  checked.prototype.readChar = function readChar(address) {
-    let buf
-    if (self) {
-      buf = [
-        this.file[address + 0],
-      ]
-    } else {
-      buf = Buffer.alloc(1)
-      fs.readSync(this.file, buf, 0, 1, address)
-    }
-    return buf[0]
-  }
-
-  checked.prototype.isWriteOnly = function isWriteOnly() {
-    return !('file' in this)
-  }
-
-  checked.prototype.readShort = function readShort(address, readWritten) {
-    let buf
-    if (self) {
-      buf = [
-        this.file[address + 0],
-        this.file[address + 1],
-      ]
-    } else {
-      buf = Buffer.alloc(2)
-      fs.readSync(this.file, buf, 0, 2, address)
-    }
-    return (buf[1] << 8) + buf[0]
-  }
-
-  checked.prototype.readWord = function readWord(address, readWritten) {
-    let buf
-    if (self) {
-      buf = [
-        this.file[address + 0],
-        this.file[address + 1],
-        this.file[address + 2],
-        this.file[address + 3],
-      ]
-    } else {
-      buf = Buffer.alloc(4)
-      fs.readSync(this.file, buf, 0, 4, address)
-    }
-    return (buf[3] << 24) + (buf[2] << 16) + (buf[3] << 8) + buf[0]
+    this.writes = writes || {}
   }
 
   function checkAddressRange(address) {
@@ -443,6 +396,13 @@
       this.writes[address + i] = bytes[i]
     }
     return address + 4
+  }
+
+  checked.prototype.apply = function apply(checked) {
+    const self = this
+    Object.getOwnPropertyNames(checked.writes).forEach(function(address) {
+      self.writeChar(parseInt(address), checked.writes[address])
+    })
   }
 
   checked.prototype.sum = function sum() {
@@ -1434,15 +1394,17 @@
     })
   }
 
-  function saltSeed(version, options, seed) {
+  function saltSeed(version, options, seed, nonce) {
+    nonce = nonce || 0
     const str = JSON.stringify({
       version: version,
       options: optionsToString(options),
       seed: seed,
+      nonce: nonce,
     })
     const hex = sha256(str)
     return hex.match(/[0-9a-f]{2}/g).map(function(byte) {
-      return String.fromCharCode(byte)
+      return String.fromCharCode(parseInt(byte, 16))
     }).join('')
   }
 
@@ -1564,11 +1526,45 @@
     })
   }
 
-  function shuffled(array) {
+  function mergeInfo(info, newInfo) {
+    info.forEach(function(level, index) {
+      merge.call(level, newInfo[index])
+    })
+  }
+
+  function sanitizeResult(result) {
+    if (result.mapping) {
+      Object.getOwnPropertyNames(result.mapping).forEach(function(location) {
+        const relic = result.mapping[location]
+        result.mapping[location] = Object.assign({}, relic, {
+          replaceWithItem: undefined,
+          replaceWithRelic: undefined,
+        })
+      })
+    }
+    if (result.relics) {
+      result.relics = result.relics.map(function(relic) {
+        return Object.assign({}, relic, {
+          replaceWithItem: undefined,
+          replaceWithRelic: undefined,
+        })
+      })
+    }
+    if (result.locations) {
+      result.locations = result.locations.map(function(location) {
+        return Object.assign({}, location, {
+          replaceWithItem: undefined,
+          replaceWithRelic: undefined,
+        })
+      })
+    }
+  }
+
+  function shuffled(rng, array) {
     const copy = array.slice()
     const shuffled = []
     while (copy.length) {
-      const rand = Math.floor(Math.random() * copy.length)
+      const rand = Math.floor(rng() * copy.length)
       shuffled.push(copy.splice(rand, 1)[0])
     }
     return shuffled
@@ -2582,6 +2578,140 @@
     )
   }
 
+  function firstResult(candidate, result) {
+    if (!candidate || 'error' in candidate) {
+      return result
+    }
+    if ('error' in result || candidate.rounds < result.rounds) {
+      return candidate
+    }
+    return result
+  }
+
+  function addEventListener(event, listener) {
+    if ('addEventListener' in this) {
+      this.addEventListener(event, listener)
+    } else {
+      this.on(event, listener)
+    }
+  }
+
+  function randomizeRelics(
+    version,
+    options,
+    seed,
+    removed,
+    workers,
+    url,
+  ) {
+    const promises = Array(workers.length)
+    const running = Array(workers.length).fill(true)
+    let maxRounds
+    for (let i = 0; i < workers.length; i++) {
+      const thread = i
+      const worker = workers[i]
+      promises[i] = new Promise(function(resolve) {
+        addEventListener.call(worker, 'message', function(result) {
+          if (self) {
+            result = result.data
+          }
+          if (result.error) {
+            resolve(result)
+          } else {
+            const isFirst = maxRounds === undefined
+                  || result.rounds < maxRounds
+            if (result.done) {
+              if (isFirst) {
+                maxRounds = result.rounds
+              }
+              resolve(result)
+            } else if (!isFirst && running[thread]) {
+              running[thread] = false
+              worker.postMessage({
+                action: 'relics',
+                cancel: true,
+              })
+            }
+          }
+        })
+        worker.postMessage({
+          action: 'relics',
+          options: options,
+          removed: removed,
+          saltedSeed: saltSeed(version, options, seed, i),
+          url: url,
+        })
+      })
+    }
+    return Promise.all(promises).then(function(results) {
+      const result = results.reduce(firstResult)
+      if (result.error) {
+        throw result.error
+      }
+      return result
+    })
+  }
+
+  function randomizeItems(
+    version,
+    options,
+    seed,
+    nonce,
+    worker,
+    items,
+    url,
+  ) {
+    return new Promise(function(resolve, reject) {
+      addEventListener.call(worker, 'message', function(result) {
+        if (self) {
+          result = result.data
+        }
+        if (result.error) {
+          reject(result.error)
+        } else {
+          resolve(result)
+        }
+      })
+      worker.postMessage({
+        action: 'items',
+        options: options,
+        saltedSeed: saltSeed(version, options, seed, nonce),
+        items: items,
+        url: url,
+      })
+    })
+  }
+
+  function finalizeData(
+    seed,
+    file,
+    data,
+    checksum,
+    worker,
+    url,
+  ) {
+    return new Promise(function(resolve, reject) {
+      addEventListener.call(worker, 'message', function(result) {
+        if (self) {
+          result = result.data
+        }
+        if (result.error) {
+          reject(result.error)
+        } else {
+          resolve(result)
+        }
+      })
+      worker.postMessage({
+        action: 'finalize',
+        seed: seed,
+        file: file,
+        data: data,
+        checksum: checksum,
+        url: url,
+      }, [file])
+    })
+  }
+
   const exports = {
     assert: assert,
     shopTileFilter: shopTileFilter,
@@ -2613,6 +2743,8 @@
     formatObject: formatObject,
     formatInfo: formatInfo,
     newInfo: newInfo,
+    mergeInfo: mergeInfo,
+    sanitizeResult: sanitizeResult,
     shuffled: shuffled,
     isItem: isItem,
     isRelic: isRelic,
@@ -2622,6 +2754,9 @@
     relicFromName: relicFromName,
     relicFromAbility: relicFromAbility,
     enemyFromIdString: enemyFromIdString,
+    randomizeRelics: randomizeRelics,
+    randomizeItems: randomizeItems,
+    finalizeData: finalizeData,
     Preset: Preset,
     PresetBuilder: PresetBuilder,
   }

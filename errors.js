@@ -63,7 +63,7 @@
   function isError(error) {
     const names = Object.getOwnPropertyNames(errors)
     for (let i = 0; i < names.length; i++) {
-      if (error instanceof errors[names[i]]) {
+      if (error instanceof errors[names[i]] || error.name === names[i]) {
         return true
       }
     }

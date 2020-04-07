@@ -3,6 +3,7 @@
   const releaseBaseUrl = 'https://sotn.io/'
   const devBaseUrl = 'https://dev.sotn.io/'
   const defaultOptions = 'P:safe'
+  const threads = 8
 
   const TYPE = {
     HEART: 0,
@@ -524,6 +525,7 @@
     releaseBaseUrl: releaseBaseUrl,
     devBaseUrl: devBaseUrl,
     defaultOptions: defaultOptions,
+    threads: threads,
     TYPE: TYPE,
     typeNames: typeNames,
     ZONE: ZONE,

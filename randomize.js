@@ -1,11 +1,13 @@
 const fs = require('fs')
 const path = require('path')
+const os = require('os')
+const Worker = require('worker_threads').Worker
 const constants = require('./constants')
 const errors = require('./errors')
 const extension = require('./extension')
 const presets = require('./presets')
-const randomizeItems = require('./randomize_items')
 const randomizeRelics = require('./randomize_relics')
+const randomizeItems = require('./randomize_items')
 const relics = require('./relics')
 const util = require('./util')
 let version = require('./package').version
@@ -503,12 +505,6 @@ if ('verbose' in argv) {
   options.verbose = argv.verbose
 }
 info = util.newInfo()
-// Set seed.
-require('seedrandom')(util.saltSeed(
-  version,
-  options,
-  seed,
-), {global: true})
 // Add seed to log info if not provided through command line.
 if (!('url' in argv) || argv._[0]) {
   info[1]['Seed'] = seed
@@ -522,57 +518,93 @@ if ('bin' in argv) {
   size = stats.size
   fd = fs.openSync(argv.bin, 'r+')
 }
-try {
-  const check = new util.checked(fd)
-  let returnVal = true
-  let applied
+
+(async function randomize() {
   try {
-    applied = util.Preset.options(options)
-  } catch (err) {
-    yargs.showHelp()
-    console.error('\n' + err.message)
-    process.exit(1)
-  }
-  try {
-    const removed = randomizeItems.placePlannedItems(applied)
-    randomizeRelics.randomizeRelics(check, applied, removed, info)
-    randomizeItems.randomizeItems(check, applied, info)
-  } catch (err) {
-    console.error('Seed:  ' + seed)
-    if (errors.isError(err)) {
-      console.error('Error: ' + err.message)
+    const check = new util.checked(fd)
+    let applied
+    try {
+      applied = util.Preset.options(options)
+    } catch (err) {
+      yargs.showHelp()
+      console.error('\n' + err.message)
       process.exit(1)
     }
-    throw err
-  }
-  util.setSeedText(check, seed)
-  const checksum = check.sum()
-  // Verify expected checksum matches actual checksum.
-  if (haveChecksum && expectChecksum !== checksum) {
-    console.error('Checksum mismatch.')
-    process.exit(1)
-  }
-  // Show url if not provided as arg.
-  if ('url' in argv && !argv._[0]) {
-    console.log(util.optionsToUrl(
-      version,
-      options,
-      checksum,
-      seed,
-      baseUrl,
-    ).toString())
-  }
-  if (argv.verbose >= 1) {
-    const text = util.formatInfo(info, argv.verbose)
-    if (text.length) {
-      console.log(text)
+    try {
+      let result
+      // Place planned progression items.
+      const removed = randomizeItems.placePlannedItems(applied)
+      // Randomize relics.
+      const workers = Array(constants.threads)
+      for (let i = 0; i < workers.length; i++) {
+        workers[i] = new Worker('./worker.js')
+      }
+      result = await util.randomizeRelics(
+        version,
+        options,
+        seed,
+        removed,
+        workers,
+      )
+      util.mergeInfo(info, result.info)
+      // Write relics mapping.
+      const rng = new require('seedrandom')(util.saltSeed(
+        version,
+        options,
+        seed,
+        constants.threads,
+      ))
+      result = randomizeRelics.writeRelics(rng, applied, result)
+      check.apply(result.data)
+      // Randomize items.
+      result = await util.randomizeItems(
+        version,
+        options,
+        seed,
+        constants.threads + 1,
+        new Worker('./worker.js'),
+        result.items,
+      )
+      check.apply(result.data)
+      util.mergeInfo(info, result.info)
+    } catch (err) {
+      console.error('Seed:  ' + seed)
+      if (errors.isError(err)) {
+        console.error('Error: ' + err.message)
+      } else {
+        console.error(err.stack)
+      }
+      process.exit(1)
+    }
+    util.setSeedText(check, seed)
+    const checksum = check.sum()
+    // Verify expected checksum matches actual checksum.
+    if (haveChecksum && expectChecksum !== checksum) {
+      console.error('Checksum mismatch.')
+      process.exit(1)
+    }
+    // Show url if not provided as arg.
+    if ('url' in argv && !argv._[0]) {
+      console.log(util.optionsToUrl(
+        version,
+        options,
+        checksum,
+        seed,
+        baseUrl,
+      ).toString())
+    }
+    if (argv.verbose >= 1) {
+      const text = util.formatInfo(info, argv.verbose)
+      if (text.length) {
+        console.log(text)
+      }
+    }
+    if (fd) {
+      eccEdcCalc(fd, size)
+    }
+  } finally {
+    if (fd) {
+      fs.closeSync(fd)
     }
   }
-  if (fd) {
-    eccEdcCalc(fd, size)
-  }
-} finally {
-  if (fd) {
-    fs.closeSync(fd)
-  }
-}
+})()

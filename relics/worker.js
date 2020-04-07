@@ -11,36 +11,22 @@ importScripts(
 )
 
 const util = self.sotnRando.util
-const getMapping = self.sotnRando.randomizeRelics.getMapping
+const randomizeRelics = self.sotnRando.randomizeRelics.randomizeRelics
+
+function rng() {
+  return Math.random()
+}
 
 self.addEventListener('message', function(message) {
   const data = message.data
   const options = util.Preset.options(util.optionsFromString(data.options))
-  let result
-  try {
-    // Get random relic placement.
-    result = getMapping(options)
+  // Get random relic placement.
+  randomizeRelics(rng, options).then(function(result) {
     // Clean up the relics so they can be serialized.
-    Object.getOwnPropertyNames(result.mapping).forEach(function(location) {
-      const relic = result.mapping[location]
-      delete relic.replaceWithItem
-      delete relic.replaceWithRelic
-    })
-    result.relics = result.relics.map(function(relic) {
-      return Object.assign({}, relic, {
-        replaceWithItem: undefined,
-        replaceWithRelic: undefined,
-      })
-    })
-    result.locations = result.locations.map(function(location) {
-      return Object.assign({}, location, {
-        replaceWithItem: undefined,
-        replaceWithRelic: undefined,
-      })
-    })
+    util.sanitizeResult(result)
     result.id = message.data.id
-  } catch (err) {
-    result = {error: err}
-  }
-  self.postMessage(result)
+    self.postMessage(result)
+  }).catch(function(err) {
+    self.postMessage({error: err})
+  })
 })

@@ -213,7 +213,7 @@ form > div > fieldset > div > div > select{
 }
 
 .light #notification {
-    background: #cfc;
+    background: #9c9;
 }
 
 .light .tooltip-indicator {
@@ -271,7 +271,7 @@ form > div > fieldset > div > div > select{
 }
 
 .dark #notification {
-    background: #cfc;
+    background: #9c9;
 }
 
 .dark .tooltip-indicator {

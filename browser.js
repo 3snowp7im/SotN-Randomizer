@@ -1,8 +1,11 @@
 (function(window) {
   const constants = sotnRando.constants
+  const errors = sotnRando.errors
   const util = sotnRando.util
-  const relics = sotnRando.relics
   const presets = sotnRando.presets
+  const randomizeItems = sotnRando.randomizeItems
+  const randomizeRelics = sotnRando.randomizeRelics
+  const relics = sotnRando.relics
 
   let info
   let lastSeed
@@ -12,24 +15,38 @@
   let downloadReady
   let selectedFile
   let version
-  let worker
 
-  function getWorker() {
-    if (!worker) {
-      const url = new URL(window.location.href)
-      if (url.protocol === 'file:') {
-        const source = '(' + randomizeWorker.toString() + ')()'
-        worker = new Worker(
+  function cloneItems(items) {
+    return items.map(function(item) {
+      const clone = Object.assign({}, item)
+      delete clone.tiles
+      if (item.tiles) {
+        clone.tiles = item.tiles.slice()
+      }
+      return clone
+    })
+  }
+
+  const items = cloneItems(sotnRando.items)
+
+  function createWorkers(count) {
+    const workers = Array(count)
+    const url = new URL(window.location.href)
+    if (url.protocol === 'file:') {
+      const source = '(' + randomizeWorker.toString() + ')()'
+      for (let i = 0; i < count; i++) {
+        workers[i] = new Worker(
           URL.createObjectURL(new Blob([source], {
             type: 'text/javascript',
           }))
         )
-      } else {
-        worker = new Worker('worker.js')
       }
-      worker.addEventListener('message', workerMessage)
+    } else {
+      for (let i = 0; i < count; i++) {
+        workers[i] = new Worker('worker.js')
+      }
     }
-    return worker
+    return workers
   }
 
   function getUrl() {
@@ -57,6 +74,7 @@
   }
 
   function resetState() {
+    sotnRando.items = cloneItems(items)
     selectedFile = undefined
     resetTarget()
     elems.randomize.disabled = true
@@ -330,58 +348,99 @@
   function submitListener(event) {
     event.preventDefault()
     event.stopPropagation()
+    // Disable UI.
     disableDownload()
+    // Show loading bar.
     showLoader()
+    // Create new info collection.
     info = util.newInfo()
-    const options = getFormOptions()
+    // Get seed.
     let seed = (new Date()).getTime().toString()
     if (elems.seed.value.length) {
       seed = elems.seed.value
     }
     lastSeed = seed
     info[1]['Seed'] = seed
+    // Get options.
+    const options = getFormOptions()
+    const applied = util.Preset.options(options)
+    // Place planned progression items.
+    const removed = randomizeItems.placePlannedItems(applied)
     const reader = new FileReader()
-    reader.onload = function() {
-      getWorker().postMessage({
-        url: getUrl(),
-        version: version,
-        fileData: this.result,
-        checksum: expectChecksum,
-        options: options,
-        seed: seed,
-        info: info,
-      }, [this.result])
-    }
-    reader.readAsArrayBuffer(selectedFile)
-  }
-
-  function workerMessage(message) {
-    const data = message.data
-    if (data.error) {
-      elems.target.classList.remove('active')
-      elems.target.classList.add('error')
-      elems.status.innerText = data.error
-      return
-    }
-    const seed = data.seed
-    checksum = data.checksum
-    info = data.info
-    showSpoilers()
-    const url = URL.createObjectURL(new Blob([data.data], {
-      type: 'application/octet-binary',
-    }))
-    if (elems.appendSeed.checked) {
-      elems.download.download = randomizedFilename(
-        selectedFile.name,
+    // Read file.
+    reader.addEventListener('load', function() {
+      const check = new util.checked(this.result)
+      // Save handle to file data.
+      const file = this.result
+      // Randomize relics.
+      util.randomizeRelics(
+        version,
+        options,
         seed,
-      )
-    } else {
-      elems.download.download = selectedFile.name
-    }
-    elems.download.href = url
-    elems.download.click()
-    URL.revokeObjectURL(url)
-    resetCopy()
+        removed,
+        createWorkers(constants.threads),
+        getUrl(),
+      ).then(function(result) {
+        util.mergeInfo(info, result.info)
+        const rng = new Math.seedrandom(util.saltSeed(
+          version,
+          options,
+          seed,
+          constants.threads,
+        ))
+        result = randomizeRelics.writeRelics(rng, applied, result)
+        check.apply(result.data)
+        return util.randomizeItems(
+          version,
+          options,
+          seed,
+          constants.threads + 1,
+          createWorkers(1)[0],
+          result.items,
+          getUrl(),
+        )
+      }).then(function(result) {
+        check.apply(result.data)
+        util.mergeInfo(info, result.info)
+        return util.finalizeData(
+          seed,
+          file,
+          check,
+          expectChecksum,
+          createWorkers(1)[0],
+          getUrl(),
+        )
+      }).then(function(result) {
+        checksum = result.checksum
+        showSpoilers()
+        const url = URL.createObjectURL(new Blob([result.file], {
+          type: 'application/octet-binary',
+        }))
+        if (elems.appendSeed.checked) {
+          elems.download.download = randomizedFilename(
+            selectedFile.name,
+            seed,
+          )
+        } else {
+          elems.download.download = selectedFile.name
+        }
+        elems.download.href = url
+        elems.download.click()
+        URL.revokeObjectURL(url)
+        resetCopy()
+      }).catch(function(err) {
+        if (!errors.isError(err)) {
+          console.error(err)
+        }
+        elems.target.classList.remove('active')
+        elems.target.classList.add('error')
+        elems.status.innerText = err.message
+      }).finally(function() {
+        // Reset global items list.
+        sotnRando.items = cloneItems(items)
+      })
+    })
+    reader.readAsArrayBuffer(selectedFile)
   }
 
   function clearHandler(event) {

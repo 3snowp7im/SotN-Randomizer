@@ -489,7 +489,7 @@
   ])
 
   // Game completion requires Holy Glasses + Vlad Relics.
-  builder.complexityGoal(6, [
+  builder.complexityGoal(7, [
     RELIC.HOLY_GLASSES
       + RELIC.HEART_OF_VLAD
       + RELIC.TOOTH_OF_VLAD

@@ -3,15 +3,14 @@
   let constants
   let errors
   let extension
-  let items
   let presets
   let relics
   let util
+  let cores
   if (self) {
     constants = self.sotnRando.constants
     errors = self.sotnRando.errors
     extension = self.sotnRando.extension
-    items = self.sotnRando.items
     presets = self.sotnRando.presets
     relics = self.sotnRando.relics
     util = self.sotnRando.util
@@ -19,15 +18,21 @@
     constants = require('./constants')
     errors = require('./errors')
     extension = require('./extension')
-    items = require('./items')
     presets = require('./presets')
     relics = require('./relics')
     util = require('./util')
   }
 
-  const MAX_ATTEMPTS = 262144
+  function items() {
+    if (self) {
+      return self.sotnRando.items
+    }
+    return require('./items')
+  }
 
-  function getRandomZoneItem(zones, pool) {
+  const MAX_ROUNDS = Math.pow(2, 20)
+
+  function getRandomZoneItem(rng, zones, pool) {
     // Collect ids of items that can be replaced for location extension.
     const extensionIds = pool.filter(function(location) {
       return 'extension' in location
@@ -36,7 +41,7 @@
     })
     // Collect item tiles in the zones.
     const zoneTiles = zones.reduce(function(all, zone) {
-      const tiles = items.reduce(function(all, item) {
+      const tiles = items().reduce(function(all, item) {
         if (util.nonProgressionFilter(item)
             && extensionIds.indexOf(item.id) === -1) {
           const tiles = (item.tiles || []).filter(function(tile) {
@@ -57,7 +62,7 @@
       return all
     }, [])
     // Pick a random item to replace.
-    return zoneTiles[randIdx(zoneTiles)]
+    return zoneTiles[randIdx(rng, zoneTiles)]
   }
 
   function writeEntity(data, entity, opts) {
@@ -106,19 +111,19 @@
     })
   }
 
-  function writeMapping(data, mapping, pool) {
+  function writeMapping(data, rng, mapping) {
     // Erase any vanilla location that did not receive a relic.
-    const locations = Object.getOwnPropertyNames(mapping).map(function(key) {
+    const placed = Object.getOwnPropertyNames(mapping).map(function(key) {
       return mapping[key].ability
     })
     const zoneRemovedItems = {}
     relics.filter(function(relic) {
       return !relic.extension
     }).forEach(function(location) {
-      if (locations.indexOf(location.ability) === -1) {
+      if (placed.indexOf(location.ability) === -1) {
         // Erase entities.
         if ('entity' in location
-            && ('erase' in location.entity || location.entity.erase)) {
+            && (!('erase' in location.entity) || location.entity.erase)) {
           writeEntity(data, location.entity, {id: 0x000f})
         }
         // Erase tile.
@@ -134,6 +139,7 @@
         }
       }
     })
+    const locations = getLocations()
     // Write new relic locations.
     Object.getOwnPropertyNames(mapping).forEach(function(key) {
       // Get the relic being placed.
@@ -142,10 +148,12 @@
       let item
       if ('itemId' in relic) {
         const tileId = relic.itemId + constants.tileIdOffset
-        item = util.itemFromTileId(items, tileId)
+        item = util.itemFromTileId(items(), tileId)
       }
       // Get the location to place the relic in.
-      const location = mapping[key]
+      const location = locations.filter(function(location) {
+        return location.id === mapping[key].id
+      })[0]
       if ('itemId' in location) {
         if (item) {
           // Replacing item location with item.
@@ -199,7 +207,7 @@
               return id.zone
             })
           }
-          const tileItem = getRandomZoneItem(zones, pool)
+          const tileItem = getRandomZoneItem(rng, zones, locations)
           index = tileItem.tile.index
           // Remove the tile from the replaced item's tile collection.
           const tileIndex = tileItem.item.tiles.indexOf(tileItem.tile)
@@ -269,10 +277,10 @@
         break
       }
       if ('items' in zone) {
-        const rand = Math.floor(Math.random() * 4)
+        const rand = Math.floor(rng() * 4)
         const removed = zoneRemovedItems[zone.id] || 0
         for (let i = 0; i < rand - removed; i++) {
-          const tileItem = getRandomZoneItem(zones, pool)
+          const tileItem = getRandomZoneItem(rng, zones, locations)
           const index = tileItem.tile.index
           // Remove the tile from the item's tile collection.
           const tileIndex = tileItem.item.tiles.indexOf(tileItem.tile)
@@ -285,8 +293,8 @@
     })
   }
 
-  function randIdx(array) {
-    return Math.floor(Math.random() * array.length)
+  function randIdx(rng, array) {
+    return Math.floor(rng() * array.length)
   }
 
   function pushAvailableLocation(ctx, locationsAvailable, locationIdx) {
@@ -333,7 +341,7 @@
     return newLocks
   }
 
-  function pickRelicLocations(pool, mapping) {
+  function pickRelicLocations(rng, pool, mapping) {
     if (!pool.relics.length) {
       return mapping
     }
@@ -348,7 +356,7 @@
         })
       })
       if (locationsAvailable.length) {
-        const location = locationsAvailable[randIdx(locationsAvailable)]
+        const location = locationsAvailable[randIdx(rng, locationsAvailable)]
         // After placing the relic in this location, anything previously
         // locked by the relic is now locked by the requirements of the new
         // location.
@@ -384,7 +392,7 @@
         const newMapping = Object.assign({}, mapping)
         newMapping[relic.ability] = location
         // Pick from remaining pool.
-        return pickRelicLocations({
+        return pickRelicLocations(rng, {
           locations: newLocations,
           relics: remainingRelics,
         }, newMapping)
@@ -749,6 +757,7 @@
     if (min === 0 || curr < min) {
       return curr
     }
+    return min
   }
 
   function complexity(mapping, requirements) {
@@ -796,8 +805,122 @@
     return solutions.reduce(lockDepth, 0)
   }
 
-  function getMapping(options, removed) {
+  function round(
+    rng,
+    pool,
+    relics,
+    locations,
+    target,
+    goal,
+    callback,
+    ctx,
+    result,
+  ) {
+    return new Promise (function(resolve, reject) {
+      setTimeout(function() {
+        result = result || {}
+        if (++ctx.rounds >= MAX_ROUNDS && MAX_ROUNDS !== 0) {
+          resolve(result)
+        }
+        // Get new locations pool.
+        pool.locations = util.shuffled(rng, locations)
+        while (pool.locations.length > pool.relics.length) {
+          pool.locations.pop()
+        }
+        // Place relics.
+        result = pickRelicLocations(rng, pool)
+        if (result.error) {
+          if (result.error instanceof errors.SoftlockError) {
+            if (callback(ctx.rounds)) {
+              // If a softlock was generated, move the unplaced relics to the
+              // beginning of the relics pool list and try again.
+              result.relics.forEach(function(relic) {
+                pool.relics.splice(pool.relics.indexOf(relic), 1)
+              })
+              pool.relics = result.relics.concat(pool.relics)
+              return resolve(round(
+                rng,
+                pool,
+                relics,
+                locations,
+                target,
+                goal,
+                callback,
+                ctx,
+                result,
+              ))
+            } else {
+              return resolve(result)
+            }
+          } else {
+            return reject(result.error)
+          }
+        }
+        // Get progression complexity.
+        if (target !== undefined) {
+          const depth = complexity(result, goal)
+          if (ctx.lowDepth === undefined || depth < ctx.lowDepth) {
+            ctx.lowDepth = depth
+          }
+          if (ctx.highDepth === undefined || depth > ctx.highDepth) {
+            ctx.highDepth = depth
+          }
+          // If the complexity target is not met, reshuffle the relics.
+          if ((!Number.isNaN(target.min) && depth < target.min)
+              || ('max' in target && depth > target.max)) {
+            result.error = new errors.ComplexityError(
+              ctx.lowDepth,
+              ctx.highDepth,
+            )
+            if (callback(ctx.rounds)) {
+              pool.relics = util.shuffled(rng, relics)
+              return resolve(round(
+                rng,
+                pool,
+                relics,
+                locations,
+                target,
+                goal,
+                callback,
+                ctx,
+                result,
+              ))
+            }
+          }
+        }
+        return resolve(result)
+      })
+    })
+  }
+
+  function getLocations() {
+    const locations = relics.filter(function(location) {
+      return !location.extension
+    }).concat(extension.locations)
+    return locations.map(function(location) {
+      let id
+      if ('ability' in location) {
+        id = location.ability
+      } else if ('name' in location) {
+        id = location.name
+      }
+      if ('itemId' in location) {
+        const itemId = location.itemId + constants.tileIdOffset
+        const item = util.itemFromTileId(items(), itemId)
+        location.item = item
+        if ('tileIndex' in location) {
+          location.tile = item.tiles[location.tileIndex]
+        }
+      }
+      return Object.assign({id: id}, location)
+    })
+  }
+
+  function randomizeRelics(rng, options, removed, callback) {
     removed = removed || []
+    callback = callback || function() {
+      return true
+    }
     // Initialize location locks.
     const locksMap = {}
     if (typeof(options.relicLocations) === 'object') {
@@ -828,48 +951,21 @@
       goal = locksMap[name]
     })
     // Create relics and locations collections.
-    let locations = relics.filter(function(location) {
-      return !location.extension
-    })
+    let locations = getLocations()
     const extensions = []
-    let extendMenu
     switch (options.relicLocationsExtension) {
-    case constants.EXTENSION.EQUIPMENT:
-      extensions.push(constants.EXTENSION.EQUIPMENT)
+    case constants.EXTENSION.ADVENTURE:
+      extensions.push(constants.EXTENSION.ADVENTURE)
     case constants.EXTENSION.GUARDED:
       extensions.push(constants.EXTENSION.GUARDED)
-      extendMenu = true
     }
+    locations = locations.filter(function(location) {
+      return !location.extension
+        || extensions.indexOf(location.extension) !== -1
+    })
     let enabledRelics = relics.filter(function(relic) {
-      return !relic.extension || extensions.indexOf(relic.extension) !== -1
-    })
-    const extendedLocations = extension.locations.filter(function(location) {
-      return extensions.indexOf(location.extension) !== -1
-    })
-    locations = locations.concat(extendedLocations)
-    locations.forEach(function(location) {
-      let id
-      if ('ability' in location) {
-        id = location.ability
-      } else if ('name' in location) {
-        id = location.name
-      }
-      if (locksMap[id]) {
-        location.locks = locksMap[id].map(function(lock) {
-          return new Set(lock)
-        })
-      } 
-      if (!location.locks || !location.locks.length) {
-        location.locks = [new Set()]
-      }
-      if ('itemId' in location) {
-        const itemId = location.itemId + constants.tileIdOffset
-        const item = util.itemFromTileId(items, itemId)
-        location.item = item
-        if ('tileIndex' in location) {
-          location.tile = item.tiles[location.tileIndex]
-        }
-      }
+      return !relic.extension
+        || extensions.indexOf(relic.extension) !== -1
     })
     // Filter out any progression items that have been placed by a preset.
     const removedIds = removed.map(function(item) {
@@ -881,93 +977,66 @@
     enabledRelics = enabledRelics.filter(function(relic) {
       return removedIds.indexOf(relic.itemId) === -1
     })
-    // Consolidate location types into a standard format.
-    locations = locations.map(function(location) {
-      let id
-      if ('ability' in location) {
-        id = location.ability
-      } else if ('name' in location) {
-        id = location.name
-      }
-      return Object.assign({
-        id: id,
-        locks: location.locks.map(function(lock) {
+    // Initialize location locks.
+    locations.forEach(function(location) {
+      const id = location.id
+      if (locksMap[id]) {
+        location.locks = locksMap[id].map(function(lock) {
           return new Set(lock)
-        }),
-      }, location)
+        })
+      } 
+      if (!location.locks || !location.locks.length) {
+        location.locks = [new Set()]
+      }
     })
     // Create a context that holds the current relic and location pools.
     const pool = {
-      relics: util.shuffled(enabledRelics),
+      relics: util.shuffled(rng, enabledRelics),
     }
     // Attempt to place all relics.
-    let attempts = 0
-    let result
-    let lowDepth
-    let highDepth
-    while (attempts++ < MAX_ATTEMPTS) {
-      // Get new locations pool.
-      pool.locations = util.shuffled(locations)
-      while (pool.locations.length > pool.relics.length) {
-        pool.locations.pop()
-      }
-      // Place relics.
-      result = pickRelicLocations(pool)
+    const ctx = {rounds: 0}
+    return round(
+      rng,
+      pool,
+      enabledRelics,
+      locations,
+      target,
+      goal,
+      callback,
+      ctx,
+    ).then(function(result) {
+      // If the final attempt resulted in an error, throw it.
       if (result.error) {
-        if (result.error instanceof errors.SoftlockError) {
-          // If a softlock was generated, move the unplaced relics to the
-          // beginning of the relics pool list and try again.
-          result.relics.forEach(function(relic) {
-            pool.relics.splice(pool.relics.indexOf(relic), 1)
-          })
-          pool.relics = result.relics.concat(pool.relics)
-          continue
-        } else {
-          throw result.error
-        }
+        throw result.error
       }
-      // Get progression complexity.
-      if (typeof(target) !== 'undefined') {
-        const depth = complexity(result, goal)
-        if (lowDepth === undefined || depth < lowDepth) {
-          lowDepth = depth
-        }
-        if (highDepth === undefined || depth > highDepth) {
-          highDepth = depth
-        }
-        // If the complexity target is not met, reshuffle the relics.
-        if ((!Number.isNaN(target.min) && depth < target.min)
-            || ('max' in target && depth > target.max)) {
-          pool.relics = util.shuffled(enabledRelics)
-          result.error = new errors.ComplexityError(lowDepth, highDepth)
-          continue
-        }
+      locations = locations.filter(function(location) {
+        const locationId = location.ability || location.name
+        const locations = Object.getOwnPropertyNames(pool.locations)
+        return locations.indexOf(locationId) === -1
+      })
+      // Write spoilers.
+      const spoilers = []
+      enabledRelics.forEach(function(relic) {
+        const location = result[relic.ability]
+        spoilers.push(relic.name + ' at ' + location.name)
+      })
+      const info = util.newInfo()
+      info[3]['Relic locations'] = spoilers
+      return {
+        mapping: result,
+        locations: locations,
+        relics: enabledRelics,
+        rounds: ctx.rounds,
+        info: info,
       }
-      break
-    }
-    // If the final attempt resulted in an error, throw it.
-    if (result.error) {
-      throw result.error
-    }
-    locations = locations.filter(function(location) {
-      const locationId = location.ability || location.name
-      const locations = Object.getOwnPropertyNames(pool.locations)
-      return locations.indexOf(locationId) === -1
     })
-    return {
-      mapping: result,
-      locations: locations,
-      relics: enabledRelics,
-      extendMenu: extendMenu,
-    }
   }
 
-  function randomizeRelics(data, options, removed, info) {
+  function writeRelics(rng, options, result) {
+    const data = new util.checked()
     if (options.relicLocations) {
-      // Get random relic placements.
-      const result = getMapping(options, removed)
       // Write data to ROM.
-      writeMapping(data, result.mapping, result.locations)
+      writeMapping(data, rng, result.mapping)
       // Patch out cutscenes.
       patchAlchemyLabCutscene(data)
       patchClockRoomCutscene(data)
@@ -977,21 +1046,16 @@
       case constants.EXTENSION.GUARDED:
         patchRelicsMenu(data)
       }
-      // Write spoilers.
-      const spoilers = []
-      result.relics.forEach(function(relic) {
-        const location = result.mapping[relic.ability]
-        spoilers.push(relic.name + ' at ' + location.name)
-      })
-      if (info) {
-        info[3]['Relic locations'] = spoilers
-      }
+    }
+    return {
+      data: data,
+      items: items(),
     }
   }
 
   const exports = {
     randomizeRelics: randomizeRelics,
-    getMapping: getMapping,
+    writeRelics: writeRelics,
   }
   if (self) {
     self.sotnRando = Object.assign(self.sotnRando || {}, {
