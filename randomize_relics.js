@@ -117,7 +117,8 @@
     }).forEach(function(location) {
       if (locations.indexOf(location.ability) === -1) {
         // Erase entities.
-        if ('entity' in location) {
+        if ('entity' in location
+            && ('erase' in location.entity || location.entity.erase)) {
           writeEntity(data, location.entity, {id: 0x000f})
         }
         // Erase tile.

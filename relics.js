@@ -182,6 +182,19 @@
     // Replace item in items table.
     offset = util().romOffset(zone, zone.items + 0x02 * index)
     data.writeShort(offset, id + tileIdOffset)
+    // Change entity's position.
+    relic.entity.entities.forEach(function(addr) {
+      if ('asItem' in relic) {
+        if ('x' in relic.asItem) {
+          offset = util().romOffset(zone, addr + 0x00)
+          data.writeShort(offset, relic.asItem.x)
+        }
+        if ('y' in relic.asItem) {
+          offset = util().romOffset(zone, addr + 0x02)
+          data.writeShort(offset, relic.asItem.y)
+        }
+      }
+    })
     // Injection point.
     offset = util().romOffset(zone, 0x02c860)
     data.writeWord(offset, 0x0807bc40)          // j 0x801ef100
@@ -654,6 +667,9 @@
       entry:  0x034950,
       inj:    0x047900,
     }),
+    asItem: {
+      y: 0x00c9,
+    },
   }, {
     name: 'Tooth of Vlad',
     ability: RELIC.TOOTH_OF_VLAD,
@@ -677,6 +693,9 @@
       entry:  0x029fc0,
       inj:    0x037500,
     }),
+    asItem: {
+      y: 0x00b9,
+    },
   }, {
     name: 'Rib of Vlad',
     ability: RELIC.RIB_OF_VLAD,
@@ -700,10 +719,18 @@
       entry:  0x037014,
       inj:    0x04bf00,
     }),
+    asItem: {
+      y: 0x01b9,
+    },
   }, {
     name: 'Ring of Vlad',
     ability: RELIC.RING_OF_VLAD,
     relicId: 28,
+    entity: {
+      zones: [ ZONE.RNZ1 ],
+      entities: [ 0x2dce, 0x3640 ],
+      erase: false,
+    },
     ids: [{
       zone: ZONE.RNZ1,
       addresses: [ 0x059e8074, 0x059ee2e4, 0x059bdb30 ]
@@ -721,6 +748,9 @@
       }],
     },
     replaceWithItem: replaceRingOfVladWithItem,
+    asItem: {
+      y: 0x00c9,
+    },
   }, {
     name: 'Eye of Vlad',
     ability: RELIC.EYE_OF_VLAD,
