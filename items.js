@@ -6755,6 +6755,10 @@
       index: 6,
       entities: [ 0x291e, 0x32b0 ],
     }, {
+      zones: [ ZONE.RDAI ],
+      index: 6,
+      entities: [ 0x1f9a, 0x27f8 ],
+    }, {
       zones: [ ZONE.RNO2 ],
       index: 10,
       entities: [ 0x29ac, 0x3190 ],
