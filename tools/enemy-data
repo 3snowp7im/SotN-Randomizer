@@ -33,30 +33,66 @@ for (let i = 0; i < enemyList.length / 2; i++) {
     offset: enemyDataOff + enemyList.readUInt16LE(2 * i) * enemyDataLen,
   })
 }
+// Unlisted enemies.
+enemies.push({
+  name: 'Poltergeist',
+  id: 147,
+  level: undefined,
+  offset: 0x9d52,
+  dropCount: 1,
+})
+enemies.push({
+  name: 'Puppet sword',
+  id: 148,
+  level: undefined,
+  offset: 0x9e6a,
+  dropCount: 1,
+})
+enemies.push({
+  name: 'Shield',
+  id: 149,
+  level: undefined,
+  offset: 0x9ee2,
+  dropCount: 1,
+})
+enemies.push({
+  name: 'Spear',
+  id: 150,
+  level: undefined,
+  offset: 0x9eba,
+  dropCount: 1,
+})
 enemies.forEach(function(enemy) {
   const offset = enemy.offset
   delete enemy.offset
   let ptr = exeData.readUInt32LE(offset) - 0x80000000 - exeRamOffset
   let c
-  enemy.name = ''
-  while (true) {
-    c = exeData[ptr++]
-    if (c === 255) {
-      break
-    } else if (c === 0) {
-      c = ' '.charCodeAt()
-    } else {
-      c += 0x20
+  if (!('name' in enemy)) {
+    enemy.name = ''
+    while (true) {
+      c = exeData[ptr++]
+      if (c === 255) {
+        break
+      } else if (c === 0) {
+        c = ' '.charCodeAt()
+      } else {
+        c += 0x20
+      }
+      enemy.name += String.fromCharCode(c)
     }
-    enemy.name += String.fromCharCode(c)
   }
-  enemy.level = exeData[offset + enemyLevelOffset]
+  if (!('level' in enemy)) {
+    enemy.level = exeData[offset + enemyLevelOffset]
+  } else if (enemy.level === undefined) {
+    delete enemy.level
+  }
   enemy.dropAddresses = [
     offset + enemyDropsOff + 0,
     offset + enemyDropsOff + 2,
-  ].map(function(offset) {
+  ].slice(0, enemy.dropCount || 2).map(function(offset) {
     return exe.pos + offset + Math.floor(offset / 0x800) * 0x130
   })
+  delete enemy.dropCount
 })
 
 // Format data.

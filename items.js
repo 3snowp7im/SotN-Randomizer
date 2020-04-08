@@ -4528,9 +4528,6 @@
     id: 5,
     blacklist: [ 0x0b6b3c, 0x0b6b3a ],
     tiles: [{
-      addresses: [ 0x0b6c04 ],
-      enemy: 5,
-    }, {
       zones: [ ZONE.ARE ],
       entities: [ 0x3374, 0x3a56 ],
       candle: 0x10,
@@ -4710,6 +4707,9 @@
       zones: [ ZONE.RNZ1 ],
       entities: [ 0x2c2a, 0x34f6 ],
       candle: 0x10,
+    }, {
+      addresses: [ 0x0b6c04 ],
+      enemy: 5,
     }],
   }, {
     name: '$250',
@@ -4798,15 +4798,6 @@
     id: 7,
     blacklist: [ 0x0b6b3c, 0x0b6b3a ],
     tiles: [{
-      addresses: [ 0x0b7464 ],
-      enemy: 19,
-    }, {
-      addresses: [ 0x0b6e34 ],
-      enemy: 25,
-    }, {
-      addresses: [ 0x0b6bb4 ],
-      enemy: 32,
-    }, {
       zones: [ ZONE.NO4 ],
       entities: [ 0x328a, 0x4376 ],
       candle: 0x50,
@@ -4834,6 +4825,15 @@
       zones: [ ZONE.RNZ0 ],
       entities: [ 0x24a8, 0x2d2e ],
       candle: 0x20,
+    }, {
+      addresses: [ 0x0b7464 ],
+      enemy: 19,
+    }, {
+      addresses: [ 0x0b6e34 ],
+      enemy: 25,
+    }, {
+      addresses: [ 0x0b6bb4 ],
+      enemy: 32,
     }],
   }, {
     name: '$1000',
@@ -4841,9 +4841,6 @@
     id: 9,
     blacklist: [ 0x0b6b3c, 0x0b6b3a ],
     tiles: [{
-      addresses: [ 0x0b83cc ],
-      enemy: 40,
-    }, {
       zones: [ ZONE.ARE ],
       entities: [ 0x318a, 0x3844 ],
       candle: 0x10,
@@ -4851,6 +4848,9 @@
       zones: [ ZONE.RARE ],
       entities: [ 0x2130, 0x26b2 ],
       candle: 0x10,
+    }, {
+      addresses: [ 0x0b83cc ],
+      enemy: 40,
     }],
   }, {
     name: '$2000',
@@ -4858,9 +4858,6 @@
     id: 10,
     blacklist: [ 0x0b6b3c, 0x0b6b3a ],
     tiles: [{
-      addresses: [ 0x0b859c ],
-      enemy: 50,
-    }, {
       zones: [ ZONE.NO4 ],
       entities: [ 0x38de, 0x48e4 ],
       candle: 0x00,
@@ -4868,6 +4865,9 @@
       zones: [ ZONE.RNO4 ],
       entities: [ 0x35e2, 0x455a ],
       candle: 0x00,
+    }, {
+      addresses: [ 0x0b859c ],
+      enemy: 50,
     }],
   }, {
     name: 'Dagger',
@@ -4970,12 +4970,6 @@
       noOffset: true,
       tank: true,
     }, {
-      addresses: [ 0x0b83a4 ],
-      enemy: 12,
-    }, {
-      addresses: [ 0x0b5964 ],
-      enemy: 30,
-    }, {
       zones: [ ZONE.ARE ],
       entities: [ 0x30e0, 0x3772 ],
       candle: 0x10,
@@ -5047,6 +5041,12 @@
       zones: [ ZONE.RNZ1 ],
       entities: [ 0x2a5e, 0x3398 ],
       candle: 0x50,
+    }, {
+      addresses: [ 0x0b83a4 ],
+      enemy: 12,
+    }, {
+      addresses: [ 0x0b5964 ],
+      enemy: 30,
     }],
   }, {
     name: 'Cross',
@@ -5829,6 +5829,9 @@
     }, {
       addresses: [ 0x0b77d2 ],
       enemy: 14,
+    }, {
+      addresses: [ 0x0b70b4 ],
+      enemy: 149,
     }],
   }, {
     name: 'Iron Shield',
@@ -5864,12 +5867,12 @@
     type: TYPE.SHIELD,
     id: 10,
     tiles: [{
-      addresses: [ 0x0b8214 ],
-      enemy: 126,
-    }, {
       zones: [ ZONE.ST0 ],
       entities: [ 0x27f8, 0x2992 ],
       candle: 0x80,
+    }, {
+      addresses: [ 0x0b8214 ],
+      enemy: 126,
     }],
   }, {
     name: 'Goddess Shield',
@@ -6100,6 +6103,9 @@
     }, {
       addresses: [ 0x0b5eb4 ],
       enemy: 23,
+    }, {
+      addresses: [ 0x0b703c ],
+      enemy: 148,
     }],
   }, {
     name: 'Shotel',
@@ -6882,6 +6888,9 @@
       zones: [ ZONE.LIB ],
       addresses: [ 0x047a30de ],
       shop: true,
+    }, {
+      addresses: [ 0x0b6f24 ],
+      enemy: 147,
     }],
   }, {
     name: 'Boomerang',
@@ -6927,6 +6936,9 @@
     }, {
       addresses: [ 0x0b91e4 ],
       enemy: 97,
+    }, {
+      addresses: [ 0x0b708c ],
+      enemy: 150,
     }],
   }, {
     name: 'Tyrfing',
@@ -7237,12 +7249,12 @@
       addresses: [ 0x047a3146 ],
       shop: true,
     }, {
-      addresses: [ 0x0b6f4a ],
-      enemy: 81,
-    }, {
       zones: [ ZONE.ST0 ],
       entities: [ 0x2802, 0x299c ],
       candle: 0x80,
+    }, {
+      addresses: [ 0x0b6f4a ],
+      enemy: 81,
     }],
   }, {
     name: 'Thunderbrand',
@@ -7554,6 +7566,10 @@
       noOffset: true,
       reward: true,
     }, {
+      zones: [ ZONE.ST0 ],
+      entities: [ 0x280c, 0x29a6 ],
+      candle: 0x80,
+    }, {
       addresses: [ 0x0b752a ],
       enemy: 95,
     }, {
@@ -7562,10 +7578,6 @@
     }, {
       addresses: [ 0x0b9e02 ],
       enemy: 128,
-    }, {
-      zones: [ ZONE.ST0 ],
-      entities: [ 0x280c, 0x29a6 ],
-      candle: 0x80,
     }],
   }, {
     name: 'Runesword',
@@ -7618,9 +7630,6 @@
       addresses: [ 0x047a30c6 ],
       shop: true,
     }, {
-      addresses: [ 0x0b6764 ],
-      enemy: 42,
-    }, {
       zones: [ ZONE.LIB ],
       entities: [ 0x3448, 0x3b6e ],
       candle: 0x00,
@@ -7636,6 +7645,9 @@
       zones: [ ZONE.RLIB ],
       entities: [ 0x1e84, 0x242e ],
       candle: 0x00,
+    }, {
+      addresses: [ 0x0b6764 ],
+      enemy: 42,
     }],
   }, {
     name: 'Life Apple',

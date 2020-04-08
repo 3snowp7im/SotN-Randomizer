@@ -44,11 +44,37 @@ for (let i = 0; i < enemyList.length / 2; i++) {
     offset: enemyDataOff + enemyList.readUInt16LE(2 * i) * enemyDataLen,
   })
 }
+// Unlisted enemies:
+// Poltergeist
+enemies.push({
+  id: 147,
+  offset: 0x9d52,
+  dropCount: 1,
+})
+// Puppet sword
+enemies.push({
+  id: 148,
+  offset: 0x9e6a,
+  dropCount: 1,
+})
+// Shield
+enemies.push({
+  id: 149,
+  offset: 0x9ee2,
+  dropCount: 1,
+})
+// Spear
+enemies.push({
+  id: 150,
+  offset: 0x9eba,
+  dropCount: 1,
+})
+// Add tiles.
 enemies.forEach(function(enemy) {
   const offsets = [
     enemy.offset + dropsOff + 0,
     enemy.offset + dropsOff + 2,
-  ]
+  ].slice(0, enemy.dropCount || 2)
   offsets.forEach(function(offset) {
     const id = exeData.readUInt16LE(offset)
     if (id === 0) {
