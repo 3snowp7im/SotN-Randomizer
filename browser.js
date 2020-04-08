@@ -769,7 +769,20 @@
   if (url.hostname === 'localhost'
       || url.hostname.match(/^dev\./)
       || url.protocol === 'file:') {
+    document.body.classList.add('dev')
     document.getElementById('dev-border').classList.add('dev')
+    document.write([
+      '<div id="warning">WARNING: This is the development version of the',
+      'randomizer. Do not use this unless you know what you\'re doing.',
+      'Bugs and softlocks are to be expected.<br>',
+      'Go to <a href="https://sotn.io">sotn.io</a> for the stable release.',
+      '</div>',
+    ].join(' '))
+    setTimeout(function() {
+      document.getElementById('content').prepend(
+        document.getElementById('warning'),
+      )
+    })
   }
   loadOption('darkTheme', darkThemeChange, true)
   loadOption('appendSeed', appendSeedChange, true)

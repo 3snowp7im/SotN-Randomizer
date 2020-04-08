@@ -16,6 +16,15 @@ h1 {
     clear: both;
 }
 
+.dev h1 {
+    display: none;
+}
+
+#warning {
+    padding-top: 1em;
+    font-size: x-large;
+}
+
 #dev-border.dev {
     border: .5em solid rgba(255, 255, 0, .5);
     border-image: repeating-linear-gradient(
