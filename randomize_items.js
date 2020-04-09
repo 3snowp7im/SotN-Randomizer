@@ -24,6 +24,8 @@
   const tileIdOffset = constants.tileIdOffset
   const equipIdOffset = constants.equipIdOffset
   const equipmentInvIdOffset = constants.equipmentInvIdOffset
+  const GLOBAL_DROP = constants.GLOBAL_DROP
+  const globalDropsCount = constants.globalDropsCount
 
   const shuffled = util.shuffled
 
@@ -187,7 +189,7 @@
   function writeTiles(data) {
     return function(item) {
       item.tiles.forEach(function(tile) {
-        util.assert(tile)
+        util.assert(tile, 'invalid tile')
         const value = util.tileValue(item, tile)
         if ('index' in tile) {
           tile.zones.forEach(function(zoneId) {
@@ -634,7 +636,7 @@
     items.forEach(function(item) {
       if (equipmentFilter(item) && !salableFilter(item) && item.tiles) {
         const enemies = item.tiles.filter(function(tile) {
-          return 'enemy' in tile
+          return 'enemy' in tile && tile.enemy !== GLOBAL_DROP
         }).map(function(tile) {
           return tile.enemy
         })
@@ -665,10 +667,14 @@
     const dropItems = items.filter(function(item) {
       return util.itemTileFilter(util.dropTileFilter)(item)
         && !subweaponFilter(item)
-        && util.itemTileFilter(function(tile) { return !tile.librarian })(item)
+        && util.itemTileFilter(function(tile) {
+          return !tile.librarian && tile.enemy !== GLOBAL_DROP
+        })(item)
     })
     const tileItems = dropItems.map(cloneTilesMap(function(tile) {
-      return util.dropTileFilter(tile) && !tile.librarian
+      return util.dropTileFilter(tile)
+        && !tile.librarian
+        && tile.enemy !== GLOBAL_DROP
     }))
     // Create filter that ensures enemies don't drop the same item twice.
     const drops = {}
@@ -743,6 +749,8 @@
         let targets
         if (key === '*') {
           targets = enemies.concat([{librarian: true}])
+        } else if (key === GLOBAL_DROP) {
+          targets = [{id: GLOBAL_DROP}]
         } else if (key.toLowerCase() === 'librarian') {
           targets = [{librarian: true}]
         } else {
@@ -805,8 +813,21 @@
             })
           })
           // Replace tiles with items.
-          const drops = planned[key] || [undefined, undefined]
-          drops.forEach(function(itemName) {
+          let drops = planned[key]
+          let count
+          if (key === GLOBAL_DROP) {
+            count = globalDropsCount
+          } else if (target.librarian) {
+            count = 3
+          } else {
+            count = target.dropAddresses.length
+          }
+          if (drops) {
+            drops = drops.slice(0, count)
+          } else {
+            drops = Array(count).fill(null)
+          }
+          drops.forEach(function(itemName, index) {
             if (itemName) {
               const item = util.itemFromName(itemName)
               let target = pool.filter(function(drop) {
@@ -817,11 +838,11 @@
                 delete target.tiles
                 addon.push(target)
               }
-              pushTile.apply(target, tiles)
+              pushTile.call(target, tiles[index])
             } else {
               const item = {id: 0}
               addon.push(item)
-              pushTile.apply(item, tiles)
+              pushTile.call(item, tiles[index])
             }
           })
         })
@@ -838,11 +859,20 @@
         return !tile.noOffset
       })[0]
       const replacement = (addon || []).concat(pool).filter(function(item) {
-        return item.tiles && item.tiles.indexOf(offsetTile) !== -1
+        return item.tiles && item.tiles.some(function(tile) {
+          return tile.addresses
+            && tile.addresses[0] === offsetTile.addresses[0]
+        })
       })[0]
       pool.forEach(function(item) {
         if (item.tiles) {
-          const index = item.tiles.indexOf(noOffsetTile)
+          let index = -1
+          item.tiles.forEach(function(tile, tileIndex) {
+            if (tile.addresses
+                && tile.addresses[0] === noOffsetTile.addresses[0]) {
+              index = tileIndex
+            }
+          })
           if (index !== -1) {
             item.tiles.splice(index, 1)
           }
@@ -1005,7 +1035,10 @@
             return true
           }
           if (options.enemyDrops
-              && util.itemTileFilter(util.dropTileFilter)(item)) {
+              && util.itemTileFilter(util.dropTileFilter)(item)
+              && util.itemTileFilter(function(tile) {
+                return tile.enemy !== GLOBAL_DROP
+              })) {
             return true
           }
           if (options.startingEquipment

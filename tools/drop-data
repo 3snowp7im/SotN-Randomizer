@@ -11,6 +11,7 @@ const util = require('../util')
 const tileIdOffset = constants.tileIdOffset
 const TYPE = constants.TYPE
 const ZONE = constants.ZONE
+const GLOBAL_DROP = constants.GLOBAL_DROP
 const zones = constants.zones
 const exe = constants.exe
 const enemyListOff = constants.enemyListOff 
@@ -121,6 +122,67 @@ redRust.tiles.push({
   addresses: [ 0x04bc9328 ],
   enemy: 9,
   noOffset: true,
+})
+
+// Find occurences of global drops.
+const globalDrops = [
+  0x0003,
+  0x0000,
+  0x0002,
+  0x0003,
+  0x0003,
+  0x0003,
+  0x0003,
+  0x0003,
+  0x0003,
+  0x0004,
+  0x0004,
+  0x0004,
+  0x0004,
+  0x0005,
+  0x0005,
+  0x0000,
+  0x0000,
+  0x0000,
+  0x0000,
+  0x0000,
+  0x0000,
+  0x0000,
+  0x0000,
+  0x0000,
+  0x0000,
+  0x0000,
+  0x0001,
+  0x0001,
+  0x0002,
+  0x0006,
+  0x0007,
+  0x00c6,
+]
+const buf = Buffer.alloc(2 * globalDrops.length)
+globalDrops.forEach(function(id, index) {
+  buf.writeUInt16LE(id, 2 * index)
+})
+const addresses = []
+let i = 0
+while (i < bin.length - buf.length) {
+  if (bin.subarray(i, i + buf.length).equals(buf)) {
+    addresses.push(i)
+    i += buf.length
+  } else {
+    i++
+  }
+}
+globalDrops.forEach(function(id, index) {
+  const item = util.itemFromTileId(items, id)
+  item.tiles = item.tiles || []
+  item.tiles.push({
+    addresses: addresses.map(function(address) {
+      return address + 2 * index
+    }),
+    enemy: GLOBAL_DROP,
+    global: true,
+  })
 })
 
 // Format data.

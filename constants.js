@@ -521,6 +521,9 @@
     FURY_PLATE:                  'Fury Plate',
   }
 
+  const GLOBAL_DROP = 'Global'
+  const globalDropsCount = 32
+
   const exports = {
     releaseBaseUrl: releaseBaseUrl,
     devBaseUrl: devBaseUrl,
@@ -545,6 +548,8 @@
     EXTENSION: EXTENSION,
     defaultExtension: defaultExtension,
     LOCATION: LOCATION,
+    GLOBAL_DROP: GLOBAL_DROP,
+    globalDropsCount: globalDropsCount,
   }
   if (self) {
     self.sotnRando = Object.assign(self.sotnRando || {}, {

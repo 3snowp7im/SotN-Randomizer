@@ -27,6 +27,7 @@
   const SLOT = constants.SLOT
   const RELIC = constants.RELIC
   const LOCATION = constants.LOCATION
+  const GLOBAL_DROP = constants.GLOBAL_DROP
 
   // Create PresetBuilder.
   const builder = new PresetBuilder(metadata)
@@ -43,6 +44,43 @@
 
   // Disable drops.
   builder.enemyDrops('*', undefined, undefined)
+
+  // Disable global meal ticket drop.
+  builder.enemyDrops(
+    GLOBAL_DROP,
+    '$25',
+    'Heart',
+    '$1',
+    '$25',
+    '$25',
+    '$25',
+    '$25',
+    '$25',
+    '$25',
+    '$50',
+    '$50',
+    '$50',
+    '$50',
+    '$100',
+    '$100',
+    'Heart',
+    'Heart',
+    'Heart',
+    'Heart',
+    'Heart',
+    'Heart',
+    'Heart',
+    'Heart',
+    'Heart',
+    'Heart',
+    'Heart',
+    'Big heart',
+    'Big heart',
+    '$1',
+    '$250',
+    '$400',
+    'Heart',
+  )
 
   // Disable prologue rewards.
   builder.prologueRewards('Heart Refresh', undefined)

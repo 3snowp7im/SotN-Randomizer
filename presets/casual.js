@@ -5,8 +5,7 @@
     id: 'casual',
     name: 'Casual',
     description: [
-      'Use safe logic, but randomize relics among vanilla locations',
-      'only.',
+      'Use safe logic, but randomize relics among vanilla locations only.',
     ].join(' '),
     author: '3snow_p7im, setz, and soba',
     weight: -200,

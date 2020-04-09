@@ -500,7 +500,7 @@
               }
               arg = randomize.slice(start, i)
               arg.split('-').forEach(function(arg, index)  {
-                if (index > 1) {
+                if (enemyName !== constants.GLOBAL_DROP && index > 1) {
                   throw new Error('Too many drops for enemy: ' + enemy.name)
                 }
                 if (arg) {
@@ -1456,6 +1456,13 @@
             return constants.RELIC[name] === entry[1]
           })[0]
           break
+        case 'enemy':
+          if (entry[1] === constants.GLOBAL_DROP) {
+            value = 'GLOBAL_DROP'
+          } else {
+            value = entry[1]
+          }
+          break
         case 'type':
           value = 'TYPE.' + constants.typeNames[entry[1]]
           break
@@ -2083,6 +2090,8 @@
         let enemy
         if (id === '*') {
           enemy = '*'
+        } else if (id === constants.GLOBAL_DROP) {
+          enemy = id
         } else {
           enemy = enemyFromIdString(id)
         }
@@ -2188,29 +2197,35 @@
       if (typeof(enemy) === 'boolean') {
         this.drops = enemy
       } else {
+        const args = Array.prototype.slice.call(arguments)
         if (typeof(this.drops) !== 'object') {
           this.drops = new Map()
         }
-        if (typeof(level) === 'string') {
-          rareDropName = commonDropName
-          commonDropName = level
-          level = undefined
-        }
         let enemy
-        if (enemyName === '*') {
-          enemy = '*'
+        if (enemyName === constants.GLOBAL_DROP) {
+          enemy = enemyName
         } else {
-          enemy = enemies.filter(function(enemy) {
-            if (enemy.name === enemyName) {
-              if (typeof(level) !== 'undefined') {
-                return enemy.level === level
+          if (typeof(level) === 'string') {
+            rareDropName = commonDropName
+            commonDropName = level
+            level = undefined
+            args.splice(1, 1)
+          }
+          if (enemyName === '*') {
+            enemy = '*'
+          } else {
+            enemy = enemies.filter(function(enemy) {
+              if (enemy.name === enemyName) {
+                if (typeof(level) !== 'undefined') {
+                  return enemy.level === level
+                }
+                return true
               }
-              return true
-            }
-          }).pop()
-          assert(enemy, 'Unknown enemy: ' + enemyName)
+            }).pop()
+            assert(enemy, 'Unknown enemy: ' + enemyName)
+          }
         }
-        const dropNames = [ commonDropName, rareDropName ]
+        dropNames = args.slice(1)
         const drops = dropNames.map(function(dropName) {
           if (dropName) {
             const item = items.filter(function(item) {
@@ -2473,6 +2488,8 @@
         let enemyName
         if (enemy === '*') {
           enemyName = '*'
+        } else if (enemy === constants.GLOBAL_DROP) {
+          enemyName = enemy
         } else {
           enemyName = enemy.name
           const amb = enemies.filter(function(enemy) {
