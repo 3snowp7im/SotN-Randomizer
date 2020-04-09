@@ -468,25 +468,30 @@
               level = parseInt(arg.slice(dashIndex + 1))
               arg = arg.slice(0, dashIndex)
             }
-            const matches = enemies.filter(function(enemy) {
-              let name = enemy.name.replace(/[^a-zA-Z0-9]/g, '')
-              name = name.toLowerCase()
-              return name === arg.toLowerCase()
-            })
-            let enemy
-            if (matches.length > 1 && typeof(level) !== 'undefined') {
-              enemy = matches.filter(function(enemy) {
-                return enemy.level === level
-              })[0]
+            let enemyName
+            if (arg === '*' || arg === constants.GLOBAL_DROP) {
+              enemyName = arg
             } else {
-              enemy = matches[0]
-            }
-            if (!enemy) {
-              throw new Error('Unknown enemy: ' + arg)
-            }
-            let enemyName = enemy.name.replace(/[^a-zA-Z0-9]/g, '')
-            if (matches.length > 1 && matches[0] !== enemy) {
-              enemyName += '-' + enemy.level
+              let enemy
+              const matches = enemies.filter(function(enemy) {
+                let name = enemy.name.replace(/[^a-zA-Z0-9]/g, '')
+                name = name.toLowerCase()
+                return name === arg.toLowerCase()
+              })
+              if (matches.length > 1 && typeof(level) !== 'undefined') {
+                enemy = matches.filter(function(enemy) {
+                  return enemy.level === level
+                })[0]
+              } else {
+                enemy = matches[0]
+              }
+              if (!enemy) {
+                throw new Error('Unknown enemy: ' + arg)
+              }
+              enemyName = enemy.name.replace(/[^a-zA-Z0-9]/g, '')
+              if (matches.length > 1 && matches[0] !== enemy) {
+                enemyName += '-' + enemy.level
+              }
             }
             if (typeof(enemyDrops) !== 'object') {
               enemyDrops = {}
@@ -696,7 +701,7 @@
             if (!arg.length) {
               throw new Error('Expected argument')
             }
-            if (!(arg in constants.ZONE)) {
+            if (arg !== '*' && !(arg in constants.ZONE)) {
               throw new Error('Unknown zone: ' + arg)
             }
             const zone = arg
@@ -715,34 +720,40 @@
             if (!arg.length) {
               throw new Error('Expected argument')
             }
-            const dashIndex = arg.lastIndexOf('-')
+            let itemName
             let index
-            if (dashIndex === -1) {
+            if (arg === '*') {
+              itemName = arg
               index = 0
             } else {
-              index = parseInt(arg.slice(dashIndex + 1)) - 1
-              if (index < 0) {
-                throw new Error('Unknown item number: '
-                                + arg.slice(dashIndex + 1))
+              const dashIndex = arg.lastIndexOf('-')
+              if (dashIndex === -1) {
+                index = 0
+              } else {
+                index = parseInt(arg.slice(dashIndex + 1)) - 1
+                if (index < 0) {
+                  throw new Error('Unknown item number: '
+                                  + arg.slice(dashIndex + 1))
+                }
+                arg = arg.slice(0, dashIndex)
               }
-              arg = arg.slice(0, dashIndex)
-            }
-            const item = items.filter(function(item) {
-              let name = item.name.replace(/[^a-zA-Z0-9]/g, '')
-              name = name.toLowerCase()
-              return name === arg.toLowerCase()
-            })[0]
-            if (!item) {
-              throw new Error('Unknown item: ' + arg)
-            }
-            const itemName = item.name
-            const tile = item.tiles && item.tiles.filter(function(tile) {
-              if (typeof(tile.zones) !== 'undefined') {
-                return tile.zones.indexOf(constants.ZONE[zone]) !== -1
+              const item = items.filter(function(item) {
+                let name = item.name.replace(/[^a-zA-Z0-9]/g, '')
+                name = name.toLowerCase()
+                return name === arg.toLowerCase()
+              })[0]
+              if (!item) {
+                throw new Error('Unknown item: ' + arg)
               }
-            })[index]
-            if (!tile) {
-              throw new Error('Item not found in zone: ' + arg)
+              itemName = item.name
+              const tile = item.tiles && item.tiles.filter(function(tile) {
+                if (typeof(tile.zones) !== 'undefined') {
+                  return tile.zones.indexOf(constants.ZONE[zone]) !== -1
+                }
+              })[index]
+              if (!tile) {
+                throw new Error('Item not found in zone: ' + arg)
+              }
             }
             if (randomize[i] !== ':') {
               throw new Error('Expected argument')
@@ -894,7 +905,10 @@
               location = arg
             } else {
               location = locations.filter(function(name) {
-                return name === arg.toLowerCase()
+                if (name.length > 1) {
+                  return name === arg.toLowerCase()
+                }
+                return name === arg
               }).pop()
               if (!location) {
                 throw new Error('Invalid relic location: ' + arg)
