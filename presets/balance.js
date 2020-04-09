@@ -26,6 +26,7 @@
   const ZONE = constants.ZONE
   const SLOT = constants.SLOT
   const RELIC = constants.RELIC
+  const EXTENSION = constants.EXTENSION
   const LOCATION = constants.LOCATION
   const GLOBAL_DROP = constants.GLOBAL_DROP
 
@@ -91,7 +92,7 @@
   builder.startingEquipment(SLOT.RIGHT_HAND, undefined)
 
   // Enable Guarded relic location extension.
-  builder.relicLocationsExtension('guarded')
+  builder.relicLocationsExtension(EXTENSION.GUARDED)
 
   // Lock everything except Gas Cloud with Spirit Orb.
   builder.lockLocation(RELIC.CUBE_OF_ZOE, [
