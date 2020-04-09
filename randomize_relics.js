@@ -957,8 +957,8 @@
     let locations = getLocations()
     const extensions = []
     switch (options.relicLocationsExtension) {
-    case constants.EXTENSION.ADVENTURE:
-      extensions.push(constants.EXTENSION.ADVENTURE)
+    case constants.EXTENSION.EQUIPMENT:
+      extensions.push(constants.EXTENSION.EQUIPMENT)
     case constants.EXTENSION.GUARDED:
       extensions.push(constants.EXTENSION.GUARDED)
     }
