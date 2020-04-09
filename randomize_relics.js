@@ -117,8 +117,12 @@
       return mapping[key].ability
     })
     const zoneRemovedItems = {}
-    relics.filter(function(relic) {
-      return !relic.extension
+    const abilities = relics.map(function(relic) {
+      return relic.ability
+    })
+    const locations = getLocations()
+    locations.filter(function(location) {
+      return abilities.indexOf(location.ability) !== -1
     }).forEach(function(location) {
       if (placed.indexOf(location.ability) === -1) {
         // Erase entities.
@@ -139,7 +143,6 @@
         }
       }
     })
-    const locations = getLocations()
     // Write new relic locations.
     Object.getOwnPropertyNames(mapping).forEach(function(key) {
       // Get the relic being placed.
