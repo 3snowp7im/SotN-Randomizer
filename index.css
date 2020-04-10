@@ -197,6 +197,10 @@ input[type="number"] {
     margin-left: 2em;
 }
 
+input[type="number"] {
+    width: 2.5em;
+}
+
 /* Menu mode */
 
 body.menu {

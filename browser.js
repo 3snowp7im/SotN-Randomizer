@@ -16,6 +16,10 @@
   let selectedFile
   let version
 
+  const safe = presets.filter(function(preset) {
+    return preset.id === 'safe'
+  }).pop()
+
   function cloneItems(items) {
     return items.map(function(item) {
       const clone = Object.assign({}, item)
@@ -115,6 +119,7 @@
     localStorage.setItem('preset', elems.preset.checked)
     if (elems.preset.checked) {
       elems.presetSelect.classList.remove('hide')
+      elems.complexity.disabled = true
       elems.enemyDrops.disabled = true
       elems.startingEquipment.disabled = true
       elems.itemLocations.disabled = true
@@ -125,6 +130,7 @@
       presetIdChange()
     } else {
       elems.presetSelect.classList.add('hide')
+      elems.complexity.disabled = false
       elems.enemyDrops.disabled = false
       elems.startingEquipment.disabled = false
       elems.itemLocations.disabled = false
@@ -142,6 +148,15 @@
     localStorage.setItem('presetId', preset.id)
     if (elems.preset.checked) {
       const options = preset.options()
+      let complexity = 1
+      Object.getOwnPropertyNames(options.relicLocations).forEach(
+        function(key) {
+          if (/^[0-9]+(-[0-9]+)?/.test(key)) {
+            complexity = key.split('-').pop()
+          }
+        }
+      )
+      elems.complexity.value = complexity
       elems.enemyDrops.checked = !!options.enemyDrops
       elems.startingEquipment.checked = !!options.startingEquipment
       elems.itemLocations.checked = !!options.itemLocations
@@ -155,6 +170,10 @@
         !options.relicLocationsExtension
       elems.turkeyMode.checked = !!options.turkeyMode
     }
+  }
+
+  function complexityChange() {
+    localStorage.setItem('complexit', elems.complexity.value)
   }
 
   function startingEquipmentChange() {
@@ -212,7 +231,6 @@
 
   function themeChange() {
     localStorage.setItem('theme', elems.theme.value)
-    //console.log(elems.theme.value)
     {
       ['menu', 'light', 'dark'].forEach(function(theme) {
         if (theme === elems.theme.value) {
@@ -297,6 +315,22 @@
     ].join('')
   }
 
+  function getFormRelicLocations() {
+    // Get safe relic locations.
+    const relicLocations = safe.options().relicLocations
+    // Delete default complexity target.
+    let goals
+    Object.getOwnPropertyNames(relicLocations).forEach(function(key) {
+      if (/^[0-9]+(-[0-9]+)?/.test(key)) {
+        goals = relicLocations[key]
+        delete relicLocations[key]
+      }
+    })
+    // Add complexity target from form.
+    relicLocations[elems.complexity.value] = goals
+    return relicLocations
+  }
+
   function getFormRelicLocationsExtension() {
     if (elems.relicLocationsExtension.guarded.checked) {
       return constants.EXTENSION.GUARDED
@@ -315,7 +349,7 @@
       startingEquipment: elems.startingEquipment.checked,
       itemLocations: elems.itemLocations.checked,
       prologueRewards: elems.prologueRewards.checked,
-      relicLocations: elems.relicLocations.checked,
+      relicLocations: getFormRelicLocations(),
       relicLocationsExtension: getFormRelicLocationsExtension(),
       turkeyMode: elems.turkeyMode.checked,
     }
@@ -551,6 +585,7 @@
     presetId: document.getElementById('preset-id'),
     presetDescription: document.getElementById('preset-description'),
     presetAuthor: document.getElementById('preset-author'),
+    complexity: document.getElementById('complexity'),
     enemyDrops: document.getElementById('enemy-drops'),
     enemyDropsArg: document.getElementById('enemy-drops-arg'),
     startingEquipment: document.getElementById('starting-equipment'),
@@ -588,6 +623,7 @@
   elems.seed.addEventListener('change', seedChange)
   elems.preset.addEventListener('change', presetChange)
   elems.presetId.addEventListener('change', presetIdChange)
+  elems.complexity.addEventListener('change', complexityChange)
   elems.enemyDrops.addEventListener('change', enemyDropsChange)
   elems.startingEquipment.addEventListener('change', startingEquipmentChange)
   elems.relicLocations.addEventListener('change', relicLocationsChange)
@@ -668,6 +704,19 @@
       elems.presetId.selectedIndex = 0
     }
     presetChange()
+    let locations
+    if (typeof(applied.relicLocations) === 'object') {
+      locations = applied.relicLocations
+    } else {
+      locations = safe.options().relicLocations
+    }
+    Object.getOwnPropertyNames(locations).forEach(
+      function(key) {
+        if (/^[0-9]+(-[0-9]+)?$/.test(key)) {
+          elems.complexity.value = key.split('-').pop()
+        }
+      }
+    )
     elems.enemyDrops.checked = applied.enemyDrops
     enemyDropsChange()
     let enemyDropsArg = ''
@@ -714,8 +763,6 @@
       }).replace(',' + util.optionsToString({
         relicLocationsExtension: 'equipment',
       }), '')
-      console.log(options.relicLocations)
-      console.log(relicLocationsArg)
     }
     elems.relicLocationsArg.value = relicLocationsArg
     elems.relicLocationsExtension.guarded.checked =
@@ -729,6 +776,7 @@
     turkeyModeChange()
     elems.preset.disabled = true
     elems.presetId.disabled = true
+    elems.complexity.disabled = true
     elems.enemyDrops.disabled = true
     elems.startingEquipment.disabled = true
     elems.itemLocations.disabled = true
@@ -740,6 +788,7 @@
     const baseUrl = url.origin + url.pathname
     window.history.replaceState({}, document.title, baseUrl)
   } else {
+    loadOption('complexity', complexityChange, 7)
     loadOption('enemyDrops', enemyDropsChange, true)
     loadOption('startingEquipment', startingEquipmentChange, true)
     loadOption('itemLocations', itemLocationsChange, true)
