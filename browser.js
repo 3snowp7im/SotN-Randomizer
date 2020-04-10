@@ -178,7 +178,6 @@
   function relicLocationsChange() {
     localStorage.setItem('relicLocations', elems.relicLocations.checked)
     if (!elems.relicLocations.checked) {
-      console.log('disabled')
       elems.relicLocationsSet.disabled = true
       elems.relicLocationsExtension.guarded.checked = false
       elems.relicLocationsExtension.equipment.checked = false
@@ -632,7 +631,6 @@
   let seed
   if (url.search.length) {
     const rs = util.optionsFromUrl(window.location.href)
-    console.log(rs)
     options = rs.options
     const applied = util.Preset.options(options)
     seed = rs.seed
@@ -703,7 +701,12 @@
     if (typeof(options.relicLocations) === 'object') {
       relicLocationsArg = util.optionsToString({
         relicLocations: options.relicLocations,
-      })
+        relicLocationsExtension: 'equipment',
+      }).replace(',' + util.optionsToString({
+        relicLocationsExtension: 'equipment',
+      }), '')
+      console.log(options.relicLocations)
+      console.log(relicLocationsArg)
     }
     elems.relicLocationsArg.value = relicLocationsArg
     elems.relicLocationsExtension.guarded.checked =

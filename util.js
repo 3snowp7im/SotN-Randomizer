@@ -896,9 +896,7 @@
             const locations = relics.map(function(relic) {
               return relic.ability
             }).concat(extension.locations.map(function(location) {
-              let name = location.name.replace(/[^a-zA-Z0-9]/g, '')
-              name = name.toLowerCase()
-              return name
+              return location.name
             }))
             let location
             if (/^[0-9]+(-[0-9]+)?$/.test(arg)) {
@@ -906,7 +904,8 @@
             } else {
               location = locations.filter(function(name) {
                 if (name.length > 1) {
-                  return name === arg.toLowerCase()
+                  const loc = name.replace(/[^a-zA-Z0-9]/g, '').toLowerCase()
+                  return loc === arg.toLowerCase()
                 }
                 return name === arg
               }).pop()
