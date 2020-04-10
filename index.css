@@ -143,16 +143,12 @@ fieldset .pure-g .pure-u-12-24 fieldset {
 }
 
 .tooltip-wrapper .tooltip {
+    margin-bottom: 1em;
     bottom: 100%;
     display: block;
-    margin-bottom: 1em;
     opacity: 0;
-    padding: 1.25em;
     pointer-events: none;
     position: absolute;
-    width: 320px;
-    transform: translateY(10px);
-    transition: all .25s ease-out;
 }
 
 .tooltip-wrapper .tooltip:before {
@@ -163,12 +159,6 @@ fieldset .pure-g .pure-u-12-24 fieldset {
     left: 0;
     position: absolute;
     width: 100%;
-}
-
-.tooltip-wrapper:hover .tooltip {
-    opacity: 1;
-    pointer-events: auto;
-    transform: translateY(0px);
 }
 
 #preset-author {
@@ -273,6 +263,31 @@ body.menu {
     }
 }
 
+.menu .tooltip-wrapper:hover .tooltip {
+    width: 420px;
+    opacity: 1;
+    pointer-events: auto;
+    animation: tooltip .5s;
+    overflow: hidden;
+}
+
+.menu .tooltip-wrapper .tooltip > span {
+    width: 380px;
+    padding: 20px;
+    display: inline-block;
+}
+
+@keyframes tooltip {
+    0% {
+        width: 0;
+        max-height: 0;
+    }
+    100% {
+        width: 420px;
+        max-height: 8.5em;
+    }
+}
+
 .menu .tooltip-indicator {
     background: #fff;
     color: #999;
@@ -313,11 +328,13 @@ body.menu {
 }
 
 .menu #notification span {
-    display: block;
+    display: inline-block;
     position: absolute;
     bottom: .3em;
-    right: 0;
+    right: 1em;
+    height: 1.25em;
     white-space: nowrap;
+    text-align: center;
     width: 10em;
 }
 
@@ -327,14 +344,14 @@ body.menu {
         height: 0;
     }
     100% {
-        width: 11em;
+        width: 12em;
         height: 2em;
     }
 }
 
 @keyframes shrink {
     0% {
-        width: 11em;
+        width: 12em;
         height: 2em;
     }
     100% {
@@ -384,8 +401,18 @@ body.menu {
 }
 
 .light .tooltip-wrapper .tooltip {
+    width: 320px;
+    padding: 1.25em;
+    transform: translateY(10px);
+    transition: all .25s ease-out;
     background: #fff;
     box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.28);
+}
+
+.light .tooltip-wrapper:hover .tooltip {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0px);
 }
 
 .light #target {
@@ -479,8 +506,19 @@ body.menu {
 }
 
 .dark .tooltip-wrapper .tooltip {
+    width: 320px;
+    padding: 1.25em;
+    margin-bottom: 1em;
+    transform: translateY(10px);
+    transition: all .25s ease-out;
     background: #333;
     box-shadow: 2px 2px 6px rgba(0, 0, 0, .8);
+}
+
+.dark .tooltip-wrapper:hover .tooltip {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0px);
 }
 
 .dark #target {

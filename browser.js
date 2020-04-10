@@ -173,7 +173,7 @@
   }
 
   function complexityChange() {
-    localStorage.setItem('complexit', elems.complexity.value)
+    localStorage.setItem('complexity', elems.complexity.value)
   }
 
   function startingEquipmentChange() {
