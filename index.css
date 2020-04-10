@@ -215,6 +215,10 @@ body.menu {
     color: #c9f;
 }
 
+.menu .contact {
+    filter: invert(1);
+}
+
 .menu textarea,
 .menu select,
 .menu input[type="text"],
