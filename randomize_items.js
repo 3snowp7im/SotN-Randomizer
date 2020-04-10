@@ -828,22 +828,16 @@
             drops = Array(count).fill(null)
           }
           drops.forEach(function(itemName, index) {
-            if (itemName) {
-              const item = util.itemFromName(itemName)
-              let target = pool.filter(function(drop) {
-                return drop.id === item.id && drop.type === item.type
-              })[0]
-              if (!target) {
-                target = Object.assign({}, util.itemFromName(item))
-                delete target.tiles
-                addon.push(target)
-              }
-              pushTile.call(target, tiles[index])
-            } else {
-              const item = {id: 0}
-              addon.push(item)
-              pushTile.call(item, tiles[index])
+            const item = util.itemFromName(itemName || 'Heart')
+            let target = pool.filter(function(drop) {
+              return drop.id === item.id && drop.type === item.type
+            })[0]
+            if (!target) {
+              target = Object.assign({}, util.itemFromName(item))
+              delete target.tiles
+              addon.push(target)
             }
+            pushTile.call(target, tiles[index])
           })
         })
       })
