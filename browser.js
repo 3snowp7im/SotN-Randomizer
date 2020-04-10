@@ -210,14 +210,17 @@
     localStorage.setItem('turkeyMode', elems.turkeyMode.checked)
   }
 
-  function darkThemeChange() {
-    localStorage.setItem('darkTheme', elems.darkTheme.checked)
-    if (elems.darkTheme.checked) {
-      body.classList.remove('light')
-      body.classList.add('dark')
-    } else {
-      body.classList.remove('dark')
-      body.classList.add('light')
+  function themeChange() {
+    localStorage.setItem('theme', elems.theme.value)
+    //console.log(elems.theme.value)
+    {
+      ['menu', 'light', 'dark'].forEach(function(theme) {
+        if (theme === elems.theme.value) {
+          body.classList.add(theme)
+        } else {
+          body.classList.remove(theme)
+        }
+      })
     }
   }
 
@@ -492,11 +495,11 @@
       elems.notification.classList.remove('hide')
       setTimeout(function() {
         elems.notification.classList.add('hide')
-      }, 250)
+      }, 2000)
       setTimeout(function() {
         elems.notification.classList.remove('success')
         animationDone = true
-      }, 2250)
+      }, 4000)
     }
   }
 
@@ -507,10 +510,16 @@
 
   function loadOption(name, changeHandler, defaultValue) {
     const value = localStorage.getItem(name)
-    if (typeof(value) === 'string') {
-      elems[name].checked = value === 'true'
+    if (elems[name].type === 'checkbox') {
+      if (typeof(value) === 'string') {
+        elems[name].checked = value === 'true'
+      } else {
+        elems[name].checked = defaultValue
+      }
+    } else if (typeof(value) === 'string') {
+      elems[name].value = value
     } else {
-      elems[name].checked = defaultValue
+      elems[name].value = defaultValue
     }
     changeHandler()
   }
@@ -560,7 +569,7 @@
     prologueRewardsArg: document.getElementById('prologue-rewards-arg'),
     turkeyMode: document.getElementById('turkey-mode'),
     clear: document.getElementById('clear'),
-    darkTheme: document.getElementById('dark-theme'),
+    theme: document.getElementById('theme'),
     appendSeed: document.getElementById('append-seed'),
     showSpoilers: document.getElementById('show-spoilers'),
     showRelics: document.getElementById('show-relics'),
@@ -598,7 +607,7 @@
   elems.prologueRewards.addEventListener('change', prologueRewardsChange)
   elems.turkeyMode.addEventListener('change', turkeyModeChange)
   elems.clear.addEventListener('click', clearHandler)
-  elems.darkTheme.addEventListener('change', darkThemeChange)
+  elems.theme.addEventListener('change', themeChange)
   elems.appendSeed.addEventListener('change', appendSeedChange)
   elems.showSpoilers.addEventListener('change', spoilersChange)
   elems.showRelics.addEventListener('change', showRelicsChange)
@@ -792,7 +801,7 @@
       )
     })
   }
-  loadOption('darkTheme', darkThemeChange, true)
+  loadOption('theme', themeChange, 'menu')
   loadOption('appendSeed', appendSeedChange, true)
   loadOption('showSpoilers', spoilersChange, true)
   loadOption('showRelics', showRelicsChange, false)

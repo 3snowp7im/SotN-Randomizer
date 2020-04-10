@@ -54,8 +54,6 @@ h3 time {
 #target {
     text-align: center;
     padding: 3em 0;
-    border-width: 10px;
-    border-style: dashed;
 }
 
 fieldset .pure-g .pure-u-12-24, fieldset .pure-g .pure-u-1 {
@@ -75,9 +73,7 @@ fieldset .pure-g .pure-u-12-24 fieldset {
 }
 
 #notification {
-    padding: 1em;
     margin: 10px;
-    border-radius: .5em;
     position: fixed;
     bottom: 0;
     right: 0;
@@ -87,11 +83,6 @@ fieldset .pure-g .pure-u-12-24 fieldset {
 #notification.success {
     display: block;
     opacity: 1;
-    transition: opacity 2s ease-in-out;
-}
-
-#notification.success.hide {
-    opacity: 0;
 }
 
 #preset-select.hide {
@@ -192,8 +183,7 @@ form > div > fieldset > div > div > label:first-child {
     margin-left: 2em;
 }
 
-form > div > fieldset > div > div > input,
-form > div > fieldset > div > div > select{
+form > div > fieldset > div > div > input {
     margin-left: .85em;
 }
 
@@ -201,18 +191,166 @@ form > div > fieldset > div > div > select{
     width: 15ex;
 }
 
+select,
+input[type="text"],
+input[type="number"] {
+    margin-left: 2em;
+}
+
+/* Menu mode */
+
+body.menu {
+    background: linear-gradient(
+        180deg,
+        rgba(2,0,36,1) 0%,
+        rgba(0,0,32,1) 11%,
+        rgba(65,65,150,1) 100%
+    ) fixed;
+}
+
+.menu {
+    color: #fff;
+    background: transparent;
+}
+
+.menu a:link {
+    color: #9cf;
+}
+
+.menu a:visited {
+    color: #c9f;
+}
+
+.menu textarea,
+.menu select,
+.menu input[type="text"],
+.menu input[type="number"] {
+    color: #fff;
+    background: transparent;
+}
+
+.menu select:focus:hover {
+    background: rgb(32,32,75,1);
+}
+
+.menu input[type="submit"] {
+    color: #fff;
+    background: transparent;
+    border: none;
+    font-size: x-large;
+    padding: 6px;
+}
+
+.menu input[type="submit"]:disabled {
+    visibility: hidden;
+}
+
+.menu input[type="submit"]:enabled:hover {
+    animation: pulse 1s infinite;
+}
+
+.menu #target {
+    border: 1px #fff solid;
+}
+
+.menu #target.error {
+    animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        background-color: #400000;
+    }
+    50% {
+        background-color: #580000;
+    }
+    100% {
+        background-color: #400000;
+    }
+}
+
+.menu .tooltip-indicator {
+    background: #fff;
+    color: #999;
+}
+
+.menu .tooltip-wrapper .tooltip {
+    background: linear-gradient(
+        180deg,
+        rgba(2,0,36,1) 0%,
+        rgba(0,0,32,1) 11%,
+        rgba(65,65,150,1) 100%
+    ) fixed;
+    border: 1px #fff solid;
+}
+
+.menu input[type="radio"]:disabled {
+    opacity: .45;
+}
+
+.menu input[type="radio"]:checked:disabled {
+    opacity: 1;
+}
+
+.menu #notification {
+    animation: expand 2s;
+    overflow: hidden;
+    border: 1px #fff solid;
+    background: linear-gradient(
+        180deg,
+        rgba(2,0,36,1) 0%,
+        rgba(0,0,32,1) 11%,
+        rgba(65,65,150,1) 100%
+    ) fixed;
+}
+
+.menu #notification.hide {
+    animation: shrink 2s;
+}
+
+.menu #notification span {
+    display: block;
+    position: absolute;
+    bottom: .3em;
+    right: 0;
+    white-space: nowrap;
+    width: 10em;
+}
+
+@keyframes expand {
+    0% {
+        width: 0;
+        height: 0;
+    }
+    100% {
+        width: 11em;
+        height: 2em;
+    }
+}
+
+@keyframes shrink {
+    0% {
+        width: 11em;
+        height: 2em;
+    }
+    100% {
+        width: 0;
+        height: 0;
+    }
+}
+
 /* Light mode */
 
 .light {
-    color: #00;
+    color: #000;
     background: #fff;
 }
 
 .light textarea,
 .light select,
 .light input[type="text"],
-.light textarea {
-    color: #00;
+.light input[type="number"] {
+    color: #000;
     background: #fff;
 }
 
@@ -222,7 +360,18 @@ form > div > fieldset > div > div > select{
 }
 
 .light #notification {
-    background: #9c9;
+    color: #000;
+    background: #cfc;
+    border-radius: .5em;
+    padding: 1em;
+}
+
+.light #notification.success {
+    transition: opacity 2s ease-in-out;
+}
+
+.light #notification.success.hide {
+    opacity: 0;
 }
 
 .light .tooltip-indicator {
@@ -236,6 +385,8 @@ form > div > fieldset > div > div > select{
 }
 
 .light #target {
+    border-width: 10px;
+    border-style: dashed;
     border-color: #ccc;
 }
 
@@ -245,6 +396,30 @@ form > div > fieldset > div > div > select{
 
 .light #target.error {
     border-color: #fcc;
+}
+
+.light input[type="submit"] {
+    color: #000;
+    padding: .5em 1em;
+    border-radius: 1px;
+    border: none;
+}
+
+.light input[type="submit"]:disabled {
+    opacity: .4;
+}
+
+.light input[type="submit"]:enabled:hover {
+    background-image: linear-gradient(
+        transparent,
+        rgba(0,0,0,.05) 40%,
+        rgba(0,0,0,.1)
+    );
+}
+
+.light input[type="submit"].primary {
+    color: #fff;
+    background-color: #0078e7;
 }
 
 /* Dark mode */
@@ -257,7 +432,7 @@ form > div > fieldset > div > div > select{
 .dark textarea,
 .dark select,
 .dark input[type="text"],
-.dark textarea {
+.dark input[type="number"] {
     color: #fff;
     background: #222;
 }
@@ -280,7 +455,18 @@ form > div > fieldset > div > div > select{
 }
 
 .dark #notification {
-    background: #9c9;
+    color: #fff;
+    background: #696;
+    border-radius: .5em;
+    padding: 1em;
+}
+
+.dark #notification.success {
+    transition: opacity 2s ease-in-out;
+}
+
+.dark #notification.success.hide {
+    opacity: 0;
 }
 
 .dark .tooltip-indicator {
@@ -294,6 +480,8 @@ form > div > fieldset > div > div > select{
 }
 
 .dark #target {
+    border-width: 10px;
+    border-style: dashed;
     border-color: #ccc;
 }
 
@@ -316,4 +504,28 @@ form > div > fieldset > div > div > select{
 
 .dark input[type="radio"]:checked:disabled {
     opacity: 1;
+}
+
+.dark input[type="submit"] {
+    color: #000;
+    padding: .5em 1em;
+    border-radius: 1px;
+    border: none;
+}
+
+.dark input[type="submit"]:disabled {
+    opacity: .4;
+}
+
+.dark input[type="submit"]:enabled:hover {
+    background-image: linear-gradient(
+        transparent,
+        rgba(0,0,0,.05) 40%,
+        rgba(0,0,0,.1)
+    );
+}
+
+.dark input[type="submit"].primary {
+    color: #fff;
+    background-color: #0078e7;
 }
