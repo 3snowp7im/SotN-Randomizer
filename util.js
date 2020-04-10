@@ -1308,15 +1308,25 @@
     if (options !== constants.defaultOptions) {
       args.push(options)
     }
-    args.push(checksum.toString(16))
-    args.push(encodeURIComponent(seed))
+    if (typeof(checksum) === 'number') {
+      args.push(checksum.toString(16))
+    } else if (checksum !== undefined) {
+      args.push(checksum)
+    }
+    if (seed !== undefined) {
+      args.push(encodeURIComponent(seed))
+    }
     let versionBaseUrl
     if (version.match(/-/)) {
       versionBaseUrl = constants.devBaseUrl
     } else {
       versionBaseUrl = constants.releaseBaseUrl
     }
-    return (baseUrl || versionBaseUrl) + '?' + args.join(',')
+    let url = baseUrl || versionBaseUrl
+    if (args.length) {
+      url += '?' + args.join(',')
+    }
+    return url
   }
 
   function optionsFromUrl(url) {

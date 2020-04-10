@@ -632,16 +632,21 @@
   let seed
   if (url.search.length) {
     const rs = util.optionsFromUrl(window.location.href)
+    console.log(rs)
     options = rs.options
     const applied = util.Preset.options(options)
     seed = rs.seed
-    expectChecksum = rs.checksum
+    if (!Number.isNaN(rs.checksum)) {
+      expectChecksum = rs.checksum
+    }
     if (typeof(seed) === 'string') {
       elems.seed.value = seed
       seedChange()
       haveChecksum = true
     }
-    elems.seed.disabled = true
+    if (seed.length) {
+      elems.seed.disabled = true
+    }
     if (options.preset) {
       elems.preset.checked = true
       for (let i = 0; i < presets.length; i++) {

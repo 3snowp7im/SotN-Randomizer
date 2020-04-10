@@ -81,17 +81,17 @@ $ node randomize -vvvr https://sotn.io/?myseed
 ### Presets
 
 Presets are scripts that generate different randomizations from those found in
-the default mode. When run, preset scripts output an options string that can
-be used with the `randomize` utility. To create your own preset, save a copy of
-`presets/sample.js` and modify its contents with your own customizations.
+the default mode. To create your own preset, save a copy of `presets/sample.js`
+and modify its contents with your own customizations.
 
 For example, you have created your preset and named it `presets/mypreset.js`.
 To create a URL that allows others to randomize their game using your
 customizations:
 
 ```shell
-$ node randomize -uo $(node presets/mypreset)
+$ node randomize -np presets/mypreset
 ```
+
 ## Console
 
 Randomized disc images can be played on all consoles that run game backups.

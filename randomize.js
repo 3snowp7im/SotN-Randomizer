@@ -45,11 +45,16 @@ const dropsHelp = [
   '',
   'A wildcard character ("*") can be used to replace items for all enemies.',
   '',
+  'The global drop table can be edited by specifying "Global" as the enemy',
+  'name. Please note that there are 32 items in the global drop table.',
+  '',
   'Examples:',
-  '  d:Zombie:Cutlass-Bandana  Zombie drops Cutlass and Bandana',
-  '  d:Slinger:-Orange         Replace Slinger rare drop with orange',
-  '  d:MedusaHead-8:           Medusa Head level 8 drops nothing',
-  '  d:*:Grapes-Potion         Every enemy drops Grapes and Potion',
+  '  d:Zombie:Cutlass-Bandana    Zombie drops Cutlass and Bandana',
+  '  d:Slinger:-Orange           Replace Slinger rare drop with orange',
+  '  d:MedusaHead-8:             Medusa Head level 8 drops nothing',
+  '  d:*:Grapes-Potion           Every enemy drops Grapes and Potion',
+  '  d:Global:Apple-Orange-Tart  Replace first 3 items in global drops table',
+  '                              with Apple, Orange, and Tart',
   '',
   'If other randomization options follow a drop, they must also be',
   'separated from the drop with a comma:',
@@ -355,6 +360,17 @@ const yargs = require('yargs')
     describe: 'Same as -uvv',
     type: 'boolean',
   })
+  .option('preset-file', {
+    alias: 'p',
+    describe: 'Use preset file',
+    type: 'string',
+    requiresArg: true,
+  })
+  .option('no-seed', {
+    alias: 'n',
+    describe: 'Disable seed generation',
+    type: 'boolean',
+  })
   .option('verbose', {
     alias: 'v',
     describe: 'Verbosity level',
@@ -420,14 +436,33 @@ if (argv.compat) {
 }
 // Check for seed string.
 if ('seed' in argv) {
+  if ('noSeed' in argv) {
+    yargs.showHelp()
+    console.error('\nCannot specify seed if seed generation is disabled')
+    process.exit(1)
+  }
   seed = argv.seed.toString()
 }
 // Check for base url.
 if (argv.url) {
   baseUrl = argv.url
 }
+// If seed generation is disabled, assume url output.
+if (argv.noSeed) {
+  argv.url = ''
+}
 // Check for expected checksum.
 if ('expectChecksum' in argv) {
+  if ('noSeed' in argv) {
+    yargs.showHelp()
+    console.error('\nCannot specify checksum if seed generation is disabled')
+    process.exit(1)
+  }
+  if (!('seed' in argv) && !argv._[0]) {
+    yargs.showHelp()
+    console.error('\nCannot specify checksum if not providing seed')
+    process.exit(1)
+  }
   if (!argv.expectChecksum.match(/^[0-9a-f]{1,3}$/)) {
     yargs.showHelp()
     console.error('\nInvalid checksum string')
@@ -446,10 +481,26 @@ if ('options' in argv) {
     process.exit(1)
   }
 }
+// Check for preset file.
+if ('presetFile' in argv) {
+  if ('options' in argv) {
+    yargs.showHelp()
+    console.error('\nCannot specify preset file with options string')
+    process.exit(1)
+  }
+  const relative = path.relative(path.dirname(__filename), argv.presetFile)
+  options = require('./' + relative).options()
+}
 // Check for seed url.
 if (argv._[0]) {
+  if ('noSeed' in argv) {
+    yargs.showHelp()
+    console.error('\nCannot specify url if seed generation is disabled')
+    process.exit(1)
+  }
+  let url
   try {
-    const url = util.optionsFromUrl(argv._[0])
+    url = util.optionsFromUrl(argv._[0])
     options = url.options
     seed = url.seed
     expectChecksum = url.checksum
@@ -480,7 +531,7 @@ if (argv._[0]) {
     process.exit(1)
   }
   // Ensure checksum match if given using --expect-checksum.
-  if ('expectChecksum' in argv && argv.expectCheckSum != expectChecksum) {
+  if ('expectChecksum' in argv && url.checksum != expectChecksum) {
     yargs.showHelp()
     console.error('\nArgument checksum is not url checksum')
     process.exit(1)
@@ -494,7 +545,7 @@ if (argv.race) {
   }
 }
 // Create default options if none provided.
-if (typeof(seed) === 'undefined') {
+if (typeof(seed) === 'undefined' && !argv.noSeed) {
   seed = (new Date()).getTime().toString()
 }
 if (!options) {
@@ -506,13 +557,18 @@ if ('verbose' in argv) {
 }
 info = util.newInfo()
 // Add seed to log info if not provided through command line.
-if (!('url' in argv) || argv._[0]) {
+if (!argv.noSeed && (!('url' in argv) || argv._[0])) {
   info[1]['Seed'] = seed
 }
 let fd
 let size
 // Read bin file if provided.
 if ('bin' in argv) {
+  if ('noSeed' in argv) {
+    yargs.showHelp()
+    console.error('\nCannot specify bin if seed generation is disabled')
+    process.exit(1)
+  }
   eccEdcCalc = require('./ecc-edc-recalc-js')
   const stats = fs.statSync(argv.bin)
   size = stats.size
@@ -521,77 +577,80 @@ if ('bin' in argv) {
 
 (async function randomize() {
   try {
-    const check = new util.checked(fd)
-    let applied
-    try {
-      applied = util.Preset.options(options)
-    } catch (err) {
-      yargs.showHelp()
-      console.error('\n' + err.message)
-      process.exit(1)
-    }
-    try {
-      let result
-      // Place planned progression items.
-      const removed = randomizeItems.placePlannedItems(applied)
-      // Randomize relics.
-      const workers = Array(constants.threads)
-      for (let i = 0; i < workers.length; i++) {
-        workers[i] = new Worker('./worker.js')
+    let checksum
+    if (!argv.noSeed) {
+      const check = new util.checked(fd)
+      let applied
+      try {
+        applied = util.Preset.options(options)
+      } catch (err) {
+        yargs.showHelp()
+        console.error('\n' + err.message)
+        process.exit(1)
       }
-      result = await util.randomizeRelics(
-        version,
-        options,
-        seed,
-        removed,
-        workers,
-      )
-      util.mergeInfo(info, result.info)
-      // Write relics mapping.
-      const rng = new require('seedrandom')(util.saltSeed(
-        version,
-        options,
-        seed,
-        constants.threads,
-      ))
-      result = randomizeRelics.writeRelics(rng, applied, result)
-      check.apply(result.data)
-      // Randomize items.
-      result = await util.randomizeItems(
-        version,
-        options,
-        seed,
-        constants.threads + 1,
-        new Worker('./worker.js'),
-        result.items,
-      )
-      check.apply(result.data)
-      util.mergeInfo(info, result.info)
-    } catch (err) {
-      console.error('Seed:  ' + seed)
-      if (errors.isError(err)) {
-        console.error('Error: ' + err.message)
-      } else {
-        console.error(err.stack)
+      try {
+        let result
+        // Place planned progression items.
+        const removed = randomizeItems.placePlannedItems(applied)
+        // Randomize relics.
+        const workers = Array(constants.threads)
+        for (let i = 0; i < workers.length; i++) {
+          workers[i] = new Worker('./worker.js')
+        }
+        result = await util.randomizeRelics(
+          version,
+          options,
+          seed,
+          removed,
+          workers,
+        )
+        util.mergeInfo(info, result.info)
+        // Write relics mapping.
+        const rng = new require('seedrandom')(util.saltSeed(
+          version,
+          options,
+          seed,
+          constants.threads,
+        ))
+        result = randomizeRelics.writeRelics(rng, applied, result)
+        check.apply(result.data)
+        // Randomize items.
+        result = await util.randomizeItems(
+          version,
+          options,
+          seed,
+          constants.threads + 1,
+          new Worker('./worker.js'),
+          result.items,
+        )
+        check.apply(result.data)
+        util.mergeInfo(info, result.info)
+      } catch (err) {
+        console.error('Seed:  ' + seed)
+        if (errors.isError(err)) {
+          console.error('Error: ' + err.message)
+        } else {
+          console.error(err.stack)
+        }
+        process.exit(1)
       }
-      process.exit(1)
-    }
-    util.setSeedText(check, seed)
-    const checksum = check.sum()
-    // Verify expected checksum matches actual checksum.
-    if (haveChecksum && expectChecksum !== checksum) {
-      console.error('Checksum mismatch.')
-      process.exit(1)
+      util.setSeedText(check, seed)
+      checksum = check.sum()
+      // Verify expected checksum matches actual checksum.
+      if (haveChecksum && expectChecksum !== checksum) {
+        console.error('Checksum mismatch.')
+        process.exit(1)
+      }
     }
     // Show url if not provided as arg.
     if ('url' in argv && !argv._[0]) {
       console.log(util.optionsToUrl(
         version,
         options,
-        checksum,
-        seed,
+        checksum || '',
+        seed || '',
         baseUrl,
-      ).toString())
+      ))
     }
     if (argv.verbose >= 1) {
       const text = util.formatInfo(info, argv.verbose)
