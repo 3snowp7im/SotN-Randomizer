@@ -152,7 +152,6 @@ fieldset .pure-g .pure-u-12-24 fieldset {
 }
 
 .tooltip-wrapper .tooltip:before {
-    bottom: -20px;
     content: ' ';
     display: block;
     height: 20px;
@@ -232,6 +231,7 @@ body.menu {
 }
 
 .menu input[type="submit"] {
+    font-weight: bold;
     color: #fff;
     background: transparent;
     border: none;
@@ -243,7 +243,7 @@ body.menu {
     visibility: hidden;
 }
 
-.menu input[type="submit"]:enabled:hover {
+.menu input[type="submit"]#randomize:enabled {
     animation: pulse 1s infinite;
 }
 
@@ -268,7 +268,7 @@ body.menu {
 }
 
 .menu .tooltip-wrapper:hover .tooltip {
-    width: 420px;
+    width: 320px;
     opacity: 1;
     pointer-events: auto;
     animation: tooltip .5s;
@@ -276,7 +276,7 @@ body.menu {
 }
 
 .menu .tooltip-wrapper .tooltip > span {
-    width: 380px;
+    width: 280px;
     padding: 20px;
     display: inline-block;
 }
@@ -287,8 +287,8 @@ body.menu {
         max-height: 0;
     }
     100% {
-        width: 420px;
-        max-height: 8.5em;
+        width: 320px;
+        max-height: 9.5em;
     }
 }
 
