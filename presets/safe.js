@@ -43,8 +43,15 @@
     RELIC.JEWEL_OF_OPEN + RELIC.LEAP_STONE,
     RELIC.JEWEL_OF_OPEN + RELIC.SOUL_OF_BAT,
     RELIC.JEWEL_OF_OPEN + RELIC.FORM_OF_MIST + RELIC.POWER_OF_MIST,
-    RELIC.JEWEL_OF_OPEN + RELIC.SOUL_OF_WOLF + RELIC.POWER_OF_WOLF
-      + RELIC.GRAVITY_BOOTS,
+    RELIC.JEWEL_OF_OPEN + RELIC.SOUL_OF_WOLF + RELIC.POWER_OF_WOLF,
+  ])
+
+  // Giving access to Granfalloon must also give at least Leap Stone.
+  builder.escapeRequires(LOCATION.MORMEGIL, [
+    RELIC.SOUL_OF_BAT,
+    RELIC.LEAP_STONE,
+    RELIC.GRAVITY_BOOTS,
+    RELIC.FORM_OF_MIST + RELIC.POWER_OF_MIST,
   ])
 
   // Doppleganger 40 in second castle.
@@ -256,18 +263,39 @@
     RELIC.JEWEL_OF_OPEN + RELIC.SOUL_OF_BAT,
     RELIC.JEWEL_OF_OPEN + RELIC.LEAP_STONE,
     RELIC.JEWEL_OF_OPEN + RELIC.FORM_OF_MIST + RELIC.POWER_OF_MIST,
+    RELIC.JEWEL_OF_OPEN + RELIC.SOUL_OF_WOLF + RELIC.POWER_OF_WOLF,
+  ])
+
+  // Giving access to Combat Knife must also give at least Leap Stone.
+  builder.escapeRequires(LOCATION.COMBAT_KNIFE, [
+    RELIC.SOUL_OF_BAT,
+    RELIC.LEAP_STONE,
+    RELIC.GRAVITY_BOOTS,
+    RELIC.FORM_OF_MIST + RELIC.POWER_OF_MIST,
   ])
 
   // Ring of Ares requires Jewel of Open + Demon Card + at least Leap Stone.
   builder.lockLocation(LOCATION.RING_OF_ARES, [
     RELIC.JEWEL_OF_OPEN + RELIC.DEMON_CARD + RELIC.SOUL_OF_BAT,
     RELIC.JEWEL_OF_OPEN + RELIC.DEMON_CARD + RELIC.LEAP_STONE,
-    RELIC.JEWEL_OF_OPEN + RELIC.DEMON_CARD +
-      RELIC.FORM_OF_MIST + RELIC.POWER_OF_MIST,
+    RELIC.JEWEL_OF_OPEN + RELIC.DEMON_CARD
+      + RELIC.FORM_OF_MIST + RELIC.POWER_OF_MIST,
+    RELIC.JEWEL_OF_OPEN + RELIC.DEMON_CARD
+      + RELIC.SOUL_OF_WOLF + RELIC.POWER_OF_WOLF,
     RELIC.JEWEL_OF_OPEN + RELIC.NOSEDEVIL_CARD + RELIC.SOUL_OF_BAT,
     RELIC.JEWEL_OF_OPEN + RELIC.NOSEDEVIL_CARD + RELIC.LEAP_STONE,
-    RELIC.JEWEL_OF_OPEN + RELIC.NOSEDEVIL_CARD +
-      RELIC.FORM_OF_MIST + RELIC.POWER_OF_MIST,
+    RELIC.JEWEL_OF_OPEN + RELIC.NOSEDEVIL_CARD
+      + RELIC.FORM_OF_MIST + RELIC.POWER_OF_MIST,
+    RELIC.JEWEL_OF_OPEN + RELIC.NOSEDEVIL_CARD,
+      + RELIC.SOUL_OF_WOLF + RELIC.POWER_OF_WOLF,
+  ])
+
+  // Giving access to Ring of Ares must also give at least Leap Stone.
+  builder.escapeRequires(LOCATION.RING_OF_ARES, [
+    RELIC.SOUL_OF_BAT,
+    RELIC.LEAP_STONE,
+    RELIC.GRAVITY_BOOTS,
+    RELIC.FORM_OF_MIST + RELIC.POWER_OF_MIST,
   ])
 
   // Bloodstone requires Jewel of Open + at least Leap Stone.
@@ -275,6 +303,15 @@
     RELIC.JEWEL_OF_OPEN + RELIC.SOUL_OF_BAT,
     RELIC.JEWEL_OF_OPEN + RELIC.LEAP_STONE,
     RELIC.JEWEL_OF_OPEN + RELIC.FORM_OF_MIST + RELIC.POWER_OF_MIST,
+    RELIC.JEWEL_OF_OPEN + RELIC.SOUL_OF_WOLF + RELIC.POWER_OF_WOLF,
+  ])
+
+  // Giving access to Bloodstone must also give at least Leap Stone.
+  builder.escapeRequires(LOCATION.BLOODSTONE, [
+    RELIC.SOUL_OF_BAT,
+    RELIC.LEAP_STONE,
+    RELIC.GRAVITY_BOOTS,
+    RELIC.FORM_OF_MIST + RELIC.POWER_OF_MIST,
   ])
 
   // Icebrand requires Jewel of Open + at least Leap Stone.
@@ -282,6 +319,15 @@
     RELIC.JEWEL_OF_OPEN + RELIC.SOUL_OF_BAT,
     RELIC.JEWEL_OF_OPEN + RELIC.LEAP_STONE,
     RELIC.JEWEL_OF_OPEN + RELIC.FORM_OF_MIST + RELIC.POWER_OF_MIST,
+    RELIC.JEWEL_OF_OPEN + RELIC.SOUL_OF_WOLF + RELIC.POWER_OF_WOLF,
+  ])
+
+  // Giving access to Icebrand must also give at least Leap Stone.
+  builder.escapeRequires(LOCATION.ICEBRAND, [
+    RELIC.SOUL_OF_BAT,
+    RELIC.LEAP_STONE,
+    RELIC.GRAVITY_BOOTS,
+    RELIC.FORM_OF_MIST + RELIC.POWER_OF_MIST,
   ])
 
   // Walk Armor requires Jewel of Open + at least Leap Stone.
@@ -289,6 +335,15 @@
     RELIC.JEWEL_OF_OPEN + RELIC.SOUL_OF_BAT,
     RELIC.JEWEL_OF_OPEN + RELIC.LEAP_STONE,
     RELIC.JEWEL_OF_OPEN + RELIC.FORM_OF_MIST + RELIC.POWER_OF_MIST,
+    RELIC.JEWEL_OF_OPEN + RELIC.SOUL_OF_WOLF + RELIC.POWER_OF_WOLF,
+  ])
+
+  // Giving access to Walk Armor must also give at least Leap Stone.
+  builder.escapeRequires(LOCATION.WALK_ARMOR, [
+    RELIC.SOUL_OF_BAT,
+    RELIC.LEAP_STONE,
+    RELIC.GRAVITY_BOOTS,
+    RELIC.FORM_OF_MIST + RELIC.POWER_OF_MIST,
   ])
 
   // Beryl Circlet requires Holy Glasses + Bat + Wolf.
@@ -489,7 +544,7 @@
   ])
 
   // Game completion requires Holy Glasses + Vlad Relics.
-  builder.complexityGoal(7, [
+  builder.complexityGoal(8, [
     RELIC.HOLY_GLASSES
       + RELIC.HEART_OF_VLAD
       + RELIC.TOOTH_OF_VLAD

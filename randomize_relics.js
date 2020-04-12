@@ -344,7 +344,7 @@
     return newLocks
   }
 
-  function pickRelicLocations(rng, pool, mapping) {
+  function pickRelicLocations(rng, pool, locations, mapping) {
     if (!pool.relics.length) {
       return mapping
     }
@@ -359,7 +359,25 @@
         })
       })
       if (locationsAvailable.length) {
+        // Get random location.
         const location = locationsAvailable[randIdx(rng, locationsAvailable)]
+        // After placing this relic, the escape locks for the location must be
+        // satisfied or a softlock has been generated.
+        if (location.escapes.length) {
+          const newMapping = Object.assign({}, mapping)
+          newMapping[relic.ability] = location
+          Object.getOwnPropertyNames(newMapping).forEach(function(ability) {
+            newMapping[ability] = locations.filter(function(location) {
+              return location.id === newMapping[ability].id
+            })[0]
+          })
+          if (!canEscape(newMapping, relic.ability, location.escapes)) {
+            return {
+              error: new errors.SoftlockError(),
+              relics: pool.relics,
+            }
+          }
+        }
         // After placing the relic in this location, anything previously
         // locked by the relic is now locked by the requirements of the new
         // location.
@@ -398,7 +416,7 @@
         return pickRelicLocations(rng, {
           locations: newLocations,
           relics: remainingRelics,
-        }, newMapping)
+        }, locations, newMapping)
       }
     }
     return {
@@ -664,13 +682,20 @@
     }, 0)
   }
 
-  function removeCircular(item, visited) {
+  function removeCircular(item, visited, depths) {
     visited = visited || new Set()
     visited.add(item.item)
+    depths = depths || new Map()
     return item.locks.reduce(function(locks, lock) {
       const newVisited = new Set(visited)
       const items = Array.from(lock).sort(function(a, b) {
-        return depth(b) - depth(a)
+        if (!depths.has(a)) {
+          depths.set(a, depth(a))
+        }
+        if (!depths.has(b)) {
+          depths.set(b, depth(b))
+        }
+        return depths.get(b) - depths.get(a)
       })
       let erase
       for (let i = 0; i < items.length; i++) {
@@ -681,7 +706,7 @@
           break
         }
         if (lockItem.locks && lockItem.locks.length) {
-          lockItem.locks = removeCircular(lockItem, newVisited)
+          lockItem.locks = removeCircular(lockItem, newVisited, depths)
           if (lockItem.locks.length === 0) {
             erase = true
             break
@@ -763,15 +788,13 @@
     return min
   }
 
-  function complexity(mapping, requirements) {
+  function solve(mapping, requirements) {
     const graph = Object.getOwnPropertyNames(mapping).map(function(key) {
-      let locks = mapping[key].locks || []
-      if (locks.length === 1 && locks[0].size === 0) {
-        locks = []
-      }
       return {
         item: key,
-        locks: locks,
+        locks: (mapping[key].locks || []).filter(function(lock) {
+          return lock.size > 0
+        }),
       }
     })
     // Build lock graph.
@@ -782,12 +805,16 @@
             return node.item === item
           }).pop()
         }))
+      }).filter(function(lock) {
+        return Array.from(lock).every(function(item) {
+          return item
+        })
       })
     })
     // Solve for each requirement.
     const abilities = {}
-    const solutions = requirements.map(function(requirement) {
-      return new Set(requirement.split('').map(function(ability)  {
+    return requirements.map(function(requirement, index) {
+      return new Set(Array.from(requirement).map(function(ability) {
         if (abilities[ability]) {
           return abilities[ability]
         }
@@ -804,8 +831,38 @@
         return root
       }))
     })
-    // Calculate deepest minimum depth.
-    return solutions.reduce(lockDepth, 0)
+  }
+
+  function complexity(mapping, requirements) {
+    return solve(mapping, requirements).reduce(lockDepth, 0)
+  }
+
+  function collectAbilities(node, abilities, chain) {
+    abilities = abilities || []
+    chain = chain || new Set()
+    chain.add(node.item)
+    if (node.locks) {
+      node.locks.forEach(function(lock) {
+        Array.from(lock).forEach(function(node) {
+          collectAbilities(node, abilities, new Set(chain))
+        })
+      })
+    } else {
+      abilities.push(chain)
+    }
+    return abilities
+  }
+
+  function canEscape(mapping, ability, requirements) {
+    const solutions = solve(mapping, [new Set(ability)])
+    const abilities = collectAbilities(Array.from(solutions[0])[0])
+    return requirements.reduce(function(satisfied, requirement) {
+      return satisfied || abilities.every(function(abilities) {
+        return requirement.every(function(ability) {
+          return abilities.has(ability)
+        })
+      })
+    })
   }
 
   function round(
@@ -821,6 +878,20 @@
   ) {
     return new Promise (function(resolve, reject) {
       setTimeout(function() {
+        function retry(result) {
+          pool.relics = util.shuffled(rng, relics)
+          return resolve(round(
+            rng,
+            pool,
+            relics,
+            locations,
+            target,
+            goal,
+            callback,
+            ctx,
+            result,
+          ))
+        }
         result = result || {}
         if (++ctx.rounds >= MAX_ROUNDS && MAX_ROUNDS !== 0) {
           resolve(result)
@@ -831,37 +902,31 @@
           pool.locations.pop()
         }
         // Place relics.
-        result = pickRelicLocations(rng, pool)
+        result = pickRelicLocations(rng, pool, locations)
         if (result.error) {
           if (result.error instanceof errors.SoftlockError) {
-            if (callback(ctx.rounds)) {
-              // If a softlock was generated, move the unplaced relics to the
-              // beginning of the relics pool list and try again.
-              result.relics.forEach(function(relic) {
-                pool.relics.splice(pool.relics.indexOf(relic), 1)
-              })
-              pool.relics = result.relics.concat(pool.relics)
-              return resolve(round(
-                rng,
-                pool,
-                relics,
-                locations,
-                target,
-                goal,
-                callback,
-                ctx,
-                result,
-              ))
-            } else {
-              return resolve(result)
-            }
+            return new Promise(function(resolve) {
+              callback(resolve, ctx.rounds)
+            }).then(function(shouldContinue) {
+              if (shouldContinue) {
+                return retry(result)
+              } else {
+                return resolve(result)
+              }
+            })
           } else {
             return reject(result.error)
           }
         }
         // Get progression complexity.
         if (target !== undefined) {
-          const depth = complexity(result, goal)
+          const mapping = {}
+          Object.getOwnPropertyNames(result).forEach(function(ability) {
+            mapping[ability] = locations.filter(function(location) {
+              return location.id === result[ability].id
+            })[0]
+          })
+          const depth = complexity(mapping, goal)
           if (ctx.lowDepth === undefined || depth < ctx.lowDepth) {
             ctx.lowDepth = depth
           }
@@ -875,20 +940,15 @@
               ctx.lowDepth,
               ctx.highDepth,
             )
-            if (callback(ctx.rounds)) {
-              pool.relics = util.shuffled(rng, relics)
-              return resolve(round(
-                rng,
-                pool,
-                relics,
-                locations,
-                target,
-                goal,
-                callback,
-                ctx,
-                result,
-              ))
-            }
+            return new Promise(function(resolve) {
+              callback(resolve, ctx.rounds)
+            }).then(function(shouldContinue) {
+              if (shouldContinue) {
+                return retry(result)
+              } else {
+                return resolve(result)
+              }
+            })
           }
         }
         return resolve(result)
@@ -919,24 +979,47 @@
     })
   }
 
+  function locksFromLocations(locations) {
+    const map = {}
+    Object.getOwnPropertyNames(locations).forEach(function(location) {
+      map[location] = locations[location].filter(function(lock) {
+        return lock[0] !== '+'
+      })
+    })
+    return map
+  }
+
+  function escapesFromLocations(locations) {
+    const map = {}
+    Object.getOwnPropertyNames(locations).forEach(function(location) {
+      map[location] = locations[location].filter(function(lock) {
+        return lock[0] === '+'
+      }).map(function(lock) {
+        return lock.slice(1)
+      })
+    })
+    return map
+  }
+
   function randomizeRelics(rng, options, removed, callback) {
+    if (!options.relicLocations) {
+      return
+    }
     removed = removed || []
     callback = callback || function() {
       return true
     }
     // Initialize location locks.
-    const locksMap = {}
+    let relicLocations
     if (typeof(options.relicLocations) === 'object') {
-      Object.assign(locksMap, options.relicLocations)
+      relicLocations = options.relicLocations
     } else {
-      const safe = presets.filter(function(preset) {
+      relicLocations = presets.filter(function(preset) {
         return preset.id === 'safe'
-      }).pop()
-      Object.assign(locksMap, safe.options().relicLocations)
+      }).pop().options().relicLocations
     }
-    if (typeof(options.relicLocations) === 'object') {
-      Object.assign(locksMap, options.relicLocations)
-    }
+    const locksMap = locksFromLocations(relicLocations)
+    const escapesMap = escapesFromLocations(relicLocations)
     // Get the goal and complexity target.
     let target
     let goal
@@ -951,7 +1034,10 @@
       if (parts.length === 2) {
         target.max = parseInt(parts[1])
       }
-      goal = locksMap[name]
+      goal = locksMap[name].map(function(lock) {
+        return new Set(lock)
+      })
+      delete locksMap[name]
     })
     // Create relics and locations collections.
     let locations = getLocations()
@@ -987,10 +1073,16 @@
         location.locks = locksMap[id].map(function(lock) {
           return new Set(lock)
         })
-      } 
+      }
+      if (escapesMap[id]) {
+        location.escapes = escapesMap[id].map(function(lock) {
+          return new Set(lock)
+        })
+      }
       if (!location.locks || !location.locks.length) {
         location.locks = [new Set()]
       }
+      location.escapes = location.escapes || []
     })
     // Create a context that holds the current relic and location pools.
     const pool = {

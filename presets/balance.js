@@ -304,11 +304,14 @@
 
   // Holy Glasses requires Rings + flight.
   builder.lockLocation(RELIC.HOLY_GLASSES, [
-    RELIC.SPIRIT_ORB + RELIC.SILVER_RING + RELIC.GOLD_RING + RELIC.SOUL_OF_BAT,
-    RELIC.SPIRIT_ORB + RELIC.SILVER_RING + RELIC.GOLD_RING
-      + RELIC.LEAP_STONE + RELIC.GRAVITY_BOOTS,
-    RELIC.SPIRIT_ORB + RELIC.SILVER_RING + RELIC.GOLD_RING
-      + RELIC.FORM_OF_MIST + RELIC.POWER_OF_MIST,
+    RELIC.SPIRIT_ORB + RELIC.SILVER_RING + RELIC.GOLD_RING,
+  ])
+
+  // Giving access to Holy Glasses must also give flight.
+  builder.escapeRequires(RELIC.HOLY_GLASSES, [
+    RELIC.SOUL_OF_BAT,
+    RELIC.LEAP_STONE + RELIC.GRAVITY_BOOTS,
+    RELIC.FORM_OF_MIST + RELIC.POWER_OF_MIST,
   ])
 
   // Crystal Cloak location requires Jewel of Open.
@@ -345,7 +348,7 @@
   ])
 
   // Game completion requires Holy Glasses + Vlad Relics.
-  builder.complexityGoal(7, [
+  builder.complexityGoal(8, [
     RELIC.HOLY_GLASSES
       + RELIC.HEART_OF_VLAD
       + RELIC.TOOTH_OF_VLAD

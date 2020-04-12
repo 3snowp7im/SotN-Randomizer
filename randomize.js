@@ -174,16 +174,24 @@ const rewardsHelp = [
 ].join('\n')
 
 const relicsHelp = [
-  'Relic location randomization can be either toggled with the "r" switch,',
-  'and custom relic location locks may be specified using argument syntax.',
+  'Relic location randomization can be toggled with the "r" switch, and',
+  'custom relic location locks may be specified using argument syntax.',
   '',
   'A relic location lock sets the abilities required to access a relic',
   'location. Each relic location may be guarded by multiple locks, and the',
   'location will be open to the player once they have all abilities',
   'comprising any single lock.',
   '',
+  'A location can also specify escape requirements. These are combinations of',
+  'abilities, any one of which must be satisified by all progression routes',
+  'granting access to the location. This is intended to prevent the player',
+  'from accessing an area that they might not have the ability to escape',
+  'from. Note that is is possible for the location itself to grant one of the',
+  'abilities required to escape from it.',
+  '',
   'Relics format:',
-  '  r[:<location>[:<abilities>[-<abilities>...]][:...]',
+  '  r[:<location>[:<ability>[-<ability>...]]'
+    + '[+<ability>[-<ability>...]]][:...]',
   '',
   'Relic locations and the abilities they provide are identified by one',
   'letter:',
@@ -227,6 +235,16 @@ const relicsHelp = [
   '  r:y:LV-MP  Holy Symbol relic location requires Leap Stone + Gravity',
   '             Boots OR Form of Mist + Power of Mist.',
   '',
+  'Note that relic location extensions use the name of the item being',
+  'replaced as their identifier:',
+  '  r:Mormegil:JL-JV  Mormegil location requires Jewel of Open + Leap Stone',
+  '                    OR Jewel of Open + Gravity Boots',
+  '',
+  'Escape requirements follow the ability locks and are separated by a "+":',
+  '  r:H:GS+B-LV-MP  Holy Glasses location requires Gold + Silver Rings for',
+  '                  access and Soul of Bat, Leap Stone + Gravity Boots, or',
+  '                  Mist + Power of Mist for escape.',
+  '',
   'Locks for different location can be specified by separating each',
   'location by a colon:',
   '  r:B:L:y:LV-MP',
@@ -236,7 +254,7 @@ const relicsHelp = [
   'how many relics must be obtained in series to unlock a win condition:',
   '  r:3:LV-MP    Leap Stone + Gravity Boots OR Form of Mist + Power of Mist',
   '               required to complete seed with a minimum depth of 3.',
-  '  r:3-5:LV-MP  Silver + Gold ring required to complete seed with a minimum',
+  '  r:3-5:SG     Silver + Gold ring required to complete seed with a minimum',
   '               depth of 3 and a maximum depth of 5.',
   '',
   'If other randomization options follow a lock, they must also be',
@@ -304,9 +322,21 @@ function presetMetaHelp(preset) {
       label = '      ' + location.name.slice(0, 21)
     }
     label += Array(28).fill(' ').join('')
+    let locks
+    let escapes
+    if (options.relicLocations[location.id]) {
+      locks = options.relicLocations[location.id].filter(function(lock) {
+        return lock[0] !== '+'
+      })
+      escapes = options.relicLocations[location.id].filter(function(lock) {
+        return lock[0] === '+'
+      }).map(function(lock) {
+        return lock.slice(1)
+      })
+    }
     return label.slice(0, 28) + location.id.replace(/[^a-zA-Z0-9]/g, '') + ':'
-      + (options.relicLocations[location.id] ?
-         options.relicLocations[location.id].join('-') : '')
+      + (locks ? locks.join('-') : '')
+      + (escapes && escapes.length ? '+' + escapes.join('-') : '')
   }))
   const keys = Object.getOwnPropertyNames(options.relicLocations)
   const target = keys.filter(function(key) {
@@ -634,7 +664,7 @@ if ('bin' in argv) {
         }
         process.exit(1)
       }
-      util.setSeedText(check, seed)
+      util.setSeedText(check, seed, options.preset)
       checksum = check.sum()
       // Verify expected checksum matches actual checksum.
       if (haveChecksum && expectChecksum !== checksum) {

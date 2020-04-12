@@ -440,6 +440,7 @@
         util.mergeInfo(info, result.info)
         return util.finalizeData(
           seed,
+          options.preset,
           file,
           check,
           expectChecksum,

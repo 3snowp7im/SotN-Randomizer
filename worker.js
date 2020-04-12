@@ -1,5 +1,5 @@
 function randomizeWorker() {
-  const context = {}
+  const ctx = {}
 
   let seedrandom
   let eccEdcCalc
@@ -48,13 +48,13 @@ function randomizeWorker() {
   }
 
   function handleMessage(message) {
-    if (!context.loaded) {
+    if (!ctx.loaded) {
       if (typeof(module) === 'undefined') {
         loadBrowser(message.data.url)
       } else {
         loadNode()
       }
-      context.loaded = true
+      ctx.loaded = true
     }
     if (typeof(module) === 'undefined') {
       message = message.data
@@ -63,19 +63,21 @@ function randomizeWorker() {
       switch (message.action) {
       case 'relics': {
         if (message.cancel) {
-          context.canceled = true
+          ctx.resolve(false)
+        } else if (message.continue) {
+          ctx.resolve(true)
         } else {
-          delete context.canceled
+          delete ctx.canceled
           const rng = new seedrandom(message.saltedSeed)
           const options = util.Preset.options(message.options)
           const removed = message.removed
           const seed = message.seed
+          ctx.thread= message.thread
           self = this
-          randomizeRelics(rng, options, removed, function(rounds) {
-            if (!context.canceled) {
-              self.postMessage({rounds: rounds})
-            }
-            return !context.canceled
+          randomizeRelics(rng, options, removed, function(resolve, rounds) {
+            ctx.resolve = resolve
+            ctx.rounds = rounds
+            self.postMessage({rounds: rounds})
           }).then(function(result) {
             result.action = 'relics'
             result.done = true
@@ -88,6 +90,7 @@ function randomizeWorker() {
             self.postMessage({
               action: 'relics',
               error: err,
+              rounds: ctx.rounds,
             })
             if ('unref' in self) {
               self.unref()
@@ -111,7 +114,7 @@ function randomizeWorker() {
         const array = new Uint8Array(message.file)
         const check = new util.checked(array)
         check.apply(message.data)
-        util.setSeedText(check, message.seed)
+        util.setSeedText(check, message.seed, message.preset)
         const checksum = check.sum()
         if (message.checksum && message.checksum !== checksum) {
           throw new errors.VersionError()

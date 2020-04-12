@@ -75,9 +75,15 @@
     RELIC.LEAP_STONE,
     RELIC.GAS_CLOUD,
   ])
-  // Soul of Bat location requires Gravity Boots + Leapstone.
+  // Soul of Bat location requires Mist + Gravity Boots + Leapstone.
   builder.lockLocation(RELIC.SOUL_OF_BAT, [
+    RELIC.FORM_OF_MIST + RELIC.LEAP_STONE + RELIC.GRAVITY_BOOTS,
+  ])
+  // Giving access to Holy Glasses location must also give flight.
+  builder.escapeRequires(RELIC.HOLY_GLASSES, [
+    RELIC.SOUL_OF_BAT,
     RELIC.LEAP_STONE + RELIC.GRAVITY_BOOTS,
+    RELIC.FORM_OF_MIST + RELIC.POWER_OF_MIST,
   ])
   // To disable relic locations extension:
   //   builder.relicLocationsExtension(false)

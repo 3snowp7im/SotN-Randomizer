@@ -924,7 +924,7 @@
               }
               arg = randomize.slice(start, i)
               const invalid = arg.split('').filter(function(c) {
-                if (c === '-') {
+                if (c === '-' || c === '+') {
                   return false
                 }
                 return !relicNames.some(function(relic) {
@@ -934,18 +934,30 @@
               if (invalid.length) {
                 throw new Error('Invalid relic: ' + invalid[0])
               }
-              let locks = arg.split('-')
-              const emptyLocks = locks.filter(function(lock) {
-                return lock.length === 0
-              })
-              locks = locks.filter(function(lock) {
-                return lock.length > 0
-              })
-              if (emptyLocks.length > 1
-                  || (locks.length && emptyLocks.length)) {
+              const parts = arg.split('+')
+              if (parts.length > 2) {
                 throw new Error('Invald lock: ' + location + ':' + arg)
               }
-              relicLocations[location] = locks
+              parts.forEach(function(part, index) {
+                let locks = part.split('-')
+                const emptyLocks = locks.filter(function(lock) {
+                  return lock.length === 0
+                })
+                locks = locks.filter(function(lock) {
+                  return lock.length > 0
+                })
+                if (emptyLocks.length > 1
+                    || (locks.length && emptyLocks.length)) {
+                  throw new Error('Invald lock: ' + location + ':' + arg)
+                }
+                if (index === 0) {
+                  relicLocations[location] = locks
+                } else {
+                  relicLocations[location] = locks.map(function(lock) {
+                    return '+' + lock
+                  })
+                }
+              })
             } else {
               relicLocations[location] = []
             }
@@ -1242,7 +1254,21 @@
             }).forEach(function(location) {
               if (options.relicLocations[location]) {
                 let lock = location.replace(/[^a-zA-Z0-9]/g, '')
-                lock += ':' + options.relicLocations[location].join('-')
+                lock += ':' + options.relicLocations[location].filter(
+                  function(lock) {
+                    return lock[0] !== '+'
+                  }
+                ).join('-')
+                const escapes = options.relicLocations[location].filter(
+                  function(lock) {
+                    return lock[0] === '+'
+                  }
+                ).map(function(lock) {
+                  return lock.slice(1)
+                })
+                if (escapes.length) {
+                  lock += '+' + escapes.join('-')
+                }
                 locks.push(lock)
               }
             })
@@ -1381,40 +1407,44 @@
     '9': 0x8258,
   }
 
-  function setSeedText(data, seed) {
-    const addresses = [{
-      start: 0x04389bf8,
-      length: 31,
-    }, {
-      start: 0x04389c18,
-      length: 39,
-    }, {
-      start: 0x04389c6c,
-      length: 55,
-    }]
-    const maxSeedLength = 28
-    addresses.forEach(function(address) {
-      let a = 0
-      let s = 0
-      while (a < maxSeedLength && s < seed.length) {
-        if (seed[s] in map) {
-          if ((a + 1) < maxSeedLength) {
-            const val = map[seed[s++]]
-            data.writeChar(address.start + a++, val >>> 8)
-            data.writeChar(address.start + a++, val & 0xff)
-          } else {
-            break
-          }
-        } else if (seed[s].match(/[a-zA-Z ]/)) {
-          data.writeChar(address.start + a++, seed.charCodeAt(s++))
+  function writeMenuText(data, text, range) {
+    let a = 0
+    let s = 0
+    while (a < range.length && s < text.length) {
+      if (text[s] in map) {
+        if ((a + 1) < range.length) {
+          const val = map[text[s++]]
+          data.writeChar(range.start + a++, val >>> 8)
+          data.writeChar(range.start + a++, val & 0xff)
         } else {
-          s++
+          break
         }
+      } else if (text[s].match(/[a-zA-Z ]/)) {
+        data.writeChar(range.start + a++, text.charCodeAt(s++))
+      } else {
+        s++
       }
-      while (a < address.length) {
-        data.writeChar(address.start + a++, 0)
-      }
-    })
+    }
+  }
+
+  function setSeedText(data, seed, preset) {
+    const seedRange = {
+      start: 0x04389c6c,
+      length: 31,
+    }
+    const presetRange = {
+      start: 0x04389c8c,
+      length: 20,
+    }
+    for (let i = 0; i < 52; i++) {
+      data.writeChar(0x04389c6c + i, 0)
+    }
+    data.writeShort(0x043930c4, 0x78b4)
+    data.writeShort(0x043930d4, 0x78d4)
+    data.writeShort(0x0439312c, 0x78b4)
+    data.writeShort(0x0439313c, 0x78d4)
+    writeMenuText(data, seed, seedRange)
+    writeMenuText(data, preset || '', presetRange)
   }
 
   function saltSeed(version, options, seed, nonce) {
@@ -2081,6 +2111,8 @@
     this.rewards = true
     // The collection of location locks.
     this.locations = true
+    // The collection of escape requirements.
+    this.escapes = {}
     // The relic locations extension
     this.extension = constants.EXTENSION.GUARDED
     // The complexity goal.
@@ -2200,11 +2232,18 @@
             self.target.max = parseInt(parts[1])
           }
         } else {
+          // Break the lock into its access locks and its escape requirements.
           const locks = self.locations[location] || []
+          const escape = self.escapes[location] || []
           preset.relicLocations[location].forEach(function(lock) {
-            locks.push(new Set(lock))
+            if (lock[0] === '+') {
+              escape.push(new Set(lock.slice(1)))
+            } else {
+              locks.push(new Set(lock))
+            }
           })
           self.locations[location] = locks
+          self.escapes[location] = escape
         }
       })
     } else {
@@ -2433,6 +2472,16 @@
     }))
   }
 
+  // Ensure that a location grants abilities, or that access to that location
+  // is only granted by obtaining abilities.
+  PresetBuilder.prototype.escapeRequires =
+    function escapeRequires(where, what) {
+      this.escapes[where] = this.escapes[where] || []
+      Array.prototype.push.apply(this.escapes[where], what.map(function(lock) {
+        return new Set(lock)
+      }))
+    }
+
   // Add relics to locations. The what and where arguments must contain the
   // same number of relics.
   PresetBuilder.prototype.placeRelic = function placeRelic(what, where) {
@@ -2585,10 +2634,18 @@
         return location.name
       }).forEach(function(location) {
         if (self.locations[location]) {
-          relicLocations[location] =
-            self.locations[location].map(function(lock) {
-              return Array.from(lock).join('')
-            })
+          const locks = self.locations[location].map(function(lock) {
+            return Array.from(lock).join('')
+          })
+          relicLocations[location] = relicLocations[location] || []
+          Array.prototype.push.apply(relicLocations[location], locks)
+        }
+        if (self.escapes[location]) {
+          const locks = self.escapes[location].map(function(lock) {
+            return '+' + Array.from(lock).join('')
+          })
+          relicLocations[location] = relicLocations[location] || []
+          Array.prototype.push.apply(relicLocations[location], locks)
         }
       })
       if (self.goal) {
@@ -2616,16 +2673,6 @@
       self.extension,
       turkey,
     )
-  }
-
-  function firstResult(candidate, result) {
-    if (!candidate || 'error' in candidate) {
-      return result
-    }
-    if ('error' in result || candidate.rounds < result.rounds) {
-      return candidate
-    }
-    return result
   }
 
   function addEventListener(event, listener) {
@@ -2671,6 +2718,11 @@
                 action: 'relics',
                 cancel: true,
               })
+            } else {
+              worker.postMessage({
+                action: 'relics',
+                continue: true,
+              })
             }
           }
         })
@@ -2680,11 +2732,20 @@
           removed: removed,
           saltedSeed: saltSeed(version, options, seed, i),
           url: url,
+          thread: thread,
         })
       })
     }
     return Promise.all(promises).then(function(results) {
-      const result = results.reduce(firstResult)
+      const result = results.reduce(function(candidate, result, index) {
+        if (!candidate || 'error' in candidate) {
+          return result
+        }
+        if ('error' in result || candidate.rounds < result.rounds) {
+          return candidate
+        }
+        return result
+      })
       if (result.error) {
         throw result.error
       }
@@ -2724,6 +2785,7 @@
 
   function finalizeData(
     seed,
+    preset,
     file,
     data,
     checksum,
@@ -2744,6 +2806,7 @@
       worker.postMessage({
         action: 'finalize',
         seed: seed,
+        preset: preset,
         file: file,
         data: data,
         checksum: checksum,

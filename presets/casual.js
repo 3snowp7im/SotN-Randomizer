@@ -148,8 +148,15 @@
     RELIC.JEWEL_OF_OPEN + RELIC.LEAP_STONE,
     RELIC.JEWEL_OF_OPEN + RELIC.SOUL_OF_BAT,
     RELIC.JEWEL_OF_OPEN + RELIC.FORM_OF_MIST + RELIC.POWER_OF_MIST,
-    RELIC.JEWEL_OF_OPEN + RELIC.SOUL_OF_WOLF + RELIC.POWER_OF_WOLF
-      + RELIC.GRAVITY_BOOTS,
+    RELIC.JEWEL_OF_OPEN + RELIC.SOUL_OF_WOLF + RELIC.POWER_OF_WOLF,
+  ])
+
+  // Giving access to Demon Card must also give at least Leap Stone.
+  builder.escapeRequires(RELIC.DEMON_CARD, [
+    RELIC.SOUL_OF_BAT,
+    RELIC.LEAP_STONE,
+    RELIC.GRAVITY_BOOTS,
+    RELIC.FORM_OF_MIST + RELIC.POWER_OF_MIST,
   ])
 
   // Sword Card requires flight.
@@ -213,11 +220,14 @@
 
   // Holy Glasses requires Rings + flight.
   builder.lockLocation(RELIC.HOLY_GLASSES, [
-    RELIC.SILVER_RING + RELIC.GOLD_RING + RELIC.SOUL_OF_BAT,
-    RELIC.SILVER_RING + RELIC.GOLD_RING
-      + RELIC.LEAP_STONE + RELIC.GRAVITY_BOOTS,
-    RELIC.SILVER_RING + RELIC.GOLD_RING
-      + RELIC.FORM_OF_MIST + RELIC.POWER_OF_MIST,
+    RELIC.SILVER_RING + RELIC.GOLD_RING,
+  ])
+
+  // Giving access to Holy Glasses must also give flight.
+  builder.escapeRequires(RELIC.HOLY_GLASSES, [
+    RELIC.SOUL_OF_BAT,
+    RELIC.LEAP_STONE + RELIC.GRAVITY_BOOTS,
+    RELIC.FORM_OF_MIST + RELIC.POWER_OF_MIST,
   ])
 
   // Export.
