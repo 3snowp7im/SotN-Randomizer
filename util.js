@@ -1751,6 +1751,12 @@
         states: [ 0x70, 0x80 ],
       })
       break
+    case constants.ZONE.RNO1:
+      ids.push({
+        id: 0xa001,
+        states: [ 0x70, 0x80 ],
+      })
+      break
     case constants.ZONE.NO2:
     case constants.ZONE.RNO2:
       ids.push({
@@ -1793,14 +1799,6 @@
       })
       ids.push({
         id: 0x002e,
-      })
-      break
-    case constants.ZONE.RNO1:
-      ids.push({
-        id: 0x0025,
-      })
-      ids.push({
-        id: 0x0026,
       })
       break
     case constants.ZONE.RNO3:
@@ -1921,6 +1919,7 @@
     case constants.ZONE.NO4:
     case constants.ZONE.BO3:
     case constants.ZONE.RDAI:
+    case constants.ZONE.RNO1:
     case constants.ZONE.RNO2:
     case constants.ZONE.RNO4:
     case constants.ZONE.RTOP:
@@ -2232,6 +2231,7 @@
             rareDropName = commonDropName
             commonDropName = level
             level = undefined
+          } else {
             args.splice(1, 1)
           }
           if (enemyName === '*') {

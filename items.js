@@ -5817,7 +5817,7 @@
     }, {
       zones: [ ZONE.RNO1 ],
       index: 3,
-      entities: [ 0x25bc, 0x2c94 ],
+      entities: [ 0x21de, 0x28d4 ],
     }, {
       zones: [ ZONE.RNO0 ],
       index: 3,
@@ -7864,7 +7864,7 @@
     }, {
       zones: [ ZONE.RNO1 ],
       index: 4,
-      entities: [ 0x256c, 0x2cbc ],
+      entities: [ 0x221a, 0x291a ],
     }, {
       zones: [ ZONE.RNO2 ],
       index: 4,
@@ -8112,7 +8112,7 @@
     }, {
       zones: [ ZONE.RNO1 ],
       index: 6,
-      entities: [ 0x2558, 0x2cb2 ],
+      entities: [ 0x242c, 0x2a8c ],
     }, {
       zones: [ ZONE.RNO3 ],
       index: 2,
@@ -9037,7 +9037,7 @@
     }, {
       zones: [ ZONE.RNO1 ],
       index: 7,
-      entities: [ 0x2576, 0x2ca8 ],
+      entities: [ 0x2544, 0x2c8a ],
     }, {
       zones: [ ZONE.RNO4 ],
       index: 4,

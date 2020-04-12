@@ -85,11 +85,10 @@
   //   builder.relicLocations(false)
 
   // COMPLEXITY TARGET //
-  // Require Leap Stone + Gravity Boots or Silver + Gold ring to complete game.
-  const minComplexity = 3
+  // Require Soul of Bat and Soul of Wolf ring to complete game.
+  const minComplexity = 2
   builder.complexityGoal(minComplexity, [
-    RELIC.LEAP_STONE + RELIC.GRAVITY_BOOTS,
-    RELIC.SILVER_RING + RELIC.GOLD_RING,
+    RELIC.SOUL_OF_BAT + RELIC.SOUL_OF_WOLF,
   ])
   // Complexity targets are optional. They allow you to specify a set of locks
   // that are considered win conditions.
