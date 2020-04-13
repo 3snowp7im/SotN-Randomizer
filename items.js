@@ -6979,6 +6979,10 @@
       index: 7,
       entities: [ 0x2946, 0x3292 ],
     }, {
+      zones: [ ZONE.RDAI ],
+      index: 7,
+      entities: [ 0x1f4a, 0x283e ],
+    }, {
       zones: [ ZONE.NZ1 ],
       addresses: [ 0x055737a8 ],
       despawn: true,
@@ -8912,6 +8916,10 @@
       zones: [ ZONE.DAI ],
       index: 13,
       entities: [ 0x2f5e, 0x38aa ],
+    }, {
+      zones: [ ZONE.RDAI ],
+      index: 4,
+      entities: [ 0x1fd6, 0x27b2 ],
     }, {
       zones: [ ZONE.NO1 ],
       index: 6,

@@ -2266,7 +2266,7 @@
         if (enemyName === constants.GLOBAL_DROP) {
           enemy = enemyName
         } else {
-          if (typeof(level) === 'string') {
+          if (typeof(level) !== 'number') {
             rareDropName = commonDropName
             commonDropName = level
             level = undefined
