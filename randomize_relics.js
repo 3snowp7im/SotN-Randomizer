@@ -904,7 +904,7 @@
         // Place relics.
         result = pickRelicLocations(rng, pool, locations)
         if (result.error) {
-          if (result.error instanceof errors.SoftlockError) {
+          if (errors.isError(result.error)) {
             return new Promise(function(resolve) {
               callback(resolve, ctx.rounds)
             }).then(function(shouldContinue) {
@@ -1006,8 +1006,8 @@
       return
     }
     removed = removed || []
-    callback = callback || function() {
-      return true
+    callback = callback || function(resolve) {
+      resolve(true)
     }
     // Initialize location locks.
     let relicLocations
