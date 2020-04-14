@@ -1330,8 +1330,19 @@
   function optionsToUrl(version, options, checksum, seed, baseUrl) {
     options = optionsToString(options)
     const args = []
-    if (options !== constants.defaultOptions) {
-      args.push(options)
+    const releaseBaseUrl = constants.optionsUrls[constants.defaultOptions]
+    if (version.match(/-/)) {
+      baseUrl = constants.devBaseUrl
+      if (options !== constants.defaultOptions) {
+        args.push(options)
+      }
+    } else if (!baseUrl || baseUrl === releaseBaseUrl) {
+      if (options in constants.optionsUrls) {
+        baseUrl = constants.optionsUrls[options]
+      } else {
+        baseUrl = releaseBaseUrl
+        args.push(options)
+      }
     }
     if (typeof(checksum) === 'number') {
       args.push(checksum.toString(16))
@@ -1341,13 +1352,7 @@
     if (seed !== undefined) {
       args.push(encodeURIComponent(seed))
     }
-    let versionBaseUrl
-    if (version.match(/-/)) {
-      versionBaseUrl = constants.devBaseUrl
-    } else {
-      versionBaseUrl = constants.releaseBaseUrl
-    }
-    let url = baseUrl || versionBaseUrl
+    let url = baseUrl
     if (args.length) {
       url += '?' + args.join(',')
     }
@@ -1357,6 +1362,14 @@
   function optionsFromUrl(url) {
     url = new URL(url)
     const args = url.search.slice(1).split(',')
+    const baseUrl = url.origin + url.pathname
+    const presets = Object.getOwnPropertyNames(constants.optionsUrls)
+    for (let i = 0; i < presets.length; i++) {
+      if (constants.optionsUrls[presets[i]] === baseUrl) {
+        args.unshift(presets[i])
+        break
+      }
+    }
     let options
     let checksum
     let seed

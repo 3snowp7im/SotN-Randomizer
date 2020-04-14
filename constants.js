@@ -1,9 +1,15 @@
 (function(self) {
 
-  const releaseBaseUrl = 'https://sotn.io/'
   const devBaseUrl = 'https://dev.sotn.io/'
   const defaultOptions = 'P:safe'
   const threads = 8
+
+  const optionsUrls = {
+    'P:safe': 'https://sotn.io/',
+    'P:adventure': 'https://a.sotn.io/',
+    'P:casual': 'https://c.sotn.io/',
+    'P:speedrun': 'https://s.sotn.io/',
+  }
 
   const TYPE = {
     HEART: 0,
@@ -525,10 +531,10 @@
   const globalDropsCount = 32
 
   const exports = {
-    releaseBaseUrl: releaseBaseUrl,
     devBaseUrl: devBaseUrl,
     defaultOptions: defaultOptions,
     threads: threads,
+    optionsUrls: optionsUrls,
     TYPE: TYPE,
     typeNames: typeNames,
     ZONE: ZONE,
