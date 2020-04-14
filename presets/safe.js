@@ -168,6 +168,14 @@
     RELIC.FORM_OF_MIST + RELIC.POWER_OF_MIST,
   ])
 
+  // Library Onyx requires at least Leap Stone.
+  builder.lockLocation(LOCATION.LIBRARY_ONYX, [
+    RELIC.SOUL_OF_BAT,
+    RELIC.LEAP_STONE,
+    RELIC.GRAVITY_BOOTS,
+    RELIC.FORM_OF_MIST + RELIC.POWER_OF_MIST,
+  ])
+
   // Alucart Sword requires at least Cube of Zoe + at least Leap Stone.
   builder.lockLocation(LOCATION.ALUCART_SWORD, [
     RELIC.CUBE_OF_ZOE + RELIC.SOUL_OF_BAT,

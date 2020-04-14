@@ -179,6 +179,11 @@
       y: 0x00b0,
     },
   }, {
+    name: LOCATION.LIBRARY_ONYX,
+    extension: EXTENSION.EQUIPMENT,
+    itemId: 235,
+    tileIndex: 0,
+  }, {
     name: LOCATION.BRONZE_CUIRASS,
     extension: EXTENSION.EQUIPMENT,
     itemId: 172,

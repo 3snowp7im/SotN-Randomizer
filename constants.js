@@ -478,6 +478,7 @@
     GLADIUS:                     'Gladius',
     JEWEL_KNUCKLES:              'Jewel Knuckles',
     HOLY_ROD:                    'Holy Rod',
+    LIBRARY_ONYX:                'Library Onyx',
     BRONZE_CUIRASS:              'Bronze Cuirass',
     ALUCART_SWORD:               'Alucart Sword',
     BROADSWORD:                  'Broadsword',
