@@ -510,6 +510,7 @@
     LIGHTNING_MAIL:              'Lightning Mail',
     MOON_ROD:                    'Moon Rod',
     SUNSTONE:                    'Sunstone',
+    LUMINUS:                     'Luminus',
     DRAGON_HELM:                 'Dragon Helm',
     SHOTEL:                      'Shotel',
     STAUROLITE:                  'Staurolite',
