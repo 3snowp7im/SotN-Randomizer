@@ -1366,6 +1366,9 @@
     const presets = Object.getOwnPropertyNames(constants.optionsUrls)
     for (let i = 0; i < presets.length; i++) {
       if (constants.optionsUrls[presets[i]] === baseUrl) {
+        if (args.length === 1) {
+          args.unshift(undefined)
+        }
         args.unshift(presets[i])
         break
       }
