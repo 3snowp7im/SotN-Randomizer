@@ -418,6 +418,11 @@
       y: 0x0080,
     },
   }, {
+    name: LOCATION.LUMINUS,
+    extension: EXTENSION.EQUIPMENT,
+    itemId: 105,
+    tileIndex: 0,
+  }, {
     name: LOCATION.DRAGON_HELM,
     extension: EXTENSION.EQUIPMENT,
     itemId: 214,

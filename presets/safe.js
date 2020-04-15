@@ -437,6 +437,13 @@
     RELIC.HOLY_GLASSES + RELIC.FORM_OF_MIST + RELIC.POWER_OF_MIST,
   ])
 
+  // Luminous requires Holy Glasses + flight.
+  builder.lockLocation(LOCATION.LUMINUS, [
+    RELIC.HOLY_GLASSES + RELIC.SOUL_OF_BAT,
+    RELIC.HOLY_GLASSES + RELIC.LEAP_STONE + RELIC.GRAVITY_BOOTS,
+    RELIC.HOLY_GLASSES + RELIC.FORM_OF_MIST + RELIC.POWER_OF_MIST,
+  ])
+
   // Dragon Helm requires Holy Glasses + flight.
   builder.lockLocation(LOCATION.DRAGON_HELM, [
     RELIC.HOLY_GLASSES + RELIC.SOUL_OF_BAT,
