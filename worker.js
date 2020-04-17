@@ -79,6 +79,7 @@ function randomizeWorker() {
             ctx.rounds = rounds
             self.postMessage({rounds: rounds})
           }).then(function(result) {
+            result = result || {}
             result.action = 'relics'
             result.done = true
             util.sanitizeResult(result)

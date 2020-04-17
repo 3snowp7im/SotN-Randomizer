@@ -1603,9 +1603,11 @@
   }
 
   function mergeInfo(info, newInfo) {
-    info.forEach(function(level, index) {
-      merge.call(level, newInfo[index])
-    })
+    if (newInfo) {
+      info.forEach(function(level, index) {
+        merge.call(level, newInfo[index])
+      })
+    }
   }
 
   function sanitizeResult(result) {

@@ -663,6 +663,47 @@
     offset = data.writeWord(offset, 0x00000000) // nop
   }
 
+  function patchPixieSong(data) {
+    // This code doesn't work.
+    // TODO: Fix this.
+    const romAddress = 0x158fe8
+    const ramAddress = 0x136f50
+    let offset
+    data.writeWord(0x0fe010, 0x08000000 + (ramAddress >> 2))
+    offset = romAddress
+    offset = data.writeWord(offset, 0x3c088007) // lui t0, 0x8007
+    offset = data.writeWord(offset, 0x8509342e) // lh t1, 0x342e (t0)
+    offset = data.writeWord(offset, 0x340a00df) // ori t2, r0, 0x00df
+    offset = data.writeWord(offset, 0x152a000d) // bne t1, t2, pc + 0x38
+    offset = data.writeWord(offset, 0x00000000) // nop
+    offset = data.writeWord(offset, 0x850936ce) // lh t1, 0x36ce (t0)
+    offset = data.writeWord(offset, 0x340a0089) // ori t2, r0, 0x0089
+    offset = data.writeWord(offset, 0x152a0009) // bne t1, t2, pc + 0x28
+    offset = data.writeWord(offset, 0x00000000) // nop
+    offset = data.writeWord(offset, 0x3c088009) // lui t0, 0x8009
+    offset = data.writeWord(offset, 0x8109797b) // lb t1, 0x797b (t0)
+    offset = data.writeWord(offset, 0x340a0003) // ori t2, r0, 0x0003
+    offset = data.writeWord(offset, 0x152a0004) // bne t1, t2, pc + 0x14
+    offset = data.writeWord(offset, 0x00000000) // nop
+    offset = data.writeWord(offset, 0x3c088007) // lui t0, 0x8007
+    offset = data.writeWord(offset, 0x3409738c) // ori t1, r0, 0x738c
+    offset = data.writeWord(offset, 0xa50936f0) // sh t1, 0x36f0 (t0)
+    offset = data.writeWord(offset, 0x3c088009) // lui t0, 0x8009
+    offset = data.writeWord(offset, 0x850974a0) // lh t1, 0x74a0 (t0)
+    offset = data.writeWord(offset, 0x340a0002) // ori t2, r0, 0x0002
+    offset = data.writeWord(offset, 0x152a0008) // bne t1, t2, pc + 0x24
+    offset = data.writeWord(offset, 0x00000000) // nop
+    offset = data.writeWord(offset, 0x3c088014) // lui t0, 0x8014
+    offset = data.writeWord(offset, 0x85098458) // lh t1, 0x8458 (t0)
+    offset = data.writeWord(offset, 0x340a0104) // ori t2, r0, 0x0104
+    offset = data.writeWord(offset, 0x152a0003) // bne t1, t2, pc + 0x10
+    offset = data.writeWord(offset, 0x00000000) // nop
+    offset = data.writeWord(offset, 0x3409003f) // ori t1, r0, 0x003f
+    offset = data.writeWord(offset, 0xa5098458) // sh t1, 0x8458 (t0)
+    offset = data.writeWord(offset, 0x00400008) // jr v0
+    offset = data.writeWord(offset, 0x00000000) // nop
+  }
+
   function removeCircular(item, visited) {
     visited = visited || new Set()
     visited.add(item.item)
@@ -936,7 +977,9 @@
 
   function randomizeRelics(rng, options, removed, callback) {
     if (!options.relicLocations) {
-      return
+      return new Promise(function(resolve) {
+        resolve()
+      })
     }
     removed = removed || []
     callback = callback || function(resolve) {
@@ -1078,6 +1121,7 @@
       case constants.EXTENSION.EQUIPMENT:
       case constants.EXTENSION.GUARDED:
         patchRelicsMenu(data)
+        //patchPixieSong(data)
       }
     }
     return {
