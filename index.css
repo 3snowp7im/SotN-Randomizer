@@ -51,12 +51,12 @@ h1 {
 
 #spoilers {
     margin: 0;
-    white-space: nowrap;
     resize: none;
     width: 100%;
     height: 100%;
     margin-bottom: -.5em;
     border: none;
+    white-space: pre;
 }
 
 h3 time {

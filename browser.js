@@ -259,7 +259,6 @@
     if (elems.showSpoilers.checked) {
       showSpoilers()
       elems.showRelics.disabled = false
-      elems.showSolutions.disabled = false
     } else {
       hideSpoilers()
       elems.showRelics.checked = false
