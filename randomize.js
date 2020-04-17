@@ -20,6 +20,7 @@ const optionsHelp = [
   '  "i" for item locations (`--help items`)',
   '  "p" for prologue rewards (`--help rewards`)',
   '  "r" for relic locations (`--help relics`)',
+  '  "x" for relic locations extension (`--help extension`)',
   '  "t" for turkey mode',
   '',
   'The default randomization mode is "'
@@ -262,6 +263,32 @@ const relicsHelp = [
   '  $0 -o r:B:L:y:LG-MP,dpt',
 ].join('\n')
 
+const extensionHelp = [
+  'Relic locations extension can be toggled with the "x" switch to enable',
+  '"guarded" mode, or, a different mode can be specified using argument',
+  'syntax.',
+  '',
+  'Extension will enable the randomizer to place progression in locations',
+  'that do not contain progression in the vanilla game. There are two',
+  'extension modes:',
+  '  guarded    Adds Crystal Cloak, Mormegil, Dark Blade, and Ring of Arcana',
+  '             to the location pool. This is the default extension mode when',
+  '             when enabled without an argument.',
+  '  equipment  Adds (most) equipment tiles to the location pool.',
+  '',
+  'Extension format:',
+  '  x[:<mode>]',
+  '',
+  'Examples:',
+  '  x            Enables guarded extension mode.',
+  '  x:guarded    Same as "x" with no argument.',
+  '  x:equipment  Enables equipment extension mode.',
+  '',
+  'If other randomization options follow an extension mode, they must also be',
+  'separated from the mode with a comma:',
+  '  $0 -o rx:equipment,dpt',
+].join('\n')
+
 const presetHelp = [
   'Presets specify collection of randomization options. A preset is enabled',
   'by using argument syntax.',
@@ -443,6 +470,7 @@ if ('help' in argv) {
     items: itemsHelp,
     rewards: rewardsHelp,
     relics: relicsHelp,
+    extension: extensionHelp,
     preset: presetHelp,
   }
   const script = path.basename(process.argv[1])
