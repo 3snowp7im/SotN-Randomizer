@@ -20,10 +20,10 @@
         <a class="contact" href="https://twitch.tv/3snow_p7im"><img height="16" width="16" src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/twitch.svg"></a>
       </div>
       <form id="form" class="pure-g">
-        <p id="target" class="pure-u-1">
+        <div id="target" class="pure-u-1">
           <span id="status"></span>
           <input id="file" type="file" accept=".bin,.iso">
-        </p>
+        </div>
         <div class="pure-u-14-24">
           <fieldset>
             <legend>Randomizations</legend>
@@ -54,7 +54,7 @@
                 <label for="complexity">Complexity</label>
               </div>
               <div class="pure-u-12-24">
-                <input id="complexity" type="number" min="1" max="8">
+                <input id="complexity" type="number" min="1" max="10">
                 <span class="tooltip-wrapper">
                   <span class="tooltip-indicator">?</span>
                   <span class="tooltip hidden">
@@ -204,14 +204,19 @@
                 <input id="show-relics" type="checkbox">
                 <label for="show-relics">Show relic locations</label>
               </div>
+              <div class="pure-u-1">
+                <input id="show-solutions" type="checkbox">
+                <label for="show-solutions">Show solutions</label>
+              </div>
             </div>
           </fieldset>
         </div>
-        <div class="pure-u-10-24 spoilers">
-          <textarea id="spoilers" rows="8" cols="32" disabled="disabled">
-          </textarea>
+        <div class="pure-u-10-24">
+          <div id="spoilers-container" class="hide" style="display: none">
+            <textarea id="spoilers" rows="8" cols="32"></textarea>
+          </div>
         </div>
-        <p class="pure-u-1">
+        <p id="buttons" class="pure-u-1">
           <input id="randomize"
                  type="submit"
                  class="primary"

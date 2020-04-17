@@ -256,20 +256,34 @@
   }
 
   function spoilersChange() {
-    if (!elems.showSpoilers.checked) {
-      elems.spoilers.style.visibility = 'hidden'
-      elems.showRelics.checked = false
-      elems.showRelics.disabled = true
-    } else {
+    if (elems.showSpoilers.checked) {
       showSpoilers()
       elems.showRelics.disabled = false
+      elems.showSolutions.disabled = false
+    } else {
+      hideSpoilers()
+      elems.showRelics.checked = false
+      elems.showRelics.disabled = true
+      elems.showSolutions.checked = false
+      elems.showSolutions.disabled = true
     }
     localStorage.setItem('showSpoilers', elems.showSpoilers.checked)
   }
 
   function showRelicsChange() {
+    if (elems.showRelics.checked) {
+      elems.showSolutions.disabled = false
+    } else {
+      elems.showSolutions.checked = false
+      elems.showSolutions.disabled = true
+    }
     showSpoilers()
     localStorage.setItem('showRelics', elems.showRelics.checked)
+  }
+
+  function showSolutionsChange() {
+    showSpoilers()
+    localStorage.setItem('showSolutions', elems.showSolutions.checked)
   }
 
   function dragLeaveListener(event) {
@@ -560,14 +574,24 @@
   }
 
   function showSpoilers() {
-    let verbosity = 2
-    if (elems.showRelics.checked) {
-      verbosity++
+    let verbosity
+    if (elems.showSolutions.checked) {
+      verbosity = 4
+    } else if (elems.showRelics.checked) {
+      verbosity = 3
+    } else {
+      verbosity = 2
     }
     elems.spoilers.value = util.formatInfo(info, verbosity)
-    if (elems.showSpoilers.checked && elems.spoilers.value.match(/[^\s]/)) {
-      elems.spoilers.style.visibility = 'visible'
+    if (elems.showSpoilers.checked
+        && elems.spoilers.value.match(/[^\s]/)) {
+      elems.spoilersContainer.style.display = ''
+      elems.spoilersContainer.classList.remove('hide')
     }
+  }
+
+  function hideSpoilers() {
+    elems.spoilersContainer.classList.add('hide')
   }
 
   const body = document.getElementsByTagName('body')[0]
@@ -609,7 +633,9 @@
     appendSeed: document.getElementById('append-seed'),
     showSpoilers: document.getElementById('show-spoilers'),
     showRelics: document.getElementById('show-relics'),
+    showSolutions: document.getElementById('show-solutions'),
     spoilers: document.getElementById('spoilers'),
+    spoilersContainer: document.getElementById('spoilers-container'),
     download: document.getElementById('download'),
     loader: document.getElementById('loader'),
     copy: document.getElementById('copy'),
@@ -648,6 +674,7 @@
   elems.appendSeed.addEventListener('change', appendSeedChange)
   elems.showSpoilers.addEventListener('change', spoilersChange)
   elems.showRelics.addEventListener('change', showRelicsChange)
+  elems.showSolutions.addEventListener('change', showSolutionsChange)
   elems.copy.addEventListener('click', copyHandler)
   elems.showOlder.addEventListener('click', showOlderHandler)
   // Load presets
@@ -853,8 +880,9 @@
   }
   loadOption('theme', themeChange, 'menu')
   loadOption('appendSeed', appendSeedChange, true)
-  loadOption('showSpoilers', spoilersChange, true)
+  loadOption('showSolutions', showSolutionsChange, false)
   loadOption('showRelics', showRelicsChange, false)
+  loadOption('showSpoilers', spoilersChange, true)
   setTimeout(function() {
     const els = document.getElementsByClassName('tooltip')
     Array.prototype.forEach.call(els, function(el) {

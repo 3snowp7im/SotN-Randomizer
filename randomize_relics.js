@@ -663,50 +663,21 @@
     offset = data.writeWord(offset, 0x00000000) // nop
   }
 
-  function depth(item, visited) {
-    visited = visited || new Set()
-    if (visited.has(item)) {
-      return visited.size
-    }
-    visited.add(item)
-    return (item.locks || []).map(function(lock) {
-      const newVisited = new Set(visited)
-      return Array.from(lock).reduce(function(sum, item) {
-        return depth(item, newVisited)
-      }, 0)
-    }).reduce(function(max, depth) {
-      if (depth > max) {
-        return depth
-      }
-      return max
-    }, 0)
-  }
-
-  function removeCircular(item, visited, depths) {
+  function removeCircular(item, visited) {
     visited = visited || new Set()
     visited.add(item.item)
-    depths = depths || new Map()
     return item.locks.reduce(function(locks, lock) {
-      const newVisited = new Set(visited)
-      const items = Array.from(lock).sort(function(a, b) {
-        if (!depths.has(a)) {
-          depths.set(a, depth(a))
-        }
-        if (!depths.has(b)) {
-          depths.set(b, depth(b))
-        }
-        return depths.get(b) - depths.get(a)
-      })
+      const items = Array.from(lock)
       let erase
       for (let i = 0; i < items.length; i++) {
         const lockItem = Object.assign({}, items[i])
         items[i] = lockItem
-        if (newVisited.has(lockItem.item)) {
+        if (visited.has(lockItem.item)) {
           erase = true
           break
         }
         if (lockItem.locks && lockItem.locks.length) {
-          lockItem.locks = removeCircular(lockItem, newVisited, depths)
+          lockItem.locks = removeCircular(lockItem, new Set(visited))
           if (lockItem.locks.length === 0) {
             erase = true
             break
@@ -716,43 +687,6 @@
       if (!erase) {
         locks.push(new Set(items))
       }
-      return locks
-    }, [])
-  }
-
-  function isDuplicated(a, b) {
-    if (a.item === b.item) {
-      return true
-    }
-    return b.locks && b.locks.some(function(lock) {
-      return Array.from(lock).some(function(item) {
-        return isDuplicated(a, item)
-      })
-    })
-  }
-
-  function removeSubsets(item) {
-    return item.locks.reduce(function(locks, lock) {
-      const items = Array.from(lock)
-      for (let i = 0; i < items.length; i++) {
-        const item = items[i]
-        let erase
-        for (let j = 0; j < items.length; j++) {
-          if (i !== j) {
-            if (isDuplicated(items[i], items[j])) {
-              erase = true
-              break
-            }
-          }
-        }
-        if (erase) {
-          items.splice(i--, 1)
-        }
-        if (item.locks && item.locks.length) {
-          item.locks = removeSubsets(item)
-        }
-      }
-      locks.push(new Set(items))
       return locks
     }, [])
   }
@@ -769,23 +703,6 @@
         })
       }
     }
-  }
-
-  function lockDepth(min, locks) {
-    const curr = Array.from(locks).reduce(function(max, item) {
-      let curr = 1
-      if (item.locks) {
-        curr += item.locks.reduce(lockDepth, 0)
-      }
-      if (curr > max) {
-        return curr
-      }
-      return max
-    }, 0)
-    if (min === 0 || curr < min) {
-      return curr
-    }
-    return min
   }
 
   function solve(mapping, requirements) {
@@ -823,8 +740,6 @@
         }).pop()
         // Remove circular locks.
         root.locks = removeCircular(root)
-        // Remove locks that are fulfilled by other locks.
-        root.locks = removeSubsets(root)
         // Clean up tree.
         clean(root)
         abilities[ability] = root
@@ -833,8 +748,25 @@
     })
   }
 
-  function complexity(mapping, requirements) {
-    return solve(mapping, requirements).reduce(lockDepth, 0)
+  function lockDepth(min, locks) {
+    const curr = Array.from(locks).reduce(function(max, item) {
+      let curr = 1
+      if (item.locks) {
+        curr += item.locks.reduce(lockDepth, 0)
+      }
+      if (curr > max) {
+        return curr
+      }
+      return max
+    }, 0)
+    if (min === 0 || curr < min) {
+      return curr
+    }
+    return min
+  }
+
+  function complexity(solutions) {
+    return solutions.reduce(lockDepth, 0)
   }
 
   function collectAbilities(node, abilities, chain) {
@@ -926,7 +858,8 @@
               return location.id === result[ability].id
             })[0]
           })
-          const depth = complexity(mapping, goal)
+          ctx.solutions = solve(mapping, goal)
+          const depth = complexity(ctx.solutions)
           if (ctx.lowDepth === undefined || depth < ctx.lowDepth) {
             ctx.lowDepth = depth
           }
@@ -1117,10 +1050,15 @@
       })
       const info = util.newInfo()
       info[3]['Relic locations'] = spoilers
+      if (ctx.solutions) {
+        info[4]['Solutions'] = util.renderSolutions(ctx.solutions)
+        info[4]['Complexity'] = complexity(ctx.solutions)
+      }
       return {
         mapping: result,
         locations: locations,
         relics: enabledRelics,
+        solutions: ctx.solutions,
         rounds: ctx.rounds,
         info: info,
       }

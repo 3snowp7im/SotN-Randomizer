@@ -2831,6 +2831,152 @@
     })
   }
 
+  function indent(level) {
+    return Array(level).fill(' ').join('')
+  }
+
+  function minifySolution(min, locks) {
+    const requirements = Array.from(locks).map(function(node) {
+      if (node.locks) {
+        const solution = node.locks.reduce(minifySolution, {depth: 0})
+        const depth = 1 + solution.depth
+        return {
+          item: node.item,
+          depth: depth,
+          solution: solution,
+        }
+      }
+      return {
+        item: node.item,
+        depth: 1,
+      }
+    })
+    const depth = requirements.slice().sort(function(a, b) {
+      return a.depth - b.depth
+    }).pop().depth
+    const solution = {
+      depth: depth,
+      requirements: requirements,
+    }
+    if (min.depth === 0 || solution.depth < min.depth) {
+      return solution
+    }
+    return min
+  }
+
+  function simplifySolution(node) {
+    if (node.solution) {
+      return {
+        item: node.item,
+        solution: node.solution.requirements.map(simplifySolution)
+      }
+    }
+    return {
+      item: node.item
+    }
+  }
+
+  function collectAbilities(node, map) {
+    if (map.has(node.item)) {
+      return map.get(node.item)
+    }
+    const abilities = new Set([node.item])
+    if (node.solution) {
+      node.solution.requirements.forEach(function(node) {
+        abilities.add(node.item)
+        Array.from(collectAbilities(node, map)).forEach(function(ability) {
+          abilities.add(ability)
+        })
+      })
+    }
+    map.set(node.item, abilities)
+    return abilities
+  }
+
+  function pruneSubsets(node, map) {
+    map = map || new Map()
+    if (node.solution) {
+      const nodes = node.solution.requirements
+      nodes.sort(function(a, b) {
+        return b.depth - a.depth
+      })
+      const abilities = new Set()
+      for (let i = 0; i < nodes.length; i++) {
+        const node = nodes[i]
+        pruneSubsets(node, map)
+        Array.from(collectAbilities(node, map)).forEach(function(ability) {
+          abilities.add(ability)
+        })
+        for (let j = i + 1; j < nodes.length; j++) {
+          const curr = nodes[j]
+          const requirements = Array.from(collectAbilities(curr, map))
+          if (requirements.every(function(ability) {
+            return abilities.has(ability)
+          })) {
+            nodes.splice(j--, 1)
+          }
+        }
+      }
+    }
+  }
+
+  function collapseSolution(node) {
+    const items = []
+    let curr = node
+    while (curr.solution && curr.solution.length === 1) {
+      items.push(curr.item)
+      curr = curr.solution[0]
+    }
+    items.push(curr.item)
+    if (curr.solution) {
+      return {
+        items: items,
+        solution: curr.solution.map(collapseSolution)
+      }
+    }
+    return {
+      items: items,
+    }
+  }
+
+  function renderNode(indentLevel, sub, node) {
+    const lines = []
+    const names = node.items.map(function(ability) {
+      return relicFromAbility(ability).name
+    })
+    lines.push(
+      indent(indentLevel)
+        + (sub ? '\u2b11 ' : '')
+        + names.join(' \u2190 ')
+    )
+    if (node.solution) {
+      if (sub) {
+        indentLevel += 2
+      }
+      indentLevel += names.slice(0, -1).concat(['']).join('   ').length
+      const nodes = node.solution.map(renderNode.bind(null, indentLevel, true))
+      Array.prototype.push.apply(lines, nodes.reduce(function(lines, node) {
+        Array.prototype.push.apply(lines, node)
+        return lines
+      }, []))
+    }
+    return lines
+  }
+
+  function renderSolutions(solutions, indentLevel) {
+    const minified = solutions.reduce(minifySolution, {depth: 0})
+    minified.requirements.forEach(function(node) {
+      pruneSubsets(node)
+    })
+    const simplified = minified.requirements.map(simplifySolution)
+    const collapsed = simplified.map(collapseSolution)
+    const render = renderNode.bind(null, 0, false)
+    return collapsed.map(render).reduce(function(lines, node) {
+      Array.prototype.push.apply(lines, node)
+      return lines
+    }, [])
+  }
+
   const exports = {
     assert: assert,
     shopTileFilter: shopTileFilter,
@@ -2873,11 +3019,12 @@
     relicFromName: relicFromName,
     relicFromAbility: relicFromAbility,
     enemyFromIdString: enemyFromIdString,
+    Preset: Preset,
+    PresetBuilder: PresetBuilder,
     randomizeRelics: randomizeRelics,
     randomizeItems: randomizeItems,
     finalizeData: finalizeData,
-    Preset: Preset,
-    PresetBuilder: PresetBuilder,
+    renderSolutions: renderSolutions,
   }
   if (self) {
     self.sotnRando = Object.assign(self.sotnRando || {}, {

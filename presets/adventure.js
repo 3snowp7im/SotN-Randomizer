@@ -33,7 +33,7 @@
   builder.relicLocationsExtension(EXTENSION.EQUIPMENT)
 
   // Game completion requires Holy Glasses + Vlad Relics.
-  builder.complexityGoal(8, [
+  builder.complexityGoal(9, [
     RELIC.HOLY_GLASSES
       + RELIC.HEART_OF_VLAD
       + RELIC.TOOTH_OF_VLAD

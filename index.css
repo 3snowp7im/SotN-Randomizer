@@ -42,9 +42,21 @@ h1 {
     z-index: -1;
 }
 
+#spoilers-container {
+    margin-top: 1.1ex;
+    margin-left: 1em;
+    overflow: hidden;
+    font-family: monospace;
+}
+
 #spoilers {
-    display: block;
-    margin: 0 auto;
+    margin: 0;
+    white-space: nowrap;
+    resize: none;
+    width: 100%;
+    height: 100%;
+    margin-bottom: -.5em;
+    border: none;
 }
 
 h3 time {
@@ -54,6 +66,7 @@ h3 time {
 #target {
     text-align: center;
     padding: 3em 0;
+    margin: .5em 0;
 }
 
 fieldset .pure-g .pure-u-12-24, fieldset .pure-g .pure-u-1 {
@@ -64,12 +77,12 @@ fieldset .pure-g .pure-u-12-24 fieldset {
     margin-right: 1em;
 }
 
-.spoilers {
-    float: right;
+form > .pure-u-14-24 > fieldset {
+    margin-bottom: .5em;
 }
 
-#spoilers {
-    visibility: hidden;
+#buttons {
+    margin: 0 0 .5em 0;
 }
 
 #notification {
@@ -218,10 +231,10 @@ body.menu {
     filter: invert(1);
 }
 
-.menu textarea,
 .menu select,
 .menu input[type="text"],
-.menu input[type="number"] {
+.menu input[type="number"],
+.menu #spoilers {
     color: #fff;
     background: transparent;
 }
@@ -247,7 +260,8 @@ body.menu {
     animation: pulse 1s infinite;
 }
 
-.menu #target {
+.menu #target,
+.menu #spoilers-container {
     border: 1px #fff solid;
 }
 
@@ -377,6 +391,42 @@ body.menu {
     }
 }
 
+.menu #spoilers-container.hide {
+    animation: hide-spoilers 1s;
+    animation-fill-mode: forwards;
+}
+
+.menu #spoilers-container {
+    animation: show-spoilers 1s;
+}
+
+@keyframes show-spoilers {
+    0% {
+        max-width: 0;
+        max-height: 0;
+    }
+    100% {
+        max-width: 50ex;
+        max-height: 11em;
+    }
+}
+
+@keyframes hide-spoilers {
+    0% {
+        max-width: 50ex;
+        max-height: 11em;
+    }
+    99.999% {
+        max-width: 0;
+        max-height: 0;
+    }
+    100% {
+        max-width: 0;
+        max-height: 0;
+        border-width: 0;
+    }
+}
+
 /* Light mode */
 
 .light {
@@ -384,10 +434,10 @@ body.menu {
     background: #fff;
 }
 
-.light textarea,
 .light select,
 .light input[type="text"],
-.light input[type="number"] {
+.light input[type="number"],
+.light #spoilers {
     color: #000;
     background: #fff;
 }
@@ -470,6 +520,14 @@ body.menu {
     background-color: #0078e7;
 }
 
+.light #spoilers-container {
+    border: 1px silver solid;
+}
+
+.light #spoilers-container.hide {
+    display: none;
+}
+
 /* Dark mode */
 
 .dark {
@@ -477,10 +535,10 @@ body.menu {
     background: #222;
 }
 
-.dark textarea,
 .dark select,
 .dark input[type="text"],
-.dark input[type="number"] {
+.dark input[type="number"],
+.dark #spoilers {
     color: #fff;
     background: #222;
 }
@@ -587,4 +645,12 @@ body.menu {
 .dark input[type="submit"].primary {
     color: #fff;
     background-color: #0078e7;
+}
+
+.dark #spoilers-container {
+    border: 1px silver solid;
+}
+
+.dark #spoilers-container.hide {
+    display: none;
 }
