@@ -252,6 +252,7 @@
   // Silver Ring requires Jewel of Open + Form of Mist + Soul of Bat.
   builder.lockLocation(RELIC.SILVER_RING, [
     RELIC.JEWEL_OF_OPEN + RELIC.FORM_OF_MIST + RELIC.SOUL_OF_BAT,
+    RELIC.JEWEL_OF_OPEN + RELIC.FORM_OF_MIST + RELIC.POWER_OF_MIST,
   ])
 
   // Holy Glasses requires Rings + flight.
