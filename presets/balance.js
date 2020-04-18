@@ -227,6 +227,16 @@
     RELIC.SPIRIT_ORB + RELIC.JEWEL_OF_OPEN + RELIC.SOUL_OF_BAT,
     RELIC.SPIRIT_ORB + RELIC.JEWEL_OF_OPEN + RELIC.FORM_OF_MIST
       + RELIC.POWER_OF_MIST,
+    RELIC.SPIRIT_ORB + RELIC.JEWEL_OF_OPEN + RELIC.SOUL_OF_WOLF
+      + RELIC.POWER_OF_WOLF,
+  ])
+
+  // Giving access to Demon Card must also give at least Leap Stone.
+  builder.escapeRequires(RELIC.DEMON_CARD, [
+    RELIC.SOUL_OF_BAT,
+    RELIC.LEAP_STONE,
+    RELIC.GRAVITY_BOOTS,
+    RELIC.FORM_OF_MIST + RELIC.POWER_OF_MIST,
   ])
 
   // Sword Card requires flight.
