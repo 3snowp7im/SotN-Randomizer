@@ -830,12 +830,13 @@
     const solutions = solve(mapping, [new Set(ability)])
     const abilities = collectAbilities(Array.from(solutions[0])[0])
     return requirements.reduce(function(satisfied, requirement) {
+      const array = Array.from(requirement)
       return satisfied || abilities.every(function(abilities) {
-        return requirement.every(function(ability) {
+        return array.every(function(ability) {
           return abilities.has(ability)
         })
       })
-    })
+    }, false)
   }
 
   function round(
