@@ -2948,8 +2948,8 @@
     })
     lines.push(
       indent(indentLevel)
-        + (sub ? '\u2b11 ' : '')
-        + names.join(' \u2190 ')
+        + (sub ? '^ ' : '')
+        + names.join(' < ')
     )
     if (node.solution) {
       if (sub) {
