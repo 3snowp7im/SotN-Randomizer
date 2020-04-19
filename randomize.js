@@ -651,7 +651,7 @@ if ('bin' in argv) {
         // Place planned progression items.
         const removed = randomizeItems.placePlannedItems(applied)
         // Randomize relics.
-        const workers = Array(constants.threads)
+        const workers = Array(os.cpus().length)
         for (let i = 0; i < workers.length; i++) {
           workers[i] = new Worker('./worker.js')
         }
@@ -661,6 +661,7 @@ if ('bin' in argv) {
           seed,
           removed,
           workers,
+          2,
         )
         util.mergeInfo(info, result.info)
         // Write relics mapping.
@@ -668,7 +669,7 @@ if ('bin' in argv) {
           version,
           options,
           seed,
-          constants.threads,
+          0,
         ))
         result = randomizeRelics.writeRelics(rng, applied, result)
         check.apply(result.data)
@@ -677,8 +678,8 @@ if ('bin' in argv) {
           version,
           options,
           seed,
-          constants.threads + 1,
           new Worker('./worker.js'),
+          1,
           result.items,
         )
         check.apply(result.data)

@@ -2,7 +2,6 @@
 
   const devBaseUrl = 'https://dev.sotn.io/'
   const defaultOptions = 'P:safe'
-  const threads = 8
 
   const optionsUrls = {
     'P:safe': 'https://sotn.io/',
@@ -535,7 +534,6 @@
   const exports = {
     devBaseUrl: devBaseUrl,
     defaultOptions: defaultOptions,
-    threads: threads,
     optionsUrls: optionsUrls,
     TYPE: TYPE,
     typeNames: typeNames,

@@ -427,7 +427,8 @@
         options,
         seed,
         removed,
-        createWorkers(constants.threads),
+        createWorkers(window.navigator.hardwareConcurrency),
+        2,
         getUrl(),
       ).then(function(result) {
         util.mergeInfo(info, result.info)
@@ -435,7 +436,7 @@
           version,
           options,
           seed,
-          constants.threads,
+          0,
         ))
         result = randomizeRelics.writeRelics(rng, applied, result)
         check.apply(result.data)
@@ -443,8 +444,8 @@
           version,
           options,
           seed,
-          constants.threads + 1,
           createWorkers(1)[0],
+          1,
           result.items,
           getUrl(),
         )

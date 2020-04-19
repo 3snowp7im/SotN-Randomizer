@@ -2707,51 +2707,47 @@
     seed,
     removed,
     workers,
+    nonce,
     url,
   ) {
     const promises = Array(workers.length)
     const running = Array(workers.length).fill(true)
-    let maxRounds
+    let done
     for (let i = 0; i < workers.length; i++) {
       const thread = i
       const worker = workers[i]
+      function postMessage() {
+        worker.postMessage({
+          action: 'relics',
+          thread: thread,
+          options: options,
+          version: version,
+          seed: seed,
+          removed: removed,
+          nonce: nonce++,
+          url: url,
+        })
+      }
       promises[i] = new Promise(function(resolve) {
         addEventListener.call(worker, 'message', function(result) {
           if (self) {
             result = result.data
           }
-          if (result.error) {
+          if (result.error && !errors.isError(result.error)) {
+            throw result.error
+          } else if (done || result.done) {
+            done = true
             resolve(result)
+            running[thread] = false
+            worker.postMessage({
+              action: 'relics',
+              cancel: true,
+            })
           } else {
-            const isFirst = maxRounds === undefined
-                  || result.rounds < maxRounds
-            if (result.done) {
-              if (isFirst) {
-                maxRounds = result.rounds
-              }
-              resolve(result)
-            } else if (!isFirst && running[thread]) {
-              running[thread] = false
-              worker.postMessage({
-                action: 'relics',
-                cancel: true,
-              })
-            } else {
-              worker.postMessage({
-                action: 'relics',
-                continue: true,
-              })
-            }
+            postMessage()
           }
         })
-        worker.postMessage({
-          action: 'relics',
-          options: options,
-          removed: removed,
-          saltedSeed: saltSeed(version, options, seed, i),
-          url: url,
-          thread: thread,
-        })
+        postMessage()
       })
     }
     return Promise.all(promises).then(function(results) {
@@ -2759,7 +2755,7 @@
         if (!candidate || 'error' in candidate) {
           return result
         }
-        if ('error' in result || candidate.rounds < result.rounds) {
+        if ('error' in result || candidate.nonce < result.nonce) {
           return candidate
         }
         return result
@@ -2775,8 +2771,8 @@
     version,
     options,
     seed,
-    nonce,
     worker,
+    nonce,
     items,
     url,
   ) {
@@ -2794,7 +2790,9 @@
       worker.postMessage({
         action: 'items',
         options: options,
-        saltedSeed: saltSeed(version, options, seed, nonce),
+        version: version,
+        seed: seed,
+        nonce: nonce,
         items: items,
         url: url,
       })

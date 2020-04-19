@@ -2,8 +2,8 @@
 
   // Logic metadata.
   const metadata = {
-    id: 'balance',
-    name: 'Balance',
+    id: 'empty-hand',
+    name: 'Empty hand',
     description: [
       'No equipment or items challenge mode.',
       'Released on April 1st, 2020.',
@@ -358,7 +358,7 @@
   ])
 
   // Game completion requires Holy Glasses + Vlad Relics.
-  builder.complexityGoal(9, [
+  builder.complexityGoal(10, [
     RELIC.HOLY_GLASSES
       + RELIC.HEART_OF_VLAD
       + RELIC.TOOTH_OF_VLAD

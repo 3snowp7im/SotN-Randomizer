@@ -40,11 +40,9 @@
   _SoftlockError.prototype = Error.prototype
   SoftlockError.prototype = new _SoftlockError()
 
-  function ComplexityError(low, high) {
+  function ComplexityError() {
     this.name = 'ComplexityError'
-    this.message = 'Could not meet difficulty target ('
-      + low + ', ' + high
-      + ')'
+    this.message = 'Could not meet difficulty target'
     this.stack = new Error(this.message).stack
   }
 

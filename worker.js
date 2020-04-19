@@ -25,7 +25,7 @@ function randomizeWorker() {
       url + "presets/speedrun.js",
       url + "presets/glitch.js",
       url + "presets/glitch-hard.js",
-      url + "presets/balance.js",
+      url + "presets/empty-hand.js",
       url + "randomize_items.js",
       url + "randomize_relics.js",
       url + "ecc-edc-recalc-js.js",
@@ -47,6 +47,15 @@ function randomizeWorker() {
     randomizeItems = require('./randomize_items').randomizeItems
   }
 
+  function getRng(message) {
+    return new seedrandom(util.saltSeed(
+      message.version,
+      message.options,
+      message.seed,
+      message.nonce,
+    ))
+  }
+
   function handleMessage(message) {
     if (!ctx.loaded) {
       if (typeof(module) === 'undefined') {
@@ -63,47 +72,33 @@ function randomizeWorker() {
       switch (message.action) {
       case 'relics': {
         if (message.cancel) {
-          ctx.resolve(false)
-        } else if (message.continue) {
-          ctx.resolve(true)
+          if ('unref' in this) {
+            this.unref()
+          }
         } else {
-          delete ctx.canceled
-          const rng = new seedrandom(message.saltedSeed)
-          const options = util.Preset.options(message.options)
+          const rng = getRng(message)
           const removed = message.removed
-          const seed = message.seed
-          ctx.thread= message.thread
-          self = this
-          randomizeRelics(rng, options, removed, function(resolve, rounds) {
-            ctx.resolve = resolve
-            ctx.rounds = rounds
-            self.postMessage({rounds: rounds})
-          }).then(function(result) {
-            result = result || {}
+          ctx.options = ctx.options || util.Preset.options(message.options)
+          try {
+            const result = randomizeRelics(rng, ctx.options, removed)
             result.action = 'relics'
             result.done = true
+            result.nonce = message.nonce
             util.sanitizeResult(result)
-            self.postMessage(result)
-            if ('unref' in self) {
-              self.unref()
-            }
-          }).catch(function(err) {
-            self.postMessage({
+            this.postMessage(result)
+          } catch (err) {
+            this.postMessage({
               action: 'relics',
               error: err,
-              rounds: ctx.rounds,
             })
-            if ('unref' in self) {
-              self.unref()
-            }
-          })
+          }
         }
         break
       }
       case 'items': {
-        const rng = new seedrandom(message.saltedSeed)
-        const options = util.Preset.options(message.options)
-        const result = randomizeItems(rng, message.items, options)
+        const rng = getRng(message)
+        ctx.options = ctx.options || util.Preset.options(message.options)
+        const result = randomizeItems(rng, message.items, ctx.options)
         result.action = 'items'
         this.postMessage(result)
         if ('unref' in this) {

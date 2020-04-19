@@ -11,7 +11,7 @@
       require('./speedrun'),
       require('./glitch'),
       require('./glitch-hard'),
-      require('./balance'),
+      require('./empty-hand'),
     ]
   }
   exports.sort(function(a, b) {

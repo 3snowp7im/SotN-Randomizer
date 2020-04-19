@@ -20,13 +20,20 @@ function rng() {
 self.addEventListener('message', function(message) {
   const data = message.data
   const options = util.Preset.options(util.optionsFromString(data.options))
-  // Get random relic placement.
-  randomizeRelics(rng, options).then(function(result) {
-    // Clean up the relics so they can be serialized.
-    util.sanitizeResult(result)
-    result.id = message.data.id
-    self.postMessage(result)
-  }).catch(function(err) {
-    self.postMessage({error: err})
-  })
+  while (true) {
+    try {
+      // Get random relic placement.
+      const result = randomizeRelics(rng, options)
+      // Clean up the relics so they can be serialized.
+      util.sanitizeResult(result)
+      result.id = message.data.id
+      self.postMessage(result)
+      break
+    } catch (err) {
+      if (!self.sotnRando.errors.isError(err)) {
+        self.postMessage({error: err})
+      }
+      continue
+    }
+  }
 })
