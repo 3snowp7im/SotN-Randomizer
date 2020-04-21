@@ -1465,16 +1465,12 @@
 
   function saltSeed(version, options, seed, nonce) {
     nonce = nonce || 0
-    const str = JSON.stringify({
+    return JSON.stringify({
       version: version,
       options: optionsToString(options),
       seed: seed,
       nonce: nonce,
     })
-    const hex = sha256(str)
-    return hex.match(/[0-9a-f]{2}/g).map(function(byte) {
-      return String.fromCharCode(parseInt(byte, 16))
-    }).join('')
   }
 
   function restoreFile(data, file) {
