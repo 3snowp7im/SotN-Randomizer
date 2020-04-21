@@ -927,6 +927,11 @@
     } else {
       outerColor1 = randomColor(opts.rng)
     }
+    if ('outerColor2' in opts) {
+      outerColor2 = opts.outerColor2
+    } else {
+      outerColor2 = randomColor(opts.rng)
+    }
     data.writeShort(liningAddress + 0x00, liningColor1)
     data.writeShort(liningAddress + 0x02, liningColor2)
     data.writeShort(outerAddress + 0x00, outerColor1)
