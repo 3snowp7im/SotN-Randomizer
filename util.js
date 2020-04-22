@@ -1039,7 +1039,7 @@
       if (self) {
         return self.sotnRando.presets
       } else {
-        return require('./presets')
+        return require('./build/presets')
       }
     } catch (err) {
       return []
