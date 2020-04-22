@@ -1,0 +1,103 @@
+{
+  "metadata": {
+    "id": "sample",
+    "name": "Sample",
+    "description": "A sample preset for demonstrative purposes.",
+    "author": "3snow_p7im",
+    "weight": 0
+  },
+
+  "enemyDrops": [{
+    "comment": "Make Warg drop $400 and Combat Knife",
+    "enemy": "Warg",
+    "items": ["$400", "Combat Knife"]
+  }, {
+    "comment": "Make Merman level 3 drop Duplicator and Manna Prism",
+    "enemy": "Merman",
+    "level": 3,
+    "items": ["Duplicator", "Manna Prism"]
+  }],
+
+  "startingEquipment": [{
+    "slot": "Right hand",
+    "item": "Crissaegrim"
+  }, {
+    "slot": "Left hand",
+    "item": "Dark Shield"
+  }, {
+    "slot": "Head",
+    "item": "Beryl Circlet"
+  }, {
+    "slot": "Body",
+    "item": "Dracula Tunic"
+  }, {
+    "slot": "Cloak",
+    "item": "Reverse Cloak"
+  }, {
+    "slot": "Other",
+    "item": "Ankh of Life"
+  }, {
+    "slot": "AxeArmor",
+    "item": "Gold Plate"
+  }, {
+    "slot": "Luck Mode",
+    "item": "Talisman"
+  }],
+
+  "itemLocations": [{
+    "comment": "Place a Library Card in the Pot Roast wall of Entrance",
+    "zone": "NO3",
+    "item": "Pot Roast",
+    "replacement": "Library Card"
+  }, {
+    "comment": "Place an Orange in the second Turkey wall of Castle Keep",
+    "zone": "TOP",
+    "item": "Turkey",
+    "index": 2,
+    "replacement": "Orange"
+  }],
+
+  "prologueRewards": [{
+    "item": "Heart Refresh",
+    "replacement": "Banana"
+  }, {
+    "item": "Neutron Bomb",
+    "replacement": "Bat Pentagram"
+  }, {
+    "item": "Potion",
+    "replacement": "Elixir"
+  }],
+
+  "placeRelic": [{
+    "comment": "Sprit Orb at Form of Mist location",
+    "relics": ["Spirit Orb"],
+    "locations": ["Form of Mist"]
+  }, {
+    "comment": "Soul of Wolf or Power of Wolf can be at Leap Stone or Gas Cloud locations",
+    "relics": ["Soul of Wolf", "Power of Wolf"],
+    "locations": ["Leap Stone", "Gas Cloud"]
+  }],
+
+  "lockLocation": [{
+    "location": "Soul of Bat",
+    "comment": "Requires Mist + Gravity Boots + Leapstone",
+    "locks": [
+      "Form of Mist + Gravity Boots + Leap Stone"
+    ],
+    "comment": "Access to Soul of Bat location must also give Soul of Wolf or form of Mist + Power of Mist",
+    "escapeRequirements": [
+      "Soul of Wolf",
+      "Form of Mist + Power of Mist"
+    ]
+  }],
+
+  "complexityGoal": {
+    "min": 2,
+    "max": 5,
+    "comment": "Require Soul of Bat + Soul of Wolf or Gravity Boots + Form of Mist to complete game",
+    "goals": [
+      "Soul of Bat + Soul of Wolf",
+      "Gravity Boots + Form of Mist"
+    ]
+  }
+}

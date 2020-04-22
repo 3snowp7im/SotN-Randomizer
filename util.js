@@ -2079,7 +2079,7 @@
       }).pop()
       if (!preset && !self) {
         try {
-          preset = require('./presets/' + options.preset)
+          preset = require('./build/presets/' + options.preset)
         } catch (err) {
           if (err.code !== 'MODULE_NOT_FOUND') {
             console.error(err.stack)
@@ -2140,6 +2140,131 @@
     }, ''))
   }
 
+  function locationFromName(name) {
+    const relic = relicFromName(name)
+    if (relic) {
+      return relic.ability
+    }
+    return name
+  }
+
+  function locksFromArray(locks) {
+    return locks.map(function(lock) {
+      return lock.split(/\s*\+\s*/).map(function(name) {
+        return relicFromName(name).ability
+      }).join('')
+    })
+  }
+
+  PresetBuilder.fromJSON = function fromJSON(json) {
+    const builder = new PresetBuilder(json.metadata)
+    if ('inherits' in json) {
+      builder.inherits(json.inherits)
+    }
+    if ('itemLocations' in json) {
+      if (typeof(json.itemLocations) === 'boolean') {
+        builder.itemLocations(json.itemLocations)
+      } else if (Array.isArray(json.itemLocations)) {
+        json.itemLocations.forEach(function(itemLocation) {
+          let zone
+          if (itemLocation.zone === '*') {
+            zone = '*'
+          } else {
+            zone = constants.ZONE[itemLocation.zone]
+          }
+          const args = [zone, itemLocation.item]
+          if ('index' in itemLocation) {
+            args.push(itemLocation.index)
+          }
+          args.push(itemLocation.replacement)
+          builder.itemLocations.apply(builder, args)
+        })
+      } else {
+        throw new Error('unsupported itemLocations type')
+      }
+    }
+    if ('enemyDrops' in json) {
+      if (typeof(json.enemyDrops) === 'boolean') {
+        builder.enemyDrops(json.enemyDrops)
+      } else if (Array.isArray(json.enemyDrops)) {
+        json.enemyDrops.forEach(function(enemyDrop) {
+          const args = [enemyDrop.enemy]
+          if ('level' in enemyDrop) {
+            args.push(enemyDrop.level)
+          }
+          Array.prototype.push.apply(args, enemyDrop.items)
+          builder.enemyDrops.apply(builder, args)
+        })
+      } else {
+        throw new Error('unsupported enemyDrops type')
+      }
+    }
+    if ('prologueRewards' in json) {
+      if (typeof(json.prologueRewards) === 'boolean') {
+        builder.prologueRewards(json.prologueRewards)
+      } else if (Array.isArray(json.prologueRewards)) {
+        json.prologueRewards.forEach(function(prologueReward) {
+          builder.prologueRewards(
+            prologueReward.item,
+            prologueReward.replacement,
+          )
+        })
+      } else {
+        throw new Error('unsupported prologueRewards type')
+      }
+    }
+    if ('startingEquipment' in json) {
+      if (typeof(json.startingEquipment) === 'boolean') {
+        builder.startingEquipment(json.startingEquipment)
+      } else if (Array.isArray(json.startingEquipment)) {
+        json.startingEquipment.forEach(function(startingEquipment) {
+          const key = startingEquipment.slot.toUpperCase().replace(' ', '_')
+          builder.startingEquipment(
+            constants.SLOT[key],
+            startingEquipment.item,
+          )
+        })
+      } else {
+        throw new Error('unsupported startingEquipment type')
+      }
+    }
+    if ('relicLocationsExtension' in json) {
+      builder.relicLocationsExtension(json.relicLocationsExtension)
+    }
+    if ('relicLocations' in json) {
+      build.relicLocations(json.relicLocations)
+    }
+    if ('lockLocation' in json) {
+      json.lockLocation.forEach(function(lockLocation) {
+        const location = locationFromName(lockLocation.location)
+        const locks = locksFromArray(lockLocation.locks)
+        builder.lockLocation(location, locks)
+        if ('escapeRequires' in lockLocation) {
+          const escapes = locksFromArray(lockLocation.escapeRequires)
+          builder.escapeRequires(location, escapes)
+        }
+      })
+    }
+    if ('placeRelic' in json) {
+      json.placeRelic.forEach(function(placeRelic) {
+        const relics = placeRelic.relics.map(function(name) {
+          return relicFromName(name).ability
+        })
+        const locations = placeRelic.locations.map(locationFromName)
+        builder.placeRelic(relics, locations)
+      })
+    }
+    if ('complexityGoal' in json) {
+      const args = [json.complexityGoal.min]
+      if ('max' in json.complexityGoal) {
+        args.push(json.complexityGoal.max)
+      }
+      args.push(locksFromArray(json.complexityGoal.goals))
+      builder.complexityGoal.apply(builder, args)
+    }
+    return builder
+  }
+
   PresetBuilder.prototype.inherits = function inherits(id) {
     let preset
     if (self) {
@@ -2148,7 +2273,7 @@
         return preset.id === id
       }).pop()
     } else {
-      preset = require('./presets/' + id)
+      preset = require('./build/presets/' + id)
     }
     if (typeof(preset.enemyDrops) === 'object') {
       const self = this

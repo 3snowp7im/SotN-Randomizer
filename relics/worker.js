@@ -5,8 +5,8 @@ importScripts(
   '/items.js',
   '/relics.js',
   '/util.js',
-  '/presets/casual.js',
-  '/presets/safe.js',
+  '/build/presets/casual.js',
+  '/build/presets/safe.js',
   '/randomize_relics.js',
 )
 

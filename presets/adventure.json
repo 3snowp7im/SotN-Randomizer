@@ -1,0 +1,17 @@
+{
+  "metadata": {
+    "id": "adventure",
+    "name": "Adventure",
+    "description": "Requires extensive map coverage.",
+    "author": "3snow_p7im",
+    "weight": -300
+  },
+  "inherits": "safe",
+  "relicLocationsExtension": "equipment",
+  "complexityGoal": {
+    "min": 9,
+    "goals": [
+      "Holy Glasses + Heart of Vlad + Tooth of Vlad + Rib of Vlad + Ring of Vlad + Eye of Vlad"
+    ]
+  }
+}

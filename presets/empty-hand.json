@@ -1,0 +1,336 @@
+{
+  "metadata": {
+    "id": "empty-hand",
+    "name": "Empty hand",
+    "description": "No equipment or items challenge mode. Released on April 1st, 2020.",
+    "author": "3snow_p7im",
+    "weight": 100
+  },
+  "itemLocations": [{
+    "zone": "*",
+    "item": "*",
+    "replacement": "Heart"
+  }, {
+    "zone": "ST0",
+    "item": "Cross",
+    "replacement": "Cross"
+  }, {
+    "zone": "ST0",
+    "item": "Holy Water",
+    "replacement": "Holy Water"
+  }, {
+    "zone": "ST0",
+    "item": "Big heart",
+    "index": 1,
+    "replacement": "Big heart"
+  }, {
+    "zone": "ST0",
+    "item": "Big heart",
+    "index": 2,
+    "replacement": "Big heart"
+  }, {
+    "zone": "ST0",
+    "item": "Big heart",
+    "index": 3,
+    "replacement": "Big heart"
+  }],
+  "enemyDrops": [{
+    "enemy": "*",
+    "items": [null, null]
+  }, {
+    "enemy": "Global",
+    "items": [
+      "$25",
+      "Heart",
+      "$1",
+      "$25",
+      "$25",
+      "$25",
+      "$25",
+      "$25",
+      "$25",
+      "$50",
+      "$50",
+      "$50",
+      "$50",
+      "$100",
+      "$100",
+      "Heart",
+      "Heart",
+      "Heart",
+      "Heart",
+      "Heart",
+      "Heart",
+      "Heart",
+      "Heart",
+      "Heart",
+      "Heart",
+      "Heart",
+      "Big heart",
+      "Big heart",
+      "$1",
+      "$250",
+      "$400",
+      "Heart"
+    ]
+  }],
+  "prologueRewards": [{
+    "item": "Heart Refresh",
+    "replacement": null
+  }, {
+    "item": "Neutron Bomb",
+    "replacement": null
+  }, {
+    "item": "Potion",
+    "replacement": null
+  }],
+  "startingEquipment": [{
+    "slot": "Right hand",
+    "item": null
+  }],
+  "comment": "Lock everything except Gas Cloud with Spirit Orb",
+  "lockLocation": [{
+    "location": "Cube of Zoe",
+    "locks": ["Spirit Orb"]
+  }, {
+    "location": "Spirit Orb",
+    "locks": ["Spirit Orb"]
+  }, {
+    "location": "Soul of Wolf",
+    "locks": ["Spirit Orb"]
+  }, {
+    "location": "Faerie Scroll",
+    "locks": ["Spirit Orb"]
+  }, {
+    "location": "Jewel of Open",
+    "locks": ["Spirit Orb"]
+  }, {
+    "location": "Soul of Bat",
+    "locks": [
+      "Spirit Orb + Form of Mist + Leap Stone",
+      "Spirit Orb + Form of Mist + Gravity Boots",
+      "Spirit Orb + Form of Mist + Soul of Bat",
+      "Spirit Orb + Form of Mist + Power of Mist"
+    ]
+  }, {
+    "location": "Fire of Bat",
+    "locks": [
+      "Spirit Orb + Soul of Bat",
+      "Spirit Orb + Gravity Boots + Leap Stone",
+      "Spirit Orb + Form of Mist + Power of Mist"
+    ]
+  }, {
+    "location": "Echo of Bat",
+    "locks": [
+      "Spirit Orb + Soul of Bat",
+      "Spirit Orb + Gravity Boots + Leap Stone + Form of Mist",
+      "Spirit Orb + Gravity Boots + Leap Stone + Soul of Wolf",
+      "Spirit Orb + Form of Mist + Power of Mist"
+    ]
+  }, {
+    "location": "Force of Echo",
+    "locks": [
+      "Spirit Orb + Holy Glasses + Soul of Bat",
+      "Spirit Orb + Holy Glasses + Gravity Boots + Leap Stone",
+      "Spirit Orb + Holy Glasses + Form of Mist + Power of Mist"
+    ]
+  }, {
+    "location": "Power of Wolf",
+    "locks": [
+      "Spirit Orb + Soul of Bat",
+      "Spirit Orb + Gravity Boots + Leap Stone",
+      "Spirit Orb + Form of Mist + Power of Mist"
+    ]
+  }, {
+    "location": "Skill of Wolf",
+    "locks": [
+      "Spirit Orb + Gravity Boots",
+      "Spirit Orb + Soul of Bat",
+      "Spirit Orb + Form of Mist + Power of Mist"
+    ]
+  }, {
+    "location": "Form of Mist",
+    "locks": [
+      "Spirit Orb + Leap Stone",
+      "Spirit Orb + Gravity Boots",
+      "Spirit Orb + Soul of Bat",
+      "Spirit Orb + Form of Mist + Power of Mist"
+    ]
+  }, {
+    "location": "Power of Mist",
+    "locks": [
+      "Spirit Orb + Soul of Bat",
+      "Spirit Orb + Gravity Boots + Leap Stone",
+      "Spirit Orb + Form of Mist + Power of Mist"
+    ]
+  }, {
+    "location": "Gravity Boots",
+    "locks": [
+      "Spirit Orb + Soul of Bat",
+      "Spirit Orb + Gravity Boots + Leap Stone",
+      "Spirit Orb + Form of Mist + Power of Mist"
+    ]
+  }, {
+    "location": "Leap Stone",
+    "locks": [
+      "Spirit Orb + Jewel of Open",
+      "Spirit Orb + Leap Stone",
+      "Spirit Orb + Gravity Boots",
+      "Spirit Orb + Soul of Bat",
+      "Spirit Orb + Form of Mist + Power of Mist"
+    ]
+  }, {
+    "location": "Holy Symbol",
+    "locks": [
+      "Spirit Orb + Jewel of Open + Merman Statue"
+    ]
+  }, {
+    "location": "Merman Statue",
+    "locks": [
+      "Spirit Orb + Jewel of Open"
+    ]
+  }, {
+    "location": "Bat Card",
+    "locks": [
+      "Spirit Orb + Gravity Boots",
+      "Spirit Orb + Soul of Bat",
+      "Spirit Orb + Form of Mist + Power of Mist"
+    ]
+  }, {
+    "location": "Ghost Card",
+    "locks": [
+      "Spirit Orb + Soul of Bat",
+      "Spirit Orb + Gravity Boots + Leap Stone",
+      "Spirit Orb + Form of Mist + Power of Mist"
+    ]
+  }, {
+    "location": "Faerie Card",
+    "locks": [
+      "Spirit Orb + Gravity Boots",
+      "Spirit Orb + Soul of Bat",
+      "Spirit Orb + Form of Mist + Power of Mist"
+    ]
+  }, {
+    "location": "Demon Card",
+    "locks": [
+      "Spirit Orb + Jewel of Open + Leap Stone",
+      "Spirit Orb + Jewel of Open + Soul of Bat",
+      "Spirit Orb + Jewel of Open + Form of Mist + Power of Mist",
+      "Spirit Orb + Jewel of Open + Soul of Wolf + Power of Wolf"
+    ],
+    "escapeRequires": [
+      "Soul of Bat",
+      "Leap Stone",
+      "Gravity Boots",
+      "Form of Mist + Power of Mist"
+    ]
+  }, {
+    "location": "Sword Card",
+    "locks": [
+      "Spirit Orb + Soul of Bat",
+      "Spirit Orb + Gravity Boots + Leap Stone",
+      "Spirit Orb + Form of Mist + Power of Mist"
+    ]
+  }, {
+    "location": "Heart of Vlad",
+    "locks": [
+      "Spirit Orb + Holy Glasses + Soul of Bat",
+      "Spirit Orb + Holy Glasses + Gravity Boots + Leap Stone",
+      "Spirit Orb + Holy Glasses + Form of Mist + Power of Mist"
+    ]
+  }, {
+    "location": "Tooth of Vlad",
+    "locks": [
+      "Spirit Orb + Holy Glasses + Soul of Bat",
+      "Spirit Orb + Holy Glasses + Gravity Boots + Leap Stone",
+      "Spirit Orb + Holy Glasses + Form of Mist + Power of Mist"
+    ]
+  }, {
+    "location": "Rib of Vlad",
+    "locks": [
+      "Spirit Orb + Holy Glasses + Soul of Bat",
+      "Spirit Orb + Holy Glasses + Gravity Boots + Leap Stone",
+      "Spirit Orb + Holy Glasses + Form of Mist + Power of Mist"
+    ]
+  }, {
+    "location": "Ring of Vlad",
+    "locks": [
+      "Spirit Orb + Holy Glasses + Soul of Bat",
+      "Spirit Orb + Holy Glasses + Gravity Boots + Leap Stone",
+      "Spirit Orb + Holy Glasses + Form of Mist + Power of Mist"
+    ]
+  }, {
+    "location": "Eye of Vlad",
+    "locks": [
+      "Spirit Orb + Holy Glasses + Soul of Bat",
+      "Spirit Orb + Holy Glasses + Gravity Boots + Leap Stone",
+      "Spirit Orb + Holy Glasses + Form of Mist + Power of Mist"
+    ]
+  }, {
+    "location": "Spike Breaker",
+    "locks": [
+      "Spirit Orb + Jewel of Open + Soul of Bat + Echo of Bat"
+    ]
+  }, {
+    "location": "Gold Ring",
+    "locks": [
+      "Spirit Orb + Jewel of Open + Soul of Bat",
+      "Spirit Orb + Jewel of Open + Gravity Boots + Leap Stone",
+      "Spirit Orb + Jewel of Open + Form of Mist + Power of Mist"
+    ]
+  }, {
+    "location": "Silver Ring",
+    "locks": [
+      "Spirit Orb + Jewel of Open + Spike Breaker + Form of Mist"
+    ]
+  }, {
+    "location": "Holy Glasses",
+    "locks": [
+      "Spirit Orb + Silver Ring + Gold Ring"
+    ],
+    "escapeRequires": [
+      "Soul of Bat",
+      "Gravity Boots + Leap Stone",
+      "Form of Mist + Power of Mist"
+    ]
+  }, {
+    "location": "Crystal Cloak",
+    "locks": [
+      "Spirit Orb + Jewel of Open"
+    ]
+  }, {
+    "location": "Mormegil",
+    "locks": [
+      "Spirit Orb + Jewel of Open + Leap Stone",
+      "Spirit Orb + Jewel of Open + Soul of Bat",
+      "Spirit Orb + Jewel of Open + Form of Mist + Power of Mist",
+      "Spirit Orb + Jewel of Open + Soul of Wolf + Power of Wolf"
+    ],
+    "escapeRequires": [
+      "Soul of Bat",
+      "Leap Stone",
+      "Gravity Boots",
+      "Form of Mist + Power of Mist"
+    ]
+  }, {
+    "location": "Dark Blade",
+    "locks": [
+      "Spirit Orb + Holy Glasses + Soul of Bat",
+      "Spirit Orb + Holy Glasses + Gravity Boots + Leap Stone",
+      "Spirit Orb + Holy Glasses + Form of Mist + Power of Mist"
+    ]
+  }, {
+    "location": "Ring of Arcana",
+    "locks": [
+      "Spirit Orb + Holy Glasses + Soul of Bat",
+      "Spirit Orb + Holy Glasses + Gravity Boots + Leap Stone",
+      "Spirit Orb + Holy Glasses + Form of Mist + Power of Mist"
+    ]
+  }],
+  "complexityGoal": {
+    "min": 10,
+    "goals": [
+      "Holy Glasses + Heart of Vlad + Tooth of Vlad + Rib of Vlad + Ring of Vlad + Eye of Vlad"
+    ]
+  }
+}
