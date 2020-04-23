@@ -676,37 +676,45 @@
     offset = data.writeWord(offset, 0x00000000) // nop
   }
 
-  function removeCircular(item, visited) {
+  function removeCircular(item, map, visited) {
+    map = map || new Map()
     visited = visited || new Set()
-    visited.add(item.item)
-    if (item.locks.length) {
-      item.locks = item.locks.reduce(function(locks, lock) {
-        const items = Array.from(lock)
-        let erase
-        for (let i = 0; i < items.length; i++) {
-          items[i] = Object.assign({}, items[i])
-          if (visited.has(items[i].item)) {
-            erase = true
-            break
-          }
-          if (items[i].locks && items[i].locks.length) {
-            items[i] = removeCircular(items[i], new Set(visited))
-            if (!items[i]) {
-              erase = true
+    if (!visited.has(item.item)) {
+      visited.add(item.item)
+      if (item.locks.length) {
+        if (map.has(item.item)) {
+          return map.get(item.item)
+        }
+        const locks = item.locks.reduce(function(locks, lock) {
+          const newLock = new Set()
+          for (let item of lock) {
+            item = removeCircular(item, map, new Set(visited))
+            if (item) {
+              newLock.add(item)
+            } else {
+              newLock.clear()
               break
             }
           }
+          if (newLock.size) {
+            locks.push(newLock)
+          }
+          return locks
+        }, [])
+        if (locks.length) {
+          item = {
+            item: item.item,
+            locks: locks,
+          }
+          map.set(item.item, item)
+          return item
+        } else {
+          map.set(item.item, undefined)
         }
-        if (!erase) {
-          locks.push(new Set(items))
-        }
-        return locks
-      }, [])
-      if (item.locks.length === 0) {
-        return undefined
+      } else {
+        return item
       }
     }
-    return item
   }
 
   function clean(item) {
@@ -715,9 +723,9 @@
         delete item.locks
       } else {
         item.locks.forEach(function(lock) {
-          Array.from(lock).forEach(function(item) {
+          for (const item of lock) {
             clean(item)
-          })
+          }
         })
       }
     }
@@ -742,34 +750,14 @@
         }))
       })
     })
-    // Prune incomplete locks.
-    const prune = new Set()
-    let count
-    do {
-      count = graph.length
-      graph = graph.reduce(function(nodes, node) {
-        if (node.locks.length) {
-          node.locks = node.locks.reduce(function(locks, lock) {
-            lock = Array.from(lock)
-            if (lock.filter(function(item) {
-              return !!item && !prune.has(item.item)
-            }).length === lock.length) {
-              locks.push(new Set(lock))
-            }
-            return locks
-          }, [])
-          removeCircular(node)
-          if (node.locks.length) {
-            nodes.push(node)
-          } else {
-            prune.add(node.item)
-          }
-        } else {
-          nodes.push(node)
-        }
-        return nodes
-      }, [])
-    } while (graph.length !== count)
+    // Remove circular locks.
+    graph = graph.reduce(function(graph, node) {
+      node = removeCircular(node)
+      if (node) {
+        graph.push(node)
+      }
+      return graph
+    }, [])
     graph.forEach(function(node) {
       clean(node)
     })
@@ -778,11 +766,15 @@
 
   function solve(graph, requirements) {
     return requirements.map(function(lock) {
-      return new Set(Array.from(lock).map(function(ability) {
-        return graph.filter(function(node) {
+      return new Set(Array.from(lock).reduce(function(abilities, ability) {
+        const node = graph.filter(function(node) {
           return node.item === ability
         }).pop()
-      }))
+        if (node) {
+          abilities.push(node)
+        }
+        return abilities
+      }, []))
     })
   }
 
@@ -843,23 +835,27 @@
     // Get new locations pool.
     const pool = {
       relics: util.shuffled(rng, relics),
-      locations: util.shuffled(rng, locations),
+      locations: locations.slice(),
     }
     while (pool.locations.length > relics.length) {
-      pool.locations.pop()
+      pool.locations.splice(randIdx(rng, pool.locations), 1)
     }
     // Place relics.
     const result = pickRelicLocations(rng, pool, locations)
+    // Restore original location locks in mapping.
+    const mapping = {}
+    Object.getOwnPropertyNames(result).forEach(function(ability) {
+      mapping[ability] = locations.filter(function(location) {
+        return location.id === result[ability].id
+      }).pop()
+    })
     let solutions
+    let depth
     if (target !== undefined) {
-      // Create mapping of relics to their locations.
-      const mapping = {}
+      // Collect locations with escape requirements.
       const escape = []
-      Object.getOwnPropertyNames(result).forEach(function(ability) {
-        const location = locations.filter(function(location) {
-          return location.id === result[ability].id
-        }).pop()
-        mapping[ability] = location
+      Object.getOwnPropertyNames(mapping).forEach(function(ability) {
+        const location = mapping[ability]
         if (location.escapes.length) {
           escape.push(ability)
         }
@@ -874,7 +870,7 @@
       })
       // Solve for completion goals.
       solutions = solve(graphed, goal)
-      const depth = complexity(solutions)
+      depth = complexity(solutions)
       // If the complexity target is not met, fail.
       if ((!Number.isNaN(target.min) && depth < target.min)
           || ('max' in target && depth > target.max)) {
@@ -882,8 +878,9 @@
       }
     }
     return {
-      mapping: result,
+      mapping: mapping,
       solutions: solutions,
+      depth: depth,
     }
   }
 
@@ -942,9 +939,7 @@
     if (typeof(options.relicLocations) === 'object') {
       relicLocations = options.relicLocations
     } else {
-      relicLocations = presets.filter(function(preset) {
-        return preset.id === 'safe'
-      }).pop().options().relicLocations
+      relicLocations = util.presetFromName('safe').options().relicLocations
     }
     const locksMap = locksFromLocations(relicLocations)
     const escapesMap = escapesFromLocations(relicLocations)
@@ -1024,7 +1019,7 @@
     info[3]['Relic locations'] = spoilers
     if (result.solutions) {
       info[4]['Solutions'] = util.renderSolutions(result.solutions)
-      info[4]['Complexity'] = complexity(result.solutions)
+      info[4]['Complexity'] = result.depth
     }
     return {
       mapping: result.mapping,

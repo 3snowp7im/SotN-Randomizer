@@ -2959,11 +2959,13 @@
   function minifySolution(min, locks) {
     const requirements = Array.from(locks).map(function(node) {
       if (node.locks) {
-        const solution = node.locks.reduce(minifySolution, {depth: 0})
-        const depth = 1 + solution.depth
+        const solution = node.locks.reduce(minifySolution, {
+          depth: 0,
+          weight: 0,
+        })
         return {
           item: node.item,
-          depth: depth,
+          depth: 1 + solution.depth,
           solution: solution,
         }
       }
@@ -2975,11 +2977,18 @@
     const depth = requirements.slice().sort(function(a, b) {
       return a.depth - b.depth
     }).pop().depth
+    const weight = requirements.reduce(function(weight, requirement) {
+      return weight + requirement.depth
+    }, 0)
     const solution = {
       depth: depth,
+      weight: weight,
       requirements: requirements,
     }
-    if (min.depth === 0 || solution.depth < min.depth) {
+    if (min.depth === 0
+        || solution.depth < min.depth
+        || (solution.depth === min.depth
+            && solution.weight < min.weight)) {
       return solution
     }
     return min
@@ -3085,7 +3094,10 @@
   }
 
   function renderSolutions(solutions, indentLevel) {
-    const minified = solutions.reduce(minifySolution, {depth: 0})
+    const minified = solutions.reduce(minifySolution, {
+      depth: 0,
+      weight: 0,
+    })
     minified.requirements.forEach(function(node) {
       pruneSubsets(node)
     })

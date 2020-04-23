@@ -46,6 +46,7 @@
     "comment": "Requires flight",
     "locks": [
       "Soul of Bat",
+      "Gravity Boots + Leap Stone",
       "Gravity Boots + Soul of Wolf",
       "Gravity Boots + Form of Mist",
       "Form of Mist + Power of Mist"
@@ -260,7 +261,7 @@
     ]
   }, {
     "location": "Holy Glasses",
-    "comment": "Requires Rings + flight",
+    "comment": "Requires rings",
     "locks": [
       "Silver Ring + Gold Ring"
     ],
