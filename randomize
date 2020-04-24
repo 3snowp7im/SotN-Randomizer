@@ -322,7 +322,7 @@ function presetMetaHelp(preset) {
   case constants.EXTENSION.GUARDED:
     extensions.push(constants.EXTENSION.GUARDED)
   }
-  const extendedLocations = extension.locations.filter(function(location) {
+  const extendedLocations = extension.filter(function(location) {
     return extensions.indexOf(location.extension) !== -1
   })
   locations = locations.concat(extendedLocations)

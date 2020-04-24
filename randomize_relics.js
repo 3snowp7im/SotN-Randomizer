@@ -887,7 +887,7 @@
   function getLocations() {
     const locations = relics.filter(function(location) {
       return !location.extension
-    }).concat(extension.locations)
+    }).concat(extension)
     return locations.map(function(location) {
       let id
       if ('ability' in location) {

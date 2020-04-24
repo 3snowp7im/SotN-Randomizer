@@ -895,7 +895,7 @@
             }
             const locations = relics.map(function(relic) {
               return relic.ability
-            }).concat(extension.locations.map(function(location) {
+            }).concat(extension.map(function(location) {
               return location.name
             }))
             let location
@@ -1231,7 +1231,7 @@
                 break
               }
             }
-            const locations = relics.concat(extension.locations)
+            const locations = relics.concat(extension)
             const self = this
             locations.filter(function(location) {
               const extensions = []
@@ -2766,7 +2766,7 @@
     let relicLocations = self.locations
     if (typeof(relics) === 'object') {
       relicLocations = {}
-      relics.concat(extension.locations).map(function(location) {
+      relics.concat(extension).map(function(location) {
         if (typeof(location.ability) === 'string') {
           return location.ability
         }

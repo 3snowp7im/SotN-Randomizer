@@ -555,9 +555,7 @@
     },
   }]
 
-  const exports = {
-    locations: locations,
-  }
+  const exports = locations
   if (self) {
     self.sotnRando = Object.assign(self.sotnRando || {}, {
       extension: exports,
