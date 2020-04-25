@@ -1,12 +1,12 @@
 function randomizeWorker() {
-  const ctx = {}
 
-  let seedrandom
+  let constants
   let eccEdcCalc
   let errors
   let util
   let randomizeRelics
   let randomizeItems
+  let seedrandom
 
   function loadBrowser(url) {
     importScripts(
@@ -29,31 +29,35 @@ function randomizeWorker() {
       url + "randomize_relics.js",
       url + "ecc-edc-recalc-js.js",
     )
-    seedrandom = Math.seedrandom
+    constants = self.sotnRando.constants
     eccEdcCalc = self.eccEdcCalc
     errors = self.sotnRando.errors
-    util = self.sotnRando.util
     randomizeRelics = self.sotnRando.randomizeRelics.randomizeRelics
     randomizeItems = self.sotnRando.randomizeItems.randomizeItems
+    seedrandom = Math.seedrandom
+    util = self.sotnRando.util
   }
 
   function loadNode() {
-    seedrandom = require('seedrandom')
+    constants = require('./constants')
     eccEdcCalc = require('./ecc-edc-recalc-js')
     errors = require('./errors')
-    util = require('./util')
     randomizeRelics = require('./randomize_relics').randomizeRelics
     randomizeItems = require('./randomize_items').randomizeItems
+    seedrandom = require('seedrandom')
+    util = require('./util')
   }
 
-  function getRng(message) {
+  function getRng(salt) {
     return new seedrandom(util.saltSeed(
-      message.version,
-      message.options,
-      message.seed,
-      message.nonce,
+      salt.version,
+      salt.options,
+      salt.seed,
+      salt.nonce,
     ))
   }
+
+  const ctx = {}
 
   function handleMessage(message) {
     if (!ctx.loaded) {
@@ -69,32 +73,52 @@ function randomizeWorker() {
     }
     try {
       switch (message.action) {
-      case 'relics': {
+      case constants.WORKER_ACTION.RELICS: {
         if (message.cancel) {
           if ('unref' in this) {
             this.unref()
           }
         } else {
-          const rng = getRng(message)
-          const removed = message.removed
-          ctx.options = ctx.options || util.Preset.options(message.options)
+          if (message.bootstrap) {
+            Object.assign(ctx, {
+              salt: {
+                options: message.options,
+                version: message.version,
+                seed: message.seed,
+              },
+              options: util.Preset.options(message.options),
+              removed: message.removed,
+            })
+          }
+          const rng = getRng(Object.assign({}, ctx.salt, {
+            nonce: message.nonce,
+          }))
           try {
-            const result = randomizeRelics(rng, ctx.options, removed)
-            result.action = 'relics'
-            result.done = true
-            result.nonce = message.nonce
+            const result = randomizeRelics(rng, ctx.options, ctx.removed)
             util.sanitizeResult(result)
+            Object.assign(result, {
+              action: constants.WORKER_ACTION.RELICS,
+              done: true,
+              nonce: ctx.nonce,
+            })
             this.postMessage(result)
           } catch (err) {
-            this.postMessage({
-              action: 'relics',
-              error: err,
-            })
+            if (errors.isError(err)) {
+              this.postMessage({
+                action: constants.WORKER_ACTION.RELICS,
+                error: true,
+              })
+            } else {
+              this.postMessage({
+                action: constants.WORKER_ACTION.RELICS,
+                error: err,
+              })
+            }
           }
         }
         break
       }
-      case 'items': {
+      case constants.WORKER_ACTION.ITEMS: {
         const rng = getRng(message)
         ctx.options = ctx.options || util.Preset.options(message.options)
         const result = randomizeItems(rng, message.items, ctx.options)
@@ -105,7 +129,7 @@ function randomizeWorker() {
         }
         break
       }
-      case 'finalize': {
+      case constants.WORKER_ACTION.FINALIZE: {
         const array = new Uint8Array(message.file)
         const check = new util.checked(array)
         check.apply(message.data)

@@ -2837,38 +2837,43 @@
     for (let i = 0; i < workers.length; i++) {
       const thread = i
       const worker = workers[i]
-      function postMessage() {
-        worker.postMessage({
-          action: 'relics',
-          thread: thread,
-          options: options,
-          version: version,
-          seed: seed,
-          removed: removed,
+      function postMessage(bootstrap) {
+        const message = {
+          action: constants.WORKER_ACTION.RELICS,
           nonce: nonce++,
-          url: url,
-        })
+        }
+        if (bootstrap) {
+          Object.assign(message, {
+            bootstrap: true,
+            options: options,
+            version: version,
+            seed: seed,
+            removed: removed,
+            url: url,
+          })
+        }
+        worker.postMessage(message)
       }
       promises[i] = new Promise(function(resolve) {
         addEventListener.call(worker, 'message', function(result) {
           if (self) {
             result = result.data
           }
-          if (result.error && !errors.isError(result.error)) {
+          if (result.error && typeof(result.error) !== 'boolean') {
             throw result.error
           } else if (done || result.done) {
             done = true
             resolve(result)
             running[thread] = false
             worker.postMessage({
-              action: 'relics',
+              action: constants.WORKER_ACTION.RELICS,
               cancel: true,
             })
           } else {
             postMessage()
           }
         })
-        postMessage()
+        postMessage(true)
       })
     }
     return Promise.all(promises).then(function(results) {
@@ -2909,7 +2914,7 @@
         }
       })
       worker.postMessage({
-        action: 'items',
+        action: constants.WORKER_ACTION.ITEMS,
         options: options,
         version: version,
         seed: seed,
@@ -2941,7 +2946,7 @@
         }
       })
       worker.postMessage({
-        action: 'finalize',
+        action: constants.WORKER_ACTION.FINALIZE,
         seed: seed,
         preset: preset,
         file: file,

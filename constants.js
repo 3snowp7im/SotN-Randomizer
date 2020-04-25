@@ -531,6 +531,12 @@
   const GLOBAL_DROP = 'Global'
   const globalDropsCount = 32
 
+  const WORKER_ACTION = {
+    RELICS:    1,
+    ITEMS:     2,
+    FINALIZE:  3,
+  }
+
   const exports = {
     devBaseUrl: devBaseUrl,
     defaultOptions: defaultOptions,
@@ -556,6 +562,7 @@
     LOCATION: LOCATION,
     GLOBAL_DROP: GLOBAL_DROP,
     globalDropsCount: globalDropsCount,
+    WORKER_ACTION: WORKER_ACTION,
   }
   if (self) {
     self.sotnRando = Object.assign(self.sotnRando || {}, {
