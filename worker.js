@@ -60,94 +60,107 @@ function randomizeWorker() {
   const ctx = {}
 
   function handleMessage(message) {
-    if (!ctx.loaded) {
+    if (typeof(module) === 'undefined') {
+      message = message.data
+    }
+    if (typeof(message) === 'string') {
+      message = JSON.parse(message)
+    }
+    if (!('action' in message)) {
       if (typeof(module) === 'undefined') {
-        loadBrowser(message.data.url)
+        loadBrowser(message.url)
       } else {
         loadNode()
       }
       ctx.loaded = true
-    }
-    if (typeof(module) === 'undefined') {
-      message = message.data
-    }
-    try {
-      switch (message.action) {
-      case constants.WORKER_ACTION.RELICS: {
-        if (message.cancel) {
+    } else {
+      try {
+        switch (message.action) {
+        case constants.WORKER_ACTION.RELICS: {
+          if (message.cancel) {
+            if ('unref' in this) {
+              this.unref()
+            }
+          } else {
+            if (message.bootstrap) {
+              Object.assign(ctx, {
+                salt: {
+                  options: message.options,
+                  version: message.version,
+                  seed: message.seed,
+                },
+                options: util.Preset.options(message.options),
+                removed: message.removed,
+              })
+            }
+            let nonce = message.nonce
+            for (let i = 0; message.rounds === 0 || i < message.rounds; i++) {
+              const rng = getRng(Object.assign({}, ctx.salt, {
+                nonce: nonce + i,
+              }))
+              try {
+                const result = randomizeRelics(rng, ctx.options, ctx.removed)
+                util.sanitizeResult(result)
+                Object.assign(result, {
+                  action: constants.WORKER_ACTION.RELICS,
+                  done: true,
+                  nonce: nonce + i,
+                })
+                this.postMessage(JSON.stringify(result))
+                break
+              } catch (err) {
+                if (!errors.isError(err)) {
+                  this.postMessage(JSON.stringify({
+                    action: constants.WORKER_ACTION.RELICS,
+                    error: {
+                      name: err.name,
+                      message: err.message,
+                      stack: err.stack,
+                    }
+                  }))
+                } else if (i === message.rounds - 1) {
+                  this.postMessage(JSON.stringify({
+                    action: constants.WORKER_ACTION.RELICS,
+                    error: true,
+                  }))
+                  break
+                }
+              }
+            }
+          }
+          break
+        }
+        case constants.WORKER_ACTION.ITEMS: {
+          const rng = getRng(message)
+          ctx.options = ctx.options || util.Preset.options(message.options)
+          const result = randomizeItems(rng, message.items, ctx.options)
+          result.action = 'items'
+          this.postMessage(result)
           if ('unref' in this) {
             this.unref()
           }
-        } else {
-          if (message.bootstrap) {
-            Object.assign(ctx, {
-              salt: {
-                options: message.options,
-                version: message.version,
-                seed: message.seed,
-              },
-              options: util.Preset.options(message.options),
-              removed: message.removed,
-            })
+          break
+        }
+        case constants.WORKER_ACTION.FINALIZE: {
+          const array = new Uint8Array(message.file)
+          const check = new util.checked(array)
+          check.apply(message.data)
+          util.setSeedText(check, message.seed, message.preset)
+          const checksum = check.sum()
+          if (message.checksum && message.checksum !== checksum) {
+            throw new errors.VersionError()
           }
-          const rng = getRng(Object.assign({}, ctx.salt, {
-            nonce: message.nonce,
-          }))
-          try {
-            const result = randomizeRelics(rng, ctx.options, ctx.removed)
-            util.sanitizeResult(result)
-            Object.assign(result, {
-              action: constants.WORKER_ACTION.RELICS,
-              done: true,
-              nonce: ctx.nonce,
-            })
-            this.postMessage(result)
-          } catch (err) {
-            if (errors.isError(err)) {
-              this.postMessage({
-                action: constants.WORKER_ACTION.RELICS,
-                error: true,
-              })
-            } else {
-              this.postMessage({
-                action: constants.WORKER_ACTION.RELICS,
-                error: err,
-              })
-            }
-          }
-        }
-        break
+          eccEdcCalc(array, array.length)
+          this.postMessage({
+            action: 'finalize',
+            file: message.file,
+            checksum: checksum,
+          }, [message.file])
+          break
+        }}
+      } catch (err) {
+        this.postMessage({error: err})
       }
-      case constants.WORKER_ACTION.ITEMS: {
-        const rng = getRng(message)
-        ctx.options = ctx.options || util.Preset.options(message.options)
-        const result = randomizeItems(rng, message.items, ctx.options)
-        result.action = 'items'
-        this.postMessage(result)
-        if ('unref' in this) {
-          this.unref()
-        }
-        break
-      }
-      case constants.WORKER_ACTION.FINALIZE: {
-        const array = new Uint8Array(message.file)
-        const check = new util.checked(array)
-        check.apply(message.data)
-        util.setSeedText(check, message.seed, message.preset)
-        const checksum = check.sum()
-        if (message.checksum && message.checksum !== checksum) {
-          throw new errors.VersionError()
-        }
-        eccEdcCalc(array, array.length)
-        this.postMessage({
-          action: 'finalize',
-          file: message.file,
-          checksum: checksum,
-        }, [message.file])
-        break
-      }}
-    } catch (err) {
-      this.postMessage({error: err})
     }
   }
 

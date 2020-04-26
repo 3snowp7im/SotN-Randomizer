@@ -654,7 +654,8 @@ if ('bin' in argv) {
         // Place planned progression items.
         const removed = randomizeItems.placePlannedItems(applied)
         // Randomize relics.
-        const workers = Array(os.cpus().length)
+        const cores = os.cpus().length
+        const workers = Array(util.workerCountFromCores(cores))
         for (let i = 0; i < workers.length; i++) {
           workers[i] = new Worker('./worker.js')
         }

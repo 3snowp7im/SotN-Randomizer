@@ -2822,6 +2822,12 @@
     }
   }
 
+  function loadWorker(worker, url) {
+    worker.postMessage({
+      url: url,
+    })
+  }
+
   function randomizeRelics(
     version,
     options,
@@ -2830,17 +2836,23 @@
     workers,
     nonce,
     url,
+    rounds,
   ) {
+    if (rounds === undefined) {
+      rounds = 1
+    }
     const promises = Array(workers.length)
     const running = Array(workers.length).fill(true)
     let done
     for (let i = 0; i < workers.length; i++) {
       const thread = i
       const worker = workers[i]
+      loadWorker(worker, url)
       function postMessage(bootstrap) {
         const message = {
           action: constants.WORKER_ACTION.RELICS,
           nonce: nonce++,
+          rounds: rounds,
         }
         if (bootstrap) {
           Object.assign(message, {
@@ -2849,26 +2861,29 @@
             version: version,
             seed: seed,
             removed: removed,
-            url: url,
           })
         }
-        worker.postMessage(message)
+        worker.postMessage(JSON.stringify(message))
       }
       promises[i] = new Promise(function(resolve) {
         addEventListener.call(worker, 'message', function(result) {
           if (self) {
             result = result.data
           }
+          result = JSON.parse(result)
           if (result.error && typeof(result.error) !== 'boolean') {
-            throw result.error
+            const error = new Error(result.error.message)
+            error.name = result.error.name
+            error.stack = result.error.stack
+            throw error
           } else if (done || result.done) {
             done = true
             resolve(result)
             running[thread] = false
-            worker.postMessage({
+            worker.postMessage(JSON.stringify({
               action: constants.WORKER_ACTION.RELICS,
               cancel: true,
-            })
+            }))
           } else {
             postMessage()
           }
@@ -2902,6 +2917,7 @@
     items,
     url,
   ) {
+    loadWorker(worker, url)
     return new Promise(function(resolve, reject) {
       addEventListener.call(worker, 'message', function(result) {
         if (self) {
@@ -2934,6 +2950,7 @@
     worker,
     url,
   ) {
+    loadWorker(worker, url)
     return new Promise(function(resolve, reject) {
       addEventListener.call(worker, 'message', function(result) {
         if (self) {
@@ -2955,6 +2972,10 @@
         url: url,
       }, [file])
     })
+  }
+
+  function workerCountFromCores(cores) {
+    return Math.max(Math.floor(3 * cores / 4), 1)
   }
 
   function indent(level) {
@@ -3007,7 +3028,7 @@
       }
     }
     return {
-      item: node.item
+      item: node.item,
     }
   }
 
@@ -3163,6 +3184,7 @@
     randomizeItems: randomizeItems,
     finalizeData: finalizeData,
     renderSolutions: renderSolutions,
+    workerCountFromCores: workerCountFromCores,
   }
   if (self) {
     self.sotnRando = Object.assign(self.sotnRando || {}, {

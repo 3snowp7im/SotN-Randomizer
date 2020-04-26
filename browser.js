@@ -33,6 +33,15 @@
 
   const items = cloneItems(sotnRando.items)
 
+  function workerCount() {
+    const cores = navigator.hardwareConcurrency
+    const isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1
+    if (isFirefox) {
+      return Math.max(Math.floor(cores / 2), 1)
+    }
+    return util.workerCountFromCores(cores)
+  }
+
   function createWorkers(count) {
     const workers = Array(count)
     const url = new URL(window.location.href)
@@ -421,13 +430,15 @@
       const check = new util.checked(this.result)
       // Save handle to file data.
       const file = this.result
+      const threads = workerCount()
+      const start = new Date().getTime()
       // Randomize relics.
       util.randomizeRelics(
         version,
         options,
         seed,
         removed,
-        createWorkers(window.navigator.hardwareConcurrency),
+        createWorkers(threads),
         2,
         getUrl(),
       ).then(function(result) {
@@ -462,6 +473,8 @@
           getUrl(),
         )
       }).then(function(result) {
+        const duration = new Date().getTime() - start
+        console.log('Seed generation took ' + (duration / 1000) + 's')
         checksum = result.checksum
         showSpoilers()
         const url = URL.createObjectURL(new Blob([result.file], {
