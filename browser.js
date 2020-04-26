@@ -165,6 +165,8 @@
           }
         }
       )
+      relicLocationsExtensionCache = options.relicLocationsExtension
+      adjustMaxComplexity()
       elems.complexity.value = complexity
       elems.enemyDrops.checked = !!options.enemyDrops
       elems.startingEquipment.checked = !!options.startingEquipment
@@ -221,6 +223,23 @@
     }
   }
 
+  function adjustMaxComplexity() {
+    switch (relicLocationsExtensionCache) {
+    case constants.EXTENSION.GUARDED:
+      elems.complexity.max = 11
+      break
+    case constants.EXTENSION.EQUIPMENT:
+      elems.complexity.max = 14
+      break
+    default:
+      elems.complexity.max = 8
+      break
+    }
+    if (parseInt(elems.complexity.value) > parseInt(elems.complexity.max)) {
+      elems.complexity.value = elems.complexity.max
+    }
+  }
+
   function relicLocationsExtensionChange() {
     let value
     if (elems.relicLocationsExtension.guarded.checked) {
@@ -231,6 +250,7 @@
       value = false
     }
     relicLocationsExtensionCache = value
+    adjustMaxComplexity()
     localStorage.setItem('relicLocationsExtension', value)
   }
 
