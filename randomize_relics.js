@@ -652,6 +652,11 @@
     offset = data.writeWord(offset, 0x3c088009) // lui t0, 0x8009
     offset = data.writeWord(offset, 0x8109797b) // lb t1, 0x797b (t0)
     offset = data.writeWord(offset, 0x340a0003) // ori t2, r0, 0x0003
+    offset = data.writeWord(offset, 0x152a001c) // bne t1, t2, pc + 0x74
+    offset = data.writeWord(offset, 0x00000000) // nop
+    offset = data.writeWord(offset, 0x3c088007) // lui t0, 0x8007
+    offset = data.writeWord(offset, 0x9109342e) // lbu t1, 0x342e (t0)
+    offset = data.writeWord(offset, 0x340a00df) // ori t2, r0, 0x00df
     offset = data.writeWord(offset, 0x152a0017) // bne t1, t2, pc + 0x60
     offset = data.writeWord(offset, 0x00000000) // nop
     offset = data.writeWord(offset, 0x3c088007) // lui t0, 0x8007
