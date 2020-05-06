@@ -218,10 +218,9 @@
       offset = data.writeWord(offset, 0x12020000 + next)
       offset = data.writeWord(offset, 0x00000000) // nop
     })
-    //                                          // addiu s0, id
-    offset = data.writeWord(offset, 0x26100000 + id)
-    //                                          // lbu s0, 0x798a (s0)
-    offset = data.writeWord(offset, 0x92100000 + invOffset)
+    offset = data.writeWord(offset, 0x3c108009) // lui s0, 0x8009
+    //                                          // lbu s0, 0x798a + id (s0)
+    offset = data.writeWord(offset, 0x92100000 + id + invOffset)
     offset = data.writeWord(offset, 0x00000000) // nop
     offset = data.writeWord(offset, 0x12000002) // beq s0, r0, pc + 0x0c
     offset = data.writeWord(offset, 0x3c108007) // lui s0, 0x8007
