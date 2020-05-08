@@ -2,7 +2,7 @@
 to: build/presets/<%=name%>.js
 ---
 // This is a generated file. Do not edit it directly.
-// Make your changes to <%=name%>.json then rebuild
+// Make your changes to presets/<%=name%>.json then rebuild
 // this file with `npm run build-presets -- <%=name%>`.
 (function(self) {
 

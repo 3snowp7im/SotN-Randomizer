@@ -1,5 +1,5 @@
 // This is a generated file. Do not edit it directly.
-// Make your changes to speedrun.json then rebuild
+// Make your changes to presets/speedrun.json then rebuild
 // this file with `npm run build-presets -- speedrun`.
 (function(self) {
 
