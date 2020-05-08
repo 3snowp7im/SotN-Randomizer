@@ -5639,7 +5639,7 @@
     }, {
       zones: [ ZONE.NO4 ],
       index: 0,
-      entities: [ 0x3316, 0x439e ],
+      entities: [ 0x3316, 0x439e, 0x380c, 0x4ace ],
     }, {
       zones: [ ZONE.NO4 ],
       index: 29,
