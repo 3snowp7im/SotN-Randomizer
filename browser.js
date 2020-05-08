@@ -1,6 +1,7 @@
 (function(window) {
   const constants = sotnRando.constants
   const errors = sotnRando.errors
+  const extension = sotnRando.extension
   const util = sotnRando.util
   const presets = sotnRando.presets
   const randomizeItems = sotnRando.randomizeItems
@@ -357,7 +358,14 @@
     ].join('')
   }
 
-  function getFormRelicLocations() {
+  function getFormRelicLocations(ext) {
+    const extensions = []
+    switch (ext) {
+    case constants.EXTENSION.EQUIPMENT:
+      extensions.push(constants.EXTENSION.EQUIPMENT)
+    case constants.EXTENSION.GUARDED:
+      extensions.push(constants.EXTENSION.GUARDED)
+    }
     // Get safe relic locations.
     const relicLocations = safe.options().relicLocations
     // Delete default complexity target.
@@ -366,6 +374,14 @@
       if (/^[0-9]+(-[0-9]+)?/.test(key)) {
         goals = relicLocations[key]
         delete relicLocations[key]
+      } else {
+        const location = extension.filter(function(location) {
+          if (location.name === key) {
+            if (extensions.indexOf(location.extension) === -1) {
+              delete relicLocations[key]
+            }
+          }
+        })
       }
     })
     // Add complexity target from form.
@@ -386,13 +402,14 @@
     if (elems.preset.checked) {
       return {preset: presets[elems.presetId.selectedIndex].id}
     }
+    const extension = getFormRelicLocationsExtension()
     const options = {
       enemyDrops: elems.enemyDrops.checked,
       startingEquipment: elems.startingEquipment.checked,
       itemLocations: elems.itemLocations.checked,
       prologueRewards: elems.prologueRewards.checked,
-      relicLocations: getFormRelicLocations(),
-      relicLocationsExtension: getFormRelicLocationsExtension(),
+      relicLocations: getFormRelicLocations(extension),
+      relicLocationsExtension: extension,
       turkeyMode: elems.turkeyMode.checked,
     }
     if (elems.enemyDropsArg.value) {

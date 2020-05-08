@@ -950,13 +950,11 @@
                     || (locks.length && emptyLocks.length)) {
                   throw new Error('Invald lock: ' + location + ':' + arg)
                 }
-                if (index === 0) {
-                  relicLocations[location] = locks
-                } else {
-                  relicLocations[location] = locks.map(function(lock) {
-                    return '+' + lock
-                  })
+                if (index > 0) {
+                  locks = locks.map(function(lock) { return '+' + lock })
                 }
+                relicLocations[location] = relicLocations[location] || []
+                Array.prototype.push.apply(relicLocations[location], locks)
               })
             } else {
               relicLocations[location] = []
