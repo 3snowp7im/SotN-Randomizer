@@ -1283,7 +1283,6 @@
         if (options.relicLocationsExtension) {
           let opt = 'x'
           if (typeof(options.relicLocationsExtension) === 'string'
-              && options.relicLocationsExtension
               !== constants.defaultExtension) {
             opt += ':' + options.relicLocationsExtension
           }
