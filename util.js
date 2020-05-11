@@ -2979,8 +2979,8 @@
     return Array(level).fill(' ').join('')
   }
 
-  function minifySolution(min, locks) {
-    const requirements = Array.from(locks).map(function(node) {
+  function minifySolution(min, lock, index) {
+    const requirements = Array.from(lock).map(function(node) {
       if (node.locks) {
         const solution = node.locks.reduce(minifySolution, {
           depth: 0,
@@ -3003,15 +3003,20 @@
     const weight = requirements.reduce(function(weight, requirement) {
       return weight + requirement.depth
     }, 0)
+    const avg = weight / requirements.length
     const solution = {
       depth: depth,
       weight: weight,
+      avg: avg,
       requirements: requirements,
     }
     if (min.depth === 0
         || solution.depth < min.depth
         || (solution.depth === min.depth
-            && solution.weight < min.weight)) {
+            && solution.weight < min.weight)
+        || (solution.depth === min.depth
+            && solution.weight === min.weight
+            && solution.avg < min.avg)) {
       return solution
     }
     return min

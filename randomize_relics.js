@@ -685,19 +685,15 @@
     offset = data.writeWord(offset, 0x00000000) // nop
   }
 
-  function removeCircular(item, map, visited) {
-    map = map || new Map()
+  function removeCircular(item, visited) {
     visited = visited || new Set()
     if (!visited.has(item.item)) {
       visited.add(item.item)
       if (item.locks.length) {
-        if (map.has(item.item)) {
-          return map.get(item.item)
-        }
         const locks = item.locks.reduce(function(locks, lock) {
           const newLock = new Set()
           for (let item of lock) {
-            item = removeCircular(item, map, new Set(visited))
+            item = removeCircular(item, new Set(visited))
             if (item) {
               newLock.add(item)
             } else {
@@ -715,10 +711,7 @@
             item: item.item,
             locks: locks,
           }
-          map.set(item.item, item)
           return item
-        } else {
-          map.set(item.item, undefined)
         }
       } else {
         return item
