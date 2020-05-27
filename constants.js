@@ -514,6 +514,7 @@
     SHOTEL:                      'Shotel',
     STAUROLITE:                  'Staurolite',
     BADELAIRE:                   'Badelaire',
+    FORBIDDEN_LIBRARY_OPAL:      'Forbidden Library Opal',
     REVERSE_CAVERNS_DIAMOND:     'Reverse Caverns Diamond',
     REVERSE_CAVERNS_OPAL:        'Reverse Caverns Opal',
     REVERSE_CAVERNS_GARNET:      'Reverse Caverns Garnet',

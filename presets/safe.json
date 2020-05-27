@@ -490,6 +490,14 @@
       "Holy Glasses + Form of Mist + Power of Mist"
     ]
   }, {
+    "location": "Forbidden Library Opal",
+    "comment": "Requires Holy Glasses + flight",
+    "locks": [
+      "Holy Glasses + Soul of Bat",
+      "Holy Glasses + Gravity Boots + Leap Stone",
+      "Holy Glasses + Form of Mist + Power of Mist"
+    ]
+  }, {
     "location": "Reverse Caverns Diamond",
     "comment": "Requires Holy Glasses + flight",
     "locks": [

@@ -455,6 +455,14 @@
       y: 0x00c0,
     },
   }, {
+    name: LOCATION.FORBIDDEN_LIBRARY_OPAL,
+    extension: EXTENSION.EQUIPMENT,
+    itemId: 237,
+    tileIndex: 0,
+    asRelic: {
+      y: 0x0080,
+    },
+  }, {
     name: LOCATION.REVERSE_CAVERNS_DIAMOND,
     extension: EXTENSION.EQUIPMENT,
     itemId: 238,
