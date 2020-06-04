@@ -6566,9 +6566,9 @@
       index: 6,
       entities: [ 0x3482, 0x3b0a ],
     }, {
-      zones: [ ZONE.RCHI ],
+      zones: [ ZONE.RCHI, ZONE.RCHI ],
       index: 3,
-      entities: [ 0x1938, 0x1d98 ],
+      entities: [ 0x1938, 0x1d98, 0x1a8c, 0x1ece ],
     }, {
       addresses: [ 0x0b6c7a ],
       enemy: 94,

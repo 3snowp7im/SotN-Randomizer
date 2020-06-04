@@ -1760,6 +1760,11 @@
         id: 0x0018,
       })
       break
+    case constants.ZONE.RCHI:
+      ids.push({
+        id: 0x0020,
+      })
+      break
     case constants.ZONE.DAI:
     case constants.ZONE.RDAI:
     case constants.ZONE.RNO4:
@@ -1881,6 +1886,7 @@
     const entId = entity.data.readUInt16LE(4)
     const state = entity.data.readUInt16LE(8)
     switch (zone.id) {
+    case constants.ZONE.RCHI:
     case constants.ZONE.CHI: {
       index = state + 3
       break
