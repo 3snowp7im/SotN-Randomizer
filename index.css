@@ -469,6 +469,7 @@ body.menu {
         max-height: 15em;
         margin-top: .$em;
         padding: .45em .5em;
+        overflow: hidden;
     }
 }
 
