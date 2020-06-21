@@ -125,7 +125,7 @@
     haveChecksum = false
   }
 
-  function presetChange() {
+  function presetChange(event) {
     localStorage.setItem('preset', elems.preset.checked)
     if (elems.preset.checked) {
       elems.presetSelect.classList.remove('hide')
@@ -138,6 +138,7 @@
       elems.relicLocationsSet.disabled = true
       elems.turkeyMode.disabled = true
       presetIdChange()
+      elems.options.classList.add('hide')
     } else {
       elems.presetSelect.classList.add('hide')
       elems.complexity.disabled = false
@@ -148,6 +149,11 @@
       elems.relicLocations.disabled = false
       elems.relicLocationsSet.disabled = !elems.relicLocations.checked
       elems.turkeyMode.disabled = false
+      elems.options.classList.remove('hidden')
+      elems.options.classList.remove('hide')
+    }
+    if (event) {
+      elems.options.classList.add('animate')
     }
   }
 
@@ -660,6 +666,7 @@
     presetId: document.getElementById('preset-id'),
     presetDescription: document.getElementById('preset-description'),
     presetAuthor: document.getElementById('preset-author'),
+    options: document.getElementById('options'),
     complexity: document.getElementById('complexity'),
     enemyDrops: document.getElementById('enemy-drops'),
     enemyDropsArg: document.getElementById('enemy-drops-arg'),

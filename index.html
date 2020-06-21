@@ -50,133 +50,137 @@
                   </span>
                 </span>
               </div>
-              <div class="pure-u-12-24">
-                <label for="complexity">Complexity</label>
-              </div>
-              <div class="pure-u-12-24">
-                <input id="complexity" type="number" min="1">
-                <span class="tooltip-wrapper">
-                  <span class="tooltip-indicator">?</span>
-                  <span class="tooltip hidden">
-                    <span>
-                      Lower complexities generate faster but may be easier to
-                      beat.
+              <fieldset id="options" class="hidden">
+                <div class="pure-g">
+                  <div class="pure-u-12-24">
+                    <label for="complexity">Complexity</label>
+                  </div>
+                  <div class="pure-u-12-24">
+                    <input id="complexity" type="number" min="1">
+                    <span class="tooltip-wrapper">
+                      <span class="tooltip-indicator">?</span>
+                      <span class="tooltip hidden">
+                        <span>
+                          Lower complexities generate faster but may be easier to
+                          beat.
+                        </span>
+                      </span>
                     </span>
-                  </span>
-                </span>
-              </div>
-              <div class="pure-u-12-24">
-                <input id="enemy-drops" type="checkbox">
-                <label for="enemy-drops">Enemy drops</label>
-              </div>
-              <div class="pure-u-12-24">
-                <input id="starting-equipment" type="checkbox">
-                <label for="starting-equipment">Starting equipment</label>
-              </div>
-              <div class="pure-u-12-24">
-                <input id="item-locations" type="checkbox">
-                <label for="item-locations">Item locations</label>
-              </div>
-              <div class="pure-u-12-24">
-                <input id="prologue-rewards" type="checkbox">
-                <label for="prologue-rewards">Prologue rewards</label>
-              </div>
-              <div class="pure-u-12-24">
-                <fieldset id="relic-locations-set">
-                  <legend>
-                    <input id="relic-locations" type="checkbox">
-                    <label for="relic-locations">Relic locations</label>
-                  </legend>
-                  <div>
-                    <input id="extension-guarded"
-                           name="extension"
-                           type="radio"
-                           value="guarded">
-                    <label for="extension-guarded">
-                      Guarded
-                      <span class="tooltip-wrapper">
-                        <span class="tooltip-indicator">?</span>
-                        <span class="tooltip hidden">
-                          <span id="extension-description">
-                            <span>
-                              Relics may appear in rooms guarded by bosses.
+                  </div>
+                  <div class="pure-u-12-24">
+                    <input id="enemy-drops" type="checkbox">
+                    <label for="enemy-drops">Enemy drops</label>
+                  </div>
+                  <div class="pure-u-12-24">
+                    <input id="starting-equipment" type="checkbox">
+                    <label for="starting-equipment">Starting equipment</label>
+                  </div>
+                  <div class="pure-u-12-24">
+                    <input id="item-locations" type="checkbox">
+                    <label for="item-locations">Item locations</label>
+                  </div>
+                  <div class="pure-u-12-24">
+                    <input id="prologue-rewards" type="checkbox">
+                    <label for="prologue-rewards">Prologue rewards</label>
+                  </div>
+                  <div class="pure-u-12-24">
+                    <fieldset id="relic-locations-set">
+                      <legend>
+                        <input id="relic-locations" type="checkbox">
+                        <label for="relic-locations">Relic locations</label>
+                      </legend>
+                      <div>
+                        <input id="extension-guarded"
+                               name="extension"
+                               type="radio"
+                               value="guarded">
+                        <label for="extension-guarded">
+                          Guarded
+                          <span class="tooltip-wrapper">
+                            <span class="tooltip-indicator">?</span>
+                            <span class="tooltip hidden">
+                              <span id="extension-description">
+                                <span>
+                                  Relics may appear in rooms guarded by bosses.
+                                </span>
+                              </span>
                             </span>
                           </span>
-                        </span>
-                      </span>
-                    </label>
-                  </div>
-                  <div>
-                    <input id="extension-equipment"
-                           name="extension"
-                           type="radio"
-                           value="classic">
-                    <label for="extension-equipment">
-                      Equipment
-                      <span class="tooltip-wrapper">
-                        <span class="tooltip-indicator">?</span>
-                        <span class="tooltip hidden">
-                          <span id="extension-description">
-                            <span>
-                              Relics may appear in place of equipment tiles.
+                        </label>
+                      </div>
+                      <div>
+                        <input id="extension-equipment"
+                               name="extension"
+                               type="radio"
+                               value="classic">
+                        <label for="extension-equipment">
+                          Equipment
+                          <span class="tooltip-wrapper">
+                            <span class="tooltip-indicator">?</span>
+                            <span class="tooltip hidden">
+                              <span id="extension-description">
+                                <span>
+                                  Relics may appear in place of equipment tiles.
+                                </span>
+                              </span>
                             </span>
                           </span>
-                        </span>
-                      </span>
-                    </label>
-                  </div>
-                  <div>
-                    <input id="extension-classic"
-                           name="extension"
-                           type="radio"
-                           value="classic">
-                    <label for="extension-classic">
-                      Classic
-                      <span class="tooltip-wrapper">
-                        <span class="tooltip-indicator">?</span>
-                        <span class="tooltip hidden">
-                          <span id="extension-description">
-                            <span>
-                              Relics will only be randomized among the game's
-                              original relic locations.
+                        </label>
+                      </div>
+                      <div>
+                        <input id="extension-classic"
+                               name="extension"
+                               type="radio"
+                               value="classic">
+                        <label for="extension-classic">
+                          Classic
+                          <span class="tooltip-wrapper">
+                            <span class="tooltip-indicator">?</span>
+                            <span class="tooltip hidden">
+                              <span id="extension-description">
+                                <span>
+                                  Relics will only be randomized among the game's
+                                  original relic locations.
+                                </span>
+                              </span>
                             </span>
                           </span>
-                        </span>
-                      </span>
-                    </label>
+                        </label>
+                      </div>
+                    </fieldset>
                   </div>
-                </fieldset>
-              </div>
-              <div class="pure-u-12-24">
-                <input id="turkey-mode" type="checkbox">
-                <label for="turkey-mode">Turkey mode</label>
-              </div>
-              <input id="enemy-drops-arg"
-                     type="text"
-                     disabled="disabled"
-                     style="display: none">
-              <input id="starting-equipment-arg"
-                     type="text"
-                     disabled="disabled"
-                     style="display: none">
-              <input id="item-locations-arg"
-                     type="text"
-                     disabled="disabled"
-                     style="display: none">
-              <input id="prologue-rewards-arg"
-                     type="text"
-                     disabled="disabled"
-                     style="display: none">
-              <input id="relic-locations-arg"
-                     type="text"
-                     disabled="disabled"
-                     style="display: none">
-              <div class="pure-u-1">
-                <input id="clear"
-                       type="submit"
-                       class="pure-button hidden"
-                       value="Clear">
-              </div>
+                  <div class="pure-u-12-24">
+                    <input id="turkey-mode" type="checkbox">
+                    <label for="turkey-mode">Turkey mode</label>
+                  </div>
+                  <input id="enemy-drops-arg"
+                         type="text"
+                         disabled="disabled"
+                         style="display: none">
+                  <input id="starting-equipment-arg"
+                         type="text"
+                         disabled="disabled"
+                         style="display: none">
+                  <input id="item-locations-arg"
+                         type="text"
+                         disabled="disabled"
+                         style="display: none">
+                  <input id="prologue-rewards-arg"
+                         type="text"
+                         disabled="disabled"
+                         style="display: none">
+                  <input id="relic-locations-arg"
+                         type="text"
+                         disabled="disabled"
+                         style="display: none">
+                  <div class="pure-u-1">
+                    <input id="clear"
+                           type="submit"
+                           class="pure-button hidden"
+                           value="Clear">
+                  </div>
+                </div>
+              </fieldset>
             </div>
           </fieldset>
           <fieldset>
@@ -246,6 +250,7 @@
         downloading, you will need to modify your cue file track listing to
         reference the new filename.
       </p>
+      <p>Read the <a href="/faq">FAQ</a> for more.</p>
       <h4><a name="cli">Command line interface</a></h4>
       <p>
         See the
