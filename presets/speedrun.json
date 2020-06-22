@@ -242,14 +242,15 @@
     ]
   }, {
     "location": "Gold Ring",
-    "comment": "Requires Jewel of Open + flight",
+    "comment": "Requires Jewel of Open + flight, Jewel of Open + Soul of Wolf + Skill of Wolf, or Jewel of Open + Soul of Wolf + Leap Stone",
     "locks": [
       "Jewel of Open + Soul of Bat",
       "Jewel of Open + Gravity Boots + Leap Stone",
       "Jewel of Open + Gravity Boots + Soul of Wolf",
       "Jewel of Open + Gravity Boots + Form of Mist",
       "Jewel of Open + Form of Mist + Power of Mist",
-      "Jewel of Open + Soul of Wolf + Skill of Wolf"
+      "Jewel of Open + Soul of Wolf + Skill of Wolf",
+      "Jewel of Open + Soul of Wolf + Leap Stone"
     ]
   }, {
     "location": "Silver Ring",
