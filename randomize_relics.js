@@ -110,6 +110,16 @@
   }
 
   function writeMapping(data, rng, mapping) {
+    // Remove placeholders.
+    mapping = Object.getOwnPropertyNames(mapping).reduce(
+      function(culled, ability) {
+        if (ability[0] != '(' && ability[ability.length - 1] == ')') {
+          culled[ability] = mapping[ability]
+        }
+        return culled
+      },
+      {},
+    )
     // Erase any vanilla location that did not receive a relic.
     const placed = Object.getOwnPropertyNames(mapping).map(function(key) {
       return mapping[key].ability
@@ -850,6 +860,20 @@
       mapping[ability] = locations.filter(function(location) {
         return location.id === result[ability].id
       }).pop()
+    })
+    // Make an inverse mapping of location => ability.
+    const inv = Object.getOwnPropertyNames(mapping).reduce(
+      function(inv, ability) {
+        inv[result[ability].id] = ability
+        return inv
+      },
+      {}
+    )
+    // Add placeholders for locations that are not in logic.
+    locations.forEach(function(location) {
+      if (!(location.id in inv)) {
+        mapping['(' + location.id + ')'] = location
+      }
     })
     let solutions
     let depth

@@ -25,11 +25,13 @@ function handleMessage(message) {
     throw result.error
   }
   Object.getOwnPropertyNames(result.mapping).forEach(function(ability) {
-    const location = result.mapping[ability]
-    const locationId = location.ability || location.name
-    totals[locationId] = totals[locationId] || {}
-    totals[locationId][ability] = totals[locationId][ability] || 0
-    totals[locationId][ability]++
+    if (ability[0] != '(' && ability[ability.length - 1] == ')') {
+      const location = result.mapping[ability]
+      const locationId = location.ability || location.name
+      totals[locationId] = totals[locationId] || {}
+      totals[locationId][ability] = totals[locationId][ability] || 0
+      totals[locationId][ability]++
+    }
   })
   if (completed + running < runs) {
     running++
