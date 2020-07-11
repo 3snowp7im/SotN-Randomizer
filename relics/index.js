@@ -25,7 +25,7 @@ function handleMessage(message) {
     throw result.error
   }
   Object.getOwnPropertyNames(result.mapping).forEach(function(ability) {
-    if (ability[0] != '(' && ability[ability.length - 1] == ')') {
+    if (ability[0] != '(' && ability[ability.length - 1] != ')') {
       const location = result.mapping[ability]
       const locationId = location.ability || location.name
       totals[locationId] = totals[locationId] || {}

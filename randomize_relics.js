@@ -113,13 +113,14 @@
     // Remove placeholders.
     mapping = Object.getOwnPropertyNames(mapping).reduce(
       function(culled, ability) {
-        if (ability[0] != '(' && ability[ability.length - 1] == ')') {
+        if (ability[0] != '(' && ability[ability.length - 1] != ')') {
           culled[ability] = mapping[ability]
         }
         return culled
       },
       {},
     )
+    console.log(mapping)
     // Erase any vanilla location that did not receive a relic.
     const placed = Object.getOwnPropertyNames(mapping).map(function(key) {
       return mapping[key].ability
