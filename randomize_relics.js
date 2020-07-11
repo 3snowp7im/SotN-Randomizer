@@ -120,7 +120,6 @@
       },
       {},
     )
-    console.log(mapping)
     // Erase any vanilla location that did not receive a relic.
     const placed = Object.getOwnPropertyNames(mapping).map(function(key) {
       return mapping[key].ability
