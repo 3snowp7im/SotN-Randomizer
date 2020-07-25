@@ -16,11 +16,11 @@ let version = require('./package').version
 
 const optionsHelp = [
   'The options string may contain any of the following:',
-  '  "P" for preset (`--help preset`)',
+  '  "p" for preset (`--help preset`)',
   '  "d" for enemy drops (`--help drops`)',
   '  "e" for starting equipment (`--help equipment`)',
   '  "i" for item locations (`--help items`)',
-  '  "p" for prologue rewards (`--help rewards`)',
+  '  "b" for prologue rewards (`--help rewards`)',
   '  "r" for relic locations (`--help relics`)',
   '  "x" for relic locations extension (`--help extension`)',
   '  "t" for turkey mode',
@@ -152,11 +152,11 @@ const itemsHelp = [
 ].join('\n')
 
 const rewardsHelp = [
-  'Prologue reward randomization can be toggled with the "p" switch.',
+  'Prologue reward randomization can be toggled with the "b" switch.',
   'Rewards may be specified using argument syntax.',
   '',
   'Rewards format:',
-  '  p[:<reward>[:<item>]][:...]',
+  '  b[:<reward>[:<item>]][:...]',
   '',
   'Reward is one of:',
   '  "h" for Heart Refresh',
@@ -167,13 +167,13 @@ const rewardsHelp = [
   'their name.',
   '',
   'Examples:',
-  '  p:h:MannaPrism   Replace Heart Refresh with Manna Prism',
-  '  p:n:PowerofSire  Replace Neutron Bomb with Power of Sire',
-  '  p:p:BuffaloStar  Replace Potion with Buffalo Star',
+  '  b:h:MannaPrism   Replace Heart Refresh with Manna Prism',
+  '  b:n:PowerofSire  Replace Neutron Bomb with Power of Sire',
+  '  b:p:BuffaloStar  Replace Potion with Buffalo Star',
   '',
   'If other randomization options follow an item, they must also be',
   'separated from the item with a comma:',
-  '  $0 -o r:h:MannaPrism,dpt',
+  '  $0 -o b:h:MannaPrism,dt',
 ].join('\n')
 
 const relicsHelp = [
@@ -296,7 +296,7 @@ const presetHelp = [
   'by using argument syntax.',
   '',
   'Preset format:',
-  '  P:<preset>',
+  '  p:<preset>',
   '',
   'This randomizer has several built-in presets:',
 ].concat(presets.map(function(meta) {
@@ -306,8 +306,8 @@ const presetHelp = [
   'Use `--help <preset>` for information on a specific scheme.',
   '',
   'Examples:',
-  '  P:safe     Use safe preset.',
-  '  P:agonize  Use agonize preset.',
+  '  p:safe     Use safe preset.',
+  '  p:agonize  Use agonize preset.',
 ]).join('\n')
 
 function presetMetaHelp(preset) {

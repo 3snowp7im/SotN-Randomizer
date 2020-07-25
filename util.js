@@ -421,7 +421,7 @@
     while (i < randomize.length) {
       let c = randomize[i++]
       switch (c) {
-      case 'P': {
+      case 'p': {
         // Check for an argument.
         if (randomize[i] !== ':') {
           throw new Error('Expected argument')
@@ -802,7 +802,7 @@
         options.itemLocations = itemLocations
         break
       }
-      case 'p': {
+      case 'b': {
         let prologueRewards = options.prologueRewards || true
         // Check for an argument
         if (randomize[i] === ':') {
@@ -1082,7 +1082,7 @@
     let randomize = []
     while (Object.getOwnPropertyNames(options).length) {
       if ('preset' in options) {
-        randomize.push('P:' + options.preset)
+        randomize.push('p:' + options.preset)
         delete options.preset
       } else if ('enemyDrops' in options) {
         if (options.enemyDrops) {
@@ -1197,7 +1197,7 @@
         delete options.itemLocations
       } else if ('prologueRewards' in options) {
         if (options.prologueRewards) {
-          let opt = 'p'
+          let opt = 'b'
           if (typeof(options.prologueRewards) === 'object') {
             const rewards = ['h', 'n', 'p']
             rewards.forEach(function(reward) {
@@ -1318,7 +1318,7 @@
         }
       }).pop()
       if (preset) {
-        randomize = 'P:' + preset.id
+        randomize = 'p:' + preset.id
       }
     }
     return randomize

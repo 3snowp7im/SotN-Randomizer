@@ -1,13 +1,13 @@
 (function(self) {
 
   const devBaseUrl = 'https://dev.sotn.io/'
-  const defaultOptions = 'P:safe'
+  const defaultOptions = 'p:safe'
 
   const optionsUrls = {
-    'P:safe': 'https://sotn.io/',
-    'P:adventure': 'https://a.sotn.io/',
-    'P:casual': 'https://c.sotn.io/',
-    'P:speedrun': 'https://s.sotn.io/',
+    'p:safe': 'https://sotn.io/',
+    'p:adventure': 'https://a.sotn.io/',
+    'p:casual': 'https://c.sotn.io/',
+    'p:speedrun': 'https://s.sotn.io/',
   }
 
   const TYPE = {
