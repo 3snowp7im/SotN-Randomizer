@@ -652,6 +652,7 @@ if ('bin' in argv) {
         process.exit(1)
       }
       try {
+        let rng
         let result
         // Place planned progression items.
         const removed = randomizeItems.placePlannedItems(applied)
@@ -671,7 +672,7 @@ if ('bin' in argv) {
         )
         util.mergeInfo(info, result.info)
         // Write relics mapping.
-        const rng = new require('seedrandom')(util.saltSeed(
+        rng = new require('seedrandom')(util.saltSeed(
           version,
           options,
           seed,
@@ -690,6 +691,12 @@ if ('bin' in argv) {
         )
         check.apply(result.data)
         // Randomize music.
+        rng = new require('seedrandom')(util.saltSeed(
+          version,
+          options,
+          seed,
+          3,
+        ))
         result = randomizeMusic(rng, applied)
         check.apply(result)
         util.mergeInfo(info, result.info)

@@ -515,8 +515,14 @@
       }).then(function(result) {
         check.apply(result.data)
         util.mergeInfo(info, result.info)
+        const rng = new Math.seedrandom(util.saltSeed(
+          version,
+          options,
+          seed,
+          3,
+        ))
         result = randomizeMusic(rng, applied)
-        check.apply(result.data)
+        check.apply(result)
         return util.finalizeData(
           seed,
           options.preset,
