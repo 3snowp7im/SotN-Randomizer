@@ -30,7 +30,7 @@
       /* CAT  */ 0x00b0054, 0x609505c,
     ],
     WOOD_CARVING_PARTITA: [
-      /* LIB  */ 0x00b0028, 0x00b036c,
+      /* LIB  */ 0x00b0028, 0x00b036c, 0x47e5ec4, 0x47e6060,
     ],
     CRYSTAL_TEARDROPS: [
       /* NO4  */ 0x00b015c, 0x61d1fa8, 0x61d1fec, 0x61d2188,
