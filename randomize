@@ -10,6 +10,7 @@ const extension = require('./extension')
 const presets = require('./build/presets')
 const randomizeRelics = require('./randomize_relics')
 const randomizeItems = require('./randomize_items')
+const randomizeMusic = require('./randomize_music')
 const relics = require('./relics')
 const util = require('./util')
 let version = require('./package').version
@@ -23,6 +24,7 @@ const optionsHelp = [
   '  "b" for prologue rewards (`--help rewards`)',
   '  "r" for relic locations (`--help relics`)',
   '  "x" for relic locations extension (`--help extension`)',
+  '  "m" for music',
   '  "t" for turkey mode',
   '',
   'The default randomization mode is "'
@@ -687,6 +689,9 @@ if ('bin' in argv) {
           result.items,
         )
         check.apply(result.data)
+        // Randomize music.
+        result = randomizeMusic(rng, applied)
+        check.apply(result)
         util.mergeInfo(info, result.info)
       } catch (err) {
         console.error('Seed:  ' + seed)

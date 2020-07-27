@@ -6,6 +6,7 @@
   const presets = sotnRando.presets
   const randomizeItems = sotnRando.randomizeItems
   const randomizeRelics = sotnRando.randomizeRelics
+  const randomizeMusic = sotnRando.randomizeMusic
   const relics = sotnRando.relics
 
   let info
@@ -136,6 +137,7 @@
       elems.prologueRewards.disabled = true
       elems.relicLocations.disabled = true
       elems.relicLocationsSet.disabled = true
+      elems.music.disabled = true
       elems.turkeyMode.disabled = true
       presetIdChange()
       elems.options.classList.add('hide')
@@ -148,6 +150,7 @@
       elems.prologueRewards.disabled = false
       elems.relicLocations.disabled = false
       elems.relicLocationsSet.disabled = !elems.relicLocations.checked
+      elems.music.disabled = false
       elems.turkeyMode.disabled = false
       elems.options.classList.remove('hidden')
       elems.options.classList.remove('hide')
@@ -186,6 +189,7 @@
         options.relicLocationsExtension === constants.EXTENSION.EQUIPMENT
       elems.relicLocationsExtension.classic.checked =
         !options.relicLocationsExtension
+      elems.music.checked = !!options.music
       elems.turkeyMode.checked = !!options.turkeyMode
     }
   }
@@ -259,6 +263,10 @@
     relicLocationsExtensionCache = value
     adjustMaxComplexity()
     localStorage.setItem('relicLocationsExtension', value)
+  }
+
+  function musicChange() {
+    localStorage.setItem('music', elems.music.checked)
   }
 
   function turkeyModeChange() {
@@ -416,6 +424,7 @@
       prologueRewards: elems.prologueRewards.checked,
       relicLocations: getFormRelicLocations(extension),
       relicLocationsExtension: extension,
+      music: elems.music.checked,
       turkeyMode: elems.turkeyMode.checked,
     }
     if (elems.enemyDropsArg.value) {
@@ -506,6 +515,8 @@
       }).then(function(result) {
         check.apply(result.data)
         util.mergeInfo(info, result.info)
+        result = randomizeMusic(rng, applied)
+        check.apply(result.data)
         return util.finalizeData(
           seed,
           options.preset,
@@ -569,6 +580,7 @@
     elems.relicLocations.disabled = false
     elems.relicLocationsSet.disabled = false
     elems.relicLocationsArg.value = ''
+    elems.mode.disabled = false
     elems.turkeyMode.disabled = false
     elems.clear.classList.add('hidden')
     presetChange()
@@ -684,6 +696,7 @@
     itemLocationsArg: document.getElementById('item-locations-arg'),
     prologueRewards: document.getElementById('prologue-rewards'),
     prologueRewardsArg: document.getElementById('prologue-rewards-arg'),
+    music: document.getElementById('music'),
     turkeyMode: document.getElementById('turkey-mode'),
     clear: document.getElementById('clear'),
     theme: document.getElementById('theme'),
@@ -725,6 +738,7 @@
   )
   elems.itemLocations.addEventListener('change', itemLocationsChange)
   elems.prologueRewards.addEventListener('change', prologueRewardsChange)
+  elems.music.addEventListener('change', musicChange)
   elems.turkeyMode.addEventListener('change', turkeyModeChange)
   elems.clear.addEventListener('click', clearHandler)
   elems.theme.addEventListener('change', themeChange)
@@ -857,6 +871,8 @@
     elems.relicLocationsExtension.classic.checked =
       !applied.relicLocationsExtension
     relicLocationsExtensionChange()
+    elems.music.checked = applied.music
+    musicChange()
     elems.turkeyMode.checked = applied.turkeyMode
     turkeyModeChange()
     elems.preset.disabled = true
@@ -868,6 +884,7 @@
     elems.prologueRewards.disabled = true
     elems.relicLocations.disabled = true
     elems.relicLocationsSet.disabled = true
+    elems.music.disabled = true
     elems.turkeyMode.disabled = true
     elems.clear.classList.remove('hidden')
     const baseUrl = url.origin + url.pathname
@@ -879,6 +896,7 @@
     loadOption('itemLocations', itemLocationsChange, true)
     loadOption('prologueRewards', prologueRewardsChange, true)
     loadOption('relicLocations', relicLocationsChange, true)
+    loadOption('music', musicChange, true)
     loadOption('turkeyMode', turkeyModeChange, true)
     let relicLocationsExtension =
         localStorage.getItem('relicLocationsExtension')

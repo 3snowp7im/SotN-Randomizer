@@ -6,6 +6,7 @@ function randomizeWorker() {
   let util
   let randomizeRelics
   let randomizeItems
+  let randomizeMusic
   let seedrandom
 
   function loadBrowser(url) {
@@ -27,6 +28,7 @@ function randomizeWorker() {
       url + "build/presets/empty-hand.js",
       url + "randomize_items.js",
       url + "randomize_relics.js",
+      url + "randomize_music.js",
       url + "ecc-edc-recalc-js.js",
     )
     constants = self.sotnRando.constants
@@ -44,6 +46,7 @@ function randomizeWorker() {
     errors = require('./errors')
     randomizeRelics = require('./randomize_relics').randomizeRelics
     randomizeItems = require('./randomize_items').randomizeItems
+    randomizeMusic = require('./randomize_music').randomizeMusic
     seedrandom = require('seedrandom')
     util = require('./util')
   }

@@ -1013,6 +1013,10 @@
         options.relicLocationsExtension = extension
         break
       }
+      case 'm': {
+        options.music = true
+        break
+      }
       case 't': {
         options.turkeyMode = true
         break
@@ -1287,6 +1291,11 @@
           randomize.push(opt)
         }
         delete options.relicLocationsExtension
+      } else if ('music' in options) {
+        if (options.music) {
+          randomize.push('m')
+        }
+        delete options.music
       } else if ('turkeyMode' in options) {
         if (options.turkeyMode) {
           randomize.push('t')
@@ -2027,6 +2036,7 @@
     prologueRewards,
     relicLocations,
     relicLocationsExtension,
+    music,
     turkeyMode,
   ) {
     this.id = id
@@ -2040,6 +2050,7 @@
     this.prologueRewards = prologueRewards
     this.relicLocations = relicLocations
     this.relicLocationsExtension = relicLocationsExtension
+    this.music = music
     this.turkeyMode = turkeyMode
   }
 
@@ -2134,6 +2145,8 @@
     this.extension = constants.EXTENSION.GUARDED
     // The complexity goal.
     this.goal = undefined
+    // Music randomization.
+    this.music = true
     // Turkey mode.
     this.turkey = true
     // Unplaced relics collection.
@@ -2392,6 +2405,7 @@
       this.locations = preset.relicLocations
     }
     this.extension = preset.relicLocationsExtension
+    this.music = preset.music
     this.turkey = preset.turkeyMode
   }
 
@@ -2800,6 +2814,7 @@
         })
       }
     }
+    const music = self.music
     const turkey = self.turkey
     return new Preset(
       self.metadata.id,
@@ -2813,6 +2828,7 @@
       rewards,
       relicLocations,
       self.extension,
+      music,
       turkey,
     )
   }
@@ -2943,7 +2959,6 @@
       })
     })
   }
-
   function finalizeData(
     seed,
     preset,
