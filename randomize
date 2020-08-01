@@ -564,6 +564,7 @@ if (argv._[0]) {
   let url
   try {
     url = util.optionsFromUrl(argv._[0])
+    argv.race = true
     options = url.options
     seed = url.seed
     expectChecksum = url.checksum
@@ -690,6 +691,7 @@ if ('bin' in argv) {
           result.items,
         )
         check.apply(result.data)
+        util.mergeInfo(info, result.info)
         // Randomize music.
         rng = new require('seedrandom')(util.saltSeed(
           version,
@@ -699,7 +701,6 @@ if ('bin' in argv) {
         ))
         result = randomizeMusic(rng, applied)
         check.apply(result)
-        util.mergeInfo(info, result.info)
       } catch (err) {
         console.error('Seed:  ' + seed)
         if (errors.isError(err)) {

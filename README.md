@@ -40,7 +40,7 @@ $ node randomize -vvvb sotn.bin
 ### Seed URLs
 
 If you plan on sharing a seed with others, the easiest way to use CLI is with
-the `--race` option and seed URLs. To use the current time as a seed and print
+the `--race` option or seed URLs. To use the current time as a seed and print
 its URL and starting equipment:
 
 ```shell
@@ -53,18 +53,21 @@ To use a custom seed and print its URL and starting equipment:
 $ node randomize -rb sotn.bin -s myseed
 ```
 
-To use a copied seed URL and print its starting equipment:
+To use a copied seed URL, paste in the URL as an argument. The `--race` option
+will be automatically enabled:
 
 ```shell
-$ node randomize -rb sotn.bin https://sotn.io/?myseed
+$ node randomize -b sotn.bin https://sotn.io/?myseed
 ```
 
-The `--race` option implies a verbosity level of 2. You can override this by
-supplying your own `--verbose` flag(s):
+The `--race` option has an inherent verbosity level of 2. You can override this
+behavior by supplying your own `--verbose` flag(s):
 
 ```shell
-$ node randomize -vrb sotn.bin https://sotn.io/?myseed    # Less verbose
-$ node randomize -vvvrb sotn.bin https://sotn.io/?myseed  # More verbose
+$ node randomize -vrb sotn.bin -s myseed                 # Less verbose
+$ node randomize -vb sotn.bin https://sotn.io/?myseed    # Less verbose
+$ node randomize -vvvrb sotn.bin -s myseed               # More verbose
+$ node randomize -vvvb sotn.bin https://sotn.io/?myseed  # More verbose
 ```
 
 ### Dry running
@@ -75,7 +78,7 @@ To print starting equipment and relic locations for a URL without actually
 writing the randomizations to your disc image:
 
 ```shell
-$ node randomize -vvvr https://sotn.io/?myseed
+$ node randomize -vvv https://sotn.io/?myseed
 ```
 
 ### Presets
