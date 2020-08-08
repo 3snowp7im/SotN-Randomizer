@@ -100,17 +100,6 @@
       "Form of Mist + Power of Mist"
     ]
   }, {
-    "location": "Leap Stone",
-    "comment": "Requires Jewel of Open or at least Leap Stone",
-    "locks": [
-      "Jewel of Open",
-      "Leap Stone",
-      "Gravity Boots",
-      "Soul of Bat",
-      "Soul of Wolf",
-      "Form of Mist"
-    ]
-  }, {
     "location": "Holy Symbol",
     "comment": "Requires Jewel of Open and Merman Statue",
     "locks": [
