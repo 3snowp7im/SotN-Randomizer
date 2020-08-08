@@ -23,7 +23,6 @@ const optionsHelp = [
   '  "i" for item locations (`--help items`)',
   '  "b" for prologue rewards (`--help rewards`)',
   '  "r" for relic locations (`--help relics`)',
-  '  "x" for relic locations extension (`--help extension`)',
   '  "m" for music',
   '  "t" for turkey mode',
   '',
@@ -250,9 +249,26 @@ const relicsHelp = [
   '                  access and Soul of Bat, Leap Stone + Gravity Boots, or',
   '                  Mist + Power of Mist for escape.',
   '',
-  'Locks for different location can be specified by separating each',
+  'Locks for different locations can be specified by separating each',
   'location by a colon:',
   '  r:B:L:y:LV-MP',
+  '',
+  'Relic locations extension can be specified with the letter "x". Extension',
+  'will allow progressione to be placed in locations that do not contain',
+  'progression in the vanilla game.',
+  '',
+  'There are two extension modes:',
+  '  guarded    Adds Crystal Cloak, Mormegil, Dark Blade, and Ring of Arcana',
+  '             to the location pool. This is the default extension mode when',
+  '             when enabled without an argument.',
+  '  equipment  Adds equipment tiles to the location pool.',
+  '',
+  'Extension format:',
+  '  x:<mode>',
+  '',
+  'Examples:',
+  '  r:x:guarded    Enables guarded extension mode.',
+  '  r:x:equipment  Enables equipment extension mode.',
   '',
   'An optional complexity target can specify a set of abilities that are',
   'considered win conditions. A minimum and maximum complexity depth specify',
@@ -265,32 +281,6 @@ const relicsHelp = [
   'If other randomization options follow a lock, they must also be',
   'separated from the lock with a comma:',
   '  $0 -o r:B:L:y:LG-MP,dpt',
-].join('\n')
-
-const extensionHelp = [
-  'Relic locations extension can be toggled with the "x" switch to enable',
-  '"guarded" mode, or, a different mode can be specified using argument',
-  'syntax.',
-  '',
-  'Extension will enable the randomizer to place progression in locations',
-  'that do not contain progression in the vanilla game. There are two',
-  'extension modes:',
-  '  guarded    Adds Crystal Cloak, Mormegil, Dark Blade, and Ring of Arcana',
-  '             to the location pool. This is the default extension mode when',
-  '             when enabled without an argument.',
-  '  equipment  Adds (most) equipment tiles to the location pool.',
-  '',
-  'Extension format:',
-  '  x[:<mode>]',
-  '',
-  'Examples:',
-  '  x            Enables guarded extension mode.',
-  '  x:guarded    Same as "x" with no argument.',
-  '  x:equipment  Enables equipment extension mode.',
-  '',
-  'If other randomization options follow an extension mode, they must also be',
-  'separated from the mode with a comma:',
-  '  $0 -o rx:equipment,dpt',
 ].join('\n')
 
 const presetHelp = [
@@ -318,11 +308,13 @@ function presetMetaHelp(preset) {
     return !relic.extension
   })
   const extensions = []
-  switch (options.relicLocationsExtension) {
-  case constants.EXTENSION.EQUIPMENT:
-    extensions.push(constants.EXTENSION.EQUIPMENT)
-  case constants.EXTENSION.GUARDED:
-    extensions.push(constants.EXTENSION.GUARDED)
+  if ('extension' in options.relicLocations) {
+    switch (options.relicLocations.extension) {
+    case constants.EXTENSION.EQUIPMENT:
+      extensions.push(constants.EXTENSION.EQUIPMENT)
+    case constants.EXTENSION.GUARDED:
+      extensions.push(constants.EXTENSION.GUARDED)
+    }
   }
   const extendedLocations = extension.filter(function(location) {
     return extensions.indexOf(location.extension) !== -1
@@ -474,7 +466,6 @@ if ('help' in argv) {
     items: itemsHelp,
     rewards: rewardsHelp,
     relics: relicsHelp,
-    extension: extensionHelp,
     preset: presetHelp,
   }
   const script = path.basename(process.argv[1])

@@ -175,7 +175,8 @@
           }
         }
       )
-      relicLocationsExtensionCache = options.relicLocationsExtension
+      relicLocationsExtensionCache = options.relicLocations
+        && options.relicLocations.extension
       adjustMaxComplexity()
       elems.complexity.value = complexity
       elems.enemyDrops.checked = !!options.enemyDrops
@@ -184,11 +185,14 @@
       elems.prologueRewards.checked = !!options.prologueRewards
       elems.relicLocations.checked = !!options.relicLocations
       elems.relicLocationsExtension.guarded.checked =
-        options.relicLocationsExtension === constants.EXTENSION.GUARDED
+        options.relicLocations
+        && options.relicLocations.extension === constants.EXTENSION.GUARDED
       elems.relicLocationsExtension.equipment.checked =
-        options.relicLocationsExtension === constants.EXTENSION.EQUIPMENT
+        options.relicLocations
+        && options.relicLocations.extension === constants.EXTENSION.EQUIPMENT
       elems.relicLocationsExtension.classic.checked =
-        !options.relicLocationsExtension
+        options.relicLocations
+        && !options.relicLocations.extension
       elems.music.checked = !!options.music
       elems.turkeyMode.checked = !!options.turkeyMode
     }
@@ -372,58 +376,57 @@
     ].join('')
   }
 
-  function getFormRelicLocations(ext) {
-    const extensions = []
-    switch (ext) {
-    case constants.EXTENSION.EQUIPMENT:
-      extensions.push(constants.EXTENSION.EQUIPMENT)
-    case constants.EXTENSION.GUARDED:
-      extensions.push(constants.EXTENSION.GUARDED)
-    }
+  function getFormRelicLocations() {
     // Get safe relic locations.
     const relicLocations = safe.options().relicLocations
-    // Delete default complexity target.
-    let goals
-    Object.getOwnPropertyNames(relicLocations).forEach(function(key) {
-      if (/^[0-9]+(-[0-9]+)?/.test(key)) {
-        goals = relicLocations[key]
-        delete relicLocations[key]
+    if (relicLocations) {
+      // Add extension from form.
+      if (elems.relicLocationsExtension.guarded.checked) {
+        relicLocations.extension = constants.EXTENSION.GUARDED
+      } else if (elems.relicLocationsExtension.equipment.checked) {
+        relicLocations.extension = constants.EXTENSION.EQUIPMENT
       } else {
-        const location = extension.filter(function(location) {
-          if (location.name === key) {
-            if (extensions.indexOf(location.extension) === -1) {
-              delete relicLocations[key]
-            }
-          }
-        })
+        delete relicLocations.extension
       }
-    })
-    // Add complexity target from form.
-    relicLocations[elems.complexity.value] = goals
-    return relicLocations
-  }
-
-  function getFormRelicLocationsExtension() {
-    if (elems.relicLocationsExtension.guarded.checked) {
-      return constants.EXTENSION.GUARDED
-    } else if (elems.relicLocationsExtension.equipment.checked) {
-      return constants.EXTENSION.EQUIPMENT
+      const extensions = []
+      switch (relicLocations.extension) {
+      case constants.EXTENSION.EQUIPMENT:
+        extensions.push(constants.EXTENSION.EQUIPMENT)
+      case constants.EXTENSION.GUARDED:
+        extensions.push(constants.EXTENSION.GUARDED)
+      }
+      // Delete default complexity target.
+      let goals
+      Object.getOwnPropertyNames(relicLocations).forEach(function(key) {
+        if (/^[0-9]+(-[0-9]+)?/.test(key)) {
+          goals = relicLocations[key]
+          delete relicLocations[key]
+        } else {
+          const location = extension.filter(function(location) {
+            if (location.name === key) {
+              if (extensions.indexOf(location.extension) === -1) {
+                delete relicLocations[key]
+              }
+            }
+          })
+        }
+      })
+      // Add complexity target from form.
+      relicLocations[elems.complexity.value] = goals
     }
-    return false
+    return relicLocations
   }
 
   function getFormOptions() {
     if (elems.preset.checked) {
       return {preset: presets[elems.presetId.selectedIndex].id}
     }
-    const extension = getFormRelicLocationsExtension()
     const options = {
       enemyDrops: elems.enemyDrops.checked,
       startingEquipment: elems.startingEquipment.checked,
       itemLocations: elems.itemLocations.checked,
       prologueRewards: elems.prologueRewards.checked,
-      relicLocations: getFormRelicLocations(extension),
-      relicLocationsExtension: extension,
+      relicLocations: getFormRelicLocations(),
       music: elems.music.checked,
       turkeyMode: elems.turkeyMode.checked,
     }
@@ -858,24 +861,32 @@
       })
     }
     elems.prologueRewardsArg.value = prologueRewardsArg
-    elems.relicLocations.checked = applied.relicLocations
+    elems.relicLocations.checked = !!applied.relicLocations
     relicLocationsChange()
     let relicLocationsArg = ''
     if (typeof(options.relicLocations) === 'object') {
+      // This is a hacky way to get all possible relic location locks
+      // serialized, without including the relic locations extension.
       relicLocationsArg = util.optionsToString({
-        relicLocations: options.relicLocations,
-        relicLocationsExtension: 'equipment',
-      }).replace(',' + util.optionsToString({
-        relicLocationsExtension: 'equipment',
-      }), '')
+        relicLocations: Object.apply({}, applied.relicLocations, {
+          extension: constants.EXTENSION.EQUIPMENT,
+        }),
+      }).replace(new RegExp(':?' + util.optionsToString({
+        relicLocations: {
+          extension: constants.EXTENSION.EQUIPMENT,
+        },
+      })), '')
     }
     elems.relicLocationsArg.value = relicLocationsArg
     elems.relicLocationsExtension.guarded.checked =
-      applied.relicLocationsExtension === constants.EXTENSION.GUARDED
+      applied.relicLocations
+      && applied.relicLocations.extension === constants.EXTENSION.GUARDED
     elems.relicLocationsExtension.equipment.checked =
-      applied.relicLocationsExtension === constants.EXTENSION.EQUIPMENT
+      applied.relicLocations
+      && applied.relicLocations.extension === constants.EXTENSION.EQUIPMENT
     elems.relicLocationsExtension.classic.checked =
-      !applied.relicLocationsExtension
+      applied.relicLocations
+      && !applied.relicLocations.extension
     relicLocationsExtensionChange()
     elems.music.checked = applied.music
     musicChange()

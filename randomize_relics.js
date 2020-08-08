@@ -935,7 +935,9 @@
 
   function locksFromLocations(locations) {
     const map = {}
-    Object.getOwnPropertyNames(locations).forEach(function(location) {
+    Object.getOwnPropertyNames(locations).filter(function(location) {
+      return location !== 'extension'
+    }).forEach(function(location) {
       map[location] = locations[location].filter(function(lock) {
         return lock[0] !== '+'
       })
@@ -945,7 +947,9 @@
 
   function escapesFromLocations(locations) {
     const map = {}
-    Object.getOwnPropertyNames(locations).forEach(function(location) {
+    Object.getOwnPropertyNames(locations).filter(function(location) {
+      return location !== 'extension'
+    }).forEach(function(location) {
       map[location] = locations[location].filter(function(lock) {
         return lock[0] === '+'
       }).map(function(lock) {
@@ -973,25 +977,24 @@
     let target
     let goal
     Object.getOwnPropertyNames(locksMap).forEach(function(name) {
-      if (!(/^[0-9]+(-[0-9]+)?$/).test(name)) {
-        return true
+      if ((/^[0-9]+(-[0-9]+)?$/).test(name)) {
+        const parts = name.split('-')
+        target = {
+          min: parseInt(parts[0]),
+        }
+        if (parts.length === 2) {
+          target.max = parseInt(parts[1])
+        }
+        goal = locksMap[name].map(function(lock) {
+          return new Set(lock)
+        })
+        delete locksMap[name]
       }
-      const parts = name.split('-')
-      target = {
-        min: parseInt(parts[0]),
-      }
-      if (parts.length === 2) {
-        target.max = parseInt(parts[1])
-      }
-      goal = locksMap[name].map(function(lock) {
-        return new Set(lock)
-      })
-      delete locksMap[name]
     })
     // Create relics and locations collections.
     let locations = getLocations()
     const extensions = []
-    switch (options.relicLocationsExtension) {
+    switch (options.relicLocations.extension) {
     case constants.EXTENSION.EQUIPMENT:
       extensions.push(constants.EXTENSION.EQUIPMENT)
     case constants.EXTENSION.GUARDED:
@@ -1065,7 +1068,7 @@
       patchAlchemyLabCutscene(data)
       patchClockRoomCutscene(data)
       // Patch relics menu.
-      switch (options.relicLocationsExtension) {
+      switch (options.relicLocations.extension) {
       case constants.EXTENSION.EQUIPMENT:
       case constants.EXTENSION.GUARDED:
         patchRelicsMenu(data)

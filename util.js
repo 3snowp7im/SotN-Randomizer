@@ -879,7 +879,8 @@
           i++
           let args = 0
           while (i < randomize.length && randomize[i] !== ',') {
-            // If there's an argument it's either a location lock.
+            // If there's an argument it's either a location lock, a location
+            // extension, or a complexity target.
             const relicNames = Object.getOwnPropertyNames(constants.RELIC)
             let arg
             let start
@@ -898,9 +899,12 @@
             }).concat(extension.map(function(location) {
               return location.name
             }))
+            let extension
             let location
             if (/^[0-9]+(-[0-9]+)?$/.test(arg)) {
               location = arg
+            } else if (arg === 'x') {
+              extension = true
             } else {
               location = locations.filter(function(name) {
                 if (name.length > 1) {
@@ -923,41 +927,52 @@
                 i++
               }
               arg = randomize.slice(start, i)
-              const invalid = arg.split('').filter(function(c) {
-                if (c === '-' || c === '+') {
-                  return false
+              if (extension) {
+                const keys = Object.getOwnPropertyNames(constants.EXTENSION)
+                const extensions = keys.map(function(key) {
+                  return constants.EXTENSION[key]
+                })
+                if (extensions.indexOf(arg) === -1) {
+                  throw new Error('Invalid relic locations extension: ' + arg)
                 }
-                return !relicNames.some(function(relic) {
-                  return constants.RELIC[relic] === c
+                relicLocations.extension = arg
+              } else {
+                const invalid = arg.split('').filter(function(c) {
+                  if (c === '-' || c === '+') {
+                    return false
+                  }
+                  return !relicNames.some(function(relic) {
+                    return constants.RELIC[relic] === c
+                  })
                 })
-              })
-              if (invalid.length) {
-                throw new Error('Invalid relic: ' + invalid[0])
-              }
-              const parts = arg.split('+')
-              if (parts.length > 2) {
-                throw new Error('Invald lock: ' + location + ':' + arg)
-              }
-              parts.forEach(function(part, index) {
-                let locks = part.split('-')
-                const emptyLocks = locks.filter(function(lock) {
-                  return lock.length === 0
-                })
-                locks = locks.filter(function(lock) {
-                  return lock.length > 0
-                })
-                if (emptyLocks.length > 1
-                    || (locks.length && emptyLocks.length)) {
+                if (invalid.length) {
+                  throw new Error('Invalid relic: ' + invalid[0])
+                }
+                const parts = arg.split('+')
+                if (parts.length > 2) {
                   throw new Error('Invald lock: ' + location + ':' + arg)
                 }
-                if (index > 0) {
-                  locks = locks.map(function(lock) { return '+' + lock })
-                }
-                relicLocations[location] = relicLocations[location] || []
-                Array.prototype.push.apply(relicLocations[location], locks)
-              })
+                parts.forEach(function(part, index) {
+                  let locks = part.split('-')
+                  const emptyLocks = locks.filter(function(lock) {
+                    return lock.length === 0
+                  })
+                  locks = locks.filter(function(lock) {
+                    return lock.length > 0
+                  })
+                  if (emptyLocks.length > 1
+                      || (locks.length && emptyLocks.length)) {
+                    throw new Error('Invald lock: ' + location + ':' + arg)
+                  }
+                  if (index > 0) {
+                    locks = locks.map(function(lock) { return '+' + lock })
+                  }
+                  relicLocations[location] = relicLocations[location] || []
+                  Array.prototype.push.apply(relicLocations[location], locks)
+                })
+              }
             } else {
-              relicLocations[location] = []
+              throw new Error('Expected argument')
             }
             if (randomize[i] === ':') {
               i++
@@ -981,38 +996,6 @@
         options.relicLocations = relicLocations
         break
       }
-      case 'x': {
-        let extension = options.relicLocationsExtension
-          || constants.defaultExtension
-        // Check for an argument.
-        if (randomize[i] === ':') {
-          // If there's an argument, it's the name of an extension type.
-          const keys = Object.getOwnPropertyNames(constants.EXTENSION)
-          const extensions = keys.map(function(key) {
-            return constants.EXTENSION[key]
-          })
-          let arg
-          let start
-          // Parse the arg name.
-          start = ++i
-          while (i < randomize.length && randomize[i] !== ',') {
-            i++
-          }
-          arg = randomize.slice(start, i)
-          if (!arg.length) {
-            throw new Error('Expected argument')
-          }
-          if (extensions.indexOf(arg) === -1) {
-            throw new Error('Invalid extension: ' + arg)
-          }
-          extension = arg
-          if (randomize[i] === ',') {
-            i++
-          }
-        }
-        options.relicLocationsExtension = extension
-        break
-      }
       case 'm': {
         options.music = true
         break
@@ -1024,11 +1007,6 @@
       default:
         throw new Error('Invalid randomization: ' + c)
       }
-    }
-    if (!options.relicLocations && options.relicLocationsExtension) {
-      throw new Error(
-        'Cannot extend relic locations without randomizing relic locations'
-      )
     }
     if (!Object.getOwnPropertyNames(options).length) {
       throw new Error('No randomizations')
@@ -1051,7 +1029,7 @@
   function presetFromName(name) {
     const all = presets()
     return all.filter(function(preset) {
-      return preset.id === name
+      return 'id' in preset && preset.id === name
     }).pop()
   }
 
@@ -1233,11 +1211,14 @@
                 break
               }
             }
+            if (options.relicLocations.extension) {
+              locks.push('x:' + options.relicLocations.extension)
+            }
             const locations = relics.concat(extension)
             const self = this
             locations.filter(function(location) {
               const extensions = []
-              switch (options.relicLocationsExtension) {
+              switch (options.relicLocations.extension) {
               case constants.EXTENSION.EQUIPMENT:
                 extensions.push(constants.EXTENSION.EQUIPMENT)
               case constants.EXTENSION.GUARDED:
@@ -1281,16 +1262,6 @@
           randomize.push(opt)
         }
         delete options.relicLocations
-      } else if ('relicLocationsExtension' in options) {
-        if (options.relicLocationsExtension) {
-          let opt = 'x'
-          if (typeof(options.relicLocationsExtension) === 'string'
-              !== constants.defaultExtension) {
-            opt += ':' + options.relicLocationsExtension
-          }
-          randomize.push(opt)
-        }
-        delete options.relicLocationsExtension
       } else if ('music' in options) {
         if (options.music) {
           randomize.push('m')
@@ -2035,7 +2006,6 @@
     itemLocations,
     prologueRewards,
     relicLocations,
-    relicLocationsExtension,
     music,
     turkeyMode,
   ) {
@@ -2049,7 +2019,6 @@
     this.itemLocations = itemLocations
     this.prologueRewards = prologueRewards
     this.relicLocations = relicLocations
-    this.relicLocationsExtension = relicLocationsExtension
     this.music = music
     this.turkeyMode = turkeyMode
   }
@@ -2141,7 +2110,7 @@
     this.locations = true
     // The collection of escape requirements.
     this.escapes = {}
-    // The relic locations extension
+    // The relic locations extension.
     this.extension = constants.EXTENSION.GUARDED
     // The complexity goal.
     this.goal = undefined
@@ -2244,11 +2213,11 @@
         throw new Error('unsupported startingEquipment type')
       }
     }
-    if ('relicLocationsExtension' in json) {
-      builder.relicLocationsExtension(json.relicLocationsExtension)
-    }
     if ('relicLocations' in json) {
       build.relicLocations(json.relicLocations)
+    }
+    if ('relicLocationsExtension' in json) {
+      builder.relicLocationsExtension(json.relicLocationsExtension)
     }
     if ('lockLocation' in json) {
       json.lockLocation.forEach(function(lockLocation) {
@@ -2291,122 +2260,140 @@
     } else {
       preset = require('./build/presets/' + id)
     }
-    if (typeof(preset.enemyDrops) === 'object') {
-      const self = this
-      self.drops = new Map()
-      const ids = Object.getOwnPropertyNames(preset.enemyDrops)
-      ids.forEach(function(id) {
-        let enemy
-        if (id === '*') {
-          enemy = '*'
-        } else if (id === constants.GLOBAL_DROP) {
-          enemy = id
-        } else {
-          enemy = enemyFromIdString(id)
-        }
-        const dropNames = preset.enemyDrops[id]
-        const drops = dropNames.map(function(name) {
-          return items.filter(function(item) {
-            return item.name === name
+    if ('enemyDrops' in preset) {
+      if (typeof(preset.enemyDrops) === 'object') {
+        const self = this
+        self.drops = new Map()
+        const ids = Object.getOwnPropertyNames(preset.enemyDrops)
+        ids.forEach(function(id) {
+          let enemy
+          if (id === '*') {
+            enemy = '*'
+          } else if (id === constants.GLOBAL_DROP) {
+            enemy = id
+          } else {
+            enemy = enemyFromIdString(id)
+          }
+          const dropNames = preset.enemyDrops[id]
+          const drops = dropNames.map(function(name) {
+            return items.filter(function(item) {
+              return item.name === name
+            }).pop()
+          })
+          self.drops.set(enemy, drops)
+        })
+      } else {
+        this.drops = preset.enemyDrops
+      }
+    }
+    if ('startingEquipment' in preset) {
+      if (typeof(preset.startingEquipment) === 'object') {
+        const self = this
+        self.equipment = {}
+        const slots = Object.getOwnPropertyNames(preset.startingEquipment)
+        slots.forEach(function(slot) {
+          self.equipment[slot] = items.filter(function(item) {
+            return item.name === preset.startingEquipment[slot]
           }).pop()
         })
-        self.drops.set(enemy, drops)
-      })
-    } else {
-      this.drops = preset.enemyDrops
+      } else {
+        this.equipment = preset.startingEquipment
+      }
     }
-    if (typeof(preset.startingEquipment) === 'object') {
-      const self = this
-      self.equipment = {}
-      const slots = Object.getOwnPropertyNames(preset.startingEquipment)
-      slots.forEach(function(slot) {
-        self.equipment[slot] = items.filter(function(item) {
-          return item.name === preset.startingEquipment[slot]
-        }).pop()
-      })
-    } else {
-      this.equipment = preset.startingEquipment
-    }
-    if (typeof(preset.itemLocations) === 'object') {
-      const self = this
-      self.items = {}
-      const zoneNames = Object.getOwnPropertyNames(preset.itemLocations)
-      zoneNames.forEach(function(zoneName) {
-        self.items[zoneName] = self.items[zoneName] || new Map()
-        const zoneItems = preset.itemLocations[zoneName]
-        const itemNames = Object.getOwnPropertyNames(zoneItems)
-        itemNames.forEach(function(itemName) {
-          let item
-          if (itemName === '*') {
-            item = '*'
-          } else {
-            item = items.filter(function(item) {
-              return item.name === itemName
-            }).pop()
-          }
-          const indexes = Object.getOwnPropertyNames(zoneItems[itemName])
-          indexes.forEach(function(index) {
-            const replace = items.filter(function(item) {
-              return item.name === zoneItems[itemName][index]
-            }).pop()
-            const map = self.items[zoneName].get(item) || {}
-            map[index] = replace
-            self.items[zoneName].set(item, map)
+    if ('itemLocations' in preset) {
+      if (typeof(preset.itemLocations) === 'object') {
+        const self = this
+        self.items = {}
+        const zoneNames = Object.getOwnPropertyNames(preset.itemLocations)
+        zoneNames.forEach(function(zoneName) {
+          self.items[zoneName] = self.items[zoneName] || new Map()
+          const zoneItems = preset.itemLocations[zoneName]
+          const itemNames = Object.getOwnPropertyNames(zoneItems)
+          itemNames.forEach(function(itemName) {
+            let item
+            if (itemName === '*') {
+              item = '*'
+            } else {
+              item = items.filter(function(item) {
+                return item.name === itemName
+              }).pop()
+            }
+            const indexes = Object.getOwnPropertyNames(zoneItems[itemName])
+            indexes.forEach(function(index) {
+              const replace = items.filter(function(item) {
+                return item.name === zoneItems[itemName][index]
+              }).pop()
+              const map = self.items[zoneName].get(item) || {}
+              map[index] = replace
+              self.items[zoneName].set(item, map)
+            })
           })
         })
-      })
-    } else {
-      this.items = preset.itemLocations
+      } else {
+        this.items = preset.itemLocations
+      }
     }
-    if (typeof(preset.prologueRewards) === 'object') {
-      const self = this
-      self.rewards = {}
-      const rewards = Object.getOwnPropertyNames(preset.prologueRewards)
-      rewards.forEach(function(reward) {
-        self.rewards[reward] = items.filter(function(item) {
-          return item.name === preset.prologueRewards[reward]
-        }).pop()
-      })
-    } else {
-      this.rewards = preset.prologueRewards
+    if ('prologueRewards' in preset) {
+      if (typeof(preset.prologueRewards) === 'object') {
+        const self = this
+        self.rewards = {}
+        const rewards = Object.getOwnPropertyNames(preset.prologueRewards)
+        rewards.forEach(function(reward) {
+          self.rewards[reward] = items.filter(function(item) {
+            return item.name === preset.prologueRewards[reward]
+          }).pop()
+        })
+      } else {
+        this.rewards = preset.prologueRewards
+      }
     }
-    if (typeof(preset.relicLocations) === 'object') {
-      const self = this
-      self.locations = {}
-      const locations = Object.getOwnPropertyNames(preset.relicLocations)
-      locations.forEach(function(location) {
-        if ((/^[0-9]+(-[0-9]+)?$/).test(location)) {
-          self.goal = preset.relicLocations[location].map(function(lock) {
-            return new Set(lock)
-          })
-          const parts = location.split('-')
-          self.target = {
-            min: parseInt(parts[0]),
-          }
-          if (parts.length === 2) {
-            self.target.max = parseInt(parts[1])
-          }
-        } else {
-          // Break the lock into its access locks and its escape requirements.
-          const locks = self.locations[location] || []
-          const escape = self.escapes[location] || []
-          preset.relicLocations[location].forEach(function(lock) {
-            if (lock[0] === '+') {
-              escape.push(new Set(lock.slice(1)))
-            } else {
-              locks.push(new Set(lock))
-            }
-          })
-          self.locations[location] = locks
-          self.escapes[location] = escape
+    if ('relicLocations' in preset) {
+      if (typeof(preset.relicLocations) === 'object') {
+        const self = this
+        self.locations = {}
+        if ('extension' in preset.relicLocations) {
+          self.extension = preset.relicLocations.extension
         }
-      })
-    } else {
-      this.locations = preset.relicLocations
+        const locations = Object.getOwnPropertyNames(preset.relicLocations)
+        locations.filter(function(location) {
+          return location !== 'extension'
+        }).forEach(function(location) {
+          if ((/^[0-9]+(-[0-9]+)?$/).test(location)) {
+            self.goal = preset.relicLocations[location].map(function(lock) {
+              return new Set(lock)
+            })
+            const parts = location.split('-')
+            self.target = {
+              min: parseInt(parts[0]),
+            }
+            if (parts.length === 2) {
+              self.target.max = parseInt(parts[1])
+            }
+          } else {
+            // Break the lock into access locks and escape requirements.
+            const locks = self.locations[location] || []
+            const escape = self.escapes[location] || []
+            preset.relicLocations[location].forEach(function(lock) {
+              if (lock[0] === '+') {
+                escape.push(new Set(lock.slice(1)))
+              } else {
+                locks.push(new Set(lock))
+              }
+            })
+            self.locations[location] = locks
+            self.escapes[location] = escape
+          }
+        })
+      } else {
+        this.locations = preset.relicLocations
+      }
     }
-    this.extension = preset.relicLocationsExtension
-    this.music = preset.music
-    this.turkey = preset.turkeyMode
+    if ('music' in preset) {
+      this.music = preset.music
+    }
+    if ('turkeyMode' in preset) {
+      this.turkey = preset.turkeyMode
+    }
   }
 
   PresetBuilder.prototype.enemyDrops =
@@ -2632,6 +2619,9 @@
   // is only granted by obtaining abilities.
   PresetBuilder.prototype.escapeRequires =
     function escapeRequires(where, what) {
+      if (typeof(this.locations) !== 'object') {
+        this.locations = {}
+      }
       this.escapes[where] = this.escapes[where] || []
       Array.prototype.push.apply(this.escapes[where], what.map(function(lock) {
         return new Set(lock)
@@ -2706,7 +2696,7 @@
       this.extension = extension
     }
 
-  // Convert lock sets into strings.
+  // Create a preset from the current configuration.
   PresetBuilder.prototype.build = function build() {
     const self = this
     let drops = self.drops
@@ -2813,6 +2803,9 @@
           return Array.from(lock).join('')
         })
       }
+      if (self.extension) {
+        relicLocations.extension = self.extension
+      }
     }
     const music = self.music
     const turkey = self.turkey
@@ -2827,7 +2820,6 @@
       items,
       rewards,
       relicLocations,
-      self.extension,
       music,
       turkey,
     )
