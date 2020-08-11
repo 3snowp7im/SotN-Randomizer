@@ -6,7 +6,7 @@
   }
 
   function read(fd, address, length, buf, offset) {
-    if (self) {
+    if (typeof(fd) === 'object') {
       if (buf) {
         offset = offset || 0
         for (let i = 0; i < length; i++) {
@@ -23,7 +23,7 @@
   }
 
   function write(fd, address, data) {
-    if (self) {
+    if (typeof(fd) === 'object') {
       fd.subarray(address).set(data)
     } else {
       fs.writeSync(fd, data, 0, data.length, address)
@@ -250,7 +250,7 @@
     for (let sector = 16; sector < (size / 2352); sector++) {
       read(fd, sector * 2352, buf.length, buf)
       if (audioGuess(buf)) {
-        console.warn("warning: sector " + sector + " looks like an audio sector, will recalculate earlier sectors only")
+        console.warn('warning: sector ' + sector + ' looks like an audio sector, will recalculate earlier sectors only')
         break
       }
       eccEdcGenerate(fd, sector * 2352)

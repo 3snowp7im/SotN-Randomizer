@@ -494,7 +494,7 @@
         seed,
         removed,
         createWorkers(threads),
-        2,
+        3,
         getUrl(),
       ).then(function(result) {
         util.mergeInfo(info, result.info)
@@ -522,7 +522,7 @@
           version,
           options,
           seed,
-          3,
+          2,
         ))
         result = randomizeMusic(rng, applied)
         check.apply(result)

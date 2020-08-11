@@ -17,24 +17,34 @@ $ npm install
 
 ### Usage
 
-To randomize your disc image, just pass in the path to your .bin file using the
-`--bin` option. This will use the current time as the seed:
+To randomize your disc image, just pass in the path to your vanilla  .bin file
+using the `--in-bin` option and an output path using the `--out-bin` option.
+This will use the current time as the seed:
 
 ```shell
-$ node randomize -b sotn.bin
+$ node randomize -i sotn.bin -o rando.bin
 ```
 
 You can print the seed used with the `--verbose` flag:
 
 ```shell
-$ node randomize -vb sotn.bin
+$ node randomize -v -i sotn.bin -o rando.bin
 ```
 
 The more `--verbose` flags you include, the more information about the
 randomization gets printed:
 
 ```shell
-$ node randomize -vvvb sotn.bin
+$ node randomize -vvv -i rando.bin
+```
+
+If you omit the `--out-bin` option, the randomizations will be applied to the
+.bin in-place. This is not recommended unless you are randomizing a fresh copy
+of your vanilla bin:
+
+```shell
+$ cp sotn.bin rando.bin
+$ node randomize -i rando.bin
 ```
 
 ### Seed URLs
@@ -44,35 +54,35 @@ the `--race` option or seed URLs. To use the current time as a seed and print
 its URL and starting equipment:
 
 ```shell
-$ node randomize -rb sotn.bin
+$ node randomize -r -i rando.bin
 ```
 
 To use a custom seed and print its URL and starting equipment:
 
 ```shell
-$ node randomize -rb sotn.bin -s myseed
+$ node randomize -r -i rando.bin -s myseed
 ```
 
 To use a copied seed URL, paste in the URL as an argument. The `--race` option
 will be automatically enabled:
 
 ```shell
-$ node randomize -b sotn.bin https://sotn.io/?myseed
+$ node randomize -i rando.bin https://sotn.io/?myseed
 ```
 
 The `--race` option has an inherent verbosity level of 2. You can override this
 behavior by supplying your own `--verbose` flag(s):
 
 ```shell
-$ node randomize -vrb sotn.bin -s myseed                 # Less verbose
-$ node randomize -vb sotn.bin https://sotn.io/?myseed    # Less verbose
-$ node randomize -vvvrb sotn.bin -s myseed               # More verbose
-$ node randomize -vvvb sotn.bin https://sotn.io/?myseed  # More verbose
+$ node randomize -vr -i rando.bin -s myseed                 # Less verbose
+$ node randomize -v -i rando.bin https://sotn.io/?myseed    # Less verbose
+$ node randomize -vvvr -i rando.bin -s myseed               # More verbose
+$ node randomize -vvv -i rando.bin https://sotn.io/?myseed  # More verbose
 ```
 
 ### Dry running
 
-You can omit the `--bin` option to perform a dry run.
+You can omit the `--in-bin` option to perform a dry run.
 
 To print starting equipment and relic locations for a URL without actually
 writing the randomizations to your disc image:
@@ -84,15 +94,20 @@ $ node randomize -vvv https://sotn.io/?myseed
 ### Presets
 
 Presets are settings that generate different randomizations from those found in
-the default mode. To create your own preset, save a copy of
-`presets/sample.json` and modify its content with your own customizations.
-
-For example, you have created your preset and named it `presets/mypreset.json`.
-To create a URL that allows others to randomize their game using your
-preset:
+the default mode. The randomizer includes several built-in presets that can be
+described using the help system:
 
 ```shell
-$ node randomize -np presets/mypreset
+$ node randomize --help preset
+```
+
+To create your own preset, save a copy of `presets/sample.json` and modify its
+content with your own customizations. For example, you have created your preset
+and named it `presets/mypreset.json`. To create a URL that allows others to
+randomize their game using your preset:
+
+```shell
+$ node randomize -rn -f presets/mypreset
 ```
 
 ## Console
