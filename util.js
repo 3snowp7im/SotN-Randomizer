@@ -341,7 +341,7 @@
   checked.prototype.writeChar = function writeChar(address, val) {
     checkAddressRange(address)
     if (this.file) {
-      if (self) {
+      if (typeof(this.file) === 'object') {
         this.file[address] = val & 0xff
       } else {
         const buf = Buffer.from([val & 0xff])
@@ -359,7 +359,7 @@
       (val >>> 8) & 0xff,
     ]
     if (this.file) {
-      if (self) {
+      if (typeof(this.file) === 'object') {
         for (let i = 0; i < 2; i++) {
           this.file[address + i] = bytes[i]
         }
@@ -383,7 +383,7 @@
       (val >>> 24) & 0xff,
     ]
     if (this.file) {
-      if (self) {
+      if (typeof(this.file) === 'object') {
         for (let i = 0; i < 4; i++) {
           this.file[address + i] = bytes[i]
         }

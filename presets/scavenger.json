@@ -1,60 +1,17 @@
 {
   "metadata": {
-    "id": "empty-hand",
-    "name": "Empty hand",
-    "description": "No equipment or items challenge mode. Released on April 1st, 2020.",
+    "id": "scavenger",
+    "name": "Scavenger",
+    "description": "No enemy drops challenge mode.",
     "author": "3snow_p7im",
-    "weight": 200
+    "weight": 100
   },
-  "itemLocations": [{
-    "zone": "*",
-    "item": "*",
-    "replacement": "Heart"
-  }, {
-    "zone": "ST0",
-    "item": "Cross",
-    "replacement": "Cross"
-  }, {
-    "zone": "ST0",
-    "item": "Holy Water",
-    "replacement": "Holy Water"
-  }, {
-    "zone": "ST0",
-    "item": "Big heart",
-    "index": 1,
-    "replacement": "Big heart"
-  }, {
-    "zone": "ST0",
-    "item": "Big heart",
-    "index": 2,
-    "replacement": "Big heart"
-  }, {
-    "zone": "ST0",
-    "item": "Big heart",
-    "index": 3,
-    "replacement": "Big heart"
-  }],
   "enemyDrops": [{
     "enemy": "*",
     "items": [null, null]
   }, {
     "enemy": "Global",
     "items": [
-      "$25",
-      "Heart",
-      "$1",
-      "$25",
-      "$25",
-      "$25",
-      "$25",
-      "$25",
-      "$25",
-      "$50",
-      "$50",
-      "$50",
-      "$50",
-      "$100",
-      "$100",
       "Heart",
       "Heart",
       "Heart",
@@ -66,29 +23,30 @@
       "Heart",
       "Heart",
       "Heart",
-      "Big heart",
-      "Big heart",
-      "$1",
-      "$250",
-      "$400",
+      "Heart",
+      "Heart",
+      "Heart",
+      "Heart",
+      "Heart",
+      "Heart",
+      "Heart",
+      "Heart",
+      "Heart",
+      "Heart",
+      "Heart",
+      "Heart",
+      "Heart",
+      "Heart",
+      "Heart",
+      "Heart",
+      "Heart",
+      "Heart",
+      "Heart",
+      "Heart",
       "Heart"
     ]
   }],
-  "prologueRewards": [{
-    "item": "Heart Refresh",
-    "replacement": null
-  }, {
-    "item": "Neutron Bomb",
-    "replacement": null
-  }, {
-    "item": "Potion",
-    "replacement": null
-  }],
-  "startingEquipment": [{
-    "slot": "Right hand",
-    "item": null
-  }],
-  "comment": "Lock everything except Gas Cloud with Spirit Orb",
+  "comment": "Lock everything except Jewel of Open with Spirit Orb",
   "lockLocation": [{
     "location": "Cube of Zoe",
     "locks": ["Spirit Orb"]
@@ -100,9 +58,6 @@
     "locks": ["Spirit Orb"]
   }, {
     "location": "Faerie Scroll",
-    "locks": ["Spirit Orb"]
-  }, {
-    "location": "Jewel of Open",
     "locks": ["Spirit Orb"]
   }, {
     "location": "Soul of Bat",

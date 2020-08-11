@@ -553,6 +553,16 @@ if ('options' in argv) {
     process.exit(1)
   }
 }
+// Check for preset.
+if ('preset' in argv) {
+  try {
+    options = util.optionsFromString('p:' + argv.preset)
+  } catch (e) {
+    yargs.showHelp()
+    console.error('\n' + e.message)
+    process.exit(1)
+  }
+}
 // Check for preset file.
 if ('presetFile' in argv) {
   const relative = path.relative(path.dirname(__filename), argv.presetFile)
@@ -745,12 +755,10 @@ if ('inBin' in argv) {
       }
     }
     if (!argv.noSeed) {
-      // Write output file.
+      // Read input file if this is not an in-place randomization.
       if ('outBin' in argv) {
-        const stats = fs.statSync(argv.inBin)
-        fs.copyFileSync(argv.inBin, argv.outBin)
-        fd = fs.openSync(argv.outBin, 'r+')
-        size = stats.size
+        fd = fs.readFileSync(argv.inBin)
+        size = fd.length
         const writer = new util.checked(fd)
         writer.apply(check)
       }
@@ -758,9 +766,13 @@ if ('inBin' in argv) {
       if (fd) {
         eccEdcCalc(fd, size)
       }
+      // Write randomized bin.
+      if (typeof(fd) === 'object') {
+        fs.writeFileSync(argv.outBin, fd)
+      }
     }
   } finally {
-    if (fd) {
+    if (typeof(fd) === 'number') {
       fs.closeSync(fd)
     }
   }

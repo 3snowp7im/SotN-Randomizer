@@ -10,6 +10,7 @@
       require('./adventure'),
       require('./speedrun'),
       require('./glitch'),
+      require('./scavenger'),
       require('./empty-hand'),
     ]
   }

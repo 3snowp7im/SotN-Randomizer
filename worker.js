@@ -24,6 +24,7 @@ function randomizeWorker() {
       url + "build/presets/adventure.js",
       url + "build/presets/speedrun.js",
       url + "build/presets/glitch.js",
+      url + "build/presets/scavenger.js",
       url + "build/presets/empty-hand.js",
       url + "randomize_items.js",
       url + "randomize_relics.js",
