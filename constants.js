@@ -8,6 +8,9 @@
     'p:adventure': 'https://a.sotn.io/',
     'p:casual': 'https://c.sotn.io/',
     'p:speedrun': 'https://s.sotn.io/',
+    'p:glitch': 'https://g.sotn.io/',
+    'p:scavenger': 'https://sc.sotn.io/',
+    'p:empty-hand': 'https://eh.sotn.io/',
   }
 
   const TYPE = {

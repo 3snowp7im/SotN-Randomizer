@@ -1351,7 +1351,12 @@
       args.push(encodeURIComponent(seed))
     }
     let url = baseUrl
-    if (args.length) {
+    if (args.reduce(function(prev, next) {
+      if (next !== '') {
+        return true
+      }
+      return prev
+    }, false)) {
       url += '?' + args.join(',')
     }
     return url
