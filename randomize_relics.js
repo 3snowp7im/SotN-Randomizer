@@ -843,7 +843,7 @@
     }, false)
   }
 
-  function randomize(rng, relics, locations, goal, target) {
+  function randomize(rng, placed, relics, locations, goal, target) {
     // Get new locations pool.
     const pool = {
       relics: util.shuffled(rng, relics),
@@ -852,10 +852,30 @@
     while (pool.locations.length > relics.length) {
       pool.locations.splice(randIdx(rng, pool.locations), 1)
     }
+    // Remove placed relics and locations.
+    let mapping
+    if (typeof(placed) === 'object') {
+      const placedLocations = Object.getOwnPropertyNames(placed)
+      const placedRelics = placedLocations.map(function(location) {
+        return placed[location]
+      })
+      mapping = {}
+      placedLocations.forEach(function(location) {
+        mapping[placed[location]] = locations.filter(function(loc) {
+          return loc.id === location
+        })[0]
+      })
+      pool.relics = pool.relics.filter(function(relic) {
+        return placedRelics.indexOf(relic.ability) === -1
+      })
+      pool.locations = pool.locations.filter(function(location) {
+        return placedLocations.indexOf(location.id) === -1
+      })
+    }
     // Place relics.
-    const result = pickRelicLocations(rng, pool, locations)
+    const result = pickRelicLocations(rng, pool, locations, mapping)
     // Restore original location locks in mapping.
-    const mapping = {}
+    mapping = {}
     Object.getOwnPropertyNames(result).forEach(function(ability) {
       mapping[ability] = locations.filter(function(location) {
         return location.id === result[ability].id
@@ -938,9 +958,11 @@
     Object.getOwnPropertyNames(locations).filter(function(location) {
       return location !== 'extension'
     }).forEach(function(location) {
-      map[location] = locations[location].filter(function(lock) {
-        return lock[0] !== '+'
-      })
+      if (location !== 'placed') {
+        map[location] = locations[location].filter(function(lock) {
+          return lock[0] !== '+'
+        })
+      }
     })
     return map
   }
@@ -950,11 +972,13 @@
     Object.getOwnPropertyNames(locations).filter(function(location) {
       return location !== 'extension'
     }).forEach(function(location) {
-      map[location] = locations[location].filter(function(lock) {
-        return lock[0] === '+'
-      }).map(function(lock) {
-        return lock.slice(1)
-      })
+      if (location !== 'placed') {
+        map[location] = locations[location].filter(function(lock) {
+          return lock[0] === '+'
+        }).map(function(lock) {
+          return lock.slice(1)
+        })
+      }
     })
     return map
   }
@@ -1037,7 +1061,14 @@
       location.escapes = location.escapes || []
     })
     // Attempt to place all relics.
-    const result = randomize(rng, enabledRelics, locations, goal, target)
+    const result = randomize(
+      rng,
+      relicLocations.placed,
+      enabledRelics,
+      locations,
+      goal,
+      target,
+    )
     // Write spoilers.
     const spoilers = []
     enabledRelics.forEach(function(relic) {

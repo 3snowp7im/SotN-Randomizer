@@ -899,13 +899,18 @@
             }).concat(extension.map(function(location) {
               return location.name
             }))
-            let extension
+            let ext
             let location
+            let placing
             if (/^[0-9]+(-[0-9]+)?$/.test(arg)) {
               location = arg
             } else if (arg === 'x') {
-              extension = true
+              ext = true
             } else {
+              if (arg.startsWith('@')) {
+                placing = true
+                arg = arg.slice(1)
+              }
               location = locations.filter(function(name) {
                 if (name.length > 1) {
                   const loc = name.replace(/[^a-zA-Z0-9]/g, '').toLowerCase()
@@ -927,7 +932,7 @@
                 i++
               }
               arg = randomize.slice(start, i)
-              if (extension) {
+              if (ext) {
                 const keys = Object.getOwnPropertyNames(constants.EXTENSION)
                 const extensions = keys.map(function(key) {
                   return constants.EXTENSION[key]
@@ -949,11 +954,16 @@
                   throw new Error('Invalid relic: ' + invalid[0])
                 }
                 const parts = arg.split('+')
-                if (parts.length > 2) {
+                if (placing && parts.length != 1) {
+                  throw new Error('Can only place 1 relic per location')
+                } else if (parts.length > 2) {
                   throw new Error('Invald lock: ' + location + ':' + arg)
                 }
                 parts.forEach(function(part, index) {
                   let locks = part.split('-')
+                  if (placing && locks.length != 1) {
+                    throw new Error('Can only place 1 relic per location')
+                  }
                   const emptyLocks = locks.filter(function(lock) {
                     return lock.length === 0
                   })
@@ -967,8 +977,13 @@
                   if (index > 0) {
                     locks = locks.map(function(lock) { return '+' + lock })
                   }
-                  relicLocations[location] = relicLocations[location] || []
-                  Array.prototype.push.apply(relicLocations[location], locks)
+                  if (placing) {
+                    relicLocations.placed = relicLocations.placed || {}
+                    relicLocations.placed[location] = locks[0]
+                  } else {
+                    relicLocations[location] = relicLocations[location] || []
+                    Array.prototype.push.apply(relicLocations[location], locks)
+                  }
                 })
               }
             } else {
@@ -1255,6 +1270,12 @@
                 locks.push(lock)
               }
             })
+            if (options.relicLocations.placed) {
+              let placed = options.relicLocations.placed
+              Object.getOwnPropertyNames(placed).forEach(function(location) {
+                locks.push('@' + location + ':' + placed[location])
+              })
+            }
             if (locks.length) {
               opt += ':' + locks.join(':')
             }
@@ -2118,11 +2139,6 @@
     this.music = true
     // Turkey mode.
     this.turkey = true
-    // Unplaced relics collection.
-    const relicNames = Object.getOwnPropertyNames(constants.RELIC)
-    this.unplaced = new Set(relicNames.reduce(function(lock, relic) {
-      return lock + constants.RELIC[relic]
-    }, ''))
   }
 
   function locationFromName(name) {
@@ -2214,7 +2230,7 @@
       }
     }
     if ('relicLocations' in json) {
-      build.relicLocations(json.relicLocations)
+      builder.relicLocations(json.relicLocations)
     }
     if ('relicLocationsExtension' in json) {
       builder.relicLocationsExtension(json.relicLocationsExtension)
@@ -2232,11 +2248,10 @@
     }
     if ('placeRelic' in json) {
       json.placeRelic.forEach(function(placeRelic) {
-        const relics = placeRelic.relics.map(function(name) {
-          return relicFromName(name).ability
-        })
-        const locations = placeRelic.locations.map(locationFromName)
-        builder.placeRelic(relics, locations)
+        builder.placeRelic(
+          locationFromName(placeRelic.location),
+          relicFromName(placeRelic.relic).ability,
+        )
       })
     }
     if ('complexityGoal' in json) {
@@ -2369,6 +2384,8 @@
             if (parts.length === 2) {
               self.target.max = parseInt(parts[1])
             }
+          } else if (location === 'placed') {
+            self.locations.placed = self.locations[location]
           } else {
             // Break the lock into access locks and escape requirements.
             const locks = self.locations[location] || []
@@ -2628,28 +2645,15 @@
       }))
     }
 
-  // Add relics to locations. The what and where arguments must contain the
-  // same number of relics.
-  PresetBuilder.prototype.placeRelic = function placeRelic(what, where) {
-    if (!Array.isArray(what)) {
-      what = [what]
-    }
-    if (!Array.isArray(where)) {
-      where = [where]
-    }
-    assert.equal(what.length, where.length)
+  // Place a relic at a location.
+  PresetBuilder.prototype.placeRelic = function placeRelic(where, what) {
+    assert.equal(typeof(where), 'string')
+    assert.equal(typeof(what), 'string')
     if (typeof(this.locations) !== 'object') {
       this.locations = {}
     }
-    const unplaced = this.unplaced
-    what.forEach(function(relic) {
-      unplaced.delete(relic)
-    })
-    const self = this
-    where.forEach(function(location) {
-      self.locations[location] = self.locations[location] || []
-      self.locations[location].push(new Set(unplaced))
-    })
+    this.locations.placed = this.locations.placed || {}
+    this.locations.placed[where] = what
   }
 
   // Enable/disable relic location randomization.
@@ -2794,6 +2798,9 @@
           Array.prototype.push.apply(relicLocations[location], locks)
         }
       })
+      if (self.locations.placed) {
+        relicLocations.placed = self.locations.placed
+      }
       if (self.goal) {
         let target = self.target.min.toString()
         if ('max' in self.target) {
