@@ -30,21 +30,10 @@ const bin = fs.readFileSync(process.argv[2])
 enemies.forEach(function(enemy) {
   enemy.dropAddresses.forEach(function(address) {
     const id = bin.readUInt16LE(address)
-    const item = items.filter(function(item) {
-      if (id > tileIdOffset) {
-        return item.id === (id - tileIdOffset) && [
-          TYPE.WEAPON1,
-          TYPE.WEAPON2,
-          TYPE.SHIELD,
-          TYPE.HELMET,
-          TYPE.ARMOR,
-          TYPE.CLOAK,
-          TYPE.ACCESSORY,
-          TYPE.USABLE,
-        ].indexOf(item.type) !== -1
-      }
-      return item.id === id
-    })[0]
+    if (id === 0) {
+      return
+    }
+    const item = util.itemFromTileId(items, id)
     item.tiles = item.tiles || []
     let tile = item.tiles.filter(function(tile) {
       return tile.enemy === enemy.id
@@ -80,66 +69,76 @@ redRust.tiles.push({
 })
 
 // Find occurences of global drops.
-const globalDrops = [
-  0x0003,
-  0x0000,
-  0x0002,
-  0x0003,
-  0x0003,
-  0x0003,
-  0x0003,
-  0x0003,
-  0x0003,
-  0x0004,
-  0x0004,
-  0x0004,
-  0x0004,
-  0x0005,
-  0x0005,
-  0x0000,
-  0x0000,
-  0x0000,
-  0x0000,
-  0x0000,
-  0x0000,
-  0x0000,
-  0x0000,
-  0x0000,
-  0x0000,
-  0x0000,
-  0x0001,
-  0x0001,
-  0x0002,
-  0x0006,
-  0x0007,
-  0x00c6,
-]
-/*
-const buf = Buffer.alloc(2 * globalDrops.length)
-globalDrops.forEach(function(id, index) {
-  buf.writeUInt16LE(id, 2 * index)
-})
-const addresses = []
-let i = 0
-while (i < bin.length - buf.length) {
-  if (bin.subarray(i, i + buf.length).equals(buf)) {
-    addresses.push(i)
-    i += buf.length
-  } else {
-    i++
+const globalDrops = [[
+  0x043c3610,
+  0x044917e0,
+  0x0455cc60,
+  0x045e99b8,
+  0x04677558,
+  0x048fb154,
+  0x049d3a24,
+  0x04aa1a40,
+  0x04b68ae8,
+  0x04c328ec,
+  0x04cfbd2c,
+  0x04da5734,
+  0x04e327d0,
+  0x04ee32fc,
+  0x04f86070,
+  0x05050944,
+  0x050f8e70,
+  0x051ade84,
+  0x0526c720,
+  0x053f6464,
+  0x054b290c,
+  0x05573db0,
+  0x0560fbe0,
+  0x056be924,
+  0x05751978,
+  0x057e0778,
+  0x05883f48,
+  0x05903618,
+  0x059bca04,
+  0x05a6ee98,
+  0x05af32a4,
+  0x0606f0d8,
+  0x060fdd0c,
+  0x061a7790,
+  0x06247898,
+  0x06306188,
+  0x063aafe0,
+  0x06471a08,
+  0x065094bc,
+  0x065918b8,
+  0x06621d08,
+  0x066b4090,
+  0x06742ea8,
+  0x067d0d04,
+  0x06862054,
+  0x0692c45c,
+  0x069d21f0,
+  0x06a611d4,
+], [
+  0x04871a30,
+  0x05b87ad4,
+  0x05c5dc4c,
+  0x05d36234,
+  0x05ed4a20,
+]]
+globalDrops.forEach(function(globalDrops) {
+  for (let i = 0; i < constants.globalDropsCount; i++) {
+    const id = bin.readUInt16LE(globalDrops[0] + 2 * i)
+    const item = util.itemFromTileId(items, id)
+    const addresses = globalDrops.map(function(address) {
+      return address + 2 * i
+    })
+    item.tiles = item.tiles || []
+    item.tiles.push({
+      addresses: addresses,
+      enemy: GLOBAL_DROP,
+    })
   }
-}
-globalDrops.forEach(function(id, index) {
-  const item = util.itemFromTileId(items, id)
-  item.tiles = item.tiles || []
-  item.tiles.push({
-    addresses: addresses.map(function(address) {
-      return address + 2 * index
-    }),
-    enemy: GLOBAL_DROP,
-  })
 })
-*/
 
 // Format data.
 const indent = parseInt(process.argv[3] || 2)

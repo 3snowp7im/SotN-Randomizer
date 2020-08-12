@@ -13,7 +13,7 @@
   const PresetBuilder = util.PresetBuilder
 
   // Create PresetBuilder.
-  const builder = PresetBuilder.fromJSON({"metadata":{"id":"scavenger","name":"Scavenger","description":"No enemy drops challenge mode.","author":"3snow_p7im","weight":100},"inherits":"safe","enemyDrops":[{"enemy":"*","items":[null,null]},{"enemy":"Global","items":["Heart","Heart","Heart","Heart","Heart","Heart","Heart","Heart","Heart","Heart","Heart","Heart","Heart","Heart","Heart","Heart","Heart","Heart","Heart","Heart","Heart","Heart","Heart","Heart","Heart","Heart","Heart","Heart","Heart","Heart","Heart","Heart"]}],"placeRelic":[{"location":"Jewel of Open","relic":"Spirit Orb"}]})
+  const builder = PresetBuilder.fromJSON({"metadata":{"id":"scavenger","name":"Scavenger","description":"No enemy drops challenge mode.","author":"3snow_p7im","weight":100},"inherits":"safe","enemyDrops":[{"enemy":"*","items":[null,null]},{"enemy":"Global","items":["Heart","Heart","Heart","Heart","Heart","Heart","Heart","Heart","Heart","Heart","Heart","Heart","Heart","Heart","Heart","Heart","Heart","Heart","Heart","Heart","Heart","Heart","Heart","Heart","Heart","Heart","Heart","Heart","Heart","Heart","Heart","Heart","Heart","Heart","Heart","Heart","Heart","Heart","Heart","Heart","Heart","Heart","Heart","Heart","Heart","Heart","Heart","Heart","Heart","Heart","Heart","Heart","Heart","Heart","Heart","Heart","Heart","Heart","Heart","Heart","Heart","Heart","Heart","Heart"]}],"placeRelic":[{"location":"Jewel of Open","relic":"Spirit Orb"}]})
 
   // Export.
   const preset = builder.build()

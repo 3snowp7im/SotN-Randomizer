@@ -605,8 +605,8 @@
     defaultExtension: defaultExtension,
     LOCATION: LOCATION,
     GLOBAL_DROP: GLOBAL_DROP,
-    MUSIC: MUSIC,
     globalDropsCount: globalDropsCount,
+    MUSIC: MUSIC,
     WORKER_ACTION: WORKER_ACTION,
   }
   if (self) {
