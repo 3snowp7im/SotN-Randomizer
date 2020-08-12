@@ -5,6 +5,7 @@
 
 const fs = require('fs')
 const constants = require('../constants')
+const enemies = require('../enemies')
 const items = require('../items')
 const util = require('../util')
 
@@ -13,12 +14,6 @@ const TYPE = constants.TYPE
 const ZONE = constants.ZONE
 const GLOBAL_DROP = constants.GLOBAL_DROP
 const zones = constants.zones
-const exe = constants.exe
-const enemyListOff = constants.enemyListOff 
-const enemyListLen = constants.enemyListLen
-const enemyDataOff = constants.enemyDataOff
-const enemyDataLen = constants.enemyDataLen
-const dropsOff = 0x1a
 
 // Clear existing drop data from item list.
 items.filter(function(item) {
@@ -31,56 +26,10 @@ items.filter(function(item) {
 
 // Read input bin.
 const bin = fs.readFileSync(process.argv[2])
-// Restore main executable.
-const exeData = util.restoreFile(bin, exe)
-// Restore library data.
-const library = util.restoreFile(bin, zones[ZONE.LIB])
-// Get enemy list.
-const enemyList = library.subarray(enemyListOff, enemyListOff + enemyListLen)
-// Parse enemy data.
-const enemies = []
-for (let i = 0; i < enemyList.length / 2; i++) {
-  enemies.push({
-    id: i + 1,
-    offset: enemyDataOff + enemyList.readUInt16LE(2 * i) * enemyDataLen,
-  })
-}
-// Unlisted enemies:
-// Poltergeist
-enemies.push({
-  id: 147,
-  offset: 0x9d52,
-  dropCount: 1,
-})
-// Puppet sword
-enemies.push({
-  id: 148,
-  offset: 0x9e6a,
-  dropCount: 1,
-})
-// Shield
-enemies.push({
-  id: 149,
-  offset: 0x9ee2,
-  dropCount: 1,
-})
-// Spear
-enemies.push({
-  id: 150,
-  offset: 0x9eba,
-  dropCount: 1,
-})
 // Add tiles.
 enemies.forEach(function(enemy) {
-  const offsets = [
-    enemy.offset + dropsOff + 0,
-    enemy.offset + dropsOff + 2,
-  ].slice(0, enemy.dropCount || 2)
-  offsets.forEach(function(offset) {
-    const id = exeData.readUInt16LE(offset)
-    if (id === 0) {
-      return
-    }
+  enemy.dropAddresses.forEach(function(address) {
+    const id = bin.readUInt16LE(address)
     const item = items.filter(function(item) {
       if (id > tileIdOffset) {
         return item.id === (id - tileIdOffset) && [
@@ -96,12 +45,18 @@ enemies.forEach(function(enemy) {
       }
       return item.id === id
     })[0]
-    let address = exe.pos + offset + Math.floor(offset / 0x800) * 0x130
     item.tiles = item.tiles || []
-    item.tiles.push({
-      addresses: [ address ],
-      enemy: enemy.id,
-    })
+    let tile = item.tiles.filter(function(tile) {
+      return tile.enemy === enemy.id
+    })[0]
+    if (tile) {
+      tile.addresses.push(address)
+    } else {
+      item.tiles.push({
+        addresses: [ address ],
+        enemy: enemy.id,
+      })
+    }
   })
 })
 
@@ -159,6 +114,7 @@ const globalDrops = [
   0x0007,
   0x00c6,
 ]
+/*
 const buf = Buffer.alloc(2 * globalDrops.length)
 globalDrops.forEach(function(id, index) {
   buf.writeUInt16LE(id, 2 * index)
@@ -181,9 +137,9 @@ globalDrops.forEach(function(id, index) {
       return address + 2 * index
     }),
     enemy: GLOBAL_DROP,
-    global: true,
   })
 })
+*/
 
 // Format data.
 const indent = parseInt(process.argv[3] || 2)

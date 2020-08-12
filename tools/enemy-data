@@ -62,8 +62,12 @@ enemies.push({
   offset: 0x9eba,
   dropCount: 1,
 })
+// These enemies have unlisted duplicates.
+const dups = [
+  'Blue Venus Weed',
+]
 enemies.forEach(function(enemy) {
-  const offset = enemy.offset
+  let offset = enemy.offset
   delete enemy.offset
   let ptr = exeData.readUInt32LE(offset) - 0x80000000 - exeRamOffset
   let c
@@ -92,6 +96,15 @@ enemies.forEach(function(enemy) {
   ].slice(0, enemy.dropCount || 2).map(function(offset) {
     return exe.pos + offset + Math.floor(offset / 0x800) * 0x130
   })
+  if (dups.indexOf(enemy.name) !== -1) {
+    offset += 0x28
+    enemy.dropAddresses.push(...[
+      offset + enemyDropsOff + 0,
+      offset + enemyDropsOff + 2,
+    ].slice(0, enemy.dropCount || 2).map(function(offset) {
+      return exe.pos + offset + Math.floor(offset / 0x800) * 0x130
+    }))
+  }
   delete enemy.dropCount
 })
 

@@ -639,7 +639,7 @@
     id: 128,
     name: 'Blue Venus Weed',
     level: 40,
-    dropAddresses: [ 0x0b9e02, 0x0b9e04 ],
+    dropAddresses: [ 0x0b9e02, 0x0b9e04, 0x0b9e2a, 0x0b9e2c ],
   }, {
     id: 129,
     name: 'Doppleganger40',
