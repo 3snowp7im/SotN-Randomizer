@@ -816,7 +816,7 @@
           let drops = planned[key]
           let count
           if (key === GLOBAL_DROP) {
-            count = 2 * globalDropsCount
+            count = globalDropsCount
           } else if (target.librarian) {
             count = 3
           } else {
