@@ -103,8 +103,13 @@ $ node randomize --help preset
 
 To create your own preset, save a copy of `presets/sample.json` and modify its
 content with your own customizations. For example, you have created your preset
-and named it `presets/mypreset.json`. To create a URL that allows others to
-randomize their game using your preset:
+and named it `presets/mypreset.json`. To randomize a bin using your preset:
+
+```shell
+$ node randomize -i sotn.bin -o rando.bin -f presets/mypreset
+```
+
+To create a URL that allows others to randomize their game using your preset:
 
 ```shell
 $ node randomize -rn -f presets/mypreset
