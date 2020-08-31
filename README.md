@@ -109,7 +109,7 @@ and named it `presets/mypreset.json`. To randomize a bin using your preset:
 $ node randomize -i sotn.bin -o rando.bin -f presets/mypreset
 ```
 
-To create a URL that allows others to randomize their game using your preset:
+To create a URL that allows others to use your preset:
 
 ```shell
 $ node randomize -rn -f presets/mypreset
