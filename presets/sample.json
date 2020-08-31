@@ -7,6 +7,9 @@
     "weight": 0
   },
 
+  "comment": "Build off the Safe preset",
+  "inherits": "safe",
+
   "enemyDrops": [{
     "comment": "Make Warg drop $400 and Combat Knife",
     "enemy": "Warg",
@@ -70,12 +73,12 @@
 
   "placeRelic": [{
     "comment": "Sprit Orb at Form of Mist location",
-    "relics": ["Spirit Orb"],
-    "locations": ["Form of Mist"]
+    "relic": "Spirit Orb",
+    "location": "Form of Mist"
   }, {
-    "comment": "Soul of Wolf or Power of Wolf can be at Leap Stone or Gas Cloud locations",
-    "relics": ["Soul of Wolf", "Power of Wolf"],
-    "locations": ["Leap Stone", "Gas Cloud"]
+    "comment": "Soul of Wolf at Leap Stone location",
+    "relic": "Soul of Wolf",
+    "location": "Leap Stone"
   }],
 
   "lockLocation": [{
@@ -93,7 +96,7 @@
 
   "complexityGoal": {
     "min": 2,
-    "max": 5,
+    "max": 7,
     "comment": "Require Soul of Bat + Soul of Wolf or Gravity Boots + Form of Mist to complete game",
     "goals": [
       "Soul of Bat + Soul of Wolf",
