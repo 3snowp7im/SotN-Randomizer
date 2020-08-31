@@ -58,7 +58,7 @@
       }
     } else {
       for (let i = 0; i < count; i++) {
-        workers[i] = new Worker('worker.js')
+        workers[i] = new Worker('src/worker.js')
       }
     }
     return workers

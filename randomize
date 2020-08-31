@@ -4,15 +4,15 @@ const fs = require('fs')
 const path = require('path')
 const os = require('os')
 const Worker = require('worker_threads').Worker
-const constants = require('./constants')
-const errors = require('./errors')
-const extension = require('./extension')
+const constants = require('./src/constants')
+const errors = require('./src/errors')
+const extension = require('./src/extension')
 const presets = require('./build/presets')
-const randomizeRelics = require('./randomize_relics')
-const randomizeItems = require('./randomize_items')
-const randomizeMusic = require('./randomize_music')
-const relics = require('./relics')
-const util = require('./util')
+const randomizeRelics = require('./src/randomize_relics')
+const randomizeItems = require('./src/randomize_items')
+const randomizeMusic = require('./src/randomize_music')
+const relics = require('./src/relics')
+const util = require('./src/util')
 let version = require('./package').version
 
 const optionsHelp = [
@@ -680,7 +680,7 @@ if ('inBin' in argv) {
         const cores = os.cpus().length
         const workers = Array(util.workerCountFromCores(cores))
         for (let i = 0; i < workers.length; i++) {
-          workers[i] = new Worker('./worker.js')
+          workers[i] = new Worker('./src/worker.js')
         }
         result = await util.randomizeRelics(
           version,
@@ -705,7 +705,7 @@ if ('inBin' in argv) {
           version,
           options,
           seed,
-          new Worker('./worker.js'),
+          new Worker('./src/worker.js'),
           1,
           result.items,
         )

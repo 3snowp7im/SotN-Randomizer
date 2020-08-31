@@ -12,13 +12,13 @@ function randomizeWorker() {
     importScripts(
       'https://cdnjs.cloudflare.com/ajax/libs/seedrandom/3.0.1/seedrandom.min.js',
       'https://cdnjs.cloudflare.com/ajax/libs/sjcl/1.0.8/sjcl.min.js',
-      url + "constants.js",
-      url + 'enemies.js',
-      url + 'errors.js',
-      url + "extension.js",
-      url + "items.js",
-      url + "relics.js",
-      url + "util.js",
+      url + "src/constants.js",
+      url + 'src/enemies.js',
+      url + 'src/errors.js',
+      url + "src/extension.js",
+      url + "src/items.js",
+      url + "src/relics.js",
+      url + "src/util.js",
       url + "build/presets/casual.js",
       url + "build/presets/safe.js",
       url + "build/presets/adventure.js",
@@ -26,9 +26,9 @@ function randomizeWorker() {
       url + "build/presets/glitch.js",
       url + "build/presets/scavenger.js",
       url + "build/presets/empty-hand.js",
-      url + "randomize_items.js",
-      url + "randomize_relics.js",
-      url + "ecc-edc-recalc-js.js",
+      url + "src/randomize_items.js",
+      url + "src/randomize_relics.js",
+      url + "src/ecc-edc-recalc-js.js",
     )
     constants = self.sotnRando.constants
     eccEdcCalc = self.eccEdcCalc

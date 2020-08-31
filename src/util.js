@@ -1034,7 +1034,7 @@
       if (self) {
         return self.sotnRando.presets
       } else {
-        return require('./build/presets')
+        return require('../build/presets')
       }
     } catch (err) {
       return []
@@ -2088,7 +2088,7 @@
       }).pop()
       if (!preset && !self) {
         try {
-          preset = require('./build/presets/' + options.preset)
+          preset = require('../build/presets/' + options.preset)
         } catch (err) {
           if (err.code !== 'MODULE_NOT_FOUND') {
             console.error(err.stack)
@@ -2278,7 +2278,7 @@
         return preset.id === id
       }).pop()
     } else {
-      preset = require('./build/presets/' + id)
+      preset = require('../build/presets/' + id)
     }
     if ('enemyDrops' in preset) {
       if (typeof(preset.enemyDrops) === 'object') {
