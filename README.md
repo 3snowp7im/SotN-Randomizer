@@ -123,27 +123,33 @@ is more accessible and will be outlined in this section.
 
 ### Hardware needed
 
-##### PS2 console compatible with FreeMcBoot
+**PS2 console compatible with FreeMcBoot**
+
 Check the compatibility list [here](https://www.ps2-home.com/forum/app.php/page/fmcb-compatible-ps2-models-chart).
 
-##### PS2 memcard with FreeMcBoot and uLaunchELF
+**PS2 memcard with FreeMcBoot and uLaunchELF**
+
 You can find these on Amazon or make one yourself.
 
-##### USB thumb drive
+**USB thumb drive**
+
 This will store your randomized disc image.
 
 ### Software needed
 
-##### POPStarter r13 WIP 06 Beta 17
+**POPStarter r13 WIP 06 Beta 17**
+
 Download from [here](https://www.ps2-home.com/forum/viewtopic.php?p=13938#p13938).
 *Note:* This version is known to cause random crashes on some PS2 revisions.
 Unfortunately, other recent POPStarter versions do not load the castle map
 corretly. Your mileage may vary.
 
-##### `POPS_IOX.PAK`
+**POPS_IOX.PAK**
+
 You will need to locate this yourself. MD5: `a625d0b3036823cdbf04a3c0e1648901`
 
-##### CUE2POPS
+**CUE2POPS**
+
 Windows version [here](https://www.ps2-home.com/forum/viewtopic.php?t=2148).
 Mac version [here](https://github.com/suicvne/cue2pops-gui-mac).
 Linux version [here](https://github.com/makefu/cue2pops-linux).
@@ -157,7 +163,7 @@ your files are named differently.
 1) Create a directory on your USB drive named `POPS` and copy `POPS_IOX.PAK`
    into it.
 
-2) Install `POPSTARTER.ELF` as `XX.SOTN.ELF` on your USB drive.
+2) Rename `POPSTARTER.ELF` to `XX.SOTN.ELF` and copy it your USB drive.
 
 3) Using a text editor, create a file named `SOTN.CUE` with this content:
 
