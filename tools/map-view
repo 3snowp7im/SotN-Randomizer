@@ -4,10 +4,10 @@
 
 require('colors')
 const fs = require('fs')
-const constants = require('../constants')
-const items = require('../items')
-const relics = require('../relics')
-const util = require('../util')
+const constants = require('../src/constants')
+const items = require('../src/items')
+const relics = require('../src/relics')
+const util = require('../src/util')
 
 const ZONE = constants.ZONE
 const zones = constants.zones

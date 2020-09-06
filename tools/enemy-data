@@ -3,8 +3,8 @@
 // Usage: tools/enemy-data <path-to-rom> [indent-level]
 
 const fs = require('fs')
-const constants = require('../constants')
-const util = require('../util')
+const constants = require('../src/constants')
+const util = require('../src/util')
 
 const ZONE = constants.ZONE
 const zones = constants.zones
@@ -15,7 +15,7 @@ const enemyDataOff = constants.enemyDataOff
 const enemyDataLen = constants.enemyDataLen
 const exeRamOffset = 0xa0000
 const enemyLevelOffset = 0x16
-const enemyDropsOff = 0x1a
+const enemyDropsOffset = 0x1a
 
 // Read input bin.
 const bin = fs.readFileSync(process.argv[2])
@@ -62,6 +62,13 @@ enemies.push({
   offset: 0x9eba,
   dropCount: 1,
 })
+enemies.push({
+  name: 'Ball', // Yorick's skull
+  id: 151,
+  level: undefined,
+  offset: 0x9be8,
+  dropCount: 2,
+})
 // These enemies have unlisted duplicates.
 const dups = [
   'Blue Venus Weed',
@@ -91,16 +98,16 @@ enemies.forEach(function(enemy) {
     delete enemy.level
   }
   enemy.dropAddresses = [
-    offset + enemyDropsOff + 0,
-    offset + enemyDropsOff + 2,
+    offset + enemyDropsOffset + 0,
+    offset + enemyDropsOffset + 2,
   ].slice(0, enemy.dropCount || 2).map(function(offset) {
     return exe.pos + offset + Math.floor(offset / 0x800) * 0x130
   })
   if (dups.indexOf(enemy.name) !== -1) {
     offset += 0x28
     enemy.dropAddresses.push(...[
-      offset + enemyDropsOff + 0,
-      offset + enemyDropsOff + 2,
+      offset + enemyDropsOffset + 0,
+      offset + enemyDropsOffset + 2,
     ].slice(0, enemy.dropCount || 2).map(function(offset) {
       return exe.pos + offset + Math.floor(offset / 0x800) * 0x130
     }))

@@ -4,10 +4,10 @@
 // Usage: tools/drop-data <path-to-rom> [indent-level]
 
 const fs = require('fs')
-const constants = require('../constants')
-const enemies = require('../enemies')
-const items = require('../items')
-const util = require('../util')
+const constants = require('../src/constants')
+const enemies = require('../src/enemies')
+const items = require('../src/items')
+const util = require('../src/util')
 
 const tileIdOffset = constants.tileIdOffset
 const TYPE = constants.TYPE

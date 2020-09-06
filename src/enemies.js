@@ -746,6 +746,10 @@
     name: 'Spear',
     id: 150,
     dropAddresses: [ 0x0b708c ],
+  }, {
+    name: 'Ball',
+    id: 151,
+    dropAddresses: [ 0x0b6dba, 0x0b6dbc ],
   }]
 
   const exports = enemies

@@ -7596,6 +7596,9 @@
     }, {
       addresses: [ 0x0b69fc ],
       enemy: 28,
+    }, {
+      addresses: [ 0x0b6dbc ],
+      enemy: 151,
     }],
   }, {
     name: 'Holbein Dagger',
@@ -8972,6 +8975,9 @@
     }, {
       addresses: [ 0x0b7324 ],
       enemy: 116,
+    }, {
+      addresses: [ 0x0b6dba ],
+      enemy: 151,
     }],
   }, {
     name: 'Onyx',
