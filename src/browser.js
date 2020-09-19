@@ -303,6 +303,20 @@
     }
   }
 
+  function tournamentModeChange() {
+    if (elems.tournamentMode.checked) {
+      elems.showSpoilers.checked = false
+      elems.showSpoilers.disabled = true
+      elems.showRelics.checked = false
+      elems.showRelics.disabled = true
+      elems.showSolutions.checked = false
+      elems.showSolutions.disabled = true
+    } else {
+      elems.showSpoilers.disabled = false
+    }
+    localStorage.setItem('tournamentMode', elems.tournamentMode.checked)
+  }
+
   function spoilersChange() {
     if (elems.showSpoilers.checked) {
       showSpoilers()
@@ -419,7 +433,13 @@
 
   function getFormOptions() {
     if (elems.preset.checked) {
-      return {preset: presets[elems.presetId.selectedIndex].id}
+      const options = {
+        preset: presets[elems.presetId.selectedIndex].id
+      }
+      if (elems.tournamentMode.checked) {
+        options.tournamentMode = true
+      }
+      return options
     }
     const options = {
       enemyDrops: elems.enemyDrops.checked,
@@ -429,6 +449,7 @@
       relicLocations: getFormRelicLocations(),
       music: elems.music.checked,
       turkeyMode: elems.turkeyMode.checked,
+      tournamentMode: elems.tournamentMode.checked,
     }
     if (elems.enemyDropsArg.value) {
       options.enemyDrops = util.optionsFromString(
@@ -710,6 +731,7 @@
     clear: document.getElementById('clear'),
     theme: document.getElementById('theme'),
     appendSeed: document.getElementById('append-seed'),
+    tournamentMode: document.getElementById('tournament-mode'),
     showSpoilers: document.getElementById('show-spoilers'),
     showRelics: document.getElementById('show-relics'),
     showSolutions: document.getElementById('show-solutions'),
@@ -752,6 +774,7 @@
   elems.clear.addEventListener('click', clearHandler)
   elems.theme.addEventListener('change', themeChange)
   elems.appendSeed.addEventListener('change', appendSeedChange)
+  elems.tournamentMode.addEventListener('change', tournamentModeChange)
   elems.showSpoilers.addEventListener('change', spoilersChange)
   elems.showRelics.addEventListener('change', showRelicsChange)
   elems.showSolutions.addEventListener('change', showSolutionsChange)
@@ -765,12 +788,18 @@
     elems.presetId.appendChild(option)
   })
   const url = new URL(window.location.href)
+  const releaseBaseUrl = constants.optionsUrls[constants.defaultOptions]
+  const releaseHostname = new URL(releaseBaseUrl).hostname
+  const isDev = url.hostname !== releaseHostname
   const fakeVersion = '0.0.0-0'
   if (url.protocol !== 'file:') {
     fetch(new Request('package.json')).then(function(response) {
       if (response.ok) {
         response.json().then(function(json) {
           version = json.version
+          if (isDev && !version.match(/-/)) {
+            version += '-0'
+          }
           document.getElementById('version').innerText = version
         })
       }
@@ -952,9 +981,7 @@
   if (path.match(/index\.html$/)) {
     path = path.slice(0, path.length - 10)
   }
-  if (url.hostname === 'localhost'
-      || url.hostname.match(/^dev\./)
-      || url.protocol === 'file:') {
+  if (isDev) {
     document.body.classList.add('dev')
     document.getElementById('dev-border').classList.add('dev')
     document.write([
@@ -975,6 +1002,7 @@
   loadOption('showSolutions', showSolutionsChange, false)
   loadOption('showRelics', showRelicsChange, false)
   loadOption('showSpoilers', spoilersChange, true)
+  loadOption('tournamentMode', tournamentModeChange, false)
   setTimeout(function() {
     const els = document.getElementsByClassName('tooltip')
     Array.prototype.forEach.call(els, function(el) {

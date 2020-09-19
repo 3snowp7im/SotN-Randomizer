@@ -1019,6 +1019,10 @@
         options.turkeyMode = true
         break
       }
+      case 'n': {
+        options.tournamentMode = true
+        break
+      }
       default:
         throw new Error('Invalid randomization: ' + c)
       }
@@ -1293,6 +1297,11 @@
           randomize.push('t')
         }
         delete options.turkeyMode
+      } else if ('tournamentMode' in options) {
+        if (options.tournamentMode) {
+          randomize.push('n')
+        }
+        delete options.tournamentMode
       } else {
         const unknown = Object.getOwnPropertyNames(options).pop()
         throw new Error('Unknown options: ' + unknown)
@@ -1341,6 +1350,8 @@
         baseUrl = releaseBaseUrl
         args.push(options)
       }
+    } else {
+      args.push(options)
     }
     if (typeof(checksum) === 'number') {
       args.push(checksum.toString(16))

@@ -25,6 +25,7 @@ const optionsHelp = [
   '  "r" for relic locations (`--help relics`)',
   '  "m" for music',
   '  "t" for turkey mode',
+  '  "n" for tournament mode (disables spoilers)',
   '',
   'The default randomization mode is "'
     +  constants.defaultOptions
@@ -749,7 +750,11 @@ if ('inBin' in argv) {
     }
     // Print spoilers.
     if (argv.verbose >= 1) {
-      const text = util.formatInfo(info, argv.verbose)
+      let verbose = argv.verbose
+      if (options.tournamentMode) {
+        verbose = 1
+      }
+      const text = util.formatInfo(info, verbose)
       if (text.length) {
         console.log(text)
       }
