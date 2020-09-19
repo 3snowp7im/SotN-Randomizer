@@ -199,7 +199,7 @@
             data.writeShort(address, value)
           })
         }
-        if ('candle' in tile) {
+        if (util.candleTileFilter(tile)) {
           tile.entities.forEach(function(entity, index) {
             const zone = zones[tile.zones[index >>> 1]]
             const address = util.romOffset(zone, entity + 0x08)
@@ -379,10 +379,21 @@
         pushTile.apply(replacement, tiles)
       })
     })
+    // Guarantee a Stopwatch in Alchemy Lab, Marble Gallery, or Outer Wall.
+    const stopwach = util.itemFromName('Stopwatch', pool)
+    const stopwatchZone = shuffled(rng, [ZONE.NZ0, ZONE.NO0, ZONE.NO1]).pop()
+    const stopwatchTiles = collectTiles(items, function(tile) {
+      return util.candleTileFilter(tile)
+        && tile.zones.indexOf(stopwatchZone) >= 0
+    })
+    const stopwatchTile = shuffled(rng, stopwatchTiles).pop()
+    pushTile.call(stopwach, stopwatchTile)
     // Randomize the rest of the candles, except for Final Stage, which
     // doesn't have map tiles for all subweapons, so it must be ignored.
     const tileFilter = function(tile) {
-      return util.candleTileFilter(tile) && tile.zones[0] !== ZONE.ST0
+      return util.candleTileFilter(tile)
+        && tile.zones[0] !== ZONE.ST0
+        && tile !== stopwatchTile
     }
     const candleItems = items.filter(function(item) {
       return (specialItems.indexOf(item.id) === -1

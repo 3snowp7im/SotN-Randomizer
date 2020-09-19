@@ -85,7 +85,7 @@
   }
 
   function candleTileFilter(tile) {
-    return typeof(tile.candle) !== 'undefined'
+    return 'candle' in tile
   }
 
   function tankTileFilter(tile) {
