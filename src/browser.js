@@ -622,8 +622,8 @@
     elems.relicLocations.disabled = false
     elems.relicLocationsSet.disabled = false
     elems.relicLocationsArg.value = ''
-    elems.mode.disabled = false
     elems.turkeyMode.disabled = false
+    elems.tournamentMode.disabled = false
     elems.clear.classList.add('hidden')
     presetChange()
   }
@@ -857,8 +857,11 @@
     presetChange()
     if (options.tournamentMode) {
       elems.tournamentMode.checked = true
-      tournamentModeChange()
+    } else {
+      elems.tournamentMode.checked = false
     }
+    tournamentModeChange()
+    elems.tournamentMode.disabled = true
     let locations
     if (typeof(applied.relicLocations) === 'object') {
       locations = applied.relicLocations
