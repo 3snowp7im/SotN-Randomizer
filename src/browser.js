@@ -841,6 +841,10 @@
       elems.presetId.selectedIndex = 0
     }
     presetChange()
+    if (options.tournamentMode) {
+      elems.tournamentMode.checked = true
+      tournamentModeChange()
+    }
     let locations
     if (typeof(applied.relicLocations) === 'object') {
       locations = applied.relicLocations
