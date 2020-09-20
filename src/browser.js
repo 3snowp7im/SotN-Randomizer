@@ -10,7 +10,8 @@
   const relics = sotnRando.relics
 
   let info
-  let lastSeed
+  let currSeed
+  let currOptions
   let checksum
   let expectChecksum
   let haveChecksum
@@ -113,7 +114,7 @@
   }
 
   function resetCopy() {
-    if (elems.seed.value.length || (lastSeed && lastSeed.length)) {
+    if (elems.seed.value.length || (currSeed && currSeed.length)) {
       elems.copy.disabled = false
     } else {
       elems.copy.disabled = true
@@ -305,14 +306,12 @@
 
   function tournamentModeChange() {
     if (elems.tournamentMode.checked) {
-      elems.showSpoilers.checked = false
-      elems.showSpoilers.disabled = true
       elems.showRelics.checked = false
       elems.showRelics.disabled = true
       elems.showSolutions.checked = false
       elems.showSolutions.disabled = true
     } else {
-      elems.showSpoilers.disabled = false
+      elems.showRelics.disabled = false
     }
     localStorage.setItem('tournamentMode', elems.tournamentMode.checked)
   }
@@ -320,13 +319,16 @@
   function spoilersChange() {
     if (elems.showSpoilers.checked) {
       showSpoilers()
-      elems.showRelics.disabled = false
+      if (!elems.tournamentMode.checked) {
+        elems.showRelics.disabled = false
+      }
     } else {
       hideSpoilers()
       elems.showRelics.checked = false
       elems.showRelics.disabled = true
       elems.showSolutions.checked = false
       elems.showSolutions.disabled = true
+
     }
     localStorage.setItem('showSpoilers', elems.showSpoilers.checked)
   }
@@ -493,10 +495,11 @@
     if (elems.seed.value.length) {
       seed = elems.seed.value
     }
-    lastSeed = seed
+    currSeed = seed
     info[1]['Seed'] = seed
     // Get options.
     const options = getFormOptions()
+    currOptions = options
     const applied = util.Preset.options(options)
     // Place planned progression items.
     const removed = randomizeItems.placePlannedItems(applied)
@@ -518,7 +521,11 @@
         3,
         getUrl(),
       ).then(function(result) {
-        util.mergeInfo(info, result.info)
+        if (currSeed == result.seed
+            && util.optionsToString(result.options)
+            == util.optionsToString(currOptions)) {
+          util.mergeInfo(info, result.info)
+        }
         const rng = new Math.seedrandom(util.saltSeed(
           version,
           options,
@@ -539,6 +546,11 @@
       }).then(function(result) {
         check.apply(result.data)
         util.mergeInfo(info, result.info)
+        if (currSeed == result.seed
+            && util.optionsToString(result.options)
+            == util.optionsToString(currOptions)) {
+          util.mergeInfo(info, result.info)
+        }
         const rng = new Math.seedrandom(util.saltSeed(
           version,
           options,
@@ -621,7 +633,7 @@
   function copyHandler(event) {
     event.preventDefault()
     event.stopPropagation()
-    elems.seed.value = elems.seed.value || lastSeed || ''
+    elems.seed.value = elems.seed.value || currSeed || ''
     const url = util.optionsToUrl(
       version,
       getFormOptions(),
@@ -673,9 +685,11 @@
 
   function showSpoilers() {
     let verbosity
-    if (elems.showSolutions.checked) {
+    if (!(currOptions && currOptions.tournamentMode)
+        && elems.showSolutions.checked) {
       verbosity = 4
-    } else if (elems.showRelics.checked) {
+    } else if (!(currOptions && currOptions.tournamentMode)
+               && elems.showRelics.checked) {
       verbosity = 3
     } else {
       verbosity = 2
@@ -1005,8 +1019,8 @@
   loadOption('appendSeed', appendSeedChange, true)
   loadOption('showSolutions', showSolutionsChange, false)
   loadOption('showRelics', showRelicsChange, false)
-  loadOption('showSpoilers', spoilersChange, true)
   loadOption('tournamentMode', tournamentModeChange, false)
+  loadOption('showSpoilers', spoilersChange, true)
   setTimeout(function() {
     const els = document.getElementsByClassName('tooltip')
     Array.prototype.forEach.call(els, function(el) {

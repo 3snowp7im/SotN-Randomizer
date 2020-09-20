@@ -751,8 +751,8 @@ if ('inBin' in argv) {
     // Print spoilers.
     if (argv.verbose >= 1) {
       let verbose = argv.verbose
-      if (options.tournamentMode) {
-        verbose = 1
+      if (options.tournamentMode && argv.verbose >= 2) {
+        verbose = 2
       }
       const text = util.formatInfo(info, verbose)
       if (text.length) {

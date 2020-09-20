@@ -107,6 +107,8 @@ function randomizeWorker() {
                   done: true,
                   nonce: nonce + i,
                 })
+                result.seed = message.seed
+                result.options = message.options
                 this.postMessage(JSON.stringify(result))
                 break
               } catch (err) {
@@ -135,6 +137,8 @@ function randomizeWorker() {
           const rng = getRng(message)
           ctx.options = ctx.options || util.Preset.options(message.options)
           const result = randomizeItems(rng, message.items, ctx.options)
+          result.seed = message.seed
+          result.options = message.options
           result.action = 'items'
           this.postMessage(result)
           if ('unref' in this) {
