@@ -1457,7 +1457,7 @@
     }
   }
 
-  function setSeedText(data, seed, preset) {
+  function setSeedText(data, seed, preset, tournament) {
     const seedRange = {
       start: 0x04389c6c,
       length: 31,
@@ -1474,7 +1474,11 @@
     data.writeShort(0x0439312c, 0x78b4)
     data.writeShort(0x0439313c, 0x78d4)
     writeMenuText(data, seed, seedRange)
-    writeMenuText(data, preset || '', presetRange)
+    writeMenuText(
+      data,
+      (preset || '') + (tournament ? ' tournament' : ''),
+      presetRange
+    )
   }
 
   function saltSeed(version, options, seed, nonce) {
@@ -2977,6 +2981,7 @@
   function finalizeData(
     seed,
     preset,
+    tournament,
     file,
     data,
     checksum,
@@ -2999,6 +3004,7 @@
         action: constants.WORKER_ACTION.FINALIZE,
         seed: seed,
         preset: preset,
+        tournament: tournament,
         file: file,
         data: data,
         checksum: checksum,

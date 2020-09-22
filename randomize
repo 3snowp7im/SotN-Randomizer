@@ -443,6 +443,11 @@ const yargs = require('yargs')
     type: 'string',
     requiresArg: true,
   })
+  .option('tournament', {
+    alias: 't',
+    describe: 'Enable tournament mode',
+    type: 'boolean',
+  })
   .option('no-seed', {
     alias: 'n',
     describe: 'Disable seed generation',
@@ -637,6 +642,10 @@ if (typeof(seed) === 'undefined' && !argv.noSeed) {
 if (!options) {
   options = util.optionsFromString(constants.defaultOptions)
 }
+// Enable tournament mode if specified.
+if (argv.tournament) {
+  options.tournamentMode = true
+}
 // Set misc options.
 if ('verbose' in argv) {
   options.verbose = argv.verbose
@@ -650,7 +659,7 @@ let fd
 let size
 // Read bin file if provided.
 if ('inBin' in argv) {
-  eccEdcCalc = require('./ecc-edc-recalc-js')
+  eccEdcCalc = require('./src/ecc-edc-recalc-js')
   if (!('outBin' in argv)) {
     const stats = fs.statSync(argv.inBin)
     fd = fs.openSync(argv.inBin, 'r+')
@@ -730,7 +739,7 @@ if ('inBin' in argv) {
         }
         process.exit(1)
       }
-      util.setSeedText(check, seed, options.preset)
+      util.setSeedText(check, seed, options.preset, options.tournamentMode)
       checksum = check.sum()
       // Verify expected checksum matches actual checksum.
       if (haveChecksum && expectChecksum !== checksum) {

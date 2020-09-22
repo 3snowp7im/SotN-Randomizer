@@ -562,6 +562,7 @@
         return util.finalizeData(
           seed,
           options.preset,
+          options.tournamentMode,
           file,
           check,
           expectChecksum,
