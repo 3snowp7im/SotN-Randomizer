@@ -1070,16 +1070,18 @@
       target,
     )
     // Write spoilers.
-    const spoilers = []
-    enabledRelics.forEach(function(relic) {
-      const location = result.mapping[relic.ability]
-      spoilers.push(relic.name + ' at ' + location.name)
-    })
     const info = util.newInfo()
-    info[3]['Relic locations'] = spoilers
-    if (result.solutions) {
-      info[4]['Solutions'] = util.renderSolutions(result.solutions)
-      info[4]['Complexity'] = result.depth
+    if (!options.tournamentMode) {
+      const spoilers = []
+      enabledRelics.forEach(function(relic) {
+        const location = result.mapping[relic.ability]
+        spoilers.push(relic.name + ' at ' + location.name)
+      })
+      info[3]['Relic locations'] = spoilers
+      if (result.solutions) {
+        info[4]['Solutions'] = util.renderSolutions(result.solutions)
+        info[4]['Complexity'] = result.depth
+      }
     }
     return {
       mapping: result.mapping,

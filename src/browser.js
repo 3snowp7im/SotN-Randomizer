@@ -11,7 +11,6 @@
 
   let info
   let currSeed
-  let currOptions
   let checksum
   let expectChecksum
   let haveChecksum
@@ -499,7 +498,6 @@
     info[1]['Seed'] = seed
     // Get options.
     const options = getFormOptions()
-    currOptions = options
     const applied = util.Preset.options(options)
     // Place planned progression items.
     const removed = randomizeItems.placePlannedItems(applied)
@@ -521,11 +519,7 @@
         3,
         getUrl(),
       ).then(function(result) {
-        if (currSeed == result.seed
-            && util.optionsToString(result.options)
-            == util.optionsToString(currOptions)) {
-          util.mergeInfo(info, result.info)
-        }
+        util.mergeInfo(info, result.info)
         const rng = new Math.seedrandom(util.saltSeed(
           version,
           options,
@@ -546,11 +540,6 @@
       }).then(function(result) {
         check.apply(result.data)
         util.mergeInfo(info, result.info)
-        if (currSeed == result.seed
-            && util.optionsToString(result.options)
-            == util.optionsToString(currOptions)) {
-          util.mergeInfo(info, result.info)
-        }
         const rng = new Math.seedrandom(util.saltSeed(
           version,
           options,
@@ -686,11 +675,9 @@
 
   function showSpoilers() {
     let verbosity
-    if (!(currOptions && currOptions.tournamentMode)
-        && elems.showSolutions.checked) {
+    if (elems.showSolutions.checked) {
       verbosity = 4
-    } else if (!(currOptions && currOptions.tournamentMode)
-               && elems.showRelics.checked) {
+    } else if (elems.showRelics.checked) {
       verbosity = 3
     } else {
       verbosity = 2
