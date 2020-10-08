@@ -1,13 +1,13 @@
 importScripts(
-  '/constants.js',
-  '/errors.js',
-  '/extension.js',
-  '/items.js',
-  '/relics.js',
-  '/util.js',
+  '/src/constants.js',
+  '/src/errors.js',
+  '/src/extension.js',
+  '/src/items.js',
+  '/src/relics.js',
+  '/src/util.js',
   '/build/presets/casual.js',
   '/build/presets/safe.js',
-  '/randomize_relics.js',
+  '/src/randomize_relics.js',
 )
 
 const util = self.sotnRando.util
