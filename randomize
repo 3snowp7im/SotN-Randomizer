@@ -458,6 +458,13 @@ const yargs = require('yargs')
     alias: 'v',
     describe: 'Verbosity level',
     type: 'count',
+    default: undefined,
+  })
+  .option('quiet', {
+    alias: 'q',
+    describe: 'Suppress output',
+    conflicts: 'verbose',
+    type: 'boolean',
   })
   .option('compat', {
     type: 'string',
@@ -631,9 +638,13 @@ if (argv._[0]) {
 // Set options for --race.
 if (argv.race) {
   argv.url = ''
-  if (argv.verbose === 0) {
+  if (argv.verbose === undefined) {
     argv.verbose = 2
   }
+}
+// Suppress output if quiet argument specified.
+if (argv.quiet) {
+  argv.verbose = 0
 }
 // Create default options if none provided.
 if (typeof(seed) === 'undefined' && !argv.noSeed) {
@@ -748,7 +759,7 @@ if ('inBin' in argv) {
       }
     }
     // Show url if not provided as arg.
-    if ('url' in argv && !argv._[0]) {
+    if ('url' in argv && !argv._[0] && !argv.quiet) {
       console.log(util.optionsToUrl(
         version,
         options,
@@ -758,7 +769,7 @@ if ('inBin' in argv) {
       ))
     }
     // Print spoilers.
-    if (argv.verbose >= 1) {
+    if (argv.verbose > 0) {
       let verbose = argv.verbose
       if (options.tournamentMode && argv.verbose >= 2) {
         verbose = 2
