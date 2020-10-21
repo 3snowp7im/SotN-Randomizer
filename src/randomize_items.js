@@ -379,9 +379,16 @@
         pushTile.apply(replacement, tiles)
       })
     })
-    // Guarantee a Stopwatch in Alchemy Lab, Marble Gallery, or Outer Wall.
+    // Guarantee a Stopwatch in Alchemy Lab, Marble Gallery, Outer Wall,
+    // Colosseum, or Royal Chapel.
     const stopwach = util.itemFromName('Stopwatch', pool)
-    const stopwatchZone = shuffled(rng, [ZONE.NZ0, ZONE.NO0, ZONE.NO1]).pop()
+    const stopwatchZone = shuffled(rng, [
+      ZONE.ARE,
+      ZONE.DAI,
+      ZONE.NO0,
+      ZONE.NO1,
+      ZONE.NZ0,
+    ]).pop()
     const stopwatchTiles = collectTiles(items, function(tile) {
       return util.candleTileFilter(tile)
         && tile.zones.indexOf(stopwatchZone) >= 0
