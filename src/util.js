@@ -3201,6 +3201,7 @@
     bufToHex: bufToHex,
     numToHex: numToHex,
     checked: checked,
+    presetFromName: presetFromName,
     optionsFromString: optionsFromString,
     optionsToString: optionsToString,
     optionsFromUrl: optionsFromUrl,
