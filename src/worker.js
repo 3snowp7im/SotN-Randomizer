@@ -150,7 +150,12 @@ function randomizeWorker() {
           const array = new Uint8Array(message.file)
           const check = new util.checked(array)
           check.apply(message.data)
-          util.setSeedText(check, message.seed, message.preset)
+          util.setSeedText(
+            check,
+            message.seed,
+            message.preset,
+            message.tournament,
+          )
           const checksum = check.sum()
           if (message.checksum && message.checksum !== checksum) {
             throw new errors.VersionError()
