@@ -255,7 +255,7 @@ const relicsHelp = [
   '  r:B:L:y:LV-MP',
   '',
   'Relic locations extension can be specified with the letter "x". Extension',
-  'will allow progressione to be placed in locations that do not contain',
+  'will allow progression to be placed in locations that do not contain',
   'progression in the vanilla game.',
   '',
   'There are two extension modes:',
