@@ -995,6 +995,21 @@
     } else {
       relicLocations = util.presetFromName('safe').options().relicLocations
     }
+    // If only an extension is specified, inherit safe logic.
+    if (relicLocations.extension) {
+      let hasLocks = false
+      Object.getOwnPropertyNames(relicLocations).forEach(function(name) {
+        if (name !== 'extension' && !(/^[0-9]+(-[0-9]+)?$/).test(name)) {
+          hasLocks = true
+        }
+      })
+      if (!hasLocks) {
+        Object.assign(
+          relicLocations,
+          util.presetFromName('safe').options().relicLocations,
+        )
+      }
+    }
     const locksMap = locksFromLocations(relicLocations)
     const escapesMap = escapesFromLocations(relicLocations)
     // Get the goal and complexity target.
