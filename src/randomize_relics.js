@@ -158,7 +158,11 @@
       // The item data if this relic is actually a progression item.
       let item
       if ('itemId' in relic) {
-        const tileId = relic.itemId + constants.tileIdOffset
+        let itemId = relic.itemId
+        if (Array.isArray(itemId)) {
+          itemId = itemId[randIdx(rng, itemId)]
+        }
+        const tileId = itemId + constants.tileIdOffset
         item = util.itemFromTileId(items(), tileId)
       }
       // Get the location to place the relic in.
@@ -173,7 +177,7 @@
           } else {
             if ('tile' in location) {
               const tile = location.tile
-              writeTileId(data, tile.zones, tile.index, relic.itemId)
+              writeTileId(data, tile.zones, tile.index, item.id)
               const tileIndex = location.item.tiles.indexOf(tile)
               if (tileIndex !== -1) {
                 location.item.tiles.splice(tileIndex, 1)
@@ -811,20 +815,31 @@
     return solutions.reduce(lockDepth, 0)
   }
 
-  function collectAbilities(node, abilities, chain) {
-    abilities = abilities || []
-    chain = chain || new Set()
-    chain.add(node.item)
-    if (node.locks) {
-      node.locks.forEach(function(lock) {
-        Array.from(lock).forEach(function(node) {
-          collectAbilities(node, abilities, new Set(chain))
+  function collectAbilities(node) {
+    const locks = node.locks || []
+    return locks.reduce(function(abilities, lock) {
+      const nodes = Array.from(lock)
+      const items = nodes.map(function(item) {
+        return item.item
+      })
+      const chains = nodes.map(collectAbilities).reduce(
+        function(chains, chain) {
+          Array.prototype.push.apply(chains, chain)
+          return chains
+        },
+        []
+      )
+      if (chains.length === 0) {
+        chains.push(new Set())
+      }
+      chains.forEach(function(chain) {
+        items.forEach(function(item) {
+          chain.add(item)
         })
       })
-    } else {
-      abilities.push(chain)
-    }
-    return abilities
+      Array.prototype.push.apply(abilities, chains)
+      return abilities
+    }, [])
   }
 
   function canEscape(graph, ability, requirements) {
@@ -833,6 +848,12 @@
       return false
     }
     const abilities = collectAbilities(Array.from(solutions[0])[0])
+    if (abilities.length === 0) {
+      abilities.push(new Set())
+    }
+    abilities.forEach(function(chain) {
+      chain.add(Array.from(solutions[0])[0].item)
+    })
     return requirements.reduce(function(satisfied, requirement) {
       const lock = Array.from(requirement)
       return satisfied || abilities.every(function(abilities) {
@@ -918,7 +939,8 @@
       })
       // Ensure escape requirements are satisfied.
       escape.forEach(function(ability) {
-        if (!canEscape(graphed, ability, mapping[ability].escapes)) {
+        const location = mapping[ability]
+        if (!canEscape(graphed, ability, location.escapes)) {
           throw new errors.SoftlockError()
         }
       })
@@ -956,13 +978,13 @@
   function locksFromLocations(locations) {
     const map = {}
     Object.getOwnPropertyNames(locations).filter(function(location) {
-      return location !== 'extension'
+      return [
+        'extension', 'thrustSwordAbility', 'placed'
+      ].indexOf(location) === -1
     }).forEach(function(location) {
-      if (location !== 'placed') {
-        map[location] = locations[location].filter(function(lock) {
-          return lock[0] !== '+'
-        })
-      }
+      map[location] = locations[location].filter(function(lock) {
+        return lock[0] !== '+'
+      })
     })
     return map
   }
@@ -970,15 +992,15 @@
   function escapesFromLocations(locations) {
     const map = {}
     Object.getOwnPropertyNames(locations).filter(function(location) {
-      return location !== 'extension'
+      return [
+        'extension', 'thrustSwordAbility', 'placed'
+      ].indexOf(location) === -1
     }).forEach(function(location) {
-      if (location !== 'placed') {
-        map[location] = locations[location].filter(function(lock) {
-          return lock[0] === '+'
-        }).map(function(lock) {
-          return lock.slice(1)
-        })
-      }
+      map[location] = locations[location].filter(function(lock) {
+        return lock[0] === '+'
+      }).map(function(lock) {
+        return lock.slice(1)
+      })
     })
     return map
   }
@@ -1052,9 +1074,14 @@
       return item.id
     })
     locations = locations.filter(function(location) {
-      return removedIds.indexOf(location.itemId) === -1
+      return location.ability !== constants.RELIC.THRUST_SWORD
+        && removedIds.indexOf(location.itemId) === -1
     })
     enabledRelics = enabledRelics.filter(function(relic) {
+      if (!options.relicLocations.thrustSwordAbility
+          && relic.ability === constants.RELIC.THRUST_SWORD) {
+        return false;
+      }
       return removedIds.indexOf(relic.itemId) === -1
     })
     // Initialize location locks.

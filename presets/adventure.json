@@ -9,7 +9,7 @@
   "inherits": "safe",
   "relicLocationsExtension": "equipment",
   "complexityGoal": {
-    "min": 7,
+    "min": 9,
     "goals": [
       "Holy Glasses + Heart of Vlad + Tooth of Vlad + Rib of Vlad + Ring of Vlad + Eye of Vlad"
     ]

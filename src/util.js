@@ -232,7 +232,9 @@
         for (let y = 0; y < 16 * room.height; y++) {
           map[y] = Array(16 * room.width)
           for (let x = 0; x < 16 * room.width; x++) {
-            const index = zone.readUInt16LE(room.tiles + 0x2 * (16 * room.width * y + x))
+            const index = zone.readUInt16LE(
+              room.tiles + 0x2 * (16 * room.width * y + x)
+            )
             if (index) {
               map[y][x] = zone.readUInt32LE(room.defs + 0x20 * index)
             } else {
@@ -900,12 +902,15 @@
               return location.name
             }))
             let ext
+            let thrustSwordAbility
             let location
             let placing
             if (/^[0-9]+(-[0-9]+)?$/.test(arg)) {
               location = arg
             } else if (arg === 'x') {
               ext = true
+            } else if (arg === constants.RELIC.THRUST_SWORD) {
+              thrustSwordAbility = true
             } else {
               if (arg.startsWith('@')) {
                 placing = true
@@ -925,7 +930,9 @@
             if (typeof(relicLocations) !== 'object') {
               relicLocations = {}
             }
-            if (randomize[i] === ':') {
+            if (thrustSwordAbility) {
+              relicLocations.thrustSwordAbility = true
+            } else if (randomize[i] === ':') {
               start = ++i
               while (i < randomize.length
                      && [',', ':'].indexOf(randomize[i]) === -1) {
@@ -1232,6 +1239,9 @@
             }
             if (options.relicLocations.extension) {
               locks.push('x:' + options.relicLocations.extension)
+            }
+            if (options.relicLocations.thrustSwordAbility) {
+              locks.push(constants.RELIC.THRUST_SWORD)
             }
             const locations = relics.concat(extension)
             const self = this
@@ -2153,6 +2163,8 @@
     this.escapes = {}
     // The relic locations extension.
     this.extension = constants.EXTENSION.GUARDED
+    // Thrust sword ability.
+    this.thrustSword = false
     // The complexity goal.
     this.goal = undefined
     // Music randomization.
@@ -2251,6 +2263,9 @@
     }
     if ('relicLocations' in json) {
       builder.relicLocations(json.relicLocations)
+    }
+    if ('thrustSwordAbility' in json) {
+      builder.thrustSwordAbility(json.thrustSwordAbility)
     }
     if ('relicLocationsExtension' in json) {
       builder.relicLocationsExtension(json.relicLocationsExtension)
@@ -2389,9 +2404,19 @@
         if ('extension' in preset.relicLocations) {
           self.extension = preset.relicLocations.extension
         }
+        if ('thrustSwordAbility' in preset.relicLocations) {
+          self.thrustSword = preset.relicLocations.thrustSwordAbility
+        }
+        if ('placed' in preset.relicLocations) {
+          self.locations.placed = preset.relicLocations.placed
+        }
         const locations = Object.getOwnPropertyNames(preset.relicLocations)
         locations.filter(function(location) {
-          return location !== 'extension'
+          return [
+            'extension',
+            'thrustSwordAbility',
+            'placed'
+          ].indexOf(location) === -1
         }).forEach(function(location) {
           if ((/^[0-9]+(-[0-9]+)?$/).test(location)) {
             self.goal = preset.relicLocations[location].map(function(lock) {
@@ -2404,8 +2429,6 @@
             if (parts.length === 2) {
               self.target.max = parseInt(parts[1])
             }
-          } else if (location === 'placed') {
-            self.locations.placed = self.locations[location]
           } else {
             // Break the lock into access locks and escape requirements.
             const locks = self.locations[location] || []
@@ -2682,6 +2705,13 @@
     this.locations = enabled
   }
 
+  // Enable/disable thrust sword ability.
+  PresetBuilder.prototype.thrustSwordAbility =
+    function thrustSwordAbility(enabled) {
+      assert.equal(typeof(enabled), 'boolean')
+      this.thrustSword = enabled
+    }
+
   // Set complexity target.
   PresetBuilder.prototype.complexityGoal =
     function goal(complexityMin, complexityMax, goal) {
@@ -2833,6 +2863,9 @@
       if (self.extension) {
         relicLocations.extension = self.extension
       }
+      if (self.thrustSword) {
+        relicLocations.thrustSwordAbility = self.thrustSword
+      }
     }
     const music = self.music
     const turkey = self.turkey
@@ -2903,7 +2936,7 @@
         }
         worker.postMessage(JSON.stringify(message))
       }
-      promises[i] = new Promise(function(resolve) {
+      promises[i] = new Promise(function(resolve, reject) {
         addEventListener.call(worker, 'message', function(result) {
           if (self) {
             result = result.data

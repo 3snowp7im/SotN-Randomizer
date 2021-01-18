@@ -271,6 +271,15 @@ const relicsHelp = [
   '  r:x:guarded    Enables guarded extension mode.',
   '  r:x:equipment  Enables equipment extension mode.',
   '',
+  'Additionally there are items to provide abilities but do not have a',
+  'dedicated vanilla location.',
+  '  (' + constants.RELIC.THRUST_SWORD + ') Thrust Sword',
+  '',
+  'These ability items can be added to the relic placement logic by',
+  'specifying their ability letter:',
+  '  r:D:M:D-L  Enable Thrust Sword placement and have Form of Mist location',
+  '             require a Thrust Sword or Leapstone.',
+  '',
   'An optional complexity target can specify a set of abilities that are',
   'considered win conditions. A minimum and maximum complexity depth specify',
   'how many relics must be obtained in series to unlock a win condition:',
@@ -310,7 +319,7 @@ const presetHelp = [
 function presetMetaHelp(preset) {
   const options = preset.options()
   let locations = relics.filter(function(relic) {
-    return !relic.extension
+    return !relic.extension && relic.ability !== constants.RELIC.THRUST_SWORD
   })
   const extensions = []
   if ('extension' in options.relicLocations) {

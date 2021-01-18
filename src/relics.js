@@ -38,6 +38,8 @@
 
   function getItemSlots(item) {
     switch (item.type) {
+    case TYPE.WEAPON2:
+      return [ slots[SLOT.LEFT_HAND], slots[SLOT.RIGHT_HAND] ]
     case TYPE.HELMET:
       return [ slots[SLOT.HEAD] ]
     case TYPE.ARMOR:
@@ -824,6 +826,10 @@
       }],
     },
     replaceWithRelic: replaceHolyGlassesWithRelic,
+  }, {
+    name: 'Thrust Sword',
+    ability: RELIC.THRUST_SWORD,
+    itemId: [ 95, 98, 101, 103, 107 ],
   }]
 
   const exports = relics
