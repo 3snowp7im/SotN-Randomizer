@@ -905,15 +905,21 @@
     if (typeof(options.relicLocations) === 'object') {
       // This is a hacky way to get all possible relic location locks
       // serialized, without including the relic locations extension.
-      relicLocationsArg = util.optionsToString({
-        relicLocations: Object.apply({}, applied.relicLocations, {
+      const relicOptions = util.optionsFromString(util.optionsToString({
+        relicLocations: Object.assign({}, applied.relicLocations, {
           extension: constants.EXTENSION.EQUIPMENT,
         }),
       }).replace(new RegExp(':?' + util.optionsToString({
         relicLocations: {
           extension: constants.EXTENSION.EQUIPMENT,
         },
-      })), '')
+      }).slice(2)), ''))
+      // Restore original extension from URL.
+      if ('extension' in options.relicLocations) {
+        relicOptions.relicLocations.extension
+          = options.relicLocations.extension
+      }
+      relicLocationsArg = util.optionsToString(relicOptions)
     }
     elems.relicLocationsArg.value = relicLocationsArg
     elems.relicLocationsExtension.guarded.checked =
