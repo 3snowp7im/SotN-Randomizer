@@ -1020,15 +1020,17 @@
     // If only an extension is specified, inherit safe logic.
     if (relicLocations.extension) {
       let hasLocks = false
+      let extension = relicLocations.extension
       Object.getOwnPropertyNames(relicLocations).forEach(function(name) {
         if (name !== 'extension' && !(/^[0-9]+(-[0-9]+)?$/).test(name)) {
           hasLocks = true
         }
       })
       if (!hasLocks) {
-        Object.assign(
-          relicLocations,
+        relicLocations = Object.assign(
+          {},
           util.presetFromName('safe').options().relicLocations,
+          relicLocations,
         )
       }
     }
