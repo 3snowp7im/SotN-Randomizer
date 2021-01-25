@@ -843,7 +843,9 @@
   }
 
   function canEscape(graph, ability, requirements) {
-    const solutions = solve(graph, [new Set(ability)])
+    const set = new Set()
+    set.add(ability)
+    const solutions = solve(graph, [set])
     if (!solutions.length || !solutions[0].size) {
       return false
     }
