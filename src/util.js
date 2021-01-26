@@ -422,9 +422,20 @@
     let i = 0
     while (i < randomize.length) {
       let c = randomize[i++]
+      let negate = false
+      if (c === '~') {
+        if (randomize.length === i) {
+          throw new Error('Expected randomization argument to negate')
+        }
+        negate = true
+        c = randomize[i++]
+      }
       switch (c) {
       case 'p': {
         // Check for an argument.
+        if (negate) {
+          throw new Error('Cannot negate preset option')
+        }
         if (randomize[i] !== ':') {
           throw new Error('Expected argument')
         }
@@ -446,6 +457,10 @@
         break
       }
       case 'd': {
+        if (negate) {
+          options.enemyDrops = false
+          break
+        }
         let enemyDrops = options.enemyDrops || true
         // Check for an argument.
         if (randomize[i] === ':') {
@@ -549,6 +564,10 @@
         break
       }
       case 'e': {
+        if (negate) {
+          options.startingEquipment = false
+          break
+        }
         let startingEquipment = options.startingEquipment || true
         // Check for an argument.
         if (randomize[i] === ':') {
@@ -685,6 +704,10 @@
         break
       }
       case 'i': {
+        if (negate) {
+          options.itemLocations = false
+          break
+        }
         let itemLocations = options.itemLocations || true
         // Check for an argument.
         if (randomize[i] === ':') {
@@ -805,6 +828,10 @@
         break
       }
       case 'b': {
+        if (negate) {
+          options.prologueRewards = false
+          break
+        }
         let prologueRewards = options.prologueRewards || true
         // Check for an argument
         if (randomize[i] === ':') {
@@ -875,6 +902,10 @@
         break
       }
       case 'r': {
+        if (negate) {
+          options.relicLocations = false
+          break
+        }
         let relicLocations = options.relicLocations || true
         // Check for an argument.
         if (randomize[i] === ':') {
@@ -1019,14 +1050,26 @@
         break
       }
       case 'm': {
+        if (negate) {
+          options.music = false
+          break
+        }
         options.music = true
         break
       }
       case 't': {
+        if (negate) {
+          options.turkeyMode = false
+          break
+        }
         options.turkeyMode = true
         break
       }
       case 'n': {
+        if (negate) {
+          options.tournamentMode = false
+          break
+        }
         options.tournamentMode = true
         break
       }
