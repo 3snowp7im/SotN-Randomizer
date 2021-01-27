@@ -159,6 +159,7 @@
       "Jewel of Open + Gravity Boots + Form of Mist",
       "Jewel of Open + Gravity Boots + Thrust Sword",
       "Jewel of Open + Form of Mist + Power of Mist",
+      "Jewel of Open + Soul of Wolf + Skill of Wolf",
       "Jewel of Open + Soul of Wolf + Power of Wolf"
     ],
     "comment": "Access must also give at least Leap Stone",
@@ -237,9 +238,11 @@
     "comment": "Requires Jewel of Open and some skill",
     "locks": [
       "Jewel of Open + Soul of Bat",
-      "Jewel of Open + Form of Mist + Power of Mist",
       "Jewel of Open + Leap Stone + Spike Breaker",
-      "Jewel of Open + Soul of Wolf + Power of Wolf + Gravity Boots + Spike Breaker"
+      "Jewel of Open + Form of Mist + Power of Mist",
+      "Jewel of Open + Gravity Boots + Form of Mist + Spike Breaker",
+      "Jewel of Open + Gravity Boots + Soul of Wolf + Spike Breaker",
+      "Jewel of Open + Gravity Boots + Thrust Sword + Spike Breaker"
     ],
     "comment": "Access must also give at least Leap Stone",
     "escapeRequires": [
@@ -295,7 +298,11 @@
     "locks": [
       "Jewel of Open + Leap Stone",
       "Jewel of Open + Soul of Bat",
+      "Jewel of Open + Gravity Boots + Soul of Wolf",
+      "Jewel of Open + Gravity Boots + Form of Mist",
+      "Jewel of Open + Gravity Boots + Thrust Sword",
       "Jewel of Open + Form of Mist + Power of Mist",
+      "Jewel of Open + Soul of Wolf + Skill of Wolf",
       "Jewel of Open + Soul of Wolf + Power of Wolf"
     ],
     "comment": "Access to Mormegil must also give at least Leap Stone",
