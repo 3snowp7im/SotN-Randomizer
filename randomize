@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-
+'use strict'
 const fs = require('fs')
 const path = require('path')
 const os = require('os')
@@ -271,7 +271,7 @@ const relicsHelp = [
   '  r:x:guarded    Enables guarded extension mode.',
   '  r:x:equipment  Enables equipment extension mode.',
   '',
-  'Additionally there are items to provide abilities but do not have a',
+  'Additionally there are items to provide abilities that do not have a',
   'dedicated vanilla location.',
   '  (' + constants.RELIC.THRUST_SWORD + ') Thrust Sword',
   '',
@@ -729,7 +729,7 @@ if (argv.tournament) {
 if ('verbose' in argv) {
   options.verbose = argv.verbose
 }
-info = util.newInfo()
+const info = util.newInfo()
 // Add seed to log info if not provided through command line.
 if (!argv.noSeed && (!('url' in argv) || argv._[0])) {
   info[1]['Seed'] = seed
