@@ -36,20 +36,6 @@
     return util
   }
 
-  function getItemSlots(item) {
-    switch (item.type) {
-    case TYPE.WEAPON2:
-      return [ slots[SLOT.LEFT_HAND], slots[SLOT.RIGHT_HAND] ]
-    case TYPE.HELMET:
-      return [ slots[SLOT.HEAD] ]
-    case TYPE.ARMOR:
-      return [ slots[SLOT.BODY] ]
-    case TYPE.ACCESSORY:
-      return [ slots[SLOT.OTHER], slots[SLOT.OTHER2] ]
-      break
-    }
-  }
-
   function replaceShopRelicWithRelic(data, jewelOfOpen, relic) {
     const shopRelicNameAddress = 0x047d5650
     const shopRelicIdAddress = 0x047dbde0
@@ -77,7 +63,7 @@
     const id = item.id
     const type = 0x02
     const zone = constants.zones[constants.ZONE.LIB]
-    const slots = getItemSlots(item)
+    const slots = util().itemSlots(item)
     // Write item type.
     data.writeChar(util().romOffset(zone, 0x134c), type)
     // Write item id.
@@ -167,7 +153,7 @@
     let offset
     const id = item.id
     const zone = constants.zones[ZONE.RNZ1]
-    const slots = getItemSlots(item)
+    const slots = util().itemSlots(item)
     // Patch instructions that load a relic.
     data.writeWord(
       relic.erase.instructions[0].addresses[0],
@@ -230,78 +216,6 @@
     // Return.
     offset = data.writeWord(offset, 0x0806b21a) // j 0x801ac868
     offset = data.writeWord(offset, 0x00000000) // nop
-  }
-
-  function replaceVladRelicWithItem(opts) {
-    const boss = constants.zones[opts.boss]
-    return function(data, relic, item, index) {
-      let offset
-      const id = item.id
-      const zone = constants.zones[relic.entity.zones[0]]
-      const slots = getItemSlots(item)
-      // Patch item table.
-      offset = util().romOffset(zone, zone.items + 0x02 * index)
-      data.writeShort(offset, id + tileIdOffset)
-      // Patch entities table.
-      relic.entity.entities.forEach(function(addr) {
-        if ('asItem' in relic) {
-          if ('x' in relic.asItem) {
-            offset = util().romOffset(zone, addr + 0x00)
-            data.writeShort(offset, relic.asItem.x)
-          }
-          if ('y' in relic.asItem) {
-            offset = util().romOffset(zone, addr + 0x02)
-            data.writeShort(offset, relic.asItem.y)
-          }
-        }
-        offset = util().romOffset(zone, addr + 0x04)
-        data.writeShort(offset, 0x000c)
-        offset = util().romOffset(zone, addr + 0x08)
-        data.writeShort(offset, index)
-      })
-      // Patch instructions that load a relic.
-      data.writeWord(
-        relic.erase.instructions[0].addresses[0],
-        relic.erase.instructions[0].instruction,
-      )
-      // Patch boss reward.
-      data.writeShort(util().romOffset(boss, boss.rewards), id + tileIdOffset)
-      // Entry point.
-      offset = util().romOffset(zone, opts.entry)
-      //                                          // j inj
-      offset = data.writeWord(offset, 0x08060000 + (opts.inj >> 2))
-      offset = data.writeWord(offset, 0x00041400) // sll v0, a0, 10
-      // Zero tile function if item is in inventory.
-      offset = util().romOffset(zone, opts.inj)
-      //                                          // ori t1, r0, id
-      offset = data.writeWord(offset, 0x34090000 + id + equipIdOffset)
-      slots.forEach(function(slot, index) {
-        //                                          // lui t0, 0x8009
-        offset = data.writeWord(offset, 0x3c080000 + (slot >>> 16))
-        //                                          // lbu t0, slot (t0)
-        offset = data.writeWord(offset, 0x91080000 + (slot & 0xffff))
-        offset = data.writeWord(offset, 0x00000000) // nop
-        const next = 5 + 5 * (slots.length - index - 1)
-        //                                          // beq t0, t1, pc + next
-        offset = data.writeWord(offset, 0x11090000 + next)
-        offset = data.writeWord(offset, 0x00000000) // nop
-      })
-      // Inventory check.
-      offset = data.writeWord(offset, 0x3c088009) // lui t0, 0x8009
-      //                                          // lbu t0, 0x798a + id (v0)
-      offset = data.writeWord(offset, 0x91080000 + id + invOffset)
-      offset = data.writeWord(offset, 0x00000000) // nop
-      offset = data.writeWord(offset, 0x11000004) // beq t0, r0, pc + 0x14
-      offset = data.writeWord(offset, 0x3409000f) // ori t1, r0, 0x000f
-      offset = data.writeWord(offset, 0x3c088018) // lui t0, 0x8018
-      relic.entity.entities.forEach(function(addr) {
-        //                                        // sh t1, entity + 4 (t0)
-        offset = data.writeWord(offset, 0xa5090000 + addr + 0x04)
-      })
-      // Return.
-      offset = data.writeWord(offset, 0x03e00008) // jr ra
-      offset = data.writeWord(offset, 0x00000000) // nop
-    }
   }
 
   function replaceGoldRingWithRelic(data, item, relic) {
@@ -367,6 +281,12 @@
       offset = util().romOffset(zone, addr + 0x08)
       data.writeShort(offset, relic.relicId)
     })
+  }
+
+  function replaceBossRelicWithItem(opts) {
+    return function(data, relic, item, index) {
+      util().replaceBossRelicWithItem(opts)(data, relic, item, index)
+    }
   }
 
   const relics = [{
@@ -666,7 +586,7 @@
         instruction: 0x34020000,
       }],
     },
-    replaceWithItem: replaceVladRelicWithItem({
+    replaceWithItem: replaceBossRelicWithItem({
       boss:   ZONE.RBO3,
       entry:  0x034950,
       inj:    0x047900,
@@ -692,7 +612,7 @@
         instruction: 0x34020000,
       }],
     },
-    replaceWithItem: replaceVladRelicWithItem({
+    replaceWithItem: replaceBossRelicWithItem({
       boss:   ZONE.RBO4,
       entry:  0x029fc0,
       inj:    0x037500,
@@ -718,7 +638,7 @@
         instruction: 0x34020000,
       }],
     },
-    replaceWithItem: replaceVladRelicWithItem({
+    replaceWithItem: replaceBossRelicWithItem({
       boss:   ZONE.RBO7,
       entry:  0x037014,
       inj:    0x04bf00,
@@ -773,7 +693,7 @@
         instruction: 0x34020000,
       }],
     },
-    replaceWithItem: replaceVladRelicWithItem({
+    replaceWithItem: replaceBossRelicWithItem({
       boss:   ZONE.RBO2,
       entry:  0x01af18,
       inj:    0x02a000,

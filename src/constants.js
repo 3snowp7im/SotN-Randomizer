@@ -472,6 +472,7 @@
     MORMEGIL:                    'Mormegil',
     DARK_BLADE:                  'Dark Blade',
     RING_OF_ARCANA:              'Ring of Arcana',
+    TRIO:                        'Trio',
     HOLY_MAIL:                   'Holy Mail',
     JEWEL_SWORD:                 'Jewel Sword',
     BASILARD:                    'Basilard',

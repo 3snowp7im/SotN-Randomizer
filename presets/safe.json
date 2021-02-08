@@ -47,6 +47,14 @@
       "Holy Glasses + Form of Mist + Power of Mist"
     ]
   }, {
+    "location": "Trio",
+    "comment": "In second castle",
+    "locks": [
+      "Holy Glasses + Soul of Bat",
+      "Holy Glasses + Gravity Boots + Leap Stone",
+      "Holy Glasses + Form of Mist + Power of Mist"
+    ]
+  }, {
     "location": "Holy Mail",
     "comment": "Requires flight",
     "locks": [

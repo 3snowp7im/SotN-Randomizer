@@ -273,8 +273,8 @@
       }
     })
     // If a zone has an item removed, it leaks information that a progression
-    // item has been randomized to relic location in that zone. To prevent this
-    // leak, remove at most 3 items from every zone.
+    // item has been randomized to relic a location in that zone. To prevent
+    // this leak, remove at most 3 items from every zone.
     constants.zones.filter(function(zone) {
       return [
         constants.ZONE.ST0,

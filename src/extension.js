@@ -10,6 +10,52 @@
   const EXTENSION = constants.EXTENSION
   const LOCATION = constants.LOCATION
 
+  function util() {
+    let util
+    if (self) {
+      util = self.sotnRando.util
+    } else {
+      util = require('./util')
+    }
+    return util
+  }
+
+  function replaceTrioWithRelic(data, trio, relic) {
+    let offset
+    // Boss zone patches.
+    const boss = constants.zones[constants.ZONE.RBO0]
+    // Patch rewards.
+    offset = util().romOffset(
+      boss,
+      boss.rewards + 0x02 * trio.reward.index,
+    )
+    data.writeShort(offset, relic.relicId)
+    // Remove the condition for writing an item tile.
+    offset = util().romOffset(boss, 0x026088)
+    offset = data.writeWord(offset, 0x34020000) // ori v0, r0, 0x0000
+    // Regular zone patches.
+    const zone = constants.zones[constants.ZONE.RARE]
+    // Replace entities.
+    trio.entity.entities.forEach(function(entity) {
+      let offset
+      offset = util().romOffset(zone, entity + 0x04)
+      offset = data.writeShort(offset, 0x000b)
+      offset = util().romOffset(zone, entity + 0x08)
+      offset = data.writeShort(offset, relic.relicId)
+    })
+  }
+
+  function replaceBossRelicWithItem(opts) {
+    return function(data, relic, item, index) {
+      util().replaceBossRelicWithItem(opts)(data, relic, item, index)
+      const zone = constants.zones[relic.entity.zones[0]]
+      relic.entity.entities.forEach(function(addr) {
+        offset = util().romOffset(zone, addr + 0x06)
+        data.writeShort(offset, 0x0010)
+      })
+    }
+  }
+
   const locations = [{
     name: LOCATION.CRYSTAL_CLOAK,
     extension: EXTENSION.GUARDED,
@@ -50,6 +96,32 @@
     tileIndex: 0,
     asRelic: {
       y: 0x0050,
+    },
+  }, {
+    name: LOCATION.TRIO,
+    extension: EXTENSION.GUARDED,
+    entity: {
+      zones: [ ZONE.RARE ],
+      entities: [ 0x23ba, 0x293c ],
+    },
+    reward: {
+      zone: ZONE.RBO0,
+      index: 0x02,
+    },
+    erase: {
+      instructions: [{
+        addresses: [ 0x06487bd4 ],
+        instruction: 0x34020000,
+      }],
+    },
+    replaceWithRelic: replaceTrioWithRelic,
+    replaceWithItem: replaceBossRelicWithItem({
+      boss: ZONE.RBO0,
+      entry: 0x026e64,
+      inj: 0x038a00,
+    }),
+    asItem: {
+      y: 0x00d9,
     },
   }, {
     name: LOCATION.JEWEL_SWORD,

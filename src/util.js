@@ -144,6 +144,26 @@
     })[0]
   }
 
+  function itemSlots(item) {
+    switch (item.type) {
+    case constants.TYPE.WEAPON2:
+      return [
+        constants.slots[constants.SLOT.LEFT_HAND],
+        constants.slots[constants.SLOT.RIGHT_HAND],
+      ]
+    case constants.TYPE.HELMET:
+      return [ constants.slots[constants.SLOT.HEAD] ]
+    case constants.TYPE.ARMOR:
+      return [ constants.slots[constants.SLOT.BODY] ]
+    case constants.TYPE.ACCESSORY:
+      return [
+        constants.slots[constants.SLOT.OTHER],
+        constants.slots[constants.SLOT.OTHER2],
+      ]
+      break
+    }
+  }
+
   function tileValue(item, tile) {
     if (!tile) {
       tile = {}
@@ -178,6 +198,87 @@
       }
     }
     return id
+  }
+
+  function replaceBossRelicWithItem(opts) {
+    const boss = constants.zones[opts.boss]
+    return function(data, relic, item, index) {
+      let offset
+      const id = item.id
+      const zone = constants.zones[relic.entity.zones[0]]
+      const slots = itemSlots(item)
+      // Patch item table.
+      offset = romOffset(zone, zone.items + 0x02 * index)
+      data.writeShort(offset, id + constants.tileIdOffset)
+      // Patch entities table.
+      relic.entity.entities.forEach(function(addr) {
+        if ('asItem' in relic) {
+          if ('x' in relic.asItem) {
+            offset = romOffset(zone, addr + 0x00)
+            data.writeShort(offset, relic.asItem.x)
+          }
+          if ('y' in relic.asItem) {
+            offset = romOffset(zone, addr + 0x02)
+            data.writeShort(offset, relic.asItem.y)
+          }
+        }
+        offset = romOffset(zone, addr + 0x04)
+        data.writeShort(offset, 0x000c)
+        offset = romOffset(zone, addr + 0x08)
+        data.writeShort(offset, index)
+      })
+      // Patch instructions that load a relic.
+      data.writeWord(
+        relic.erase.instructions[0].addresses[0],
+        relic.erase.instructions[0].instruction,
+      )
+      // Patch boss reward.
+      data.writeShort(
+        romOffset(boss, boss.rewards),
+        id + constants.tileIdOffset,
+      )
+      // Entry point.
+      offset = romOffset(zone, opts.entry)
+      //                                          // j inj
+      offset = data.writeWord(offset, 0x08060000 + (opts.inj >> 2))
+      offset = data.writeWord(offset, 0x00041400) // sll v0, a0, 10
+      // Zero tile function if item is in inventory.
+      offset = romOffset(zone, opts.inj)
+      //                                          // ori t1, r0, id
+      offset = data.writeWord(
+        offset,
+        0x34090000 + id + constants.equipIdOffset
+      )
+      slots.forEach(function(slot, index) {
+        //                                          // lui t0, 0x8009
+        offset = data.writeWord(offset, 0x3c080000 + (slot >>> 16))
+        //                                          // lbu t0, slot (t0)
+        offset = data.writeWord(offset, 0x91080000 + (slot & 0xffff))
+        offset = data.writeWord(offset, 0x00000000) // nop
+        const next = 5 + 5 * (slots.length - index - 1)
+        //                                          // beq t0, t1, pc + next
+        offset = data.writeWord(offset, 0x11090000 + next)
+        offset = data.writeWord(offset, 0x00000000) // nop
+      })
+      // Inventory check.
+      offset = data.writeWord(offset, 0x3c088009) // lui t0, 0x8009
+      //                                          // lbu t0, 0x798a + id (v0)
+      offset = data.writeWord(
+        offset,
+        0x91080000 + id + constants.equipmentInvIdOffset,
+      )
+      offset = data.writeWord(offset, 0x00000000) // nop
+      offset = data.writeWord(offset, 0x11000004) // beq t0, r0, pc + 0x14
+      offset = data.writeWord(offset, 0x3409000f) // ori t1, r0, 0x000f
+      offset = data.writeWord(offset, 0x3c088018) // lui t0, 0x8018
+      relic.entity.entities.forEach(function(addr) {
+        //                                        // sh t1, entity + 4 (t0)
+        offset = data.writeWord(offset, 0xa5090000 + addr + 0x04)
+      })
+      // Return.
+      offset = data.writeWord(offset, 0x03e00008) // jr ra
+      offset = data.writeWord(offset, 0x00000000) // nop
+    }
   }
 
   function getRooms(zone) {
@@ -3272,8 +3373,10 @@
     tileIdOffsetFilter: tileIdOffsetFilter,
     itemFromName: itemFromName,
     itemFromTileId: itemFromTileId,
+    itemSlots: itemSlots,
     tileValue: tileValue,
     tileData: tileData,
+    replaceBossRelicWithItem: replaceBossRelicWithItem,
     entityData: entityData,
     romOffset: romOffset,
     bufToHex: bufToHex,
