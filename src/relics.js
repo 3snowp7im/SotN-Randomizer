@@ -61,14 +61,26 @@
   function replaceShopRelicWithItem(data, jewelOfOpen, item) {
     let offset
     const id = item.id
-    const type = 0x02
     const zone = constants.zones[constants.ZONE.LIB]
     const slots = util().itemSlots(item)
     // Write item type.
+    let type
+    switch (item.type) {
+    case constants.TYPE.HELMET:
+    case constants.TYPE.ARMOR:
+    case constants.TYPE.CLOAK:
+    case constants.TYPE.ACCESSORY:
+      type = 0x02
+      break
+    default:
+      type = 0x00
+      break
+    }
     data.writeChar(util().romOffset(zone, 0x134c), type)
     // Write item id.
-    data.writeShort(util().romOffset(zone, 0x134e), id + equipIdOffset)
-    data.writeShort(util().romOffset(zone, 0x14d4), id + equipIdOffset)
+    const tileValue = util().tileValue(item, {shop: true})
+    data.writeShort(util().romOffset(zone, 0x134e), tileValue)
+    data.writeShort(util().romOffset(zone, 0x14d4), tileValue)
     // Entry point.
     offset = util().romOffset(zone, 0x032b08)
     offset = data.writeWord(offset, 0x08075180) // j 0x801d4600
