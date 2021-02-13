@@ -700,14 +700,14 @@
   }
 
   function removeCircular(item, visited) {
-    visited = visited || new Set()
-    if (!visited.has(item.item)) {
-      visited.add(item.item)
+    visited = visited || []
+    if (visited.indexOf(item.item) === -1) {
+      visited.push(item.item)
       if (item.locks.length) {
         const locks = item.locks.reduce(function(locks, lock) {
           const newLock = new Set()
           for (let item of lock) {
-            item = removeCircular(item, new Set(visited))
+            item = removeCircular(item, visited.slice())
             if (item) {
               newLock.add(item)
             } else {
