@@ -458,6 +458,12 @@ const yargs = require('yargs')
     requiresArg: true,
     conflicts: ['preset'],
   })
+  .option('complexity', {
+    alias: 'c',
+    describe: 'Shortcut to adjust seed complexity',
+    type: 'number',
+    requiresArg: true,
+  })
   .option('tournament', {
     alias: 't',
     describe: 'Enable tournament mode',
@@ -720,6 +726,47 @@ if (typeof(seed) === 'undefined' && !argv.noSeed) {
 }
 if (!options) {
   options = util.optionsFromString(constants.defaultOptions)
+}
+// Check for complexity setting.
+if ('complexity' in argv) {
+  let applied = options
+  // Check for preset.
+  if ('preset' in applied) {
+    applied = util.Preset.options(applied)
+  } else if ('relicLocations' in applied) {
+    applied.relicLocations = true
+  }
+  if (typeof applied.relicLocations !== 'object') {
+    if (applied.relicLocations) {
+      // Inherit safe relic locations.
+      const logic = util.presetFromName('safe').options().relicLocations
+      applied.relicLocations = logic
+    } else {
+      yargs.showHelp()
+      console.error('\nRelic location randomization must be enabled to set ' +
+                    'complexity')
+      process.exit(1)
+    }
+  }
+  // Get seed goals.
+  let complexity = Object.getOwnPropertyNames(applied.relicLocations).filter(
+    function(key) {
+      return /^[0-9]+$/.test(key)
+    }
+  )
+  if (complexity.length) {
+    complexity = complexity.pop()
+    if (parseInt(complexity) !== argv.complexity) {
+      const goals = applied.relicLocations[complexity]
+      delete applied.relicLocations[complexity]
+      applied.relicLocations[argv.complexity] = goals
+      options = applied
+    }
+  } else {
+    yargs.showHelp()
+    console.error('\nCompletion goals must be preset to set complexity')
+    process.exit(1)
+  }
 }
 // Enable tournament mode if specified.
 if (argv.tournament) {
