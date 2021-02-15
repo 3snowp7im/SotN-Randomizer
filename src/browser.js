@@ -120,6 +120,22 @@
     }
   }
 
+  function outputChange(event) {
+    if (elems.output.ppf.checked) {
+      elems.target.classList.add('hide')
+      localStorage.setItem('output', 'ppf')
+      elems.randomize.disabled = false
+    } else {
+      elems.target.classList.remove('hide')
+      elems.target.classList.remove('hidden')
+      localStorage.setItem('output', 'bin')
+      elems.randomize.disabled = true
+    }
+    if (event) {
+      elems.target.classList.add('animate')
+    }
+  }
+
   function seedChange() {
     disableDownload()
     elems.copy.disabled = true
@@ -501,9 +517,7 @@
     const applied = util.Preset.options(options)
     // Place planned progression items.
     const removed = randomizeItems.placePlannedItems(applied)
-    const reader = new FileReader()
-    // Read file.
-    reader.addEventListener('load', function() {
+    function randomize() {
       const check = new util.checked(this.result)
       // Save handle to file data.
       const file = this.result
@@ -566,13 +580,19 @@
         const url = URL.createObjectURL(new Blob([result.file], {
           type: 'application/octet-binary',
         }))
+        let fileName
+        if (elems.output.ppf.checked) {
+          fileName = 'SotN-Randomizer.ppf'
+        } else {
+          fileName = selectedFile.name
+        }
         if (elems.appendSeed.checked) {
           elems.download.download = randomizedFilename(
-            selectedFile.name,
+            fileName,
             seed,
           )
         } else {
-          elems.download.download = selectedFile.name
+          elems.download.download = fileName
         }
         elems.download.href = url
         elems.download.click()
@@ -589,8 +609,14 @@
         // Reset global items list.
         sotnRando.items = cloneItems(items)
       })
-    })
-    reader.readAsArrayBuffer(selectedFile)
+    }
+    if (elems.output.ppf.checked) {
+      randomize()
+    } else {
+      const reader = new FileReader()
+      reader.addEventListener('load', randomize)
+      reader.readAsArrayBuffer(selectedFile)
+    }
   }
 
   function clearHandler(event) {
@@ -699,6 +725,10 @@
   body.addEventListener('dragleave', dragLeaveListener)
   body.addEventListener('drop', dropListener)
   const elems = {
+    output: {
+      ppf: document.getElementById('output-ppf'),
+      bin: document.getElementById('output-bin'),
+    },
     target: document.getElementById('target'),
     status: document.getElementById('status'),
     file: document.getElementById('file'),
@@ -748,6 +778,8 @@
     older: document.getElementById('older'),
   }
   resetState()
+  elems.output.ppf.addEventListener('change', outputChange)
+  elems.output.bin.addEventListener('change', outputChange)
   elems.file.addEventListener('change', fileChange)
   elems.form.addEventListener('submit', submitListener)
   elems.seed.addEventListener('change', seedChange)
@@ -1012,6 +1044,13 @@
       )
     })
   }
+  const output = localStorage.getItem('output')
+  if (output === 'ppf') {
+    elems.output.ppf.checked = true
+  } else {
+    elems.output.bin.checked = true
+  }
+  outputChange()
   loadOption('theme', themeChange, 'menu')
   loadOption('appendSeed', appendSeedChange, true)
   loadOption('showSolutions', showSolutionsChange, false)

@@ -24,11 +24,34 @@
           <img height="16" width="16"
                src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/twitch.svg"></a>
       </div>
-      <form id="form" class="pure-g">
-        <div id="target" class="pure-u-1">
-          <span id="status"></span>
-          <input id="file" type="file" accept=".bin,.iso">
-        </div>
+      <form id="form" class="pure-u-1">
+        <fieldset id="output" class="pure-u-1">
+          <legend>Output</legend>
+          <div class="pure-u-2-24">
+            <input id="output-bin"
+                   name="output"
+                   type="radio"
+                   value="bin">
+            <label for="output-bin">.bin</label>
+          </div>
+          <div class="pure-u-2-24">
+            <input id="output-ppf"
+                   name="output"
+                   type="radio"
+                   value="ppf">
+            <label for="output-ppf">.ppf</label>
+          </div>
+          <div id="target-container" class="pure-u-1">
+            <div>
+              <div id="target" class="hidden">
+                <div>
+                  <span id="status"></span>
+                  <input id="file" type="file" accept=".bin,.iso">
+                </div>
+              </div>
+            </div>
+          </div>
+        </fieldset>
         <div class="pure-u-14-24">
           <fieldset>
             <legend>Randomizations</legend>
@@ -225,7 +248,7 @@
             </div>
           </fieldset>
         </div>
-        <div class="pure-u-10-24">
+        <div class="pure-u-9-24">
           <div id="spoilers-container" class="hide" style="display: none">
             <textarea id="spoilers" rows="8" cols="32"></textarea>
           </div>
@@ -272,6 +295,8 @@
       <h2><a name="links">Links</a></h2>
       <ul>
         <li><a href="/faq">FAQ</a></li>
+        <li><a href="https://ppf.sotn.io">PPF Patcher
+            [Browser version]</a></li>
         <li><a href="https://github.com/TalicZealot/SotN-Relic-Tracker">Relic
             Tracker [Lua version]</a> (thanks TalicZealot)</li>
         <li><a href="https://discord.gg/wGMdDRG">The Long Library</a>, a SotN
@@ -286,6 +311,10 @@
       </p>
       <hr>
       <h2><a name="changelog">Changelog</a></h2>
+      <h3><time>February 15, 2021</time></h3>
+      <ul>
+        <li>Add PPF output option.</li>
+      </ul>
       <h3><time>February 7, 2021</time></h3>
       <ul>
         <li>Add Trio as a possible relic location in Guarded and Equipment extensions.</li>

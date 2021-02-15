@@ -409,10 +409,12 @@ const yargs = require('yargs')
     type: 'string',
     requiresArg: true,
   })
-  .option('out-bin', {
+  .option('out', {
     alias: 'o',
-    describe: 'Path to write randomized .bin file',
-    implies: ['in-bin'],
+    describe: [
+      'If used with `in-bin` option, path to write randomized .bin file, ',
+      'otherwise, path to write PPF file',
+    ].join(''),
     type: 'string',
     requiresArg: true,
   })
@@ -786,7 +788,7 @@ let size
 // Read bin file if provided.
 if ('inBin' in argv) {
   eccEdcCalc = require('./src/ecc-edc-recalc-js')
-  if (!('outBin' in argv)) {
+  if (!('out' in argv)) {
     const stats = fs.statSync(argv.inBin)
     fd = fs.openSync(argv.inBin, 'r+')
     size = stats.size
@@ -895,12 +897,22 @@ if ('inBin' in argv) {
       }
     }
     if (!argv.noSeed) {
-      // Read input file if this is not an in-place randomization.
-      if ('outBin' in argv) {
-        fd = fs.readFileSync(argv.inBin)
-        size = fd.length
-        const writer = new util.checked(fd)
-        writer.apply(check)
+      if ('out' in argv) {
+        if ('inBin' in argv) {
+          // Read input file if this is not an in-place randomization.
+          fd = fs.readFileSync(argv.inBin)
+          size = fd.length
+          const writer = new util.checked(fd)
+          writer.apply(check)
+        } else {
+          // Otherwise, write patch file.
+          const patch = check.toPatch(
+            seed,
+            options.preset,
+            options.tournamentMode
+          )
+          fs.writeFileSync(argv.out, patch)
+        }
       }
       // Write error detection codes.
       if (fd) {
@@ -908,7 +920,7 @@ if ('inBin' in argv) {
       }
       // Write randomized bin.
       if (typeof(fd) === 'object') {
-        fs.writeFileSync(argv.outBin, fd)
+        fs.writeFileSync(argv.out, fd)
       }
     }
   } finally {

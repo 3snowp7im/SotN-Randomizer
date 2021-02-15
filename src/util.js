@@ -451,7 +451,10 @@
         fs.writeSync(this.file, buf, 0, 1, address)
       }
     }
-    this.writes[address] = val & 0xff
+    this.writes[address] = {
+      len: 1,
+      val: val & 0xff,
+    }
     return address + 1
   }
 
@@ -471,8 +474,9 @@
         fs.writeSync(this.file, buf, 0, 2, address)
       }
     }
-    for (let i = 0; i < 2; i++) {
-      this.writes[address + i] = bytes[i]
+    this.writes[address] = {
+      len: 2,
+      val: val & 0xffff,
     }
     return address + 2
   }
@@ -495,8 +499,9 @@
         fs.writeSync(this.file, buf, 0, 4, address)
       }
     }
-    for (let i = 0; i < 4; i++) {
-      this.writes[address + i] = bytes[i]
+    this.writes[address] = {
+      len: 4,
+      val: val & 0xffffffff,
     }
     return address + 4
   }
@@ -504,8 +509,68 @@
   checked.prototype.apply = function apply(checked) {
     const self = this
     Object.getOwnPropertyNames(checked.writes).forEach(function(address) {
-      self.writeChar(parseInt(address), checked.writes[address])
+      switch (checked.writes[address].len) {
+      case 1:
+        self.writeChar(parseInt(address), checked.writes[address].val)
+        break
+      case 2:
+        self.writeShort(parseInt(address), checked.writes[address].val)
+        break
+      case 4:
+        self.writeWord(parseInt(address), checked.writes[address].val)
+        break
+      }
     })
+  }
+
+  checked.prototype.toPatch = function toPatch(seed, preset, tournament) {
+    const writes = this.writes
+    let size = 60 // Header
+    const addresses = Object.getOwnPropertyNames(writes)
+    addresses.forEach(function(address) {
+      size += 9 + writes[address].len
+    })
+    const patch = new Uint8Array(size)
+    const magic = "PPF30"
+    let c = 0
+    for (let i = 0; i < magic.length; i++) {
+      patch[c++] = magic.charCodeAt(i)
+    }
+    patch[c++] = 0x02
+    let description = ['SotN randomized: ', seed]
+    if (preset || tournament) {
+      const info = []
+      if (preset) {
+        info.push(preset)
+      }
+      if (tournament) {
+        info.push('tournament')
+      }
+      description.push(' (', info.join(' '), ')')
+    }
+    description = description.join('').slice(0, 50)
+    description += Array(50 - description.length).fill(' ').join('')
+    for (let i = 0; i < description.length; i++) {
+      patch[c++] = description.charCodeAt(i)
+    }
+    patch[c++] = 0x00
+    patch[c++] = 0x00
+    patch[c++] = 0x00
+    patch[c++] = 0x00
+    addresses.forEach(function(key) {
+      address = parseInt(key)
+      for (let i = 0; i < 8; i++) {
+        patch[c++] = address & 0xff
+        address >>>= 8
+      }
+      patch[c++] = writes[key].len
+      let val = writes[key].val
+      for (let i = 0; i < writes[key].len; i++) {
+        patch[c++] = val & 0xff
+        val >>>= 8
+      }
+    })
+    return patch
   }
 
   checked.prototype.sum = function sum() {
@@ -3157,6 +3222,7 @@
       })
     })
   }
+
   function finalizeData(
     seed,
     preset,
@@ -3168,6 +3234,10 @@
     url,
   ) {
     loadWorker(worker, url)
+    let objects
+    if (file) {
+      objects = [file]
+    }
     return new Promise(function(resolve, reject) {
       addEventListener.call(worker, 'message', function(result) {
         if (self) {
@@ -3188,7 +3258,7 @@
         data: data,
         checksum: checksum,
         url: url,
-      }, [file])
+      }, objects)
     })
   }
 

@@ -18,7 +18,7 @@ $ npm install
 ### Usage
 
 To randomize your disc image, just pass in the path to your vanilla  .bin file
-using the `--in-bin` option and an output path using the `--out-bin` option.
+using the `--in-bin` option and an output path using the `--out` option.
 This will use the current time as the seed:
 
 ```shell
@@ -38,7 +38,7 @@ randomization gets printed:
 $ node randomize -vvv -i rando.bin
 ```
 
-If you omit the `--out-bin` option, the randomizations will be applied to the
+If you omit the `--out` option, the randomizations will be applied to the
 .bin in-place. This is not recommended unless you are randomizing a fresh copy
 of your vanilla bin:
 
@@ -46,6 +46,26 @@ of your vanilla bin:
 $ cp sotn.bin rando.bin
 $ node randomize -i rando.bin
 ```
+
+### PPF mode
+
+If you omit the `--in-bin` option, the randomizer will create a PPF patch file.
+
+```shell
+$ node randomize -o rando.ppf
+```
+
+You can then use your choice of PPF patcher utilities. *Note:* After applying
+the patch, you must perform ECC/EDC recalculation.
+
+Useful links:
+* [ppf.sotn.io](https://ppf.sotn.io) (Browser)
+* [ppfdev](https://github.com/meunierd/pp) (Source)
+* [PPF-O-Matic](https://www.romhacking.net/utilities/356/) (Windows binary)
+* [error_recalc](https://www.romhacking.net/utilities/1264/) (Windows binary
+  and source)
+* [ECCRegen](https://consolecopyworld.com/psx/psx_utils_misc.shtml#ECCRegen)
+  (Windows binary)
 
 ### Seed URLs
 
@@ -150,9 +170,9 @@ You will need to locate this yourself. MD5: `a625d0b3036823cdbf04a3c0e1648901`
 
 **CUE2POPS**
 
-Windows version [here](https://www.ps2-home.com/forum/viewtopic.php?t=2148).
-Mac version [here](https://github.com/suicvne/cue2pops-gui-mac).
-Linux version [here](https://github.com/makefu/cue2pops-linux).
+* Windows version [here](https://www.ps2-home.com/forum/viewtopic.php?t=2148).
+* Mac version [here](https://github.com/suicvne/cue2pops-gui-mac).
+* Linux version [here](https://github.com/makefu/cue2pops-linux).
 
 ### Process
 
