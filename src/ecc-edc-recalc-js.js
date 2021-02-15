@@ -241,7 +241,7 @@
     return 1
   }
 
-  function eccEdcCalc(fd, size) {
+  function eccEdcCalc(fd, size, silent) {
     eccEdcInit()
     if (edcVerify(fd) !== 0) {
       throw new Error('error: sector 0 not a valid 2352 sector')
@@ -249,7 +249,7 @@
     const buf = new Uint8Array(16)
     for (let sector = 16; sector < (size / 2352); sector++) {
       read(fd, sector * 2352, buf.length, buf)
-      if (audioGuess(buf)) {
+      if (audioGuess(buf) && !silent) {
         console.warn('warning: sector ' + sector + ' looks like an audio sector, will recalculate earlier sectors only')
         break
       }

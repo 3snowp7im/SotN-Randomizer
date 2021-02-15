@@ -112,6 +112,10 @@
                     <label for="prologue-rewards">Prologue rewards</label>
                   </div>
                   <div class="pure-u-12-24">
+                    <input id="stats" type="checkbox">
+                    <label for="stats">Item stats</label>
+                  </div>
+                  <div class="pure-u-12-24">
                     <input id="music" type="checkbox">
                     <label for="music">Music</label>
                   </div>
@@ -199,6 +203,10 @@
                          disabled="disabled"
                          style="display: none">
                   <input id="relic-locations-arg"
+                         type="text"
+                         disabled="disabled"
+                         style="display: none">
+                  <input id="writes"
                          type="text"
                          disabled="disabled"
                          style="display: none">
@@ -311,129 +319,135 @@
       </p>
       <hr>
       <h2><a name="changelog">Changelog</a></h2>
-      <h3><time>February 15, 2021</time></h3>
+      <h3><time>February 27, 2021</time></h3>
       <ul>
-        <li>Add PPF output option.</li>
-      </ul>
-      <h3><time>February 7, 2021</time></h3>
-      <ul>
-        <li>Add Trio as a possible relic location in Guarded and Equipment extensions.</li>
-      </ul>
-      <h3><time>January 18, 2021</time></h3>
-      <ul>
-        <li>Add Thrust Sword logic to Speedrun preset.</li>
-        <li>Increase minimum complexities for Safe and Adventure presets.</li>
-      </ul>
-      <h3><time>September 19, 2020</time></h3>
-      <ul>
-        <li>Add Tournament Mode.</li>
-      </ul>
-      <h3><time>August 11, 2020</time></h3>
-      <ul>
-        <li>Add Scavenger preset.</li>
-      </ul>
-      <h3><time>August 7, 2020</time></h3>
-      <ul>
-        <li>Make Leap Stone a 0-relic check in Speedrun preset.</li>
-      </ul>
-      <h3><time>July 27, 2020</time></h3>
-      <ul>
-        <li>Add music randomizer.</li>
-      </ul>
-      <h3><time>July 10, 2020</time></h3>
-      <ul>
-        <li>Fix escape requirements not being honored when a location is
-          empty.</li>
-      </ul>
-      <h3><time>June 22, 2020</time></h3>
-      <ul>
-        <li>Add Jewel of Open + Soul of Wolf + Leap Stone as Gold Ring
-          location lock for Speedrun preset.</li>
-      </ul>
-      <h3><time>June 3, 2020</time></h3>
-      <ul>
-        <li>Fix duped progression item in Cave.</li>
-      </ul>
-      <h3><time>Map 26, 2020</time></h3>
-      <ul>
-        <li>Add Forbidden Library Opal location to Adventure preset.</li>
-      </ul>
-      <h3><time>April 30, 2020</time></h3>
-      <ul>
-        <li>Add Pixie singing "Nocturne" when sitting in a chair.</li>
-      </ul>
-      <h3><time>April 25, 2020</time></h3>
-      <ul>
-        <li>Increase worker performance.</li>
-        <li>Add <a href="/faq">FAQ</a>.</li>
-      </ul>
-      <h3><time>April 21, 2020</time></h3>
-      <ul>
-        <li>Add Jewel of Open + Soul of Wolf + Skill of Wolf to Gold Ring
-          location locks in Speedrun preset.</li>
-        <li>Fix missing cape color layer.</li>
-      </ul>
-      <h3><time>April 17, 2020</time></h3>
-      <ul>
-        <li>Add solutions to spoiler log.</li>
-        <li>Increase minimum complexities.</li>
-      </ul>
-      <h3><time>April 12, 2020</time></h3>
-      <ul>
-        <li>Prevent generation of seeds that softlock at Holy Glasses.</li>
-        <li>Show preset ID at file select menu.</li>
-        <li>Increase minimum complexities.</li>
-      </ul>
-      <h3><time>April 10, 2020</time></h3>
-      <ul>
-        <li>Add "Menu" theme.</li>
-      </ul>
-      <h3><time>April 8, 2020</time></h3>
-      <ul>
-        <li>Add multithreaded seed generation strategy.</li>
-      </ul>
-      <h3><time>April 5, 2020</time></h3>
-      <ul>
-        <li>Add Sprite and Nosedevil familiars in Guarded and Equipment
-          extensions.</li>
-      </ul>
-      <h3><time>April 3, 2020</time></h3>
-      <ul>
-        <li>Add Speedrun preset.</li>
-        <li>Randomize all cape colors.</li>
-        <li>Fix erasing Ring of Vlad location.</li>
-      </ul>
-      <h3><time>April 2, 2020</time></h3>
-      <ul>
-        <li>Add Adventure preset.</li>
-        <li>Add Empty hand preset.</li>
-        <li>Add night mode.</li>
-      </ul>
-      <h3><time>March 31, 2020</time></h3>
-      <ul>
-        <li>Fix exception when replacing Holy Glasses with relic.</li>
-      </ul>
-      <h3><time>March 30, 2020</time></h3>
-      <ul>
-        <li>Fix gold ring duping.</li>
-      </ul>
-      <h3><time>March 29, 2020</time></h3>
-      <ul>
-        <li>Fix progression item duping at relic bosses.</li>
-        <li>Fix missing progression item at Scylla.</li>
-      </ul>
-      <h3><time>March 28, 2020</time></h3>
-      <ul>
-        <li>Fix information leak of progression item randomization.</li>
-        <li>Fix progression item randomization in Outer Wall.</li>
-      </ul>
-      <h3><time>March 27, 2020</time></h3>
-      <ul>
-        <li>Add progression item randomization.</li>
-        <li>Fix icons of equipment stolen by Death.</li>
+        <li>Add item stats randomization.</li>
       </ul>
       <a id="show-older" href="#older">Show older changes</a>
       <div id="older" class="hidden">
+        <h3><time>February 15, 2021</time></h3>
+        <ul>
+          <li>Add PPF output option.</li>
+        </ul>
+        <h3><time>February 7, 2021</time></h3>
+        <ul>
+          <li>Add Trio as a possible relic location in Guarded and Equipment
+            extensions.</li>
+        </ul>
+        <h3><time>January 18, 2021</time></h3>
+        <ul>
+          <li>Add Thrust Sword logic to Speedrun preset.</li>
+          <li>Increase minimum complexities for Safe and Adventure
+            presets.</li>
+        </ul>
+        <h3><time>September 19, 2020</time></h3>
+        <ul>
+          <li>Add Tournament Mode.</li>
+        </ul>
+        <h3><time>August 11, 2020</time></h3>
+        <ul>
+          <li>Add Scavenger preset.</li>
+        </ul>
+        <h3><time>August 7, 2020</time></h3>
+        <ul>
+          <li>Make Leap Stone a 0-relic check in Speedrun preset.</li>
+        </ul>
+        <h3><time>July 27, 2020</time></h3>
+        <ul>
+          <li>Add music randomizer.</li>
+        </ul>
+        <h3><time>July 10, 2020</time></h3>
+        <ul>
+          <li>Fix escape requirements not being honored when a location is
+            empty.</li>
+        </ul>
+        <h3><time>June 22, 2020</time></h3>
+        <ul>
+          <li>Add Jewel of Open + Soul of Wolf + Leap Stone as Gold Ring
+            location lock for Speedrun preset.</li>
+        </ul>
+        <h3><time>June 3, 2020</time></h3>
+        <ul>
+          <li>Fix duped progression item in Cave.</li>
+        </ul>
+        <h3><time>Map 26, 2020</time></h3>
+        <ul>
+          <li>Add Forbidden Library Opal location to Adventure preset.</li>
+        </ul>
+        <h3><time>April 30, 2020</time></h3>
+        <ul>
+          <li>Add Pixie singing "Nocturne" when sitting in a chair.</li>
+        </ul>
+        <h3><time>April 25, 2020</time></h3>
+        <ul>
+          <li>Increase worker performance.</li>
+          <li>Add <a href="/faq">FAQ</a>.</li>
+        </ul>
+        <h3><time>April 21, 2020</time></h3>
+        <ul>
+          <li>Add Jewel of Open + Soul of Wolf + Skill of Wolf to Gold Ring
+            location locks in Speedrun preset.</li>
+          <li>Fix missing cape color layer.</li>
+        </ul>
+        <h3><time>April 17, 2020</time></h3>
+        <ul>
+          <li>Add solutions to spoiler log.</li>
+          <li>Increase minimum complexities.</li>
+        </ul>
+        <h3><time>April 12, 2020</time></h3>
+        <ul>
+          <li>Prevent generation of seeds that softlock at Holy Glasses.</li>
+          <li>Show preset ID at file select menu.</li>
+          <li>Increase minimum complexities.</li>
+        </ul>
+        <h3><time>April 10, 2020</time></h3>
+        <ul>
+          <li>Add "Menu" theme.</li>
+        </ul>
+        <h3><time>April 8, 2020</time></h3>
+        <ul>
+          <li>Add multithreaded seed generation strategy.</li>
+        </ul>
+        <h3><time>April 5, 2020</time></h3>
+        <ul>
+          <li>Add Sprite and Nosedevil familiars in Guarded and Equipment
+            extensions.</li>
+        </ul>
+        <h3><time>April 3, 2020</time></h3>
+        <ul>
+          <li>Add Speedrun preset.</li>
+          <li>Randomize all cape colors.</li>
+          <li>Fix erasing Ring of Vlad location.</li>
+        </ul>
+        <h3><time>April 2, 2020</time></h3>
+        <ul>
+          <li>Add Adventure preset.</li>
+          <li>Add Empty hand preset.</li>
+          <li>Add night mode.</li>
+        </ul>
+        <h3><time>March 31, 2020</time></h3>
+        <ul>
+          <li>Fix exception when replacing Holy Glasses with relic.</li>
+        </ul>
+        <h3><time>March 30, 2020</time></h3>
+        <ul>
+          <li>Fix gold ring duping.</li>
+        </ul>
+        <h3><time>March 29, 2020</time></h3>
+        <ul>
+          <li>Fix progression item duping at relic bosses.</li>
+          <li>Fix missing progression item at Scylla.</li>
+        </ul>
+        <h3><time>March 28, 2020</time></h3>
+        <ul>
+          <li>Fix information leak of progression item randomization.</li>
+          <li>Fix progression item randomization in Outer Wall.</li>
+        </ul>
+        <h3><time>March 27, 2020</time></h3>
+        <ul>
+          <li>Add progression item randomization.</li>
+          <li>Fix icons of equipment stolen by Death.</li>
+        </ul>
         <h3><time>March 17, 2020</time></h3>
         <ul>
           <li>Fix disappearing items.</li>
@@ -618,7 +632,9 @@
     <script src="src/extension.js"></script>
     <script src="src/items.js"></script>
     <script src="src/relics.js"></script>
+    <script src="src/stats.js"></script>
     <script src="src/util.js"></script>
+    <script src="src/randomize_stats.js"></script>
     <script src="src/randomize_relics.js"></script>
     <script src="src/randomize_items.js"></script>
     <script src="src/randomize_music.js"></script>

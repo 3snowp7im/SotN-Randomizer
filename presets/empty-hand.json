@@ -61,12 +61,12 @@
     "replacement": "Holy Water"
   }, {
     "zone": "ST0",
-    "item": "Shield Rod",
-    "replacement": "Shield Rod"
+    "item": "Shield rod",
+    "replacement": "Shield rod"
   }, {
     "zone": "ST0",
-    "item": "Dark Shield",
-    "replacement": "Dark Shield"
+    "item": "Dark shield",
+    "replacement": "Dark shield"
   }, {
     "zone": "ST0",
     "item": "Power of Sire",
@@ -81,8 +81,8 @@
     "replacement": "Badelaire"
   }, {
     "zone": "ST0",
-    "item": "Moon Rod",
-    "replacement": "Moon Rod"
+    "item": "Moon rod",
+    "replacement": "Moon rod"
   }, {
     "zone": "ST0",
     "item": "Heart Refresh",

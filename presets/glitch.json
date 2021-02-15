@@ -5,36 +5,37 @@
     "description": "Extensive glitch knowledge may be required for completion. Guaranteed Heart Refreshes in Entrance and the out of bounds candle. Guaranteed Claymore and Manna Prisms in Caverns.",
     "author": "romscout"
   },
+  "stats": false,
   "relicLocationsExtension": false,
   "startingEquipment": [{
     "slot": "Right hand",
     "item": "Tyrfing"
   }, {
     "slot": "Left hand",
-    "item": "Leather Shield"
+    "item": "Leather shield"
   }, {
     "slot": "Head",
     "item": "Sunglasses"
   }, {
     "slot": "Body",
-    "item": "Cloth Tunic"
+    "item": "Cloth tunic"
   }, {
     "slot": "Cloak",
-    "item": "Cloth Cape"
+    "item": "Cloth cape"
   }, {
     "slot": "Other",
     "item": "Duplicator"
   }, {
     "slot": "AxeArmor",
-    "item": "Gold Plate"
+    "item": "Gold plate"
   }, {
     "slot": "Luck Mode",
     "item": "Talisman"
   }],
   "itemLocations": [{
-    "comment": "Heart Refresh in Pot Roast rock",
+    "comment": "Heart Refresh in Pot roast rock",
     "zone": "NO3",
-    "item": "Pot Roast",
+    "item": "Pot roast",
     "replacement": "Heart Refresh"
   }, {
     "comment": "2nd Heart Refresh in OOB candle",
@@ -55,10 +56,10 @@
     "index": 2,
     "replacement": "Pentagram"
   }, {
-    "comment": "Library Card in Entrance Turkey spot",
+    "comment": "Library card in Entrance Turkey spot",
     "zone": "NO3",
     "item": "Turkey",
-    "replacement": "Library Card"
+    "replacement": "Library card"
   }, {
     "comment": "Toadstool at Entrance Warp switch",
     "zone": "NO3",
@@ -67,13 +68,13 @@
   }, {
     "comment": "Heart Refresh at Catacombs library card",
     "zone": "CAT",
-    "item": "Library Card",
+    "item": "Library card",
     "replacement": "Heart Refresh"
   }, {
     "comment": "Axe Lord Armor at Spike Breaker",
     "zone": "CAT",
     "item": "Spike Breaker",
-    "replacement": "Axe Lord Armor"
+    "replacement": "Axe Lord armor"
   }, {
     "comment": "Claymore in vanilla spot",
     "zone": "NO4",
@@ -83,17 +84,17 @@
     "comment": "Manna prism at Cavern Onyx",
     "zone": "NO4",
     "item": "Onyx",
-    "replacement": "Manna Prism"
+    "replacement": "Manna prism"
   }],
   "prologueRewards": [{
     "item": "Heart Refresh",
-    "replacement": "Fire Boomerang"
+    "replacement": "Fire boomerang"
   }, {
     "item": "Neutron Bomb",
-    "replacement": "Fire Boomerang"
+    "replacement": "Fire boomerang"
   }, {
     "item": "Potion",
-    "replacement": "Life Apple"
+    "replacement": "Life apple"
   }],
   "lockLocation": [{
     "comment": "Relic checks requiring 0 relics",

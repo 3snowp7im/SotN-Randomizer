@@ -1047,7 +1047,7 @@
     return map
   }
 
-  function randomizeRelics(rng, options, removed) {
+  function randomizeRelics(rng, options, removed, newNames) {
     if (!options.relicLocations) {
       return {}
     }
@@ -1124,9 +1124,26 @@
     enabledRelics = enabledRelics.filter(function(relic) {
       if (!options.relicLocations.thrustSwordAbility
           && relic.ability === constants.RELIC.THRUST_SWORD) {
-        return false;
+        return false
       }
       return removedIds.indexOf(relic.itemId) === -1
+    })
+    // Get random thrust sword.
+    let thrustSword
+    enabledRelics = enabledRelics.map(function(relic) {
+      if (relic.ability === constants.RELIC.THRUST_SWORD) {
+        const thrustSwords = items().filter(function(item) {
+          return item.thrustSword
+        })
+        thrustSword = thrustSwords[randIdx(rng, thrustSwords)]
+        return Object.assign({}, relic, {
+          itemId: thrustSword.id,
+          name: newNames.filter(function(item) {
+            return item.id === thrustSword.id
+          }).pop(),
+        })
+      }
+      return relic
     })
     // Replace relics with items.
     if (relicLocations.replaced) {
@@ -1185,12 +1202,27 @@
     if (!options.tournamentMode) {
       const spoilers = []
       enabledRelics.forEach(function(relic) {
+        let relicName = relic.name
+        if (relic.itemId) {
+          const item = newNames.filter(function(item) {
+            return item.id === relic.itemId
+          }).pop()
+          if (item) {
+            relicName = item.name
+          }
+        }
         const location = result.mapping[relic.ability]
-        spoilers.push(relic.name + ' at ' + location.name)
+        if (location) {
+          spoilers.push(relicName + ' at ' + location.name)
+        }
       })
       info[3]['Relic locations'] = spoilers
       if (result.solutions) {
-        info[4]['Solutions'] = util.renderSolutions(result.solutions)
+        info[4]['Solutions'] = util.renderSolutions(
+          result.solutions,
+          newNames,
+          thrustSword,
+        )
         info[4]['Complexity'] = result.depth
       }
     }

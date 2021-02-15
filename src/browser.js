@@ -4,6 +4,7 @@
   const extension = sotnRando.extension
   const util = sotnRando.util
   const presets = sotnRando.presets
+  const randomizeStats = sotnRando.randomizeStats
   const randomizeItems = sotnRando.randomizeItems
   const randomizeRelics = sotnRando.randomizeRelics
   const randomizeMusic = sotnRando.randomizeMusic
@@ -153,6 +154,7 @@
       elems.prologueRewards.disabled = true
       elems.relicLocations.disabled = true
       elems.relicLocationsSet.disabled = true
+      elems.stats.disabled = true
       elems.music.disabled = true
       elems.turkeyMode.disabled = true
       presetIdChange()
@@ -166,6 +168,7 @@
       elems.prologueRewards.disabled = false
       elems.relicLocations.disabled = false
       elems.relicLocationsSet.disabled = !elems.relicLocations.checked
+      elems.stats.disabled = false
       elems.music.disabled = false
       elems.turkeyMode.disabled = false
       elems.options.classList.remove('hidden')
@@ -177,7 +180,10 @@
   }
 
   function presetIdChange() {
-    const preset = presets[elems.presetId.selectedIndex]
+    const id = elems.presetId.childNodes[elems.presetId.selectedIndex].value
+    const preset = presets.filter(function(preset) {
+      return preset.id === id
+    }).pop()
     elems.presetDescription.innerText = preset.description
     elems.presetAuthor.innerText = 'by ' + preset.author
     localStorage.setItem('presetId', preset.id)
@@ -209,6 +215,7 @@
       elems.relicLocationsExtension.classic.checked =
         options.relicLocations
         && !options.relicLocations.extension
+      elems.stats.checked = !!options.stats
       elems.music.checked = !!options.music
       elems.turkeyMode.checked = !!options.turkeyMode
     }
@@ -283,6 +290,10 @@
     relicLocationsExtensionCache = value
     adjustMaxComplexity()
     localStorage.setItem('relicLocationsExtension', value)
+  }
+
+  function statsChange() {
+    localStorage.setItem('stats', elems.stats.checked)
   }
 
   function musicChange() {
@@ -408,6 +419,9 @@
   }
 
   function getFormRelicLocations() {
+    if (!elems.preset.checked && !elems.relicLocations.checked) {
+      return false
+    }
     // Get safe relic locations.
     const relicLocations = safe.options().relicLocations
     if (relicLocations) {
@@ -464,6 +478,7 @@
       itemLocations: elems.itemLocations.checked,
       prologueRewards: elems.prologueRewards.checked,
       relicLocations: getFormRelicLocations(),
+      stats: elems.stats.checked,
       music: elems.music.checked,
       turkeyMode: elems.turkeyMode.checked,
       tournamentMode: elems.tournamentMode.checked,
@@ -493,6 +508,11 @@
         elems.relicLocationsArg.value,
       ).relicLocations
     }
+    if (elems.writes.value) {
+      options.writes = util.optionsFromString(
+        elems.writes.value,
+      ).writes
+    }
     return options
   }
 
@@ -514,7 +534,20 @@
     info[1]['Seed'] = seed
     // Get options.
     const options = getFormOptions()
-    const applied = util.Preset.options(options)
+    // Check for overriding preset.
+    let applied
+    let override
+    for (let preset of presets) {
+      if (preset.override) {
+        applied = preset.options()
+        override = true
+        break
+      }
+    }
+    // Get user specified options.
+    if (!override) {
+      applied = util.Preset.options(options)
+    }
     // Place planned progression items.
     const removed = randomizeItems.placePlannedItems(applied)
     function randomize() {
@@ -523,14 +556,27 @@
       const file = this.result
       const threads = workerCount()
       const start = new Date().getTime()
-      // Randomize relics.
-      util.randomizeRelics(
+      // Randomize stats.
+      const rng = new Math.seedrandom(util.saltSeed(
         version,
         options,
         seed,
+        0,
+      ))
+      const result = randomizeStats(rng, applied)
+      const thrustSwords = result.thrustSwords
+      const newNames = result.newNames
+      check.apply(result.data)
+      // Randomize relics.
+      util.randomizeRelics(
+        version,
+        applied,
+        options,
+        seed,
         removed,
+        newNames,
         createWorkers(threads),
-        3,
+        4,
         getUrl(),
       ).then(function(result) {
         util.mergeInfo(info, result.info)
@@ -538,17 +584,24 @@
           version,
           options,
           seed,
-          0,
+          1,
         ))
-        result = randomizeRelics.writeRelics(rng, applied, result)
+        result = randomizeRelics.writeRelics(
+          rng,
+          applied,
+          result,
+          thrustSwords,
+        )
         check.apply(result.data)
         return util.randomizeItems(
           version,
+          applied,
           options,
           seed,
           createWorkers(1)[0],
-          1,
+          2,
           result.items,
+          newNames,
           getUrl(),
         )
       }).then(function(result) {
@@ -558,7 +611,7 @@
           version,
           options,
           seed,
-          2,
+          3,
         ))
         result = randomizeMusic(rng, applied)
         check.apply(result)
@@ -638,6 +691,7 @@
     elems.relicLocations.disabled = false
     elems.relicLocationsSet.disabled = false
     elems.relicLocationsArg.value = ''
+    elems.writes.value = ''
     elems.turkeyMode.disabled = false
     elems.tournamentMode.disabled = false
     elems.clear.classList.add('hidden')
@@ -754,10 +808,12 @@
       classic: document.getElementById('extension-classic'),
     },
     relicLocationsArg: document.getElementById('relic-locations-arg'),
+    writes: document.getElementById('writes'),
     itemLocations: document.getElementById('item-locations'),
     itemLocationsArg: document.getElementById('item-locations-arg'),
     prologueRewards: document.getElementById('prologue-rewards'),
     prologueRewardsArg: document.getElementById('prologue-rewards-arg'),
+    stats: document.getElementById('stats'),
     music: document.getElementById('music'),
     turkeyMode: document.getElementById('turkey-mode'),
     clear: document.getElementById('clear'),
@@ -803,6 +859,7 @@
   )
   elems.itemLocations.addEventListener('change', itemLocationsChange)
   elems.prologueRewards.addEventListener('change', prologueRewardsChange)
+  elems.stats.addEventListener('change', statsChange)
   elems.music.addEventListener('change', musicChange)
   elems.turkeyMode.addEventListener('change', turkeyModeChange)
   elems.clear.addEventListener('click', clearHandler)
@@ -816,10 +873,12 @@
   elems.showOlder.addEventListener('click', showOlderHandler)
   // Load presets
   presets.forEach(function(preset) {
-    const option = document.createElement('option')
-    option.value = preset.id
-    option.innerText = preset.name
-    elems.presetId.appendChild(option)
+    if (!preset.hidden) {
+      const option = document.createElement('option')
+      option.value = preset.id
+      option.innerText = preset.name
+      elems.presetId.appendChild(option)
+    }
   })
   const url = new URL(window.location.href)
   const releaseBaseUrl = constants.optionsUrls[constants.defaultOptions]
@@ -863,10 +922,14 @@
     }
     if (options.preset) {
       elems.preset.checked = true
+      let index = 0
       for (let i = 0; i < presets.length; i++) {
         if (presets[i].id === options.preset) {
-          elems.presetId.selectedIndex = i
+          elems.presetId.selectedIndex = index
           break
+        }
+        if (!presets.hidden) {
+          index++
         }
       }
       presetIdChange()
@@ -964,6 +1027,13 @@
       applied.relicLocations
       && !applied.relicLocations.extension
     relicLocationsExtensionChange()
+    let writes = ''
+    if (options.writes) {
+      writes = util.optionsToString({writes: options.writes})
+    }
+    elems.writes.value = writes
+    elems.stats.checked = applied.stats
+    statsChange()
     elems.music.checked = applied.music
     musicChange()
     elems.turkeyMode.checked = applied.turkeyMode
@@ -977,6 +1047,7 @@
     elems.prologueRewards.disabled = true
     elems.relicLocations.disabled = true
     elems.relicLocationsSet.disabled = true
+    elems.stats.disabled = true
     elems.music.disabled = true
     elems.turkeyMode.disabled = true
     elems.clear.classList.remove('hidden')
@@ -989,6 +1060,7 @@
     loadOption('itemLocations', itemLocationsChange, true)
     loadOption('prologueRewards', prologueRewardsChange, true)
     loadOption('relicLocations', relicLocationsChange, true)
+    loadOption('stats', statsChange, true)
     loadOption('music', musicChange, true)
     loadOption('turkeyMode', turkeyModeChange, true)
     let relicLocationsExtension =
@@ -1015,10 +1087,14 @@
     if (typeof(presetId) !== 'string') {
       presetId = 'safe'
     }
+    let index = 0
     for (let i = 0; i < presets.length; i++) {
       if (presets[i].id === presetId) {
-        elems.presetId.selectedIndex = i
+        elems.presetId.selectedIndex = index
         break
+      }
+      if (!presets.hidden) {
+        index++
       }
     }
     presetIdChange()

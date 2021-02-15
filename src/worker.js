@@ -90,8 +90,9 @@ function randomizeWorker() {
                   version: message.version,
                   seed: message.seed,
                 },
-                options: util.Preset.options(message.options),
+                options: message.applied,
                 removed: message.removed,
+                newNames: message.newNames,
               })
             }
             let nonce = message.nonce
@@ -100,7 +101,12 @@ function randomizeWorker() {
                 nonce: nonce + i,
               }))
               try {
-                const result = randomizeRelics(rng, ctx.options, ctx.removed)
+                const result = randomizeRelics(
+                  rng,
+                  ctx.options,
+                  ctx.removed,
+                  ctx.newNames,
+                )
                 util.sanitizeResult(result)
                 Object.assign(result, {
                   action: constants.WORKER_ACTION.RELICS,
@@ -135,8 +141,13 @@ function randomizeWorker() {
         }
         case constants.WORKER_ACTION.ITEMS: {
           const rng = getRng(message)
-          ctx.options = ctx.options || util.Preset.options(message.options)
-          const result = randomizeItems(rng, message.items, ctx.options)
+          ctx.options = ctx.options || message.applied
+          const result = randomizeItems(
+            rng,
+            message.items,
+            message.newNames,
+            ctx.options,
+          )
           result.seed = message.seed
           result.options = message.options
           result.action = 'items'
@@ -164,7 +175,7 @@ function randomizeWorker() {
             if (message.checksum && message.checksum !== checksum) {
               throw new errors.VersionError()
             }
-            eccEdcCalc(array, array.length)
+            eccEdcCalc(array, array.length, true)
             output = message.file
             objects = [output]
           } else {

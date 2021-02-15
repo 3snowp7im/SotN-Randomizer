@@ -72,6 +72,25 @@
     return rooms
   }
 
+  function shopItemType(item) {
+    switch (item.type) {
+    case constants.TYPE.WEAPON1:
+    case constants.TYPE.WEAPON2:
+    case constants.TYPE.SHIELD:
+    case constants.TYPE.USABLE:
+      return 0x00
+    case constants.TYPE.HELMET:
+      return 0x01
+    case constants.TYPE.ARMOR:
+      return 0x02
+    case constants.TYPE.CLOAK:
+      return 0x03
+    case constants.TYPE.ACCESSORY:
+      return 0x04
+    }
+    throw new Error('Unknown item type')
+  }
+
   function shopTileFilter(tile) {
     return tile.shop
   }
@@ -242,7 +261,7 @@
       //                                          // j inj
       offset = data.writeWord(offset, 0x08060000 + (opts.inj >> 2))
       offset = data.writeWord(offset, 0x00041400) // sll v0, a0, 10
-      // Zero tile function if item is in inventory.
+      // Zero tile function if item is equipped.
       offset = romOffset(zone, opts.inj)
       //                                          // ori t1, r0, id
       offset = data.writeWord(
@@ -410,7 +429,8 @@
 
   function bufToHex(buf) {
     return Array.from(buf).map(function(byte) {
-      return ('00' + byte.toString(16)).slice(-2)
+      const hex = byte.toString(16)
+      return ('0'.slice(0, hex % 2) + hex)
     }).join('')
   }
 
@@ -474,6 +494,9 @@
         fs.writeSync(this.file, buf, 0, 2, address)
       }
     }
+    for (let i = address; i < address + 2; i++) {
+      delete this.writes[i]
+    }
     this.writes[address] = {
       len: 2,
       val: val & 0xffff,
@@ -499,6 +522,9 @@
         fs.writeSync(this.file, buf, 0, 4, address)
       }
     }
+    for (let i = address; i < address + 4; i++) {
+      delete this.writes[i]
+    }
     this.writes[address] = {
       len: 4,
       val: val & 0xffffffff,
@@ -506,19 +532,80 @@
     return address + 4
   }
 
+  checked.prototype.writeLong = function writeLong(address, val) {
+    checkAddressRange(address)
+    const bytes = [
+      val & 0xff,
+      (val >>> 8) & 0xff,
+      (val >>> 16) & 0xff,
+      (val >>> 24) & 0xff,
+      (val >>> 32) & 0xff,
+      (val >>> 40) & 0xff,
+      (val >>> 48) & 0xff,
+      (val >>> 56) & 0xff,
+    ]
+    if (this.file) {
+      if (typeof(this.file) === 'object') {
+        for (let i = 0; i < 8; i++) {
+          this.file[address + i] = bytes[i]
+        }
+      } else {
+        const buf = Buffer.from(bytes)
+        fs.writeSync(this.file, buf, 0, 8, address)
+      }
+    }
+    for (let i = address; i < address + 8; i++) {
+      delete this.writes[i]
+    }
+    this.writes[address] = {
+      len: 8,
+      val: val,
+    }
+    return address + 8
+  }
+
+  checked.prototype.writeString = function writeString(address, val) {
+    checkAddressRange(address)
+    if (this.file) {
+      if (typeof(this.file) === 'object') {
+        for (let i = 0; i < val.length; i++) {
+          this.file[address + i] = val[i]
+        }
+      } else {
+        const buf = Buffer.from(val)
+        fs.writeSync(this.file, buf, 0, buf.length, address)
+      }
+    }
+    for (let i = address; i < address + val.length; i++) {
+      delete this.writes[i]
+    }
+    this.writes[address] = {
+      len: val.length,
+      val: val,
+    }
+    return address + val.length
+  }
+
   checked.prototype.apply = function apply(checked) {
     const self = this
     Object.getOwnPropertyNames(checked.writes).forEach(function(address) {
-      switch (checked.writes[address].len) {
-      case 1:
-        self.writeChar(parseInt(address), checked.writes[address].val)
-        break
-      case 2:
-        self.writeShort(parseInt(address), checked.writes[address].val)
-        break
-      case 4:
-        self.writeWord(parseInt(address), checked.writes[address].val)
-        break
+      if (Array.isArray(checked.writes[address].val)) {
+        self.writeString(parseInt(address), checked.writes[address].val)
+      } else {
+        switch (checked.writes[address].len) {
+        case 1:
+          self.writeChar(parseInt(address), checked.writes[address].val)
+          break
+        case 2:
+          self.writeShort(parseInt(address), checked.writes[address].val)
+          break
+        case 4:
+          self.writeWord(parseInt(address), checked.writes[address].val)
+          break
+        case 8:
+          self.writeLong(parseInt(address), checked.writes[address].val)
+          break
+        }
       }
     })
   }
@@ -1250,6 +1337,14 @@
         options.relicLocations = relicLocations
         break
       }
+      case 's': {
+        if (negate) {
+          options.stats = false
+          break
+        }
+        options.stats = true
+        break;
+      }
       case 'm': {
         if (negate) {
           options.music = false
@@ -1264,6 +1359,122 @@
           break
         }
         options.turkeyMode = true
+        break
+      }
+      case 'w': {
+        if (negate) {
+          break
+        }
+        let writes = []
+        if (randomize[i] !== ':') {
+          throw new Error('Expected argument')
+        }
+        i++
+        let args = 0
+        while (i < randomize.length && randomize[i] !== ',') {
+          let address
+          let value
+          let start
+          // Parse the address.
+          start = i
+          while (i < randomize.length
+                 && [',', ':'].indexOf(randomize[i]) === -1) {
+            i++
+          }
+          address = randomize.slice(start, i)
+          if (!address.length) {
+            throw new Error('Expected address')
+          }
+          address = parseInt(address)
+          if (checkAddressRange(address)) {
+            throw new Error('Invalid address: ' + address)
+          }
+          if (randomize[i] !== ':') {
+            throw new Error('Expected value')
+          }
+          start = ++i
+          while (i < randomize.length
+                 && [',', ':'].indexOf(randomize[i]) === -1) {
+            i++
+          }
+          value = randomize.slice(start, i)
+          if (!value.length) {
+            throw new Error('Expected value')
+          }
+          let isInt = value.startsWith('0x')
+          let hex
+          if (isInt) {
+            if (value.length <= 2) {
+              throw new Error('Invalid value: ' + value)
+            }
+            hex = value.slice(2)
+          } else {
+            hex = value
+          }
+          if (hex.length % 2 || !hex.match(/^[a-fA-F0-9]+$/)) {
+            throw new Error('Invalid value: ' + value)
+          }
+          let type
+          if (isInt) {
+            value = parseInt(value)
+            switch (hex.length) {
+            case 2:
+              writes.push({
+                type: 'char',
+                address: address,
+                value: value,
+              })
+              break
+            case 4:
+              writes.push({
+                type: 'short',
+                address: address,
+                value: value,
+              })
+              break
+            case 8:
+              writes.push({
+                type: 'word',
+                address: address,
+                value: value,
+              })
+              break
+            case 16:
+              writes.push({
+                type: 'long',
+                address: address,
+                value: value,
+              })
+              break
+            default:
+              throw new Error('Invalid value: ' + value)
+            }
+          } else {
+            const hexBytes = value.split(/([a-fA-F0-9]{2})/g)
+            value = hexBytes.reduce(function(bytes, byteValue) {
+              if (byteValue.length) {
+                bytes.push(parseInt(byteValue, 16))
+              }
+              return bytes
+            }, [])
+            writes.push({
+              type: 'string',
+              address: address,
+              value: value,
+            })
+          }
+          if (randomize[i] === ':') {
+            i++
+          }
+          args++
+        }
+        if (randomize[i] === ',') {
+          i++
+        }
+        if (!args) {
+          throw new Error('Expected argument')
+        }
+        options.writes = writes
         break
       }
       case 'n': {
@@ -1558,6 +1769,11 @@
           randomize.push(opt)
         }
         delete options.relicLocations
+      } else if ('stats' in options) {
+        if (options.stats) {
+          randomize.push('s')
+        }
+        delete options.stats
       } else if ('music' in options) {
         if (options.music) {
           randomize.push('m')
@@ -1568,6 +1784,32 @@
           randomize.push('t')
         }
         delete options.turkeyMode
+      } else if ('writes' in options) {
+        if (options.writes) {
+          let opt = 'w'
+          options.writes.forEach(function(write) {
+            opt += ':' + numToHex(write.address) + ':'
+            switch (write.type) {
+            case 'char':
+              opt += numToHex(write.value, 2)
+              break
+            case 'short':
+              opt += numToHex(write.value, 4)
+              break
+            case 'word':
+              opt += numToHex(write.value, 8)
+              break
+            case 'long':
+              opt += numToHex(write.value, 16)
+              break
+            case 'string':
+              opt += bufToHex(write.value)
+              break
+            }
+          })
+          randomize.push(opt)
+        }
+        delete options.writes
       } else if ('tournamentMode' in options) {
         if (options.tournamentMode) {
           randomize.push('n')
@@ -1678,56 +1920,58 @@
   }
 
   const map = {
-    ',': 0x8143,
-    '.': 0x8144,
-    ':': 0x8146,
-    ';': 0x8147,
-    '?': 0x8148,
-    '!': 0x8149,
-    '`': 0x814d,
-    '"': 0x814e,
-    '^': 0x814f,
-    '_': 0x8151,
-    '~': 0x8160,
-    '\'': 0x8166,
-    '(': 0x8169,
-    ')': 0x816a,
-    '[': 0x816d,
-    ']': 0x816e,
-    '{': 0x816f,
-    '}': 0x8170,
-    '+': 0x817b,
-    '-': 0x817c,
-    '0': 0x824f,
-    '1': 0x8250,
-    '2': 0x8251,
-    '3': 0x8252,
-    '4': 0x8253,
-    '5': 0x8254,
-    '6': 0x8255,
-    '7': 0x8256,
-    '8': 0x8257,
-    '9': 0x8258,
+    ',': [ 0x81, 0x43 ],
+    '.': [ 0x81, 0x44 ],
+    ':': [ 0x81, 0x46 ],
+    ';': [ 0x81, 0x47 ],
+    '?': [ 0x81, 0x48 ],
+    '!': [ 0x81, 0x49 ],
+    '`': [ 0x81, 0x4d ],
+    '"': [ 0x81, 0x4e ],
+    '^': [ 0x81, 0x4f ],
+    '_': [ 0x81, 0x51 ],
+    '~': [ 0x81, 0x60 ],
+    '\'': [ 0x81, 0x66 ],
+    '(': [ 0x81, 0x69 ],
+    ')': [ 0x81, 0x6a ],
+    '[': [ 0x81, 0x6d ],
+    ']': [ 0x81, 0x6e ],
+    '{': [ 0x81, 0x6f ],
+    '}': [ 0x81, 0x70 ],
+    '+': [ 0x81, 0x7b ],
+    '-': [ 0x81, 0x7c ],
+    '0': [ 0x82, 0x4f ],
+    '1': [ 0x82, 0x50 ],
+    '2': [ 0x82, 0x51 ],
+    '3': [ 0x82, 0x52 ],
+    '4': [ 0x82, 0x53 ],
+    '5': [ 0x82, 0x54 ],
+    '6': [ 0x82, 0x55 ],
+    '7': [ 0x82, 0x56 ],
+    '8': [ 0x82, 0x57 ],
+    '9': [ 0x82, 0x58 ],
+  }
+
+  function toGameString(text) {
+    const string = []
+    for (let i = 0; i < text.length; i++) {
+      if (text[i] in map) {
+        const bytes = map[text[i]]
+        string.push(bytes[0], bytes[1])
+      } else if (text[i].match(/[a-zA-Z ]/)) {
+        string.push(text.charCodeAt(i))
+      } 
+    }
+    return string
   }
 
   function writeMenuText(data, text, range) {
-    let a = 0
-    let s = 0
-    while (a < range.length && s < text.length) {
-      if (text[s] in map) {
-        if ((a + 1) < range.length) {
-          const val = map[text[s++]]
-          data.writeChar(range.start + a++, val >>> 8)
-          data.writeChar(range.start + a++, val & 0xff)
-        } else {
-          break
-        }
-      } else if (text[s].match(/[a-zA-Z ]/)) {
-        data.writeChar(range.start + a++, text.charCodeAt(s++))
-      } else {
-        s++
-      }
+    const string = toGameString(text)
+    let length = Math.min(string.length, range.length)
+    if (string[length - 1] & 0x80) {
+      length--
     }
+    data.writeString(range.start, string.slice(0, length).concat([0x00]))
   }
 
   function setSeedText(data, seed, preset, tournament) {
@@ -1738,9 +1982,6 @@
     const presetRange = {
       start: 0x04389c8c,
       length: 20,
-    }
-    for (let i = 0; i < 52; i++) {
-      data.writeChar(0x04389c6c + i, 0)
     }
     data.writeShort(0x043930c4, 0x78b4)
     data.writeShort(0x043930d4, 0x78d4)
@@ -1828,7 +2069,29 @@
           }).join(', ') + ' ]'
           break
         case 'candle':
+        case 'sprite':
+        case 'special':
+        case 'extra':
           value = numToHex(entry[1], 2)
+          break
+        case 'offset':
+        case 'icon':
+        case 'palette':
+          value = numToHex(entry[1], 4)
+          break
+        case 'elements':
+          value = bufToHex(entry[1])
+          break
+        case 'nameAddress':
+        case 'descriptionAddress':
+        case 'spell':
+          value = numToHex(entry[1], 8)
+          break
+        case 'hasSpell':
+          value = entry[1].toString()
+          break
+        case 'handType':
+          value = 'HAND_TYPE.' + constants.handTypeNames[entry[1]]
           break
         default:
           let hex
@@ -2315,29 +2578,45 @@
     description,
     author,
     weight,
+    hidden,
+    override,
     enemyDrops,
     startingEquipment,
     itemLocations,
     prologueRewards,
     relicLocations,
+    stats,
     music,
     turkeyMode,
+    writes,
   ) {
     this.id = id
     this.name = name
     this.description = description
     this.author = author
     this.weight = weight
+    this.hidden = hidden
+    this.override = override
     this.enemyDrops = enemyDrops
     this.startingEquipment = startingEquipment
     this.itemLocations = itemLocations
     this.prologueRewards = prologueRewards
     this.relicLocations = relicLocations
+    this.stats = stats
     this.music = music
     this.turkeyMode = turkeyMode
+    if (writes) {
+      this.writes = writes
+    }
   }
 
   function clone(obj) {
+    if (obj === null) {
+      return null
+    }
+    if (obj === undefined) {
+      return null
+    }
     if (Array.isArray(obj)) {
       return obj.slice().map(clone)
     } else if (typeof(obj) === 'object' && obj) {
@@ -2406,6 +2685,8 @@
     delete options.description
     delete options.author
     delete options.weight
+    delete options.hidden
+    delete options.override
     return clone(options)
   }
 
@@ -2430,10 +2711,14 @@
     this.thrustSword = false
     // The complexity goal.
     this.goal = undefined
+    // Item stats randomization.
+    this.stats = true
     // Music randomization.
     this.music = true
     // Turkey mode.
     this.turkey = true
+    // Arbitrary writes.
+    this.writes = undefined
   }
 
   function locationFromName(name) {
@@ -2575,6 +2860,45 @@
       }
       args.push(locksFromArray(json.complexityGoal.goals))
       builder.complexityGoal.apply(builder, args)
+    }
+    if ('stats' in json) {
+      builder.randomizeStats(json.stats)
+    }
+    if ('music' in json) {
+      builder.randomizeMusic(json.music)
+    }
+    if ('turkeyMode' in json) {
+      builder.turkeyMode(json.turkeyMode)
+    }
+    if ('writes' in json) {
+      let lastAddress = 0
+      json.writes.forEach(function(write) {
+        let address = lastAddress
+        if ('address' in write) {
+          address = parseInt(write.address)
+        }
+        if (!('enabled' in write) || write.enabled) {
+          switch (write.type) {
+          case 'char':
+            lastAddress = builder.writeChar(address, parseInt(write.value))
+            break
+          case 'short':
+            lastAddress = builder.writeShort(address, parseInt(write.value))
+            break
+          case 'word':
+            lastAddress = builder.writeWord(address, parseInt(write.value))
+            break
+          case 'long':
+            lastAddress = builder.writeLong(address, parseInt(write.value))
+            break
+          case 'string':
+            lastAddress = builder.writeString(address, write.value)
+            break
+          }
+        } else {
+          lastAddress = address
+        }
+      })
     }
     return builder
   }
@@ -2731,11 +3055,17 @@
         this.locations = preset.relicLocations
       }
     }
+    if ('stats' in preset) {
+      this.stats = preset.stats
+    }
     if ('music' in preset) {
       this.music = preset.music
     }
     if ('turkeyMode' in preset) {
       this.turkey = preset.turkeyMode
+    }
+    if ('writes' in preset) {
+      this.writes = preset.writes
     }
   }
 
@@ -3049,6 +3379,85 @@
       this.extension = extension
     }
 
+  // Enable stat randomization.
+  PresetBuilder.prototype.randomizeStats = function randomizeStats(enabled) {
+    this.stats = enabled
+  }
+
+  // Enable music randomization.
+  PresetBuilder.prototype.randomizeMusic = function randomizeMusic(enabled) {
+    this.music = enabled
+  }
+
+  // Enable turkey mode.
+  PresetBuilder.prototype.turkeyMode = function turkeyMode(enabled) {
+    this.turkey = enabled
+  }
+
+  // Write a character.
+  PresetBuilder.prototype.writeChar = function writeChar(address, value) {
+    this.writes = this.writes || []
+    this.writes.push({
+      type: 'char',
+      address: address,
+      value: value,
+    })
+    return address + 1
+  }
+
+  // Write a short.
+  PresetBuilder.prototype.writeShort = function writeShort(address, value) {
+    this.writes = this.writes || []
+    this.writes.push({
+      type: 'short',
+      address: address,
+      value: value,
+    })
+    return address + 2
+  }
+
+  // Write a word.
+  PresetBuilder.prototype.writeWord = function writeWord(address, value) {
+    this.writes = this.writes || []
+    this.writes.push({
+      type: 'word',
+      address: address,
+      value: value,
+    })
+    return address + 4
+  }
+
+  // Write a long.
+  PresetBuilder.prototype.writeLong = function writeLong(address, value) {
+    this.writes = this.writes || []
+    this.writes.push({
+      type: 'long',
+      address: address,
+      value: value,
+    })
+    return address + 8
+  }
+
+  // Write a string.
+  PresetBuilder.prototype.writeString = function writeString(address, value) {
+    this.writes = this.writes || []
+    if (typeof(value) === 'string') {
+      const hexBytes = value.split(/([a-fA-F0-9]{2})/g)
+      value = hexBytes.reduce(function(bytes, byteValue) {
+        if (byteValue.length) {
+          bytes.push(parseInt(byteValue, 16))
+        }
+        return bytes
+      }, [])
+    }
+    this.writes.push({
+      type: 'string',
+      address: address,
+      value: value,
+    })
+    return address + value.length
+  }
+
   // Create a preset from the current configuration.
   PresetBuilder.prototype.build = function build() {
     const self = this
@@ -3066,6 +3475,7 @@
           const amb = enemies.filter(function(enemy) {
             return enemy.name === enemyName
           })
+          enemyName = enemyName.replace(/\s+/g, '')
           if (amb.length > 1 && enemy !== amb[0]) {
             enemyName += '-' + enemy.level
           }
@@ -3169,21 +3579,27 @@
         relicLocations.thrustSwordAbility = self.thrustSword
       }
     }
+    const stats = self.stats
     const music = self.music
     const turkey = self.turkey
+    const writes = self.writes
     return new Preset(
       self.metadata.id,
       self.metadata.name,
       self.metadata.description,
       self.metadata.author,
       self.metadata.weight || 0,
+      self.metadata.hidden,
+      self.metadata.override,
       drops,
       equipment,
       items,
       rewards,
       relicLocations,
+      stats,
       music,
       turkey,
+      writes,
     )
   }
 
@@ -3203,9 +3619,11 @@
 
   function randomizeRelics(
     version,
+    applied,
     options,
     seed,
     removed,
+    newNames,
     workers,
     nonce,
     url,
@@ -3230,10 +3648,12 @@
         if (bootstrap) {
           Object.assign(message, {
             bootstrap: true,
+            applied: applied,
             options: options,
             version: version,
             seed: seed,
             removed: removed,
+            newNames: newNames,
           })
         }
         worker.postMessage(JSON.stringify(message))
@@ -3283,11 +3703,13 @@
 
   function randomizeItems(
     version,
+    applied,
     options,
     seed,
     worker,
     nonce,
     items,
+    newNames,
     url,
   ) {
     loadWorker(worker, url)
@@ -3304,14 +3726,42 @@
       })
       worker.postMessage({
         action: constants.WORKER_ACTION.ITEMS,
+        applied: applied,
         options: options,
         version: version,
         seed: seed,
         nonce: nonce,
         items: items,
+        newNames: newNames,
         url: url,
       })
     })
+  }
+
+  function applyWrites(rng, options) {
+    const data = new checked()
+    if (options.writes) {
+      options.writes.forEach(function(write) {
+        switch (write.type) {
+        case 'char':
+          data.writeChar(write.address, write.value)
+          break
+        case 'short':
+          data.writeShort(write.address, write.value)
+          break
+        case 'word':
+          data.writeWord(write.address, write.value)
+          break
+        case 'long':
+          data.writeLong(write.address, write.value)
+          break
+        case 'string':
+          data.writeString(write.address, write.value)
+          break
+        }
+      })
+    }
+    return data
   }
 
   function finalizeData(
@@ -3479,10 +3929,26 @@
     }
   }
 
-  function renderNode(indentLevel, sub, node) {
+  function renderNode(indentLevel, sub, newNames, thrustSword, node) {
     const lines = []
     const names = node.items.map(function(ability) {
-      return relicFromAbility(ability).name
+      const relic = relicFromAbility(ability)
+      let relicName = relic.name
+      let itemId
+      if (relic.itemId) {
+        itemId = relic.itemId
+      } else if (ability === constants.RELIC.THRUST_SWORD) {
+        itemId = thrustSword.id
+      }
+      if (itemId) {
+        const item = newNames.filter(function(item) {
+          return item.id === itemId
+        }).pop()
+        if (item) {
+          relicName = item.name
+        }
+      }
+      return relicName
     })
     lines.push(
       indent(indentLevel)
@@ -3494,7 +3960,13 @@
         indentLevel += 2
       }
       indentLevel += names.slice(0, -1).concat(['']).join('   ').length
-      const nodes = node.solution.map(renderNode.bind(null, indentLevel, true))
+      const nodes = node.solution.map(renderNode.bind(
+        null,
+        indentLevel,
+        true,
+        newNames,
+        thrustSword,
+      ))
       Array.prototype.push.apply(lines, nodes.reduce(function(lines, node) {
         Array.prototype.push.apply(lines, node)
         return lines
@@ -3503,7 +3975,7 @@
     return lines
   }
 
-  function renderSolutions(solutions, indentLevel) {
+  function renderSolutions(solutions, newNames, thrustSword) {
     const minified = solutions.reduce(minifySolution, {
       depth: 0,
       weight: 0,
@@ -3513,7 +3985,7 @@
     })
     const simplified = minified.requirements.map(simplifySolution)
     const collapsed = simplified.map(collapseSolution)
-    const render = renderNode.bind(null, 0, false)
+    const render = renderNode.bind(null, 0, false, newNames, thrustSword)
     return collapsed.map(render).reduce(function(lines, node) {
       Array.prototype.push.apply(lines, node)
       return lines
@@ -3522,6 +3994,7 @@
 
   const exports = {
     assert: assert,
+    shopItemType: shopItemType,
     shopTileFilter: shopTileFilter,
     dropTileFilter: dropTileFilter,
     rewardTileFilter: rewardTileFilter,
@@ -3548,6 +4021,7 @@
     optionsToString: optionsToString,
     optionsFromUrl: optionsFromUrl,
     optionsToUrl: optionsToUrl,
+    toGameString: toGameString,
     setSeedText: setSeedText,
     saltSeed: saltSeed,
     restoreFile: restoreFile,
@@ -3569,6 +4043,7 @@
     PresetBuilder: PresetBuilder,
     randomizeRelics: randomizeRelics,
     randomizeItems: randomizeItems,
+    applyWrites: applyWrites,
     finalizeData: finalizeData,
     renderSolutions: renderSolutions,
     workerCountFromCores: workerCountFromCores,

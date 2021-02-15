@@ -37,9 +37,9 @@
     "location": "Force of Echo",
     "comment": "In second castle",
     "locks": [
-      "Holy Glasses + Soul of Bat",
-      "Holy Glasses + Gravity Boots + Leap Stone",
-      "Holy Glasses + Form of Mist + Power of Mist"
+      "Holy glasses + Soul of Bat",
+      "Holy glasses + Gravity Boots + Leap Stone",
+      "Holy glasses + Form of Mist + Power of Mist"
     ]
   }, {
     "location": "Power of Wolf",
@@ -78,9 +78,9 @@
     "location": "Gas Cloud",
     "comment": "In second castle",
     "locks": [
-      "Holy Glasses + Soul of Bat",
-      "Holy Glasses + Gravity Boots + Leap Stone",
-      "Holy Glasses + Form of Mist + Power of Mist"
+      "Holy glasses + Soul of Bat",
+      "Holy glasses + Gravity Boots + Leap Stone",
+      "Holy glasses + Form of Mist + Power of Mist"
     ]
   }, {
     "location": "Gravity Boots",
@@ -164,42 +164,42 @@
     "location": "Heart of Vlad",
     "comment": "In second castle",
     "locks": [
-      "Holy Glasses + Soul of Bat",
-      "Holy Glasses + Gravity Boots + Leap Stone",
-      "Holy Glasses + Form of Mist + Power of Mist"
+      "Holy glasses + Soul of Bat",
+      "Holy glasses + Gravity Boots + Leap Stone",
+      "Holy glasses + Form of Mist + Power of Mist"
     ]
   }, {
     "location": "Tooth of Vlad",
     "comment": "In second castle",
     "locks": [
-      "Holy Glasses + Soul of Bat",
-      "Holy Glasses + Gravity Boots + Leap Stone",
-      "Holy Glasses + Form of Mist + Power of Mist"
+      "Holy glasses + Soul of Bat",
+      "Holy glasses + Gravity Boots + Leap Stone",
+      "Holy glasses + Form of Mist + Power of Mist"
     ]
   }, {
     "location": "Rib of Vlad",
     "comment": "In second castle",
     "locks": [
-      "Holy Glasses + Soul of Bat",
-      "Holy Glasses + Gravity Boots + Leap Stone + Form of Mist",
-      "Holy Glasses + Gravity Boots + Leap Stone + Soul of Wolf",
-      "Holy Glasses + Form of Mist + Power of Mist"
+      "Holy glasses + Soul of Bat",
+      "Holy glasses + Gravity Boots + Leap Stone + Form of Mist",
+      "Holy glasses + Gravity Boots + Leap Stone + Soul of Wolf",
+      "Holy glasses + Form of Mist + Power of Mist"
     ]
   }, {
     "location": "Ring of Vlad",
     "comment": "In second castle",
     "locks": [
-      "Holy Glasses + Soul of Bat",
-      "Holy Glasses + Gravity Boots + Leap Stone",
-      "Holy Glasses + Form of Mist + Power of Mist"
+      "Holy glasses + Soul of Bat",
+      "Holy glasses + Gravity Boots + Leap Stone",
+      "Holy glasses + Form of Mist + Power of Mist"
     ]
   }, {    
     "location": "Eye of Vlad",
     "comment": "In second castle",
     "locks": [
-      "Holy Glasses + Soul of Bat",
-      "Holy Glasses + Gravity Boots + Leap Stone",
-      "Holy Glasses + Form of Mist + Power of Mist"
+      "Holy glasses + Soul of Bat",
+      "Holy glasses + Gravity Boots + Leap Stone",
+      "Holy glasses + Form of Mist + Power of Mist"
     ]
   }, {
     "location":  "Spike Breaker",
@@ -207,7 +207,7 @@
       "Jewel of Open + Soul of Bat + Echo of Bat"
     ]
   }, {
-    "location": "Gold Ring",
+    "location": "Gold ring",
     "comment": "Requires Jewel of Open + flight",
     "locks": [
       "Jewel of Open + Soul of Bat",
@@ -215,14 +215,14 @@
       "Jewel of Open + Form of Mist + Power of Mist"
     ]
   }, {
-    "location": "Silver Ring",
+    "location": "Silver ring",
     "locks": [
       "Jewel of Open + Spike Breaker + Form of Mist"
     ]
   }, {
-    "location": "Holy Glasses",
+    "location": "Holy glasses",
     "locks": [
-      "Silver Ring + Gold Ring"
+      "Silver ring + Gold ring"
     ],
     "comment": "Access must also give flight",
     "escapeRequires": [

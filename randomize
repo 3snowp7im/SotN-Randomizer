@@ -8,6 +8,7 @@ const constants = require('./src/constants')
 const errors = require('./src/errors')
 const extension = require('./src/extension')
 const presets = require('./build/presets')
+const randomizeStats = require('./src/randomize_stats')
 const randomizeRelics = require('./src/randomize_relics')
 const randomizeItems = require('./src/randomize_items')
 const randomizeMusic = require('./src/randomize_music')
@@ -23,7 +24,9 @@ const optionsHelp = [
   '  "i" for item locations (`--help items`)',
   '  "b" for prologue rewards (`--help rewards`)',
   '  "r" for relic locations (`--help relics`)',
+  '  "s" for stats',
   '  "m" for music',
+  '  "w" for writes (`--help writes`)',
   '  "t" for turkey mode',
   '  "n" for tournament mode (disables spoilers)',
   '',
@@ -231,9 +234,9 @@ const relicsHelp = [
   '  (' + constants.RELIC.RING_OF_VLAD + ') Ring of Vlad',
   '  (' + constants.RELIC.EYE_OF_VLAD + ') Eye of Vlad',
   '  (' + constants.RELIC.SPIKE_BREAKER + ') Spike Breaker',
-  '  (' + constants.RELIC.SILVER_RING + ') Silver Ring',
-  '  (' + constants.RELIC.GOLD_RING + ') Gold Ring',
-  '  (' + constants.RELIC.HOLY_GLASSES + ') Holy Glasses',
+  '  (' + constants.RELIC.SILVER_RING + ') Silver ring',
+  '  (' + constants.RELIC.GOLD_RING + ') Gold ring',
+  '  (' + constants.RELIC.HOLY_GLASSES + ') Holy glasses',
   '',
   'Examples:',
   '  r:B:L      Soul of Bat relic location requires only Leap Stone.',
@@ -273,12 +276,12 @@ const relicsHelp = [
   '',
   'Additionally there are items to provide abilities that do not have a',
   'dedicated vanilla location.',
-  '  (' + constants.RELIC.THRUST_SWORD + ') Thrust Sword',
+  '  (' + constants.RELIC.THRUST_SWORD + ') Thrust sword',
   '',
   'These ability items can be added to the relic placement logic by',
   'specifying their ability letter:',
-  '  r:D:M:D-L  Enable Thrust Sword placement and have Form of Mist location',
-  '             require a Thrust Sword or Leapstone.',
+  '  r:D:M:D-L  Enable Thrust sword placement and have Form of Mist location',
+  '             require a Thrust sword or Leapstone.',
   '',
   'An optional complexity target can specify a set of abilities that are',
   'considered win conditions. A minimum and maximum complexity depth specify',
@@ -311,6 +314,41 @@ const relicsHelp = [
   '  $0 --opt r:B:L:y:LG-MP,dpt',
 ].join('\n')
 
+const writesHelp = [
+  'Arbitrary data can be written using the "w" option with argument syntax.',
+  '',
+  'Write format:',
+  '  w:address:value[:address:value[:...]]',
+  '',
+  'Addresses should be either decimal numbers or "0x"-prefixed hex strings.',
+  '',
+  'Values are either "0x"-prefixed hex strings or unprefixed hex strings.',
+  'Use an unprefixed hex string to specify a string of bytes.',
+  'Use a prefixed hex string to specify a number written as little-endian.',
+  'The width of the number written is determined by the length of the hex.',
+  'To write a character, the hex must be 2 characters. To write a short, the',
+  'hex must be 4 characters. To write a word, the hex must be 8 characters.',
+  'To write a long, the hex must be 16 characters. Any other character length',
+  'is erroneous.',
+  '',
+  'Examples:',
+  '  w:0x04c590:0x00                Write the character 0x00 to the address',
+  '                                 0x04c590.',
+  '  w:0x043930c4:0x78b4            Write the value 0x78b4 as a little-endian',
+  '                                 short integer to the address 0x043930c4.',
+  '  w:0x032b08:0x08075180          Write the value 0x08075180 as a little-',
+  '                                 endian integer to the address 0x032b08.',
+  '  w:0x0abb28:0x00:0x0abb2a:0x01  Write the characters 0x00 and 0x01 to the',
+  '                                 addresses 0x0abb28 and 0x0abb2a',
+  '                                 respectively.',
+  '  w:0x04389c6c:74657374ff        Write the string 74657374ff to the',
+  '                                 address 0x04389c6c.',
+  '',
+  'If other randomization options follow a write, they must also be separated',
+  'from the write with a comma:',
+  '  $0 --opt w:0x0abb28:0x00:0x0abb2a:0x01,dpt',
+].join('\n')
+
 const presetHelp = [
   'Presets specify collection of randomization options. A preset is enabled',
   'by using argument syntax.',
@@ -319,8 +357,10 @@ const presetHelp = [
   '  p:<preset>',
   '',
   'This randomizer has several built-in presets:',
-].concat(presets.map(function(meta) {
-  return '  ' + meta.id + (meta.id === 'safe' ? ' (default)' : '')
+].concat(presets.filter(function(preset) {
+  return !preset.hidden
+}).map(function(preset) {
+  return '  ' + preset.id + (preset.id === 'safe' ? ' (default)' : '')
 })).concat([
   '',
   'Use `--help <preset>` for information on a specific preset.',
@@ -438,7 +478,7 @@ const yargs = require('yargs')
   })
   .option('seed', {
     alias: 's',
-    describe: 'Seed',
+    describe: 'Randomization seed',
     type: 'string',
     requiresArg: true,
   })
@@ -544,14 +584,17 @@ if ('help' in argv) {
     items: itemsHelp,
     rewards: rewardsHelp,
     relics: relicsHelp,
+    writes: writesHelp,
     preset: presetHelp,
   }
   const script = path.basename(process.argv[1])
   Object.getOwnPropertyNames(topics).forEach(function(topic) {
     topics[topic] = topics[topic].replace(/\$0/g, script)
   }, {})
-  presets.forEach(function(meta) {
-    topics[meta.id] = presetMetaHelp(meta)
+  presets.forEach(function(preset) {
+    if (!preset.hidden) {
+      topics[preset.id] = presetMetaHelp(preset)
+    }
   })
   if (argv.help in topics) {
     console.log(topics[argv.help])
@@ -819,7 +862,19 @@ if ('inBin' in argv) {
       check = new util.checked(fd)
       let applied
       try {
-        applied = util.Preset.options(options)
+        // Check for overriding preset.
+        let override
+        for (let preset of presets) {
+          if (preset.override) {
+            applied = preset.options()
+            override = true
+            break
+          }
+        }
+        // Get user specified options.
+        if (!override) {
+          applied = util.Preset.options(options)
+        }
       } catch (err) {
         yargs.showHelp()
         console.error('\n' + err.message)
@@ -830,6 +885,16 @@ if ('inBin' in argv) {
         let result
         // Place planned progression items.
         const removed = randomizeItems.placePlannedItems(applied)
+        // Randomize stats.
+        rng = new require('seedrandom')(util.saltSeed(
+          version,
+          options,
+          seed,
+          0,
+        ))
+        result = randomizeStats(rng, applied)
+        const newNames = result.newNames
+        check.apply(result.data)
         // Randomize relics.
         const cores = os.cpus().length
         const workers = Array(util.workerCountFromCores(cores))
@@ -838,11 +903,13 @@ if ('inBin' in argv) {
         }
         result = await util.randomizeRelics(
           version,
+          applied,
           options,
           seed,
           removed,
+          newNames,
           workers,
-          3,
+          4,
         )
         util.mergeInfo(info, result.info)
         // Write relics mapping.
@@ -850,18 +917,24 @@ if ('inBin' in argv) {
           version,
           options,
           seed,
-          0,
+          1,
         ))
-        result = randomizeRelics.writeRelics(rng, applied, result)
+        result = randomizeRelics.writeRelics(
+          rng,
+          applied,
+          result,
+        )
         check.apply(result.data)
         // Randomize items.
         result = await util.randomizeItems(
           version,
+          applied,
           options,
           seed,
           new Worker('./src/worker.js'),
-          1,
+          2,
           result.items,
+          newNames,
         )
         check.apply(result.data)
         util.mergeInfo(info, result.info)
@@ -870,9 +943,12 @@ if ('inBin' in argv) {
           version,
           options,
           seed,
-          2,
+          3,
         ))
         result = randomizeMusic(rng, applied)
+        check.apply(result)
+        // Apply writes.
+        result = util.applyWrites(rng, applied)
         check.apply(result)
       } catch (err) {
         console.error('Seed:  ' + seed)
@@ -932,7 +1008,7 @@ if ('inBin' in argv) {
       }
       // Write error detection codes.
       if (fd) {
-        eccEdcCalc(fd, size)
+        eccEdcCalc(fd, size, true)
       }
       // Write randomized bin.
       if (typeof(fd) === 'object') {

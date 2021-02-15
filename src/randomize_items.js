@@ -208,14 +208,36 @@
         }
         if ('addresses' in tile) {
           tile.addresses.forEach(function(address) {
-            data.writeShort(address, value)
+            let offset = 0
+            if (tile.shop) {
+              offset = 2
+              data.writeChar(address, util.shopItemType(item))
+            }
+            data.writeShort(address + offset, value)
           })
         }
       })
     }
   }
 
-  function randomizeStartingEquipment(data, rng, items, info, planned) {
+  function getNewName(newNames, item) {
+    const newName =  newNames.filter(function(newName) {
+      return newName.id === item.id
+    })[0]
+    if (newName) {
+      return newName.name
+    }
+    return item.name
+  }
+
+  function randomizeStartingEquipment(
+    data,
+    rng,
+    items,
+    newNames,
+    info,
+    planned,
+  ) {
     const pool = items.filter(util.nonProgressionFilter)
     // Select starting equipment.
     planned = planned || {}
@@ -334,12 +356,12 @@
     }
     // Update info.
     info[2]['Starting equipment'] = [
-      weapon ? weapon.name : 'Empty hand',
-      shield ? shield.name : 'Empty hand',
-      helmet ? helmet.name : '----',
-      armor ? armor.name : '----',
-      cloak ? cloak.name : '----',
-      other ? other.name : '----',
+      weapon ? getNewName(newNames, weapon) : 'Empty hand',
+      shield ? getNewName(newNames, shield) : 'Empty hand',
+      helmet ? getNewName(newNames, helmet) : '----',
+      armor ? getNewName(newNames, armor) : '----',
+      cloak ? getNewName(newNames, cloak) : '----',
+      other ? getNewName(newNames, other) : '----',
     ]
   }
 
@@ -894,7 +916,7 @@
         pushTile.call(replacement, noOffsetTile)
       }
     }
-    pushReplacement('Short Sword')
+    pushReplacement('Short sword')
     pushReplacement('Red Rust')
     // Remove duplicated items.
     dupped.forEach(function(dupped) {
@@ -981,6 +1003,12 @@
     data.writeWord(address, 0x0803924f)
   }
 
+/*
+
+PC 800fa8f0 # loads sprite
+
+*/
+
   function randomizeCapeColors(data, rng) {
     // Cloth Cape.
     capeColor(data, 0x0afb84, 0x0afb88, {rng: rng})
@@ -1020,7 +1048,7 @@
     capeColor(data, 0x0afa44, 0x0afbac, {rng: rng})
   }
 
-  function randomizeItems(rng, items, options) {
+  function randomizeItems(rng, items, newNames, options) {
     const data = new util.checked()
     const info = util.newInfo()
     const addon = []
@@ -1031,13 +1059,16 @@
       if (typeof(options.startingEquipment) === 'object') {
         planned = options.startingEquipment
       }
-      randomizeStartingEquipment(data, rng, items, info, planned)
+      randomizeStartingEquipment(data, rng, items, newNames, info, planned)
     }
     let retries = 0
     while (true) {
       try {
         // Get pool of randomizable items.
         pool = items.filter(function(item) {
+          if (item.name === 'Sword Familiar') {
+            return false
+          }
           if (!util.nonProgressionFilter(item)) {
             return false
           }

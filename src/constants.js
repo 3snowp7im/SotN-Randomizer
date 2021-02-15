@@ -390,6 +390,16 @@
   const enemyListLen = 292
   const enemyDataOff = 0x8900
   const enemyDataLen = 0x28
+  const handEquipmentListOff = 0x4b04
+  const handEquipmentListLen = 169
+  const armorListOff = 0x7718
+  const armorListLen = 26
+  const helmetListOff = 0x7a58
+  const helmetListLen = 22
+  const cloakListOff = 0x7d18
+  const cloakListLen = 9
+  const accessoryListOff = 0x7e38
+  const accessoryListLen = 33
 
   const RELIC = {
     SOUL_OF_BAT: 'B',
@@ -547,9 +557,10 @@
   const globalDropsCount = 32
 
   const WORKER_ACTION = {
-    RELICS:    1,
-    ITEMS:     2,
-    FINALIZE:  3,
+    STATS:     1,
+    RELICS:    2,
+    ITEMS:     3,
+    FINALIZE:  4,
   }
 
   const MUSIC = {
@@ -592,6 +603,34 @@
     // SPOKEN: 0x42,
   }
 
+  const HAND_TYPE = {
+    SHORT_SWORD: 0x00,
+    SWORD: 0x01,
+    THROWING_SWORD: 0x02,
+    FIST: 0x03,
+    CLUB: 0x04,
+    TWO_HANDED_SWORD: 0x05,
+    FOOD: 0x06,
+    DAMAGE_CONSUMABLE: 0x07,
+    PROJECTILE_CONSUMABLE: 0x08,
+    SHIELD: 0x09,
+    OTHER: 0x0a,
+  }
+
+  const handTypeNames = [
+    'SHORT_SWORD',
+    'SWORD',
+    'THROWING_SWORD',
+    'FIST',
+    'BLUNT_WEAPON',
+    'TWO_HANDED_SWORD',
+    'FOOD',
+    'DAMAGE_CONSUMABLE',
+    'PROJECTILE_CONSUMABLE',
+    'SHIELD',
+    'OTHER',
+  ]
+
   const exports = {
     devBaseUrl: devBaseUrl,
     defaultOptions: defaultOptions,
@@ -606,6 +645,16 @@
     enemyListLen: enemyListLen,
     enemyDataOff: enemyDataOff,
     enemyDataLen: enemyDataLen,
+    handEquipmentListOff: handEquipmentListOff,
+    handEquipmentListLen: handEquipmentListLen,
+    armorListOff: armorListOff,
+    armorListLen: armorListLen,
+    helmetListOff: helmetListOff,
+    helmetListLen: helmetListLen,
+    cloakListOff: cloakListOff,
+    cloakListLen: cloakListLen,
+    accessoryListOff: accessoryListOff,
+    accessoryListLen: accessoryListLen,
     RELIC: RELIC,
     tileIdOffset: tileIdOffset,
     equipIdOffset: equipIdOffset,
@@ -618,6 +667,8 @@
     GLOBAL_DROP: GLOBAL_DROP,
     globalDropsCount: globalDropsCount,
     MUSIC: MUSIC,
+    HAND_TYPE: HAND_TYPE,
+    handTypeNames: handTypeNames,
     WORKER_ACTION: WORKER_ACTION,
   }
   if (self) {

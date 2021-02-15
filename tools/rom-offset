@@ -1,0 +1,11 @@
+#!/usr/bin/env node
+// This converts a zone address to a rom address.
+// Usage: tools/rom-offset <zone> <offset>
+
+const constants = require('../src/constants')
+const util = require('../src/util')
+
+const zone = constants.ZONE[process.argv[2]]
+const offset = parseInt(process.argv[3])
+const address = util.romOffset(constants.zones[zone], offset)
+console.log(util.numToHex(address))

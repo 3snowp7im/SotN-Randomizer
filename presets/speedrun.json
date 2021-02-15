@@ -21,7 +21,7 @@
       "Gravity Boots + Leap Stone",
       "Gravity Boots + Soul of Wolf",
       "Gravity Boots + Form of Mist",
-      "Gravity Boots + Thrust Sword",
+      "Gravity Boots + Thrust sword",
       "Form of Mist + Power of Mist"
     ]
   }, {
@@ -37,12 +37,12 @@
     "location": "Force of Echo",
     "comment": "In second castle",
     "locks": [
-      "Holy Glasses + Soul of Bat",
-      "Holy Glasses + Gravity Boots + Leap Stone",
-      "Holy Glasses + Gravity Boots + Soul of Wolf",
-      "Holy Glasses + Gravity Boots + Form of Mist",
-      "Holy Glasses + Gravity Boots + Thrust Sword",
-      "Holy Glasses + Form of Mist + Power of Mist"
+      "Holy glasses + Soul of Bat",
+      "Holy glasses + Gravity Boots + Leap Stone",
+      "Holy glasses + Gravity Boots + Soul of Wolf",
+      "Holy glasses + Gravity Boots + Form of Mist",
+      "Holy glasses + Gravity Boots + Thrust sword",
+      "Holy glasses + Form of Mist + Power of Mist"
     ]
   }, {
     "location": "Power of Wolf",
@@ -52,7 +52,7 @@
       "Gravity Boots + Leap Stone",
       "Gravity Boots + Soul of Wolf",
       "Gravity Boots + Form of Mist",
-      "Gravity Boots + Thrust Sword",
+      "Gravity Boots + Thrust sword",
       "Form of Mist + Power of Mist"
     ]
   }, {
@@ -72,7 +72,7 @@
       "Soul of Bat",
       "Soul of Wolf",
       "Form of Mist",
-      "Thrust Sword"
+      "Thrust sword"
     ]
   }, {
     "location": "Power of Mist",
@@ -82,19 +82,19 @@
       "Gravity Boots + Leap Stone",
       "Gravity Boots + Soul of Wolf",
       "Gravity Boots + Form of Mist",
-      "Gravity Boots + Thrust Sword",
+      "Gravity Boots + Thrust sword",
       "Form of Mist + Power of Mist"
     ]
   }, {
     "location": "Gas Cloud",
     "comment": "In second castle",
     "locks": [
-      "Holy Glasses + Soul of Bat",
-      "Holy Glasses + Gravity Boots + Leap Stone",
-      "Holy Glasses + Gravity Boots + Soul of Wolf",
-      "Holy Glasses + Gravity Boots + Form of Mist",
-      "Holy Glasses + Gravity Boots + Thrust Sword",
-      "Holy Glasses + Form of Mist + Power of Mist"
+      "Holy glasses + Soul of Bat",
+      "Holy glasses + Gravity Boots + Leap Stone",
+      "Holy glasses + Gravity Boots + Soul of Wolf",
+      "Holy glasses + Gravity Boots + Form of Mist",
+      "Holy glasses + Gravity Boots + Thrust sword",
+      "Holy glasses + Form of Mist + Power of Mist"
     ]
   }, {
     "location": "Gravity Boots",
@@ -104,7 +104,7 @@
       "Gravity Boots + Leap Stone",
       "Gravity Boots + Soul of Wolf",
       "Gravity Boots + Form of Mist",
-      "Gravity Boots + Thrust Sword",
+      "Gravity Boots + Thrust sword",
       "Form of Mist + Power of Mist"
     ]
   }, {
@@ -135,7 +135,7 @@
       "Gravity Boots + Leap Stone",
       "Gravity Boots + Soul of Wolf",
       "Gravity Boots + Form of Mist",
-      "Gravity Boots + Thrust Sword",
+      "Gravity Boots + Thrust sword",
       "Form of Mist + Power of Mist"
     ]
   }, {
@@ -147,7 +147,7 @@
       "Soul of Wolf",
       "Form of Mist",
       "Leap Stone",
-      "Thrust Sword"
+      "Thrust sword"
     ]
   }, {
     "location": "Demon Card",
@@ -157,7 +157,7 @@
       "Jewel of Open + Soul of Bat",
       "Jewel of Open + Gravity Boots + Soul of Wolf",
       "Jewel of Open + Gravity Boots + Form of Mist",
-      "Jewel of Open + Gravity Boots + Thrust Sword",
+      "Jewel of Open + Gravity Boots + Thrust sword",
       "Jewel of Open + Form of Mist + Power of Mist",
       "Jewel of Open + Soul of Wolf + Skill of Wolf",
       "Jewel of Open + Soul of Wolf + Power of Wolf"
@@ -177,61 +177,61 @@
       "Gravity Boots + Leap Stone",
       "Gravity Boots + Soul of Wolf",
       "Gravity Boots + Form of Mist",
-      "Gravity Boots + Thrust Sword",
+      "Gravity Boots + Thrust sword",
       "Form of Mist + Power of Mist"
     ]
   }, {
     "location": "Heart of Vlad",
     "comment": "In second castle",
     "locks": [
-      "Holy Glasses + Soul of Bat",
-      "Holy Glasses + Gravity Boots + Leap Stone",
-      "Holy Glasses + Gravity Boots + Soul of Wolf",
-      "Holy Glasses + Gravity Boots + Form of Mist",
-      "Holy Glasses + Gravity Boots + Thrust Sword",
-      "Holy Glasses + Form of Mist + Power of Mist"
+      "Holy glasses + Soul of Bat",
+      "Holy glasses + Gravity Boots + Leap Stone",
+      "Holy glasses + Gravity Boots + Soul of Wolf",
+      "Holy glasses + Gravity Boots + Form of Mist",
+      "Holy glasses + Gravity Boots + Thrust sword",
+      "Holy glasses + Form of Mist + Power of Mist"
     ]
   }, {
     "location": "Tooth of Vlad",
     "comment": "In second castle",
     "locks": [
-      "Holy Glasses + Soul of Bat",
-      "Holy Glasses + Gravity Boots + Leap Stone",
-      "Holy Glasses + Gravity Boots + Soul of Wolf",
-      "Holy Glasses + Gravity Boots + Form of Mist",
-      "Holy Glasses + Gravity Boots + Thrust Sword",
-      "Holy Glasses + Form of Mist + Power of Mist"
+      "Holy glasses + Soul of Bat",
+      "Holy glasses + Gravity Boots + Leap Stone",
+      "Holy glasses + Gravity Boots + Soul of Wolf",
+      "Holy glasses + Gravity Boots + Form of Mist",
+      "Holy glasses + Gravity Boots + Thrust sword",
+      "Holy glasses + Form of Mist + Power of Mist"
     ]
   }, {
     "location": "Rib of Vlad",
     "comment": "In second castle + transformation",
     "locks": [
-      "Holy Glasses + Soul of Bat",
-      "Holy Glasses + Gravity Boots + Soul of Wolf",
-      "Holy Glasses + Gravity Boots + Form of Mist",
-      "Holy Glasses + Form of Mist + Power of Mist"
+      "Holy glasses + Soul of Bat",
+      "Holy glasses + Gravity Boots + Soul of Wolf",
+      "Holy glasses + Gravity Boots + Form of Mist",
+      "Holy glasses + Form of Mist + Power of Mist"
     ]
   }, {
     "location": "Ring of Vlad",
     "comment": "In second castle",
     "locks": [
-      "Holy Glasses + Soul of Bat",
-      "Holy Glasses + Gravity Boots + Leap Stone",
-      "Holy Glasses + Gravity Boots + Soul of Wolf",
-      "Holy Glasses + Gravity Boots + Form of Mist",
-      "Holy Glasses + Gravity Boots + Thrust Sword",
-      "Holy Glasses + Form of Mist + Power of Mist"
+      "Holy glasses + Soul of Bat",
+      "Holy glasses + Gravity Boots + Leap Stone",
+      "Holy glasses + Gravity Boots + Soul of Wolf",
+      "Holy glasses + Gravity Boots + Form of Mist",
+      "Holy glasses + Gravity Boots + Thrust sword",
+      "Holy glasses + Form of Mist + Power of Mist"
     ]
   }, {
     "location": "Eye of Vlad",
     "comment": "In second castle",
     "locks": [
-      "Holy Glasses + Soul of Bat",
-      "Holy Glasses + Gravity Boots + Leap Stone",
-      "Holy Glasses + Gravity Boots + Soul of Wolf",
-      "Holy Glasses + Gravity Boots + Form of Mist",
-      "Holy Glasses + Gravity Boots + Thrust Sword",
-      "Holy Glasses + Form of Mist + Power of Mist"
+      "Holy glasses + Soul of Bat",
+      "Holy glasses + Gravity Boots + Leap Stone",
+      "Holy glasses + Gravity Boots + Soul of Wolf",
+      "Holy glasses + Gravity Boots + Form of Mist",
+      "Holy glasses + Gravity Boots + Thrust sword",
+      "Holy glasses + Form of Mist + Power of Mist"
     ]
   }, {
     "location": "Spike Breaker",
@@ -242,7 +242,7 @@
       "Jewel of Open + Form of Mist + Power of Mist",
       "Jewel of Open + Gravity Boots + Form of Mist + Spike Breaker",
       "Jewel of Open + Gravity Boots + Soul of Wolf + Spike Breaker",
-      "Jewel of Open + Gravity Boots + Thrust Sword + Spike Breaker"
+      "Jewel of Open + Gravity Boots + Thrust sword + Spike Breaker"
     ],
     "comment": "Access must also give at least Leap Stone",
     "escapeRequires": [
@@ -252,38 +252,38 @@
       "Gravity Boots"
     ]
   }, {
-    "location": "Gold Ring",
+    "location": "Gold ring",
     "comment": "Requires Jewel of Open + flight, Jewel of Open + Soul of Wolf + Skill of Wolf, or Jewel of Open + Soul of Wolf + Leap Stone",
     "locks": [
       "Jewel of Open + Soul of Bat",
       "Jewel of Open + Gravity Boots + Leap Stone",
       "Jewel of Open + Gravity Boots + Soul of Wolf",
       "Jewel of Open + Gravity Boots + Form of Mist",
-      "Jewel of Open + Gravity Boots + Thrust Sword",
+      "Jewel of Open + Gravity Boots + Thrust sword",
       "Jewel of Open + Form of Mist + Power of Mist",
       "Jewel of Open + Soul of Wolf + Skill of Wolf",
       "Jewel of Open + Soul of Wolf + Leap Stone"
     ]
   }, {
-    "location": "Silver Ring",
+    "location": "Silver ring",
     "comment": "Requires Jewel of Open + Form of Mist + Soul of Bat",
     "locks": [
       "Jewel of Open + Form of Mist + Soul of Bat",
       "Jewel of Open + Form of Mist + Power of Mist"
     ]
   }, {
-    "location": "Holy Glasses",
+    "location": "Holy glasses",
     "comment": "Requires rings",
     "locks": [
-      "Silver Ring + Gold Ring"
+      "Silver ring + Gold ring"
     ],
-    "comment": "Access to Holy Glasses must also give flight",
+    "comment": "Access to Holy glasses must also give flight",
     "escapeRequires": [
       "Soul of Bat",
       "Gravity Boots + Leap Stone",
       "Gravity Boots + Soul of Wolf",
       "Gravity Boots + Form of Mist",
-      "Gravity Boots + Thrust Sword",
+      "Gravity Boots + Thrust sword",
       "Form of Mist + Power of Mist"
     ]
   }, {
@@ -300,7 +300,7 @@
       "Jewel of Open + Soul of Bat",
       "Jewel of Open + Gravity Boots + Soul of Wolf",
       "Jewel of Open + Gravity Boots + Form of Mist",
-      "Jewel of Open + Gravity Boots + Thrust Sword",
+      "Jewel of Open + Gravity Boots + Thrust sword",
       "Jewel of Open + Form of Mist + Power of Mist",
       "Jewel of Open + Soul of Wolf + Skill of Wolf",
       "Jewel of Open + Soul of Wolf + Power of Wolf"
@@ -316,40 +316,40 @@
     "location": "Dark Blade",
     "comment": "In second castle",
     "locks": [
-      "Holy Glasses + Soul of Bat",
-      "Holy Glasses + Gravity Boots + Leap Stone",
-      "Holy Glasses + Gravity Boots + Soul of Wolf",
-      "Holy Glasses + Gravity Boots + Form of Mist",
-      "Holy Glasses + Gravity Boots + Thrust Sword",
-      "Holy Glasses + Form of Mist + Power of Mist"
+      "Holy glasses + Soul of Bat",
+      "Holy glasses + Gravity Boots + Leap Stone",
+      "Holy glasses + Gravity Boots + Soul of Wolf",
+      "Holy glasses + Gravity Boots + Form of Mist",
+      "Holy glasses + Gravity Boots + Thrust sword",
+      "Holy glasses + Form of Mist + Power of Mist"
     ]
   }, {
     "location": "Ring of Arcana",
     "comment": "In second castle",
     "locks": [
-      "Holy Glasses + Soul of Bat",
-      "Holy Glasses + Gravity Boots + Leap Stone",
-      "Holy Glasses + Gravity Boots + Soul of Wolf",
-      "Holy Glasses + Gravity Boots + Form of Mist",
-      "Holy Glasses + Gravity Boots + Thrust Sword",
-      "Holy Glasses + Form of Mist + Power of Mist"
+      "Holy glasses + Soul of Bat",
+      "Holy glasses + Gravity Boots + Leap Stone",
+      "Holy glasses + Gravity Boots + Soul of Wolf",
+      "Holy glasses + Gravity Boots + Form of Mist",
+      "Holy glasses + Gravity Boots + Thrust sword",
+      "Holy glasses + Form of Mist + Power of Mist"
     ]
   }, {
     "location": "Trio",
     "comment": "In second castle",
     "locks": [
-      "Holy Glasses + Soul of Bat",
-      "Holy Glasses + Gravity Boots + Leap Stone",
-      "Holy Glasses + Gravity Boots + Soul of Wolf",
-      "Holy Glasses + Gravity Boots + Form of Mist",
-      "Holy Glasses + Gravity Boots + Thrust Sword",
-      "Holy Glasses + Form of Mist + Power of Mist"
+      "Holy glasses + Soul of Bat",
+      "Holy glasses + Gravity Boots + Leap Stone",
+      "Holy glasses + Gravity Boots + Soul of Wolf",
+      "Holy glasses + Gravity Boots + Form of Mist",
+      "Holy glasses + Gravity Boots + Thrust sword",
+      "Holy glasses + Form of Mist + Power of Mist"
     ]
   }],
   "complexityGoal": {
     "min": 7,
     "goals": [
-      "Holy Glasses + Heart of Vlad + Tooth of Vlad + Rib of Vlad + Ring of Vlad + Eye of Vlad"
+      "Holy glasses + Heart of Vlad + Tooth of Vlad + Rib of Vlad + Ring of Vlad + Eye of Vlad"
     ]
   }
 }

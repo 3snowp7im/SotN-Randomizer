@@ -5829,7 +5829,7 @@
       entities: [ 0x21a8, 0x27b6 ],
     }],
   }, {
-    name: 'Monster Vial 1',
+    name: 'Monster vial 1',
     type: TYPE.USABLE,
     id: 1,
     tiles: [{
@@ -5840,7 +5840,7 @@
       enemy: 10,
     }],
   }, {
-    name: 'Monster Vial 2',
+    name: 'Monster vial 2',
     type: TYPE.USABLE,
     id: 2,
     tiles: [{
@@ -5848,7 +5848,7 @@
       enemy: 3,
     }],
   }, {
-    name: 'Monster Vial 3',
+    name: 'Monster vial 3',
     type: TYPE.USABLE,
     id: 3,
     tiles: [{
@@ -5881,7 +5881,7 @@
       enemy: 113,
     }],
   }, {
-    name: 'Shield Rod',
+    name: 'Shield rod',
     type: TYPE.WEAPON1,
     id: 4,
     tiles: [{
@@ -5894,7 +5894,7 @@
       candle: 0x80,
     }],
   }, {
-    name: 'Leather Shield',
+    name: 'Leather shield',
     type: TYPE.SHIELD,
     id: 5,
     tiles: [{
@@ -5903,7 +5903,7 @@
       entities: [ 0x2cf8, 0x36b4 ],
     }, {
       zones: [ ZONE.LIB ],
-      addresses: [ 0x047a3166 ],
+      addresses: [ 0x047a3164 ],
       shop: true,
     }, {
       addresses: [ 0x0b77d4 ],
@@ -5913,7 +5913,7 @@
       enemy: 29,
     }],
   }, {
-    name: 'Knight Shield',
+    name: 'Knight shield',
     type: TYPE.SHIELD,
     id: 6,
     tiles: [{
@@ -5928,19 +5928,19 @@
       enemy: 149,
     }],
   }, {
-    name: 'Iron Shield',
+    name: 'Iron shield',
     type: TYPE.SHIELD,
     id: 7,
     tiles: [{
       zones: [ ZONE.LIB ],
-      addresses: [ 0x047a316e ],
+      addresses: [ 0x047a316c ],
       shop: true,
     }, {
       addresses: [ 0x0b6ed4 ],
       enemy: 41,
     }],
   }, {
-    name: 'AxeLord Shield',
+    name: 'AxeLord shield',
     type: TYPE.SHIELD,
     id: 8,
     tiles: [{
@@ -5948,7 +5948,7 @@
       enemy: 30,
     }],
   }, {
-    name: 'Herald Shield',
+    name: 'Herald shield',
     type: TYPE.SHIELD,
     id: 9,
     tiles: [{
@@ -5957,7 +5957,7 @@
       entities: [ 0x3fa0, 0x503c ],
     }],
   }, {
-    name: 'Dark Shield',
+    name: 'Dark shield',
     type: TYPE.SHIELD,
     id: 10,
     tiles: [{
@@ -5969,7 +5969,7 @@
       enemy: 126,
     }],
   }, {
-    name: 'Goddess Shield',
+    name: 'Goddess shield',
     type: TYPE.SHIELD,
     id: 11,
     tiles: [{
@@ -5978,7 +5978,7 @@
       entities: [ 0x289a, 0x3166 ],
     }],
   }, {
-    name: 'Shaman Shield',
+    name: 'Shaman shield',
     type: TYPE.SHIELD,
     id: 12,
     tiles: [{
@@ -5987,7 +5987,7 @@
       entities: [ 0x29c6, 0x33d2 ],
     }],
   }, {
-    name: 'Medusa Shield',
+    name: 'Medusa shield',
     type: TYPE.SHIELD,
     id: 13,
     tiles: [{
@@ -5998,7 +5998,7 @@
       enemy: 27,
     }],
   }, {
-    name: 'Skull Shield',
+    name: 'Skull shield',
     type: TYPE.SHIELD,
     id: 14,
     tiles: [{
@@ -6012,7 +6012,7 @@
       enemy: 102,
     }],
   }, {
-    name: 'Fire Shield',
+    name: 'Fire shield',
     type: TYPE.SHIELD,
     id: 15,
     tiles: [{
@@ -6020,7 +6020,7 @@
       enemy: 124,
     }],
   }, {
-    name: 'Alucard Shield',
+    name: 'Alucard shield',
     type: TYPE.SHIELD,
     id: 16,
     tiles: [{
@@ -6050,7 +6050,7 @@
       enemy: 13,
     }],
   }, {
-    name: 'Short Sword',
+    name: 'Short sword',
     type: TYPE.WEAPON1,
     id: 19,
     tiles: [{
@@ -6062,7 +6062,7 @@
       noOffset: true,
     }],
   }, {
-    name: 'Combat Knife',
+    name: 'Combat knife',
     type: TYPE.WEAPON1,
     id: 20,
     tiles: [{
@@ -6162,7 +6162,7 @@
       entities: [ 0x2562, 0x2ece ],
     }, {
       zones: [ ZONE.LIB ],
-      addresses: [ 0x047a30d6 ],
+      addresses: [ 0x047a30d4 ],
       shop: true,
     }, {
       addresses: [ 0x0b6ac4 ],
@@ -6391,7 +6391,7 @@
     id: 42,
     food: true,
   }, {
-    name: 'Ice Cream',
+    name: 'Ice cream',
     type: TYPE.USABLE,
     id: 43,
     food: true,
@@ -6464,7 +6464,7 @@
     id: 49,
     food: true,
   }, {
-    name: 'Morning Set',
+    name: 'Morning set',
     type: TYPE.USABLE,
     id: 50,
     food: true,
@@ -6487,7 +6487,7 @@
     id: 52,
     food: true,
   }, {
-    name: 'Curry Rice',
+    name: 'Curry rice',
     type: TYPE.USABLE,
     id: 53,
     food: true,
@@ -6502,7 +6502,7 @@
     id: 55,
     food: true,
   }, {
-    name: 'Grape Juice',
+    name: 'Grape juice',
     type: TYPE.USABLE,
     id: 56,
     food: true,
@@ -6513,7 +6513,7 @@
       noOffset: true,
     }],
   }, {
-    name: 'Barley Tea',
+    name: 'Barley tea',
     type: TYPE.USABLE,
     id: 57,
     food: true,
@@ -6526,7 +6526,7 @@
       enemy: 15,
     }],
   }, {
-    name: 'Green Tea',
+    name: 'Green tea',
     type: TYPE.USABLE,
     id: 58,
     food: true,
@@ -6564,7 +6564,7 @@
       enemy: 99,
     }],
   }, {
-    name: 'Miso Soup',
+    name: 'Miso soup',
     type: TYPE.USABLE,
     id: 61,
     food: true,
@@ -6585,7 +6585,7 @@
       enemy: 123,
     }],
   }, {
-    name: 'Pork Bun',
+    name: 'Pork bun',
     type: TYPE.USABLE,
     id: 63,
     food: true,
@@ -6598,7 +6598,7 @@
       enemy: 53,
     }],
   }, {
-    name: 'Red Bean Bun',
+    name: 'Red bean bun',
     type: TYPE.USABLE,
     id: 64,
     food: true,
@@ -6611,12 +6611,12 @@
       enemy: 52,
     }],
   }, {
-    name: 'Chinese Bun',
+    name: 'Chinese bun',
     type: TYPE.USABLE,
     id: 65,
     food: true,
   }, {
-    name: 'Dim Sum Set',
+    name: 'Dim Sum set',
     type: TYPE.USABLE,
     id: 66,
     food: true,
@@ -6627,7 +6627,7 @@
       noOffset: true,
     }],
   }, {
-    name: 'Pot Roast',
+    name: 'Pot roast',
     type: TYPE.USABLE,
     id: 67,
     food: true,
@@ -6717,7 +6717,7 @@
       enemy: 56,
     }],
   }, {
-    name: 'Meal Ticket',
+    name: 'Meal ticket',
     type: TYPE.USABLE,
     id: 70,
     tiles: [{
@@ -6762,7 +6762,7 @@
       entities: [ 0x306a, 0x3fb0 ],
     }, {
       zones: [ ZONE.LIB ],
-      addresses: [ 0x047a3126 ],
+      addresses: [ 0x047a3124 ],
       shop: true,
     }, {
       addresses: [ 0x0b66ea ],
@@ -6775,7 +6775,7 @@
       enemy: GLOBAL_DROP,
     }],
   }, {
-    name: 'Neutron Bomb',
+    name: 'Neutron bomb',
     type: TYPE.USABLE,
     id: 71,
     tiles: [{
@@ -6877,7 +6877,7 @@
       noOffset: true,
     }, {
       zones: [ ZONE.LIB ],
-      addresses: [ 0x047a30fe ],
+      addresses: [ 0x047a30fc ],
       shop: true,
     }, {
       addresses: [ 0x0b5aa4 ],
@@ -6887,7 +6887,7 @@
       enemy: 106,
     }],
   }, {
-    name: 'Cross Shuriken',
+    name: 'Cross shuriken',
     type: TYPE.USABLE,
     id: 76,
     tiles: [{
@@ -6900,14 +6900,14 @@
       entities: [ 0x3350, 0x3be0 ],
     }, {
       zones: [ ZONE.LIB ],
-      addresses: [ 0x047a3106 ],
+      addresses: [ 0x047a3104 ],
       shop: true,
     }, {
       addresses: [ 0x0b6de2 ],
       enemy: 69,
     }],
   }, {
-    name: 'Buffalo Star',
+    name: 'Buffalo star',
     type: TYPE.USABLE,
     id: 77,
     tiles: [{
@@ -6920,19 +6920,19 @@
       entities: [ 0x2400, 0x29aa ],
     }, {
       zones: [ ZONE.LIB ],
-      addresses: [ 0x047a310e ],
+      addresses: [ 0x047a310c ],
       shop: true,
     }, {
       addresses: [ 0x0b7ef4 ],
       enemy: 120,
     }],
   }, {
-    name: 'Flame Star',
+    name: 'Flame star',
     type: TYPE.USABLE,
     id: 78,
     tiles: [{
       zones: [ ZONE.LIB ],
-      addresses: [ 0x047a3116 ],
+      addresses: [ 0x047a3114 ],
       shop: true,
     }, {
       addresses: [ 0x0b6cf2 ],
@@ -6968,7 +6968,7 @@
       enemy: 103,
     }],
   }, {
-    name: 'Bwaka Knife',
+    name: 'Bwaka knife',
     type: TYPE.USABLE,
     id: 80,
     tiles: [{
@@ -6987,7 +6987,7 @@
       noOffset: true,
     }, {
       zones: [ ZONE.LIB ],
-      addresses: [ 0x047a30de ],
+      addresses: [ 0x047a30dc ],
       shop: true,
     }, {
       addresses: [ 0x0b6f24 ],
@@ -7007,7 +7007,7 @@
       entities: [ 0x1efa, 0x288e ],
     }, {
       zones: [ ZONE.LIB ],
-      addresses: [ 0x047a30e6 ],
+      addresses: [ 0x047a30e4 ],
       shop: true,
     }, {
       addresses: [ 0x0b5a2c ],
@@ -7023,7 +7023,7 @@
       entities: [ 0x1ed2, 0x28c0 ],
     }, {
       zones: [ ZONE.LIB ],
-      addresses: [ 0x047a30ee ],
+      addresses: [ 0x047a30ec ],
       shop: true,
     }, {
       addresses: [ 0x0b682c ],
@@ -7059,7 +7059,7 @@
       enemy: 25,
     }],
   }, {
-    name: 'Knuckle Duster',
+    name: 'Knuckle duster',
     type: TYPE.WEAPON1,
     id: 85,
     tiles: [{
@@ -7115,7 +7115,7 @@
     id: 89,
     tiles: [{
       zones: [ ZONE.LIB ],
-      addresses: [ 0x047a312e ],
+      addresses: [ 0x047a312c ],
       shop: true,
     }, {
       addresses: [ 0x0b5dc2 ],
@@ -7161,19 +7161,19 @@
       enemy: 43,
     }],
   }, {
-    name: 'Damascus Sword',
+    name: 'Damascus sword',
     type: TYPE.WEAPON1,
     id: 93,
     tiles: [{
       zones: [ ZONE.LIB ],
-      addresses: [ 0x047a313e ],
+      addresses: [ 0x047a313c ],
       shop: true,
     }, {
       addresses: [ 0x0b7822 ],
       enemy: 46,
     }],
   }, {
-    name: 'Hunter Sword',
+    name: 'Hunter sword',
     type: TYPE.WEAPON1,
     id: 94,
     tiles: [{
@@ -7184,6 +7184,7 @@
     name: 'Estoc',
     type: TYPE.WEAPON2,
     id: 95,
+    thrustSword: true,
     tiles: [{
       zones: [ ZONE.NO2 ],
       index: 10,
@@ -7193,7 +7194,7 @@
       enemy: 77,
     }],
   }, {
-    name: 'Bastard Sword',
+    name: 'Bastard sword',
     type: TYPE.WEAPON1,
     id: 96,
     tiles: [{
@@ -7208,7 +7209,7 @@
       enemy: 63,
     }],
   }, {
-    name: 'Jewel Knuckles',
+    name: 'Jewel knuckles',
     type: TYPE.WEAPON1,
     id: 97,
     tiles: [{
@@ -7223,6 +7224,7 @@
     name: 'Claymore',
     type: TYPE.WEAPON2,
     id: 98,
+    thrustSword: true,
     tiles: [{
       zones: [ ZONE.NO4 ],
       index: 13,
@@ -7256,6 +7258,7 @@
     name: 'Flamberge',
     type: TYPE.WEAPON2,
     id: 101,
+    thrustSword: true,
     tiles: [{
       addresses: [ 0x0b88bc ],
       enemy: 78,
@@ -7269,9 +7272,10 @@
       enemy: 108,
     }],
   }, {
-    name: 'Zwei Hander',
+    name: 'Zwei hander',
     type: TYPE.WEAPON2,
     id: 103,
+    thrustSword: true,
     tiles: [{
       addresses: [ 0x0b9e04, 0x0b9e2c ],
       enemy: 128,
@@ -7300,13 +7304,14 @@
     id: 106,
     tiles: [{
       zones: [ ZONE.LIB ],
-      addresses: [ 0x047a315e ],
+      addresses: [ 0x047a315c ],
       shop: true,
     }],
   }, {
-    name: 'Obsidian Sword',
+    name: 'Obsidian sword',
     type: TYPE.WEAPON2,
     id: 107,
+    thrustSword: true,
     tiles: [{
       addresses: [ 0x0b5c0c ],
       enemy: 80,
@@ -7321,7 +7326,7 @@
       entities: [ 0x2428, 0x29c8 ],
     }],
   }, {
-    name: 'Jewel Sword',
+    name: 'Jewel sword',
     type: TYPE.WEAPON1,
     id: 109,
     tiles: [{
@@ -7347,7 +7352,7 @@
     id: 111,
     tiles: [{
       zones: [ ZONE.LIB ],
-      addresses: [ 0x047a3146 ],
+      addresses: [ 0x047a3144 ],
       shop: true,
     }, {
       zones: [ ZONE.ST0 ],
@@ -7363,7 +7368,7 @@
     id: 112,
     tiles: [{
       zones: [ ZONE.LIB ],
-      addresses: [ 0x047a3156 ],
+      addresses: [ 0x047a3154 ],
       shop: true,
     }],
   }, {
@@ -7376,14 +7381,14 @@
       entities: [ 0x2c3e, 0x351e ],
     }, {
       zones: [ ZONE.LIB ],
-      addresses: [ 0x047a314e ],
+      addresses: [ 0x047a314c ],
       shop: true,
     }, {
       addresses: [ 0x0b89aa ],
       enemy: 79,
     }],
   }, {
-    name: 'Stone Sword',
+    name: 'Stone sword',
     type: TYPE.WEAPON1,
     id: 114,
     tiles: [{
@@ -7391,7 +7396,7 @@
       enemy: 125,
     }],
   }, {
-    name: 'Holy Sword',
+    name: 'Holy sword',
     type: TYPE.WEAPON1,
     id: 115,
     tiles: [{
@@ -7428,7 +7433,7 @@
       entities: [ 0x309c, 0x3fec ],
     }],
   }, {
-    name: 'Heaven Sword',
+    name: 'Heaven sword',
     type: TYPE.WEAPON1,
     id: 119,
     tiles: [{
@@ -7460,7 +7465,7 @@
       enemy: 137,
     }],
   }, {
-    name: 'Alucard Sword',
+    name: 'Alucard sword',
     type: TYPE.WEAPON1,
     id: 123,
     tiles: [{
@@ -7490,6 +7495,10 @@
       candle: 0x90,
     }],
   }, {
+    name: 'Sword Familiar',
+    type: TYPE.WEAPON1,
+    id: 126,
+  }, {
     name: 'Great Sword',
     type: TYPE.WEAPON2,
     id: 127,
@@ -7503,11 +7512,11 @@
     id: 128,
     tiles: [{
       zones: [ ZONE.LIB ],
-      addresses: [ 0x047a3136 ],
+      addresses: [ 0x047a3134 ],
       shop: true,
     }],
   }, {
-    name: 'Morning Star',
+    name: 'Morningstar',
     type: TYPE.WEAPON1,
     id: 129,
     tiles: [{
@@ -7519,7 +7528,7 @@
       enemy: 55,
     }],
   }, {
-    name: 'Holy Rod',
+    name: 'Holy rod',
     type: TYPE.WEAPON1,
     id: 130,
     tiles: [{
@@ -7528,7 +7537,7 @@
       entities: [ 0x35b0, 0x3c5e ],
     }],
   }, {
-    name: 'Star Flail',
+    name: 'Star flail',
     type: TYPE.WEAPON1,
     id: 131,
     tiles: [{
@@ -7537,7 +7546,7 @@
       entities: [ 0x284a, 0x327e ],
     }],
   }, {
-    name: 'Moon Rod',
+    name: 'Moon rod',
     type: TYPE.WEAPON1,
     id: 132,
     tiles: [{
@@ -7558,7 +7567,7 @@
       enemy: 86,
     }],
   }, {
-    name: 'Fire Boomerang',
+    name: 'Fire boomerang',
     type: TYPE.USABLE,
     id: 134,
     tiles: [{
@@ -7571,14 +7580,14 @@
       entities: [ 0x1e78, 0x2924 ],
     }, {
       zones: [ ZONE.LIB ],
-      addresses: [ 0x047a30f6 ],
+      addresses: [ 0x047a30f4 ],
       shop: true,
     }, {
       addresses: [ 0x0b5a2a ],
       enemy: 16,
     }],
   }, {
-    name: 'Iron Ball',
+    name: 'Iron ball',
     type: TYPE.USABLE,
     id: 135,
     tiles: [{
@@ -7601,7 +7610,7 @@
       enemy: 151,
     }],
   }, {
-    name: 'Holbein Dagger',
+    name: 'Holbein dagger',
     type: TYPE.WEAPON1,
     id: 136,
     tiles: [{
@@ -7609,7 +7618,7 @@
       enemy: 80,
     }],
   }, {
-    name: 'Blue Knuckles',
+    name: 'Blue knuckles',
     type: TYPE.WEAPON1,
     id: 137,
     tiles: [{
@@ -7625,7 +7634,7 @@
       enemy: 103,
     }],
   }, {
-    name: 'Osafune Katana',
+    name: 'Osafune katana',
     type: TYPE.WEAPON2,
     id: 139,
     tiles: [{
@@ -7713,7 +7722,7 @@
       entities: [ 0x2fda, 0x36ce ],
     }, {
       zones: [ ZONE.LIB ],
-      addresses: [ 0x047a30be ],
+      addresses: [ 0x047a30bc ],
       shop: true,
     }, {
       addresses: [ 0x0b7462 ],
@@ -7731,7 +7740,7 @@
     id: 145,
     tiles: [{
       zones: [ ZONE.LIB ],
-      addresses: [ 0x047a30c6 ],
+      addresses: [ 0x047a30c4 ],
       shop: true,
     }, {
       zones: [ ZONE.LIB ],
@@ -7754,7 +7763,7 @@
       enemy: 42,
     }],
   }, {
-    name: 'Life Apple',
+    name: 'Life apple',
     type: TYPE.USABLE,
     id: 146,
     tiles: [{
@@ -7799,7 +7808,7 @@
       entities: [ 0x2f94, 0x36c4 ],
     }, {
       zones: [ ZONE.LIB ],
-      addresses: [ 0x047a30ce ],
+      addresses: [ 0x047a30cc ],
       shop: true,
     }, {
       addresses: [ 0x0b7914 ],
@@ -7881,7 +7890,7 @@
       entities: [ 0x2b2c, 0x36b4 ],
     }],
   }, {
-    name: 'Shield Potion',
+    name: 'Shield potion',
     type: TYPE.USABLE,
     id: 152,
     tiles: [{
@@ -7905,7 +7914,7 @@
       enemy: 7,
     }],
   }, {
-    name: 'Resist Fire',
+    name: 'Resist fire',
     type: TYPE.USABLE,
     id: 153,
     tiles: [{
@@ -7933,7 +7942,7 @@
       enemy: 72,
     }],
   }, {
-    name: 'Resist Thunder',
+    name: 'Resist thunder',
     type: TYPE.USABLE,
     id: 154,
     tiles: [{
@@ -7954,7 +7963,7 @@
       entities: [ 0x2d34, 0x384e ],
     }],
   }, {
-    name: 'Resist Ice',
+    name: 'Resist ice',
     type: TYPE.USABLE,
     id: 155,
     tiles: [{
@@ -7974,7 +7983,7 @@
       enemy: 79,
     }],
   }, {
-    name: 'Resist Stone',
+    name: 'Resist stone',
     type: TYPE.USABLE,
     id: 156,
     tiles: [{
@@ -7997,7 +8006,7 @@
       enemy: 27,
     }],
   }, {
-    name: 'Resist Holy',
+    name: 'Resist holy',
     type: TYPE.USABLE,
     id: 157,
     tiles: [{
@@ -8010,7 +8019,7 @@
       entities: [ 0x44dc, 0x553c ],
     }],
   }, {
-    name: 'Resist Dark',
+    name: 'Resist dark',
     type: TYPE.USABLE,
     id: 158,
     tiles: [{
@@ -8062,7 +8071,7 @@
       entities: [ 0x3362, 0x414a ],
     }, {
       zones: [ ZONE.LIB ],
-      addresses: [ 0x047a309e ],
+      addresses: [ 0x047a309c ],
       shop: true,
     }, {
       zones: [ ZONE.ST0 ],
@@ -8077,7 +8086,7 @@
       enemy: 54,
     }],
   }, {
-    name: 'High Potion',
+    name: 'High potion',
     type: TYPE.USABLE,
     id: 160,
     tiles: [{
@@ -8102,7 +8111,7 @@
       entities: [ 0x2a06, 0x31ea ],
     }, {
       zones: [ ZONE.LIB ],
-      addresses: [ 0x047a30a6 ],
+      addresses: [ 0x047a30a4 ],
       shop: true,
     }, {
       addresses: [ 0x0b5edc ],
@@ -8126,11 +8135,11 @@
       entities: [ 0x3036, 0x3b64 ],
     }, {
       zones: [ ZONE.LIB ],
-      addresses: [ 0x047a30ae ],
+      addresses: [ 0x047a30ac ],
       shop: true,
     }],
   }, {
-    name: 'Manna Prism',
+    name: 'Manna prism',
     type: TYPE.USABLE,
     id: 162,
     tiles: [{
@@ -8155,7 +8164,7 @@
       entities: [ 0x2952, 0x3136 ],
     }, {
       zones: [ ZONE.LIB ],
-      addresses: [ 0x047a30b6 ],
+      addresses: [ 0x047a30b4 ],
       shop: true,
     }, {
       addresses: [ 0x0b6762 ],
@@ -8165,7 +8174,7 @@
       enemy: 139,
     }],
   }, {
-    name: 'Library Card',
+    name: 'Library card',
     type: TYPE.USABLE,
     id: 166,
     tiles: [{
@@ -8198,11 +8207,11 @@
       entities: [ 0x3040, 0x3b5a ],
     }, {
       zones: [ ZONE.LIB ],
-      addresses: [ 0x047a311e ],
+      addresses: [ 0x047a311c ],
       shop: true,
     }],
   }, {
-    name: 'Vorpal Blade',
+    name: 'Vorpal blade',
     type: TYPE.WEAPON1,
     id: 163,
     tiles: [{
@@ -8218,7 +8227,7 @@
       enemy: 99,
     }],
   }, {
-    name: 'Yusutsuna',
+    name: 'Yasutsuna',
     type: TYPE.WEAPON2,
     id: 165,
     tiles: [{
@@ -8226,7 +8235,7 @@
       enemy: 108,
     }],
   }, {
-    name: 'Alucart Shield',
+    name: 'Alucart shield',
     type: TYPE.SHIELD,
     id: 167,
     blacklist: [ 0x0b6b3c, 0x0b6b3a ],
@@ -8236,7 +8245,7 @@
       entities: [ 0x3670, 0x44f0 ],
     }],
   }, {
-    name: 'Alucart Sword',
+    name: 'Alucart sword',
     type: TYPE.WEAPON1,
     id: 168,
     tiles: [{
@@ -8245,7 +8254,7 @@
       entities: [ 0x36a2, 0x4522 ],
     }],
   }, {
-    name: 'Cloth Tunic',
+    name: 'Cloth tunic',
     type: TYPE.ARMOR,
     id: 170,
     blacklist: [ 0x0b6b3c, 0x0b6b3a ],
@@ -8270,7 +8279,7 @@
       enemy: 47,
     }],
   }, {
-    name: 'Bronze Cuirass',
+    name: 'Bronze cuirass',
     type: TYPE.ARMOR,
     id: 172,
     blacklist: [ 0x0b6b3c, 0x0b6b3a ],
@@ -8283,13 +8292,13 @@
       enemy: 12,
     }],
   }, {
-    name: 'Iron Cuirass',
+    name: 'Iron cuirass',
     type: TYPE.ARMOR,
     id: 173,
     blacklist: [ 0x0b6b3c, 0x0b6b3a ],
     tiles: [{
       zones: [ ZONE.LIB ],
-      addresses: [ 0x047a3196 ],
+      addresses: [ 0x047a3194 ],
       shop: true,
     }, {
       addresses: [ 0x0b682a ],
@@ -8299,17 +8308,17 @@
       enemy: 65,
     }],
   }, {
-    name: 'Steel Cuirass',
+    name: 'Steel cuirass',
     type: TYPE.ARMOR,
     id: 174,
     blacklist: [ 0x0b6b3c, 0x0b6b3a ],
     tiles: [{
       zones: [ ZONE.LIB ],
-      addresses: [ 0x047a319e ],
+      addresses: [ 0x047a319c ],
       shop: true,
     }],
   }, {
-    name: 'Silver Plate',
+    name: 'Silver plate',
     type: TYPE.ARMOR,
     id: 175,
     blacklist: [ 0x0b6b3c, 0x0b6b3a ],
@@ -8319,7 +8328,7 @@
       entities: [ 0x2da6, 0x36b6 ],
     }],
   }, {
-    name: 'Gold Plate',
+    name: 'Gold plate',
     type: TYPE.ARMOR,
     id: 176,
     blacklist: [ 0x0b6b3c, 0x0b6b3a ],
@@ -8338,7 +8347,7 @@
       enemy: 85,
     }],
   }, {
-    name: 'Platinum Mail',
+    name: 'Platinum mail',
     type: TYPE.ARMOR,
     id: 177,
     blacklist: [ 0x0b6b3c, 0x0b6b3a ],
@@ -8351,17 +8360,17 @@
       enemy: 117,
     }],
   }, {
-    name: 'Diamond Plate',
+    name: 'Diamond plate',
     type: TYPE.ARMOR,
     id: 178,
     blacklist: [ 0x0b6b3c, 0x0b6b3a ],
     tiles: [{
       zones: [ ZONE.LIB ],
-      addresses: [ 0x047a31a6 ],
+      addresses: [ 0x047a31a4 ],
       shop: true,
     }],
   }, {
-    name: 'Fire Mail',
+    name: 'Fire mail',
     type: TYPE.ARMOR,
     id: 179,
     blacklist: [ 0x0b6b3c, 0x0b6b3a ],
@@ -8377,7 +8386,7 @@
       enemy: 89,
     }],
   }, {
-    name: 'Lightning Mail',
+    name: 'Lightning mail',
     type: TYPE.ARMOR,
     id: 180,
     blacklist: [ 0x0b6b3c, 0x0b6b3a ],
@@ -8390,7 +8399,7 @@
       enemy: 89,
     }],
   }, {
-    name: 'Ice Mail',
+    name: 'Ice mail',
     type: TYPE.ARMOR,
     id: 181,
     blacklist: [ 0x0b6b3c, 0x0b6b3a ],
@@ -8403,7 +8412,7 @@
       enemy: 49,
     }],
   }, {
-    name: 'Mirror Cuirass',
+    name: 'Mirror cuirass',
     type: TYPE.ARMOR,
     id: 182,
     blacklist: [ 0x0b6b3c, 0x0b6b3a ],
@@ -8423,7 +8432,7 @@
       entities: [ 0x342c, 0x3d2a ],
     }],
   }, {
-    name: 'Alucard Mail',
+    name: 'Alucard mail',
     type: TYPE.ARMOR,
     id: 184,
     blacklist: [ 0x0b6b3c, 0x0b6b3a ],
@@ -8433,7 +8442,7 @@
       entities: [ 0x298e, 0x3172 ],
     }],
   }, {
-    name: 'Dark Armor',
+    name: 'Dark armor',
     type: TYPE.ARMOR,
     blacklist: [ 0x0b6b3c, 0x0b6b3a ],
     id: 185,
@@ -8442,7 +8451,7 @@
       enemy: 126,
     }],
   }, {
-    name: 'Healing Mail',
+    name: 'Healing mail',
     type: TYPE.ARMOR,
     id: 186,
     blacklist: [ 0x0b6b3c, 0x0b6b3a ],
@@ -8452,7 +8461,7 @@
       entities: [ 0x2d18, 0x372e ],
     }],
   }, {
-    name: 'Holy Mail',
+    name: 'Holy mail',
     type: TYPE.ARMOR,
     id: 187,
     blacklist: [ 0x0b6b3c, 0x0b6b3a ],
@@ -8462,7 +8471,7 @@
       entities: [ 0x3ea4, 0x4630, 0x3c44, 0x4380 ],
     }],
   }, {
-    name: 'Walk Armor',
+    name: 'Walk armor',
     type: TYPE.ARMOR,
     id: 188,
     blacklist: [ 0x0b6b3c, 0x0b6b3a ],
@@ -8472,7 +8481,7 @@
       entities: [ 0x2c20, 0x3500 ],
     }],
   }, {
-    name: 'Brilliant Mail',
+    name: 'Brilliant mail',
     type: TYPE.ARMOR,
     id: 189,
     blacklist: [ 0x0b6b3c, 0x0b6b3a ],
@@ -8481,7 +8490,7 @@
       enemy: 118,
     }],
   }, {
-    name: 'Mojo Mail',
+    name: 'Mojo mail',
     type: TYPE.ARMOR,
     id: 190,
     blacklist: [ 0x0b6b3c, 0x0b6b3a ],
@@ -8490,7 +8499,7 @@
       enemy: 100,
     }],
   }, {
-    name: 'Fury Plate',
+    name: 'Fury plate',
     type: TYPE.ARMOR,
     id: 191,
     blacklist: [ 0x0b6b3c, 0x0b6b3a ],
@@ -8503,7 +8512,7 @@
       enemy: 112,
     }],
   }, {
-    name: 'Dracula Tunic',
+    name: 'Dracula tunic',
     type: TYPE.ARMOR,
     id: 192,
     blacklist: [ 0x0b6b3c, 0x0b6b3a ],
@@ -8523,7 +8532,7 @@
       enemy: 143,
     }],
   }, {
-    name: 'Axe Lord Armor',
+    name: 'Axe Lord armor',
     type: TYPE.ARMOR,
     id: 194,
     blacklist: [ 0x0b6b3c, 0x0b6b3a ],
@@ -8548,7 +8557,7 @@
       candle: 0x90,
     }],
   }, {
-    name: 'Ballroom Mask',
+    name: 'Ballroom mask',
     type: TYPE.HELMET,
     id: 197,
     blacklist: [ 0x0b6b3c, 0x0b6b3a ],
@@ -8561,7 +8570,7 @@
       enemy: 33,
     }],
   }, {
-    name: 'Bandana',
+    name: 'Bandanna',
     type: TYPE.HELMET,
     id: 198,
     blacklist: [ 0x0b6b3c, 0x0b6b3a ],
@@ -8571,7 +8580,7 @@
       entities: [ 0x3262, 0x42ea ],
     }],
   }, {
-    name: 'Felt Hat',
+    name: 'Felt hat',
     type: TYPE.HELMET,
     id: 199,
     blacklist: [ 0x0b6b3c, 0x0b6b3a ],
@@ -8580,13 +8589,13 @@
       enemy: 36,
     }],
   }, {
-    name: 'Velvet Hat',
+    name: 'Velvet hat',
     type: TYPE.HELMET,
     id: 200,
     blacklist: [ 0x0b6b3c, 0x0b6b3a ],
     tiles: [{
       zones: [ ZONE.LIB ],
-      addresses: [ 0x047a3176 ],
+      addresses: [ 0x047a3174 ],
       shop: true,
     }],
   }, {
@@ -8600,23 +8609,23 @@
       entities: [ 0x289c, 0x31f2 ],
     }],
   }, {
-    name: 'Leather Hat',
+    name: 'Leather hat',
     type: TYPE.HELMET,
     id: 202,
     blacklist: [ 0x0b6b3c, 0x0b6b3a ],
     tiles: [{
       zones: [ ZONE.LIB ],
-      addresses: [ 0x047a317e ],
+      addresses: [ 0x047a317c ],
       shop: true,
     }],
   }, {
-    name: 'Holy Glasses',
+    name: 'Holy glasses',
     type: TYPE.HELMET,
     id: 203,
     blacklist: [ 0x0b6b3c, 0x0b6b3a ],
     progression: true,
   }, {
-    name: 'Steel Helm',
+    name: 'Steel helm',
     type: TYPE.HELMET,
     id: 204,
     blacklist: [ 0x0b6b3c, 0x0b6b3a ],
@@ -8626,7 +8635,7 @@
       entities: [ 0x2886, 0x3292 ],
     }],
   }, {
-    name: 'Stone Mask',
+    name: 'Stone mask',
     type: TYPE.HELMET,
     id: 205,
     blacklist: [ 0x0b6b3c, 0x0b6b3a ],
@@ -8645,14 +8654,14 @@
     blacklist: [ 0x0b6b3c, 0x0b6b3a ],
     tiles: [{
       zones: [ ZONE.LIB ],
-      addresses: [ 0x047a3186 ],
+      addresses: [ 0x047a3184 ],
       shop: true,
     }, {
       addresses: [ 0x0b614a ],
       enemy: 20,
     }],
   }, {
-    name: 'Gold Circlet',
+    name: 'Gold circlet',
     type: TYPE.HELMET,
     id: 207,
     blacklist: [ 0x0b6b3c, 0x0b6b3a ],
@@ -8661,7 +8670,7 @@
       enemy: 82,
     }],
   }, {
-    name: 'Ruby Circlet',
+    name: 'Ruby circlet',
     type: TYPE.HELMET,
     id: 208,
     blacklist: [ 0x0b6b3c, 0x0b6b3a ],
@@ -8671,7 +8680,7 @@
       entities: [ 0x25a0, 0x30c4 ],
     }],
   }, {
-    name: 'Opal Circlet',
+    name: 'Opal circlet',
     type: TYPE.HELMET,
     id: 209,
     blacklist: [ 0x0b6b3c, 0x0b6b3a ],
@@ -8680,7 +8689,7 @@
       enemy: 138,
     }],
   }, {
-    name: 'Topaz Circlet',
+    name: 'Topaz circlet',
     type: TYPE.HELMET,
     id: 210,
     blacklist: [ 0x0b6b3c, 0x0b6b3a ],
@@ -8690,7 +8699,7 @@
       entities: [ 0x35a6, 0x3c68 ],
     }],
   }, {
-    name: 'Beryl Circlet',
+    name: 'Beryl circlet',
     type: TYPE.HELMET,
     id: 211,
     blacklist: [ 0x0b6b3c, 0x0b6b3a ],
@@ -8700,7 +8709,7 @@
       entities: [ 0x2daa, 0x3462 ],
     }],
   }, {
-    name: 'Cat-eye Circlet',
+    name: 'Cat-eye circl.',
     type: TYPE.HELMET,
     id: 212,
     blacklist: [ 0x0b6b3c, 0x0b6b3a ],
@@ -8710,7 +8719,7 @@
       entities: [ 0x2e28, 0x3708 ],
     }],
   }, {
-    name: 'Coral Circlet',
+    name: 'Coral circlet',
     type: TYPE.HELMET,
     id: 213,
     blacklist: [ 0x0b6b3c, 0x0b6b3a ],
@@ -8719,7 +8728,7 @@
       enemy: 95,
     }],
   }, {
-    name: 'Dragon Helm',
+    name: 'Dragon helm',
     type: TYPE.HELMET,
     id: 214,
     blacklist: [ 0x0b6b3c, 0x0b6b3a ],
@@ -8729,17 +8738,17 @@
       entities: [ 0x2a36, 0x329e ],
     }],
   }, {
-    name: 'Silver Crown',
+    name: 'Silver crown',
     type: TYPE.HELMET,
     id: 215,
     blacklist: [ 0x0b6b3c, 0x0b6b3a ],
     tiles: [{
       zones: [ ZONE.LIB ],
-      addresses: [ 0x047a318e ],
+      addresses: [ 0x047a318c ],
       shop: true,
     }],
   }, {
-    name: 'Wizard Hat',
+    name: 'Wizard hat',
     type: TYPE.HELMET,
     id: 216,
     blacklist: [ 0x0b6b3c, 0x0b6b3a ],
@@ -8748,7 +8757,7 @@
       enemy: 139,
     }],
   }, {
-    name: 'Cloth Cape',
+    name: 'Cloth cape',
     type: TYPE.CLOAK,
     id: 218,
     blacklist: [ 0x0b6b3c, 0x0b6b3a ],
@@ -8758,27 +8767,27 @@
       entities: [ 0x2f32, 0x388a ],
     }],
   }, {
-    name: 'Reverse Cloak',
+    name: 'Reverse cloak',
     type: TYPE.CLOAK,
     id: 219,
     blacklist: [ 0x0b6b3c, 0x0b6b3a ],
     tiles: [{
       zones: [ ZONE.LIB ],
-      addresses: [ 0x047a31ae ],
+      addresses: [ 0x047a31ac ],
       shop: true,
     }],
   }, {
-    name: 'Elven Cloak',
+    name: 'Elven cloak',
     type: TYPE.CLOAK,
     id: 220,
     blacklist: [ 0x0b6b3c, 0x0b6b3a ],
     tiles: [{
       zones: [ ZONE.LIB ],
-      addresses: [ 0x047a31b6 ],
+      addresses: [ 0x047a31b4 ],
       shop: true,
     }],
   }, {
-    name: 'Crystal Cloak',
+    name: 'Crystal cloak',
     type: TYPE.CLOAK,
     id: 221,
     blacklist: [ 0x0b6b3c, 0x0b6b3a ],
@@ -8788,7 +8797,7 @@
       entities: [ 0x3352, 0x43da, 0x1e42, 0x2006 ],
     }],
   }, {
-    name: 'Royal Cloak',
+    name: 'Royal cloak',
     type: TYPE.CLOAK,
     id: 222,
     blacklist: [ 0x0b6b3c, 0x0b6b3a ],
@@ -8798,7 +8807,7 @@
       entities: [ 0x1d16, 0x21a8 ],
     }],
   }, {
-    name: 'Blood Cloak',
+    name: 'Blood cloak',
     type: TYPE.CLOAK,
     id: 223,
     blacklist: [ 0x0b6b3c, 0x0b6b3a ],
@@ -8808,17 +8817,17 @@
       entities: [ 0x34a0, 0x3b28 ],
     }],
   }, {
-    name: 'Joseph\'s Cloak',
+    name: 'Joseph\'s cloak',
     type: TYPE.CLOAK,
     id: 224,
     blacklist: [ 0x0b6b3c, 0x0b6b3a ],
     tiles: [{
       zones: [ ZONE.LIB ],
-      addresses: [ 0x047a31be ],
+      addresses: [ 0x047a31bc ],
       shop: true,
     }],
   }, {
-    name: 'Twilight Cloak',
+    name: 'Twilight cloak',
     type: TYPE.CLOAK,
     id: 225,
     blacklist: [ 0x0b6b3c, 0x0b6b3a ],
@@ -8874,7 +8883,7 @@
     blacklist: [ 0x0b6b3c, 0x0b6b3a ],
     tiles: [{
       zones: [ ZONE.LIB ],
-      addresses: [ 0x047a31ce ],
+      addresses: [ 0x047a31cc ],
       shop: true,
     }],
   }, {
@@ -9075,7 +9084,7 @@
       entities: [ 0x1f36, 0x2852 ],
     }],
   }, {
-    name: 'Lapis Lazuli',
+    name: 'Lapis lazuli',
     type: TYPE.ACCESSORY,
     id: 239,
     blacklist: [ 0x0b6b3c, 0x0b6b3a ],
@@ -9139,7 +9148,7 @@
       librarian: true,
     }],
   }, {
-    name: 'Mystic Pendant',
+    name: 'Mystic pendant',
     type: TYPE.ACCESSORY,
     id: 245,
     blacklist: [ 0x0b6b3c, 0x0b6b3a ],
@@ -9152,7 +9161,7 @@
       enemy: 105,
     }],
   }, {
-    name: 'Heart Broach',
+    name: 'Heart broach',
     type: TYPE.ACCESSORY,
     id: 246,
     blacklist: [ 0x0b6b3c, 0x0b6b3a ],
@@ -9180,7 +9189,7 @@
     blacklist: [ 0x0b6b3c, 0x0b6b3a ],
     tiles: [{
       zones: [ ZONE.LIB ],
-      addresses: [ 0x047a31d6 ],
+      addresses: [ 0x047a31d4 ],
       shop: true,
     }, {
       addresses: [ 0x0b7e2c ],
@@ -9215,7 +9224,7 @@
     blacklist: [ 0x0b6b3c, 0x0b6b3a ],
     tiles: [{
       zones: [ ZONE.LIB ],
-      addresses: [ 0x047a31c6 ],
+      addresses: [ 0x047a31c4 ],
       shop: true,
     }, {
       addresses: [ 0x0b5b92 ],
@@ -9241,11 +9250,11 @@
     blacklist: [ 0x0b6b3c, 0x0b6b3a ],
     tiles: [{
       zones: [ ZONE.LIB ],
-      addresses: [ 0x047a31de ],
+      addresses: [ 0x047a31dc ],
       shop: true,
     }],
   }, {
-    name: 'King\'s Stone',
+    name: 'King\'s stone',
     type: TYPE.ACCESSORY,
     id: 254,
     blacklist: [ 0x0b6b3c, 0x0b6b3a ],
@@ -9254,7 +9263,7 @@
       enemy: 134,
     }],
   }, {
-    name: 'Covenant Stone',
+    name: 'Covenant stone',
     type: TYPE.ACCESSORY,
     id: 255,
     blacklist: [ 0x0b6b3c, 0x0b6b3a ],
@@ -9272,7 +9281,7 @@
       enemy: 122,
     }],
   }, {
-    name: 'Secret Boots',
+    name: 'Secret boots',
     type: TYPE.ACCESSORY,
     id: 257,
     blacklist: [ 0x0b6b3c, 0x0b6b3a ],
@@ -9282,7 +9291,7 @@
       entities: [ 0x37da, 0x47e0 ],
     }],
   }, {
-    name: 'Alucart Mail',
+    name: 'Alucart mail',
     type: TYPE.ARMOR,
     id: 258,
     blacklist: [ 0x0b6b3c, 0x0b6b3a ],

@@ -1,0 +1,145 @@
+#!/usr/bin/env node
+// This tool parses a SotN bin for equipment stats.
+// Usage: tools/equipment-stats <path-to-rom> [indent-level]
+
+const fs = require('fs')
+const constants = require('../src/constants')
+const util = require('../src/util')
+
+const ZONE = constants.ZONE
+const zones = constants.zones
+const exe = constants.exe
+const handEquipmentListOff = constants.handEquipmentListOff
+const handEquipmentListLen = constants.handEquipmentListLen
+const armorListOff = constants.armorListOff
+const armorListLen = constants.armorListLen
+const helmetListOff = constants.helmetListOff
+const helmetListLen = constants.helmetListLen
+const cloakListOff = constants.cloakListOff
+const cloakListLen = constants.cloakListLen
+const accessoryListOff = constants.accessoryListOff
+const accessoryListLen = constants.accessoryListLen
+
+function decodeName(data) {
+  const namePtr = data.readUInt32LE() - 0x800a0000
+  let nameLen = 0
+  while (exeData[namePtr + nameLen] != 0xff) {
+    nameLen++
+  }
+  const name = Buffer.from(exeData.subarray(namePtr, namePtr + nameLen))
+  for (let j = 0; j < name.length; j++) {
+    if (name[j] == 0x00) {
+      name[j] = ' '.charCodeAt()
+    } else {
+      name[j] = name[j] + 32
+    }
+  }
+  return name.toString().replace(/\s+$/, '')
+}
+
+const hand = []
+const equipment = []
+
+// Read input bin.
+const bin = fs.readFileSync(process.argv[2])
+// Restore main executable.
+const exeData = util.restoreFile(bin, exe)
+// Get hand equipment list.
+const handEquipmentList = exeData.subarray(
+  handEquipmentListOff,
+  (handEquipmentListOff + handEquipmentListLen) * 0x34,
+)
+// Get armor list.
+const armorList = exeData.subarray(
+  armorListOff,
+  (armorListOff + armorListLen) * 0x20,
+)
+// Get helmet list.
+const helmetList = exeData.subarray(
+  helmetListOff,
+  (helmetListOff + helmetListLen) * 0x20,
+)
+// Get cloak list.
+const cloakList = exeData.subarray(
+  cloakListOff,
+  (cloakListOff + cloakListLen) * 0x20,
+)
+// Get accessory list.
+const accessoryList = exeData.subarray(
+  accessoryListOff,
+  (accessoryListOff + accessoryListLen) * 0x20,
+)
+// Parse hand equipment data.
+for (let i = 1; i < handEquipmentListLen; i++) {
+  const data = handEquipmentList.subarray(i * 0x34, i * 0x34 + 0x34)
+  const name = decodeName(data)
+  const item = util.itemFromName(name)
+  hand.push({
+    name: name,
+    type: item.type,
+    handType: data[0x0e],
+    id: item.id,
+    offset: handEquipmentListOff + i * 0x34,
+    nameAddress: data.readUInt32LE(0x00),
+    attack: data.readInt16LE(0x08),
+    defense: data.readInt16LE(0x0a),
+    elements: data.subarray(0x0c, 0xe),
+    sprite: data[0x0f],
+    special: data[0x18],
+    spell: data.readUInt32LE(0x1c),
+    stunFrames: data.readUInt16LE(0x26),
+    range: data.readUInt16LE(0x28),
+    extra: data[0x2a],
+    icon: data.readUInt16LE(0x2c),
+    palette: data.readUInt16LE(0x2e),
+  })
+}
+// Parse equipment data.
+[{
+  list: armorList,
+  len: armorListLen,
+  offset: armorListOff,
+}, {
+  list: helmetList,
+  len: helmetListLen,
+  offset: helmetListOff,
+}, {
+  list: cloakList,
+  len: cloakListLen,
+  offset: cloakListOff,
+}, {
+  list: accessoryList,
+  len: accessoryListLen,
+  offset: accessoryListOff,
+}].forEach(function(list) {
+  for (let i = 1; i < list.len; i++) {
+    const data = list.list.subarray(i * 0x20, i * 0x20 + 0x20)
+    const name = decodeName(data)
+    const item = util.itemFromName(name)
+    equipment.push({
+      name: name,
+      type: item.type,
+      id: item.id,
+      offset: list.offset + i * 0x20,
+      nameAddress: data.readUInt32LE(0x00),
+      attack: data.readInt16LE(0x08),
+      defense: data.readInt16LE(0x0a),
+      strength: data.readInt8(0x0c),
+      constitution: data.readInt8(0x0d),
+      intelligence: data.readInt8(0x0e),
+      luck: data.readInt8(0x0f),
+      elements: data.subarray(0x10, 0x18),
+      icon: data.readUInt16LE(0x18),
+      palette: data.readUInt16LE(0x1a),
+    })
+  }
+})
+
+// Format data.
+const indent = parseInt(process.argv[3] || 2)
+const spaces = Array(indent).fill(' ').join('')
+console.log([
+  spaces + 'const hand = ' + util.formatObject(hand, indent),
+  '',
+  spaces + 'const equipment = ' + util.formatObject(equipment, indent),
+].join('\n'))

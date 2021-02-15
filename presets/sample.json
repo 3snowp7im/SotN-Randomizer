@@ -13,12 +13,12 @@
   "enemyDrops": [{
     "comment": "Make Warg drop $400 and Combat Knife",
     "enemy": "Warg",
-    "items": ["$400", "Combat Knife"]
+    "items": ["$400", "Combat knife"]
   }, {
     "comment": "Make Merman level 3 drop Duplicator and Manna Prism",
     "enemy": "Merman",
     "level": 3,
-    "items": ["Duplicator", "Manna Prism"]
+    "items": ["Duplicator", "Manna prism"]
   }],
 
   "startingEquipment": [{
@@ -26,22 +26,22 @@
     "item": "Crissaegrim"
   }, {
     "slot": "Left hand",
-    "item": "Dark Shield"
+    "item": "Dark shield"
   }, {
     "slot": "Head",
-    "item": "Beryl Circlet"
+    "item": "Beryl circlet"
   }, {
     "slot": "Body",
-    "item": "Dracula Tunic"
+    "item": "Dracula tunic"
   }, {
     "slot": "Cloak",
-    "item": "Reverse Cloak"
+    "item": "Reverse cloak"
   }, {
     "slot": "Other",
     "item": "Ankh of Life"
   }, {
     "slot": "AxeArmor",
-    "item": "Gold Plate"
+    "item": "Gold plate"
   }, {
     "slot": "Luck Mode",
     "item": "Talisman"
@@ -50,8 +50,8 @@
   "itemLocations": [{
     "comment": "Place a Library Card in the Pot Roast wall of Entrance",
     "zone": "NO3",
-    "item": "Pot Roast",
-    "replacement": "Library Card"
+    "item": "Pot roast",
+    "replacement": "Library card"
   }, {
     "comment": "Place an Orange in the second Turkey wall of Castle Keep",
     "zone": "TOP",
@@ -61,11 +61,11 @@
   }],
 
   "prologueRewards": [{
-    "item": "Heart Refresh",
+    "item": "Heart refresh",
     "replacement": "Banana"
   }, {
-    "item": "Neutron Bomb",
-    "replacement": "Bat Pentagram"
+    "item": "Neutron bomb",
+    "replacement": "Bat pentagram"
   }, {
     "item": "Potion",
     "replacement": "Elixir"
