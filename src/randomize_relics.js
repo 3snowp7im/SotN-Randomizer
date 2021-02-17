@@ -75,6 +75,9 @@
       if ('id' in opts) {
         data.writeShort(util.romOffset(zone, addr + 0x04), opts.id)
       }
+      if ('slots' in opts) {
+        data.writeShort(util.romOffset(zone, addr + 0x06), opts.slots[index])
+      }
       if ('state' in opts) {
         data.writeShort(util.romOffset(zone, addr + 0x08), opts.state)
       }
@@ -211,6 +214,7 @@
       } else if (item) {
         // Replacing relic location with item.
         let index
+        let removedTile
         if (!('consumesItem' in location) || location.consumesItem) {
           // There are a limited number of item tiles. Replacing a relic
           // with an item can only consume an existing item in its zone.
@@ -223,6 +227,7 @@
             })
           }
           const tileItem = getRandomZoneItem(rng, zones, locations)
+          removedTile = tileItem.tile
           index = tileItem.tile.index
           // Remove the tile from the replaced item's tile collection.
           const tileIndex = tileItem.item.tiles.indexOf(tileItem.tile)
@@ -239,7 +244,7 @@
           })
         }
         if ('replaceWithItem' in location) {
-          location.replaceWithItem(data, location, item, index)
+          location.replaceWithItem(data, location, item, index, removedTile)
         } else {
           if ('entity' in location) {
             writeTileId(data, location.entity.zones, index, item.id)
@@ -247,7 +252,9 @@
             writeEntity(data, location.entity, Object.assign({
               id: 0x000c,
               state: index,
-            }, asItem))
+            }, (removedTile && removedTile.slots) ? {
+              slots: removedTile.slots,
+            } : {}, asItem))
           }
         }
       } else {

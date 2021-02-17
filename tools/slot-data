@@ -1,0 +1,48 @@
+#!/usr/bin/env node
+// This tool parses a SotN bin for entity slot data.
+// Usage: tools/slot-data <path-to-rom> [indent-level]
+
+const fs = require('fs')
+const constants = require('../src/constants')
+const items = require('../src/items')
+const util = require('../src/util')
+
+const ZONE = constants.ZONE
+const zones = constants.zones
+
+// Clear existing slat data from item list.
+items.forEach(function(item) {
+  if (item.tiles) {
+    item.tiles.forEach(function(tile) {
+      if ('index' in tile) {
+        delete tile.slots
+      }
+    })
+  }
+})
+
+// Read input bin.
+const bin = fs.readFileSync(process.argv[2])
+// Add slots tiles.
+items.forEach(function(item) {
+  if (item.tiles) {
+    item.tiles.forEach(function(tile) {
+      if (tile.index) {
+        tile.slots = []
+        for (let i = 0; i < tile.zones.length; i++) {
+          const zone = zones[tile.zones[i]]
+          for (let j = 0; j < 2; j++) {
+            const offset = tile.entities[2 * i + j]
+            const slot = bin.readUInt16LE(util.romOffset(zone, offset + 0x06))
+            tile.slots.push(slot)
+          }
+        }
+      }
+    })
+  }
+})
+
+// Format data.
+const indent = parseInt(process.argv[3] || 2)
+const spaces = Array(indent).fill(' ').join('')
+console.log(spaces + 'const items = ' + util.formatObject(items, indent))

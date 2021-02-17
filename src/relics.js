@@ -161,7 +161,7 @@
     offset = data.writeWord(offset, 0x00000000) // nop
   }
 
-  function replaceRingOfVladWithItem(data, relic, item, index) {
+  function replaceRingOfVladWithItem(data, relic, item, index, removedTile) {
     let offset
     const id = item.id
     const zone = constants.zones[ZONE.RNZ1]
@@ -196,13 +196,19 @@
     // Branch if zero.
     offset = data.writeWord(offset, 0x10400005) // beq v0, r0, pc + 0x18
     offset = data.writeWord(offset, 0x00000000) // nop
-    // Change entity's position.
+    // Change entity's position and slot.
     offset = data.writeWord(offset, 0x3c088018) // lui t0, 0x8018
     //                                          // ori t1, r0, y
     offset = data.writeWord(offset, 0x34090000 + relic.asItem.y)
     relic.entity.entities.forEach(function(addr) {
       //                                        // sh t1, entity + 0x02 (t0)
       offset = data.writeWord(offset, 0xa5090000 + addr + 0x02)
+    })
+    relic.entity.entities.forEach(function(addr, index) {
+      //                                        // ori t1, r0, slot
+      offset = data.writeWord(offset, 0x34090000 + removedTile.slots[index])
+      //                                        // sh t1, entity + 0x06 (t0)
+      offset = data.writeWord(offset, 0xa5090000 + addr + 0x06)
     })
     // Zero out tile function pointer if item is in inventory.
     //                                          // ori v0, r0, id
@@ -296,8 +302,14 @@
   }
 
   function replaceBossRelicWithItem(opts) {
-    return function(data, relic, item, index) {
-      util().replaceBossRelicWithItem(opts)(data, relic, item, index)
+    return function(data, relic, item, index, removedTile) {
+      util().replaceBossRelicWithItem(opts)(
+        data,
+        relic,
+        item,
+        index,
+        removedTile,
+      )
     }
   }
 

@@ -44,13 +44,14 @@
   }
 
   function replaceBossRelicWithItem(opts) {
-    return function(data, relic, item, index) {
-      util().replaceBossRelicWithItem(opts)(data, relic, item, index)
-      const zone = constants.zones[relic.entity.zones[0]]
-      relic.entity.entities.forEach(function(addr) {
-        offset = util().romOffset(zone, addr + 0x06)
-        data.writeShort(offset, 0x0010)
-      })
+    return function(data, relic, item, index, removedTile) {
+      util().replaceBossRelicWithItem(opts)(
+        data,
+        relic,
+        item,
+        index,
+        removedTile,
+      )
     }
   }
 

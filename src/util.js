@@ -202,7 +202,7 @@
 
   function replaceBossRelicWithItem(opts) {
     const boss = constants.zones[opts.boss]
-    return function(data, relic, item, index) {
+    return function(data, relic, item, index, removedTile) {
       let offset
       const id = item.id
       const zone = constants.zones[relic.entity.zones[0]]
@@ -211,7 +211,7 @@
       offset = romOffset(zone, zone.items + 0x02 * index)
       data.writeShort(offset, id + constants.tileIdOffset)
       // Patch entities table.
-      relic.entity.entities.forEach(function(addr) {
+      relic.entity.entities.forEach(function(addr, index) {
         if ('asItem' in relic) {
           if ('x' in relic.asItem) {
             offset = romOffset(zone, addr + 0x00)
@@ -224,6 +224,8 @@
         }
         offset = romOffset(zone, addr + 0x04)
         data.writeShort(offset, 0x000c)
+        offset = romOffset(zone, addr + 0x06)
+        data.writeShort(offset, removedTile.slots[index])
         offset = romOffset(zone, addr + 0x08)
         data.writeShort(offset, index)
       })
@@ -1777,6 +1779,11 @@
           break
         case 'candle':
           value = numToHex(entry[1], 2)
+          break
+        case 'slots':
+          value = '[ ' + entry[1].map(function(slot) {
+            return numToHex(slot, 4)
+          }).join(', ') + ' ]'
           break
         default:
           let hex

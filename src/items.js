@@ -5565,6 +5565,7 @@
       zones: [ ZONE.NO2 ],
       index: 1,
       entities: [ 0x3718, 0x3e7c ],
+      slots: [ 0x0010, 0x0010 ],
     }, {
       zones: [ ZONE.NO3, ZONE.NP3 ],
       index: 0,
@@ -5573,38 +5574,47 @@
       zones: [ ZONE.NO3, ZONE.NP3 ],
       index: 7,
       entities: [ 0x4066, 0x47f2, 0x3e1a, 0x4556 ],
+      slots: [ 0x000f, 0x000f, 0x000f, 0x000f ],
     }, {
       zones: [ ZONE.NZ0 ],
       index: 1,
       entities: [ 0x2eec, 0x3844 ],
+      slots: [ 0x0920, 0x0920 ],
     }, {
       zones: [ ZONE.TOP ],
       index: 15,
       entities: [ 0x25f2, 0x2b8a ],
+      slots: [ 0x0313, 0x0313 ],
     }, {
       zones: [ ZONE.TOP ],
       index: 16,
       entities: [ 0x25de, 0x2b9e ],
+      slots: [ 0x0414, 0x0414 ],
     }, {
       zones: [ ZONE.TOP ],
       index: 18,
       entities: [ 0x2250, 0x2748 ],
+      slots: [ 0x1b2a, 0x1b2a ],
     }, {
       zones: [ ZONE.NZ1 ],
       index: 11,
       entities: [ 0x2458, 0x2e64 ],
+      slots: [ 0x0002, 0x0002 ],
     }, {
       zones: [ ZONE.NO1 ],
       index: 2,
       entities: [ 0x3b34, 0x4220 ],
+      slots: [ 0x1930, 0x1930 ],
     }, {
       zones: [ ZONE.NO0 ],
       index: 2,
       entities: [ 0x367a, 0x44fa ],
+      slots: [ 0x0012, 0x0012 ],
     }, {
       zones: [ ZONE.NO0 ],
       index: 9,
       entities: [ 0x36ca, 0x454a ],
+      slots: [ 0x0012, 0x0012 ],
     }, {
       zones: [ ZONE.NO4, ZONE.NO4 ],
       index: 0,
@@ -5613,14 +5623,17 @@
       zones: [ ZONE.NO4 ],
       index: 29,
       entities: [ 0x4176, 0x5208 ],
+      slots: [ 0x0029, 0x0029 ],
     }, {
       zones: [ ZONE.CAT ],
       index: 6,
       entities: [ 0x2ea0, 0x3730 ],
+      slots: [ 0x0101, 0x0101 ],
     }, {
       zones: [ ZONE.CAT ],
       index: 10,
       entities: [ 0x31a2, 0x3a82 ],
+      slots: [ 0x0009, 0x0009 ],
     }, {
       zones: [ ZONE.ARE ],
       index: 0,
@@ -5629,18 +5642,22 @@
       zones: [ ZONE.RTOP ],
       index: 6,
       entities: [ 0x1d52, 0x2176 ],
+      slots: [ 0x0909, 0x0909 ],
     }, {
       zones: [ ZONE.RTOP ],
       index: 8,
       entities: [ 0x1d34, 0x218a ],
+      slots: [ 0x0404, 0x0404 ],
     }, {
       zones: [ ZONE.RTOP ],
       index: 10,
       entities: [ 0x1d20, 0x219e ],
+      slots: [ 0x0808, 0x0808 ],
     }, {
       zones: [ ZONE.RNZ1 ],
       index: 10,
       entities: [ 0x25e0, 0x2e2a ],
+      slots: [ 0x0001, 0x0001 ],
     }, {
       zones: [ ZONE.RNO1 ],
       index: 0,
@@ -5649,50 +5666,62 @@
       zones: [ ZONE.RNO0 ],
       index: 4,
       entities: [ 0x3bb8, 0x4c18 ],
+      slots: [ 0x0020, 0x0020 ],
     }, {
       zones: [ ZONE.RNO4 ],
       index: 7,
       entities: [ 0x31dc, 0x4154 ],
+      slots: [ 0x000e, 0x000e ],
     }, {
       zones: [ ZONE.RNO4 ],
       index: 15,
       entities: [ 0x2e12, 0x3dc6 ],
+      slots: [ 0x0100, 0x0100 ],
     }, {
       zones: [ ZONE.RCAT ],
       index: 10,
       entities: [ 0x2974, 0x348e ],
+      slots: [ 0x0008, 0x0008 ],
     }, {
       zones: [ ZONE.RCAT ],
       index: 15,
       entities: [ 0x2816, 0x333a ],
+      slots: [ 0x0004, 0x0004 ],
     }, {
       zones: [ ZONE.RNO3 ],
       index: 3,
       entities: [ 0x2e5e, 0x3566 ],
+      slots: [ 0x0010, 0x0010 ],
     }, {
       zones: [ ZONE.RNZ0 ],
       index: 1,
       entities: [ 0x26b0, 0x2f7c ],
+      slots: [ 0x0920, 0x0920 ],
     }, {
       zones: [ ZONE.RDAI ],
       index: 5,
       entities: [ 0x1fae, 0x27e4 ],
+      slots: [ 0x0505, 0x0505 ],
     }, {
       zones: [ ZONE.RDAI ],
       index: 17,
       entities: [ 0x25a8, 0x2f00 ],
+      slots: [ 0x0103, 0x0103 ],
     }, {
       zones: [ ZONE.RARE ],
       index: 5,
       entities: [ 0x219e, 0x27ac ],
+      slots: [ 0x0008, 0x0008 ],
     }, {
       zones: [ ZONE.RARE ],
       index: 7,
       entities: [ 0x21b2, 0x27c0 ],
+      slots: [ 0x000a, 0x000a ],
     }, {
       zones: [ ZONE.RNO2 ],
       index: 11,
       entities: [ 0x2aa6, 0x329e ],
+      slots: [ 0x0010, 0x0010 ],
     }],
   }, {
     name: 'Life Vessel',
@@ -5703,38 +5732,47 @@
       zones: [ ZONE.NO3, ZONE.NP3 ],
       index: 1,
       entities: [ 0x3e86, 0x4612, 0x3c26, 0x4362 ],
+      slots: [ 0x0020, 0x0020, 0x0020, 0x0020 ],
     }, {
       zones: [ ZONE.NO3, ZONE.NP3 ],
       index: 6,
       entities: [ 0x4228, 0x49b4, 0x400e, 0x474a ],
+      slots: [ 0x000f, 0x000f, 0x000f, 0x000f ],
     }, {
       zones: [ ZONE.NO3, ZONE.NP3 ],
       index: 8,
       entities: [ 0x41ec, 0x491e, 0x3fd2, 0x4696 ],
+      slots: [ 0x0028, 0x0028, 0x0028, 0x0028 ],
     }, {
       zones: [ ZONE.NZ0 ],
       index: 3,
       entities: [ 0x2a28, 0x338a ],
+      slots: [ 0x0520, 0x0520 ],
     }, {
       zones: [ ZONE.DAI ],
       index: 12,
       entities: [ 0x2d9c, 0x36ca ],
+      slots: [ 0x0c0d, 0x0c0d ],
     }, {
       zones: [ ZONE.TOP ],
       index: 13,
       entities: [ 0x25d4, 0x2b80 ],
+      slots: [ 0x0111, 0x0111 ],
     }, {
       zones: [ ZONE.TOP ],
       index: 14,
       entities: [ 0x25e8, 0x2b94 ],
+      slots: [ 0x0212, 0x0212 ],
     }, {
       zones: [ ZONE.NZ1 ],
       index: 10,
       entities: [ 0x243a, 0x2e5a ],
+      slots: [ 0x0001, 0x0001 ],
     }, {
       zones: [ ZONE.NO1 ],
       index: 5,
       entities: [ 0x3bc0, 0x4450 ],
+      slots: [ 0x1230, 0x1230 ],
     }, {
       zones: [ ZONE.NO0 ],
       index: 0,
@@ -5743,90 +5781,112 @@
       zones: [ ZONE.NO0 ],
       index: 8,
       entities: [ 0x36c0, 0x4540 ],
+      slots: [ 0x0011, 0x0011 ],
     }, {
       zones: [ ZONE.NO4 ],
       index: 1,
       entities: [ 0x3334, 0x43bc ],
+      slots: [ 0x0010, 0x0010 ],
     }, {
       zones: [ ZONE.NO4 ],
       index: 28,
       entities: [ 0x4130, 0x51fe ],
+      slots: [ 0x0028, 0x0028 ],
     }, {
       zones: [ ZONE.NO4 ],
       index: 6,
       entities: [ 0x3f6e, 0x5000 ],
+      slots: [ 0x0008, 0x0008 ],
     }, {
       zones: [ ZONE.NO4 ],
       index: 5,
       entities: [ 0x3a64, 0x4cea ],
+      slots: [ 0x000e, 0x000e ],
     }, {
       zones: [ ZONE.NO4 ],
       index: 24,
       entities: [ 0x3cee, 0x4e70 ],
+      slots: [ 0x0505, 0x0505 ],
     }, {
       zones: [ ZONE.CAT ],
       index: 9,
       entities: [ 0x3198, 0x3a78 ],
+      slots: [ 0x0008, 0x0008 ],
     }, {
       zones: [ ZONE.RTOP ],
       index: 9,
       entities: [ 0x1d2a, 0x2194 ],
+      slots: [ 0x0505, 0x0505 ],
     }, {
       zones: [ ZONE.RTOP ],
       index: 7,
       entities: [ 0x1d48, 0x2180 ],
+      slots: [ 0x0a0a, 0x0a0a ],
     }, {
       zones: [ ZONE.RTOP ],
       index: 5,
       entities: [ 0x1d5c, 0x216c ],
+      slots: [ 0x0707, 0x0707 ],
     }, {
       zones: [ ZONE.RNZ1 ],
       index: 9,
       entities: [ 0x25c2, 0x2e34 ],
+      slots: [ 0x0002, 0x0002 ],
     }, {
       zones: [ ZONE.RNO1 ],
       index: 3,
       entities: [ 0x21de, 0x28d4 ],
+      slots: [ 0x3000, 0x3000 ],
     }, {
       zones: [ ZONE.RNO0 ],
       index: 3,
       entities: [ 0x3c1c, 0x4c22 ],
+      slots: [ 0x0021, 0x0021 ],
     }, {
       zones: [ ZONE.RNO4 ],
       index: 12,
       entities: [ 0x3b96, 0x4af0 ],
+      slots: [ 0x0010, 0x0010 ],
     }, {
       zones: [ ZONE.RNO4 ],
       index: 6,
       entities: [ 0x336c, 0x4122 ],
+      slots: [ 0x000d, 0x000d ],
     }, {
       zones: [ ZONE.RCAT ],
       index: 16,
       entities: [ 0x2820, 0x3344 ],
+      slots: [ 0x0005, 0x0005 ],
     }, {
       zones: [ ZONE.RCAT ],
       index: 9,
       entities: [ 0x296a, 0x3498 ],
+      slots: [ 0x0009, 0x0009 ],
     }, {
       zones: [ ZONE.RNO3 ],
       index: 8,
       entities: [ 0x2ce2, 0x33ae ],
+      slots: [ 0x0020, 0x0020 ],
     }, {
       zones: [ ZONE.RNZ0 ],
       index: 2,
       entities: [ 0x26f6, 0x2fc2 ],
+      slots: [ 0x0920, 0x0920 ],
     }, {
       zones: [ ZONE.RDAI ],
       index: 12,
       entities: [ 0x23be, 0x2d52 ],
+      slots: [ 0x0c0d, 0x0c0d ],
     }, {
       zones: [ ZONE.RNO2 ],
       index: 8,
       entities: [ 0x2b78, 0x33c0 ],
+      slots: [ 0x000c, 0x000c ],
     }, {
       zones: [ ZONE.RARE ],
       index: 6,
       entities: [ 0x21a8, 0x27b6 ],
+      slots: [ 0x0009, 0x0009 ],
     }],
   }, {
     name: 'Monster Vial 1',
@@ -5855,18 +5915,22 @@
       zones: [ ZONE.CAT ],
       index: 17,
       entities: [ 0x3206, 0x3ae6 ],
+      slots: [ 0x0302, 0x0302 ],
     }, {
       zones: [ ZONE.CAT ],
       index: 18,
       entities: [ 0x321a, 0x3afa ],
+      slots: [ 0x0504, 0x0504 ],
     }, {
       zones: [ ZONE.CAT ],
       index: 19,
       entities: [ 0x3224, 0x3b04 ],
+      slots: [ 0x0605, 0x0605 ],
     }, {
       zones: [ ZONE.CAT ],
       index: 20,
       entities: [ 0x3238, 0x3b18 ],
+      slots: [ 0x0807, 0x0807 ],
     }, {
       addresses: [ 0x0b655a ],
       enemy: 7,
@@ -5888,6 +5952,7 @@
       zones: [ ZONE.ARE ],
       index: 1,
       entities: [ 0x3180, 0x3808 ],
+      slots: [ 0x0008, 0x0008 ],
     }, {
       zones: [ ZONE.ST0 ],
       entities: [ 0x2816, 0x29b0 ],
@@ -5901,6 +5966,7 @@
       zones: [ ZONE.NZ0 ],
       index: 8,
       entities: [ 0x2cf8, 0x36b4 ],
+      slots: [ 0x0c1c, 0x0c1c ],
     }, {
       zones: [ ZONE.LIB ],
       addresses: [ 0x047a3166 ],
@@ -5920,6 +5986,7 @@
       zones: [ ZONE.ARE ],
       index: 4,
       entities: [ 0x34e6, 0x3ba0 ],
+      slots: [ 0x0009, 0x0009 ],
     }, {
       addresses: [ 0x0b77d2 ],
       enemy: 14,
@@ -5955,6 +6022,7 @@
       zones: [ ZONE.NO4 ],
       index: 7,
       entities: [ 0x3fa0, 0x503c ],
+      slots: [ 0x0008, 0x0008 ],
     }],
   }, {
     name: 'Dark Shield',
@@ -5976,6 +6044,7 @@
       zones: [ ZONE.RNZ0 ],
       index: 3,
       entities: [ 0x289a, 0x3166 ],
+      slots: [ 0x0920, 0x0920 ],
     }],
   }, {
     name: 'Shaman Shield',
@@ -5985,6 +6054,7 @@
       zones: [ ZONE.NZ1 ],
       index: 8,
       entities: [ 0x29c6, 0x33d2 ],
+      slots: [ 0x0016, 0x0016 ],
     }],
   }, {
     name: 'Medusa Shield',
@@ -6045,6 +6115,7 @@
       zones: [ ZONE.NZ0 ],
       index: 9,
       entities: [ 0x2ca8, 0x360a ],
+      slots: [ 0x0008, 0x0008 ],
     }, {
       addresses: [ 0x0b5a7a ],
       enemy: 13,
@@ -6069,6 +6140,7 @@
       zones: [ ZONE.CHI ],
       index: 5,
       entities: [ 0x1a84, 0x1df4 ],
+      slots: [ 0x0012, 0x0012 ],
     }, {
       addresses: [ 0x0b7964 ],
       enemy: 84,
@@ -6081,6 +6153,7 @@
       zones: [ ZONE.NO4 ],
       index: 36,
       entities: [ 0x3c4e, 0x4c72 ],
+      slots: [ 0x0c0c, 0x0c0c ],
     }],
   }, {
     name: 'Were Bane',
@@ -6109,26 +6182,32 @@
       zones: [ ZONE.CHI ],
       index: 1,
       entities: [ 0x1a8e, 0x1dfe ],
+      slots: [ 0x0010, 0x0010 ],
     }, {
       zones: [ ZONE.CAT ],
       index: 14,
       entities: [ 0x3346, 0x3c3a ],
+      slots: [ 0x0b0b, 0x0b0b ],
     }, {
       zones: [ ZONE.CAT ],
       index: 13,
       entities: [ 0x335a, 0x3c30 ],
+      slots: [ 0x0a0a, 0x0a0a ],
     }, {
       zones: [ ZONE.RNZ1 ],
       index: 1,
       entities: [ 0x2aea, 0x3316 ],
+      slots: [ 0x0019, 0x0019 ],
     }, {
       zones: [ ZONE.RCAT ],
       index: 4,
       entities: [ 0x2d2a, 0x389e ],
+      slots: [ 0x0808, 0x0808 ],
     }, {
       zones: [ ZONE.RCAT ],
       index: 5,
       entities: [ 0x2d3e, 0x38a8 ],
+      slots: [ 0x0909, 0x0909 ],
     }, {
       addresses: [ 0x0b70dc ],
       enemy: 114,
@@ -6144,6 +6223,7 @@
       zones: [ ZONE.DAI ],
       index: 5,
       entities: [ 0x28f6, 0x32d8 ],
+      slots: [ 0x0606, 0x0606 ],
     }, {
       zones: [ ZONE.NZ1 ],
       index: 0,
@@ -6160,6 +6240,7 @@
       zones: [ ZONE.RDAI ],
       index: 15,
       entities: [ 0x2562, 0x2ece ],
+      slots: [ 0x0202, 0x0202 ],
     }, {
       zones: [ ZONE.LIB ],
       addresses: [ 0x047a30d6 ],
@@ -6194,6 +6275,7 @@
       zones: [ ZONE.LIB ],
       index: 5,
       entities: [ 0x377c, 0x3f10 ],
+      slots: [ 0x0e5d, 0x0e5d ],
     }, {
       addresses: [ 0x0b5eb4 ],
       enemy: 23,
@@ -6209,6 +6291,7 @@
       zones: [ ZONE.RNO1 ],
       index: 1,
       entities: [ 0x215c, 0x2852 ],
+      slots: [ 0x0028, 0x0028 ],
     }, {
       addresses: [ 0x0b6de4 ],
       enemy: 69,
@@ -6268,18 +6351,22 @@
       zones: [ ZONE.CHI ],
       index: 9,
       entities: [ 0x1a48, 0x1dc2 ],
+      slots: [ 0x0012, 0x0012 ],
     }, {
       zones: [ ZONE.CHI ],
       index: 10,
       entities: [ 0x1a52, 0x1da4 ],
+      slots: [ 0x0013, 0x0013 ],
     }, {
       zones: [ ZONE.CHI ],
       index: 11,
       entities: [ 0x1a5c, 0x1dae ],
+      slots: [ 0x0014, 0x0014 ],
     }, {
       zones: [ ZONE.CHI ],
       index: 12,
       entities: [ 0x1a66, 0x1db8 ],
+      slots: [ 0x0015, 0x0015 ],
     }],
   }, {
     name: 'Toadstool',
@@ -6290,14 +6377,17 @@
       zones: [ ZONE.NO4 ],
       index: 26,
       entities: [ 0x3c58, 0x4b3c ],
+      slots: [ 0x0a0a, 0x0a0a ],
     }, {
       zones: [ ZONE.NO4 ],
       index: 33,
       entities: [ 0x36d6, 0x4876 ],
+      slots: [ 0x0012, 0x0012 ],
     }, {
       zones: [ ZONE.RNO4 ],
       index: 2,
       entities: [ 0x31aa, 0x4078 ],
+      slots: [ 0x0012, 0x0012 ],
     }],
   }, {
     name: 'Shiitake',
@@ -6308,50 +6398,62 @@
       zones: [ ZONE.NO4 ],
       index: 12,
       entities: [ 0x3550, 0x461e ],
+      slots: [ 0x0b0b, 0x0b0b ],
     }, {
       zones: [ ZONE.NO4 ],
       index: 35,
       entities: [ 0x36ae, 0x4736 ],
+      slots: [ 0x0003, 0x0003 ],
     }, {
       zones: [ ZONE.NO4 ],
       index: 27,
       entities: [ 0x3bea, 0x4b0a ],
+      slots: [ 0x0b0b, 0x0b0b ],
     }, {
       zones: [ ZONE.NO4 ],
       index: 32,
       entities: [ 0x36cc, 0x47ea ],
+      slots: [ 0x0011, 0x0011 ],
     }, {
       zones: [ ZONE.CHI ],
       index: 7,
       entities: [ 0x1c46, 0x1fc0 ],
+      slots: [ 0x0003, 0x0003 ],
     }, {
       zones: [ ZONE.CHI ],
       index: 6,
       entities: [ 0x1c6e, 0x1fca ],
+      slots: [ 0x0002, 0x0002 ],
     }, {
       zones: [ ZONE.RNO4 ],
       index: 1,
       entities: [ 0x3bfa, 0x4b68 ],
+      slots: [ 0x0003, 0x0003 ],
     }, {
       zones: [ ZONE.RNO4 ],
       index: 10,
       entities: [ 0x31d2, 0x42a8 ],
+      slots: [ 0x000a, 0x000a ],
     }, {
       zones: [ ZONE.RNO4 ],
       index: 9,
       entities: [ 0x3236, 0x42b2 ],
+      slots: [ 0x000b, 0x000b ],
     }, {
       zones: [ ZONE.RNO4 ],
       index: 3,
       entities: [ 0x31b4, 0x4082 ],
+      slots: [ 0x0011, 0x0011 ],
     }, {
       zones: [ ZONE.RCHI ],
       index: 6,
       entities: [ 0x1bd6, 0x204a ],
+      slots: [ 0x0002, 0x0002 ],
     }, {
       zones: [ ZONE.RCHI ],
       index: 7,
       entities: [ 0x1c30, 0x207c ],
+      slots: [ 0x0003, 0x0003 ],
     }],
   }, {
     name: 'Cheesecake',
@@ -6408,10 +6510,12 @@
       zones: [ ZONE.TOP ],
       index: 7,
       entities: [ 0x241c, 0x29dc ],
+      slots: [ 0x0a0a, 0x0a0a ],
     }, {
       zones: [ ZONE.LIB ],
       index: 7,
       entities: [ 0x379a, 0x3f24 ],
+      slots: [ 0x105f, 0x105f ],
     }, {
       addresses: [ 0x0b5aa2 ],
       enemy: 104,
@@ -6442,6 +6546,7 @@
       zones: [ ZONE.NO2 ],
       index: 6,
       entities: [ 0x34ac, 0x3be8 ],
+      slots: [ 0x0302, 0x0302 ],
     }, {
       addresses: [ 0x0b5eb2 ],
       enemy: 23,
@@ -6521,6 +6626,7 @@
       zones: [ ZONE.CHI ],
       index: 8,
       entities: [ 0x1a3e, 0x1dd6 ],
+      slots: [ 0x0011, 0x0011 ],
     }, {
       addresses: [ 0x0b7a2c ],
       enemy: 15,
@@ -6534,10 +6640,12 @@
       zones: [ ZONE.ARE ],
       index: 6,
       entities: [ 0x3482, 0x3b0a ],
+      slots: [ 0x0002, 0x0002 ],
     }, {
       zones: [ ZONE.RCHI, ZONE.RCHI ],
       index: 3,
       entities: [ 0x1938, 0x1d98, 0x1a8c, 0x1ece ],
+      slots: [ 0x0012, 0x0012, 0x0010, 0x0010 ],
     }, {
       addresses: [ 0x0b6c7a ],
       enemy: 94,
@@ -6593,6 +6701,7 @@
       zones: [ ZONE.CAT ],
       index: 15,
       entities: [ 0x3404, 0x3ce4 ],
+      slots: [ 0x0909, 0x0909 ],
     }, {
       addresses: [ 0x0b6ca2 ],
       enemy: 53,
@@ -6606,6 +6715,7 @@
       zones: [ ZONE.RCAT ],
       index: 6,
       entities: [ 0x2dde, 0x3902 ],
+      slots: [ 0x0909, 0x0909 ],
     }, {
       addresses: [ 0x0b6cca ],
       enemy: 52,
@@ -6661,14 +6771,17 @@
       index: 6,
       entities: [ 0x2412, 0x29d2 ],
       despawn: true,
+      slots: [ 0x0909, 0x0909 ],
     }, {
       zones: [ ZONE.NO4, ZONE.BO3 ],
       index: 21,
       entities: [ 0x41da, 0x5262, 0x1d5c, 0x1f20 ],
+      slots: [ 0x0101, 0x0101, 0x0101, 0x0101 ],
     }, {
       zones: [ ZONE.RNO4 ],
       index: 22,
       entities: [ 0x39c0, 0x4910 ],
+      slots: [ 0x2001, 0x2001 ],
     }, {
       addresses: [ 0x0b6442 ],
       enemy: 55,
@@ -6682,6 +6795,7 @@
       zones: [ ZONE.TOP ],
       index: 4,
       entities: [ 0x23fe, 0x29be ],
+      slots: [ 0x0303, 0x0303 ],
     }, {
       addresses: [ 0x0b6f4c ],
       enemy: 81,
@@ -6704,10 +6818,12 @@
       index: 1,
       entities: [ 0x2124, 0x282e ],
       despawn: true,
+      slots: [ 0x0004, 0x0004 ],
     }, {
       zones: [ ZONE.TOP ],
       index: 5,
       entities: [ 0x2408, 0x29c8 ],
+      slots: [ 0x0707, 0x0707 ],
     }, {
       zones: [ ZONE.CHI ],
       addresses: [ 0x045e9602 ],
@@ -6724,42 +6840,52 @@
       zones: [ ZONE.NO4 ],
       index: 14,
       entities: [ 0x3640, 0x46b4 ],
+      slots: [ 0x0101, 0x0101 ],
     }, {
       zones: [ ZONE.NO4 ],
       index: 15,
       entities: [ 0x364a, 0x46be ],
+      slots: [ 0x0202, 0x0202 ],
     }, {
       zones: [ ZONE.NO4 ],
       index: 16,
       entities: [ 0x362c, 0x46c8 ],
+      slots: [ 0x0303, 0x0303 ],
     }, {
       zones: [ ZONE.NO4 ],
       index: 17,
       entities: [ 0x3636, 0x46d2 ],
+      slots: [ 0x0404, 0x0404 ],
     }, {
       zones: [ ZONE.RNO0 ],
       index: 9,
       entities: [ 0x407c, 0x510e ],
+      slots: [ 0x0020, 0x0020 ],
     }, {
       zones: [ ZONE.RNO4 ],
       index: 16,
       entities: [ 0x3056, 0x3fce ],
+      slots: [ 0x0101, 0x0101 ],
     }, {
       zones: [ ZONE.RNO4 ],
       index: 17,
       entities: [ 0x3060, 0x3fba ],
+      slots: [ 0x0202, 0x0202 ],
     }, {
       zones: [ ZONE.RNO4 ],
       index: 18,
       entities: [ 0x3074, 0x3fc4 ],
+      slots: [ 0x0303, 0x0303 ],
     }, {
       zones: [ ZONE.RNO4 ],
       index: 19,
       entities: [ 0x307e, 0x3fa6 ],
+      slots: [ 0x0404, 0x0404 ],
     }, {
       zones: [ ZONE.RNO4 ],
       index: 20,
       entities: [ 0x306a, 0x3fb0 ],
+      slots: [ 0x0505, 0x0505 ],
     }, {
       zones: [ ZONE.LIB ],
       addresses: [ 0x047a3126 ],
@@ -6782,6 +6908,7 @@
       zones: [ ZONE.RLIB ],
       index: 6,
       entities: [ 0x1ccc, 0x226c ],
+      slots: [ 0x0020, 0x0020 ],
     }, {
       zones: [ ZONE.ST0 ],
       addresses: [ 0x119d00 ],
@@ -6810,6 +6937,7 @@
       zones: [ ZONE.RCHI ],
       index: 4,
       entities: [ 0x1942, 0x1da2 ],
+      slots: [ 0x0010, 0x0010 ],
     }, {
       zones: [ ZONE.ST0 ],
       entities: [ 0x282a, 0x29c4 ],
@@ -6823,10 +6951,12 @@
       zones: [ ZONE.NZ1 ],
       index: 1,
       entities: [ 0x2a0c, 0x34f4 ],
+      slots: [ 0x0031, 0x0031 ],
     }, {
       zones: [ ZONE.NO4 ],
       index: 30,
       entities: [ 0x3f28, 0x4fb0 ],
+      slots: [ 0x0028, 0x0028 ],
     }, {
       addresses: [ 0x0b5af4 ],
       enemy: 22,
@@ -6845,6 +6975,7 @@
       zones: [ ZONE.RNO4 ],
       index: 5,
       entities: [ 0x3754, 0x46a4 ],
+      slots: [ 0x0028, 0x0028 ],
     }, {
       addresses: [ 0x0b819a ],
       enemy: 31,
@@ -6857,14 +6988,17 @@
       zones: [ ZONE.DAI ],
       index: 6,
       entities: [ 0x291e, 0x32b0 ],
+      slots: [ 0x0707, 0x0707 ],
     }, {
       zones: [ ZONE.RDAI ],
       index: 6,
       entities: [ 0x1f9a, 0x27f8 ],
+      slots: [ 0x0606, 0x0606 ],
     }, {
       zones: [ ZONE.RNO2 ],
       index: 10,
       entities: [ 0x29ac, 0x3190 ],
+      slots: [ 0x0001, 0x0001 ],
     }, {
       zones: [ ZONE.NZ1 ],
       addresses: [ 0x055737a0 ],
@@ -6894,10 +7028,12 @@
       zones: [ ZONE.CAT ],
       index: 12,
       entities: [ 0x333c, 0x3bea ],
+      slots: [ 0x0909, 0x0909 ],
     }, {
       zones: [ ZONE.CAT ],
       index: 11,
       entities: [ 0x3350, 0x3be0 ],
+      slots: [ 0x0808, 0x0808 ],
     }, {
       zones: [ ZONE.LIB ],
       addresses: [ 0x047a3106 ],
@@ -6914,10 +7050,12 @@
       zones: [ ZONE.RCAT ],
       index: 1,
       entities: [ 0x2866, 0x3380 ],
+      slots: [ 0x0010, 0x0010 ],
     }, {
       zones: [ ZONE.RARE ],
       index: 2,
       entities: [ 0x2400, 0x29aa ],
+      slots: [ 0x0002, 0x0002 ],
     }, {
       zones: [ ZONE.LIB ],
       addresses: [ 0x047a310e ],
@@ -6946,10 +7084,12 @@
       zones: [ ZONE.DAI ],
       index: 7,
       entities: [ 0x2946, 0x3292 ],
+      slots: [ 0x0808, 0x0808 ],
     }, {
       zones: [ ZONE.RDAI ],
       index: 7,
       entities: [ 0x1f4a, 0x283e ],
+      slots: [ 0x0707, 0x0707 ],
     }, {
       zones: [ ZONE.NZ1 ],
       addresses: [ 0x055737a8 ],
@@ -6975,6 +7115,7 @@
       zones: [ ZONE.RDAI ],
       index: 14,
       entities: [ 0x254e, 0x2ed8 ],
+      slots: [ 0x0103, 0x0103 ],
     }, {
       zones: [ ZONE.NZ1 ],
       addresses: [ 0x055737a4 ],
@@ -7001,10 +7142,12 @@
       zones: [ ZONE.DAI ],
       index: 8,
       entities: [ 0x2964, 0x326a ],
+      slots: [ 0x0909, 0x0909 ],
     }, {
       zones: [ ZONE.RDAI ],
       index: 8,
       entities: [ 0x1efa, 0x288e ],
+      slots: [ 0x0808, 0x0808 ],
     }, {
       zones: [ ZONE.LIB ],
       addresses: [ 0x047a30e6 ],
@@ -7021,6 +7164,7 @@
       zones: [ ZONE.RDAI ],
       index: 9,
       entities: [ 0x1ed2, 0x28c0 ],
+      slots: [ 0x0909, 0x0909 ],
     }, {
       zones: [ ZONE.LIB ],
       addresses: [ 0x047a30ee ],
@@ -7049,6 +7193,7 @@
       zones: [ ZONE.TOP ],
       index: 3,
       entities: [ 0x23b8, 0x2964 ],
+      slots: [ 0x0010, 0x0010 ],
     }],
   }, {
     name: 'Namakura',
@@ -7066,6 +7211,7 @@
       zones: [ ZONE.NO4 ],
       index: 23,
       entities: [ 0x3c80, 0x4e66 ],
+      slots: [ 0x0404, 0x0404 ],
     }, {
       addresses: [ 0x0b6b8c ],
       enemy: 48,
@@ -7078,6 +7224,7 @@
       zones: [ ZONE.NO1 ],
       index: 4,
       entities: [ 0x363e, 0x3e24 ],
+      slots: [ 0x0020, 0x0020 ],
     }],
   }, {
     name: 'Scimitar',
@@ -7087,6 +7234,7 @@
       zones: [ ZONE.NO4, ZONE.BO3 ],
       index: 19,
       entities: [ 0x423e, 0x52bc, 0x1e24, 0x1fde ],
+      slots: [ 0x2020, 0x2020, 0x2020, 0x2020 ],
     }, {
       addresses: [ 0x0b872c ],
       enemy: 51,
@@ -7099,6 +7247,7 @@
       zones: [ ZONE.DAI ],
       index: 14,
       entities: [ 0x3026, 0x3972 ],
+      slots: [ 0x0101, 0x0101 ],
     }, {
       addresses: [ 0x0b59dc ],
       enemy: 43,
@@ -7132,6 +7281,7 @@
       zones: [ ZONE.TOP ],
       index: 12,
       entities: [ 0x2476, 0x2a22 ],
+      slots: [ 0x0022, 0x0022 ],
     }],
   }, {
     name: 'Broadsword',
@@ -7141,6 +7291,7 @@
       zones: [ ZONE.NO2 ],
       index: 4,
       entities: [ 0x34c0, 0x3bd4 ],
+      slots: [ 0x0100, 0x0100 ],
     }, {
       addresses: [ 0x0b6efc ],
       enemy: 57,
@@ -7156,6 +7307,7 @@
       zones: [ ZONE.NZ1 ],
       index: 7,
       entities: [ 0x29e4, 0x33c8 ],
+      slots: [ 0x0015, 0x0015 ],
     }, {
       addresses: [ 0x0b59da ],
       enemy: 43,
@@ -7188,6 +7340,7 @@
       zones: [ ZONE.NO2 ],
       index: 10,
       entities: [ 0x34e8, 0x3c06 ],
+      slots: [ 0x0707, 0x0707 ],
     }, {
       addresses: [ 0x0b6f9c ],
       enemy: 77,
@@ -7200,6 +7353,7 @@
       zones: [ ZONE.RTOP ],
       index: 4,
       entities: [ 0x1d66, 0x2162 ],
+      slots: [ 0x0303, 0x0303 ],
     }, {
       addresses: [ 0x0b6efa ],
       enemy: 57,
@@ -7227,6 +7381,7 @@
       zones: [ ZONE.NO4 ],
       index: 13,
       entities: [ 0x3406, 0x4448 ],
+      slots: [ 0x0100, 0x0100 ],
     }, {
       addresses: [ 0x0b6f9a ],
       enemy: 77,
@@ -7239,6 +7394,7 @@
       zones: [ ZONE.RDAI ],
       index: 13,
       entities: [ 0x2472, 0x2e06 ],
+      slots: [ 0x0101, 0x0101 ],
     }],
   }, {
     name: 'Katana',
@@ -7248,6 +7404,7 @@
       zones: [ ZONE.RNZ0 ],
       index: 5,
       entities: [ 0x2322, 0x2be4 ],
+      slots: [ 0x0420, 0x0420 ],
     }, {
       addresses: [ 0x0b6c7c ],
       enemy: 94,
@@ -7284,6 +7441,7 @@
       zones: [ ZONE.RNO2 ],
       index: 1,
       entities: [ 0x29fc, 0x31e0 ],
+      slots: [ 0x0201, 0x0201 ],
     }],
   }, {
     name: 'Luminus',
@@ -7293,6 +7451,7 @@
       zones: [ ZONE.RNZ1 ],
       index: 3,
       entities: [ 0x2afe, 0x335c ],
+      slots: [ 0x0015, 0x0015 ],
     }],
   }, {
     name: 'Harper',
@@ -7319,6 +7478,7 @@
       zones: [ ZONE.RARE ],
       index: 3,
       entities: [ 0x2428, 0x29c8 ],
+      slots: [ 0x0010, 0x0010 ],
     }],
   }, {
     name: 'Jewel Sword',
@@ -7328,6 +7488,7 @@
       zones: [ ZONE.NP3 ],
       index: 9,
       entities: [ 0x3e56, 0x459c ],
+      slots: [ 0x0011, 0x0011 ],
     }, {
       addresses: [ 0x0b65aa ],
       enemy: 86,
@@ -7340,6 +7501,7 @@
       zones: [ ZONE.CAT ],
       index: 3,
       entities: [ 0x2c02, 0x34e2 ],
+      slots: [ 0x0010, 0x0010 ],
     }],
   }, {
     name: 'Firebrand',
@@ -7374,6 +7536,7 @@
       zones: [ ZONE.CAT ],
       index: 1,
       entities: [ 0x2c3e, 0x351e ],
+      slots: [ 0x0010, 0x0010 ],
     }, {
       zones: [ ZONE.LIB ],
       addresses: [ 0x047a314e ],
@@ -7398,6 +7561,7 @@
       zones: [ ZONE.ARE ],
       index: 7,
       entities: [ 0x34be, 0x3b46 ],
+      slots: [ 0x0010, 0x0010 ],
     }, {
       addresses: [ 0x0b80d4 ],
       enemy: 64,
@@ -7426,6 +7590,7 @@
       zones: [ ZONE.RNO4 ],
       index: 23,
       entities: [ 0x309c, 0x3fec ],
+      slots: [ 0x0010, 0x0010 ],
     }],
   }, {
     name: 'Heaven Sword',
@@ -7467,6 +7632,7 @@
       zones: [ ZONE.RCHI ],
       index: 2,
       entities: [ 0x1cda, 0x213a ],
+      slots: [ 0x0008, 0x0008 ],
     }],
   }, {
     name: 'Mablung Sword',
@@ -7484,6 +7650,7 @@
       zones: [ ZONE.RLIB ],
       index: 7,
       entities: [ 0x1b00, 0x20a0 ],
+      slots: [ 0x0004, 0x0004 ],
     }, {
       zones: [ ZONE.ST0 ],
       entities: [ 0x27ee, 0x2988 ],
@@ -7514,6 +7681,7 @@
       zones: [ ZONE.DAI ],
       index: 1,
       entities: [ 0x2982, 0x3242 ],
+      slots: [ 0x0202, 0x0202 ],
     }, {
       addresses: [ 0x0b6444 ],
       enemy: 55,
@@ -7526,6 +7694,7 @@
       zones: [ ZONE.LIB ],
       index: 2,
       entities: [ 0x35b0, 0x3c5e ],
+      slots: [ 0x0004, 0x0004 ],
     }],
   }, {
     name: 'Star Flail',
@@ -7535,6 +7704,7 @@
       zones: [ ZONE.NZ1 ],
       index: 3,
       entities: [ 0x284a, 0x327e ],
+      slots: [ 0x0010, 0x0010 ],
     }],
   }, {
     name: 'Moon Rod',
@@ -7544,6 +7714,7 @@
       zones: [ ZONE.RNZ1 ],
       index: 11,
       entities: [ 0x2d06, 0x3578 ],
+      slots: [ 0x0010, 0x0010 ],
     }, {
       zones: [ ZONE.ST0 ],
       entities: [ 0x27e4, 0x297e ],
@@ -7565,10 +7736,12 @@
       zones: [ ZONE.RNO3 ],
       index: 7,
       entities: [ 0x2d28, 0x33fe ],
+      slots: [ 0x0020, 0x0020 ],
     }, {
       zones: [ ZONE.RDAI ],
       index: 2,
       entities: [ 0x1e78, 0x2924 ],
+      slots: [ 0x0202, 0x0202 ],
     }, {
       zones: [ ZONE.LIB ],
       addresses: [ 0x047a30f6 ],
@@ -7585,14 +7758,17 @@
       zones: [ ZONE.NO2 ],
       index: 11,
       entities: [ 0x3470, 0x3b98 ],
+      slots: [ 0x0001, 0x0001 ],
     }, {
       zones: [ ZONE.RTOP ],
       index: 1,
       entities: [ 0x1c80, 0x2004 ],
+      slots: [ 0x0004, 0x0004 ],
     }, {
       zones: [ ZONE.RNO0 ],
       index: 10,
       entities: [ 0x4568, 0x55be ],
+      slots: [ 0x0020, 0x0020 ],
     }, {
       addresses: [ 0x0b69fc ],
       enemy: 28,
@@ -7632,6 +7808,7 @@
       zones: [ ZONE.RNO4 ],
       index: 26,
       entities: [ 0x37c2, 0x473a ],
+      slots: [ 0x0008, 0x0008 ],
     }],
   }, {
     name: 'Masamune',
@@ -7660,10 +7837,12 @@
       zones: [ ZONE.RNO0 ],
       index: 11,
       entities: [ 0x44fa, 0x555a ],
+      slots: [ 0x0020, 0x0020 ],
     }, {
       zones: [ ZONE.RNO2 ],
       index: 9,
       entities: [ 0x2970, 0x3154 ],
+      slots: [ 0x0010, 0x0010 ],
     }, {
       zones: [ ZONE.ST0 ],
       addresses: [ 0x119ca4 ],
@@ -7699,18 +7878,22 @@
       zones: [ ZONE.LIB ],
       index: 9,
       entities: [ 0x3588, 0x3c40 ],
+      slots: [ 0x0206, 0x0206 ],
     }, {
       zones: [ ZONE.NO4 ],
       index: 4,
       entities: [ 0x3a6e, 0x4ca4 ],
+      slots: [ 0x000d, 0x000d ],
     }, {
       zones: [ ZONE.RNO0 ],
       index: 2,
       entities: [ 0x3abe, 0x4a92 ],
+      slots: [ 0x000f, 0x000f ],
     }, {
       zones: [ ZONE.RNO3 ],
       index: 1,
       entities: [ 0x2fda, 0x36ce ],
+      slots: [ 0x0028, 0x0028 ],
     }, {
       zones: [ ZONE.LIB ],
       addresses: [ 0x047a30be ],
@@ -7761,18 +7944,22 @@
       zones: [ ZONE.NO3, ZONE.NP3 ],
       index: 2,
       entities: [ 0x40a2, 0x4824, 0x3e60, 0x4588 ],
+      slots: [ 0x0010, 0x0010, 0x0010, 0x0010 ],
     }, {
       zones: [ ZONE.NO0 ],
       index: 3,
       entities: [ 0x296c, 0x37f6 ],
+      slots: [ 0x0012, 0x0012 ],
     }, {
       zones: [ ZONE.RNZ1 ],
       index: 7,
       entities: [ 0x2a0e, 0x3276 ],
+      slots: [ 0x0111, 0x0111 ],
     }, {
       zones: [ ZONE.RCHI ],
       index: 1,
       entities: [ 0x191a, 0x1d70 ],
+      slots: [ 0x0012, 0x0012 ],
     }, {
       addresses: [ 0x0b828a ],
       enemy: 73,
@@ -7785,14 +7972,17 @@
       zones: [ ZONE.NO0 ],
       index: 12,
       entities: [ 0x3134, 0x3fa0 ],
+      slots: [ 0x200e, 0x200e ],
     }, {
       zones: [ ZONE.NO0 ],
       index: 4,
       entities: [ 0x2976, 0x3800 ],
+      slots: [ 0x0013, 0x0013 ],
     }, {
       zones: [ ZONE.RNO1 ],
       index: 2,
       entities: [ 0x2170, 0x285c ],
+      slots: [ 0x0020, 0x0020 ],
     }, {
       zones: [ ZONE.RNO3 ],
       index: 0,
@@ -7816,14 +8006,17 @@
       zones: [ ZONE.NO0 ],
       index: 13,
       entities: [ 0x3170, 0x3f14 ],
+      slots: [ 0x210f, 0x210f ],
     }, {
       zones: [ ZONE.DAI ],
       index: 11,
       entities: [ 0x2e82, 0x36c0 ],
+      slots: [ 0x0b0c, 0x0b0c ],
     }, {
       zones: [ ZONE.RNZ1 ],
       index: 2,
       entities: [ 0x2af4, 0x3352 ],
+      slots: [ 0x0017, 0x0017 ],
     }, {
       addresses: [ 0x0b632c ],
       enemy: 70,
@@ -7836,14 +8029,17 @@
       zones: [ ZONE.NO2 ],
       index: 9,
       entities: [ 0x3984, 0x4098 ],
+      slots: [ 0x0302, 0x0302 ],
     }, {
       zones: [ ZONE.RNO1 ],
       index: 4,
       entities: [ 0x221a, 0x291a ],
+      slots: [ 0x0101, 0x0101 ],
     }, {
       zones: [ ZONE.RNO2 ],
       index: 4,
       entities: [ 0x2948, 0x312c ],
+      slots: [ 0x0201, 0x0201 ],
     }, {
       addresses: [ 0x0b7874 ],
       enemy: 105,
@@ -7859,10 +8055,12 @@
       zones: [ ZONE.RNZ1 ],
       index: 4,
       entities: [ 0x2b12, 0x3348 ],
+      slots: [ 0x0016, 0x0016 ],
     }, {
       zones: [ ZONE.RDAI ],
       index: 11,
       entities: [ 0x2288, 0x2d5c ],
+      slots: [ 0x0b0c, 0x0b0c ],
     }, {
       addresses: [ 0x0b614c ],
       enemy: 20,
@@ -7875,10 +8073,12 @@
       zones: [ ZONE.NO0 ],
       index: 11,
       entities: [ 0x372e, 0x45c2 ],
+      slots: [ 0x0012, 0x0012 ],
     }, {
       zones: [ ZONE.RCAT ],
       index: 12,
       entities: [ 0x2b2c, 0x36b4 ],
+      slots: [ 0x0101, 0x0101 ],
     }],
   }, {
     name: 'Shield Potion',
@@ -7888,18 +8088,22 @@
       zones: [ ZONE.NO3, ZONE.NP3 ],
       index: 4,
       entities: [ 0x4156, 0x48ba, 0x3f1e, 0x4632 ],
+      slots: [ 0x000f, 0x000f, 0x000f, 0x000f ],
     }, {
       zones: [ ZONE.RNO1 ],
       index: 5,
       entities: [ 0x2350, 0x2a46 ],
+      slots: [ 0x0020, 0x0020 ],
     }, {
       zones: [ ZONE.RCAT ],
       index: 11,
       entities: [ 0x2b36, 0x366e ],
+      slots: [ 0x0202, 0x0202 ],
     }, {
       zones: [ ZONE.RNO2 ],
       index: 3,
       entities: [ 0x293e, 0x3122 ],
+      slots: [ 0x0100, 0x0100 ],
     }, {
       addresses: [ 0x0b655c ],
       enemy: 7,
@@ -7912,22 +8116,27 @@
       zones: [ ZONE.NO2 ],
       index: 8,
       entities: [ 0x397a, 0x40a2 ],
+      slots: [ 0x0201, 0x0201 ],
     }, {
       zones: [ ZONE.RTOP ],
       index: 17,
       entities: [ 0x1e06, 0x2248 ],
+      slots: [ 0x0100, 0x0100 ],
     }, {
       zones: [ ZONE.RLIB ],
       index: 3,
       entities: [ 0x1ace, 0x206e ],
+      slots: [ 0x0000, 0x0000 ],
     }, {
       zones: [ ZONE.RNO0 ],
       index: 8,
       entities: [ 0x44b4, 0x5514 ],
+      slots: [ 0x0021, 0x0021 ],
     }, {
       zones: [ ZONE.RCAT ],
       index: 3,
       entities: [ 0x2d48, 0x3858 ],
+      slots: [ 0x0b0b, 0x0b0b ],
     }, {
       addresses: [ 0x0b805c ],
       enemy: 72,
@@ -7940,18 +8149,22 @@
       zones: [ ZONE.NZ0 ],
       index: 7,
       entities: [ 0x2956, 0x32c2 ],
+      slots: [ 0x021c, 0x021c ],
     }, {
       zones: [ ZONE.RTOP ],
       index: 19,
       entities: [ 0x1dfc, 0x222a ],
+      slots: [ 0x0302, 0x0302 ],
     }, {
       zones: [ ZONE.RNO0 ],
       index: 7,
       entities: [ 0x44aa, 0x550a ],
+      slots: [ 0x0020, 0x0020 ],
     }, {
       zones: [ ZONE.RCAT ],
       index: 2,
       entities: [ 0x2d34, 0x384e ],
+      slots: [ 0x0a0a, 0x0a0a ],
     }],
   }, {
     name: 'Resist Ice',
@@ -7961,14 +8174,17 @@
       zones: [ ZONE.NO4, ZONE.BO3 ],
       index: 20,
       entities: [ 0x4216, 0x52c6, 0x1df2, 0x1fe8 ],
+      slots: [ 0x2121, 0x2121, 0x2121, 0x2121 ],
     }, {
       zones: [ ZONE.RTOP ],
       index: 18,
       entities: [ 0x1de8, 0x223e ],
+      slots: [ 0x0201, 0x0201 ],
     }, {
       zones: [ ZONE.RLIB ],
       index: 4,
       entities: [ 0x1ad8, 0x2078 ],
+      slots: [ 0x0001, 0x0001 ],
     }, {
       addresses: [ 0x0b89ac ],
       enemy: 79,
@@ -7981,14 +8197,17 @@
       zones: [ ZONE.TOP ],
       index: 8,
       entities: [ 0x2430, 0x29e6 ],
+      slots: [ 0x0404, 0x0404 ],
     }, {
       zones: [ ZONE.RTOP ],
       index: 20,
       entities: [ 0x1df2, 0x2234 ],
+      slots: [ 0x0403, 0x0403 ],
     }, {
       zones: [ ZONE.RLIB ],
       index: 5,
       entities: [ 0x1ae2, 0x2082 ],
+      slots: [ 0x0002, 0x0002 ],
     }, {
       addresses: [ 0x0b8eec ],
       enemy: 24,
@@ -8004,10 +8223,12 @@
       zones: [ ZONE.TOP ],
       index: 10,
       entities: [ 0x2444, 0x29fa ],
+      slots: [ 0x0808, 0x0808 ],
     }, {
       zones: [ ZONE.RNO0 ],
       index: 6,
       entities: [ 0x44dc, 0x553c ],
+      slots: [ 0x0021, 0x0021 ],
     }],
   }, {
     name: 'Resist Dark',
@@ -8017,14 +8238,17 @@
       zones: [ ZONE.TOP ],
       index: 9,
       entities: [ 0x243a, 0x29f0 ],
+      slots: [ 0x0505, 0x0505 ],
     }, {
       zones: [ ZONE.RNO0 ],
       index: 5,
       entities: [ 0x44d2, 0x5532 ],
+      slots: [ 0x0020, 0x0020 ],
     }, {
       zones: [ ZONE.RNZ0 ],
       index: 9,
       entities: [ 0x262e, 0x2edc ],
+      slots: [ 0x0808, 0x0808 ],
     }, {
       addresses: [ 0x0b641a ],
       enemy: 36,
@@ -8040,26 +8264,32 @@
       zones: [ ZONE.NZ0 ],
       index: 10,
       entities: [ 0x2b72, 0x3556 ],
+      slots: [ 0x0930, 0x0930 ],
     }, {
       zones: [ ZONE.DAI ],
       index: 15,
       entities: [ 0x3008, 0x397c ],
+      slots: [ 0x0202, 0x0202 ],
     }, {
       zones: [ ZONE.LIB ],
       index: 8,
       entities: [ 0x357e, 0x3c36 ],
+      slots: [ 0x0105, 0x0105 ],
     }, {
       zones: [ ZONE.NO0 ],
       index: 5,
       entities: [ 0x2980, 0x380a ],
+      slots: [ 0x0014, 0x0014 ],
     }, {
       zones: [ ZONE.RNO0 ],
       index: 1,
       entities: [ 0x3ab4, 0x4a2e ],
+      slots: [ 0x000e, 0x000e ],
     }, {
       zones: [ ZONE.RNO4 ],
       index: 8,
       entities: [ 0x3362, 0x414a ],
+      slots: [ 0x000c, 0x000c ],
     }, {
       zones: [ ZONE.LIB ],
       addresses: [ 0x047a309e ],
@@ -8084,22 +8314,27 @@
       zones: [ ZONE.RTOP ],
       index: 21,
       entities: [ 0x1dde, 0x225c ],
+      slots: [ 0x0504, 0x0504 ],
     }, {
       zones: [ ZONE.RNO1 ],
       index: 6,
       entities: [ 0x242c, 0x2a8c ],
+      slots: [ 0x0230, 0x0230 ],
     }, {
       zones: [ ZONE.RNO3 ],
       index: 2,
       entities: [ 0x302a, 0x3700 ],
+      slots: [ 0x000c, 0x000c ],
     }, {
       zones: [ ZONE.RNZ0 ],
       index: 6,
       entities: [ 0x2804, 0x30e4 ],
+      slots: [ 0x0320, 0x0320 ],
     }, {
       zones: [ ZONE.RNO2 ],
       index: 2,
       entities: [ 0x2a06, 0x31ea ],
+      slots: [ 0x0302, 0x0302 ],
     }, {
       zones: [ ZONE.LIB ],
       addresses: [ 0x047a30a6 ],
@@ -8116,14 +8351,17 @@
       zones: [ ZONE.NO4 ],
       index: 25,
       entities: [ 0x3dd4, 0x4e7a ],
+      slots: [ 0x0606, 0x0606 ],
     }, {
       zones: [ ZONE.RNO4 ],
       index: 25,
       entities: [ 0x3416, 0x43de ],
+      slots: [ 0x0303, 0x0303 ],
     }, {
       zones: [ ZONE.RCAT ],
       index: 7,
       entities: [ 0x3036, 0x3b64 ],
+      slots: [ 0x0008, 0x0008 ],
     }, {
       zones: [ ZONE.LIB ],
       addresses: [ 0x047a30ae ],
@@ -8137,22 +8375,27 @@
       zones: [ ZONE.NO2 ],
       index: 7,
       entities: [ 0x3970, 0x40ac ],
+      slots: [ 0x0100, 0x0100 ],
     }, {
       zones: [ ZONE.RNO4 ],
       index: 24,
       entities: [ 0x342a, 0x42da ],
+      slots: [ 0x0505, 0x0505 ],
     }, {
       zones: [ ZONE.RNZ0 ],
       index: 4,
       entities: [ 0x2598, 0x2dec ],
+      slots: [ 0x0c08, 0x0c08 ],
     }, {
       zones: [ ZONE.RDAI ],
       index: 10,
       entities: [ 0x2364, 0x2d66 ],
+      slots: [ 0x0a0b, 0x0a0b ],
     }, {
       zones: [ ZONE.RNO2 ],
       index: 5,
       entities: [ 0x2952, 0x3136 ],
+      slots: [ 0x0302, 0x0302 ],
     }, {
       zones: [ ZONE.LIB ],
       addresses: [ 0x047a30b6 ],
@@ -8172,22 +8415,27 @@
       zones: [ ZONE.NO0 ],
       index: 10,
       entities: [ 0x3742, 0x45b8 ],
+      slots: [ 0x0011, 0x0011 ],
     }, {
       zones: [ ZONE.CAT ],
       index: 4,
       entities: [ 0x3422, 0x3d02 ],
+      slots: [ 0x0010, 0x0010 ],
     }, {
       zones: [ ZONE.ARE ],
       index: 5,
       entities: [ 0x352c, 0x3b78 ],
+      slots: [ 0x000a, 0x000a ],
     }, {
       zones: [ ZONE.RTOP ],
       index: 24,
       entities: [ 0x1e4c, 0x22a2 ],
+      slots: [ 0x0504, 0x0504 ],
     }, {
       zones: [ ZONE.RLIB ],
       index: 2,
       entities: [ 0x1a56, 0x2000 ],
+      slots: [ 0x0303, 0x0303 ],
     }, {
       zones: [ ZONE.RNO0 ],
       index: 0,
@@ -8196,6 +8444,7 @@
       zones: [ ZONE.RCAT ],
       index: 8,
       entities: [ 0x3040, 0x3b5a ],
+      slots: [ 0x0010, 0x0010 ],
     }, {
       zones: [ ZONE.LIB ],
       addresses: [ 0x047a311e ],
@@ -8234,6 +8483,7 @@
       zones: [ ZONE.NO0 ],
       index: 1,
       entities: [ 0x3670, 0x44f0 ],
+      slots: [ 0x0011, 0x0011 ],
     }],
   }, {
     name: 'Alucart Sword',
@@ -8243,6 +8493,7 @@
       zones: [ ZONE.NO0 ],
       index: 7,
       entities: [ 0x36a2, 0x4522 ],
+      slots: [ 0x0012, 0x0012 ],
     }],
   }, {
     name: 'Cloth Tunic',
@@ -8278,6 +8529,7 @@
       zones: [ ZONE.LIB ],
       index: 4,
       entities: [ 0x3286, 0x398e ],
+      slots: [ 0x0004, 0x0004 ],
     }, {
       addresses: [ 0x0b83a2 ],
       enemy: 12,
@@ -8317,6 +8569,7 @@
       zones: [ ZONE.DAI ],
       index: 10,
       entities: [ 0x2da6, 0x36b6 ],
+      slots: [ 0x0a0b, 0x0a0b ],
     }],
   }, {
     name: 'Gold Plate',
@@ -8327,6 +8580,7 @@
       zones: [ ZONE.NZ1 ],
       index: 4,
       entities: [ 0x287c, 0x3288 ],
+      slots: [ 0x0011, 0x0011 ],
     }, {
       addresses: [ 0x0b79b2 ],
       enemy: 83,
@@ -8346,6 +8600,7 @@
       zones: [ ZONE.TOP ],
       index: 11,
       entities: [ 0x244e, 0x29b4 ],
+      slots: [ 0x0202, 0x0202 ],
     }, {
       addresses: [ 0x0b761a ],
       enemy: 117,
@@ -8369,6 +8624,7 @@
       zones: [ ZONE.TOP ],
       index: 2,
       entities: [ 0x211a, 0x27a2 ],
+      slots: [ 0x0002, 0x0002 ],
     }, {
       addresses: [ 0x0b805a ],
       enemy: 72,
@@ -8385,6 +8641,7 @@
       zones: [ ZONE.RTOP ],
       index: 23,
       entities: [ 0x1e2e, 0x227a ],
+      slots: [ 0x0504, 0x0504 ],
     }, {
       addresses: [ 0x0b64bc ],
       enemy: 89,
@@ -8398,6 +8655,7 @@
       zones: [ ZONE.NZ1 ],
       index: 9,
       entities: [ 0x2a02, 0x33dc ],
+      slots: [ 0x0017, 0x0017 ],
     }, {
       addresses: [ 0x0b6a4c ],
       enemy: 49,
@@ -8411,6 +8669,7 @@
       zones: [ ZONE.NO1 ],
       index: 1,
       entities: [ 0x36e8, 0x3ec4 ],
+      slots: [ 0x0028, 0x0028 ],
     }],
   }, {
     name: 'Spike Breaker',
@@ -8421,6 +8680,7 @@
       zones: [ ZONE.CAT ],
       index: 16,
       entities: [ 0x342c, 0x3d2a ],
+      slots: [ 0x0008, 0x0008 ],
     }],
   }, {
     name: 'Alucard Mail',
@@ -8431,6 +8691,7 @@
       zones: [ ZONE.RNO2 ],
       index: 7,
       entities: [ 0x298e, 0x3172 ],
+      slots: [ 0x0010, 0x0010 ],
     }],
   }, {
     name: 'Dark Armor',
@@ -8450,6 +8711,7 @@
       zones: [ ZONE.NZ1 ],
       index: 6,
       entities: [ 0x2d18, 0x372e ],
+      slots: [ 0x0010, 0x0010 ],
     }],
   }, {
     name: 'Holy Mail',
@@ -8460,6 +8722,7 @@
       zones: [ ZONE.NO3, ZONE.NP3 ],
       index: 5,
       entities: [ 0x3ea4, 0x4630, 0x3c44, 0x4380 ],
+      slots: [ 0x0020, 0x0020, 0x0020, 0x0020 ],
     }],
   }, {
     name: 'Walk Armor',
@@ -8470,6 +8733,7 @@
       zones: [ ZONE.CAT ],
       index: 2,
       entities: [ 0x2c20, 0x3500 ],
+      slots: [ 0x0010, 0x0010 ],
     }],
   }, {
     name: 'Brilliant Mail',
@@ -8542,6 +8806,7 @@
       zones: [ ZONE.NZ0 ],
       index: 6,
       entities: [ 0x3108, 0x3a60 ],
+      slots: [ 0x0920, 0x0920 ],
     }, {
       zones: [ ZONE.ST0 ],
       entities: [ 0x2820, 0x29ba ],
@@ -8556,6 +8821,7 @@
       zones: [ ZONE.CAT ],
       index: 7,
       entities: [ 0x2eaa, 0x3762 ],
+      slots: [ 0x0202, 0x0202 ],
     }, {
       addresses: [ 0x0b789a ],
       enemy: 33,
@@ -8569,6 +8835,7 @@
       zones: [ ZONE.NO4 ],
       index: 11,
       entities: [ 0x3262, 0x42ea ],
+      slots: [ 0x0100, 0x0100 ],
     }],
   }, {
     name: 'Felt Hat',
@@ -8598,6 +8865,7 @@
       zones: [ ZONE.DAI ],
       index: 9,
       entities: [ 0x289c, 0x31f2 ],
+      slots: [ 0x0004, 0x0004 ],
     }],
   }, {
     name: 'Leather Hat',
@@ -8624,6 +8892,7 @@
       zones: [ ZONE.NZ1 ],
       index: 5,
       entities: [ 0x2886, 0x3292 ],
+      slots: [ 0x0012, 0x0012 ],
     }],
   }, {
     name: 'Stone Mask',
@@ -8634,6 +8903,7 @@
       zones: [ ZONE.LIB ],
       index: 1,
       entities: [ 0x3312, 0x39ac ],
+      slots: [ 0x0020, 0x0020 ],
     }, {
       addresses: [ 0x0b7ef2 ],
       enemy: 120,
@@ -8669,6 +8939,7 @@
       zones: [ ZONE.RCAT ],
       index: 17,
       entities: [ 0x25a0, 0x30c4 ],
+      slots: [ 0x0011, 0x0011 ],
     }],
   }, {
     name: 'Opal Circlet',
@@ -8688,6 +8959,7 @@
       zones: [ ZONE.LIB ],
       index: 10,
       entities: [ 0x35a6, 0x3c68 ],
+      slots: [ 0x0005, 0x0005 ],
     }],
   }, {
     name: 'Beryl Circlet',
@@ -8698,6 +8970,7 @@
       zones: [ ZONE.RNO3 ],
       index: 6,
       entities: [ 0x2daa, 0x3462 ],
+      slots: [ 0x0012, 0x0012 ],
     }],
   }, {
     name: 'Cat-eye Circlet',
@@ -8727,6 +9000,7 @@
       zones: [ ZONE.RNZ1 ],
       index: 5,
       entities: [ 0x2a36, 0x329e ],
+      slots: [ 0x0019, 0x0019 ],
     }],
   }, {
     name: 'Silver Crown',
@@ -8756,6 +9030,7 @@
       zones: [ ZONE.NZ0 ],
       index: 2,
       entities: [ 0x2f32, 0x388a ],
+      slots: [ 0x0920, 0x0920 ],
     }],
   }, {
     name: 'Reverse Cloak',
@@ -8786,6 +9061,7 @@
       zones: [ ZONE.NO4, ZONE.BO3 ],
       index: 2,
       entities: [ 0x3352, 0x43da, 0x1e42, 0x2006 ],
+      slots: [ 0x0010, 0x0010, 0x0010, 0x0010 ],
     }],
   }, {
     name: 'Royal Cloak',
@@ -8796,6 +9072,7 @@
       zones: [ ZONE.RTOP ],
       index: 11,
       entities: [ 0x1d16, 0x21a8 ],
+      slots: [ 0x0202, 0x0202 ],
     }],
   }, {
     name: 'Blood Cloak',
@@ -8806,6 +9083,7 @@
       zones: [ ZONE.ARE ],
       index: 3,
       entities: [ 0x34a0, 0x3b28 ],
+      slots: [ 0x0010, 0x0010 ],
     }],
   }, {
     name: 'Joseph\'s Cloak',
@@ -8826,6 +9104,7 @@
       zones: [ ZONE.RDAI ],
       index: 16,
       entities: [ 0x1d7e, 0x26d6 ],
+      slots: [ 0x0a00, 0x0a00 ],
     }],
   }, {
     name: 'Moonstone',
@@ -8836,6 +9115,7 @@
       zones: [ ZONE.NO4 ],
       index: 18,
       entities: [ 0x3654, 0x46dc ],
+      slots: [ 0x0505, 0x0505 ],
     }],
   }, {
     name: 'Sunstone',
@@ -8846,6 +9126,7 @@
       zones: [ ZONE.RNZ1 ],
       index: 8,
       entities: [ 0x2a18, 0x326c ],
+      slots: [ 0x0010, 0x0010 ],
     }],
   }, {
     name: 'Bloodstone',
@@ -8856,6 +9137,7 @@
       zones: [ ZONE.CAT ],
       index: 8,
       entities: [ 0x2e32, 0x3712 ],
+      slots: [ 0x0008, 0x0008 ],
     }],
   }, {
     name: 'Staurolite',
@@ -8866,6 +9148,7 @@
       zones: [ ZONE.RLIB ],
       index: 8,
       entities: [ 0x1b82, 0x2122 ],
+      slots: [ 0x0001, 0x0001 ],
     }],
   }, {
     name: 'Ring of Pales',
@@ -8887,38 +9170,47 @@
       zones: [ ZONE.DAI ],
       index: 13,
       entities: [ 0x2f5e, 0x38aa ],
+      slots: [ 0x0101, 0x0101 ],
     }, {
       zones: [ ZONE.RDAI ],
       index: 4,
       entities: [ 0x1fd6, 0x27b2 ],
+      slots: [ 0x0404, 0x0404 ],
     }, {
       zones: [ ZONE.NO1 ],
       index: 6,
       entities: [ 0x3774, 0x3f3c ],
+      slots: [ 0x3000, 0x3000 ],
     }, {
       zones: [ ZONE.NO4 ],
       index: 9,
       entities: [ 0x329e, 0x4308 ],
+      slots: [ 0x1400, 0x1400 ],
     }, {
       zones: [ ZONE.RTOP ],
       index: 2,
       entities: [ 0x1b9a, 0x209a ],
+      slots: [ 0x1b2a, 0x1b2a ],
     }, {
       zones: [ ZONE.RNO4 ],
       index: 14,
       entities: [ 0x3b5a, 0x4ac8 ],
+      slots: [ 0x1500, 0x1500 ],
     }, {
       zones: [ ZONE.RNO4 ],
       index: 21,
       entities: [ 0x3af6, 0x4a28 ],
+      slots: [ 0x2121, 0x2121 ],
     }, {
       zones: [ ZONE.RNO3 ],
       index: 4,
       entities: [ 0x2d96, 0x3476 ],
+      slots: [ 0x0010, 0x0010 ],
     }, {
       zones: [ ZONE.RARE ],
       index: 1,
       entities: [ 0x213a, 0x26e4 ],
+      slots: [ 0x0005, 0x0005 ],
     }, {
       addresses: [ 0x0b5cac ],
       enemy: 6,
@@ -8939,14 +9231,17 @@
       zones: [ ZONE.DAI ],
       index: 3,
       entities: [ 0x28ba, 0x3328 ],
+      slots: [ 0x0404, 0x0404 ],
     }, {
       zones: [ ZONE.RNO2 ],
       index: 6,
       entities: [ 0x2664, 0x2e34 ],
+      slots: [ 0x0707, 0x0707 ],
     }, {
       zones: [ ZONE.RARE ],
       index: 4,
       entities: [ 0x2036, 0x2612 ],
+      slots: [ 0x0005, 0x0005 ],
     }, {
       addresses: [ 0x0b6ccc ],
       enemy: 52,
@@ -8972,6 +9267,7 @@
       zones: [ ZONE.RNZ0 ],
       index: 7,
       entities: [ 0x24d0, 0x2d10 ],
+      slots: [ 0x0930, 0x0930 ],
     }, {
       addresses: [ 0x0b7324 ],
       enemy: 116,
@@ -8989,14 +9285,17 @@
       zones: [ ZONE.LIB ],
       index: 6,
       entities: [ 0x3786, 0x3f1a ],
+      slots: [ 0x0f5e, 0x0f5e ],
     }, {
       zones: [ ZONE.NO4 ],
       index: 22,
       entities: [ 0x3d16, 0x4d6c ],
+      slots: [ 0x0303, 0x0303 ],
     }, {
       zones: [ ZONE.NO2 ],
       index: 5,
       entities: [ 0x34b6, 0x3bde ],
+      slots: [ 0x0201, 0x0201 ],
     }],
   }, {
     name: 'Garnet',
@@ -9008,22 +9307,27 @@
       zones: [ ZONE.NO1 ],
       index: 3,
       entities: [ 0x37ba, 0x3f6e ],
+      slots: [ 0x0101, 0x0101 ],
     }, {
       zones: [ ZONE.NO2 ],
       index: 12,
       entities: [ 0x3434, 0x3b5c ],
+      slots: [ 0x0010, 0x0010 ],
     }, {
       zones: [ ZONE.RTOP ],
       index: 22,
       entities: [ 0x1c6c, 0x1ffa ],
+      slots: [ 0x0106, 0x0106 ],
     }, {
       zones: [ ZONE.RNO1 ],
       index: 7,
       entities: [ 0x2544, 0x2c8a ],
+      slots: [ 0x0930, 0x0930 ],
     }, {
       zones: [ ZONE.RNO4 ],
       index: 4,
       entities: [ 0x381c, 0x476c ],
+      slots: [ 0x0008, 0x0008 ],
     }, {
       addresses: [ 0x0b632a ],
       enemy: 70,
@@ -9038,14 +9342,17 @@
       zones: [ ZONE.RLIB ],
       index: 1,
       entities: [ 0x1a4c, 0x1ff6 ],
+      slots: [ 0x0202, 0x0202 ],
     }, {
       zones: [ ZONE.RNO4 ],
       index: 11,
       entities: [ 0x3bbe, 0x4b0e ],
+      slots: [ 0x0010, 0x0010 ],
     }, {
       zones: [ ZONE.RNO3 ],
       index: 5,
       entities: [ 0x2da0, 0x346c ],
+      slots: [ 0x0011, 0x0011 ],
     }, {
       zones: [ ZONE.RNO2 ],
       index: 0,
@@ -9061,18 +9368,22 @@
       zones: [ ZONE.RNZ1 ],
       index: 6,
       entities: [ 0x29dc, 0x3280 ],
+      slots: [ 0x0212, 0x0212 ],
     }, {
       zones: [ ZONE.RNO4 ],
       index: 13,
       entities: [ 0x2d72, 0x3cc2 ],
+      slots: [ 0x0000, 0x0000 ],
     }, {
       zones: [ ZONE.RCAT ],
       index: 14,
       entities: [ 0x25be, 0x30e2 ],
+      slots: [ 0x0010, 0x0010 ],
     }, {
       zones: [ ZONE.RDAI ],
       index: 3,
       entities: [ 0x1f36, 0x2852 ],
+      slots: [ 0x0303, 0x0303 ],
     }],
   }, {
     name: 'Lapis Lazuli',
@@ -9092,6 +9403,7 @@
       zones: [ ZONE.CHI ],
       index: 4,
       entities: [ 0x1d0e, 0x207e ],
+      slots: [ 0x0002, 0x0002 ],
     }],
   }, {
     name: 'Gold Ring',
@@ -9113,6 +9425,7 @@
       zones: [ ZONE.DAI ],
       index: 2,
       entities: [ 0x281a, 0x31c0 ],
+      slots: [ 0x0110, 0x0110 ],
     }],
   }, {
     name: 'Ring of Varda',
@@ -9132,6 +9445,7 @@
       zones: [ ZONE.RNZ0 ],
       index: 8,
       entities: [ 0x2368, 0x2c48 ],
+      slots: [ 0x0d20, 0x0d20 ],
     }, {
       zones: [ ZONE.LIB ],
       addresses: [ 0x047d92f0 ],
@@ -9147,6 +9461,7 @@
       zones: [ ZONE.DAI ],
       index: 4,
       entities: [ 0x28e2, 0x32f6 ],
+      slots: [ 0x0505, 0x0505 ],
     }, {
       addresses: [ 0x0b7872 ],
       enemy: 105,
@@ -9169,6 +9484,7 @@
       zones: [ ZONE.RCAT ],
       index: 13,
       entities: [ 0x25dc, 0x3100 ],
+      slots: [ 0x0010, 0x0010 ],
     }, {
       addresses: [ 0x0b7f1c ],
       enemy: 138,
@@ -9230,6 +9546,7 @@
       zones: [ ZONE.RNO3 ],
       index: 9,
       entities: [ 0x2d00, 0x33cc ],
+      slots: [ 0x0020, 0x0020 ],
     }, {
       addresses: [ 0x0b6ac2 ],
       enemy: 26,
@@ -9280,6 +9597,7 @@
       zones: [ ZONE.NO4 ],
       index: 31,
       entities: [ 0x37da, 0x47e0 ],
+      slots: [ 0x0010, 0x0010 ],
     }],
   }, {
     name: 'Alucart Mail',
@@ -9290,6 +9608,7 @@
       zones: [ ZONE.NO0 ],
       index: 6,
       entities: [ 0x3698, 0x4518 ],
+      slots: [ 0x0011, 0x0011 ],
     }],
   }]
 
