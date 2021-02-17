@@ -161,7 +161,13 @@
     offset = data.writeWord(offset, 0x00000000) // nop
   }
 
-  function replaceRingOfVladWithItem(data, relic, item, index, removedTile) {
+  function replaceRingOfVladWithItem(
+    data,
+    relic,
+    item,
+    index,
+    removedTileSlots,
+  ) {
     let offset
     const id = item.id
     const zone = constants.zones[ZONE.RNZ1]
@@ -206,7 +212,7 @@
     })
     relic.entity.entities.forEach(function(addr, index) {
       //                                        // ori t1, r0, slot
-      offset = data.writeWord(offset, 0x34090000 + removedTile.slots[index])
+      offset = data.writeWord(offset, 0x34090000 + removedTileSlots[index])
       //                                        // sh t1, entity + 0x06 (t0)
       offset = data.writeWord(offset, 0xa5090000 + addr + 0x06)
     })
@@ -302,13 +308,13 @@
   }
 
   function replaceBossRelicWithItem(opts) {
-    return function(data, relic, item, index, removedTile) {
+    return function(data, relic, item, index, removedTileSlots) {
       util().replaceBossRelicWithItem(opts)(
         data,
         relic,
         item,
         index,
-        removedTile,
+        removedTileSlots,
       )
     }
   }

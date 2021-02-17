@@ -44,13 +44,13 @@
   }
 
   function replaceBossRelicWithItem(opts) {
-    return function(data, relic, item, index, removedTile) {
+    return function(data, relic, item, index, removedTileSlots) {
       util().replaceBossRelicWithItem(opts)(
         data,
         relic,
         item,
         index,
-        removedTile,
+        removedTileSlots,
       )
     }
   }

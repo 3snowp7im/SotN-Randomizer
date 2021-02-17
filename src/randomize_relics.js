@@ -113,6 +113,10 @@
   }
 
   function writeMapping(data, rng, mapping) {
+    const erased = {
+      id: 0xffff,
+      slots: [ 0x0000, 0x0000 ],
+    }
     // Remove placeholders.
     mapping = Object.getOwnPropertyNames(mapping).reduce(
       function(culled, ability) {
@@ -139,11 +143,11 @@
         // Erase entities.
         if ('entity' in location
             && (!('erase' in location.entity) || location.entity.erase)) {
-          writeEntity(data, location.entity, {id: 0x000f})
+          writeEntity(data, location.entity, erased)
         }
         // Erase tile.
         if ('tile' in location) {
-          writeEntity(data, location.tile, Object.assign({id: 0x000f}))
+          writeEntity(data, location.tile, erased)
         }
         // Erase instructions.
         if ('erase' in location) {
@@ -214,7 +218,7 @@
       } else if (item) {
         // Replacing relic location with item.
         let index
-        let removedTile
+        let slots
         if (!('consumesItem' in location) || location.consumesItem) {
           // There are a limited number of item tiles. Replacing a relic
           // with an item can only consume an existing item in its zone.
@@ -227,15 +231,17 @@
             })
           }
           const tileItem = getRandomZoneItem(rng, zones, locations)
-          removedTile = tileItem.tile
           index = tileItem.tile.index
+          slots = tileItem.tile.slots.map(function(slot) {
+            return 0x0010
+          })
           // Remove the tile from the replaced item's tile collection.
           const tileIndex = tileItem.item.tiles.indexOf(tileItem.tile)
           if (tileIndex !== -1) {
             tileItem.item.tiles.splice(tileIndex, 1)
           }
           // Erase the replaced item's entity.
-          writeEntity(data, tileItem.tile, Object.assign({id: 0x000f}))
+          writeEntity(data, tileItem.tile, erased)
           // Write id in item table.
           writeTileId(data, zones, index, item.id)
           tileItem.tile.zones.forEach(function(zone) {
@@ -244,7 +250,7 @@
           })
         }
         if ('replaceWithItem' in location) {
-          location.replaceWithItem(data, location, item, index, removedTile)
+          location.replaceWithItem(data, location, item, index, slots)
         } else {
           if ('entity' in location) {
             writeTileId(data, location.entity.zones, index, item.id)
@@ -252,9 +258,8 @@
             writeEntity(data, location.entity, Object.assign({
               id: 0x000c,
               state: index,
-            }, (removedTile && removedTile.slots) ? {
-              slots: removedTile.slots,
-            } : {}, asItem))
+              slots: slots,
+            }, asItem))
           }
         }
       } else {
@@ -309,7 +314,7 @@
           util.assert(tileIndex !== -1)
           tileItem.item.tiles.splice(tileIndex, 1)
           // Erase the item's entity.
-          writeEntity(data, tileItem.tile, Object.assign({id: 0x000f}))
+          writeEntity(data, tileItem.tile, erased)
         }
       }
     })
