@@ -166,7 +166,6 @@
     relic,
     item,
     index,
-    removedTileSlots,
   ) {
     let offset
     const id = item.id
@@ -211,8 +210,8 @@
       offset = data.writeWord(offset, 0xa5090000 + addr + 0x02)
     })
     relic.entity.entities.forEach(function(addr, index) {
-      //                                        // ori t1, r0, slot
-      offset = data.writeWord(offset, 0x34090000 + removedTileSlots[index])
+      //                                        // ori t1, r0, 0x0010
+      offset = data.writeWord(offset, 0x34090010)
       //                                        // sh t1, entity + 0x06 (t0)
       offset = data.writeWord(offset, 0xa5090000 + addr + 0x06)
     })
@@ -308,13 +307,12 @@
   }
 
   function replaceBossRelicWithItem(opts) {
-    return function(data, relic, item, index, removedTileSlots) {
+    return function(data, relic, item, index) {
       util().replaceBossRelicWithItem(opts)(
         data,
         relic,
         item,
-        index,
-        removedTileSlots,
+        index
       )
     }
   }

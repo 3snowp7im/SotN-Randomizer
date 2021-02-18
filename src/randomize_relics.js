@@ -250,7 +250,7 @@
           })
         }
         if ('replaceWithItem' in location) {
-          location.replaceWithItem(data, location, item, index, slots)
+          location.replaceWithItem(data, location, item, index)
         } else {
           if ('entity' in location) {
             writeTileId(data, location.entity.zones, index, item.id)
