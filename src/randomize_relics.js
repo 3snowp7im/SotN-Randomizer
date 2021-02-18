@@ -218,7 +218,6 @@
       } else if (item) {
         // Replacing relic location with item.
         let index
-        let slots
         if (!('consumesItem' in location) || location.consumesItem) {
           // There are a limited number of item tiles. Replacing a relic
           // with an item can only consume an existing item in its zone.
@@ -232,9 +231,6 @@
           }
           const tileItem = getRandomZoneItem(rng, zones, locations)
           index = tileItem.tile.index
-          slots = tileItem.tile.entities.map(function(slot) {
-            return 0x0010
-          })
           // Remove the tile from the replaced item's tile collection.
           const tileIndex = tileItem.item.tiles.indexOf(tileItem.tile)
           if (tileIndex !== -1) {
@@ -258,7 +254,6 @@
             writeEntity(data, location.entity, Object.assign({
               id: 0x000c,
               state: index,
-              slots: slots,
             }, asItem))
           }
         }

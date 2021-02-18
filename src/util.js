@@ -202,7 +202,7 @@
 
   function replaceBossRelicWithItem(opts) {
     const boss = constants.zones[opts.boss]
-    return function(data, relic, item, index, removedTileSlots) {
+    return function(data, relic, item, index) {
       let offset
       const id = item.id
       const zone = constants.zones[relic.entity.zones[0]]
@@ -224,8 +224,6 @@
         }
         offset = romOffset(zone, addr + 0x04)
         data.writeShort(offset, 0x000c)
-        offset = romOffset(zone, addr + 0x06)
-        data.writeShort(offset, removedTileSlots[index])
         offset = romOffset(zone, addr + 0x08)
         data.writeShort(offset, index)
       })

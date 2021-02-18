@@ -38,19 +38,17 @@
     // Replace entities.
     trio.entity.entities.forEach(function(entity) {
       data.writeShort(util().romOffset(zone, entity + 0x04), 0x000b)
-      data.writeShort(util().romOffset(zone, entity + 0x06), 0x0010)
       data.writeShort(util().romOffset(zone, entity + 0x08), relic.relicId)
     })
   }
 
   function replaceBossRelicWithItem(opts) {
-    return function(data, relic, item, index, removedTileSlots) {
+    return function(data, relic, item, index) {
       util().replaceBossRelicWithItem(opts)(
         data,
         relic,
         item,
-        index,
-        removedTileSlots,
+        index
       )
     }
   }

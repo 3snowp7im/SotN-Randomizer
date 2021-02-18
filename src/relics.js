@@ -209,12 +209,6 @@
       //                                        // sh t1, entity + 0x02 (t0)
       offset = data.writeWord(offset, 0xa5090000 + addr + 0x02)
     })
-    relic.entity.entities.forEach(function(addr, index) {
-      //                                        // ori t1, r0, 0x0010
-      offset = data.writeWord(offset, 0x34090010)
-      //                                        // sh t1, entity + 0x06 (t0)
-      offset = data.writeWord(offset, 0xa5090000 + addr + 0x06)
-    })
     // Zero out tile function pointer if item is in inventory.
     //                                          // ori v0, r0, id
     offset = data.writeWord(offset, 0x34020000 + id + equipIdOffset)
