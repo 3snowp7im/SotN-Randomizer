@@ -232,7 +232,7 @@
           }
           const tileItem = getRandomZoneItem(rng, zones, locations)
           index = tileItem.tile.index
-          slots = tileItem.tile.slots.map(function(slot) {
+          slots = tileItem.tile.entities.map(function(slot) {
             return 0x0010
           })
           // Remove the tile from the replaced item's tile collection.
