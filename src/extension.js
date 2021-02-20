@@ -37,8 +37,10 @@
     const zone = constants.zones[constants.ZONE.RARE]
     // Replace entities.
     trio.entity.entities.forEach(function(entity) {
-      data.writeShort(util().romOffset(zone, entity + 0x04), 0x000b)
-      data.writeShort(util().romOffset(zone, entity + 0x08), relic.relicId)
+      let addr = util().romOffset(zone, entity + 0x04)
+      addr += data.writeShort(addr, 0x000b)
+      addr += data.writeShort(addr, 0x0010)
+      addr += data.writeShort(addr, relic.relicId)
     })
   }
 
