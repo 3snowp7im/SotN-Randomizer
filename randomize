@@ -643,8 +643,7 @@ if (options && 'preset' in options
     process.exit(1)
   }
 }
-// Prevent using an options sring that negates randomizations without
-// specifying a preset.
+// Assume safe if negations are specified without a preset.
 if (options) {
   const copy = Object.assign({}, options)
   Object.getOwnPropertyNames(copy).forEach(function(opt) {
@@ -653,11 +652,10 @@ if (options) {
     }
   })
   if (Object.getOwnPropertyNames(copy).length === 0) {
-    yargs.showHelp()
-    console.error('\nCannot negate randomizations without a preset')
-    process.exit(1)
+    options.preset = 'safe'
   }
 }
+
 // Check for seed url.
 if (argv._[0]) {
   if ('noSeed' in argv) {
