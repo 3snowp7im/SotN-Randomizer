@@ -211,7 +211,7 @@
       offset = romOffset(zone, zone.items + 0x02 * index)
       data.writeShort(offset, id + constants.tileIdOffset)
       // Patch entities table.
-      relic.entity.entities.forEach(function(addr, index) {
+      relic.entity.entities.forEach(function(addr) {
         if ('asItem' in relic) {
           if ('x' in relic.asItem) {
             offset = romOffset(zone, addr + 0x00)
