@@ -38,9 +38,9 @@
     // Replace entities.
     trio.entity.entities.forEach(function(entity) {
       let addr = util().romOffset(zone, entity + 0x04)
-      addr += data.writeShort(addr, 0x000b)
-      addr += data.writeShort(addr, 0x0010)
-      addr += data.writeShort(addr, relic.relicId)
+      addr = data.writeShort(addr, 0x000b)
+      addr = data.writeShort(addr, 0x0010)
+      addr = data.writeShort(addr, relic.relicId)
     })
   }
 
