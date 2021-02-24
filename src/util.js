@@ -2529,7 +2529,7 @@
             }
             return null
           })
-        } else if (placeRelic.rulic) {
+        } else if (placeRelic.relic) {
           relic = relicFromName(placeRelic.relic).ability
         }
         builder.placeRelic(locationFromName(placeRelic.location), relic)
