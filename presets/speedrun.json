@@ -242,9 +242,7 @@
       "Jewel of Open + Form of Mist + Power of Mist",
       "Jewel of Open + Gravity Boots + Form of Mist + Spike Breaker",
       "Jewel of Open + Gravity Boots + Soul of Wolf + Spike Breaker",
-      "Jewel of Open + Gravity Boots + Thrust Sword + Spike Breaker",
-      "Jewel of Open + Soul of Wolf + Skill of Wolf + Form of Mist + Thrust Sword + Spike Breaker",
-      "Jewel of Open + Soul of Wolf + Power of Wolf + Form of Mist + Thrust Sword + Spike Breaker"
+      "Jewel of Open + Gravity Boots + Thrust Sword + Spike Breaker"
     ],
     "comment": "Access must also give at least Leap Stone",
     "escapeRequires": [
