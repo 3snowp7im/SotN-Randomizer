@@ -74,11 +74,6 @@
 
   function shopItemType(item) {
     switch (item.type) {
-    case constants.TYPE.WEAPON1:
-    case constants.TYPE.WEAPON2:
-    case constants.TYPE.SHIELD:
-    case constants.TYPE.USABLE:
-      return 0x00
     case constants.TYPE.HELMET:
       return 0x01
     case constants.TYPE.ARMOR:
@@ -88,7 +83,7 @@
     case constants.TYPE.ACCESSORY:
       return 0x04
     }
-    throw new Error('Unknown item type')
+    return 0x00
   }
 
   function shopTileFilter(tile) {
