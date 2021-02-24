@@ -882,16 +882,31 @@
     while (pool.locations.length > relics.length) {
       pool.locations.splice(randIdx(rng, pool.locations), 1)
     }
-    // Remove placed relics and locations.
+    // Place relics.
     let mapping
     if (typeof(placed) === 'object') {
       const placedLocations = Object.getOwnPropertyNames(placed)
-      const placedRelics = placedLocations.map(function(location) {
-        return placed[location]
+      const placedRelics = []
+      const picked = {}
+      placedLocations.forEach(function(location) {
+        let relic
+        if (Array.isArray(placed[location])) {
+          const rand = util.shuffled(rng, placed[location])
+          do {
+            relic = rand.pop()
+          } while (placedRelics.indexOf(relic) !== -1)
+          if (placedRelics.indexOf(relic) !== -1) {
+            throw new Error('Out of relics to place at ' + location)
+          }
+        } else {
+          relic = placed[location]
+        }
+        picked[location] = relic
+        placedRelics.push(relic)
       })
       mapping = {}
       placedLocations.forEach(function(location) {
-        mapping[placed[location]] = locations.filter(function(loc) {
+        mapping[picked[location]] = locations.filter(function(loc) {
           return loc.id === location
         })[0]
       })
@@ -902,7 +917,7 @@
         return placedLocations.indexOf(location.id) === -1
       })
     }
-    // Place relics.
+    // Pick random relic locations.
     const result = pickRelicLocations(rng, pool, locations, mapping)
     // Restore original location locks in mapping.
     mapping = {}

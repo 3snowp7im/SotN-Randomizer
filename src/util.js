@@ -1158,15 +1158,16 @@
                   throw new Error('Invalid relic: ' + invalid[0])
                 }
                 const parts = arg.split('+')
-                if (placing && parts.length != 1) {
-                  throw new Error('Can only place 1 relic per location')
+                if (placing && parts.length !== 1) {
+                  throw new Error('Invald placement: @' + location + ':' + arg)
                 } else if (parts.length > 2) {
                   throw new Error('Invald lock: ' + location + ':' + arg)
                 }
                 parts.forEach(function(part, index) {
                   let locks = part.split('-')
-                  if (placing && locks.length != 1) {
-                    throw new Error('Can only place 1 relic per location')
+                  if (placing && locks.length !== 1) {
+                    throw new Error('Invald placement: @' + location + ':'
+                                    + arg)
                   }
                   const emptyLocks = locks.filter(function(lock) {
                     return lock.length === 0
@@ -1183,7 +1184,11 @@
                   }
                   if (placing) {
                     relicLocations.placed = relicLocations.placed || {}
-                    relicLocations.placed[location] = locks[0]
+                    if (locks[0].length > 1) {
+                      relicLocations.placed[location] = locks[0].split('')
+                    } else {
+                      relicLocations.placed[location] = locks[0]
+                    }
                   } else {
                     relicLocations[location] = relicLocations[location] || []
                     Array.prototype.push.apply(relicLocations[location], locks)
@@ -1496,7 +1501,11 @@
             if (options.relicLocations.placed) {
               let placed = options.relicLocations.placed
               Object.getOwnPropertyNames(placed).forEach(function(location) {
-                locks.push('@' + location + ':' + placed[location])
+                if (Array.isArray(placed[location])) {
+                  locks.push('@' + location + ':' + placed[location].join(''))
+                } else {
+                  locks.push('@' + location + ':' + placed[location])
+                }
               })
             }
             if (locks.length) {
@@ -2494,9 +2503,17 @@
     }
     if ('placeRelic' in json) {
       json.placeRelic.forEach(function(placeRelic) {
+        let relic
+        if (Array.isArray(placeRelic.relic)) {
+          relic = placeRelic.relic.map(function(relic) {
+            return relicFromName(relic).ability
+          })
+        } else {
+          relic = relicFromName(placeRelic.relic).ability
+        }
         builder.placeRelic(
           locationFromName(placeRelic.location),
-          relicFromName(placeRelic.relic).ability,
+          relic,
         )
       })
     }
@@ -2902,7 +2919,13 @@
   // Place a relic at a location.
   PresetBuilder.prototype.placeRelic = function placeRelic(where, what) {
     assert.equal(typeof(where), 'string')
-    assert.equal(typeof(what), 'string')
+    if (Array.isArray(what)) {
+      what.forEach(function(relic) {
+        assert.equal(typeof(relic), 'string')
+      })
+    } else {
+      assert.equal(typeof(what), 'string')
+    }
     if (typeof(this.locations) !== 'object') {
       this.locations = {}
     }

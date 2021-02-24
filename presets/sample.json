@@ -76,8 +76,8 @@
     "relic": "Spirit Orb",
     "location": "Form of Mist"
   }, {
-    "comment": "Soul of Wolf at Leap Stone location",
-    "relic": "Soul of Wolf",
+    "comment": "Soul of Wolf or Form of Mist at Leap Stone location",
+    "relic": ["Soul of Wolf", "Form of Mist"],
     "location": "Leap Stone"
   }],
 
