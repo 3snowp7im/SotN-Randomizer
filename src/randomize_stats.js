@@ -27,13 +27,23 @@
   }
 
   function shuffleHandStats(rng, data, newNames, stats, handType) {
-    // Randomize names.
-    shuffled(rng, stats).forEach(function(item, index) {
+    // Randomize names of non-elemental items.
+    const nonElem = stats.filter(function(item) {
+      return [
+        'Firebrand',
+        'Thunderbrand',
+        'Icebrand',
+        'Stone sword',
+        'Holy sword',
+        'Dark blade',
+      ].indexOf(item.name) === -1
+    })
+    shuffled(rng, nonElem).forEach(function(item, index) {
       newNames.push({
         id: stats[index].id,
         name: item.name,
       })
-      let addr = util.romOffset(constants.exe, stats[index].offset + 0x00)
+      let addr = util.romOffset(constants.exe, nonElem[index].offset + 0x00)
       addr = data.writeWord(addr, item.nameAddress)
     })
     // Randomize icons and sprite.
@@ -67,8 +77,6 @@
       shuffleStats(rng, data, stats, 'range', 0x28, data.writeShort)
     }
     // Randomize everything else.
-    shuffleStats(rng, data, stats, 'elements', 0x0c, data.writeShort)
-    //shuffleStats(rng, data, stats, 'special', 0x18, data.writeChar)
     shuffleStats(rng, data, stats, 'spell', 0x1c, data.writeWord)
     shuffleStats(rng, data, stats, 'stunFrames', 0x26, data.writeShort)
     shuffleStats(rng, data, stats, 'extra', 0x2a, data.writeChar)
@@ -76,21 +84,40 @@
   }
 
   function shuffleEquipmentStats(rng, data, newNames, stats) {
-    // Randomize names.
-    shuffled(rng, stats).forEach(function(item, index) {
+    // Randomize names of non-elemental items.
+    const nonElem = stats.filter(function(item) {
+      return [
+        'Fire mail',
+        'Lightning mail',
+        'Ice mail',
+        'Mirror cuirass',
+        'Dark armor',
+        'Holy mail',
+      ].indexOf(item.name) == -1
+    })
+    shuffled(rng, nonElem).forEach(function(item, index) {
       newNames.push({
         id: stats[index].id,
         name: item.name,
       })
-      let addr = util.romOffset(constants.exe, stats[index].offset + 0x00)
+      let addr = util.romOffset(constants.exe, nonElem[index].offset + 0x00)
       addr = data.writeWord(addr, item.nameAddress)
     })
     // Randomize everything else.
-    const noDup = stats.filter(function(item) {
-      return item.name !== 'Duplicator'
+    const regular = stats.filter(function(item) {
+      // Ignore Duplicator and items that have stats in their descriptions
+      return [
+        'Duplicator',
+        'Necklace of J',
+        'Gauntlet',
+        'Medal',
+        'King\'s stone',
+        'Covenant stone',
+        'Nauglamir',
+      ].indexOf(item.name) === -1
     })
-    shuffled(rng, noDup).forEach(function(item, index) {
-      let addr = util.romOffset(constants.exe, noDup[index].offset + 0x08)
+    shuffled(rng, regular).forEach(function(item, index) {
+      let addr = util.romOffset(constants.exe, regular[index].offset + 0x08)
       addr = data.writeShort(addr, item.attack)
       addr = data.writeShort(addr, item.defense)
       addr = data.writeChar(addr, item.strength)
@@ -98,7 +125,6 @@
       addr = data.writeChar(addr, item.intelligence)
       addr = data.writeChar(addr, item.luck)
     })
-    shuffleStats(rng, data, noDup, 'elements', 0x10, data.writeLong)
     shuffleStats(rng, data, stats, 'icon', 0x18, data.writeShort)
     shuffleStats(rng, data, stats, 'palette', 0x1a, data.writeShort)
   }

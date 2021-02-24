@@ -430,7 +430,7 @@
   function bufToHex(buf) {
     return Array.from(buf).map(function(byte) {
       const hex = byte.toString(16)
-      return ('0'.slice(0, hex % 2) + hex)
+      return ('0'.slice(0, hex.length % 2) + hex)
     }).join('')
   }
 
@@ -1919,44 +1919,11 @@
     }
   }
 
-  const map = {
-    ',': [ 0x81, 0x43 ],
-    '.': [ 0x81, 0x44 ],
-    ':': [ 0x81, 0x46 ],
-    ';': [ 0x81, 0x47 ],
-    '?': [ 0x81, 0x48 ],
-    '!': [ 0x81, 0x49 ],
-    '`': [ 0x81, 0x4d ],
-    '"': [ 0x81, 0x4e ],
-    '^': [ 0x81, 0x4f ],
-    '_': [ 0x81, 0x51 ],
-    '~': [ 0x81, 0x60 ],
-    '\'': [ 0x81, 0x66 ],
-    '(': [ 0x81, 0x69 ],
-    ')': [ 0x81, 0x6a ],
-    '[': [ 0x81, 0x6d ],
-    ']': [ 0x81, 0x6e ],
-    '{': [ 0x81, 0x6f ],
-    '}': [ 0x81, 0x70 ],
-    '+': [ 0x81, 0x7b ],
-    '-': [ 0x81, 0x7c ],
-    '0': [ 0x82, 0x4f ],
-    '1': [ 0x82, 0x50 ],
-    '2': [ 0x82, 0x51 ],
-    '3': [ 0x82, 0x52 ],
-    '4': [ 0x82, 0x53 ],
-    '5': [ 0x82, 0x54 ],
-    '6': [ 0x82, 0x55 ],
-    '7': [ 0x82, 0x56 ],
-    '8': [ 0x82, 0x57 ],
-    '9': [ 0x82, 0x58 ],
-  }
-
   function toGameString(text) {
     const string = []
     for (let i = 0; i < text.length; i++) {
-      if (text[i] in map) {
-        const bytes = map[text[i]]
+      if (text[i] in constants.characterMap) {
+        const bytes = constants.characterMap[text[i]]
         string.push(bytes[0], bytes[1])
       } else if (text[i].match(/[a-zA-Z ]/)) {
         string.push(text.charCodeAt(i))
@@ -2033,7 +2000,7 @@
     }
     switch (typeof(obj)) {
     case 'string':
-      return '\'' + entry[1].replace(/'/, '\\\'') + '\''
+      return '\'' + entry[1].replace(/'/g, '\\\'') + '\''
     case 'number':
       if (hex) {
         return numToHex(obj)
@@ -2080,7 +2047,7 @@
           value = numToHex(entry[1], 4)
           break
         case 'elements':
-          value = bufToHex(entry[1])
+          value = '0x' + bufToHex(entry[1])
           break
         case 'nameAddress':
         case 'descriptionAddress':
@@ -3941,9 +3908,10 @@
         itemId = thrustSword.id
       }
       if (itemId) {
-        const item = newNames.filter(function(item) {
+        let item
+        item = newNames.filter(function(item) {
           return item.id === itemId
-        }).pop()
+        }).pop() || itemFromTileId(itemId + constants.tileIdOffset)
         if (item) {
           relicName = item.name
         }

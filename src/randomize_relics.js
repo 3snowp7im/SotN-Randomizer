@@ -1136,11 +1136,12 @@
           return item.thrustSword
         })
         thrustSword = thrustSwords[randIdx(rng, thrustSwords)]
+        const name = (newNames.filter(function(item) {
+          return item.id === thrustSword.id
+        }).pop() || thrustSword).name
         return Object.assign({}, relic, {
           itemId: thrustSword.id,
-          name: newNames.filter(function(item) {
-            return item.id === thrustSword.id
-          }).pop(),
+          name: name,
         })
       }
       return relic

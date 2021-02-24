@@ -19,6 +19,17 @@ const cloakListOff = constants.cloakListOff
 const cloakListLen = constants.cloakListLen
 const accessoryListOff = constants.accessoryListOff
 const accessoryListLen = constants.accessoryListLen
+const characterMap = constants.characterMap
+
+const inv = Object.getOwnPropertyNames(characterMap).reduce(
+  function(map, character) {
+    const string = String.fromCharCode.apply(String, characterMap[character])
+    map[string] = character
+    return map
+  },
+  {}
+)
+inv['\x81h'] = '\''
 
 function decodeName(data) {
   const namePtr = data.readUInt32LE() - 0x800a0000
@@ -27,14 +38,42 @@ function decodeName(data) {
     nameLen++
   }
   const name = Buffer.from(exeData.subarray(namePtr, namePtr + nameLen))
-  for (let j = 0; j < name.length; j++) {
-    if (name[j] == 0x00) {
-      name[j] = ' '.charCodeAt()
+  for (let i = 0; i < name.length; i++) {
+    if (name[i] == 0x00) {
+      name[i] = ' '.charCodeAt()
     } else {
-      name[j] = name[j] + 32
+      name[i] = name[i] + 32
     }
   }
   return name.toString().replace(/\s+$/, '')
+}
+
+function decodeDescription(name, data) {
+  const namePtr = data.readUInt32LE() - 0x800a0000
+  let nameLen = 0
+  while (exeData[namePtr + nameLen] != 0x00) {
+    nameLen++
+  }
+  const description = Buffer.from(exeData.subarray(namePtr, namePtr + nameLen))
+  const characters = []
+  for (let i = 0; i < description.length; i++) {
+    if (description[i] & 0x80) {
+      const bytes = description.subarray(i, i + 2)
+      const string = String.fromCharCode.apply(String, bytes)
+      if (!(string in inv)) {
+        throw new Error(
+          'Character not found in map: ' + util.bufToHex(bytes)
+            + '\nfrom description "' + characters.join('') + '"'
+            + '\nfrom item "' + name + '"'
+        )
+      }
+      characters.push(inv[string])
+      i++
+    } else {
+      characters.push(String.fromCharCode(description[i]))
+    }
+  }
+  return characters.join('').toString().replace(/\s+$/, '')
 }
 
 const hand = []
@@ -73,14 +112,17 @@ const accessoryList = exeData.subarray(
 for (let i = 1; i < handEquipmentListLen; i++) {
   const data = handEquipmentList.subarray(i * 0x34, i * 0x34 + 0x34)
   const name = decodeName(data)
+  const description = decodeDescription(name, data.subarray(4))
   const item = util.itemFromName(name)
   hand.push({
     name: name,
+    description: description,
     type: item.type,
     handType: data[0x0e],
     id: item.id,
     offset: handEquipmentListOff + i * 0x34,
     nameAddress: data.readUInt32LE(0x00),
+    descriptionAddress: data.readUInt32LE(0x04),
     attack: data.readInt16LE(0x08),
     defense: data.readInt16LE(0x0a),
     elements: data.subarray(0x0c, 0xe),
@@ -115,13 +157,16 @@ for (let i = 1; i < handEquipmentListLen; i++) {
   for (let i = 1; i < list.len; i++) {
     const data = list.list.subarray(i * 0x20, i * 0x20 + 0x20)
     const name = decodeName(data)
+    const description = decodeDescription(name, data.subarray(4))
     const item = util.itemFromName(name)
     equipment.push({
       name: name,
+      description: description,
       type: item.type,
       id: item.id,
       offset: list.offset + i * 0x20,
       nameAddress: data.readUInt32LE(0x00),
+      descriptionAddress: data.readUInt32LE(0x04),
       attack: data.readInt16LE(0x08),
       defense: data.readInt16LE(0x0a),
       strength: data.readInt8(0x0c),
