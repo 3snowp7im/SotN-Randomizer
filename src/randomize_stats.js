@@ -114,6 +114,8 @@
         'King\'s stone',
         'Covenant stone',
         'Nauglamir',
+        'Gold ring',
+        'Silver ring',
       ].indexOf(item.name) === -1
     })
     shuffled(rng, regular).forEach(function(item, index) {
