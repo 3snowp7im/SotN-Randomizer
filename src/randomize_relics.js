@@ -892,11 +892,16 @@
         let relic
         if (Array.isArray(placed[location])) {
           const rand = util.shuffled(rng, placed[location])
+          let isEmpty
           do {
             relic = rand.pop()
+            if (!relic) {
+              isEmpty = true
+              break
+            }
           } while (placedRelics.indexOf(relic) !== -1)
-          if (placedRelics.indexOf(relic) !== -1) {
-            throw new Error('Out of relics to place at ' + location)
+          if (!isEmpty && placedRelics.indexOf(relic) !== -1) {
+            throw new errors.SoftlockError()
           }
         } else {
           relic = placed[location]
@@ -906,9 +911,11 @@
       })
       mapping = {}
       placedLocations.forEach(function(location) {
-        mapping[picked[location]] = locations.filter(function(loc) {
-          return loc.id === location
-        })[0]
+        if (picked[location]) {
+          mapping[picked[location]] = locations.filter(function(loc) {
+            return loc.id === location
+          })[0]
+        }
       })
       pool.relics = pool.relics.filter(function(relic) {
         return placedRelics.indexOf(relic.ability) === -1
@@ -918,7 +925,10 @@
       })
     }
     // Pick random relic locations.
-    const result = pickRelicLocations(rng, pool, locations, mapping)
+    let result = mapping
+    if (pool.locations.length) {
+      result = pickRelicLocations(rng, pool, locations, mapping)
+    }
     // Restore original location locks in mapping.
     mapping = {}
     Object.getOwnPropertyNames(result).forEach(function(ability) {

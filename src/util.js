@@ -1159,14 +1159,15 @@
                 }
                 const parts = arg.split('+')
                 if (placing && parts.length !== 1) {
-                  throw new Error('Invald placement: @' + location + ':' + arg)
+                  throw new Error('Invalid placement: @' + location + ':'
+                                  + arg)
                 } else if (parts.length > 2) {
-                  throw new Error('Invald lock: ' + location + ':' + arg)
+                  throw new Error('Invalid lock: ' + location + ':' + arg)
                 }
                 parts.forEach(function(part, index) {
                   let locks = part.split('-')
-                  if (placing && locks.length !== 1) {
-                    throw new Error('Invald placement: @' + location + ':'
+                  if (placing && locks.length > 2) {
+                    throw new Error('Invalid placement: @' + location + ':'
                                     + arg)
                   }
                   const emptyLocks = locks.filter(function(lock) {
@@ -1175,17 +1176,27 @@
                   locks = locks.filter(function(lock) {
                     return lock.length > 0
                   })
-                  if (emptyLocks.length > 1
-                      || (locks.length && emptyLocks.length)) {
-                    throw new Error('Invald lock: ' + location + ':' + arg)
+                  if ((emptyLocks.length > 1
+                       && !(placing && emptyLocks.length == 2
+                            && locks.length == 0))
+                      || (!placing && locks.length && emptyLocks.length)) {
+                    throw new Error('Invalid lock: ' + location + ':' + arg)
                   }
                   if (index > 0) {
                     locks = locks.map(function(lock) { return '+' + lock })
                   }
                   if (placing) {
                     relicLocations.placed = relicLocations.placed || {}
-                    if (locks[0].length > 1) {
+                    const hasNull = !!emptyLocks.length
+                    if (emptyLocks.length === 2) {
+                      relicLocations.placed[location] = null
+                    } else if (locks[0].length > 1) {
                       relicLocations.placed[location] = locks[0].split('')
+                      if (hasNull) {
+                        relicLocations.placed[location].push(null)
+                      }
+                    } else if (hasNull) {
+                      relicLocations.placed[location] = [locks[0], null]
                     } else {
                       relicLocations.placed[location] = locks[0]
                     }
@@ -1502,7 +1513,14 @@
               let placed = options.relicLocations.placed
               Object.getOwnPropertyNames(placed).forEach(function(location) {
                 if (Array.isArray(placed[location])) {
-                  locks.push('@' + location + ':' + placed[location].join(''))
+                  const relics = placed[location].filter(function(relic) {
+                    return !!relic
+                  })
+                  const hasNull = relics.length !== placed[location].length
+                  locks.push('@' + location + ':' + relics.join('')
+                             + (hasNull ? '-' : ''))
+                } else if (!placed[location]) {
+                  locks.push('@' + location + ':-')
                 } else {
                   locks.push('@' + location + ':' + placed[location])
                 }
@@ -2297,7 +2315,7 @@
   function clone(obj) {
     if (Array.isArray(obj)) {
       return obj.slice().map(clone)
-    } else if (typeof(obj) === 'object') {
+    } else if (typeof(obj) === 'object' && obj) {
       return Object.getOwnPropertyNames(obj).reduce(function(copy, prop) {
         copy[prop] = clone(obj[prop])
         return copy
@@ -2503,18 +2521,18 @@
     }
     if ('placeRelic' in json) {
       json.placeRelic.forEach(function(placeRelic) {
-        let relic
+        let relic = null
         if (Array.isArray(placeRelic.relic)) {
           relic = placeRelic.relic.map(function(relic) {
-            return relicFromName(relic).ability
+            if (relic) {
+              return relicFromName(relic).ability
+            }
+            return null
           })
-        } else {
+        } else if (placeRelic.rulic) {
           relic = relicFromName(placeRelic.relic).ability
         }
-        builder.placeRelic(
-          locationFromName(placeRelic.location),
-          relic,
-        )
+        builder.placeRelic(locationFromName(placeRelic.location), relic)
       })
     }
     if ('complexityGoal' in json) {
@@ -2921,9 +2939,11 @@
     assert.equal(typeof(where), 'string')
     if (Array.isArray(what)) {
       what.forEach(function(relic) {
-        assert.equal(typeof(relic), 'string')
+        if (relic) {
+          assert.equal(typeof(relic), 'string')
+        }
       })
-    } else {
+    } else if (what) {
       assert.equal(typeof(what), 'string')
     }
     if (typeof(this.locations) !== 'object') {
