@@ -13,12 +13,29 @@
     "replacement": "Heart"
   }, {
     "zone": "ST0",
-    "item": "Cross",
-    "replacement": "Cross"
+    "item": "Heart",
+    "index": 1,
+    "replacement": "Heart"
   }, {
     "zone": "ST0",
-    "item": "Holy Water",
-    "replacement": "Holy Water"
+    "item": "Heart",
+    "index": 2,
+    "replacement": "Heart"
+  }, {
+    "zone": "ST0",
+    "item": "Heart",
+    "index": 3,
+    "replacement": "Heart"
+  }, {
+    "zone": "ST0",
+    "item": "Heart",
+    "index": 4,
+    "replacement": "Heart"
+  }, {
+    "zone": "ST0",
+    "item": "Heart",
+    "index": 5,
+    "replacement": "Heart"
   }, {
     "zone": "ST0",
     "item": "Big heart",
@@ -34,6 +51,46 @@
     "item": "Big heart",
     "index": 3,
     "replacement": "Big heart"
+  }, {
+    "zone": "ST0",
+    "item": "Cross",
+    "replacement": "Cross"
+  }, {
+    "zone": "ST0",
+    "item": "Holy Water",
+    "replacement": "Holy Water"
+  }, {
+    "zone": "ST0",
+    "item": "Shield Rod",
+    "replacement": "Shield Rod"
+  }, {
+    "zone": "ST0",
+    "item": "Dark Shield",
+    "replacement": "Dark Shield"
+  }, {
+    "zone": "ST0",
+    "item": "Power of Sire",
+    "replacement": "Power of Sire"
+  }, {
+    "zone": "ST0",
+    "item": "Firebrand",
+    "replacement": "Firebrand"
+  }, {
+    "zone": "ST0",
+    "item": "Badelaire",
+    "replacement": "Badelaire"
+  }, {
+    "zone": "ST0",
+    "item": "Moon Rod",
+    "replacement": "Moon Rod"
+  }, {
+    "zone": "ST0",
+    "item": "Heart Refresh",
+    "replacement": "Heart Refresh"
+  }, {
+    "zone": "ST0",
+    "item": "Sunglasses",
+    "replacement": "Sunglasses"
   }],
   "enemyDrops": [{
     "enemy": "*",
