@@ -105,9 +105,17 @@
     })
     // Randomize everything else.
     const regular = stats.filter(function(item) {
-      // Ignore Duplicator and items that have stats in their descriptions
+      // Ignore Duplicator, salable gems, gold & silver rings, and items that
+      // have stats in their descriptions
       return [
         'Duplicator',
+        'Zircon',
+        'Aquamarine',
+        'Turquoise',
+        'Onyx',
+        'Garnet',
+        'Opal',
+        'Diamond',
         'Necklace of J',
         'Gauntlet',
         'Medal',
