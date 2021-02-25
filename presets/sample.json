@@ -81,6 +81,16 @@
     "location": "Leap Stone"
   }],
 
+  "replaceRelic": [{
+    "comment": "Replace Sprite Card with Duplicator",
+    "relic": "Sprite Card",
+    "item": "Duplicator"
+  }, {
+    "comment": "Replace Nosedevil Card with Heart Refresh",
+    "relic": "Nosedevil Card",
+    "item": "Heart Refresh"
+  }],
+
   "lockLocation": [{
     "location": "Soul of Bat",
     "comment": "Requires Mist + Gravity Boots + Leapstone",

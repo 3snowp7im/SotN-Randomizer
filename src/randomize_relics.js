@@ -112,7 +112,7 @@
     })
   }
 
-  function writeMapping(data, rng, mapping) {
+  function writeMapping(data, rng, mapping, replaced) {
     const erased = {
       id: 0xffff,
       slots: [ 0x0000, 0x0000 ],
@@ -161,10 +161,12 @@
     // Write new relic locations.
     Object.getOwnPropertyNames(mapping).forEach(function(key) {
       // Get the relic being placed.
-      const relic = util.relicFromAbility(key)
+      let relic = util.relicFromAbility(key)
       // The item data if this relic is actually a progression item.
       let item
-      if ('itemId' in relic) {
+      if (key in (replaced || {})) {
+        item = util.itemFromName(replaced[key])
+      } else if ('itemId' in relic) {
         let itemId = relic.itemId
         if (Array.isArray(itemId)) {
           itemId = itemId[randIdx(rng, itemId)]
@@ -1013,7 +1015,10 @@
     const map = {}
     Object.getOwnPropertyNames(locations).filter(function(location) {
       return [
-        'extension', 'thrustSwordAbility', 'placed'
+        'extension',
+        'thrustSwordAbility',
+        'placed',
+        'replaced',
       ].indexOf(location) === -1
     }).forEach(function(location) {
       map[location] = locations[location].filter(function(lock) {
@@ -1027,7 +1032,10 @@
     const map = {}
     Object.getOwnPropertyNames(locations).filter(function(location) {
       return [
-        'extension', 'thrustSwordAbility', 'placed'
+        'extension',
+        'thrustSwordAbility',
+        'placed',
+        'replaced',
       ].indexOf(location) === -1
     }).forEach(function(location) {
       map[location] = locations[location].filter(function(lock) {
@@ -1120,6 +1128,31 @@
       }
       return removedIds.indexOf(relic.itemId) === -1
     })
+    // Replace relics with items.
+    if (relicLocations.replaced) {
+      Object.getOwnPropertyNames(relicLocations.replaced).forEach(
+        function(ability) {
+          const item = util.itemFromName(relicLocations.replaced[ability])
+          enabledRelics = enabledRelics.map(function(relic) {
+            if (relic.ability === ability) {
+              relic = Object.assign({}, relic, {
+                name: item.name,
+                itemId: item.id,
+              })
+              delete relic.relicId
+              if (relic.item) {
+                relic.item = Object.assign({}, item, {
+                  name: item.name,
+                  itemId: item.id,
+                  type: item.type,
+                })
+              }
+            }
+            return relic
+          })
+        }
+      )
+    }
     // Initialize location locks.
     locations.forEach(function(location) {
       const id = location.id
@@ -1174,7 +1207,7 @@
     const data = new util.checked()
     if (options.relicLocations) {
       // Write data to ROM.
-      writeMapping(data, rng, result.mapping)
+      writeMapping(data, rng, result.mapping, options.relicLocations.replaced)
       // Patch out cutscenes.
       patchAlchemyLabCutscene(data)
       patchClockRoomCutscene(data)
