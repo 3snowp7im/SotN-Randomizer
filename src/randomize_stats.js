@@ -27,33 +27,65 @@
   }
 
   function shuffleHandStats(rng, data, newNames, stats, handType) {
-    // Randomize names of non-elemental items.
-    const nonElem = stats.filter(function(item) {
-      return [
+    // Randomize names.
+    let items
+    items = stats.filter(function(item) {
+      if ([
+        constants.HAND_TYPE.FOOD,
+        constants.HAND_TYPE.PROJECTILE_CONSUMABLE,
+        constants.HAND_TYPE.OTHER,
+      ].indexOf(item.handType) !== -1) {
+        return false
+      }
+      if ([
         'Firebrand',
         'Thunderbrand',
         'Icebrand',
         'Stone sword',
         'Holy sword',
         'Dark blade',
-      ].indexOf(item.name) === -1
+        'Monster vial 1',
+        'Monster vial 2',
+        'Monster vial 3',
+      ].indexOf(item.name) !== -1) {
+        return false
+      }
+      return true
     })
-    shuffled(rng, nonElem).forEach(function(item, index) {
+    shuffled(rng, items).forEach(function(item, index) {
       newNames.push({
         id: stats[index].id,
         name: item.name,
       })
-      let addr = util.romOffset(constants.exe, nonElem[index].offset + 0x00)
+      let addr = util.romOffset(constants.exe, items[index].offset + 0x00)
       addr = data.writeWord(addr, item.nameAddress)
     })
     // Randomize icons and sprite.
-    shuffled(rng, stats).forEach(function(item, index) {
+    items = stats.filter(function(item) {
+      if ([
+        constants.HAND_TYPE.FOOD,
+        constants.HAND_TYPE.DAMAGE_CONSUMABLE,
+        constants.HAND_TYPE.PROJECTILE_CONSUMABLE,
+      ].indexOf(item.handType) !== -1) {
+        return false
+      }
+      if ([
+        'Library card',
+        'Meal ticket',
+        'Life apple',
+        'Hammer',
+      ].indexOf(item.name) !== -1) {
+        return false
+      }
+      return true
+    })
+    shuffled(rng, items).forEach(function(item, index) {
       let addr
       if (handType === 'SHIELD') {
-        addr = util.romOffset(constants.exe, stats[index].offset + 0x0f)
+        addr = util.romOffset(constants.exe, items[index].offset + 0x0f)
         addr = data.writeChar(addr, item.sprite)
       }
-      addr = util.romOffset(constants.exe, stats[index].offset + 0x2c)
+      addr = util.romOffset(constants.exe, items[index].offset + 0x2c)
       addr = data.writeShort(addr, item.icon)
     })
     // Randomize damage shield stats together.
@@ -71,7 +103,6 @@
         let addr
         addr = util.romOffset(constants.exe, stats[index].offset + 0x08)
         addr = data.writeShort(addr, item.attack)
-        addr = util.romOffset(constants.exe, stats[index].offset + 0x0a)
         addr = data.writeShort(addr, item.defense)
       })
       shuffleStats(rng, data, stats, 'range', 0x28, data.writeShort)
@@ -85,7 +116,8 @@
 
   function shuffleEquipmentStats(rng, data, newNames, stats) {
     // Randomize names.
-    const nonElem = stats.filter(function(item) {
+    let items
+    items = stats.filter(function(item) {
       return [
         'Fire mail',
         'Lightning mail',
@@ -95,19 +127,20 @@
         'Holy mail',
         'Moonstone',
         'Sunstone',
-        'Bloodstone'
+        'Bloodstone',
+        'Duplicator',
       ].indexOf(item.name) == -1
     })
-    shuffled(rng, nonElem).forEach(function(item, index) {
+    shuffled(rng, items).forEach(function(item, index) {
       newNames.push({
         id: stats[index].id,
         name: item.name,
       })
-      let addr = util.romOffset(constants.exe, nonElem[index].offset + 0x00)
+      let addr = util.romOffset(constants.exe, items[index].offset + 0x00)
       addr = data.writeWord(addr, item.nameAddress)
     })
     // Randomize everything else.
-    const regular = stats.filter(function(item) {
+    items = stats.filter(function(item) {
       // Ignore Duplicator, salable gems, gold & silver rings, and items that
       // have stats in their descriptions
       return [
@@ -120,7 +153,7 @@
         'Garnet',
         'Opal',
         'Diamond',
-        'Lapis lazuli'
+        'Lapis lazuli',
         'Ring of Ares',
         'Gold ring',
         'Silver ring',
@@ -133,8 +166,8 @@
         'Nauglamir',
       ].indexOf(item.name) === -1
     })
-    shuffled(rng, regular).forEach(function(item, index) {
-      let addr = util.romOffset(constants.exe, regular[index].offset + 0x08)
+    shuffled(rng, items).forEach(function(item, index) {
+      let addr = util.romOffset(constants.exe, items[index].offset + 0x08)
       addr = data.writeShort(addr, item.attack)
       addr = data.writeShort(addr, item.defense)
       addr = data.writeChar(addr, item.strength)
