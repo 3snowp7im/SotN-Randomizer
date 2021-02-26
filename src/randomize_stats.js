@@ -84,7 +84,7 @@
   }
 
   function shuffleEquipmentStats(rng, data, newNames, stats) {
-    // Randomize names of non-elemental items.
+    // Randomize names.
     const nonElem = stats.filter(function(item) {
       return [
         'Fire mail',
@@ -93,6 +93,9 @@
         'Mirror cuirass',
         'Dark armor',
         'Holy mail',
+        'Moonstone',
+        'Sunstone',
+        'Bloodstone'
       ].indexOf(item.name) == -1
     })
     shuffled(rng, nonElem).forEach(function(item, index) {
@@ -108,7 +111,8 @@
       // Ignore Duplicator, salable gems, gold & silver rings, and items that
       // have stats in their descriptions
       return [
-        'Duplicator',
+        'God\'s Garb',
+        'Silver crown',
         'Zircon',
         'Aquamarine',
         'Turquoise',
@@ -116,14 +120,17 @@
         'Garnet',
         'Opal',
         'Diamond',
+        'Lapis lazuli'
+        'Ring of Ares',
+        'Gold ring',
+        'Silver ring',
         'Necklace of J',
         'Gauntlet',
         'Medal',
+        'Duplicator',
         'King\'s stone',
         'Covenant stone',
         'Nauglamir',
-        'Gold ring',
-        'Silver ring',
       ].indexOf(item.name) === -1
     })
     shuffled(rng, regular).forEach(function(item, index) {
