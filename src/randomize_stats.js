@@ -128,7 +128,9 @@
         'Moonstone',
         'Sunstone',
         'Bloodstone',
+        'Gauntlet',
         'Duplicator',
+        'Secret boots',
       ].indexOf(item.name) == -1
     })
     shuffled(rng, items).forEach(function(item, index) {
@@ -175,7 +177,14 @@
       addr = data.writeChar(addr, item.intelligence)
       addr = data.writeChar(addr, item.luck)
     })
-    shuffleStats(rng, data, stats, 'icon', 0x18, data.writeShort)
+    items = stats.filter(function(item) {
+      return [
+        'Gauntlet',
+        'Duplicator',
+        'Secret boots',
+      ].indexOf(item.name) == -1
+    })
+    shuffleStats(rng, data, items, 'icon', 0x18, data.writeShort)
     shuffleStats(rng, data, stats, 'palette', 0x1a, data.writeShort)
   }
 
