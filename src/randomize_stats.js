@@ -131,7 +131,49 @@
         'Gauntlet',
         'Duplicator',
         'Secret boots',
-      ].indexOf(item.name) == -1
+        'Cool sunglasses',
+        'Holy glasses',
+        'Goggles',
+        'Ballroom mask',
+        'Stone mask',
+        'Felt hat',
+        'Leather hat',
+        'Velwet hat',
+        'Wizard hat',
+      ].indexOf(item.name) === -1
+    })
+    shuffled(rng, items).forEach(function(item, index) {
+      newNames.push({
+        id: stats[index].id,
+        name: item.name,
+      })
+      let addr = util.romOffset(constants.exe, items[index].offset + 0x00)
+      addr = data.writeWord(addr, item.nameAddress)
+    })
+    items = stats.filter(function(item) {
+      return [
+        'Cool sunglasses',
+        'Holy glasses',
+        'Goggles',
+        'Ballroom mask',
+        'Stone mask',
+      ].indexOf(item.name) !== -1
+    })
+    shuffled(rng, items).forEach(function(item, index) {
+      newNames.push({
+        id: stats[index].id,
+        name: item.name,
+      })
+      let addr = util.romOffset(constants.exe, items[index].offset + 0x00)
+      addr = data.writeWord(addr, item.nameAddress)
+    })
+    items = stats.filter(function(item) {
+      return [
+        'Felt hat',
+        'Leather hat',
+        'Velwet hat',
+        'Wizard hat',
+      ].indexOf(item.name) !== -1
     })
     shuffled(rng, items).forEach(function(item, index) {
       newNames.push({
@@ -166,6 +208,14 @@
         'King\'s stone',
         'Covenant stone',
         'Nauglamir',
+        'Circlet',
+        'Gold circlet',
+        'Ruby circlet',
+        'Opal circlet',
+        'Topaz circlet',
+        'Beryl circlet',
+        'Cat-eye circl.',
+        'Coral circlet',
       ].indexOf(item.name) === -1
     })
     shuffled(rng, items).forEach(function(item, index) {
@@ -179,10 +229,81 @@
     })
     items = stats.filter(function(item) {
       return [
+        'Circlet',
+        'Gold circlet',
+        'Ruby circlet',
+        'Opal circlet',
+        'Topaz circlet',
+        'Beryl circlet',
+        'Cat-eye circl.',
+        'Coral circlet',
+      ].indexOf(item.name) !== -1
+    })
+    shuffled(rng, items).forEach(function(item, index) {
+      let addr = util.romOffset(constants.exe, items[index].offset + 0x08)
+      addr = data.writeShort(addr, item.attack)
+      addr = data.writeShort(addr, item.defense)
+      addr = data.writeChar(addr, item.strength)
+      addr = data.writeChar(addr, item.constitution)
+      addr = data.writeChar(addr, item.intelligence)
+      addr = data.writeChar(addr, item.luck)
+    })
+    // Randomize icons.
+    items = stats.filter(function(item) {
+      return [
         'Gauntlet',
         'Duplicator',
         'Secret boots',
-      ].indexOf(item.name) == -1
+        'Cool sunglasses',
+        'Holy glasses',
+        'Goggles',
+        'Ballroom mask',
+        'Stone mask',
+        'Felt hat',
+        'Leather hat',
+        'Velwet hat',
+        'Wizard hat',
+        'Circlet',
+        'Gold circlet',
+        'Ruby circlet',
+        'Opal circlet',
+        'Topaz circlet',
+        'Beryl circlet',
+        'Cat-eye circl.',
+        'Coral circlet',
+      ].indexOf(item.name) === -1
+    })
+    shuffleStats(rng, data, items, 'icon', 0x18, data.writeShort)
+    items = stats.filter(function(item) {
+      return [
+        'Cool sunglasses',
+        'Holy glasses',
+        'Goggles',
+        'Ballroom mask',
+        'Stone mask',
+      ].indexOf(item.name) !== -1
+    })
+    shuffleStats(rng, data, items, 'icon', 0x18, data.writeShort)
+    items = stats.filter(function(item) {
+      return [
+        'Felt hat',
+        'Leather hat',
+        'Velwet hat',
+        'Wizard hat',
+      ].indexOf(item.name) !== -1
+    })
+    shuffleStats(rng, data, items, 'icon', 0x18, data.writeShort)
+    items = stats.filter(function(item) {
+      return [
+        'Circlet',
+        'Gold circlet',
+        'Ruby circlet',
+        'Opal circlet',
+        'Topaz circlet',
+        'Beryl circlet',
+        'Cat-eye circl.',
+        'Coral circlet',
+      ].indexOf(item.name) !== -1
     })
     shuffleStats(rng, data, items, 'icon', 0x18, data.writeShort)
     shuffleStats(rng, data, stats, 'palette', 0x1a, data.writeShort)
