@@ -79,35 +79,6 @@
     const tileValue = util().tileValue(item, {shop: true})
     data.writeShort(util().romOffset(zone, 0x134e), tileValue)
     data.writeShort(util().romOffset(zone, 0x14d4), tileValue)
-    // Write half word item type.
-    offset = util().romOffset(zone, 0x032b80)
-    offset = data.writeWord(offset, 0x96220000) // lhu v0, 0x0000 (s1)
-    // Load byte word item type.
-    offset = util().romOffset(zone, 0x0343c0)
-    offset = data.writeWord(offset, 0x92620000) // lbu v0, 0x0000 (s3)
-    offset = util().romOffset(zone, 0x0359f4)
-    offset = data.writeWord(offset, 0x92a30000) // lbu v1, 0x0000 (s5)
-    offset = util().romOffset(zone, 0x0343c0)
-    offset = data.writeWord(offset, 0x92630000) // lbu v1, 0x0000 (s3)
-    offset = util().romOffset(zone, 0x034f10)
-    offset = data.writeWord(offset, 0x90430000) // lbu v1, 0x0000 (v0)
-    offset = util().romOffset(zone, 0x033638)
-    offset = data.writeWord(offset, 0x90234364) // lbu v1, 0x4364 (at)
-    offset = util().romOffset(zone, 0x0336a0)
-    offset = data.writeWord(offset, 0x90224364) // lbu v0, 0x4364 (at)
-    offset = util().romOffset(zone, 0x033794)
-    offset = data.writeWord(offset, 0x90234364) // lbu v1, 0x4364 (at)
-    offset = util().romOffset(zone, 0x033730)
-    offset = data.writeWord(offset, 0x90234364) // lbu v1, 0x4364 (at)
-    // Load relic icon.
-    offset = util().romOffset(zone, 0x034fb4)
-    offset = data.writeWord(offset, 0x00801021) // addu v0, a0, r0
-    // Load relic id for purchase.
-    offset = util().romOffset(zone, 0x033750)
-    offset = data.writeWord(offset, 0x00402021) // addu a0, v0, r0
-    offset = data.writeWord(offset, 0x00000000) // nop
-    offset = data.writeWord(offset, 0x00000000) // nop
-    offset = data.writeWord(offset, 0x00000000) // nop
     // Entry point.
     offset = util().romOffset(zone, 0x032b08)
     offset = data.writeWord(offset, 0x08075180) // j 0x801d4600
@@ -140,11 +111,10 @@
     offset = data.writeWord(offset, 0x08075190) // j 0x801d4640
     // Load base address.
     offset = util().romOffset(zone, 0x054640)
-    offset = data.writeWord(offset, 0x90a20001) // lbu v0, 0x0001 (a1)
-    offset = data.writeWord(offset, 0x00000000) // nop
-    offset = data.writeWord(offset, 0x2c4200ff) // sltiu v0, v0, 0x00ff
-    offset = data.writeWord(offset, 0x14400003) // bne v0, r0, pc + 0x10
-    offset = data.writeWord(offset, 0x90a30000) // lbu v1, 0x0000 (a1)
+    offset = data.writeWord(offset, 0x3c02801d) // lui v0, 0x801d
+    offset = data.writeWord(offset, 0x34424364) // ori v0, v0, 0x4364
+    offset = data.writeWord(offset, 0x14450003) // bne a1, v0, pc + 0x10
+    offset = data.writeWord(offset, 0x94a30000) // lhu v1, 0x0000 (a1)
     offset = data.writeWord(offset, 0x00000000) // nop
     offset = data.writeWord(offset, 0x34030005) // ori v1, r0, 0x0005
     offset = data.writeWord(offset, 0x0806cc16) // j 0x801b3058
@@ -180,14 +150,13 @@
     offset = data.writeWord(offset, 0x00000000) // nop
     // Entry point.
     offset = util().romOffset(zone, 0x03431c)
-    offset = data.writeWord(offset, 0x080751b0) // j 0x801d46c0
+    offset = data.writeWord(offset, 0x080751c0) // j 0x801d4700
     offset = data.writeWord(offset, 0x00000000) // nop
     // Quantity check.
-    offset = util().romOffset(zone, 0x0546c0)
-    offset = data.writeWord(offset, 0x92620001) // lbu v0, 0x0001 (s3)
-    offset = data.writeWord(offset, 0x00000000) // nop
-    offset = data.writeWord(offset, 0x2c4200ff) // sltiu v0, v0, 0x00ff
-    offset = data.writeWord(offset, 0x14400003) // bne v0, r0, pc + 0x10
+    offset = util().romOffset(zone, 0x054700)
+    offset = data.writeWord(offset, 0x3c02801d) // lui v0, 0x801d
+    offset = data.writeWord(offset, 0x34424364) // ori v0, v0, 0x4364
+    offset = data.writeWord(offset, 0x14450003) // bne a1, v0, pc + 0x10
     offset = data.writeWord(offset, 0x00000000) // nop
     offset = data.writeWord(offset, 0x0806d0d9) // j 0x801b4364
     offset = data.writeWord(offset, 0x00000000) // nop
