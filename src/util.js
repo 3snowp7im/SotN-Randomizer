@@ -2655,6 +2655,12 @@
   // Helper class to create relic location locks.
   function PresetBuilder(metadata) {
     this.metadata = metadata
+    // Aliases.
+    this.zoneAliases = {}
+    this.enemyAliases = {}
+    this.relicAliases = {}
+    this.locationAliases = {}
+    this.itemAliases = {}
     // The collection of enemy drops.
     this.drops = true
     // The collection of starting equipment.
@@ -2683,6 +2689,41 @@
     this.writes = undefined
   }
 
+  function getZoneAlias(alias) {
+    if (alias in this.zoneAliases) {
+      return this.zoneAliases[alias]
+    }
+    return alias
+  }
+
+  function getEnemyAlias(alias) {
+    if (alias in this.enemyAliases) {
+      return this.enemyAliases[alias]
+    }
+    return alias
+  }
+
+  function getRelicAlias(alias) {
+    if (alias in this.relicAliases) {
+      return this.relicAliases[alias]
+    }
+    return alias
+  }
+
+  function getLocationAlias(alias) {
+    if (alias in this.locationAliases) {
+      return this.locationAliases[alias]
+    }
+    return alias
+  }
+
+  function getItemAlias(alias) {
+    if (alias in this.itemAliases) {
+      return this.itemAliases[alias]
+    }
+    return alias
+  }
+
   function locationFromName(name) {
     const relic = relicFromName(name)
     if (relic) {
@@ -2692,15 +2733,35 @@
   }
 
   function locksFromArray(locks) {
+    const self = this
     return locks.map(function(lock) {
       return lock.split(/\s*\+\s*/).map(function(name) {
-        return relicFromName(name).ability
+        return relicFromName(getRelicAlias.call(self, name)).ability
       }).join('')
     })
   }
 
   PresetBuilder.fromJSON = function fromJSON(json) {
     const builder = new PresetBuilder(json.metadata)
+    if ('alias' in json) {
+      json.alias.forEach(function(alias) {
+        if ('zone' in alias) {
+          builder.zoneAlias(alias.zone, alias.alias)
+        }
+        if ('enemy' in alias) {
+          builder.enemyAlias(alias.enemy, alias.alias)
+        }
+        if ('relic' in alias) {
+          builder.relicAlias(alias.relic, alias.alias)
+        }
+        if ('location' in alias) {
+          builder.locationAlias(alias.relic, alias.alias)
+        }
+        if ('item' in alias) {
+          builder.temAlias(alias.item, alias.alias)
+        }
+      })
+    }
     if ('inherits' in json) {
       builder.inherits(json.inherits)
     }
@@ -2709,11 +2770,9 @@
         builder.itemLocations(json.itemLocations)
       } else if (Array.isArray(json.itemLocations)) {
         json.itemLocations.forEach(function(itemLocation) {
-          let zone
-          if (itemLocation.zone === '*') {
-            zone = '*'
-          } else {
-            zone = constants.ZONE[itemLocation.zone]
+          let zone = getZoneAlias.call(builder, itemLocation.zone)
+          if (zone !== '*') {
+            zone = constants.ZONE[zone]
           }
           const args = [zone, itemLocation.item]
           if ('index' in itemLocation) {
@@ -2782,11 +2841,18 @@
     }
     if ('lockLocation' in json) {
       json.lockLocation.forEach(function(lockLocation) {
-        const location = locationFromName(lockLocation.location)
-        const locks = locksFromArray(lockLocation.locks)
+        const locationName = getLocationAlias.call(
+          builder,
+          lockLocation.location,
+        )
+        const location = locationFromName(locationName)
+        const locks = locksFromArray.call(builder, lockLocation.locks)
         builder.lockLocation(location, locks)
         if ('escapeRequires' in lockLocation) {
-          const escapes = locksFromArray(lockLocation.escapeRequires)
+          const escapes = locksFromArray.call(
+            builder,
+            lockLocation.escapeRequires,
+          )
           builder.escapeRequires(location, escapes)
         }
       })
@@ -2797,20 +2863,23 @@
         if (Array.isArray(placeRelic.relic)) {
           relic = placeRelic.relic.map(function(relic) {
             if (relic) {
-              return relicFromName(relic).ability
+              return relicFromName(getRelicAlias.call(builder, relic)).ability
             }
             return null
           })
         } else if (placeRelic.relic) {
-          relic = relicFromName(placeRelic.relic).ability
+          relic = getRelicAlias.call(builder, placeRelic.relic)
+          relic = relicFromName(relic).ability
         }
-        builder.placeRelic(locationFromName(placeRelic.location), relic)
+        const location = getLocationAlias.call(builder, placeRelic.location)
+        builder.placeRelic(locationFromName(location), relic)
       })
     }
     if ('replaceRelic' in json) {
       json.replaceRelic.forEach(function(replaceRelic) {
+        const relic = getRelicAlias.call(builder, replaceRelic.relic)
         builder.replaceRelic(
-          relicFromName(replaceRelic.relic).ability,
+          relicFromName(relic).ability,
           replaceRelic.item,
         )
       })
@@ -2820,7 +2889,7 @@
       if ('max' in json.complexityGoal) {
         args.push(json.complexityGoal.max)
       }
-      args.push(locksFromArray(json.complexityGoal.goals))
+      args.push(locksFromArray.call(builder, json.complexityGoal.goals))
       builder.complexityGoal.apply(builder, args)
     }
     if ('stats' in json) {
@@ -2863,6 +2932,36 @@
       })
     }
     return builder
+  }
+
+  PresetBuilder.prototype.zoneAlias = function zoneAlias(what, alias) {
+    assert.equal(typeof(what), 'string')
+    assert.equal(typeof(alias), 'string')
+    this.zoneAliases[alias] = what
+  }
+
+  PresetBuilder.prototype.enemyAlias = function enemyAlias(what, alias) {
+    assert.equal(typeof(what), 'string')
+    assert.equal(typeof(alias), 'string')
+    this.enemyAliases[alias] = what
+  }
+
+  PresetBuilder.prototype.relicAlias = function relicAlias(what, alias) {
+    assert.equal(typeof(what), 'string')
+    assert.equal(typeof(alias), 'string')
+    this.relicAliases[alias] = what
+  }
+
+  PresetBuilder.prototype.locationAlias = function locationAlias(what, alias) {
+    assert.equal(typeof(what), 'string')
+    assert.equal(typeof(alias), 'string')
+    this.locationAliases[alias] = what
+  }
+
+  PresetBuilder.prototype.itemAlias = function itemAlias(what, alias) {
+    assert.equal(typeof(what), 'string')
+    assert.equal(typeof(alias), 'string')
+    this.itemAliases[alias] = what
   }
 
   PresetBuilder.prototype.inherits = function inherits(id) {
@@ -3036,6 +3135,9 @@
       if (typeof(enemy) === 'boolean') {
         this.drops = enemy
       } else {
+        enemyName = getEnemyAlias.call(this, enemyName)
+        commonDropName = getItemAlias.call(this, commonDropName)
+        rareDropName = getItemAlias.call(this, rareDropName)
         const args = Array.prototype.slice.call(arguments)
         if (typeof(this.drops) !== 'object') {
           this.drops = new Map()
@@ -3096,6 +3198,7 @@
       if (typeof(slot) === 'boolean') {
         this.equipment = slot
       } else {
+        itemName = getItemAlias.call(this, itemName)
         if (typeof(this.equipment) !== 'object') {
           this.equipment = {}
         }
@@ -3178,6 +3281,8 @@
           replaceName = number
           number = 1
         }
+        itemName = getItemAlias.call(this, itemName)
+        replaceName = getItemAlias.call(this, replaceName)
         assert(typeof(number) === 'number', 'Unknown item number: ' + number)
         const index = number - 1
         const zones = ['*'].concat(constants.zoneNames.map(function(zoneName) {
@@ -3222,9 +3327,11 @@
       if (typeof(itemName) === 'boolean') {
         this.rewards = itemName
       } else {
+        itemName = getItemAlias.call(this, itemName)
+        replaceName = getItemAlias.call(this, replaceName)
         const map = {
           'Heart Refresh': 'h',
-          'Neutron Bomb': 'n',
+          'Neutron bomb': 'n',
           'Potion': 'p',
         }
         assert.oneOf(itemName, Object.getOwnPropertyNames(map),
@@ -3287,7 +3394,7 @@
     assert.equal(typeof(relic), 'string')
     assert.equal(typeof(item), 'string')
     this.locations.replaced = this.locations.replaced || {}
-    this.locations.replaced[relic] = item
+    this.locations.replaced[relic] = getItemAlias.call(this, item)
   }
 
   // Enable/disable relic location randomization.

@@ -10,6 +10,75 @@
   "comment": "Build off the Safe preset",
   "inherits": "safe",
 
+  "alias": [{
+    "comment": "Alias NO3 as Entrance",
+    "zone": "NO3",
+    "alias": "Entrance"
+  }, {
+    "comment": "Alias TOP as Castle Keep",
+    "zone": "TOP",
+    "alias": "Castle Keep"
+  }, {
+    "comment": "Alias Leap Stone as Double Jump",
+    "relic": "Leap Stone",
+    "alias": "Double Jump"
+  }, {
+    "comment": "Alias Sprite Card as Duplicator",
+    "relic": "Sprite Card",
+    "alias": "Duplicator"
+  }, {
+    "comment": "Alias Nosedevil Card as Heart Refresh",
+    "relic": "Nosedevil Card",
+    "alias": "Heart Refresh"
+  }],
+
+  "replaceRelic": [{
+    "comment": "Replace Sprite Card with Duplicator",
+    "relic": "Sprite Card",
+    "item": "Duplicator"
+  }, {
+    "comment": "Replace Nosedevil Card with Heart Refresh",
+    "relic": "Nosedevil Card",
+    "item": "Heart Refresh"
+  }],
+
+  "placeRelic": [{
+    "comment": "Sprit Orb at Form of Mist location",
+    "relic": "Spirit Orb",
+    "location": "Form of Mist"
+  }, {
+    "comment": "Soul of Wolf or Form of Mist at Leap Stone location",
+    "relic": ["Soul of Wolf", "Form of Mist"],
+    "location": "Leap Stone"
+  }],
+
+  "lockLocation": [{
+    "location": "Soul of Bat",
+    "comment": "Requires Mist + Gravity Boots + Double Jump or Mist + Power of Mist",
+    "locks": [
+      "Form of Mist + Gravity Boots + Double Jump",
+      "Form of Mist + Power of Mist"
+    ],
+    "comment": "Access to Soul of Bat location must also give Soul of Wolf or form of Mist + Power of Mist",
+    "escapeRequirements": [
+      "Soul of Wolf",
+      "Form of Mist + Power of Mist"
+    ]
+  }, {
+    "location": "Power of Wolf",
+    "comment": "Requires Bat or Double Jump + Gravity Boots",
+    "locks": [
+      "Soul of Bat",
+      "Double Jump + Gravity Boots"
+    ]
+  }, {
+    "location": "Merman Statue",
+    "comment": "Merman Statue requires Duplicator + Heart Refresh",
+    "locks": [
+      "Duplicator + Heart Refresh"
+    ]
+  }],
+
   "enemyDrops": [{
     "comment": "Make Warg drop $400 and Combat Knife",
     "enemy": "Warg",
@@ -49,19 +118,19 @@
 
   "itemLocations": [{
     "comment": "Place a Library Card in the Pot Roast wall of Entrance",
-    "zone": "NO3",
+    "zone": "Entrance",
     "item": "Pot roast",
     "replacement": "Library card"
   }, {
     "comment": "Place an Orange in the second Turkey wall of Castle Keep",
-    "zone": "TOP",
+    "zone": "Castle Keep",
     "item": "Turkey",
     "index": 2,
     "replacement": "Orange"
   }],
 
   "prologueRewards": [{
-    "item": "Heart refresh",
+    "item": "Heart Refresh",
     "replacement": "Banana"
   }, {
     "item": "Neutron bomb",
@@ -69,39 +138,6 @@
   }, {
     "item": "Potion",
     "replacement": "Elixir"
-  }],
-
-  "placeRelic": [{
-    "comment": "Sprit Orb at Form of Mist location",
-    "relic": "Spirit Orb",
-    "location": "Form of Mist"
-  }, {
-    "comment": "Soul of Wolf or Form of Mist at Leap Stone location",
-    "relic": ["Soul of Wolf", "Form of Mist"],
-    "location": "Leap Stone"
-  }],
-
-  "replaceRelic": [{
-    "comment": "Replace Sprite Card with Duplicator",
-    "relic": "Sprite Card",
-    "item": "Duplicator"
-  }, {
-    "comment": "Replace Nosedevil Card with Heart Refresh",
-    "relic": "Nosedevil Card",
-    "item": "Heart Refresh"
-  }],
-
-  "lockLocation": [{
-    "location": "Soul of Bat",
-    "comment": "Requires Mist + Gravity Boots + Leapstone",
-    "locks": [
-      "Form of Mist + Gravity Boots + Leap Stone"
-    ],
-    "comment": "Access to Soul of Bat location must also give Soul of Wolf or form of Mist + Power of Mist",
-    "escapeRequirements": [
-      "Soul of Wolf",
-      "Form of Mist + Power of Mist"
-    ]
   }],
 
   "complexityGoal": {
