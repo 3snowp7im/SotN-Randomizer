@@ -2039,6 +2039,7 @@
         case 'offset':
         case 'icon':
         case 'palette':
+        case 'spell':
           value = numToHex(entry[1], 4)
           break
         case 'elements':
@@ -2046,7 +2047,6 @@
           break
         case 'nameAddress':
         case 'descriptionAddress':
-        case 'spell':
           value = numToHex(entry[1], 8)
           break
         case 'hasSpell':

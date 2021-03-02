@@ -128,7 +128,7 @@ for (let i = 1; i < handEquipmentListLen; i++) {
     elements: data.subarray(0x0c, 0xe),
     sprite: data[0x0f],
     special: data[0x18],
-    spell: data.readUInt32LE(0x1c),
+    spell: data.readUInt16LE(0x1c),
     stunFrames: data.readUInt16LE(0x26),
     range: data.readUInt16LE(0x28),
     extra: data[0x2a],

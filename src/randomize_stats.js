@@ -108,7 +108,7 @@
       shuffleStats(rng, data, stats, 'range', 0x28, data.writeShort)
     }
     // Randomize everything else.
-    shuffleStats(rng, data, stats, 'spell', 0x1c, data.writeWord)
+    shuffleStats(rng, data, stats, 'spell', 0x1c, data.writeShort)
     shuffleStats(rng, data, stats, 'stunFrames', 0x26, data.writeShort)
     shuffleStats(rng, data, stats, 'extra', 0x2a, data.writeChar)
     shuffleStats(rng, data, stats, 'palette', 0x2e, data.writeShort)
