@@ -355,7 +355,27 @@
         'Mystic pendant',
       ].indexOf(item.name) !== -1
     }))
-    shuffleStats(rng, data, stats, 'palette', 0x1a, data.writeShort)
+    // Randomize palettes.
+    function randomizePalettes(items) {
+      shuffleStats(rng, data, items, 'palette', 0x1a, data.writeShort)
+    }
+    randomizePalettes(stats.filter(function(item) {
+      return [
+        'Meal ticket',
+        'Library card',
+      ].indexOf(item.name) === -1
+    }))
+    // Choose random item's palette for cards.
+    const rand = shuffled(rng, stats).pop()
+    stats.filter(function(item) {
+      return [
+        'Meal ticket',
+        'Library card',
+      ].indexOf(item.name) !== -1
+    }).forEach(function(item, index) {
+      let addr = util.romOffset(constants.exe, item.offset + 0x1a)
+      addr = data.writeShort(addr, rand.palette)
+    })
   }
 
   function randomizeStats(rng, options) {
