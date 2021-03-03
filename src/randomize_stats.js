@@ -119,6 +119,15 @@
     let items
     items = stats.filter(function(item) {
       return [
+        'Cloth tunic',
+        'Hide cuirass',
+        'Bronze cuirass',
+        'Iron cuirass',
+        'Steel cuirass',
+        'Silver plate',
+        'Gold plate',
+        'Platinum mail',
+        'Diamond plate',
         'Fire mail',
         'Lightning mail',
         'Ice mail',
