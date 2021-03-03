@@ -203,6 +203,7 @@
         'Silver ring',
         'Necklace of J',
         'Gauntlet',
+        'Ring of Feanor',
         'Medal',
         'Duplicator',
         'King\'s stone',
