@@ -4013,7 +4013,7 @@
         let item
         item = newNames.filter(function(item) {
           return item.id === itemId
-        }).pop() || itemFromTileId(itemId + constants.tileIdOffset)
+        }).pop() || itemFromTileId(items, itemId + constants.tileIdOffset)
         if (item) {
           relicName = item.name
         }
