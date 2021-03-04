@@ -160,7 +160,10 @@
 
   function itemSlots(item) {
     switch (item.type) {
+    case constants.TYPE.WEAPON1:
     case constants.TYPE.WEAPON2:
+    case constants.TYPE.SHIELD:
+    case constants.TYPE.USABLE:
       return [
         constants.slots[constants.SLOT.LEFT_HAND],
         constants.slots[constants.SLOT.RIGHT_HAND],
@@ -169,6 +172,8 @@
       return [ constants.slots[constants.SLOT.HEAD] ]
     case constants.TYPE.ARMOR:
       return [ constants.slots[constants.SLOT.BODY] ]
+    case constants.TYPE.CLOAK:
+      return [ constants.slots[constants.SLOT.CLOAK] ]
     case constants.TYPE.ACCESSORY:
       return [
         constants.slots[constants.SLOT.OTHER],
