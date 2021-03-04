@@ -3419,7 +3419,7 @@
   // Set complexity target.
   PresetBuilder.prototype.complexityGoal =
     function goal(complexityMin, complexityMax, goal) {
-      if (arguments.length === 1 && typeof(complexityMin) === 'boolean') {
+      if (arguments.length === 1 && typeof(complexityMin) !== 'number') {
         delete this.goal
         delete this.target
       } else {
