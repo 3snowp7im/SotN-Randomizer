@@ -954,6 +954,7 @@
     })
     let solutions
     let depth
+    console.log(target)
     if (target !== undefined) {
       // Build node graph.
       const graphed = graph(mapping)

@@ -2679,6 +2679,7 @@
     // Thrust sword ability.
     this.thrustSword = false
     // The complexity goal.
+    this.target = undefined
     this.goal = undefined
     // Item stats randomization.
     this.stats = true
@@ -2886,12 +2887,16 @@
       })
     }
     if ('complexityGoal' in json) {
-      const args = [json.complexityGoal.min]
-      if ('max' in json.complexityGoal) {
-        args.push(json.complexityGoal.max)
+      if (json.complexityGoal) {
+        const args = [json.complexityGoal.min]
+        if ('max' in json.complexityGoal) {
+          args.push(json.complexityGoal.max)
+        }
+        args.push(locksFromArray.call(builder, json.complexityGoal.goals))
+        builder.complexityGoal.apply(builder, args)
+      } else {
+        builder.complexityGoal(false)
       }
-      args.push(locksFromArray.call(builder, json.complexityGoal.goals))
-      builder.complexityGoal.apply(builder, args)
     }
     if ('stats' in json) {
       builder.randomizeStats(json.stats)
@@ -3414,31 +3419,36 @@
   // Set complexity target.
   PresetBuilder.prototype.complexityGoal =
     function goal(complexityMin, complexityMax, goal) {
-      assert(
-        typeof(complexityMin) === 'number',
-        'expected complexityMin to be a number'
-      )
-      if (Array.isArray(complexityMax)) {
-        goal = complexityMax
-        complexityMax = undefined
+      if (arguments.length === 1 && typeof(complexityMin) === 'boolean') {
+        delete this.goal
+        delete this.target
       } else {
         assert(
-          typeof(complexityMax) === 'number',
-          'expected complexityMax to be a number'
+          typeof(complexityMin) === 'number',
+          'expected complexityMin to be a number'
         )
-      }
-      assert(goal.every(function(lock) {
-        return typeof(lock) === 'string'
-      }), 'expected goal to be an array of strings')
-      assert(Array.isArray(goal), 'expected goal to be an array of strings')
-      this.goal = goal.map(function(lock) {
-        return new Set(lock)
-      })
-      this.target = {
-        min: complexityMin,
-      }
-      if (typeof(complexityMax) !== 'undefined') {
-        this.target.max = complexityMax
+        if (Array.isArray(complexityMax)) {
+          goal = complexityMax
+          complexityMax = undefined
+        } else {
+          assert(
+            typeof(complexityMax) === 'number',
+            'expected complexityMax to be a number'
+          )
+        }
+        assert(goal.every(function(lock) {
+          return typeof(lock) === 'string'
+        }), 'expected goal to be an array of strings')
+        assert(Array.isArray(goal), 'expected goal to be an array of strings')
+        this.goal = goal.map(function(lock) {
+          return new Set(lock)
+        })
+        this.target = {
+          min: complexityMin,
+        }
+        if (typeof(complexityMax) !== 'undefined') {
+          this.target.max = complexityMax
+        }
       }
     }
 
