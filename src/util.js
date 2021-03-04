@@ -1231,6 +1231,32 @@
                   throw new Error('Invalid relic locations extension: ' + arg)
                 }
                 relicLocations.extension = arg
+              } else if (placing) {
+                const relics = arg.split('')
+                const invalid = relics.filter(function(c) {
+                  if (c === '0') {
+                    return false
+                  }
+                  return !relicNames.some(function(relic) {
+                    return constants.RELIC[relic] === c
+                  })
+                })
+                if (invalid.length) {
+                  throw new Error('Invalid relic: ' + invalid[0])
+                }
+                relicLocations.placed = relicLocations.placed || {}
+                if (relics.length > 1) {
+                  relicLocations.placed[location] = relics.map(function(c) {
+                    if (c === '0') {
+                      return null
+                    }
+                    return c
+                  })
+                } else if (relics[0] === '0') {
+                  relicLocations.placed[location] = null
+                } else {
+                  relicLocations.placed[location] = relics[0]
+                }
               } else if (replacing) {
                 const relic = location
                 const item = items.filter(function(item) {
@@ -1256,18 +1282,12 @@
                   throw new Error('Invalid relic: ' + invalid[0])
                 }
                 const parts = arg.split('+')
-                if (placing && parts.length !== 1) {
-                  throw new Error('Invalid placement: @' + location + ':'
-                                  + arg)
-                } else if (replacing && parts.length !== 1) {
-                  throw new Error('Invalid replacement: =' + location + ':'
-                                  + arg)
-                } else if (parts.length > 2) {
+                if (parts.length > 2) {
                   throw new Error('Invalid lock: ' + location + ':' + arg)
                 }
                 parts.forEach(function(part, index) {
                   let locks = part.split('-')
-                  if (placing && locks.length > 2) {
+                  if (placing && locks.length > 1) {
                     throw new Error('Invalid placement: @' + location + ':'
                                     + arg)
                   }
@@ -1277,34 +1297,14 @@
                   locks = locks.filter(function(lock) {
                     return lock.length > 0
                   })
-                  if ((emptyLocks.length > 1
-                       && !(placing && emptyLocks.length == 2
-                            && locks.length == 0))
-                      || (!placing && locks.length && emptyLocks.length)) {
+                  if (emptyLocks.length > 1) {
                     throw new Error('Invalid lock: ' + location + ':' + arg)
                   }
                   if (index > 0) {
                     locks = locks.map(function(lock) { return '+' + lock })
                   }
-                  if (placing) {
-                    relicLocations.placed = relicLocations.placed || {}
-                    const hasNull = !!emptyLocks.length
-                    if (emptyLocks.length === 2) {
-                      relicLocations.placed[location] = null
-                    } else if (locks[0].length > 1) {
-                      relicLocations.placed[location] = locks[0].split('')
-                      if (hasNull) {
-                        relicLocations.placed[location].push(null)
-                      }
-                    } else if (hasNull) {
-                      relicLocations.placed[location] = [locks[0], null]
-                    } else {
-                      relicLocations.placed[location] = locks[0]
-                    }
-                  } else {
-                    relicLocations[location] = relicLocations[location] || []
-                    Array.prototype.push.apply(relicLocations[location], locks)
-                  }
+                  relicLocations[location] = relicLocations[location] || []
+                  Array.prototype.push.apply(relicLocations[location], locks)
                 })
               }
             } else {
@@ -1738,14 +1738,15 @@
               const placed = options.relicLocations.placed
               Object.getOwnPropertyNames(placed).forEach(function(location) {
                 if (Array.isArray(placed[location])) {
-                  const relics = placed[location].filter(function(relic) {
-                    return !!relic
+                  const relics = placed[location].map(function(relic) {
+                    if (relic === null) {
+                      return '0'
+                    }
+                    return relic
                   })
-                  const hasNull = relics.length !== placed[location].length
-                  locks.push('@' + location + ':' + relics.join('')
-                             + (hasNull ? '-' : ''))
+                  locks.push('@' + location + ':' + relics.join(''))
                 } else if (!placed[location]) {
-                  locks.push('@' + location + ':-')
+                  locks.push('@' + location + ':0')
                 } else {
                   locks.push('@' + location + ':' + placed[location])
                 }
