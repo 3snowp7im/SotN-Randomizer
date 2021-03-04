@@ -1149,8 +1149,11 @@
     // Replace relics with items.
     if (relicLocations.replaced) {
       Object.getOwnPropertyNames(relicLocations.replaced).forEach(
-        function(ability) {
+        function(ability, index) {
           const item = util.itemFromName(relicLocations.replaced[ability])
+          if (!item) {
+            throw new Error([ability, index].join(' '))
+          }
           enabledRelics = enabledRelics.map(function(relic) {
             if (relic.ability === ability) {
               relic = Object.assign({}, relic, {

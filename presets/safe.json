@@ -55,7 +55,7 @@
       "Holy glasses + Form of Mist + Power of Mist"
     ]
   }, {
-    "location": "Holy Mail",
+    "location": "Holy mail",
     "comment": "Requires flight",
     "locks": [
       "Soul of Bat",
@@ -63,13 +63,13 @@
       "Form of Mist + Power of Mist"
     ]
   }, {
-    "location": "Jewel Sword",
+    "location": "Jewel sword",
     "comment": "Requires Wolf + Bat",
     "locks": [
       "Soul of Wolf + Soul of Bat"
     ]
   }, {
-    "location": "Mystic Pendant",
+    "location": "Mystic pendant",
     "comment": "Requires at least Leap Stone",
     "locks": [
       "Soul of Bat",
@@ -87,7 +87,7 @@
       "Form of Mist + Power of Mist"
     ]
   }, {
-    "location": "Morning Star",
+    "location": "Morningstar",
     "comment": "Requires at least Leap Stone",
     "locks": [
       "Soul of Bat",
@@ -106,7 +106,7 @@
       "Form of Mist + Power of Mist"
     ]
   }, {
-    "location": "Silver Plate",
+    "location": "Silver plate",
     "comment": "Requires Jewel of Open or at least Leap Stone",
     "locks": [
       "Jewel of Open",
@@ -126,7 +126,7 @@
       "Form of Mist + Power of Mist"
     ]
   }, {
-    "location": "Platinum Mail",
+    "location": "Platinum mail",
     "comment": "Requires at least Gravity Boots",
     "locks": [
       "Soul of Bat",
@@ -143,7 +143,7 @@
       "Form of Mist + Power of Mist"
     ]
   }, {
-    "location": "Gold Plate",
+    "location": "Gold plate",
     "comment": "Requires at least Leap Stone",
     "locks": [
       "Soul of Bat",
@@ -160,7 +160,7 @@
       "Form of Mist + Power of Mist"
     ]
   }, {
-    "location": "Holy Rod",
+    "location": "Holy rod",
     "comment": "Requires at least Gravity Boots",
     "locks": [
       "Soul of Bat",
@@ -177,7 +177,7 @@
       "Form of Mist + Power of Mist"
     ]
   }, {
-    "location": "Alucart Sword",
+    "location": "Alucart sword",
     "comment": "Requires at least Cube of Zoe + at least Leap Stone",
     "locks": [
       "Cube of Zoe + Soul of Bat",
@@ -211,7 +211,7 @@
       "Form of Mist + Power of Mist"
     ]
   }, {
-    "location": "Blood Cloak",
+    "location": "Blood cloak",
     "comment": "Requires at least Leap Stone",
     "locks": [
       "Soul of Bat",
@@ -220,7 +220,7 @@
       "Form of Mist + Power of Mist"
     ]
   }, {
-    "location": "Shield Rod",
+    "location": "Shield rod",
     "comment": "Requires at least Leap Stone",
     "locks": [
       "Soul of Bat",
@@ -229,7 +229,7 @@
       "Form of Mist + Power of Mist"
     ]
   }, {
-    "location": "Knight Shield",
+    "location": "Knight shield",
     "comment": "Requires at least Leap Stone",
     "locks": [
       "Soul of Bat",
@@ -238,7 +238,7 @@
       "Form of Mist + Power of Mist"
     ]
   }, {
-    "location": "Holy Sword",
+    "location": "Holy sword",
     "comment": "Requires at least Gravity Boots",
     "locks": [
       "Soul of Bat",
@@ -246,13 +246,13 @@
       "Form of Mist + Power of Mist"
     ]
   }, {
-    "location": "Bandana",
+    "location": "Bandanna",
     "comment": "Requires Jewel of Open",
     "locks": [
       "Jewel of Open"
     ]
   }, {
-    "location": "Secret Boots",
+    "location": "Secret boots",
     "comment": "Requires Jewel of Open + flight",
     "locks": [
       "Jewel of Open + Soul of Bat",
@@ -266,7 +266,7 @@
       "Jewel of Open + Holy Symbol"
     ]
   }, {
-    "location": "Knuckle Duster",
+    "location": "Knuckle duster",
     "comment": "Requires Jewel of Open",
     "locks": [
       "Jewel of Open"
@@ -280,7 +280,7 @@
       "Jewel of Open + Form of Mist + Power of Mist"
     ]
   }, {
-    "location": "Combat Knife",
+    "location": "Combat knife",
     "comment": "Requires Jewel of Open + at least Leap Stone",
     "locks": [
       "Jewel of Open + Soul of Bat",
@@ -348,7 +348,7 @@
       "Form of Mist + Power of Mist"
     ]
   }, {
-    "location": "Walk Armor",
+    "location": "Walk armor",
     "comment": "Requires Jewel of Open + at least Leap Stone",
     "locks": [
       "Jewel of Open + Soul of Bat",
@@ -364,7 +364,7 @@
       "Form of Mist + Power of Mist"
     ]
   }, {
-    "location": "Beryl Circlet",
+    "location": "Beryl circlet",
     "comment": "Requires Holy glasses + Bat + Wolf",
     "locks": [
       "Holy glasses + Soul of Bat + Soul of Wolf"
@@ -386,7 +386,7 @@
       "Holy glasses + Form of Mist + Power of Mist"
     ]
   }, {
-    "location": "Goddess Shield",
+    "location": "Goddess shield",
     "comment": "Requires Holy glasses + flight",
     "locks": [
       "Holy glasses + Soul of Bat",
@@ -394,7 +394,7 @@
       "Holy glasses + Form of Mist + Power of Mist"
     ]
   }, {
-    "location": "Twilight Cloak",
+    "location": "Twilight cloak",
     "comment": "Requires Holy glasses + Mist + flight",
     "locks": [
       "Holy glasses + Form of Mist + Soul of Bat",
@@ -418,7 +418,7 @@
       "Holy glasses + Form of Mist + Power of Mist"
     ]
   }, {
-    "location": "Bastard Sword",
+    "location": "Bastard sword",
     "comment": "Requires Holy glasses + flight",
     "locks": [
       "Holy glasses + Soul of Bat",
@@ -426,7 +426,7 @@
       "Holy glasses + Form of Mist + Power of Mist"
     ]
   }, {
-    "location": "Royal Cloak",
+    "location": "Royal cloak",
     "comment": "Requires Holy glasses + flight",
     "locks": [
       "Holy glasses + Soul of Bat",
@@ -434,7 +434,7 @@
       "Holy glasses + Form of Mist + Power of Mist"
     ]
   }, {
-    "location": "Lightning Mail",
+    "location": "Lightning mail",
     "comment": "Requires Holy glasses + flight",
     "locks": [
       "Holy glasses + Soul of Bat",
@@ -442,7 +442,7 @@
       "Holy glasses + Form of Mist + Power of Mist"
     ]
   }, {
-    "location": "Moon Rod",
+    "location": "Moon rod",
     "comment": "Requires Holy glasses + flight",
     "locks": [
       "Holy glasses + Soul of Bat",
@@ -466,7 +466,7 @@
       "Holy glasses + Form of Mist + Power of Mist"
     ]
   }, {
-    "location": "Dragon Helm",
+    "location": "Dragon helm",
     "comment": "Requires Holy glasses + flight",
     "locks": [
       "Holy glasses + Soul of Bat",
@@ -530,7 +530,7 @@
       "Holy glasses + Form of Mist + Power of Mist"
     ]
   }, {
-    "location": "Osafune Katana",
+    "location": "Osafune katana",
     "comment": "Requires Holy glasses + flight",
     "locks": [
       "Holy glasses + Soul of Bat",
@@ -538,7 +538,7 @@
       "Holy glasses + Form of Mist + Power of Mist"
     ]
   }, {
-    "location": "Alucard Shield",
+    "location": "Alucard shield",
     "comment": "Requires Holy glasses + flight",
     "locks": [
       "Holy glasses + Soul of Bat",
@@ -546,7 +546,7 @@
       "Holy glasses + Form of Mist + Power of Mist"
     ]
   }, {
-    "location": "Alucard Sword",
+    "location": "Alucard sword",
     "comment": "Requires Holy glasses + flight",
     "locks": [
       "Holy glasses + Soul of Bat",
@@ -578,7 +578,7 @@
       "Holy glasses + Form of Mist + Power of Mist"
     ]
   }, {
-    "location": "Alucard Mail",
+    "location": "Alucard mail",
     "comment": "Requires Holy glasses + flight",
     "locks": [
       "Holy glasses + Soul of Bat",
@@ -594,7 +594,7 @@
       "Holy glasses + Form of Mist + Power of Mist"
     ]
   }, {
-    "location": "Fury Plate",
+    "location": "Fury plate",
     "comment": "Requires Holy glasses + flight",
     "locks": [
       "Holy glasses + Soul of Bat",

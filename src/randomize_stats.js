@@ -149,7 +149,7 @@
         'Gauntlet',
         'Duplicator',
         'Secret boots',
-        'Cool sunglasses',
+        'Sunglasses',
         'Holy glasses',
         'Goggles',
         'Ballroom mask',
@@ -170,7 +170,7 @@
     }))
     randomizeNames(stats.filter(function(item) {
       return [
-        'Cool sunglasses',
+        'Sunglasses',
         'Holy glasses',
         'Goggles',
         'Ballroom mask',
@@ -264,7 +264,7 @@
         'Gauntlet',
         'Duplicator',
         'Secret boots',
-        'Cool sunglasses',
+        'Sunglasses',
         'Holy glasses',
         'Goggles',
         'Ballroom mask',
@@ -303,7 +303,7 @@
     }))
     randomizeIcons(stats.filter(function(item) {
       return [
-        'Cool sunglasses',
+        'Sunglasses',
         'Holy glasses',
         'Goggles',
         'Ballroom mask',
