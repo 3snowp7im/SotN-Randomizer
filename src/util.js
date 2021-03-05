@@ -3901,7 +3901,7 @@
   }
 
   function minifySolution(min, lock, index) {
-    const requirements = Array.from(lock).map(function(node) {
+    const requirements = lock.map(function(node) {
       if (node.locks) {
         const solution = node.locks.reduce(minifySolution, {
           depth: 0,
