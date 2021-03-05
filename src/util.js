@@ -653,8 +653,12 @@
       patch[c++] = writes[key].len
       let val = writes[key].val
       for (let i = 0; i < writes[key].len; i++) {
-        patch[c++] = val & 0xff
-        val >>>= 8
+        if (Array.isArray(val)) {
+          patch[c++] = val[i] & 0xff
+        } else {
+          patch[c++] = val & 0xff
+          val >>>= 8
+        }
       }
     })
     return patch
