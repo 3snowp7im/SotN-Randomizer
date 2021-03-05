@@ -712,18 +712,16 @@
     if (item.locks.length) {
       const locks = item.locks.reduce(function(locks, lock) {
         if (!lock.some(function(item) {return visited.has(item)})) {
-          let newLock = []
+          const newLock = []
           for (let item of lock) {
             let newItem
-            if (!visited.has(item)) {
-              visited.add(item)
-              newItem = removeCircular(item, visited)
-              visited.delete(item)
-            }
+            visited.add(item)
+            newItem = removeCircular(item, visited)
+            visited.delete(item)
             if (newItem) {
               newLock.push(newItem)
             } else {
-              newLock = []
+              newLock.splice(0, newLock.length)
               break
             }
           }
