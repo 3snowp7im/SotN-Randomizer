@@ -709,36 +709,38 @@
   }
 
   function removeCircular(item, visited) {
-    visited = visited || []
-    if (visited.indexOf(item.item) === -1) {
-      visited.push(item.item)
-      if (item.locks.length) {
-        const locks = item.locks.reduce(function(locks, lock) {
-          const newLock = new Set()
-          for (let item of lock) {
-            item = removeCircular(item, visited.slice())
-            if (item) {
-              newLock.add(item)
-            } else {
-              newLock.clear()
-              break
-            }
+    visited = visited || new WeakSet()
+    if (item.locks.length) {
+      const locks = item.locks.reduce(function(locks, lock) {
+        const newLock = new Set()
+        for (let item of lock) {
+          let newItem
+          if (!visited.has(item)) {
+            visited.add(item)
+            newItem = removeCircular(item, visited)
+            visited.delete(item)
           }
-          if (newLock.size) {
-            locks.push(newLock)
+          if (newItem) {
+            newLock.add(newItem)
+          } else {
+            newLock.clear()
+            break
           }
-          return locks
-        }, [])
-        if (locks.length) {
-          item = {
-            item: item.item,
-            locks: locks,
-          }
-          return item
         }
-      } else {
+        if (newLock.size) {
+          locks.push(newLock)
+        }
+        return locks
+      }, [])
+      if (locks.length) {
+        item = {
+          item: item.item,
+          locks: locks,
+        }
         return item
       }
+    } else {
+      return item
     }
   }
 
