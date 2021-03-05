@@ -9,7 +9,7 @@
   "inherits": "casual",
   "relicLocationsExtension": "guarded",
   "lockLocation": [{
-    "location": "Crystal Cloak",
+    "location": "Crystal cloak",
     "comment": "Requires Jewel of Open",
     "locks": [
       "Jewel of Open"
