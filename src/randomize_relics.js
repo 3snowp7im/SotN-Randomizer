@@ -714,9 +714,8 @@
         if (!lock.some(function(item) {return visited.has(item)})) {
           const newLock = []
           for (let item of lock) {
-            let newItem
             visited.add(item)
-            newItem = removeCircular(item, visited)
+            const newItem = removeCircular(item, visited)
             visited.delete(item)
             if (newItem) {
               newLock.push(newItem)
