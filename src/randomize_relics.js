@@ -710,6 +710,7 @@
 
   function removeCircular(item, visited) {
     if (item.locks.length) {
+      let allocate
       const locks = item.locks.reduce(function(locks, lock) {
         if (!lock.some(function(item) {return visited.has(item)})) {
           const newLock = []
@@ -717,6 +718,9 @@
             visited.add(item)
             const newItem = removeCircular(item, visited)
             visited.delete(item)
+            if (newItem !== item) {
+              allocate = true
+            }
             if (newItem) {
               newLock.push(newItem)
             } else {
@@ -727,13 +731,17 @@
           if (newLock.length) {
             locks.push(newLock)
           }
+        } else {
+          allocate = true
         }
         return locks
       }, [])
       if (locks.length) {
-        item = {
-          item: item.item,
-          locks: locks,
+        if (allocate) {
+          return {
+            item: item.item,
+            locks: locks,
+          }
         }
         return item
       }

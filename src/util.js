@@ -2857,8 +2857,10 @@
           lockLocation.location,
         )
         const location = locationFromName(locationName)
-        const locks = locksFromArray.call(builder, lockLocation.locks)
-        builder.lockLocation(location, locks)
+        if ('locks' in lockLocation) {
+          const locks = locksFromArray.call(builder, lockLocation.locks)
+          builder.lockLocation(location, locks)
+        }
         if ('escapeRequires' in lockLocation) {
           const escapes = locksFromArray.call(
             builder,
