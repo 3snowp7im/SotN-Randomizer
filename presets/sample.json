@@ -76,6 +76,11 @@
     "comment": "Merman Statue requires Duplicator + Heart Refresh",
     "locks": [
       "Duplicator + Heart Refresh"
+    ],
+    "comment": "Never let Merman Statue location have Form of Mist or Soul of Bat",
+    "block": [
+      "Form of Mist",
+      "Soul of Bat"
     ]
   }],
 

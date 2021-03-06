@@ -1194,6 +1194,7 @@
             let location
             let placing
             let replacing
+            let blocking
             if (/^[0-9]+(-[0-9]+)?$/.test(arg)) {
               location = arg
             } else if (arg === 'x') {
@@ -1206,6 +1207,9 @@
                 arg = arg.slice(1)
               } else if (arg.startsWith('=')) {
                 replacing = true
+                arg = arg.slice(1)
+              } else if (arg.startsWith('-')) {
+                blocking = true
                 arg = arg.slice(1)
               }
               location = locations.filter(function(name) {
@@ -1254,18 +1258,12 @@
                   throw new Error('Invalid relic: ' + invalid[0])
                 }
                 relicLocations.placed = relicLocations.placed || {}
-                if (relics.length > 1) {
-                  relicLocations.placed[location] = relics.map(function(c) {
-                    if (c === '0') {
-                      return null
-                    }
-                    return c
-                  })
-                } else if (relics[0] === '0') {
-                  relicLocations.placed[location] = null
-                } else {
-                  relicLocations.placed[location] = relics[0]
-                }
+                relicLocations.placed[location] = relics.map(function(c) {
+                  if (c === '0') {
+                    return null
+                  }
+                  return c
+                })
               } else if (replacing) {
                 const relic = location
                 const item = items.filter(function(item) {
@@ -1278,6 +1276,26 @@
                 }
                 relicLocations.replaced = relicLocations.replaced || {}
                 relicLocations.replaced[relic] = item.name
+              } else if (blocking) {
+                const relics = arg.split('')
+                const invalid = relics.filter(function(c) {
+                  if (c === '0') {
+                    return false
+                  }
+                  return !relicNames.some(function(relic) {
+                    return constants.RELIC[relic] === c
+                  })
+                })
+                if (invalid.length) {
+                  throw new Error('Invalid relic: ' + invalid[0])
+                }
+                relicLocations.blocked = relicLocations.blocked || {}
+                relicLocations.blocked[location] = relics.map(function(c) {
+                  if (c === '0') {
+                    return null
+                  }
+                  return c
+                })
               } else {
                 const invalid = arg.split('').filter(function(c) {
                   if (c === '-' || c === '+') {
@@ -1746,25 +1764,31 @@
             if (options.relicLocations.placed) {
               const placed = options.relicLocations.placed
               Object.getOwnPropertyNames(placed).forEach(function(location) {
-                if (Array.isArray(placed[location])) {
-                  const relics = placed[location].map(function(relic) {
-                    if (relic === null) {
-                      return '0'
-                    }
-                    return relic
-                  })
-                  locks.push('@' + location + ':' + relics.join(''))
-                } else if (!placed[location]) {
-                  locks.push('@' + location + ':0')
-                } else {
-                  locks.push('@' + location + ':' + placed[location])
-                }
+                const relics = placed[location].map(function(relic) {
+                  if (relic === null) {
+                    return '0'
+                  }
+                  return relic
+                })
+                locks.push('@' + location + ':' + relics.join(''))
               })
             }
             if (options.relicLocations.replaced) {
               const replaced = options.relicLocations.replaced
               Object.getOwnPropertyNames(replaced).forEach(function(relic) {
                 locks.push('=' + relic + ':' + replaced[relic])
+              })
+            }
+            if (options.relicLocations.blocked) {
+              const blocked = options.relicLocations.blocked
+              Object.getOwnPropertyNames(blocked).forEach(function(location) {
+                const relics = blocked[location].map(function(relic) {
+                  if (relic === null) {
+                    return '0'
+                  }
+                  return relic
+                })
+                locks.push('-' + location + ':' + relics.join(''))
               })
             }
             if (locks.length) {
@@ -2861,6 +2885,18 @@
           const locks = locksFromArray.call(builder, lockLocation.locks)
           builder.lockLocation(location, locks)
         }
+        if ('block' in lockLocation) {
+          let relic
+          if (Array.isArray(lockLocation.block)) {
+            relic = lockLocation.block.map(function(relic) {
+              return relicFromName(getRelicAlias.call(builder, relic)).ability
+            })
+          } else {
+            relic = getRelicAlias.call(builder, lockLocation.block)
+            relic = relicFromName(relic).ability
+          }
+          builder.blockRelic(location, relic)
+        }
         if ('escapeRequires' in lockLocation) {
           const escapes = locksFromArray.call(
             builder,
@@ -3094,6 +3130,9 @@
         if ('replaced' in preset.relicLocations) {
           self.locations.replaced = preset.relicLocations.replaced
         }
+        if ('blocked' in preset.relicLocations) {
+          self.locations.blocked = preset.relicLocations.blocked
+        }
         const locations = Object.getOwnPropertyNames(preset.relicLocations)
         locations.filter(function(location) {
           return [
@@ -3101,6 +3140,7 @@
             'thrustSwordAbility',
             'placed',
             'replaced',
+            'blocked',
           ].indexOf(location) === -1
         }).forEach(function(location) {
           if ((/^[0-9]+(-[0-9]+)?$/).test(location)) {
@@ -3374,6 +3414,28 @@
     }))
   }
 
+  // Block a relic from appearing at a location.
+  PresetBuilder.prototype.blockRelic = function blockRelic(where, what) {
+    assert.equal(typeof(where), 'string')
+    if (Array.isArray(what)) {
+      what.forEach(function(relic) {
+        if (relic) {
+          assert.equal(typeof(relic), 'string')
+        }
+      })
+    } else if (what) {
+      assert.equal(typeof(what), 'string')
+    }
+    if (!Array.isArray(what)) {
+      what = [what]
+    }
+    if (typeof(this.locations) !== 'object') {
+      this.locations = {}
+    }
+    this.locations.blocked = this.locations.blocked || {}
+    this.locations.blocked[where] = what
+  }
+
   // Ensure that a location grants abilities, or that access to that location
   // is only granted by obtaining abilities.
   PresetBuilder.prototype.escapeRequires =
@@ -3398,6 +3460,9 @@
       })
     } else if (what) {
       assert.equal(typeof(what), 'string')
+    }
+    if (!Array.isArray(what)) {
+      what = [what]
     }
     if (typeof(this.locations) !== 'object') {
       this.locations = {}
@@ -3653,6 +3718,9 @@
       }
       if (self.locations.replaced) {
         relicLocations.replaced = self.locations.replaced
+      }
+      if (self.locations.blocked) {
+        relicLocations.blocked = self.locations.blocked
       }
       if (self.goal) {
         let target = self.target.min.toString()

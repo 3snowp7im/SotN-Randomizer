@@ -375,46 +375,59 @@
       })
       if (locationsAvailable.length) {
         // Get random location.
-        const location = locationsAvailable[randIdx(rng, locationsAvailable)]
-        // After placing the relic in this location, anything previously
-        // locked by the relic is now locked by the requirements of the new
-        // location.
-        const newLocations = pool.locations.filter(function(newLocation) {
-          return newLocation !== location
-        }).map(function(newLocation) {
-          newLocation = Object.assign({}, newLocation)
-          const newLocks = replaceLocks(
-            newLocation.locks,
-            relic.ability,
-            location.locks,
-          ).filter(function(lock) {
-            return !lock.has(relic.ability)
-          })
-          // Filter out locks that are supersets of other locks.
-          newLocks.sort(function(a, b) { return a.size - b.size })
-          for (let i = 0; i < newLocks.length - 1; i++) {
-            const lock = newLocks[i]
-            let j = i + 1
-            while (j < newLocks.length) {
-              // If lock i is a subset of lock j, remove j from the list.
-              if (isSubset(lock, newLocks[j])) {
-                newLocks.splice(j, 1)
-              } else {
-                j++
+        const shuffled = util.shuffled(rng, locationsAvailable)
+        let location
+        while (shuffled.length) {
+          location = shuffled.pop()
+          if (pool.blocked
+              && pool.blocked[location.id]
+              && pool.blocked[location.id].indexOf(relic.id) !== -1) {
+            location = undefined
+          } else {
+            break
+          }
+        }
+        if (location) {
+          // After placing the relic in this location, anything previously
+          // locked by the relic is now locked by the requirements of the new
+          // location.
+          const newLocations = pool.locations.filter(function(newLocation) {
+            return newLocation !== location
+          }).map(function(newLocation) {
+            newLocation = Object.assign({}, newLocation)
+            const newLocks = replaceLocks(
+              newLocation.locks,
+              relic.ability,
+              location.locks,
+            ).filter(function(lock) {
+              return !lock.has(relic.ability)
+            })
+            // Filter out locks that are supersets of other locks.
+            newLocks.sort(function(a, b) { return a.size - b.size })
+            for (let i = 0; i < newLocks.length - 1; i++) {
+              const lock = newLocks[i]
+              let j = i + 1
+              while (j < newLocks.length) {
+                // If lock i is a subset of lock j, remove j from the list.
+                if (isSubset(lock, newLocks[j])) {
+                  newLocks.splice(j, 1)
+                } else {
+                  j++
+                }
               }
             }
-          }
-          newLocation.locks = newLocks
-          return newLocation
-        })
-        // Add selection to mapping.
-        const newMapping = Object.assign({}, mapping)
-        newMapping[relic.ability] = location
-        // Pick from remaining pool.
-        return pickRelicLocations(rng, {
-          locations: newLocations,
-          relics: remainingRelics,
-        }, locations, newMapping)
+            newLocation.locks = newLocks
+            return newLocation
+          })
+          // Add selection to mapping.
+          const newMapping = Object.assign({}, mapping)
+          newMapping[relic.ability] = location
+          // Pick from remaining pool.
+          return pickRelicLocations(rng, {
+            locations: newLocations,
+            relics: remainingRelics,
+          }, locations, newMapping)
+        }
       }
     }
     throw new errors.SoftlockError()
@@ -893,11 +906,12 @@
     }, false)
   }
 
-  function randomize(rng, placed, relics, locations, goal, target) {
+  function randomize(rng, placed, blocked, relics, locations, goal, target) {
     // Get new locations pool.
     const pool = {
       relics: util.shuffled(rng, relics),
       locations: locations.slice(),
+      blocked: blocked,
     }
     while (pool.locations.length > relics.length) {
       pool.locations.splice(randIdx(rng, pool.locations), 1)
@@ -910,21 +924,17 @@
       const picked = {}
       placedLocations.forEach(function(location) {
         let relic
-        if (Array.isArray(placed[location])) {
-          const rand = util.shuffled(rng, placed[location])
-          let isEmpty
-          do {
-            relic = rand.pop()
-            if (!relic) {
-              isEmpty = true
-              break
-            }
-          } while (placedRelics.indexOf(relic) !== -1)
-          if (!isEmpty && placedRelics.indexOf(relic) !== -1) {
-            throw new errors.SoftlockError()
+        const rand = util.shuffled(rng, placed[location])
+        let isEmpty
+        do {
+          relic = rand.pop()
+          if (!relic) {
+            isEmpty = true
+            break
           }
-        } else {
-          relic = placed[location]
+        } while (placedRelics.indexOf(relic) !== -1)
+        if (!isEmpty && placedRelics.indexOf(relic) !== -1) {
+          throw new errors.SoftlockError()
         }
         picked[location] = relic
         placedRelics.push(relic)
@@ -1037,6 +1047,7 @@
         'thrustSwordAbility',
         'placed',
         'replaced',
+        'blocked',
       ].indexOf(location) === -1
     }).forEach(function(location) {
       map[location] = locations[location].filter(function(lock) {
@@ -1054,6 +1065,7 @@
         'thrustSwordAbility',
         'placed',
         'replaced',
+        'blocked',
       ].indexOf(location) === -1
     }).forEach(function(location) {
       map[location] = locations[location].filter(function(lock) {
@@ -1214,6 +1226,7 @@
     const result = randomize(
       rng,
       relicLocations.placed,
+      relicLocations.blocked,
       enabledRelics,
       locations,
       goal,
