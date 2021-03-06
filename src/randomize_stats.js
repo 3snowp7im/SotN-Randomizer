@@ -111,7 +111,24 @@
     shuffleStats(rng, data, stats, 'spell', 0x1c, data.writeShort)
     shuffleStats(rng, data, stats, 'stunFrames', 0x26, data.writeShort)
     shuffleStats(rng, data, stats, 'extra', 0x2a, data.writeChar)
-    shuffleStats(rng, data, stats, 'palette', 0x2e, data.writeShort)
+    // Randomize palettes.
+    shuffleStats(rng, data, stats.filter(function(item) {
+      return [
+        'Meal ticket',
+        'Library card',
+      ].indexOf(item.name) === -1
+    }), 'palette', 0x2e, data.writeShort)
+    // Choose random item's palette for cards.
+    const rand = shuffled(rng, stats).pop()
+    stats.filter(function(item) {
+      return [
+        'Meal ticket',
+        'Library card',
+      ].indexOf(item.name) !== -1
+    }).forEach(function(item) {
+      let addr = util.romOffset(constants.exe, item.offset + 0x2e)
+      addr = data.writeShort(addr, rand.palette)
+    })
   }
 
   function shuffleEquipmentStats(rng, data, newNames, stats) {
@@ -356,26 +373,7 @@
       ].indexOf(item.name) !== -1
     }))
     // Randomize palettes.
-    function randomizePalettes(items) {
-      shuffleStats(rng, data, items, 'palette', 0x1a, data.writeShort)
-    }
-    randomizePalettes(stats.filter(function(item) {
-      return [
-        'Meal ticket',
-        'Library card',
-      ].indexOf(item.name) === -1
-    }))
-    // Choose random item's palette for cards.
-    const rand = shuffled(rng, stats).pop()
-    stats.filter(function(item) {
-      return [
-        'Meal ticket',
-        'Library card',
-      ].indexOf(item.name) !== -1
-    }).forEach(function(item, index) {
-      let addr = util.romOffset(constants.exe, item.offset + 0x1a)
-      addr = data.writeShort(addr, rand.palette)
-    })
+    shuffleStats(rng, data, stats, 'palette', 0x1a, data.writeShort)
   }
 
   function randomizeStats(rng, options) {
