@@ -3029,7 +3029,18 @@
       }
     }
     if ('blockItems' in json) {
-      builder.blockItems(json.blockItems)
+      json.blockItems.forEach(function(itemLocation) {
+        let zone = getZoneAlias.call(builder, itemLocation.zone)
+        if (zone !== '*') {
+          zone = constants.ZONE[zone]
+        }
+        const args = [zone, itemLocation.item]
+        if ('index' in itemLocation) {
+          args.push(itemLocation.index)
+        }
+        args.push(itemLocation.replacement)
+        builder.blockItem.apply(builder, args)
+      })
     }
     if ('enemyDrops' in json) {
       if (typeof(json.enemyDrops) === 'boolean') {
