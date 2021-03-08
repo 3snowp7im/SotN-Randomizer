@@ -3059,12 +3059,12 @@
       }
     }
     if ('blockDrops' in json) {
-      json.enemyDrops.forEach(function(enemyDrop) {
+      json.blockDrops.forEach(function(enemyDrop) {
         const args = [enemyDrop.enemy]
         if ('level' in enemyDrop) {
           args.push(enemyDrop.level)
         }
-        Array.prototype.push.apply(args, enemyDrop.items)
+        args.push(enemyDrop.items)
         builder.blockDrops.apply(builder, args)
       })
     }
@@ -3538,19 +3538,9 @@
       }
     }
 
-  PresetBuilder.prototype.blockDrop =
+  PresetBuilder.prototype.blockDrops =
     function blockDrops(enemyName, level, drops) {
       enemyName = getEnemyAlias.call(this, enemyName)
-      if (!Array.isArray(drops)) {
-        drops = [drops]
-      }
-      drops = drops.map(function(drop) {
-        getItemAlias.call(this, drop)
-      })
-      if (typeof(this.drops) !== 'object') {
-        this.drops = new Map()
-      }
-      this.drops.blocked = this.drops.blocked || new Map()
       let enemy
       if (enemyName === constants.GLOBAL_DROP) {
         enemy = enemyName
@@ -3575,6 +3565,13 @@
           assert(enemy, 'Unknown enemy: ' + enemyName)
         }
       }
+      if (!Array.isArray(drops)) {
+        drops = [drops]
+      }
+      const self = this
+      drops = drops.map(function(drop) {
+        return getItemAlias.call(self, drop)
+      })
       drops = drops.map(function(dropName) {
         if (dropName) {
           const item = items.filter(function(item) {
@@ -3584,6 +3581,10 @@
           return item
         }
       })
+      if (typeof(this.drops) !== 'object') {
+        this.drops = new Map()
+      }
+      this.drops.blocked = this.drops.blocked || new Map()
       this.drops.blocked.set(enemy, drops)
     }
 
@@ -3609,7 +3610,7 @@
         }
         const self = this
         itemNames = itemNames.map(function(name) {
-          getItemAlias.call(self, name)
+          return getItemAlias.call(self, name)
         })
         if (typeof(this.equipment) !== 'object') {
           this.equipment = {}
@@ -3710,7 +3711,7 @@
       }
       const self = this
       itemNames = itemNames.map(function(name) {
-        getItemAlias.call(self, name)
+        return getItemAlias.call(self, name)
       })
       if (typeof(this.equipment) !== 'object') {
         this.equipment = {}
@@ -3854,11 +3855,11 @@
   // Block an item from a tile.
   PresetBuilder.prototype.blockItem =
     function blockItem(zoneId, itemName, number, replaceNames) {
-      if (typeof(number) === 'string') {
+      if (typeof(number) !== 'number') {
         replaceNames = number
         number = 1
       }
-      if (typeof(replaceNames) === 'string') {
+      if (!Array.isArray(replaceNames)) {
         replaceNames = [replaceNames]
       }
       itemName = getItemAlias.call(this, itemName)

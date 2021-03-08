@@ -370,7 +370,7 @@
     // Replace Axe Lord Armor.
     let axeLordArmor
     if ('a' in planned) {
-      axeLordArmor = util.itemFromName(planned.a)
+      axeLordArmor = util.itemFromName(randItem(rng, planned.a))
     } else {
       axeLordArmor = randItem(rng, pool.filter(armorFilter))
     }
@@ -379,7 +379,7 @@
     // Replace Lapis Lazuli.
     let luckItem
     if ('x' in planned) {
-      luckItem = util.itemFromName(planned.x)
+      luckItem = util.itemFromName(randItem(rng, planned.x))
     } else {
       luckItem = randItem(rng, pool.filter(accessoryFilter)).id
     }
@@ -577,8 +577,8 @@
     }
     ['h', 'n', 'p'].map(function(item) {
       if (planned && item in planned) {
-        if (planned[item]) {
-          const plannedItem = util.itemFromName(planned[item])
+        const plannedItem = util.itemFromName(randItem(rng, planned[item]))
+        if (plannedItem) {
           let poolItem = (addon || []).concat(pool).filter(function(poolItem) {
             if (poolItem.id === plannedItem.id
                 && poolItem.type == plannedItem.type) {
