@@ -733,6 +733,10 @@
               i++
             }
             arg = randomize.slice(start, i)
+            const block = arg[0] === '-'
+            if (block) {
+              arg = arg.slice(1)
+            }
             if (!arg.length) {
               throw new Error('Expected argument')
             }
@@ -747,17 +751,23 @@
               enemyName = arg
             } else {
               let enemy
-              const matches = enemies.filter(function(enemy) {
-                let name = enemy.name.replace(/[^a-zA-Z0-9]/g, '')
-                name = name.toLowerCase()
-                return name === arg.toLowerCase()
-              })
-              if (matches.length > 1 && typeof(level) !== 'undefined') {
-                enemy = matches.filter(function(enemy) {
-                  return enemy.level === level
-                })[0]
+              let matches
+              if (arg.toLowerCase() === 'librarian') {
+                enemy = {name: 'Librarian'}
+                matches = []
               } else {
-                enemy = matches[0]
+                matches = enemies.filter(function(enemy) {
+                  let name = enemy.name.replace(/[^a-zA-Z0-9]/g, '')
+                  name = name.toLowerCase()
+                  return name === arg.toLowerCase()
+                })
+                if (matches.length > 1 && typeof(level) !== 'undefined') {
+                  enemy = matches.filter(function(enemy) {
+                    return enemy.level === level
+                  })[0]
+                } else {
+                  enemy = matches[0]
+                }
               }
               if (!enemy) {
                 throw new Error('Unknown enemy: ' + arg)
@@ -770,7 +780,6 @@
             if (typeof(enemyDrops) !== 'object') {
               enemyDrops = {}
             }
-            enemyDrops[enemyName] = []
             if (randomize[i] === ':') {
               start = ++i
               while (i < randomize.length
@@ -778,25 +787,43 @@
                 i++
               }
               arg = randomize.slice(start, i)
-              arg.split('-').forEach(function(arg, index)  {
-                if (enemyName !== constants.GLOBAL_DROP && index > 1) {
-                  throw new Error('Too many drops for enemy: ' + enemy.name)
-                }
-                if (arg) {
-                  const item = items.filter(function(item) {
-                    let name = item.name.replace(/[^a-zA-Z0-9]/g, '')
-                    name = name.toLowerCase()
-                    return name === arg.toLowerCase()
-                  })[0]
-                  if (!item) {
-                    throw new Error('Unknown item: ' + arg)
+              if (block) {
+                enemyDrops.blocked = enemyDrops.blocked || {}
+                enemyDrops.blocked[enemyName] = arg.split('-').map(
+                  function(arg)  {
+                    const item = items.filter(function(item) {
+                      let name = item.name.replace(/[^a-zA-Z0-9]/g, '')
+                      name = name.toLowerCase()
+                      return name === arg.toLowerCase()
+                    })[0]
+                    if (!item) {
+                      throw new Error('Unknown item: ' + arg)
+                    }
+                    return item.name
                   }
-                  const itemName = item.name
-                  enemyDrops[enemyName].push(itemName)
-                } else {
-                  enemyDrops[enemyName].push('')
-                }
-              })
+                )
+              } else {
+                enemyDrops[enemyName] = []
+                arg.split('-').forEach(function(arg, index)  {
+                  if (enemyName !== constants.GLOBAL_DROP && index > 1) {
+                    throw new Error('Too many drops for enemy: ' + enemy.name)
+                  }
+                  if (arg) {
+                    const item = items.filter(function(item) {
+                      let name = item.name.replace(/[^a-zA-Z0-9]/g, '')
+                      name = name.toLowerCase()
+                      return name === arg.toLowerCase()
+                    })[0]
+                    if (!item) {
+                      throw new Error('Unknown item: ' + arg)
+                    }
+                    const itemName = item.name
+                    enemyDrops[enemyName].push(itemName)
+                  } else {
+                    enemyDrops[enemyName].push('')
+                  }
+                })
+              }
             }
             if (randomize[i] === ':') {
               i++
@@ -840,6 +867,10 @@
               i++
             }
             arg = randomize.slice(start, i)
+            const block = arg[0] === '-'
+            if (block) {
+              arg = arg.slice(1)
+            }
             if (!arg.length) {
               throw new Error('Expected argument')
             }
@@ -856,8 +887,7 @@
               i++
             }
             arg = randomize.slice(start, i)
-            let itemName = ''
-            if (arg.length) {
+            const itemNames = arg.split('-').map(function(name) {
               const item = items.filter(function(item) {
                 let name = item.name.replace(/[^a-zA-Z0-9]/g, '')
                 name = name.toLowerCase()
@@ -866,7 +896,6 @@
               if (!item) {
                 throw new Error('Unknown item: ' + arg)
               }
-              itemName = item.name
               let types
               switch (slot) {
               case 'r':
@@ -933,11 +962,17 @@
                 }
                 break
               }
-            }
+              return item.name
+            })
             if (typeof(startingEquipment) !== 'object') {
               startingEquipment = {}
             }
-            startingEquipment[slot] = itemName
+            if (block) {
+              startingEquipment.blocked = startingEquipment.blocked || {}
+              startingEquipment.blocked[slot] = itemNames
+            } else {
+              startingEquipment[slot] = itemNames
+            }
             if (randomize[i] === ':') {
               i++
             }
@@ -980,16 +1015,20 @@
               i++
             }
             arg = randomize.slice(start, i)
+            const block = arg[0] === '-'
+            if (block) {
+              arg = arg.slice(1)
+            }
             if (!arg.length) {
               throw new Error('Expected argument')
+            }
+            if (typeof(itemLocations) !== 'object') {
+              itemLocations = {}
             }
             if (arg !== '*' && !(arg in constants.ZONE)) {
               throw new Error('Unknown zone: ' + arg)
             }
             const zone = arg
-            if (typeof(itemLocations) !== 'object') {
-              itemLocations = {}
-            }
             if (randomize[i] !== ':') {
               throw new Error('Expected argument')
             }
@@ -1049,24 +1088,33 @@
             if (!arg.length) {
               throw new Error('Expected argument')
             }
-            const replace = items.filter(function(item) {
-              let name = item.name.replace(/[^a-zA-Z0-9]/g, '')
-              name = name.toLowerCase()
-              return name === arg.toLowerCase()
-            })[0]
-            if (!replace) {
-              throw new Error('Unknown item: ' + arg)
+            const replace = arg.split('-').map(function(arg) {
+              const item = items.filter(function(item) {
+                let name = item.name.replace(/[^a-zA-Z0-9]/g, '')
+                name = name.toLowerCase()
+                return name === arg.toLowerCase()
+              })[0]
+              if (!item) {
+                throw new Error('Unknown item: ' + arg)
+              }
+              return item
+            })
+            let locations = itemLocations
+            if (block) {
+              itemLocations.blocked = itemLocations.blocked || {}
+              locations = itemLocations.blocked
             }
-            const replaceName = replace.name
-            itemLocations[zone] = itemLocations[zone] || {}
-            let map = itemLocations[zone][itemName] || {}
-            map[index] = replaceName
-            itemLocations[zone][itemName] = map
+            locations[zone] = locations[zone] || {}
+            const map = locations[zone][itemName] || {}
+            map[index] = replace.map(function(item) {
+              return item.name
+            })
+            locations[zone][itemName] = map
             if (randomize[i] === ':') {
               i++
             }
-            args++
           }
+          args++
           if (randomize[i] === ',') {
             i++
           }
@@ -1104,6 +1152,10 @@
               i++
             }
             arg = randomize.slice(start, i)
+            const block = arg[0] === '-'
+            if (block) {
+              arg = arg.slice(1)
+            }
             if (!arg.length) {
               throw new Error('Expected argument')
             }
@@ -1120,8 +1172,7 @@
               i++
             }
             arg = randomize.slice(start, i)
-            let replaceName = ''
-            if (arg.length) {
+            const replaceNames = arg.split('-').map(function(arg) {
               const replace = items.filter(function(item) {
                 let name = item.name.replace(/[^a-zA-Z0-9]/g, '')
                 name = name.toLowerCase()
@@ -1130,12 +1181,17 @@
               if (!replace) {
                 throw new Error('Unknown item: ' + arg)
               }
-              replaceName = replace.name
-            }
+              return replace.name
+            })
             if (typeof(prologueRewards) !== 'object') {
               prologueRewards = {}
             }
-            prologueRewards[item] = replaceName
+            if (block) {
+              prologueRewards.blocked = prologueRewards.block || {}
+              prologueRewards.blocked[item] = replaceNames
+            } else {
+              prologueRewards[item] = replaceNames
+            }
             if (randomize[i] === ':') {
               i++
             }
@@ -1574,7 +1630,24 @@
           let opt = 'd'
           if (typeof(options.enemyDrops) === 'object') {
             const drops = options.enemyDrops
-            Object.getOwnPropertyNames(drops).forEach(function(enemyName) {
+            if (drops.blocked) {
+              Object.getOwnPropertyNames(drops.blocked).forEach(
+                function(enemyName) {
+                  if (enemyName === '*') {
+                    opt += ':-*'
+                  } else {
+                    opt += ':-' + enemyName.replace(/[^a-zA-Z0-9\-]/g, '')
+                  }
+                  opt += ':'
+                  opt += drops.blocked[enemyName].map(function(name) {
+                    return name.replace(/[^a-zA-Z0-9]/g, '')
+                  }).join('-')
+                }
+              )
+            }
+            Object.getOwnPropertyNames(drops).filter(function(enemyName) {
+              return enemyName !== 'blocked'
+            }).forEach(function(enemyName) {
               if (enemyName === '*') {
                 opt += ':*'
               } else {
@@ -1598,53 +1671,143 @@
           let opt = 'e'
           const eq = options.startingEquipment
           if (typeof(eq) === 'object') {
+            if (eq.blocked) {
+              if ('r' in eq.blocked) {
+                opt += ':-r:'
+                if (eq.blocked.r) {
+                  opt += eq.blocked.r.map(function(name) {
+                    return name.replace(/[^a-zA-Z0-9]/g, '')
+                  }).join('-')
+                }
+              }
+              if ('l' in eq.blocked) {
+                opt += ':-l:'
+                if (eq.blocked.l) {
+                  opt += eq.blocked.l.map(function(name) {
+                    return name.replace(/[^a-zA-Z0-9]/g, '')
+                  }).join('-')
+                }
+              }
+              if ('h' in eq.blocked) {
+                opt += ':-h:'
+                if (eq.blocked.h) {
+                  opt += eq.blocked.h.map(function(name) {
+                    return name.replace(/[^a-zA-Z0-9]/g, '')
+                  }).join('-')
+                }
+              }
+              if ('b' in eq.blocked) {
+                opt += ':-b:'
+                if (eq.blocked.b) {
+                  opt += eq.blocked.b.map(function(name) {
+                    return name.replace(/[^a-zA-Z0-9]/g, '')
+                  }).join('-')
+                }
+              }
+              if ('c' in eq.blocked) {
+                opt += ':-c:'
+                if (eq.blocked.c) {
+                  opt += eq.blocked.c.map(function(name) {
+                    return name.replace(/[^a-zA-Z0-9]/g, '')
+                  }).join('-')
+                }
+              }
+              if ('o' in eq.blocked) {
+                opt += ':-o:'
+                if (eq.blocked.o) {
+                  opt += eq.blocked.o.map(function(name) {
+                    return name.replace(/[^a-zA-Z0-9]/g, '')
+                  }).join('-')
+                }
+              }
+              if ('a' in eq.blocked) {
+                opt += ':-a:'
+                if (eq.blocked.a) {
+                  opt += eq.blocked.a.map(function(name) {
+                    return name.replace(/[^a-zA-Z0-9]/g, '')
+                  }).join('-')
+                }
+              }
+              if ('x' in eq.blocked) {
+                opt += ':-x:'
+                if (eq.blocked.x) {
+                  opt += eq.blocked.x.map(function(name) {
+                    return name.replace(/[^a-zA-Z0-9]/g, '')
+                  }).join('-')
+                }
+              }
+            }
             if ('r' in eq) {
               opt += ':r:'
-              if (eq.r) {
-                opt += eq.r.replace(/[^a-zA-Z0-9]/g, '')
-              }
+              opt += eq.r.map(function(name) {
+                if (name) {
+                  return name.replace(/[^a-zA-Z0-9]/g, '')
+                }
+                return ''
+              }).join('-')
             }
             if ('l' in eq) {
               opt += ':l:'
-              if (eq.r) {
-                opt += eq.l.replace(/[^a-zA-Z0-9]/g, '')
-              }
+              opt += eq.l.map(function(name) {
+                if (name) {
+                  return name.replace(/[^a-zA-Z0-9]/g, '')
+                }
+                return ''
+              }).join('-')
             }
             if ('h' in eq) {
               opt += ':h:'
-              if (eq.h) {
-                opt += eq.h.replace(/[^a-zA-Z0-9]/g, '')
-              }
+              opt += eq.h.map(function(name) {
+                if (name) {
+                  return name.replace(/[^a-zA-Z0-9]/g, '')
+                }
+                return ''
+              }).join('-')
             }
             if ('b' in eq) {
               opt += ':b:'
-              if (eq.b) {
-                opt += eq.b.replace(/[^a-zA-Z0-9]/g, '')
-              }
+              opt += eq.b.map(function(name) {
+                if (name) {
+                  return name.replace(/[^a-zA-Z0-9]/g, '')
+                }
+                return ''
+              }).join('-')
             }
             if ('c' in eq) {
               opt += ':c:'
-              if (eq.c) {
-                opt += eq.c.replace(/[^a-zA-Z0-9]/g, '')
-              }
+              opt += eq.c.map(function(name) {
+                if (name) {
+                  return name.replace(/[^a-zA-Z0-9]/g, '')
+                }
+                return ''
+              }).join('-')
             }
             if ('o' in eq) {
               opt += ':o:'
-              if (eq.o) {
-                opt += eq.o.replace(/[^a-zA-Z0-9]/g, '')
-              }
+              opt += eq.o.map(function(name) {
+                if (name) {
+                  return name.replace(/[^a-zA-Z0-9]/g, '')
+                }
+                return ''
+              }).join('-')
             }
             if ('a' in eq) {
               opt += ':a:'
-              if (eq.a) {
-                opt += eq.a.replace(/[^a-zA-Z0-9]/g, '')
-              }
+              opt += eq.a.map(function(name) {
+                if (name) {
+                  return name.replace(/[^a-zA-Z0-9]/g, '')
+                }
+                return ''
+              }).join('-')
             }
             if ('x' in eq) {
               opt += ':x:'
-              if (eq.x) {
-                opt += eq.x.replace(/[^a-zA-Z0-9]/g, '')
-              }
+              opt += eq.x.map(function(name) {
+                if (name) {
+                  return name.replace(/[^a-zA-Z0-9]/g, '')
+                }
+                return ''
+              }).join('-')
             }
           }
           randomize.push(opt)
@@ -1654,6 +1817,34 @@
         if (options.itemLocations) {
           let opt = 'i'
           if (typeof(options.itemLocations) === 'object') {
+            if (options.itemLocations.blocked) {
+              const zoneNames = Object.getOwnPropertyNames(constants.ZONE)
+              const zones = ['*'].concat(zoneNames)
+              zones.forEach(function(zone) {
+                if (zone in options.itemLocations.blocked) {
+                  const items = options.itemLocations.blocked[zone]
+                  Object.getOwnPropertyNames(items).forEach(
+                    function(itemName) {
+                      const map = items[itemName]
+                      if (itemName !== '*') {
+                        itemName = itemName.replace(/[^a-zA-Z0-9]/g, '')
+                      }
+                      const indexes = Object.getOwnPropertyNames(map)
+                      indexes.forEach(function(index) {
+                        index = parseInt(index)
+                        const replaceNames = map[index]
+                        opt += ':-' + zone
+                          + ':' + itemName
+                          + (index > 0 ? '-' + (index + 1) : '')
+                          + ':' + replaceNames.map(function(name) {
+                            return name.replace(/[^a-zA-Z0-9]/g, '')
+                          }).join('-')
+                      })
+                    }
+                  )
+                }
+              })
+            }
             const zoneNames = Object.getOwnPropertyNames(constants.ZONE)
             const zones = ['*'].concat(zoneNames)
             zones.forEach(function(zone) {
@@ -1667,11 +1858,13 @@
                   const indexes = Object.getOwnPropertyNames(map)
                   indexes.forEach(function(index) {
                     index = parseInt(index)
-                    const replaceName = map[index]
+                    const replaceNames = map[index]
                     opt += ':' + zone
                       + ':' + itemName
                       + (index > 0 ? '-' + (index + 1) : '')
-                      + ':' + replaceName.replace(/[^a-zA-Z0-9]/g, '')
+                      + ':' + replaceNames.map(function(name) {
+                        return name.replace(/[^a-zA-Z0-9]/g, '')
+                      }).join('-')
                   })
                 })
               }
@@ -1685,15 +1878,30 @@
           let opt = 'b'
           if (typeof(options.prologueRewards) === 'object') {
             const rewards = ['h', 'n', 'p']
+            if (options.prologueRewards.blocked) {
+              rewards.forEach(function(reward) {
+                if (reward in options.prologueRewards.blocked) {
+                  opt += ':-' + reward
+                  options.prologueRewards.blocked[reward].forEach(
+                    function(itemName) {
+                      opt += ':'
+                      if (itemName) {
+                        opt += itemName.replace(/[^a-zA-Z0-9]/g, '')
+                      }
+                    }
+                  )
+                }
+              })
+            }
             rewards.forEach(function(reward) {
               if (reward in options.prologueRewards) {
                 opt += ':' + reward
-                if (options.prologueRewards[reward]) {
-                  const itemName = options.prologueRewards[reward]
-                  opt += ':' + itemName.replace(/[^a-zA-Z0-9]/g, '')
-                } else {
+                options.prologueRewards[reward].forEach(function(itemName) {
                   opt += ':'
-                }
+                  if (itemName) {
+                    opt += itemName.replace(/[^a-zA-Z0-9]/g, '')
+                  }
+                })
               }
             })
           }
@@ -2820,6 +3028,9 @@
         throw new Error('unsupported itemLocations type')
       }
     }
+    if ('blockItems' in json) {
+      builder.blockItems(json.blockItems)
+    }
     if ('enemyDrops' in json) {
       if (typeof(json.enemyDrops) === 'boolean') {
         builder.enemyDrops(json.enemyDrops)
@@ -2836,6 +3047,16 @@
         throw new Error('unsupported enemyDrops type')
       }
     }
+    if ('blockDrops' in json) {
+      json.enemyDrops.forEach(function(enemyDrop) {
+        const args = [enemyDrop.enemy]
+        if ('level' in enemyDrop) {
+          args.push(enemyDrop.level)
+        }
+        Array.prototype.push.apply(args, enemyDrop.items)
+        builder.blockDrops.apply(builder, args)
+      })
+    }
     if ('prologueRewards' in json) {
       if (typeof(json.prologueRewards) === 'boolean') {
         builder.prologueRewards(json.prologueRewards)
@@ -2849,6 +3070,14 @@
       } else {
         throw new Error('unsupported prologueRewards type')
       }
+    }
+    if ('blockRewards' in json) {
+      json.blockRewards.forEach(function(blockedReward) {
+        builder.prologueRewards(
+          blockedReward.item,
+          blockedReward.replacement,
+        )
+      })
     }
     if ('startingEquipment' in json) {
       if (typeof(json.startingEquipment) === 'boolean') {
@@ -2864,6 +3093,15 @@
       } else {
         throw new Error('unsupported startingEquipment type')
       }
+    }
+    if ('blockEquipment' in json) {
+      json.startingEquipment.forEach(function(blockedEquipment) {
+        const key = blockedEquipment.slot.toUpperCase().replace(' ', '_')
+        builder.blockEquipment(
+          constants.SLOT[key],
+          blockEquipment.item,
+        )
+      })
     }
     if ('relicLocations' in json) {
       builder.relicLocations(json.relicLocations)
@@ -3031,8 +3269,31 @@
       if (typeof(preset.enemyDrops) === 'object') {
         const self = this
         self.drops = new Map()
+        if ('blocked' in preset.enemyDrops) {
+          self.drops.blocked = new Map()
+          const ids = Object.getOwnPropertyNames(preset.enemyDrops)
+          ids.forEach(function(id) {
+            let enemy
+            if (id === '*') {
+              enemy = '*'
+            } else if (id === constants.GLOBAL_DROP) {
+              enemy = id
+            } else {
+              enemy = enemyFromIdString(id)
+            }
+            const dropNames = preset.enemyDrops.blocked[id]
+            const drops = dropNames.map(function(name) {
+              return items.filter(function(item) {
+                return item.name === name
+              }).pop()
+            })
+            self.drops.blocked.set(enemy, drops)
+          })
+        }
         const ids = Object.getOwnPropertyNames(preset.enemyDrops)
-        ids.forEach(function(id) {
+        ids.filter(function(id) {
+          return id !== 'blocked'
+        }).forEach(function(id) {
           let enemy
           if (id === '*') {
             enemy = '*'
@@ -3057,14 +3318,54 @@
       if (typeof(preset.startingEquipment) === 'object') {
         const self = this
         self.equipment = {}
+        if (preset.startingEquipment.blocked) {
+          self.equipment.blocked = {}
+          const slots = Object.getOwnPropertyNames(
+            preset.startingEquipment.blocked
+          )
+          slots.forEach(function(slot) {
+            self.equipment.blocked[slot] = items.filter(function(item) {
+              return item.name === preset.startingEquipment.blocked[slot]
+            }).pop()
+          })
+        }
         const slots = Object.getOwnPropertyNames(preset.startingEquipment)
-        slots.forEach(function(slot) {
+        slots.filter(function(slot) {
+          return slot !== 'blocked'
+        }).forEach(function(slot) {
           self.equipment[slot] = items.filter(function(item) {
             return item.name === preset.startingEquipment[slot]
           }).pop()
         })
       } else {
         this.equipment = preset.startingEquipment
+      }
+    }
+    if ('prologueRewards' in preset) {
+      if (typeof(preset.prologueRewards) === 'object') {
+        const self = this
+        self.rewards = {}
+        if (preset.prologueRewards.blocked) {
+          self.rewards.blocked = {}
+          const rewards = Object.getOwnPropertyNames(
+            preset.prologueRewards.blocked
+          )
+          rewards.forEach(function(reward) {
+            self.rewards.blocked[reward] = items.filter(function(item) {
+              return item.name === preset.prologueRewards.blocked[reward]
+            }).pop()
+          })
+        }
+        const rewards = Object.getOwnPropertyNames(preset.prologueRewards)
+        rewards.filter(function(reward) {
+          return reward !== 'blocked'
+        }).forEach(function(reward) {
+          self.rewards[reward] = items.filter(function(item) {
+            return item.name === preset.prologueRewards[reward]
+          }).pop()
+        })
+      } else {
+        this.rewards = preset.prologueRewards
       }
     }
     if ('itemLocations' in preset) {
@@ -3098,20 +3399,6 @@
         })
       } else {
         this.items = preset.itemLocations
-      }
-    }
-    if ('prologueRewards' in preset) {
-      if (typeof(preset.prologueRewards) === 'object') {
-        const self = this
-        self.rewards = {}
-        const rewards = Object.getOwnPropertyNames(preset.prologueRewards)
-        rewards.forEach(function(reward) {
-          self.rewards[reward] = items.filter(function(item) {
-            return item.name === preset.prologueRewards[reward]
-          }).pop()
-        })
-      } else {
-        this.rewards = preset.prologueRewards
       }
     }
     if ('relicLocations' in preset) {
@@ -3202,6 +3489,8 @@
         let enemy
         if (enemyName === constants.GLOBAL_DROP) {
           enemy = enemyName
+        } else if (enemyName === 'Librarian') {
+          enemy = 'Librarian'
         } else {
           if (typeof(level) !== 'number') {
             rareDropName = commonDropName
@@ -3224,7 +3513,7 @@
             assert(enemy, 'Unknown enemy: ' + enemyName)
           }
         }
-        dropNames = args.slice(1)
+        const dropNames = args.slice(1)
         const drops = dropNames.map(function(dropName) {
           if (dropName) {
             const item = items.filter(function(item) {
@@ -3238,8 +3527,57 @@
       }
     }
 
+  PresetBuilder.prototype.blockDrop =
+    function blockDrops(enemyName, level, drops) {
+      enemyName = getEnemyAlias.call(this, enemyName)
+      if (!Array.isArray(drops)) {
+        drops = [drops]
+      }
+      drops = drops.map(function(drop) {
+        getItemAlias.call(this, drop)
+      })
+      if (typeof(this.drops) !== 'object') {
+        this.drops = new Map()
+      }
+      this.drops.blocked = this.drops.blocked || new Map()
+      let enemy
+      if (enemyName === constants.GLOBAL_DROP) {
+        enemy = enemyName
+      } else if (enemyName === 'Librarian') {
+        enemy = 'Librarian'
+      } else {
+        if (typeof(level) !== 'number') {
+          drops = level
+          level = undefined
+        }
+        if (enemyName === '*') {
+          enemy = '*'
+        } else {
+          enemy = enemies.filter(function(enemy) {
+            if (enemy.name === enemyName) {
+              if (typeof(level) !== 'undefined') {
+                return enemy.level === level
+              }
+              return true
+            }
+          }).pop()
+          assert(enemy, 'Unknown enemy: ' + enemyName)
+        }
+      }
+      drops = drops.map(function(dropName) {
+        if (dropName) {
+          const item = items.filter(function(item) {
+            return item.name === dropName
+          }).pop()
+          assert(item, 'Unknown item: ' + dropName)
+          return item
+        }
+      })
+      this.drops.blocked.set(enemy, drops)
+    }
+
   PresetBuilder.prototype.startingEquipment =
-    function startingEquipment(slot, itemName) {
+    function startingEquipment(slot, itemNames) {
       assert.oneOf(slot, [
         true,
         false,
@@ -3255,10 +3593,120 @@
       if (typeof(slot) === 'boolean') {
         this.equipment = slot
       } else {
-        itemName = getItemAlias.call(this, itemName)
+        if (!Array.isArray(itemNames)) {
+          itemNames = [itemNames]
+        }
+        const self = this
+        itemNames = itemNames.map(function(name) {
+          getItemAlias.call(self, name)
+        })
         if (typeof(this.equipment) !== 'object') {
           this.equipment = {}
         }
+        this.equipment[slot] = this.equipment[slot] || []
+        itemNames.forEach(function(itemName) {
+          let item
+          if (itemName) {
+            item = items.filter(function(item) {
+              return item.name === itemName
+            }).pop()
+            assert(item, 'Unknown item: ' + itemName)
+            switch (slot) {
+            case constants.SLOT.RIGHT_HAND:
+              assert.oneOf(item.type, [
+                constants.TYPE.WEAPON1,
+                constants.TYPE.WEAPON2,
+                constants.TYPE.SHIELD,
+                constants.TYPE.USABLE,
+              ])
+              if (self.equipment[constants.SLOT.LEFT_HAND]) {
+                self.equipment[constants.SLOT.LEFT_HAND].forEach(
+                  function(eq) {
+                    assert.notEqual(
+                      eq.type,
+                      constants.TYPE.WEAPON2,
+                      'Cannot equipment ' + eq.name + ' and ' + item.name
+                    )
+                  }
+                )
+              }
+              break
+            case constants.SLOT.LEFT_HAND:
+              assert.oneOf(item.type, [
+                constants.TYPE.WEAPON1,
+                constants.TYPE.SHIELD,
+                constants.TYPE.USABLE,
+              ])
+              if (self.equipment[constants.SLOT.RIGHT_HAND]) {
+                self.equipment[constants.SLOT.RIGHT_HAND].forEach(
+                  function(eq) {
+                    assert.notEqual(
+                      eq.type,
+                      constants.TYPE.WEAPON2,
+                      'Cannot equipment ' + eq.name + ' and ' + item.name
+                    )
+                  }
+                )
+              }
+              break
+            case constants.SLOT.HEAD:
+              assert.equal(item.type, constants.TYPE.HELMET,
+                           'Cannot equip ' + item.name + ' on head')
+              break
+            case constants.SLOT.BODY:
+              assert.equal(item.type, constants.TYPE.ARMOR,
+                           'Cannot equip ' + item.name + ' on body')
+              break
+            case constants.SLOT.CLOAK:
+              assert.equal(item.type, constants.TYPE.CLOAK,
+                           'Cannot equip ' + item.name + ' as cloak')
+              break
+            case constants.SLOT.OTHER:
+              assert.equal(item.type, constants.TYPE.ACCESSORY,
+                           'Cannot equip ' + item.name + ' as other')
+              break
+            case constants.SLOT.AXEARMOR:
+              assert.equal(item.type, constants.TYPE.ARMOR,
+                           'Cannot equip ' + item.name + ' as armor')
+              break
+            case constants.SLOT.LUCK_MODE:
+              assert.equal(item.type, constants.TYPE.ACCESSORY,
+                           'Cannot equip ' + item.name + ' as other')
+              break
+            }
+          }
+          self.equipment[slot].push(item)
+        })
+      }
+    }
+
+  PresetBuilder.prototype.blockEquipment =
+    function blockEquipment(slot, itemNames) {
+      assert.oneOf(slot, [
+        true,
+        false,
+        constants.SLOT.RIGHT_HAND,
+        constants.SLOT.LEFT_HAND,
+        constants.SLOT.HEAD,
+        constants.SLOT.BODY,
+        constants.SLOT.CLOAK,
+        constants.SLOT.OTHER,
+        constants.SLOT.AXEARMOR,
+        constants.SLOT.LUCK_MODE,
+      ])
+      if (!Array.isArray(itemNames)) {
+        itemNames = [itemNames]
+      }
+      const self = this
+      itemNames = itemNames.map(function(name) {
+        getItemAlias.call(self, name)
+      })
+      if (typeof(this.equipment) !== 'object') {
+        this.equipment = {}
+      }
+      this.equipment.blocked = this.equipment.blocked || {}
+      this.equipment.blocked[slot] = this.equipment.blocked[slot] || []
+      itemNames.forEach(function(itemName) {
         let item
         if (itemName) {
           item = items.filter(function(item) {
@@ -3273,13 +3721,15 @@
               constants.TYPE.SHIELD,
               constants.TYPE.USABLE,
             ])
-            if (this.equipment[constants.SLOT.LEFT_HAND]) {
-              assert.notEqual(
-                this.equipment[constants.SLOT.LEFT_HAND].type,
-                constants.TYPE.WEAPON2,
-                'Cannot equipment '
-                  + this.equipment[constants.SLOT.LEFT_HAND].name
-                  + ' and ' + item.name
+            if (self.equipment[constants.SLOT.LEFT_HAND]) {
+              self.equipment[constants.SLOT.LEFT_HAND].forEach(
+                function(eq) {
+                  assert.notEqual(
+                    eq.type,
+                    constants.TYPE.WEAPON2,
+                    'Cannot equipment ' + eq.name + ' and ' + item.name
+                  )
+                }
               )
             }
             break
@@ -3289,57 +3739,65 @@
               constants.TYPE.SHIELD,
               constants.TYPE.USABLE,
             ])
-            if (this.equipment[constants.SLOT.RIGHT_HAND]) {
-              assert.notEqual(
-                this.equipment[constants.SLOT.RIGHT_HAND].type,
-                constants.TYPE.WEAPON2,
-                'Cannot equipment '
-                  + this.equipment[constants.SLOT.RIGHT_HAND].name
-                  + ' and ' + item.name
+            if (self.equipment[constants.SLOT.RIGHT_HAND]) {
+              self.equipment[constants.SLOT.RIGHT_HAND].forEach(
+                function(eq) {
+                  assert.notEqual(
+                    eq.type,
+                    constants.TYPE.WEAPON2,
+                    'Cannot equipment ' + eq.name + ' and ' + item.name
+                  )
+                }
               )
             }
             break
           case constants.SLOT.HEAD:
             assert.equal(item.type, constants.TYPE.HELMET,
-                        'Cannot equip ' + item.name + ' on head')
+                         'Cannot equip ' + item.name + ' on head')
             break
           case constants.SLOT.BODY:
             assert.equal(item.type, constants.TYPE.ARMOR,
-                        'Cannot equip ' + item.name + ' on body')
+                         'Cannot equip ' + item.name + ' on body')
             break
           case constants.SLOT.CLOAK:
             assert.equal(item.type, constants.TYPE.CLOAK,
-                        'Cannot equip ' + item.name + ' as cloak')
+                         'Cannot equip ' + item.name + ' as cloak')
             break
           case constants.SLOT.OTHER:
             assert.equal(item.type, constants.TYPE.ACCESSORY,
-                        'Cannot equip ' + item.name + ' as other')
+                         'Cannot equip ' + item.name + ' as other')
             break
           case constants.SLOT.AXEARMOR:
             assert.equal(item.type, constants.TYPE.ARMOR,
-                        'Cannot equip ' + item.name + ' as armor')
+                         'Cannot equip ' + item.name + ' as armor')
             break
           case constants.SLOT.LUCK_MODE:
             assert.equal(item.type, constants.TYPE.ACCESSORY,
-                        'Cannot equip ' + item.name + ' as other')
+                         'Cannot equip ' + item.name + ' as other')
             break
           }
         }
-        this.equipment[slot] = item
-      }
+        self.equipment.blocked[slot].push(item)
+      })
     }
 
   PresetBuilder.prototype.itemLocations =
-    function itemLocations(zoneId, itemName, number, replaceName) {
+    function itemLocations(zoneId, itemName, number, replaceNames) {
       if (typeof(zoneId) === 'boolean') {
         this.items = zoneId
       } else {
         if (typeof(number) === 'string') {
-          replaceName = number
+          replaceNames = number
           number = 1
         }
+        if (typeof(replaceNames) === 'string') {
+          replaceNames = [replaceNames]
+        }
         itemName = getItemAlias.call(this, itemName)
-        replaceName = getItemAlias.call(this, replaceName)
+        const self = this
+        replaceNames = replaceNames.map(function(name) {
+          return getItemAlias.call(self, name)
+        })
         assert(typeof(number) === 'number', 'Unknown item number: ' + number)
         const index = number - 1
         const zones = ['*'].concat(constants.zoneNames.map(function(zoneName) {
@@ -3365,42 +3823,149 @@
           })
           assert(tiles[index], 'Unknown item tile: ' + itemName + ' ' + number)
         }
-        const replace = items.filter(function(item) {
-          return item.name === replaceName
-        })[0]
-        assert(replace, 'Unknown item: ' + replaceName)
         if (typeof(this.items) !== 'object') {
           this.items = {}
         }
         this.items[zoneName] = this.items[zoneName] || new Map()
         const map = this.items[zoneName].get(item) || {}
-        map[number - 1] = replace
+        map[number - 1] = map[number - 1] || []
+        replaceNames.forEach(function(replaceName) {
+          const replace = items.filter(function(item) {
+            return item.name === replaceName
+          })[0]
+          assert(replace, 'Unknown item: ' + replaceName)
+          map[number - 1].push(replace)
+        })
         this.items[zoneName].set(item, map)
       }
     }
 
+  // Block an item from a tile.
+  PresetBuilder.prototype.blockItem =
+    function blockItem(zoneId, itemName, number, replaceNames) {
+      if (typeof(number) === 'string') {
+        replaceNames = number
+        number = 1
+      }
+      if (typeof(replaceNames) === 'string') {
+        replaceNames = [replaceNames]
+      }
+      itemName = getItemAlias.call(this, itemName)
+      const self = this
+      replaceNames = replaceNames.map(function(name) {
+        return getItemAlias.call(self, name)
+      })
+      assert(typeof(number) === 'number', 'Unknown item number: ' + number)
+      const index = number - 1
+      const zones = ['*'].concat(constants.zoneNames.map(function(zoneName) {
+        return constants.ZONE[zoneName]
+      }))
+      assert.oneOf(zoneId, zones, 'Unknown zone: ' + zoneId)
+      let zoneName
+      if (zoneId === '*') {
+        zoneName = '*'
+      } else {
+        zoneName = constants.zoneNames[zoneId]
+      }
+      let item
+      if (itemName === '*') {
+        item = '*'
+      } else {
+        item = items.filter(function(item) {
+          return item.name === itemName
+        })[0]
+        assert(item, 'Unknown item: ' + itemName)
+        const tiles = (item.tiles || []).filter(function(tile) {
+          return 'zones' in tile && tile.zones.indexOf(zoneId) !== -1
+        })
+        assert(tiles[index], 'Unknown item tile: ' + itemName + ' ' + number)
+      }
+      if (typeof(this.items) !== 'object') {
+        this.items = {}
+      }
+      this.items.blocked = this.items.blocked || {}
+      this.items.blocked[zoneName] = this.items.blocked[zoneName] || new Map()
+      const map = this.items.blocked[zoneName].get(item) || {}
+      map[number - 1] = map[number - 1] || []
+      replaceNames.forEach(function(replaceName) {
+        const replace = items.filter(function(item) {
+          return item.name === replaceName
+        })[0]
+        assert(replace, 'Unknown item: ' + replaceName)
+        map[number - 1].push(replace)
+      })
+      this.items.blocked[zoneName].set(item, map)
+    }
+
+  const rewardsMap = {
+    'Heart Refresh': 'h',
+    'Neutron bomb': 'n',
+    'Potion': 'p',
+  }
+
   PresetBuilder.prototype.prologueRewards =
-    function prologueRewards(itemName, replaceName) {
+    function prologueRewards(itemName, replaceNames) {
       if (typeof(itemName) === 'boolean') {
         this.rewards = itemName
       } else {
         itemName = getItemAlias.call(this, itemName)
-        replaceName = getItemAlias.call(this, replaceName)
-        const map = {
-          'Heart Refresh': 'h',
-          'Neutron bomb': 'n',
-          'Potion': 'p',
+        if (!Array.isArray(replaceNames)) {
+          replaceNames = [replaceNames]
         }
-        assert.oneOf(itemName, Object.getOwnPropertyNames(map),
-                    'Unknown reward item: ' + itemName)
-        const replace = items.filter(function(item) {
-          return item.name === replaceName
-        })[0]
+        const self = this
+        replaceNames = replaceNames.map(function(name) {
+          return getItemAlias.call(self, name)
+        })
+        assert.oneOf(itemName, Object.getOwnPropertyNames(rewardsMap),
+                     'Unknown reward item: ' + itemName)
         if (typeof(this.rewards) !== 'object') {
           this.rewards = {}
         }
-        this.rewards[map[itemName]] = replace
+        this.rewards[rewardsMap[itemName]] =
+          this.rewards[rewardsMap[itemName]] || []
+        replaceNames.forEach(function(replaceName) {
+          const replace = items.filter(function(item) {
+            return item.name === replaceName
+          })[0]
+          self.rewards[rewardsMap[itemName]].push(replace)
+        })
       }
+    }
+
+  // Block an item from being a reward.
+  PresetBuilder.prototype.blockReward =
+    function blockReward(itemName, blocked) {
+      assert.equal(typeof(itemName), 'string')
+      if (Array.isArray(blocked)) {
+        blocked.forEach(function(itemName) {
+          if (itemName) {
+            assert.equal(typeof(itemName), 'string')
+          }
+        })
+      } else if (blocked) {
+        assert.equal(typeof(blocked), 'string')
+      }
+      if (!Array.isArray(blocked)) {
+        blocked = [blocked]
+      }
+      const self = this
+      blocked = blocked.map(function(name) {
+        return getItemAlias.call(self, name)
+      })
+      assert.oneOf(itemName, Object.getOwnPropertyNames(rewardsMap),
+                   'Unknown reward item: ' + itemName)
+      if (typeof(this.rewards) !== 'object') {
+        this.rewards = {}
+      }
+      this.rewards.blocked = this.rewards.blocked || {}
+      this.rewards.blocked[rewardsMap[itemName]] =
+        this.rewards.blocked[rewardsMap[itemName]] || []
+      replaceNames.forEach(function(replaceName) {
+        const replace = items.filter(function(item) {
+          return item.name === replaceName
+        })[0]
+        self.rewards.blocked[rewardsMap[itemName]].push(replace)
+      })
     }
 
   // Lock relic location behind abilities.
@@ -3620,6 +4185,32 @@
     let drops = self.drops
     if (typeof(drops) === 'object') {
       drops = {}
+      if (self.drops.blocked) {
+        drops.blocked = {}
+        Array.from(self.drops.blocked.keys()).forEach(function(enemy) {
+          let enemyName
+          if (enemy === '*') {
+            enemyName = '*'
+          } else if (enemy === constants.GLOBAL_DROP) {
+            enemyName = enemy
+          } else if (enemy === 'Librarian') {
+            enemyname = enemy
+          } else {
+            enemyName = enemy.name
+            const amb = enemies.filter(function(enemy) {
+              return enemy.name === enemyName
+            })
+            enemyName = enemyName.replace(/\s+/g, '')
+            if (amb.length > 1 && enemy !== amb[0]) {
+              enemyName += '-' + enemy.level
+            }
+          }
+          drops.blocked[enemyName] =
+            self.drops.blocked.get(enemy).slice().map(function(item) {
+              return item ? item.name : undefined
+            })
+        })
+      }
       Array.from(self.drops.keys()).forEach(function(enemy) {
         let enemyName
         if (enemy === '*') {
@@ -3644,20 +4235,83 @@
     let equipment = self.equipment
     if (typeof(equipment) === 'object') {
       equipment = {}
-      Object.getOwnPropertyNames(self.equipment).forEach(function(slot) {
-        const item = self.equipment[slot]
-        if (item) {
-          const itemName = item.name
-          equipment[slot] = itemName
-        } else {
-          equipment[slot] = undefined
-        }
+      if (self.equipment.blocked) {
+        equipment.blocked = {}
+        Object.getOwnPropertyNames(self.equipment.blocked).forEach(
+          function(slot) {
+            equipment.blocked[slot] = self.equipment.blocked[slot].map(
+              function(item) {
+                return item.name
+              }
+            )
+          }
+        )
+      }
+      Object.getOwnPropertyNames(self.equipment).filter(function(slot) {
+        return slot !== 'blocked'
+      }).forEach(function(slot) {
+        equipment[slot] = self.equipment[slot].map(function(item) {
+          if (item) {
+            return item.name
+          }
+        })
+      })
+    }
+    let rewards = self.rewards
+    if (typeof(rewards) === 'object') {
+      rewards = {}
+      if (self.rewards.blocked) {
+        self.rewards.blocked = {}
+        Object.getOwnPropertyNames(self.rewards.blocked).forEach(
+          function(reward) {
+            rewards.blocked[reward] = self.rewards.blocked[reward].map(
+              function(item) {
+                return item.name
+              }
+            )
+          }
+        )
+      }
+      Object.getOwnPropertyNames(self.rewards).filter(function(reward) {
+        return reward !== 'blocked'
+      }).forEach(function(reward) {
+        rewards[reward] = self.rewards[reward].map(function(item) {
+          if (item) {
+            return item.name
+          }
+        })
       })
     }
     let items = self.items
     if (typeof(items) === 'object') {
       items = {}
-      Object.getOwnPropertyNames(self.items).forEach(function(zone) {
+      if (self.items.blocked) {
+        self.items.blocked = {}
+        Object.getOwnPropertyNames(self.items.blocked).forEach(function(zone) {
+          items.blocked[zone] = {}
+          Array.from(self.items.blocked[zone].keys()).forEach(function(item) {
+            const indexes = self.items.blocked[zone].get(item)
+            let itemName
+            if (item === '*') {
+              itemName = '*'
+            } else {
+              itemName = item.name
+            }
+            items.blocked[zone][itemName] = {}
+            Object.getOwnPropertyNames(indexes).forEach(function(index) {
+              const replace = self.items.blocked[zone].get(item)[index]
+              items.blocked[zone][itemName][index] = replace.map(
+                function(item) {
+                  return item.name
+                }
+              )
+            })
+          })
+        })
+      }
+      Object.getOwnPropertyNames(self.items).filter(function(zone) {
+        return zone !== 'blocked'
+      }).forEach(function(zone) {
         items[zone] = {}
         Array.from(self.items[zone].keys()).forEach(function(item) {
           const indexes = self.items[zone].get(item)
@@ -3670,23 +4324,11 @@
           items[zone][itemName] = {}
           Object.getOwnPropertyNames(indexes).forEach(function(index) {
             const replace = self.items[zone].get(item)[index]
-            const replaceName = replace.name
-            items[zone][itemName][index] = replaceName
+            items[zone][itemName][index] = replace.map(function(item) {
+              return item.name
+            })
           })
         })
-      })
-    }
-    let rewards = self.rewards
-    if (typeof(rewards) === 'object') {
-      rewards = {}
-      Object.getOwnPropertyNames(self.rewards).forEach(function(reward) {
-        const item = self.rewards[reward]
-        if (item) {
-          const itemName = item.name
-          rewards[reward] = itemName
-        } else {
-          rewards[reward] = undefined
-        }
       })
     }
     let relicLocations = self.locations

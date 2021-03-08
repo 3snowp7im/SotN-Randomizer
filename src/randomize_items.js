@@ -14,8 +14,6 @@
     util = require('./util')
   }
 
-  const MAX_RETRIES = 64
-
   const TYPE = constants.TYPE
   const typeNames = constants.typeNames
   const ZONE = constants.ZONE
@@ -234,6 +232,7 @@
     data,
     rng,
     items,
+    blocked,
     newNames,
     info,
     planned,
@@ -243,34 +242,70 @@
     planned = planned || {}
     let weapon, shield, helmet, armor, cloak, other
     if ('r' in planned) {
-      weapon = util.itemFromName(planned.r)
+      weapon = util.itemFromName(randItem(rng, planned.r))
     } else {
-      weapon = randItem(rng, pool.filter(typeFilter([TYPE.WEAPON1])))
+      weapon = randItem(rng, pool.filter(typeFilter([TYPE.WEAPON1])).filter(
+        function(item) {
+          if (blocked && blocked.r) {
+            return blocked.r.indexOf(item.name) === -1
+          }
+        }
+      ))
     }
     if ('l' in planned) {
-      shield = util.itemFromName(planned.l)
+      shield = util.itemFromName(randItem(rng, planned.l))
     } else if (!planned.r || planned.r.type !== TYPE.WEAPON2) {
-      shield = randItem(rng, pool.filter(shieldFilter))
+      shield = randItem(rng, pool.filter(shieldFilter).filter(
+        function(item) {
+          if (blocked && blocked.l) {
+            return blocked.l.indexOf(item.name) === -1
+          }
+        }
+      ))
     }
     if ('b' in planned) {
-      armor = util.itemFromName(planned.b)
+      armor = util.itemFromName(randItem(rng, planned.b))
     } else {
-      armor = randItem(rng, pool.filter(armorFilter))
+      armor = randItem(rng, pool.filter(armorFilter).filter(
+        function(item) {
+          if (blocked && blocked.b) {
+            return blocked.b.indexOf(item.name) === -1
+          }
+        }
+      ))
     }
     if ('h' in planned) {
-      helmet = util.itemFromName(planned.h)
+      helmet = util.itemFromName(randItem(rng, planned.h))
     } else {
-      helmet = randItem(rng, pool.filter(helmetFilter))
+      helmet = randItem(rng, pool.filter(helmetFilter).filter(
+        function(item) {
+          if (blocked && blocked.h) {
+            return blocked.h.indexOf(item.name) === -1
+          }
+        }
+      ))
     }
     if ('c' in planned) {
-      cloak = util.itemFromName(planned.c)
+      cloak = util.itemFromName(randItem(rng, planned.c))
     } else {
-      cloak = randItem(rng, pool.filter(cloakFilter))
+      cloak = randItem(rng, pool.filter(cloakFilter).filter(
+        function(item) {
+          if (blocked && blocked.c) {
+            return blocked.c.indexOf(item.name) === -1
+          }
+        }
+      ))
     }
     if ('o' in planned) {
-      other = util.itemFromName(planned.o)
+      other = util.itemFromName(randItem(rng, planned.o))
     } else {
-      other = randItem(rng, pool.filter(accessoryFilter))
+      other = randItem(rng, pool.filter(accessoryFilter).filter(
+        function(item) {
+          if (blocked && blocked.o) {
+            return blocked.o.indexOf(item.name) === -1
+          }
+        }
+      ))
     }
     // Their values when equipped.
     const weaponEquipVal = weapon ? weapon.id : 0
@@ -365,7 +400,54 @@
     ]
   }
 
-  function randomizeCandles(rng, items, pool) {
+  function getItemTileIndex(item, tile) {
+    const zoneTiles = collectTiles([item], function(t) {
+      if (t.zones) {
+        for (let i = 0; i < t.zones.length; i++) {
+          if (tile.zones[i] !== t.zones[i]) {
+            return false
+          }
+        }
+        return true
+      }
+    })
+    for (let i = 0; i < zoneTiles.length; i++) {
+      if (zoneTiles[i] === tile) {
+        return i
+      }
+    }
+  }
+
+  function isBlocked(items, blocked, tiles, replacement) {
+    if (blocked) {
+      for (let i = 0; i < tiles.length; i++) {
+        const item = items.filter(function(item) {
+          return item.tiles && item.tiles.some(function(t) {
+            return t === tiles[i]
+          })
+        })[0]
+        const index = getItemTileIndex(item, tiles[i])
+        for (let j = 0; j < tiles[i].zones.length; j++) {
+          const zoneBlocked = blocked[zoneNames[tiles[i].zones[j]]]
+          if (zoneBlocked) {
+            const itemNames = Object.getOwnPropertyNames(zoneBlocked)
+            for (let k = 0; k < itemNames.length; k++) {
+              if (itemNames[k] === item.name
+                  && index in zoneBlocked[itemNames[k]]) {
+                if (replacement) {
+                  const items = zoneBlocked[itemNames[k]][index]
+                  return items.indexOf(replacement.name) !== -1
+                }
+                return items.indexOf(null) !== -1
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  function randomizeCandles(rng, items, blocked, pool) {
     // There are statues and pots in the hidden room of Final Stage stage that
     // drop equipment and usable items. Note that these are unique in the game
     // in that they are handled by the candle code, but their sprites are
@@ -394,10 +476,15 @@
     const itemTypes = shuffled(rng, pool).reduce(typeReduce, [])
     Object.getOwnPropertyNames(zones).forEach(function(name) {
       specialZones[name].forEach(function(item) {
-        let replacement
-        do replacement = itemTypes[item.type].pop()
-        while (foodFilter(replacement))
         const tiles = collectTiles([item], util.candleTileFilter)
+        let replacement
+        do {
+          if (!itemTypes[item.type]) {
+            throw new Error('No item to place')
+          }
+          replacement = itemTypes[item.type].pop()
+        } while (foodFilter(replacement)
+                 || isBlocked(items, blocked, tiles, replacement))
         pushTile.apply(replacement, tiles)
       })
     })
@@ -433,16 +520,36 @@
       return items.tiles.filter(tileFilter).length
     })
     const candleTiles = shuffled(rng, collectTiles(candleItems, tileFilter))
-    candleItems.forEach(function(item, index) {
-      item = itemFromId(item.id, typeFilter([item.type]), pool)
-      let count = candleTileCounts[index]
-      while (count--) {
-        pushTile.call(item, candleTiles.pop())
+    let tileIndex = 0
+    while (candleItems.length) {
+      const tile = candleTiles.pop()
+      let item
+      let index = 0
+      while (index < candleItems.length) {
+        item = candleItems[index]
+        if (!isBlocked(items, blocked, tile, item)) {
+          break
+        }
+        index++
       }
-    })
+      candleItems.splice(index, 1)
+      let count = candleTileCounts[index]
+      candleTileCounts.splice(index, 1)
+      item = itemFromId(item.id, typeFilter([item.type]), pool)
+      while (count--) {
+        pushTile.call(item, tile)
+      }
+    }
   }
 
-  function randomizePrologueRewards(rng, items, pool, addon, planned) {
+  function randomizePrologueRewards(
+    rng,
+    items,
+    blocked,
+    pool,
+    addon,
+    planned,
+  ) {
     const rewardItemFilter = util.itemTileFilter(util.rewardTileFilter)
     const rewardItems = items.filter(rewardItemFilter)
     rewardItems.sort(function(a, b) {
@@ -455,7 +562,20 @@
     })
     const rewardTiles = collectTiles(items, util.rewardTileFilter)
     const usableItems = shuffled(rng, pool.filter(usableFilter))
-    pool = ['h', 'n', 'p'].map(function(item) {
+    function pushPoolItemTile(replacement, tile) {
+      switch (replacement.type) {
+      case TYPE.HELMET:
+      case TYPE.ARMOR:
+      case TYPE.CLOAK:
+      case TYPE.ACCESSORY:
+        if (replament.id >= tileIdOffset) {
+          throw new Error('Cannot reward ' + replacement.name)
+        }
+        break
+      }
+      pushTile.call(replacement, tile)
+    }
+    ['h', 'n', 'p'].map(function(item) {
       if (planned && item in planned) {
         if (planned[item]) {
           const plannedItem = util.itemFromName(planned[item])
@@ -470,31 +590,32 @@
             delete poolItem.tiles
             addon.push(poolItem)
           }
-          return poolItem
+          pushPoolItemTile(poolItem, rewardTiles.shift())
+        } else {
+          const poolItem = { id: 0 }
+          addon.push(poolItem)
+          pushPoolItemTile(poolItem, rewardTiles.shift())
         }
-        const poolItem = { id: 0 }
-        addon.push(poolItem)
-        return poolItem
+      } else {
+        const tile = rewardTiles.shift()
+        let replacement
+        let index = 0
+        while (index < usableItems.length) {
+          replacement = usableItems[index]
+          if (!blocked
+              || !blocked[item]
+              || blocked[item].indexOf(replacement.name) === -1) {
+            break
+          }
+          index++
+        }
+        usableItems.splice(index, 1)
+        pushPoolItemTile(replacement, tile)
       }
-      return usableItems.pop()
     })
-    while (rewardTiles.length) {
-      const item = pool.shift()
-      switch (item.type) {
-      case TYPE.HELMET:
-      case TYPE.ARMOR:
-      case TYPE.CLOAK:
-      case TYPE.ACCESSORY:
-        if (item.id >= tileIdOffset) {
-          throw new Error('Cannot reward ' + item.name)
-        }
-        break
-      }
-      pushTile.call(item, rewardTiles.shift())
-    }
   }
 
-  function randomizeSubweaponTanks(rng, items, pool) {
+  function randomizeSubweaponTanks(rng, items, blocked, pool) {
     // Get subweapon tank tiles.
     const tankTiles = flattened(items.filter(function(item) {
       return item.tiles && item.tiles.some(function(tile) {
@@ -515,7 +636,18 @@
     Object.getOwnPropertyNames(tankZones).forEach(function(zone) {
       const subweapons = shuffled(rng, pool.filter(subweaponFilter))
       while (tankZones[zone].length) {
-        pushTile.call(subweapons.pop(), tankZones[zone].pop())
+        const tile = tankZones[zone].pop()
+        let replacement
+        let index = 0
+        while (index < subweapons.length) {
+          replacement = subweapons[index]
+          if (!isBlocked(items, blocked, tile, replacement)) {
+            break
+          }
+          index++
+        }
+        subweapons.splice(index, 1)
+        pushTile.call(replacement, tile)
       }
     })
   }
@@ -531,7 +663,7 @@
     })
   }
 
-  function randomizeShopItems(rng, items, pool) {
+  function randomizeShopItems(rng, items, blocked, pool) {
     // Get shop items by type.
     const shopTypes = items.filter(function(item) {
       return item.tiles && item.tiles.some(function(tile) {
@@ -549,16 +681,26 @@
     const shuffledTypes = shuffled(rng, pool.filter(function(item) {
       return !foodFilter(item) && !salableFilter(item)
     })).reduce(typeReduce, [])
-    shopTypes.forEach(function(items, type) {
-      (items || []).map(function(item) {
+    shopTypes.forEach(function(shopItems, type) {
+      (shopItems || []).map(function(item) {
         return item.tiles
       }).forEach(function(tiles) {
-        pushTile.apply(shuffledTypes[type].pop(), tiles)
+        let replacement
+        let index = 0
+        while (index < shuffledTypes[type].length) {
+          replacement = shuffledTypes[type][index]
+          if (!isBlocked(items, blocked, tiles, replacement)) {
+            break
+          }
+          index++
+        }
+        shuffledTypes[type].splice(index, 1)
+        pushTile.apply(replacement, tiles)
       })
     })
   }
 
-  function randomizeMapItems(rng, items, pool, planned, addon) {
+  function randomizeMapItems(rng, items, blocked, pool, planned, addon) {
     // Shuffle items.
     const shuffledItems = shuffled(rng, pool)
     // Get all map tiles.
@@ -579,32 +721,112 @@
       nonsalableFilter,
     ]
     equipment.forEach(function(filter) {
-      eachTileItem(tileItems, shuffledItems, filter, function(items) {
-        const item = items.pop()
-        pushTile.call(item, takePermaTile(shuffledTiles, blacklist(item)))
+      eachTileItem(tileItems, shuffledItems, filter, function(eq) {
+        eq = shuffled(rng, eq)
+        let replacement
+        let tile
+        let index = 0
+        while (index < eq.length) {
+          replacement = eq[index]
+          const tiles = shuffledTiles.slice()
+          do {
+            if (!tiles.length) {
+              tile = null
+              break
+            }
+            tile = takePermaTile(tiles, blacklist(replacement))
+          } while (isBlocked(items, blocked, tile, replacement))
+          if (tile) {
+            shuffledTiles.splice(shuffledTiles.indexOf(tile), 1)
+            break
+          }
+          index++
+        }
+        util.assert.notEqual(tile, null)
+        eq.splice(index, 1)
+        pushTile.call(replacement, tile)
       })
     })
     // Powerups are in multiple non-despawn tiles.
-    eachTileItem(tileItems, shuffledItems, powerupFilter, function(items) {
-      const item = randItem(rng, items)
-      pushTile.call(item, takePermaTile(shuffledTiles, blacklist(item)))
+    eachTileItem(tileItems, shuffledItems, powerupFilter, function(powerups) {
+      powerups = shuffled(rng, powerups)
+      let replacement
+      let tile
+      let index = 0
+      while (index < powerups.length) {
+        replacement = powerups[index]
+        const tiles = shuffledTiles.slice()
+        do {
+          if (!tiles.length) {
+            tile = null
+            break
+          }
+          tile = takePermaTile(tiles, blacklist(replacement))
+        } while (isBlocked(items, blocked, tile, replacement))
+        if (tile) {
+          shuffledTiles.splice(shuffledTiles.indexOf(tile), 1)
+          break
+        }
+        index++
+      }
+      util.assert.notEqual(tile, null)
+      pushTile.call(replacement, tile)
     })
     // Distribute jewels with same id frequency as vanilla.
     const salableItems = mapItems.filter(salableFilter)
     salableItems.forEach(function(salableItem) {
       eachTileItem(tileItems, shuffledItems, function(item) {
         return item.id === salableItem.id
-      }, function(items) {
-        const item = items[0]
-        pushTile.call(item, takePermaTile(shuffledTiles, blacklist(item)))
+      }, function(jewels) {
+        let replacement
+        let tile
+        let index = 0
+        while (index < jewels.length) {
+          replacement = jewels[index]
+          const tiles = shuffledTiles.slice()
+          do {
+            if (!tiles.length) {
+              tile = null
+              break
+            }
+            tile = takePermaTile(tiles, blacklist(replacement))
+          } while (isBlocked(items, blocked, tile, replacement))
+          if (tile) {
+            shuffledTiles.splice(shuffledTiles.indexOf(tile), 1)
+            break
+          }
+          index++
+        }
+        util.assert.notEqual(tile, null)
+        pushTile.call(replacement, tile)
       })
     })
     // Usable items can occupy multiple (possibly despawn) tiles.
     const usable = [ usableFilter, foodFilter ]
     usable.forEach(function(filter) {
-      eachTileItem(tileItems, shuffledItems, filter, function(items) {
-        const item = randItem(rng, items)
-        pushTile.call(item, takeTile(shuffledTiles, blacklist(item)))
+      eachTileItem(tileItems, shuffledItems, filter, function(usables) {
+        usables = shuffled(rng, usables)
+        let replacement
+        let tile
+        let index = 0
+        while (index < usables.length) {
+          replacement = usables[index]
+          const tiles = shuffledTiles.slice()
+          do {
+            if (!tiles.length) {
+              tile = null
+              break
+            }
+            tile = takeTile(tiles, blacklist(replacement))
+          } while (isBlocked(items, blocked, tile, replacement))
+          if (tile) {
+            shuffledTiles.splice(shuffledTiles.indexOf(tile), 1)
+            break
+          }
+          index++
+        }
+        util.assert.notEqual(tile, null)
+        pushTile.call(replacement, tile)
       })
     })
     util.assert.equal(shuffledTiles.length, 0)
@@ -661,13 +883,22 @@
     }
   }
 
-  function randomizeEnemyDrops(rng, items, pool, addon, planned) {
+  function randomizeEnemyDrops(rng, items, blocked, pool, addon, planned) {
     // Replace the axe subweapon drop with a random subweapon.
-    const subweapon = shuffled(rng, pool.filter(subweaponFilter)).pop()
     const subweaponTiles = collectTiles(items.filter(function(item) {
       return util.itemTileFilter(util.dropTileFilter)(item)
         && subweaponFilter(item)
     }), util.dropTileFilter)
+    const subweapons = shuffled(rng, pool.filter(subweaponFilter))
+    let subweapon
+    {
+      let index = 0
+      do {
+        subweapon = subweapons[index++]
+      } while (blocked
+               && blocked['Axe Knight']
+               && blocked['Axe Knight'].indexOf(subweapon.name) !== -1)
+    }
     while (subweaponTiles.length) {
       pushTile.call(subweapon, takeTile(subweaponTiles))
     }
@@ -734,9 +965,33 @@
     goldItems.forEach(function(goldItem) {
       eachTileItem(tileItems, shuffledItems, function(item) {
         return goldFilter(item) && item.id === goldItem.id
-      }, function(items) {
-        const item = items[0]
-        pushTile.call(item, takeTile(shuffledTiles, uniqueDrops(item)))
+      }, function(gold) {
+        gold = shuffled(rng, gold)
+        let replacement
+        let index = 0
+        while (index < gold.length) {
+          replacement = gold[index]
+          const tiles = shuffledTiles.slice()
+          let enemy
+          do {
+            if (!tiles.length) {
+              tile = null
+              break
+            }
+            tile = takeTile(tiles, uniqueDrops(replacement))
+            enemy = enemies.filter(function(enemy) {
+              return enemy.id === tile.enemy
+            })
+          } while (blocked
+                   && blocked[enemy.name]
+                   && blocked[enemy.name].indexOf(replacement.name) !== -1)
+          if (tile) {
+            shuffledTiles.splice(shuffledTiles.indexOf(tile), 1)
+            break
+          }
+          index++
+        }
+        pushTile.call(replacement, tile)
       })
     })
     // Distribute jewels with same id frequency as vanilla.
@@ -744,9 +999,34 @@
     salableItems.forEach(function(salableItem) {
       eachTileItem(tileItems, shuffledItems, function(item) {
         return item.id === salableItem.id
-      }, function(items) {
-        const item = items[0]
-        pushTile.call(item, takeTile(shuffledTiles, uniqueDrops(item)))
+      }, function(jewels) {
+        jewels = shuffled(rng, jewels)
+        let replacement
+        let tile
+        let index = 0
+        while (index < jewels.length) {
+          replacement = jewels[index]
+          const tiles = shuffledTiles.slice()
+          do {
+            if (!tiles.length) {
+              tile = null
+              break
+            }
+            tile = takeTile(tiles, uniqueDrops(replacement))
+            enemy = enemies.filter(function(enemy) {
+              return enemy.id === tile.enemy
+            })
+          } while (blocked
+                   && blocked[enemy.name]
+                   && blocked[enemy.name].indexOf(replacement.name) !== -1)
+          if (tile) {
+            shuffledTiles.splice(shuffledTiles.indexOf(tile), 1)
+            break
+          }
+          index++
+        }
+        util.assert.notEqual(tile, null)
+        pushTile.call(replacement, tile)
       })
     })
     // Distribute equipment with same type frequency as vanilla.
@@ -759,17 +1039,68 @@
       nonsalableFilter,
     ]
     equipment.forEach(function(filter) {
-      eachTileItem(tileItems, shuffledItems, filter, function(items) {
-        const item = items.pop()
-        pushTile.call(item, takeTile(shuffledTiles, uniqueDrops(item)))
+      eachTileItem(tileItems, shuffledItems, filter, function(eq) {
+        eq = shuffled(rng, eq)
+        let replacement
+        let tile
+        let index = 0
+        while (index < eq.length) {
+          replacement = eq[index]
+          const tiles = shuffledTiles.slice()
+          do {
+            if (!tiles.length) {
+              tile = null
+              break
+            }
+            tile = takeTile(tiles, uniqueDrops(replacement))
+            enemy = enemies.filter(function(enemy) {
+              return enemy.id === tile.enemy
+            })
+          } while (blocked
+                   && blocked[enemy.name]
+                   && blocked[enemy.name].indexOf(replacement.name) !== -1)
+          if (tile) {
+            shuffledTiles.splice(shuffledTiles.indexOf(tile), 1)
+            break
+          }
+          index++
+        }
+        util.assert.notEqual(tile, null)
+        eq.splice(index, 1)
+        pushTile.call(replacement, tile)
       })
     })
     // Distribute usable items randomly.
     const usable = [ usableFilter, foodFilter ]
     usable.forEach(function(filter) {
-      eachTileItem(tileItems, shuffledItems, filter, function(items) {
-        const item = randItem(rng, items)
-        pushTile.call(item, takeTile(shuffledTiles, uniqueDrops(item)))
+      eachTileItem(tileItems, shuffledItems, filter, function(usables) {
+        usables = shuffled(rng, usables)
+        let replacement
+        let tile
+        let index = 0
+        while (index < usables.length) {
+          replacement = usables[index]
+          const tiles = shuffledTiles.slice()
+          do {
+            if (!tiles.length) {
+              tile = null
+              break
+            }
+            tile = takeTile(tiles, uniqueDrops(replacement))
+            enemy = enemies.filter(function(enemy) {
+              return enemy.id === tile.enemy
+            })
+          } while (blocked
+                   && blocked[enemy.name]
+                   && blocked[enemy.name].indexOf(replacement.name) !== -1)
+          if (tile) {
+            shuffledTiles.splice(shuffledTiles.indexOf(tile), 1)
+            break
+          }
+          index++
+        }
+        util.assert.notEqual(tile, null)
+        pushTile.call(replacement, tile)
       })
     })
     util.assert.equal(shuffledTiles.length, 0)
@@ -777,11 +1108,33 @@
     const libTiles = collectTiles(items, function(tile) {
       return tile.librarian
     })
-    const shuffledEquip = shuffled(rng, pool.filter(equipmentFilter))
-    const libItems = shuffledEquip.slice(0, libTiles.length)
-    libItems.forEach(function(item) {
-      pushTile.call(item, takeTile(libTiles, blacklist(item)))
-    })
+    const eq = shuffled(rng, pool.filter(equipmentFilter))
+    while (libTiles.length) {
+      let replacement
+      let tile
+      let index = 0
+      while (index < eq.length) {
+        replacement = eq[index]
+        const tiles = libTiles.slice()
+        do {
+          if (!tiles.length) {
+            tile = null
+            break
+          }
+          tile = takeTile(tiles, blacklist(replacement))
+        } while (blocked
+                 && blocked.Librarian
+                 && blocked.Librarian.indexOf(replacement.name) !== -1)
+        if (tile) {
+          libTiles.splice(libTiles.indexOf(tile), 1)
+          break
+        }
+        index++
+      }
+      util.assert.notEqual(tile, null)
+      eq.splice(index, 1)
+      pushTile.call(replacement, tile)
+    }
     // Place planned drops.
     if (planned) {
       Object.getOwnPropertyNames(planned).forEach(function(key) {
@@ -1003,12 +1356,6 @@
     data.writeWord(address, 0x0803924f)
   }
 
-/*
-
-PC 800fa8f0 # loads sprite
-
-*/
-
   function randomizeCapeColors(data, rng) {
     // Cloth Cape.
     capeColor(data, 0x0afb84, 0x0afb88, {rng: rng})
@@ -1059,9 +1406,16 @@ PC 800fa8f0 # loads sprite
       if (typeof(options.startingEquipment) === 'object') {
         planned = options.startingEquipment
       }
-      randomizeStartingEquipment(data, rng, items, newNames, info, planned)
+      randomizeStartingEquipment(
+        data,
+        rng,
+        items,
+        options.startingEquipment.blocked,
+        newNames,
+        info,
+        planned,
+      )
     }
-    let retries = 0
     while (true) {
       try {
         // Get pool of randomizable items.
@@ -1105,23 +1459,43 @@ PC 800fa8f0 # loads sprite
         // Randomizations.
         if (options.itemLocations) {
           // Randomize candles.
-          randomizeCandles(rng, items, pool)
+          randomizeCandles(rng, items, options.itemLocations.blocked, pool)
           // Randomize tank items.
           if (!options.turkeyMode) {
-            randomizeSubweaponTanks(rng, items, pool)
+            randomizeSubweaponTanks(
+              rng,
+              items,
+              options.itemLocations.blocked,
+              pool,
+            )
           }
           // Randomize shop items.
-          randomizeShopItems(rng, items, pool)
+          randomizeShopItems(rng, items, options.itemLocations.blocked, pool)
           // Randomize map items.
-          randomizeMapItems(rng, items, pool, options.itemLocations, addon)
+          randomizeMapItems(
+            rng,
+            items,
+            options.itemLocations.blocked,
+            pool,
+            options.itemLocations,
+            addon,
+          )
         }
         if (options.enemyDrops) {
           // Randomize enemy drops.
           let planned
           if (typeof(options.enemyDrops) === 'object') {
-            planned = options.enemyDrops
+            planned = Object.assign({}, options.enemyDrops)
+            delete planned.blocked
           }
-          randomizeEnemyDrops(rng, items, pool, addon, planned)
+          randomizeEnemyDrops(
+            rng,
+            items,
+            options.enemyDrops.blocked,
+            pool,
+            addon,
+            planned,
+          )
         }
         if (options.prologueRewards) {
           // Randomize prologue rewards.
@@ -1129,7 +1503,14 @@ PC 800fa8f0 # loads sprite
           if (typeof(options.prologueRewards) === 'object') {
             planned = options.prologueRewards
           }
-          randomizePrologueRewards(rng, items, pool, addon, planned)
+          randomizePrologueRewards(
+            rng,
+            items,
+            options.prologueRewards.blocked,
+            pool,
+            addon,
+            planned,
+          )
         }
         // Turkey mode.
         if (options.turkeyMode) {
@@ -1144,7 +1525,7 @@ PC 800fa8f0 # loads sprite
           itemsToWrite.forEach(writeTiles(data))
         }
       } catch (err) {
-        if (err.name === 'AssertionError' && retries++ < MAX_RETRIES) {
+        if (err.name === 'AssertionError') {
           continue
         }
         throw err
@@ -1161,7 +1542,9 @@ PC 800fa8f0 # loads sprite
     const removed = []
     if (typeof(options.itemLocations) === 'object') {
       const planned = options.itemLocations
-      Object.getOwnPropertyNames(planned).forEach(function(zone) {
+      Object.getOwnPropertyNames(planned).filter(function(zone) {
+        return zone !== 'blocked'
+      }).forEach(function(zone) {
         const zoneItems = planned[zone]
         Object.getOwnPropertyNames(zoneItems).forEach(function(itemName) {
           if (itemName === '*') {
