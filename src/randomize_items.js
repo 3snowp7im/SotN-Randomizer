@@ -431,6 +431,11 @@
   }
 
   function isBlocked(items, blocked, tiles, replacement) {
+
+    ///
+    if (!Array.isArray(tiles)) {
+      throw new Error('tiles is not an array')
+    }
     if (blocked) {
       for (let i = 0; i < tiles.length; i++) {
         const item = items.filter(function(item) {
@@ -545,21 +550,18 @@
       return items.tiles.filter(tileFilter).length
     })
     const candleTiles = shuffled(rng, collectTiles(candleItems, tileFilter))
-    let tileIndex = 0
-    while (candleItems.length) {
+    let index = 0
+    while (candleTiles.length) {
       const tile = candleTiles.pop()
       let item
-      let index = 0
-      while (index < candleItems.length) {
+      while (true) {
         item = candleItems[index]
-        if (!isBlocked(items, blocked, tile, item)) {
+        if (!isBlocked(items, blocked, [tile], item)) {
           break
         }
-        index++
+        index = (index + 1) % candleItems.length
       }
-      candleItems.splice(index, 1)
       let count = candleTileCounts[index]
-      candleTileCounts.splice(index, 1)
       item = itemFromId(item.id, typeFilter([item.type]), pool)
       while (count--) {
         pushTile.call(item, tile)
@@ -660,18 +662,17 @@
     // Randomize tank items.
     Object.getOwnPropertyNames(tankZones).forEach(function(zone) {
       const subweapons = shuffled(rng, pool.filter(subweaponFilter))
+      let index = 0
       while (tankZones[zone].length) {
         const tile = tankZones[zone].pop()
         let replacement
-        let index = 0
-        while (index < subweapons.length) {
+        while (true) {
           replacement = subweapons[index]
-          if (!isBlocked(items, blocked, tile, replacement)) {
+          if (!isBlocked(items, blocked, [tile], replacement)) {
             break
           }
-          index++
+          index = (index + 1) % subweapons.length
         }
-        subweapons.splice(index, 1)
         pushTile.call(replacement, tile)
       }
     })
@@ -707,21 +708,22 @@
       return !foodFilter(item) && !salableFilter(item)
     })).reduce(typeReduce, [])
     shopTypes.forEach(function(shopItems, type) {
-      (shopItems || []).map(function(item) {
-        return item.tiles
-      }).forEach(function(tiles) {
-        let replacement
-        let index = 0
-        while (index < shuffledTypes[type].length) {
-          replacement = shuffledTypes[type][index]
-          if (!isBlocked(items, blocked, tiles, replacement)) {
-            break
+      let index = 0
+      {
+        (shopItems || []).map(function(item) {
+          return item.tiles
+        }).forEach(function(tiles) {
+          let replacement
+          while (true) {
+            replacement = shuffledTypes[type][index]
+            if (!isBlocked(items, blocked, tiles, replacement)) {
+              break
+            }
+            index = (index + 1) % shuffledTypes[type].length
           }
-          index++
-        }
-        shuffledTypes[type].splice(index, 1)
-        pushTile.apply(replacement, tiles)
-      })
+          pushTile.apply(replacement, tiles)
+        })
+      }
     })
   }
 
@@ -747,11 +749,10 @@
     ]
     equipment.forEach(function(filter) {
       eachTileItem(tileItems, shuffledItems, filter, function(eq) {
-        eq = shuffled(rng, eq)
         let replacement
         let tile
         let index = 0
-        while (index < eq.length) {
+        while (true) {
           replacement = eq[index]
           const tiles = shuffledTiles.slice()
           do {
@@ -760,24 +761,25 @@
               break
             }
             tile = takePermaTile(tiles, blacklist(replacement))
-          } while (isBlocked(items, blocked, tile, replacement))
+            if (!tile) {
+              break
+            }
+          } while (isBlocked(items, blocked, [tile], replacement))
           if (tile) {
             shuffledTiles.splice(shuffledTiles.indexOf(tile), 1)
             break
           }
-          index++
+          index = (index + 1) % eq.length
         }
         util.assert.notEqual(tile, null)
-        eq.splice(index, 1)
         pushTile.call(replacement, tile)
       })
     })
     // Powerups are in multiple non-despawn tiles.
+    let index = 0
     eachTileItem(tileItems, shuffledItems, powerupFilter, function(powerups) {
-      powerups = shuffled(rng, powerups)
       let replacement
       let tile
-      let index = 0
       while (index < powerups.length) {
         replacement = powerups[index]
         const tiles = shuffledTiles.slice()
@@ -787,12 +789,15 @@
             break
           }
           tile = takePermaTile(tiles, blacklist(replacement))
-        } while (isBlocked(items, blocked, tile, replacement))
+          if (!tile) {
+            break
+          }
+        } while (isBlocked(items, blocked, [tile], replacement))
         if (tile) {
           shuffledTiles.splice(shuffledTiles.indexOf(tile), 1)
           break
         }
-        index++
+        index = (index + 1) % powerups.length
       }
       util.assert.notEqual(tile, null)
       pushTile.call(replacement, tile)
@@ -800,12 +805,12 @@
     // Distribute jewels with same id frequency as vanilla.
     const salableItems = mapItems.filter(salableFilter)
     salableItems.forEach(function(salableItem) {
+      let index = 0
       eachTileItem(tileItems, shuffledItems, function(item) {
         return item.id === salableItem.id
       }, function(jewels) {
         let replacement
         let tile
-        let index = 0
         while (index < jewels.length) {
           replacement = jewels[index]
           const tiles = shuffledTiles.slice()
@@ -815,12 +820,15 @@
               break
             }
             tile = takePermaTile(tiles, blacklist(replacement))
-          } while (isBlocked(items, blocked, tile, replacement))
+            if (!tile) {
+              break
+            }
+          } while (isBlocked(items, blocked, [tile], replacement))
           if (tile) {
             shuffledTiles.splice(shuffledTiles.indexOf(tile), 1)
             break
           }
-          index++
+          index = (index + 1) % jewels.length
         }
         util.assert.notEqual(tile, null)
         pushTile.call(replacement, tile)
@@ -829,12 +837,11 @@
     // Usable items can occupy multiple (possibly despawn) tiles.
     const usable = [ usableFilter, foodFilter ]
     usable.forEach(function(filter) {
+      let index = 0
       eachTileItem(tileItems, shuffledItems, filter, function(usables) {
-        usables = shuffled(rng, usables)
         let replacement
         let tile
-        let index = 0
-        while (index < usables.length) {
+        while (true) {
           replacement = usables[index]
           const tiles = shuffledTiles.slice()
           do {
@@ -843,12 +850,15 @@
               break
             }
             tile = takeTile(tiles, blacklist(replacement))
-          } while (isBlocked(items, blocked, tile, replacement))
+            if (!tile) {
+              break
+            }
+          } while (isBlocked(items, blocked, [tile], replacement))
           if (tile) {
             shuffledTiles.splice(shuffledTiles.indexOf(tile), 1)
             break
           }
-          index++
+          index = (index + 1) % usables.length
         }
         util.assert.notEqual(tile, null)
         pushTile.call(replacement, tile)
