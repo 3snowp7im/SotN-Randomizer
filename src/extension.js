@@ -44,14 +44,19 @@
     })
   }
 
-  function replaceBossRelicWithItem(opts) {
-    return function(data, relic, item, index) {
+  function replaceTrioRelicWithItem(opts) {
+    return function(data, trio, item, index) {
       util().replaceBossRelicWithItem(opts)(
         data,
-        relic,
+        trio,
         item,
         index
       )
+      const zone = constants.zones[constants.ZONE.RARE]
+      trio.entity.entities.forEach(function(entity) {
+        let addr = util().romOffset(zone, entity + 0x06)
+        addr = data.writeShort(addr, 0x0010)
+      })
     }
   }
 
@@ -114,7 +119,7 @@
       }],
     },
     replaceWithRelic: replaceTrioWithRelic,
-    replaceWithItem: replaceBossRelicWithItem({
+    replaceWithItem: replaceTrioRelicWithItem({
       boss: ZONE.RBO0,
       entry: 0x026e64,
       inj: 0x038a00,
