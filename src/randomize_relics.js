@@ -1299,7 +1299,7 @@
     if (options.relicLocations) {
       let placedItems = options.itemLocations
       if (typeof(placedItems) !== 'object') {
-        placedItems = undefined
+        placedItems = {}
       }
       // Write data to ROM.
       writeMapping(
