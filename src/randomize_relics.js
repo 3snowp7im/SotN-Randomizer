@@ -30,7 +30,7 @@
     return require('./items')
   }
 
-  function getRandomZoneItem(rng, zones, pool) {
+  function getRandomZoneItem(rng, zones, pool, placed) {
     // Collect ids of items that can be replaced for location extension.
     const extensionIds = pool.filter(function(location) {
       return 'extension' in location
@@ -49,6 +49,7 @@
           })
           Array.prototype.push.apply(all, tiles.map(function(tile) {
             return {
+              zone: zone,
               item: item,
               tile: tile,
             }
@@ -59,6 +60,35 @@
       Array.prototype.push.apply(all, tiles)
       return all
     }, [])
+    // Unless a wildcard item name was used, don't return items that were
+    // placed by the options.
+    Object.getOwnPropertyNames(placed).map(
+      function(zoneName) {
+        const tiles = zoneTiles.filter(function(tile) {
+          return constants.zoneNames[tile.zone] === zoneName
+        })
+        const itemNames = Object.getOwnPropertyNames(placed[zoneName])
+        return itemNames.map(function(itemName) {
+          const itemTiles = tiles.filter(function(tile) {
+            return itemNames.indexOf(tile.item.name) !== -1
+          })
+          if (itemTiles.length) {
+            return Object.getOwnPropertyNames(placed[zoneName][itemName]).map(
+              function(index) {
+                return itemTiles[parseInt(index)]
+              }
+            )
+          }
+          return []
+        })
+      }
+    ).forEach(function(zone) {
+      zone.forEach(function(item) {
+        item.forEach(function(tile) {
+          zoneTiles.splice(zoneTiles.indexOf(tile), 1)
+        })
+      })
+    })
     // Pick a random item to replace.
     return zoneTiles[randIdx(rng, zoneTiles)]
   }
@@ -112,7 +142,7 @@
     })
   }
 
-  function writeMapping(data, rng, mapping, replaced) {
+  function writeMapping(data, rng, mapping, placedItems, replaced) {
     const erased = {
       id: 0xffff,
       slots: [ 0x0000, 0x0000 ],
@@ -231,7 +261,12 @@
               return id.zone
             })
           }
-          const tileItem = getRandomZoneItem(rng, zones, locations)
+          const tileItem = getRandomZoneItem(
+            rng,
+            zones,
+            locations,
+            placedItems,
+          )
           index = tileItem.tile.index
           // Remove the tile from the replaced item's tile collection.
           const tileIndex = tileItem.item.tiles.indexOf(tileItem.tile)
@@ -304,7 +339,12 @@
         const rand = Math.floor(rng() * 4)
         const removed = zoneRemovedItems[zone.id] || 0
         for (let i = 0; i < rand - removed; i++) {
-          const tileItem = getRandomZoneItem(rng, zones, locations)
+          const tileItem = getRandomZoneItem(
+            rng,
+            zones,
+            locations,
+            placedItems,
+          )
           const index = tileItem.tile.index
           // Remove the tile from the item's tile collection.
           const tileIndex = tileItem.item.tiles.indexOf(tileItem.tile)
@@ -1077,11 +1117,10 @@
     return map
   }
 
-  function randomizeRelics(rng, options, removed, newNames) {
+  function randomizeRelics(rng, options, newNames) {
     if (!options.relicLocations) {
       return {}
     }
-    removed = removed || []
     // Initialize location locks.
     let relicLocations
     if (typeof(options.relicLocations) === 'object') {
@@ -1142,21 +1181,6 @@
     let enabledRelics = relics.filter(function(relic) {
       return !relic.extension
         || extensions.indexOf(relic.extension) !== -1
-    })
-    // Filter out any progression items that have been placed by a preset.
-    const removedIds = removed.map(function(item) {
-      return item.id
-    })
-    locations = locations.filter(function(location) {
-      return location.ability !== constants.RELIC.THRUST_SWORD
-        && removedIds.indexOf(location.itemId) === -1
-    })
-    enabledRelics = enabledRelics.filter(function(relic) {
-      if (!options.relicLocations.thrustSwordAbility
-          && relic.ability === constants.RELIC.THRUST_SWORD) {
-        return false
-      }
-      return removedIds.indexOf(relic.itemId) === -1
     })
     // Get random thrust sword.
     let thrustSword
@@ -1273,8 +1297,18 @@
   function writeRelics(rng, options, result) {
     const data = new util.checked()
     if (options.relicLocations) {
+      let placedItems = options.itemLocations
+      if (typeof(placedItems) !== 'object') {
+        placedItems = undefined
+      }
       // Write data to ROM.
-      writeMapping(data, rng, result.mapping, options.relicLocations.replaced)
+      writeMapping(
+        data,
+        rng,
+        result.mapping,
+        placedItems,
+        options.relicLocations.replaced,
+      )
       // Patch out cutscenes.
       patchAlchemyLabCutscene(data)
       patchClockRoomCutscene(data)

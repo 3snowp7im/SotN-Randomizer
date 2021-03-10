@@ -806,6 +806,7 @@
   }, {
     name: 'Thrust sword',
     ability: RELIC.THRUST_SWORD,
+    consumesItem: false,
   }]
 
   const exports = relics

@@ -4273,7 +4273,7 @@
     if (typeof(rewards) === 'object') {
       rewards = {}
       if (self.rewards.blocked) {
-        self.rewards.blocked = {}
+        rewards.blocked = {}
         Object.getOwnPropertyNames(self.rewards.blocked).forEach(
           function(reward) {
             rewards.blocked[reward] = self.rewards.blocked[reward].map(
@@ -4298,7 +4298,7 @@
     if (typeof(items) === 'object') {
       items = {}
       if (self.items.blocked) {
-        self.items.blocked = {}
+        items.blocked = {}
         Object.getOwnPropertyNames(self.items.blocked).forEach(function(zone) {
           items.blocked[zone] = {}
           Array.from(self.items.blocked[zone].keys()).forEach(function(item) {
@@ -4435,7 +4435,6 @@
     applied,
     options,
     seed,
-    removed,
     newNames,
     workers,
     nonce,
@@ -4465,7 +4464,6 @@
             options: options,
             version: version,
             seed: seed,
-            removed: removed,
             newNames: newNames,
           })
         }

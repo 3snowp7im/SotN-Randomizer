@@ -909,8 +909,6 @@ if ('inBin' in argv) {
       try {
         let rng
         let result
-        // Place planned progression items.
-        const removed = randomizeItems.placePlannedItems(applied)
         // Randomize stats.
         rng = new require('seedrandom')(util.saltSeed(
           version,
@@ -932,7 +930,6 @@ if ('inBin' in argv) {
           applied,
           options,
           seed,
-          removed,
           newNames,
           workers,
           4,

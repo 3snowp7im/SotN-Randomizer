@@ -34,7 +34,7 @@ function randomizeWorker() {
     eccEdcCalc = self.eccEdcCalc
     errors = self.sotnRando.errors
     randomizeRelics = self.sotnRando.randomizeRelics.randomizeRelics
-    randomizeItems = self.sotnRando.randomizeItems.randomizeItems
+    randomizeItems = self.sotnRando.randomizeItems
     seedrandom = Math.seedrandom
     util = self.sotnRando.util
   }
@@ -44,7 +44,7 @@ function randomizeWorker() {
     eccEdcCalc = require('./ecc-edc-recalc-js')
     errors = require('./errors')
     randomizeRelics = require('./randomize_relics').randomizeRelics
-    randomizeItems = require('./randomize_items').randomizeItems
+    randomizeItems = require('./randomize_items')
     seedrandom = require('seedrandom')
     util = require('./util')
   }
@@ -91,7 +91,6 @@ function randomizeWorker() {
                   seed: message.seed,
                 },
                 options: message.applied,
-                removed: message.removed,
                 newNames: message.newNames,
               })
             }
@@ -104,7 +103,6 @@ function randomizeWorker() {
                 const result = randomizeRelics(
                   rng,
                   ctx.options,
-                  ctx.removed,
                   ctx.newNames,
                 )
                 util.sanitizeResult(result)

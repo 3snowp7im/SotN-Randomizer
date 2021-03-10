@@ -246,9 +246,9 @@
     } else {
       weapon = randItem(rng, pool.filter(typeFilter([TYPE.WEAPON1])).filter(
         function(item) {
-          if (blocked && blocked.r) {
-            return blocked.r.indexOf(item.name) === -1
-          }
+          return !blocked
+            || !blocked.r
+            || blocked.r.indexOf(item.name) === -1
         }
       ))
     }
@@ -257,9 +257,9 @@
     } else if (!planned.r || planned.r.type !== TYPE.WEAPON2) {
       shield = randItem(rng, pool.filter(shieldFilter).filter(
         function(item) {
-          if (blocked && blocked.l) {
-            return blocked.l.indexOf(item.name) === -1
-          }
+          return !blocked
+            || !blocked.l
+            || blocked.l.indexOf(item.name) === -1
         }
       ))
     }
@@ -268,9 +268,9 @@
     } else {
       armor = randItem(rng, pool.filter(armorFilter).filter(
         function(item) {
-          if (blocked && blocked.b) {
-            return blocked.b.indexOf(item.name) === -1
-          }
+          return !blocked
+            || !blocked.b
+            || blocked.b.indexOf(item.name) === -1
         }
       ))
     }
@@ -279,9 +279,9 @@
     } else {
       helmet = randItem(rng, pool.filter(helmetFilter).filter(
         function(item) {
-          if (blocked && blocked.h) {
-            return blocked.h.indexOf(item.name) === -1
-          }
+          return !blocked
+            || !blocked.h
+            || blocked.h.indexOf(item.name) === -1
         }
       ))
     }
@@ -290,9 +290,9 @@
     } else {
       cloak = randItem(rng, pool.filter(cloakFilter).filter(
         function(item) {
-          if (blocked && blocked.c) {
-            return blocked.c.indexOf(item.name) === -1
-          }
+          return !blocked
+            || !blocked.c
+            || blocked.c.indexOf(item.name) === -1
         }
       ))
     }
@@ -301,9 +301,9 @@
     } else {
       other = randItem(rng, pool.filter(accessoryFilter).filter(
         function(item) {
-          if (blocked && blocked.o) {
-            return blocked.o.indexOf(item.name) === -1
-          }
+          return !blocked
+            || !blocked.o
+            || blocked.o.indexOf(item.name) === -1
         }
       ))
     }
@@ -372,7 +372,13 @@
     if ('a' in planned) {
       axeLordArmor = util.itemFromName(randItem(rng, planned.a))
     } else {
-      axeLordArmor = randItem(rng, pool.filter(armorFilter))
+      axeLordArmor = randItem(rng, pool.filter(armorFilter).filter(
+        function(item) {
+          return !blocked
+            || !blocked.a
+            || blocked.a.indexOf(item.name) === -1
+        }
+      ))
     }
     const axeLordEquipVal = axeLordArmor ? axeLordArmor.id + equipIdOffset : 0
     data.writeChar(0x11a230, axeLordEquipVal)
@@ -381,7 +387,13 @@
     if ('x' in planned) {
       luckItem = util.itemFromName(randItem(rng, planned.x))
     } else {
-      luckItem = randItem(rng, pool.filter(accessoryFilter)).id
+      luckItem = randItem(rng, pool.filter(accessoryFilter).filter(
+        function(item) {
+          return !blocked
+            || !blocked.x
+            || blocked.x.indexOf(item.name) === -1
+        }
+      )).id
     }
     if (luckItem) {
       const luckItemEquipVal = luckItem ? luckItem.id : 0
@@ -428,15 +440,28 @@
         })[0]
         const index = getItemTileIndex(item, tiles[i])
         for (let j = 0; j < tiles[i].zones.length; j++) {
-          const zoneBlocked = blocked[zoneNames[tiles[i].zones[j]]]
-          if (zoneBlocked) {
-            const itemNames = Object.getOwnPropertyNames(zoneBlocked)
-            for (let k = 0; k < itemNames.length; k++) {
-              if (itemNames[k] === item.name
-                  && index in zoneBlocked[itemNames[k]]) {
+          const zoneBlocked = []
+          if (blocked[zoneNames[tiles[i].zones[j]]]) {
+            zoneBlocked.push(blocked[zoneNames[tiles[i].zones[j]]])
+          }
+          if (blocked['*']) {
+            zoneBlocked.push(blocked['*'])
+          }
+          for (let k = 0; k < zoneBlocked.length; k++) {
+            const itemNames = Object.getOwnPropertyNames(zoneBlocked[k])
+            for (let l = 0; l < itemNames.length; l++) {
+              if (itemNames[l] === '*'
+                  || (itemNames[l] === item.name
+                      && index in zoneBlocked[k][itemNames[l]])) {
                 if (replacement) {
-                  const items = zoneBlocked[itemNames[k]][index]
-                  return items.indexOf(replacement.name) !== -1
+                  const indexes = zoneBlocked[k][itemNames[l]]
+                  if (itemNames[l] === '*'
+                      && indexes['0'].indexOf(replacement.name) !== -1) {
+                    return true
+                  }
+                  if (index in indexes) {
+                    return indexes[index].indexOf(replacement.name) !== -1
+                  }
                 }
                 return items.indexOf(null) !== -1
               }
@@ -832,7 +857,9 @@
     util.assert.equal(shuffledTiles.length, 0)
     // Handle planned placements.
     if (typeof(planned) === 'object') {
-      Object.getOwnPropertyNames(planned).forEach(function(zone) {
+      Object.getOwnPropertyNames(planned).filter(function(zone) {
+        return zone !== 'blocked'
+      }).forEach(function(zone) {
         const zoneItems = planned[zone]
         Object.getOwnPropertyNames(zoneItems).forEach(function(itemName) {
           const itemZoneNames = []
@@ -844,39 +871,37 @@
           const itemZones = itemZoneNames.map(function(zoneName) {
             return constants.ZONE[zoneName]
           })
-          // Collect tiles for the item.
+          // Collect target items.
           const targets = items.filter(function(item) {
             return (itemName === '*' || item.name === itemName)
               && util.nonProgressionFilter(item)
               && util.tilesFilter(item)
           })
           // Replace tiles.
-          let poolItem = util.itemFromName(zoneItems[itemName]['0'], pool)
-          if (!poolItem) {
-            const item = util.itemFromName(zoneItems[itemName]['0'])
-            poolItem = Object.assign({}, item)
-            delete poolItem.tiles
-            addon.push(poolItem)
-          }
-          poolItem.tiles = poolItem.tiles || []
-          targets.forEach(function(target) {
-            const tiles = collectTiles([target], function(tile) {
-              return 'zones' in tile
-                && itemZones.indexOf(tile.zones[0]) !== -1
-                && !util.rewardTileFilter(tile)
-                && !util.dropTileFilter(tile)
-            })
-            tiles.forEach(function(tile) {
-              pool.forEach(function(item) {
-                if (item !== poolItem && item.tiles) {
-                  const index = item.tiles.indexOf(tile)
-                  if (index !== -1) {
-                    item.tiles.splice(index, 1)
-                  }
-                }
+          const map = zoneItems[itemName]
+          Object.getOwnPropertyNames(map).forEach(function(index) {
+            index = parseInt(index)
+            const replaceName = randItem(rng, map[index])
+            let poolItem = util.itemFromName(replaceName, pool)
+            if (!poolItem) {
+              const item = util.itemFromName(replaceName)
+              poolItem = Object.assign({}, item)
+              delete poolItem.tiles
+              addon.push(poolItem)
+            }
+            poolItem.tiles = poolItem.tiles || []
+            targets.forEach(function(target) {
+              const tiles = collectTiles([target], function(tile) {
+                return 'zones' in tile
+                  && itemZones.indexOf(tile.zones[0]) !== -1
+                  && !util.rewardTileFilter(tile)
+                  && !util.dropTileFilter(tile)
               })
+              tiles.filter(function(tile, tileIndex) {
+                return itemName === '*' || tileIndex === index
+              })
+              pushTile.apply(poolItem, tiles)
             })
-            pushTile.apply(poolItem, tiles)
           })
         })
       })
@@ -1538,60 +1563,7 @@
     }
   }
 
-  function placePlannedItems(options) {
-    const removed = []
-    if (typeof(options.itemLocations) === 'object') {
-      const planned = options.itemLocations
-      Object.getOwnPropertyNames(planned).filter(function(zone) {
-        return zone !== 'blocked'
-      }).forEach(function(zone) {
-        const zoneItems = planned[zone]
-        Object.getOwnPropertyNames(zoneItems).forEach(function(itemName) {
-          if (itemName === '*') {
-            return
-          }
-          const item = util.itemFromName(itemName)
-          if (util.nonProgressionFilter(item)) {
-            return
-          }
-          if (removed.indexOf(item) === -1) {
-            removed.push(item)
-          }
-          const itemZoneNames = []
-          if (zone === '*') {
-            Array.prototype.push.apply(itemZoneNames, zoneNames)
-          } else {
-            itemZoneNames.push(zone)
-          }
-          const itemZones = itemZoneNames.map(function(zoneName) {
-            return constants.ZONE[zoneName]
-          })
-          // Collect tiles for the item.
-          const tiles = collectTiles([item], function(tile) {
-            return 'zones' in tile
-              && itemZones.indexOf(tile.zones[0]) !== -1
-              && !util.rewardTileFilter(tile)
-              && !util.dropTileFilter(tile)
-          }).reverse()
-          // Replace tiles.
-          const map = zoneItems[itemName]
-          Object.getOwnPropertyNames(map).forEach(function(index) {
-            index = parseInt(index)
-            const tileIndex = item.tiles.indexOf(tiles[index])
-            const target = Object.assign({}, util.itemFromName(map[index]), {
-              tiles: item.tiles.splice(tileIndex, 1)
-            })
-          })
-        })
-      })
-    }
-    return removed
-  }
-
-  const exports = {
-    randomizeItems: randomizeItems,
-    placePlannedItems: placePlannedItems,
-  }
+  const exports = randomizeItems
   if (self) {
     self.sotnRando = Object.assign(self.sotnRando || {}, {
       randomizeItems: exports,
