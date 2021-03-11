@@ -548,8 +548,6 @@
     if (!override) {
       applied = util.Preset.options(options)
     }
-    // Place planned progression items.
-    const removed = randomizeItems.placePlannedItems(applied)
     function randomize() {
       const check = new util.checked(this.result)
       // Save handle to file data.
@@ -573,7 +571,6 @@
         applied,
         options,
         seed,
-        removed,
         newNames,
         createWorkers(threads),
         4,
