@@ -13,13 +13,13 @@
     'p:empty-hand': 'https://eh.sotn.io/',
 
     // Tournament mode URLs
-    'p:safe,n': 'https://t.sotn.io/',
-    'p:adventure,n': 'https://a.t.sotn.io/',
-    'p:casual,n': 'https://c.t.sotn.io/',
-    'p:speedrun,n': 'https://s.t.sotn.io/',
-    'p:glitch,n': 'https://g.t.sotn.io/',
-    'p:scavenger,n': 'https://sc.t.sotn.io/',
-    'p:empty-hand,n': 'https://eh.t.sotn.io/',
+    'tp:safe': 'https://t.sotn.io/',
+    'tp:adventure': 'https://a.t.sotn.io/',
+    'tp:casual': 'https://c.t.sotn.io/',
+    'tp:speedrun': 'https://s.t.sotn.io/',
+    'tp:glitch': 'https://g.t.sotn.io/',
+    'tp:scavenger': 'https://sc.t.sotn.io/',
+    'tp:empty-hand': 'https://eh.t.sotn.io/',
   }
 
   const TYPE = {
