@@ -1431,7 +1431,7 @@
         options.music = true
         break
       }
-      case 't': {
+      case 'k': {
         if (negate) {
           options.turkeyMode = false
           break
@@ -1555,7 +1555,7 @@
         options.writes = writes
         break
       }
-      case 'n': {
+      case 't': {
         if (negate) {
           options.tournamentMode = false
           break
@@ -2018,7 +2018,7 @@
         delete options.music
       } else if ('turkeyMode' in options) {
         if (options.turkeyMode) {
-          randomize.push('t')
+          randomize.push('k')
         }
         delete options.turkeyMode
       } else if ('writes' in options) {
@@ -2049,7 +2049,7 @@
         delete options.writes
       } else if ('tournamentMode' in options) {
         if (options.tournamentMode) {
-          randomize.push('n')
+          randomize.push('t')
         }
         delete options.tournamentMode
       } else {

@@ -27,8 +27,8 @@ const optionsHelp = [
   '  "s" for stats',
   '  "m" for music',
   '  "w" for writes (`--help writes`)',
-  '  "t" for turkey mode',
-  '  "n" for tournament mode (disables spoilers)',
+  '  "k" for turkey mode',
+  '  "t" for tournament mode (disables spoilers)',
   '',
   'The default randomization mode is "'
     +  constants.defaultOptions
