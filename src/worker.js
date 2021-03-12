@@ -179,6 +179,12 @@ function randomizeWorker() {
           } else {
             const check = new util.checked()
             check.apply(message.data)
+            util.setSeedText(
+              check,
+              message.seed,
+              message.preset,
+              message.tournament,
+            )
             checksum = check.sum()
             if (message.checksum && message.checksum !== checksum) {
               throw new errors.VersionError()
