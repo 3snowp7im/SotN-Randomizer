@@ -43,7 +43,8 @@
         'Icebrand',
         'Stone sword',
         'Holy sword',
-        'Dark blade',
+        'Dark Blade',
+        'Sword Familiar',
         'Monster vial 1',
         'Monster vial 2',
         'Monster vial 3',
@@ -136,7 +137,7 @@
     function randomizeNames(items) {
       shuffled(rng, items).forEach(function(item, index) {
         newNames.push({
-          id: stats[index].id,
+          id: items[index].id,
           name: item.name,
         })
         let addr = util.romOffset(constants.exe, items[index].offset + 0x00)

@@ -237,7 +237,12 @@
     info,
     planned,
   ) {
-    const pool = items.filter(util.nonProgressionFilter)
+    const pool = items.filter(function(item) {
+      if (item.name === 'Sword Familiar') {
+        return false
+      }
+      return util.nonProgressionFilter(item)
+    })
     // Select starting equipment.
     planned = planned || {}
     let weapon, shield, helmet, armor, cloak, other
@@ -431,11 +436,6 @@
   }
 
   function isBlocked(items, blocked, tiles, replacement) {
-
-    ///
-    if (!Array.isArray(tiles)) {
-      throw new Error('tiles is not an array')
-    }
     if (blocked) {
       for (let i = 0; i < tiles.length; i++) {
         const item = items.filter(function(item) {
