@@ -748,10 +748,10 @@
       nonsalableFilter,
     ]
     equipment.forEach(function(filter) {
+      let index = 0
       eachTileItem(tileItems, shuffledItems, filter, function(eq) {
         let replacement
         let tile
-        let index = 0
         while (true) {
           replacement = eq[index]
           index = (index + 1) % eq.length

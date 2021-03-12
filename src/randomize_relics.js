@@ -1180,6 +1180,10 @@
         || extensions.indexOf(location.extension) !== -1
     })
     let enabledRelics = relics.filter(function(relic) {
+      if (!options.relicLocations.thrustSwordAbility
+          && relic.ability === constants.RELIC.THRUST_SWORD) {
+        return false
+      }
       return !relic.extension
         || extensions.indexOf(relic.extension) !== -1
     })
