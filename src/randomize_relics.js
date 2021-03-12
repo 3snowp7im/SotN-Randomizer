@@ -1059,6 +1059,7 @@
   function getLocations() {
     const locations = relics.filter(function(location) {
       return !location.extension
+        && location.ability !== constants.RELIC.THRUST_SWORD
     }).concat(extension)
     return locations.map(function(location) {
       let id
