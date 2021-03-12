@@ -716,10 +716,10 @@
           let replacement
           while (true) {
             replacement = shuffledTypes[type][index]
+            index = (index + 1) % shuffledTypes[type].length
             if (!isBlocked(items, blocked, tiles, replacement)) {
               break
             }
-            index = (index + 1) % shuffledTypes[type].length
           }
           pushTile.apply(replacement, tiles)
         })
@@ -754,6 +754,7 @@
         let index = 0
         while (true) {
           replacement = eq[index]
+          index = (index + 1) % eq.length
           const tiles = shuffledTiles.slice()
           do {
             if (!tiles.length) {
@@ -769,7 +770,6 @@
             shuffledTiles.splice(shuffledTiles.indexOf(tile), 1)
             break
           }
-          index = (index + 1) % eq.length
         }
         util.assert.notEqual(tile, null)
         pushTile.call(replacement, tile)
@@ -782,6 +782,7 @@
       let tile
       while (index < powerups.length) {
         replacement = powerups[index]
+        index = (index + 1) % powerups.length
         const tiles = shuffledTiles.slice()
         do {
           if (!tiles.length) {
@@ -797,7 +798,6 @@
           shuffledTiles.splice(shuffledTiles.indexOf(tile), 1)
           break
         }
-        index = (index + 1) % powerups.length
       }
       util.assert.notEqual(tile, null)
       pushTile.call(replacement, tile)
@@ -813,6 +813,7 @@
         let tile
         while (index < jewels.length) {
           replacement = jewels[index]
+          index = (index + 1) % jewels.length
           const tiles = shuffledTiles.slice()
           do {
             if (!tiles.length) {
@@ -828,7 +829,6 @@
             shuffledTiles.splice(shuffledTiles.indexOf(tile), 1)
             break
           }
-          index = (index + 1) % jewels.length
         }
         util.assert.notEqual(tile, null)
         pushTile.call(replacement, tile)
@@ -843,6 +843,7 @@
         let tile
         while (true) {
           replacement = usables[index]
+          index = (index + 1) % usables.length
           const tiles = shuffledTiles.slice()
           do {
             if (!tiles.length) {
@@ -858,7 +859,6 @@
             shuffledTiles.splice(shuffledTiles.indexOf(tile), 1)
             break
           }
-          index = (index + 1) % usables.length
         }
         util.assert.notEqual(tile, null)
         pushTile.call(replacement, tile)
