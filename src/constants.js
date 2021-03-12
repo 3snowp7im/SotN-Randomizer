@@ -508,7 +508,7 @@
     ESTOC:                       'Estoc',
     OLROX_GARNET:                'Olrox Garnet',
     BLOOD_CLOAK:                 'Blood cloak',
-    SHIELD_ROD:                  'Shield Rod',
+    SHIELD_ROD:                  'Shield rod',
     KNIGHT_SHIELD:               'Knight shield',
     HOLY_SWORD:                  'Holy sword',
     BANDANA:                     'Bandana',
