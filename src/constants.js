@@ -11,6 +11,7 @@
     'p:glitch': 'https://g.sotn.io/',
     'p:scavenger': 'https://sc.sotn.io/',
     'p:empty-hand': 'https://eh.sotn.io/',
+    'p:og': 'https://og.sotn.io/',
 
     // Tournament mode URLs
     'tp:safe': 'https://t.sotn.io/',
@@ -20,6 +21,7 @@
     'tp:glitch': 'https://g.t.sotn.io/',
     'tp:scavenger': 'https://sc.t.sotn.io/',
     'tp:empty-hand': 'https://eh.t.sotn.io/',
+    'tp:og': 'https://og.t.sotn.io/',
   }
 
   const TYPE = {

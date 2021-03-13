@@ -1622,7 +1622,12 @@
     }
     let randomize = []
     while (Object.getOwnPropertyNames(options).length) {
-      if ('preset' in options) {
+      if ('tournamentMode' in options) {
+        if (options.tournamentMode) {
+          randomize.push('t')
+        }
+        delete options.tournamentMode
+      } else if ('preset' in options) {
         randomize.push('p:' + options.preset)
         delete options.preset
       } else if ('enemyDrops' in options) {
@@ -2047,11 +2052,6 @@
           randomize.push(opt)
         }
         delete options.writes
-      } else if ('tournamentMode' in options) {
-        if (options.tournamentMode) {
-          randomize.push('t')
-        }
-        delete options.tournamentMode
       } else {
         const unknown = Object.getOwnPropertyNames(options).pop()
         throw new Error('Unknown options: ' + unknown)
