@@ -1020,11 +1020,11 @@
         mapping['(' + location.id + ')'] = location
       }
     })
+    // Build node graph.
+    const graphed = graph(mapping)
     let solutions
     let depth
     if (target !== undefined) {
-      // Build node graph.
-      const graphed = graph(mapping)
       // Solve for completion goals.
       solutions = solve(graphed, goal)
       depth = complexity(solutions)
@@ -1033,22 +1033,22 @@
           || ('max' in target && depth > target.max)) {
         throw new errors.ComplexityError()
       }
-      // Collect locations with escape requirements.
-      const escape = []
-      Object.getOwnPropertyNames(mapping).forEach(function(ability) {
-        const location = mapping[ability]
-        if (location.escapes.length) {
-          escape.push(ability)
-        }
-      })
-      // Ensure escape requirements are satisfied.
-      escape.forEach(function(ability) {
-        const location = mapping[ability]
-        if (!canEscape(graphed, ability, location.escapes)) {
-          throw new errors.SoftlockError()
-        }
-      })
     }
+    // Collect locations with escape requirements.
+    const escape = []
+    Object.getOwnPropertyNames(mapping).forEach(function(ability) {
+      const location = mapping[ability]
+      if (location.escapes.length) {
+        escape.push(ability)
+      }
+    })
+    // Ensure escape requirements are satisfied.
+    escape.forEach(function(ability) {
+      const location = mapping[ability]
+      if (!canEscape(graphed, ability, location.escapes)) {
+        throw new errors.SoftlockError()
+      }
+    })
     return {
       mapping: mapping,
       solutions: solutions,
