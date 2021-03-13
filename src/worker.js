@@ -114,6 +114,7 @@ function randomizeWorker() {
                 })
                 result.seed = message.seed
                 result.options = message.options
+                delete result.solutions
                 this.postMessage(JSON.stringify(result))
                 break
               } catch (err) {

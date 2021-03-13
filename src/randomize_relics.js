@@ -761,63 +761,18 @@
     offset = data.writeWord(offset, 0x00000000) // nop
   }
 
-  function removeCircular(item, visited) {
-    if (item.locks.length) {
-      const allocated = {}
-      let allocate
-      const locks = item.locks.reduce(function(locks, lock) {
-        if (!lock.some(function(item) {return visited.has(item)})) {
-          const newLock = []
-          for (let item of lock) {
-            let newItem
-            if (item.item in allocated) {
-              newItem = allocated[item.item]
-            } else {
-              visited.add(item)
-              newItem = removeCircular(item, visited)
-              visited.delete(item)
-            }
-            if (newItem !== item) {
-              allocate = true
-              allocated[item.item] = newItem
-            }
-            if (newItem) {
-              newLock.push(newItem)
-            } else {
-              newLock.splice(0, newLock.length)
-              break
-            }
-          }
-          if (newLock.length) {
-            locks.push(newLock)
-          }
-        } else {
-          allocate = true
-        }
-        return locks
-      }, [])
-      if (locks.length) {
-        if (allocate) {
-          return {
-            item: item.item,
-            locks: locks,
-          }
-        }
-        return item
-      }
-    } else {
-      return item
-    }
-  }
-
-  function clean(item) {
+  function clean(item, visited) {
+    visited = visited || new WeakSet()
     if (item.locks) {
       if (!item.locks.length) {
         delete item.locks
       } else {
         item.locks.forEach(function(lock) {
           for (const item of lock) {
-            clean(item)
+            if (!visited.has(item)) {
+              visited.add(item)
+              clean(item, visited)
+            }
           }
         })
       }
@@ -845,16 +800,7 @@
         })
       })
     })
-    // Remove circular locks.
-    graph = graph.reduce(function(graph, node) {
-      const visited = new WeakSet()
-      visited.add(node)
-      node = removeCircular(node, visited)
-      if (node) {
-        graph.push(node)
-      }
-      return graph
-    }, [])
+    // Clean locks.
     graph.forEach(function(node) {
       clean(node)
     })
@@ -875,49 +821,59 @@
     })
   }
 
-  function lockDepth(min, locks) {
-    const curr = locks.reduce(function(max, item) {
-      let curr = 1
-      if (item.locks) {
-        curr += item.locks.reduce(lockDepth, 0)
+  function lockDepth(visited) {
+    return function(min, lock) {
+      if (lock.some(function(item) { return visited.has(item) })) {
+        return min
       }
-      if (curr > max) {
+      const curr = lock.reduce(function(max, item) {
+        let curr = 1
+        if (item.locks) {
+          visited.add(item)
+          curr += item.locks.reduce(lockDepth(visited), 0)
+          visited.delete(item)
+        }
+        return Math.max(curr, max)
+      }, 0)
+      if (min === 0) {
         return curr
       }
-      return max
-    }, 0)
-    if (min === 0 || curr < min) {
-      return curr
+      return Math.min(curr, min)
     }
-    return min
   }
 
   function complexity(solutions) {
-    return solutions.reduce(lockDepth, 0)
+    return solutions.reduce(lockDepth(new WeakSet()), 0)
   }
 
-  function collectAbilities(node) {
+  function collectAbilities(node, visited) {
+    visited = visited || new WeakSet()
     const locks = node.locks || []
     return locks.reduce(function(abilities, lock) {
-      const items = lock.map(function(item) {
-        return item.item
-      })
-      const chains = lock.map(collectAbilities).reduce(
-        function(chains, chain) {
+      if (!lock.some(function(item) { return visited.has(item) })) {
+        const items = lock.map(function(item) {
+          return item.item
+        })
+        const chains = lock.reduce(function(abilities, item) {
+          visited.add(item)
+          abilities.push(collectAbilities(item, visited))
+          visited.delete(item)
+          return abilities
+        }, []).reduce(function(chains, chain) {
           Array.prototype.push.apply(chains, chain)
           return chains
-        },
-        []
-      )
-      if (chains.length === 0) {
-        chains.push(new Set())
-      }
-      chains.forEach(function(chain) {
-        items.forEach(function(item) {
-          chain.add(item)
+        }, [])
+        if (chains.length === 0) {
+          chains.push(new Set())
+        }
+        chains.forEach(function(chain) {
+          chain.add(node.item)
+          items.forEach(function(item) {
+            chain.add(item)
+          })
         })
-      })
-      Array.prototype.push.apply(abilities, chains)
+        Array.prototype.push.apply(abilities, chains)
+      }
       return abilities
     }, [])
   }
@@ -933,9 +889,6 @@
     if (abilities.length === 0) {
       abilities.push(new Set())
     }
-    abilities.forEach(function(chain) {
-      chain.add(solutions[0][0].item)
-    })
     return requirements.reduce(function(satisfied, requirement) {
       const lock = Array.from(requirement)
       return satisfied || abilities.every(function(abilities) {

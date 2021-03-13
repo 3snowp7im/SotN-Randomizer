@@ -4624,51 +4624,58 @@
     return Array(level).fill(' ').join('')
   }
 
-  function minifySolution(min, lock, index) {
-    const requirements = lock.map(function(node) {
-      if (node.locks) {
-        const solution = node.locks.reduce(minifySolution, {
-          depth: 0,
-          weight: 0,
-        })
+  function minifySolution(visited) {
+    return function(min, lock, index) {
+      if (lock.some(function(item) { return visited.has(item) })) {
+        return min
+      }
+      const requirements = lock.map(function(node) {
+        if (node.locks) {
+          visited.add(node)
+          const solution = node.locks.reduce(minifySolution(visited), {
+            depth: 0,
+            weight: 0,
+          })
+          visited.delete(node)
+          return {
+            item: node.item,
+            depth: 1 + solution.depth,
+            solution: solution,
+          }
+        }
         return {
           item: node.item,
-          depth: 1 + solution.depth,
-          solution: solution,
+          depth: 1,
         }
+      })
+      const depth = requirements.slice().sort(function(a, b) {
+        return a.depth - b.depth
+      }).pop().depth
+      const weight = requirements.reduce(function(weight, requirement) {
+        return weight + requirement.depth
+      }, 0)
+      const avg = weight / requirements.length
+      const solution = {
+        depth: depth,
+        weight: weight,
+        avg: avg,
+        requirements: requirements,
       }
-      return {
-        item: node.item,
-        depth: 1,
+      if (min.depth === 0
+          || solution.depth < min.depth
+          || (solution.depth === min.depth
+              && solution.weight < min.weight)
+          || (solution.depth === min.depth
+              && solution.weight === min.weight
+              && solution.avg < min.avg)) {
+        return solution
       }
-    })
-    const depth = requirements.slice().sort(function(a, b) {
-      return a.depth - b.depth
-    }).pop().depth
-    const weight = requirements.reduce(function(weight, requirement) {
-      return weight + requirement.depth
-    }, 0)
-    const avg = weight / requirements.length
-    const solution = {
-      depth: depth,
-      weight: weight,
-      avg: avg,
-      requirements: requirements,
+      return min
     }
-    if (min.depth === 0
-        || solution.depth < min.depth
-        || (solution.depth === min.depth
-            && solution.weight < min.weight)
-        || (solution.depth === min.depth
-            && solution.weight === min.weight
-            && solution.avg < min.avg)) {
-      return solution
-    }
-    return min
   }
 
   function simplifySolution(node) {
-    if (node.solution) {
+    if (node.solution && node.solution.requirements) {
       return {
         item: node.item,
         solution: node.solution.requirements.map(simplifySolution)
@@ -4684,7 +4691,7 @@
       return map.get(node.item)
     }
     const abilities = new Set([node.item])
-    if (node.solution) {
+    if (node.solution && node.solution.requirements) {
       node.solution.requirements.forEach(function(node) {
         abilities.add(node.item)
         Array.from(collectAbilities(node, map)).forEach(function(ability) {
@@ -4698,7 +4705,7 @@
 
   function pruneSubsets(node, map) {
     map = map || new Map()
-    if (node.solution) {
+    if (node.solution && node.solution.requirements) {
       const nodes = node.solution.requirements
       nodes.sort(function(a, b) {
         return b.depth - a.depth
@@ -4790,7 +4797,7 @@
   }
 
   function renderSolutions(solutions, newNames, thrustSword) {
-    const minified = solutions.reduce(minifySolution, {
+    const minified = solutions.reduce(minifySolution(new WeakSet()), {
       depth: 0,
       weight: 0,
     })
