@@ -7,6 +7,27 @@
     "weight": -100
   },
   "thrustSwordAbility": true,
+  "blockItems": [{
+    "zone": "*",
+    "item": "*",
+    "replacement": [
+      "Estoc",
+      "Claymore",
+      "Flamberge",
+      "Zwei hander",
+      "Obsidian sword"
+    ]
+  }],
+  "blockDrops": [{
+    "enemy": "*",
+    "items": [
+      "Estoc",
+      "Claymore",
+      "Flamberge",
+      "Zwei hander",
+      "Obsidian sword"
+    ]
+  }],
   "lockLocation": [{
     "location": "Soul of Bat",
     "comment": "Requires Mist",
@@ -155,12 +176,10 @@
     "locks": [
       "Jewel of Open + Leap Stone",
       "Jewel of Open + Soul of Bat",
-      "Jewel of Open + Gravity Boots + Soul of Wolf",
+      "Jewel of Open + Soul of Wolf",
       "Jewel of Open + Gravity Boots + Form of Mist",
       "Jewel of Open + Gravity Boots + Thrust sword",
-      "Jewel of Open + Form of Mist + Power of Mist",
-      "Jewel of Open + Soul of Wolf + Skill of Wolf",
-      "Jewel of Open + Soul of Wolf + Power of Wolf"
+      "Jewel of Open + Form of Mist + Power of Mist"
     ],
     "comment": "Access must also give at least Leap Stone",
     "escapeRequires": [
@@ -298,12 +317,11 @@
     "locks": [
       "Jewel of Open + Leap Stone",
       "Jewel of Open + Soul of Bat",
+      "Jewel of Open + Soul of Wolf",
       "Jewel of Open + Gravity Boots + Soul of Wolf",
       "Jewel of Open + Gravity Boots + Form of Mist",
       "Jewel of Open + Gravity Boots + Thrust sword",
-      "Jewel of Open + Form of Mist + Power of Mist",
-      "Jewel of Open + Soul of Wolf + Skill of Wolf",
-      "Jewel of Open + Soul of Wolf + Power of Wolf"
+      "Jewel of Open + Form of Mist + Power of Mist"
     ],
     "comment": "Access to Mormegil must also give at least Leap Stone",
     "escapeRequires": [

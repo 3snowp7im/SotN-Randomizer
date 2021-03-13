@@ -4,7 +4,7 @@
     "name": "Casual",
     "description": "Use safe logic, but randomize relics among vanilla locations only.",
     "author": "3snow_p7im, setz, and soba",
-    "weight": -200
+    "weight": -300
   },
   "relicLocationsExtension": false,
   "lockLocation": [{

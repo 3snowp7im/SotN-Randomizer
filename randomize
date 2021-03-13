@@ -414,7 +414,8 @@ function presetMetaHelp(preset) {
     return !relic.extension && relic.ability !== constants.RELIC.THRUST_SWORD
   })
   const extensions = []
-  if ('extension' in options.relicLocations) {
+  if (typeof(options.relicLocations) === 'object'
+      && 'extension' in options.relicLocations) {
     switch (options.relicLocations.extension) {
     case constants.EXTENSION.EQUIPMENT:
       extensions.push(constants.EXTENSION.EQUIPMENT)

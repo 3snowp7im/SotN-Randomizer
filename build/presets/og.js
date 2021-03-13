@@ -1,6 +1,6 @@
 // This is a generated file. Do not edit it directly.
-// Make your changes to presets/adventure.json then rebuild
-// this file with `npm run build-presets -- adventure`.
+// Make your changes to presets/og.json then rebuild
+// this file with `npm run build-presets -- og`.
 (function(self) {
 
   // Boilerplate.
@@ -13,7 +13,7 @@
   const PresetBuilder = util.PresetBuilder
 
   // Create PresetBuilder.
-  const builder = PresetBuilder.fromJSON({"metadata":{"id":"adventure","name":"Adventure","description":"Requires extensive map coverage.","author":"3snow_p7im","weight":-400},"inherits":"safe","relicLocationsExtension":"equipment","complexityGoal":{"min":9,"goals":["Holy glasses + Heart of Vlad + Tooth of Vlad + Rib of Vlad + Ring of Vlad + Eye of Vlad"]}})
+  const builder = PresetBuilder.fromJSON({"metadata":{"id":"og","name":"O.G.","description":"Simulates randomizer season 1. No stat randomization. Gold ring, Silver ring, Holy glasses and Spike Breaker are in vanilla locations.","author":"3snow_p7im","weight":-200},"inherits":"casual","stats":false,"placeRelic":[{"location":"Silver ring","relic":"Silver ring"},{"location":"Gold ring","relic":"Gold ring"},{"location":"Holy glasses","relic":"Holy glasses"},{"location":"Spike Breaker","relic":"Spike Breaker"}]})
 
   // Export.
   const preset = builder.build()

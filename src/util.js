@@ -3418,6 +3418,8 @@
         self.locations = {}
         if ('extension' in preset.relicLocations) {
           self.extension = preset.relicLocations.extension
+        } else {
+          delete self.extension
         }
         if ('thrustSwordAbility' in preset.relicLocations) {
           self.thrustSword = preset.relicLocations.thrustSwordAbility
