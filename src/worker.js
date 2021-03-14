@@ -95,45 +95,38 @@ function randomizeWorker() {
                 newNames: message.newNames,
               })
             }
-            let nonce = message.nonce
-            for (let i = 0; message.rounds === 0 || i < message.rounds; i++) {
-              const rng = getRng(Object.assign({}, ctx.salt, {
-                nonce: nonce + i,
-              }))
-              try {
-                const result = randomizeRelics(
-                  rng,
-                  ctx.options,
-                  ctx.newNames,
-                )
-                util.sanitizeResult(result)
-                Object.assign(result, {
+            const rng = getRng(Object.assign({}, ctx.salt, {
+              nonce: message.nonce,
+            }))
+            try {
+              const result = randomizeRelics(rng, ctx.options, ctx.newNames)
+              util.sanitizeResult(result)
+              Object.assign(result, {
+                action: constants.WORKER_ACTION.RELICS,
+                done: true,
+                nonce: message.nonce,
+              })
+              result.seed = message.seed
+              result.options = message.options
+              delete result.solutions
+              this.postMessage(JSON.stringify(result))
+              break
+            } catch (err) {
+              if (!errors.isError(err)) {
+                this.postMessage(JSON.stringify({
                   action: constants.WORKER_ACTION.RELICS,
-                  done: true,
-                  nonce: nonce + i,
-                })
-                result.seed = message.seed
-                result.options = message.options
-                delete result.solutions
-                this.postMessage(JSON.stringify(result))
+                  error: {
+                    name: err.name,
+                    message: err.message,
+                    stack: err.stack,
+                  }
+                }))
+              } else {
+                this.postMessage(JSON.stringify({
+                  action: constants.WORKER_ACTION.RELICS,
+                  error: true,
+                }))
                 break
-              } catch (err) {
-                if (!errors.isError(err)) {
-                  this.postMessage(JSON.stringify({
-                    action: constants.WORKER_ACTION.RELICS,
-                    error: {
-                      name: err.name,
-                      message: err.message,
-                      stack: err.stack,
-                    }
-                  }))
-                } else if (i === message.rounds - 1) {
-                  this.postMessage(JSON.stringify({
-                    action: constants.WORKER_ACTION.RELICS,
-                    error: true,
-                  }))
-                  break
-                }
               }
             }
           }

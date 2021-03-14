@@ -3425,13 +3425,13 @@
           self.thrustSword = preset.relicLocations.thrustSwordAbility
         }
         if ('placed' in preset.relicLocations) {
-          self.locations.placed = preset.relicLocations.placed
+          self.locations.placed = clone(preset.relicLocations.placed)
         }
         if ('replaced' in preset.relicLocations) {
-          self.locations.replaced = preset.relicLocations.replaced
+          self.locations.replaced = clone(preset.relicLocations.replaced)
         }
         if ('blocked' in preset.relicLocations) {
-          self.locations.blocked = preset.relicLocations.blocked
+          self.locations.blocked = clone(preset.relicLocations.blocked)
         }
         const locations = Object.getOwnPropertyNames(preset.relicLocations)
         locations.filter(function(location) {
@@ -4441,11 +4441,7 @@
     workers,
     nonce,
     url,
-    rounds,
   ) {
-    if (rounds === undefined) {
-      rounds = 1
-    }
     const promises = Array(workers.length)
     const running = Array(workers.length).fill(true)
     let done
@@ -4453,11 +4449,11 @@
       const thread = i
       const worker = workers[i]
       loadWorker(worker, url)
+      const workerId = i
       function postMessage(bootstrap) {
         const message = {
           action: constants.WORKER_ACTION.RELICS,
           nonce: nonce++,
-          rounds: rounds,
         }
         if (bootstrap) {
           Object.assign(message, {
@@ -4749,10 +4745,12 @@
     }
   }
 
-  function renderNode(indentLevel, sub, newNames, thrustSword, node) {
+  function renderNode(indentLevel, sub, relics, newNames, thrustSword, node) {
     const lines = []
     const names = node.items.map(function(ability) {
-      const relic = relicFromAbility(ability)
+      const relic = relics.filter(function(relic) {
+        return relic.ability === ability
+      })[0]
       let relicName = relic.name
       let itemId
       if (relic.itemId) {
@@ -4785,6 +4783,7 @@
         null,
         indentLevel,
         true,
+        relics,
         newNames,
         thrustSword,
       ))
@@ -4796,7 +4795,7 @@
     return lines
   }
 
-  function renderSolutions(solutions, newNames, thrustSword) {
+  function renderSolutions(solutions, relics, newNames, thrustSword) {
     const minified = solutions.reduce(minifySolution(new WeakSet()), {
       depth: 0,
       weight: 0,
@@ -4806,7 +4805,14 @@
     })
     const simplified = minified.requirements.map(simplifySolution)
     const collapsed = simplified.map(collapseSolution)
-    const render = renderNode.bind(null, 0, false, newNames, thrustSword)
+    const render = renderNode.bind(
+      null,
+      0,
+      false,
+      relics,
+      newNames,
+      thrustSword,
+    )
     return collapsed.map(render).reduce(function(lines, node) {
       Array.prototype.push.apply(lines, node)
       return lines

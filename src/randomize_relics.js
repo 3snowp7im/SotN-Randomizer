@@ -319,42 +319,59 @@
     // If a zone has an item removed, it leaks information that a progression
     // item has been randomized to relic a location in that zone. To prevent
     // this leak, remove at most 3 items from every zone.
-    constants.zones.filter(function(zone) {
-      return [
-        constants.ZONE.ST0,
-        constants.ZONE.NP3,
-        constants.ZONE.BO3,
-      ].indexOf(zone.id) === -1
-    }).forEach(function(zone) {
-      const zones = [zone.id]
-      switch (zones[0]) {
-      case constants.ZONE.NO3:
-        zones.push(constants.ZONE.NP3)
-        break
-      case constants.ZONE.NO4:
-        zones.push(constants.ZONE.BO3)
-        break
-      }
-      if ('items' in zone) {
-        const rand = Math.floor(rng() * 4)
-        const removed = zoneRemovedItems[zone.id] || 0
-        for (let i = 0; i < rand - removed; i++) {
-          const tileItem = getRandomZoneItem(
-            rng,
-            zones,
-            locations,
-            placedItems,
-          )
-          const index = tileItem.tile.index
-          // Remove the tile from the item's tile collection.
-          const tileIndex = tileItem.item.tiles.indexOf(tileItem.tile)
-          util.assert(tileIndex !== -1)
-          tileItem.item.tiles.splice(tileIndex, 1)
-          // Erase the item's entity.
-          writeEntity(data, tileItem.tile, erased)
+    let removeItems = false
+    const keys = Object.getOwnPropertyNames(mapping)
+    for (let i = 0; i < keys.length; i++) {
+      const key = keys[i]
+      const location = locations.filter(function(location) {
+        return location.id === mapping[key].id
+      })[0]
+      const relic = util.relicFromAbility(key)
+      if (!location.itemId) {
+        if (relic.itemId || key in (replaced || {})) {
+          removeItems = true
+          break
         }
       }
-    })
+    }
+    if (removeItems) {
+      constants.zones.filter(function(zone) {
+        return [
+          constants.ZONE.ST0,
+          constants.ZONE.NP3,
+          constants.ZONE.BO3,
+        ].indexOf(zone.id) === -1
+      }).forEach(function(zone) {
+        const zones = [zone.id]
+        switch (zones[0]) {
+        case constants.ZONE.NO3:
+          zones.push(constants.ZONE.NP3)
+          break
+        case constants.ZONE.NO4:
+          zones.push(constants.ZONE.BO3)
+          break
+        }
+        if ('items' in zone) {
+          const rand = Math.floor(rng() * 4)
+          const removed = zoneRemovedItems[zone.id] || 0
+          for (let i = 0; i < rand - removed; i++) {
+            const tileItem = getRandomZoneItem(
+              rng,
+              zones,
+              locations,
+              placedItems,
+            )
+            const index = tileItem.tile.index
+            // Remove the tile from the item's tile collection.
+            const tileIndex = tileItem.item.tiles.indexOf(tileItem.tile)
+            util.assert(tileIndex !== -1)
+            tileItem.item.tiles.splice(tileIndex, 1)
+            // Erase the item's entity.
+            writeEntity(data, tileItem.tile, erased)
+          }
+        }
+      })
+    }
   }
 
   function randIdx(rng, array) {
@@ -846,36 +863,35 @@
     return solutions.reduce(lockDepth(new WeakSet()), 0)
   }
 
-  function collectAbilities(node, visited) {
-    visited = visited || new WeakSet()
-    const locks = node.locks || []
-    return locks.reduce(function(abilities, lock) {
-      if (!lock.some(function(item) { return visited.has(item) })) {
-        const items = lock.map(function(item) {
-          return item.item
-        })
-        const chains = lock.reduce(function(abilities, item) {
-          visited.add(item)
-          abilities.push(collectAbilities(item, visited))
-          visited.delete(item)
-          return abilities
-        }, []).reduce(function(chains, chain) {
-          Array.prototype.push.apply(chains, chain)
-          return chains
-        }, [])
-        if (chains.length === 0) {
-          chains.push(new Set())
+  function testRequirements(locks, chain, requirements, visited) {
+    if (requirements.length) {
+      if (!locks) {
+        let i = 0
+        while (i < requirements.length) {
+          if (!Array.from(requirements[i]).every(function(item) {
+            return chain.has(item)
+          })) {
+            requirements.splice(i, 1)
+          } else {
+            i++
+          }
         }
-        chains.forEach(function(chain) {
-          chain.add(node.item)
-          items.forEach(function(item) {
-            chain.add(item)
-          })
+      } else {
+        locks.forEach(function(lock) {
+          if (!lock.some(function(item) { return visited.has(item) })) {
+            const newChain = new Set(chain)
+            lock.forEach(function(node) {
+              return newChain.add(node.item)
+            })
+            lock.forEach(function(node) {
+              visited.add(node)
+              testRequirements(node.locks, newChain, requirements, visited)
+              visited.delete(node)
+            })
+          }
         })
-        Array.prototype.push.apply(abilities, chains)
       }
-      return abilities
-    }, [])
+    }
   }
 
   function canEscape(graph, ability, requirements) {
@@ -885,21 +901,26 @@
     if (!solutions.length || !solutions[0].length) {
       return false
     }
-    const abilities = collectAbilities(solutions[0][0])
-    if (abilities.length === 0) {
-      abilities.push(new Set())
+    const visited = new WeakSet()
+    visited.add(solutions[0][0])
+    const chain = new Set()
+    if (solutions[0][0].item.length === 1) {
+      chain.add(solutions[0][0].item)
     }
-    return requirements.reduce(function(satisfied, requirement) {
-      const lock = Array.from(requirement)
-      return satisfied || abilities.every(function(abilities) {
-        return lock.every(function(ability) {
-          return abilities.has(ability)
-        })
-      })
-    }, false)
+    testRequirements(solutions[0][0].locks, chain, requirements, visited)
+    return requirements.length > 0
   }
 
-  function randomize(rng, placed, blocked, relics, locations, goal, target) {
+  function randomize(
+    rng,
+    placed,
+    blocked,
+    relics,
+    locations,
+    goal,
+    target,
+    ctx,
+  ) {
     // Get new locations pool.
     const pool = {
       relics: util.shuffled(rng, relics),
@@ -998,7 +1019,7 @@
     // Ensure escape requirements are satisfied.
     escape.forEach(function(ability) {
       const location = mapping[ability]
-      if (!canEscape(graphed, ability, location.escapes)) {
+      if (!canEscape(graphed, ability, location.escapes.slice())) {
         throw new errors.SoftlockError()
       }
     })
@@ -1071,7 +1092,7 @@
     return map
   }
 
-  function randomizeRelics(rng, options, newNames) {
+  function randomizeRelics(rng, options, newNames, ctx) {
     if (!options.relicLocations) {
       return {}
     }
@@ -1213,6 +1234,7 @@
       locations,
       goal,
       target,
+      ctx,
     )
     // Write spoilers.
     const info = util.newInfo()
@@ -1237,6 +1259,7 @@
       if (result.solutions) {
         info[4]['Solutions'] = util.renderSolutions(
           result.solutions,
+          enabledRelics,
           newNames,
           thrustSword,
         )
