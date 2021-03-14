@@ -868,7 +868,7 @@
       if (!locks) {
         let i = 0
         while (i < requirements.length) {
-          if (!Array.from(requirements[i]).every(function(item) {
+          if (!requirements[i].every(function(item) {
             return chain.has(item)
           })) {
             requirements.splice(i, 1)
@@ -878,10 +878,10 @@
         }
       } else {
         locks.forEach(function(lock) {
-          if (!lock.some(function(item) { return visited.has(item) })) {
+          if (!lock.some(function(node) { return visited.has(node) })) {
             const newChain = new Set(chain)
             lock.forEach(function(node) {
-              return newChain.add(node.item)
+              newChain.add(node.item)
             })
             lock.forEach(function(node) {
               visited.add(node)
@@ -895,18 +895,19 @@
   }
 
   function canEscape(graph, ability, requirements) {
-    const set = new Set()
-    set.add(ability)
-    const solutions = solve(graph, [set])
+    const solutions = solve(graph, [new Set([ability])])
     if (!solutions.length || !solutions[0].length) {
       return false
     }
-    const visited = new WeakSet()
-    visited.add(solutions[0][0])
     const chain = new Set()
     if (solutions[0][0].item.length === 1) {
       chain.add(solutions[0][0].item)
     }
+    requirements = requirements.map(function(requirement) {
+      return Array.from(requirement)
+    })
+    const visited = new WeakSet()
+    visited.add(solutions[0][0])
     testRequirements(solutions[0][0].locks, chain, requirements, visited)
     return requirements.length > 0
   }
@@ -919,7 +920,6 @@
     locations,
     goal,
     target,
-    ctx,
   ) {
     // Get new locations pool.
     const pool = {
@@ -1092,7 +1092,7 @@
     return map
   }
 
-  function randomizeRelics(rng, options, newNames, ctx) {
+  function randomizeRelics(rng, options, newNames) {
     if (!options.relicLocations) {
       return {}
     }
@@ -1233,8 +1233,7 @@
       enabledRelics,
       locations,
       goal,
-      target,
-      ctx,
+      target
     )
     // Write spoilers.
     const info = util.newInfo()
