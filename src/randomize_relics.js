@@ -863,35 +863,51 @@
     return solutions.reduce(lockDepth(new WeakSet()), 0)
   }
 
-  function testRequirements(locks, chain, requirements, visited) {
-    if (requirements.length) {
-      if (!locks) {
-        let i = 0
-        while (i < requirements.length) {
-          if (!requirements[i].every(function(item) {
-            return chain.has(item)
-          })) {
-            requirements.splice(i, 1)
-          } else {
-            i++
-          }
+  function buildPath(locks, chain, visited, path, advance) {
+    const index = path.index
+    let lock
+    while (true) {
+      lock = locks[path.index]
+      if (lock.some(function(node) { return visited.has(node) })) {
+        path.index = (path.index + 1) % locks.length
+        if (path.index === index) {
+          return advance
         }
       } else {
-        locks.forEach(function(lock) {
-          if (!lock.some(function(node) { return visited.has(node) })) {
-            const newChain = new Set(chain)
-            lock.forEach(function(node) {
-              newChain.add(node.item)
-            })
-            lock.forEach(function(node) {
-              visited.add(node)
-              testRequirements(node.locks, newChain, requirements, visited)
-              visited.delete(node)
-            })
-          }
-        })
+        break
       }
     }
+    lock.forEach(function(node) {
+      chain.add(node.item)
+    })
+    for (let i = 0; i < lock.length; i++) {
+      if (lock[i].locks) {
+        path.lock[i] = path.lock[i] || {
+          index: 0,
+          lock: {},
+        }
+        visited.add(lock[i])
+        advance = buildPath(
+          lock[i].locks,
+          chain,
+          visited,
+          path.lock[i],
+          advance,
+        )
+        visited.delete(lock[i])
+      }
+    }
+    if (advance) {
+      if (locks.length > 1) {
+        path.index = (path.index + 1) % locks.length
+        if (path.index === 0) {
+          return true
+        }
+      } else {
+        return true
+      }
+    }
+    return false
   }
 
   function canEscape(graph, ability, requirements) {
@@ -899,16 +915,40 @@
     if (!solutions.length || !solutions[0].length) {
       return false
     }
-    const chain = new Set()
-    if (solutions[0][0].item.length === 1) {
-      chain.add(solutions[0][0].item)
-    }
+    const root = solutions[0][0]
     requirements = requirements.map(function(requirement) {
       return Array.from(requirement)
     })
-    const visited = new WeakSet()
-    visited.add(solutions[0][0])
-    testRequirements(solutions[0][0].locks, chain, requirements, visited)
+    const chain = new Set()
+    if (root.item.length === 1) {
+      chain.add(root.item)
+    }
+    const visited = new WeakSet([root])
+    const path = {
+      index: 0,
+      lock: {},
+    }
+    let advance
+    while (!advance && requirements.length) {
+      const newChain = new Set(chain)
+      let hasNext = false
+      if (root.locks) {
+        advance = buildPath(root.locks, newChain, visited, path, true)
+      }
+      let i = 0
+      while (i < requirements.length) {
+        if (!requirements[i].every(function(item) {
+          return newChain.has(item)
+        })) {
+          requirements.splice(i, 1)
+        } else {
+          i++
+        }
+      }
+      if (!hasNext) {
+        break
+      }
+    }
     return requirements.length > 0
   }
 
@@ -1019,7 +1059,7 @@
     // Ensure escape requirements are satisfied.
     escape.forEach(function(ability) {
       const location = mapping[ability]
-      if (!canEscape(graphed, ability, location.escapes.slice())) {
+      if (!canEscape(graphed, ability, location.escapes)) {
         throw new errors.SoftlockError()
       }
     })
