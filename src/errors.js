@@ -50,23 +50,12 @@
   _ComplexityError.prototype = Error.prototype
   ComplexityError.prototype = new _ComplexityError()
 
-  function CanceledError() {
-    this.name = 'CanceledError'
-    this.message = 'Could not meet difficulty target'
-    this.stack = new Error(this.message).stack
-  }
-
-  const _CanceledError = function() {}
-  _CanceledError.prototype = Error.prototype
-  CanceledError.prototype = new _CanceledError()
-
   const errors = {
     AssertionError,
     RandomizedFileError,
     VersionError,
     SoftlockError,
     ComplexityError,
-    CanceledError,
   }
 
   function isError(error) {

@@ -778,24 +778,6 @@
     offset = data.writeWord(offset, 0x00000000) // nop
   }
 
-  function clean(item, visited) {
-    visited = visited || new WeakSet()
-    if (item.locks) {
-      if (!item.locks.length) {
-        delete item.locks
-      } else {
-        item.locks.forEach(function(lock) {
-          for (const item of lock) {
-            if (!visited.has(item)) {
-              visited.add(item)
-              clean(item, visited)
-            }
-          }
-        })
-      }
-    }
-  }
-
   function graph(mapping) {
     let graph = Object.getOwnPropertyNames(mapping).map(function(key) {
       return {
@@ -819,7 +801,9 @@
     })
     // Clean locks.
     graph.forEach(function(node) {
-      clean(node)
+      if (!node.locks.length) {
+        delete node.locks
+      }
     })
     return graph
   }
@@ -863,18 +847,77 @@
     return solutions.reduce(lockDepth(new WeakSet()), 0)
   }
 
-  function testRequirements(locks, chain, requirements, visited) {
-    if (requirements.length) {
-      if (!locks) {
-        let i = 0
-        while (i < requirements.length) {
-          if (!Array.from(requirements[i]).every(function(item) {
-            return chain.has(item)
-          })) {
-            requirements.splice(i, 1)
-          } else {
-            i++
+  function nonCircular(visited, path) {
+    return function(lock) {
+      if (lock.some(function(node) { return visited.has(node) })) {
+        return false
+      }
+      for (let i = 0; i < lock.length; i++) {
+        const node = lock[i]
+        if (node.locks) {
+          path.nodes[path.index] = path.nodes[path.index] || {}
+          path.nodes[path.index][i] = path.nodes[path.index][i] || {
+            index: 0,
+            nodes: {},
           }
+          let locks = path.nodes[path.index][i].locks
+          if (!locks) {
+            visited.add(node)
+            locks = node.locks.filter(nonCircular(
+              visited,
+              path.nodes[path.index][i],
+            ))
+            visited.delete(node)
+            path.nodes[path.index][i].locks = locks
+          }
+          if (!locks.length) {
+            return false
+          }
+        }
+      }
+      return true
+    }
+  }
+
+  function buildPath(visited, path, locks, chain, advance) {
+    const lock = locks[path.index]
+    for (let i = 0; i < lock.length; i++) {
+      const node = lock[i]
+      if (node.locks) {
+        path.nodes[path.index] = path.nodes[path.index] || {}
+        path.nodes[path.index][i] = path.nodes[path.index][i] || {
+          index: 0,
+          nodes: {},
+        }
+        let locks = path.nodes[path.index][i].locks
+        if (!locks) {
+          locks = node.locks.filter(nonCircular(
+            visited,
+            path.nodes[path.index][i],
+          ))
+          path.nodes[path.index][i].locks = locks
+        }
+        if (locks.length) {
+          visited.add(node)
+          advance = buildPath(
+            visited,
+            path.nodes[path.index][i],
+            locks,
+            chain,
+            advance,
+          )
+          visited.delete(node)
+        }
+      }
+    }
+    for (let node of lock) {
+      chain.add(node.item)
+    }
+    if (advance) {
+      if (locks.length > 1) {
+        path.index = (path.index + 1) % locks.length
+        if (path.index === 0) {
+          return true
         }
       } else {
         locks.forEach(function(lock) {
@@ -901,11 +944,46 @@
     if (!solutions.length || !solutions[0].length) {
       return false
     }
-    const visited = new WeakSet()
-    visited.add(solutions[0][0])
+    const root = solutions[0][0]
+    const path = {
+      index: 0,
+      nodes: {},
+    }
+    let locks
+    if (root.locks) {
+      locks = root.locks.filter(nonCircular(new Set([root]), path))
+      if (!locks.length) {
+        return false
+      }
+    }
+    requirements = requirements.map(function(requirement) {
+      return Array.from(requirement)
+    })
     const chain = new Set()
-    if (solutions[0][0].item.length === 1) {
-      chain.add(solutions[0][0].item)
+    if (root.item.length === 1) {
+      chain.add(root.item)
+    }
+    const visited = new WeakSet([root])
+    let count = 0
+    let advance
+    while (!advance && requirements.length) {
+      if (++count > (1 << 18)) {
+        return false
+      }
+      const newChain = new Set(chain)
+      if (locks) {
+        advance = buildPath(visited, path, locks, newChain, true)
+      }
+      let i = 0
+      while (i < requirements.length) {
+        if (!requirements[i].every(function(item) {
+          return newChain.has(item)
+        })) {
+          requirements.splice(i, 1)
+        } else {
+          i++
+        }
+      }
     }
     testRequirements(solutions[0][0].locks, chain, requirements, visited)
     return requirements.length > 0
