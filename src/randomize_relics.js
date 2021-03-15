@@ -920,21 +920,10 @@
           return true
         }
       } else {
-        locks.forEach(function(lock) {
-          if (!lock.some(function(item) { return visited.has(item) })) {
-            const newChain = new Set(chain)
-            lock.forEach(function(node) {
-              return newChain.add(node.item)
-            })
-            lock.forEach(function(node) {
-              visited.add(node)
-              testRequirements(node.locks, newChain, requirements, visited)
-              visited.delete(node)
-            })
-          }
-        })
+        return true
       }
     }
+    return false
   }
 
   function canEscape(graph, ability, requirements) {
@@ -985,7 +974,6 @@
         }
       }
     }
-    testRequirements(solutions[0][0].locks, chain, requirements, visited)
     return requirements.length > 0
   }
 
