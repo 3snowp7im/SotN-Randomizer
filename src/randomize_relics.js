@@ -823,14 +823,14 @@
   }
 
   function lockDepth(visited) {
-    const depth = {}
+    const cache = {}
     return function(min, lock) {
       if (lock.some(function(node) { return visited.has(node) })) {
         return min
       }
       const curr = lock.reduce(function(max, node) {
-        if (node.item in depth) {
-          return Math.max(depth[node.item], max)
+        if (node.item in cache) {
+          return Math.max(cache[node.item], max)
         }
         let curr = 1
         if (node.locks) {
@@ -838,7 +838,7 @@
           curr += node.locks.reduce(lockDepth(visited), 0)
           visited.delete(node)
         }
-        depth[node.item] = curr
+        cache[node.item] = curr
         return Math.max(curr, max)
       }, 0)
       if (min === 0) {
@@ -853,34 +853,43 @@
   }
 
   function nonCircular(visited, path) {
-    return function(lock) {
+    const cache = {}
+    path.nodes = []
+    return function(lock, index, length) {
       if (lock.some(function(node) { return visited.has(node) })) {
         return false
       }
+      let result = true
+      const nodes = {}
       for (let i = 0; i < lock.length; i++) {
         const node = lock[i]
         if (node.locks) {
-          path.nodes[path.index] = path.nodes[path.index] || {}
-          path.nodes[path.index][i] = path.nodes[path.index][i] || {
-            index: 0,
-            nodes: {},
-          }
-          let locks = path.nodes[path.index][i].locks
-          if (!locks) {
+          nodes[i] = {index: 0}
+          if (node.item in cache) {
+            nodes[i].locks = cache[node.item].locks
+            nodes[i].nodes = cache[node.item].nodes
+          } else {
             visited.add(node)
-            locks = node.locks.filter(nonCircular(
+            nodes[i].locks = node.locks.filter(nonCircular(
               visited,
-              path.nodes[path.index][i],
+              nodes[i],
             ))
             visited.delete(node)
-            path.nodes[path.index][i].locks = locks
+            cache[node.item] = {
+              locks: nodes[i].locks,
+              nodes: nodes[i].nodes,
+            }
           }
-          if (!locks.length) {
-            return false
+          if (!nodes[i].locks.length) {
+            result = false
+            break
           }
         }
       }
-      return true
+      if (result) {
+        path.nodes.push(nodes)
+      }
+      return result
     }
   }
 
@@ -889,17 +898,14 @@
     for (let i = 0; i < lock.length; i++) {
       const node = lock[i]
       if (node.locks) {
-        path.nodes[path.index] = path.nodes[path.index] || {}
-        path.nodes[path.index][i] = path.nodes[path.index][i] || {
-          index: 0,
-          nodes: {},
-        }
         let locks = path.nodes[path.index][i].locks
         if (!locks) {
+          visited.add(node)
           locks = node.locks.filter(nonCircular(
             visited,
             path.nodes[path.index][i],
           ))
+          visited.delete(node)
           path.nodes[path.index][i].locks = locks
         }
         if (locks.length) {
@@ -909,7 +915,7 @@
             path.nodes[path.index][i],
             locks,
             chain,
-            advance,
+            advance
           )
           visited.delete(node)
         }
@@ -939,13 +945,11 @@
       return false
     }
     const root = solutions[0][0]
-    const path = {
-      index: 0,
-      nodes: {},
-    }
+    const path = {index: 0}
     let locks
     if (root.locks) {
       locks = root.locks.filter(nonCircular(new Set([root]), path))
+      path.locks = locks
       if (!locks.length) {
         return false
       }
@@ -961,7 +965,7 @@
     let count = 0
     let advance
     while (!advance && requirements.length) {
-      if (++count > (1 << 18)) {
+      if (++count > (1 << 15)) {
         return false
       }
       const newChain = new Set(chain)
@@ -1071,6 +1075,7 @@
     if (target !== undefined) {
       // Solve for completion goals.
       solutions = solve(graphed, goal)
+      const start = new Date()
       depth = complexity(solutions)
       // If the complexity target is not met, fail.
       if ((!Number.isNaN(target.min) && depth < target.min)
