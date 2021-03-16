@@ -556,10 +556,10 @@
       let item
       while (true) {
         item = candleItems[index]
+        index = (index + 1) % candleItems.length
         if (!isBlocked(items, blocked, [tile], item)) {
           break
         }
-        index = (index + 1) % candleItems.length
       }
       let count = candleTileCounts[index]
       item = itemFromId(item.id, typeFilter([item.type]), pool)
@@ -668,10 +668,10 @@
         let replacement
         while (true) {
           replacement = subweapons[index]
+          index = (index + 1) % subweapons.length
           if (!isBlocked(items, blocked, [tile], replacement)) {
             break
           }
-          index = (index + 1) % subweapons.length
         }
         pushTile.call(replacement, tile)
       }
