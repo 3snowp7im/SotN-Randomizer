@@ -3987,10 +3987,9 @@
     if (typeof(this.locations) !== 'object') {
       this.locations = {}
     }
-    this.locations[where] = this.locations[where] || []
-    Array.prototype.push.apply(this.locations[where], what.map(function(lock) {
+    this.locations[where] = what.map(function(lock) {
       return new Set(lock)
-    }))
+    })
   }
 
   // Block a relic from appearing at a location.
