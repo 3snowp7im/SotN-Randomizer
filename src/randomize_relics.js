@@ -823,17 +823,22 @@
   }
 
   function lockDepth(visited) {
+    const depth = {}
     return function(min, lock) {
-      if (lock.some(function(item) { return visited.has(item) })) {
+      if (lock.some(function(node) { return visited.has(node) })) {
         return min
       }
-      const curr = lock.reduce(function(max, item) {
-        let curr = 1
-        if (item.locks) {
-          visited.add(item)
-          curr += item.locks.reduce(lockDepth(visited), 0)
-          visited.delete(item)
+      const curr = lock.reduce(function(max, node) {
+        if (node.item in depth) {
+          return Math.max(depth[node.item], max)
         }
+        let curr = 1
+        if (node.locks) {
+          visited.add(node)
+          curr += node.locks.reduce(lockDepth(visited), 0)
+          visited.delete(node)
+        }
+        depth[node.item] = curr
         return Math.max(curr, max)
       }, 0)
       if (min === 0) {
@@ -985,7 +990,6 @@
     locations,
     goal,
     target,
-    ctx,
   ) {
     // Get new locations pool.
     const pool = {
@@ -1158,7 +1162,7 @@
     return map
   }
 
-  function randomizeRelics(rng, options, newNames, ctx) {
+  function randomizeRelics(rng, options, newNames) {
     if (!options.relicLocations) {
       return {}
     }
@@ -1300,7 +1304,6 @@
       locations,
       goal,
       target,
-      ctx,
     )
     // Write spoilers.
     const info = util.newInfo()
