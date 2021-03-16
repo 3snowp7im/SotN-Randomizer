@@ -4021,10 +4021,9 @@
       if (typeof(this.locations) !== 'object') {
         this.locations = {}
       }
-      this.escapes[where] = this.escapes[where] || []
-      Array.prototype.push.apply(this.escapes[where], what.map(function(lock) {
+      this.escapes[where] = what.map(function(lock) {
         return new Set(lock)
-      }))
+      })
     }
 
   // Place a relic at a location.
