@@ -556,16 +556,16 @@
       let item
       while (true) {
         item = candleItems[index]
-        index = (index + 1) % candleItems.length
-        if (!isBlocked(items, blocked, [tile], item)) {
+        if (candleTileCounts[index]
+            && !isBlocked(items, blocked, [tile], item)) {
           break
         }
+        index = (index + 1) % candleItems.length
       }
-      let count = candleTileCounts[index]
       item = itemFromId(item.id, typeFilter([item.type]), pool)
-      while (count--) {
-        pushTile.call(item, tile)
-      }
+      candleTileCounts[index]--
+      pushTile.call(item, tile)
+      index = (index + 1) % candleItems.length
     }
   }
 
@@ -993,6 +993,17 @@
         }
       }
     }
+    const isBlocked = function(enemy, replacement) {
+      if (blocked) {
+        const names = [enemy.name, '*']
+        for (let key of names) {
+          if (blocked[key]
+              && blocked[key].indexOf(replacement.name) !== -1) {
+            return true
+          }
+        }
+      }
+    }
     // Shuffle all drop tiles.
     const shuffledTiles = shuffled(rng, collectTiles(tileItems))
     // Distribute gold with same id frequency as vanilla.
@@ -1006,6 +1017,7 @@
         let index = 0
         while (index < gold.length) {
           replacement = gold[index]
+          index = (index + 1) % gold.length
           const tiles = shuffledTiles.slice()
           let enemy
           do {
@@ -1014,17 +1026,17 @@
               break
             }
             tile = takeTile(tiles, uniqueDrops(replacement))
+            if (!tile) {
+              break
+            }
             enemy = enemies.filter(function(enemy) {
               return enemy.id === tile.enemy
             })
-          } while (blocked
-                   && blocked[enemy.name]
-                   && blocked[enemy.name].indexOf(replacement.name) !== -1)
+          } while (isBlocked(enemy, replacement))
           if (tile) {
             shuffledTiles.splice(shuffledTiles.indexOf(tile), 1)
             break
           }
-          index++
         }
         pushTile.call(replacement, tile)
       })
@@ -1041,6 +1053,7 @@
         let index = 0
         while (index < jewels.length) {
           replacement = jewels[index]
+          index = (index + 1) % jewels.length
           const tiles = shuffledTiles.slice()
           do {
             if (!tiles.length) {
@@ -1048,17 +1061,17 @@
               break
             }
             tile = takeTile(tiles, uniqueDrops(replacement))
+            if (!tile) {
+              break
+            }
             enemy = enemies.filter(function(enemy) {
               return enemy.id === tile.enemy
             })
-          } while (blocked
-                   && blocked[enemy.name]
-                   && blocked[enemy.name].indexOf(replacement.name) !== -1)
+          } while (isBlocked(enemy, replacement))
           if (tile) {
             shuffledTiles.splice(shuffledTiles.indexOf(tile), 1)
             break
           }
-          index++
         }
         util.assert.notEqual(tile, null)
         pushTile.call(replacement, tile)
@@ -1081,6 +1094,7 @@
         let index = 0
         while (index < eq.length) {
           replacement = eq[index]
+          index = (index + 1) % eq.length
           const tiles = shuffledTiles.slice()
           do {
             if (!tiles.length) {
@@ -1088,20 +1102,19 @@
               break
             }
             tile = takeTile(tiles, uniqueDrops(replacement))
+            if (!tile) {
+              break
+            }
             enemy = enemies.filter(function(enemy) {
               return enemy.id === tile.enemy
             })
-          } while (blocked
-                   && blocked[enemy.name]
-                   && blocked[enemy.name].indexOf(replacement.name) !== -1)
+          } while (isBlocked(enemy, replacement))
           if (tile) {
             shuffledTiles.splice(shuffledTiles.indexOf(tile), 1)
             break
           }
-          index++
         }
         util.assert.notEqual(tile, null)
-        eq.splice(index, 1)
         pushTile.call(replacement, tile)
       })
     })
@@ -1115,6 +1128,7 @@
         let index = 0
         while (index < usables.length) {
           replacement = usables[index]
+          index = (index + 1) % usables.length
           const tiles = shuffledTiles.slice()
           do {
             if (!tiles.length) {
@@ -1122,17 +1136,17 @@
               break
             }
             tile = takeTile(tiles, uniqueDrops(replacement))
+            if (!tile) {
+              break
+            }
             enemy = enemies.filter(function(enemy) {
               return enemy.id === tile.enemy
             })
-          } while (blocked
-                   && blocked[enemy.name]
-                   && blocked[enemy.name].indexOf(replacement.name) !== -1)
+          } while (isBlocked(enemy, replacement))
           if (tile) {
             shuffledTiles.splice(shuffledTiles.indexOf(tile), 1)
             break
           }
-          index++
         }
         util.assert.notEqual(tile, null)
         pushTile.call(replacement, tile)
@@ -1150,6 +1164,7 @@
       let index = 0
       while (index < eq.length) {
         replacement = eq[index]
+        index = (index + 1) % eq.length
         const tiles = libTiles.slice()
         do {
           if (!tiles.length) {
@@ -1157,17 +1172,16 @@
             break
           }
           tile = takeTile(tiles, blacklist(replacement))
-        } while (blocked
-                 && blocked.Librarian
-                 && blocked.Librarian.indexOf(replacement.name) !== -1)
+            if (!tile) {
+              break
+            }
+        } while (isBlocked({name: 'Librarian'}, replacement))
         if (tile) {
           libTiles.splice(libTiles.indexOf(tile), 1)
           break
         }
-        index++
       }
       util.assert.notEqual(tile, null)
-      eq.splice(index, 1)
       pushTile.call(replacement, tile)
     }
     // Place planned drops.
