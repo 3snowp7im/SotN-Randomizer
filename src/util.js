@@ -3282,7 +3282,7 @@
         self.drops = new Map()
         if ('blocked' in preset.enemyDrops) {
           self.drops.blocked = new Map()
-          const ids = Object.getOwnPropertyNames(preset.enemyDrops)
+          const ids = Object.getOwnPropertyNames(preset.enemyDrops.blocked)
           ids.forEach(function(id) {
             let enemy
             if (id === '*') {
