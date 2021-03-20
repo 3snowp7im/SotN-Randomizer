@@ -854,7 +854,7 @@
 
   function nonCircular(visited, path) {
     const cache = {}
-    path.nodes = []
+    let count = 0
     return function(lock, index, length) {
       if (lock.some(function(node) { return visited.has(node) })) {
         return false
@@ -864,12 +864,15 @@
       for (let i = 0; i < lock.length; i++) {
         const node = lock[i]
         if (node.locks) {
-          nodes[i] = {index: 0}
           if (node.item in cache) {
-            nodes[i].locks = cache[node.item].locks
-            nodes[i].nodes = cache[node.item].nodes
+            nodes[i] = {
+              index: 0,
+              locks: cache[node.item].locks,
+              nodes: cache[node.item].nodes,
+            }
           } else {
             visited.add(node)
+            nodes[i] = {index: 0}
             nodes[i].locks = node.locks.filter(nonCircular(
               visited,
               nodes[i],
@@ -887,8 +890,11 @@
         }
       }
       if (result) {
-        path.nodes.push(nodes)
+        if (path.index === count) {
+          path.nodes = nodes
+        }
       }
+      count++
       return result
     }
   }
@@ -898,21 +904,23 @@
     for (let i = 0; i < lock.length; i++) {
       const node = lock[i]
       if (node.locks) {
-        let locks = path.nodes[path.index][i].locks
+        path.nodes = path.nodes || {}
+        path.nodes[i] = path.nodes[i] || {index: 0}
+        let locks = path.nodes[i].locks
         if (!locks) {
           visited.add(node)
           locks = node.locks.filter(nonCircular(
             visited,
-            path.nodes[path.index][i],
+            path.nodes[i],
           ))
           visited.delete(node)
-          path.nodes[path.index][i].locks = locks
+          path.nodes[i].locks = locks
         }
         if (locks.length) {
           visited.add(node)
           advance = buildPath(
             visited,
-            path.nodes[path.index][i],
+            path.nodes[i],
             locks,
             chain,
             advance
@@ -926,6 +934,7 @@
     }
     if (advance) {
       if (locks.length > 1) {
+        path.nodes = {}
         path.index = (path.index + 1) % locks.length
         if (path.index === 0) {
           return true
