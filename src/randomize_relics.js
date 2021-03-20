@@ -142,7 +142,14 @@
     })
   }
 
-  function writeMapping(data, rng, mapping, placedItems, replaced) {
+  function writeMapping(
+    data,
+    rng,
+    mapping,
+    placedItems,
+    replaced,
+    removeItems,
+  ) {
     const erased = {
       id: 0xffff,
       slots: [ 0x0000, 0x0000 ],
@@ -319,21 +326,6 @@
     // If a zone has an item removed, it leaks information that a progression
     // item has been randomized to relic a location in that zone. To prevent
     // this leak, remove at most 3 items from every zone.
-    let removeItems = false
-    const keys = Object.getOwnPropertyNames(mapping)
-    for (let i = 0; i < keys.length; i++) {
-      const key = keys[i]
-      const location = locations.filter(function(location) {
-        return location.id === mapping[key].id
-      })[0]
-      const relic = util.relicFromAbility(key)
-      if (!location.itemId) {
-        if (relic.itemId || key in (replaced || {})) {
-          removeItems = true
-          break
-        }
-      }
-    }
     if (removeItems) {
       constants.zones.filter(function(zone) {
         return [
@@ -1143,6 +1135,7 @@
     Object.getOwnPropertyNames(locations).filter(function(location) {
       return [
         'extension',
+        'leakPrevention',
         'thrustSwordAbility',
         'placed',
         'replaced',
@@ -1161,6 +1154,7 @@
     Object.getOwnPropertyNames(locations).filter(function(location) {
       return [
         'extension',
+        'leakPrevention',
         'thrustSwordAbility',
         'placed',
         'replaced',
@@ -1372,6 +1366,8 @@
         result.mapping,
         placedItems,
         options.relicLocations.replaced,
+        !('leakPrevention' in options.relicLocations)
+          || options.relicLocations.leakPrevention,
       )
       // Patch out cutscenes.
       patchAlchemyLabCutscene(data)

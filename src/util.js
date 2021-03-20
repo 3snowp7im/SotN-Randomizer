@@ -1246,6 +1246,7 @@
               return location.name
             }))
             let ext
+            let leakPrevention
             let thrustSwordAbility
             let location
             let placing
@@ -1255,8 +1256,14 @@
               location = arg
             } else if (arg === 'x') {
               ext = true
+            } else if (arg === 'r') {
+              leakPrevention = true
+            } else if (arg === '~r') {
+              leakPrevention = false
             } else if (arg === constants.RELIC.THRUST_SWORD) {
               thrustSwordAbility = true
+            } else if (arg === '~' + constants.RELIC.THRUST_SWORD) {
+              thrustSwordAbility = false
             } else {
               if (arg.startsWith('@')) {
                 placing = true
@@ -1282,8 +1289,10 @@
             if (typeof(relicLocations) !== 'object') {
               relicLocations = {}
             }
-            if (thrustSwordAbility) {
-              relicLocations.thrustSwordAbility = true
+            if (typeof(thrustSwordAbility) !== 'undefined') {
+              relicLocations.thrustSwordAbility = thrustSwordAbility
+            } else if (typeof(leakPrevention) !== 'undefined') {
+              relicLocations.leakPrevention = leakPrevention
             } else if (randomize[i] === ':') {
               start = ++i
               while (i < randomize.length
@@ -1929,6 +1938,10 @@
             }
             if (options.relicLocations.extension) {
               locks.push('x:' + options.relicLocations.extension)
+            }
+            if ('leakPrevention' in options.relicLocations
+                && !options.relicLocations.leakPrevention) {
+              locks.push('~r')
             }
             if (options.relicLocations.thrustSwordAbility) {
               locks.push(constants.RELIC.THRUST_SWORD)
@@ -2832,7 +2845,7 @@
     return obj
   }
 
-  function merge(obj) {
+  function merge(obj, verbose) {
     const self = this
     Object.getOwnPropertyNames(obj).forEach(function(prop) {
       if (Array.isArray(obj[prop])) {
@@ -2841,7 +2854,7 @@
         if (Array.isArray(self[prop])) {
           self[prop] = clone(obj[prop])
         } else if (typeof(self[prop]) === 'object') {
-          merge(self[prop], obj[prop])
+          merge.call(self[prop], obj[prop])
         } else {
           self[prop] = clone(obj[prop])
         }
@@ -2917,6 +2930,8 @@
     this.escapes = {}
     // The relic locations extension.
     this.extension = constants.EXTENSION.GUARDED
+    // Leak prevention.
+    this.leakPrevention = true
     // Thrust sword ability.
     this.thrustSword = false
     // The complexity goal.
@@ -3116,6 +3131,9 @@
     }
     if ('relicLocations' in json) {
       builder.relicLocations(json.relicLocations)
+    }
+    if ('preventLeaks' in json) {
+      builder.preventLeaks(json.preventLeaks)
     }
     if ('thrustSwordAbility' in json) {
       builder.thrustSwordAbility(json.thrustSwordAbility)
@@ -3421,6 +3439,9 @@
         } else {
           delete self.extension
         }
+        if ('leakPrevention' in preset.relicLocations) {
+          self.leakPrevention = preset.relicLocations.leakPrevention
+        }
         if ('thrustSwordAbility' in preset.relicLocations) {
           self.thrustSword = preset.relicLocations.thrustSwordAbility
         }
@@ -3437,6 +3458,7 @@
         locations.filter(function(location) {
           return [
             'extension',
+            'leakPrevention',
             'thrustSwordAbility',
             'placed',
             'replaced',
@@ -4062,6 +4084,13 @@
     this.locations = enabled
   }
 
+  // Enable/disable progression item leak prevention.
+  PresetBuilder.prototype.preventLeaks =
+    function preventLeaks(enabled) {
+      assert.equal(typeof(enabled), 'boolean')
+      this.leakPrevention = enabled
+    }
+
   // Enable/disable thrust sword ability.
   PresetBuilder.prototype.thrustSwordAbility =
     function thrustSwordAbility(enabled) {
@@ -4388,8 +4417,11 @@
       if (self.extension) {
         relicLocations.extension = self.extension
       }
+      if (!self.leakPrevention) {
+        relicLocations.leakPrevention = false
+      }
       if (self.thrustSword) {
-        relicLocations.thrustSwordAbility = self.thrustSword
+        relicLocations.thrustSwordAbility = true
       }
     }
     const stats = self.stats
