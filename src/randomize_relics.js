@@ -891,8 +891,8 @@
     }
   }
 
-  function buildPath(visited, path, locks, chain, advance) {
-    const lock = locks[path.index]
+  function buildPath(visited, path, chain, advance) {
+    const lock = path.locks[path.index]
     for (let i = 0; i < lock.length; i++) {
       const node = lock[i]
       if (node.locks) {
@@ -913,7 +913,6 @@
           advance = buildPath(
             visited,
             path.nodes[i],
-            locks,
             chain,
             advance
           )
@@ -925,9 +924,9 @@
       chain.add(node.item)
     }
     if (advance) {
-      if (locks.length > 1) {
+      if (path.locks.length > 1) {
         path.nodes = {}
-        path.index = (path.index + 1) % locks.length
+        path.index = (path.index + 1) % path.locks.length
         if (path.index === 0) {
           return true
         }
@@ -947,11 +946,9 @@
     }
     const root = solutions[0][0]
     const path = {index: 0}
-    let locks
     if (root.locks) {
-      locks = root.locks.filter(nonCircular(new Set([root]), path))
-      path.locks = locks
-      if (!locks.length) {
+      path.locks = root.locks.filter(nonCircular(new Set([root]), path))
+      if (!path.locks.length) {
         return false
       }
     }
@@ -970,8 +967,8 @@
         return false
       }
       const newChain = new Set(chain)
-      if (locks) {
-        advance = buildPath(visited, path, locks, newChain, true)
+      if (path.locks) {
+        advance = buildPath(visited, path, newChain, true)
       }
       let i = 0
       while (i < requirements.length) {
