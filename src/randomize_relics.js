@@ -885,8 +885,8 @@
         if (path.index === count) {
           path.nodes = nodes
         }
+        count++
       }
-      count++
       return result
     }
   }
@@ -966,7 +966,7 @@
     let count = 0
     let advance
     while (!advance && requirements.length) {
-      if (++count > (1 << 15)) {
+      if (++count > (1 << 11)) {
         return false
       }
       const newChain = new Set(chain)
