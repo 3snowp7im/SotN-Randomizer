@@ -119,17 +119,6 @@
         'Library card',
       ].indexOf(item.name) === -1
     }), 'palette', 0x2e, data.writeShort)
-    // Choose random item's palette for cards.
-    const rand = shuffled(rng, stats).pop()
-    stats.filter(function(item) {
-      return [
-        'Meal ticket',
-        'Library card',
-      ].indexOf(item.name) !== -1
-    }).forEach(function(item) {
-      let addr = util.romOffset(constants.exe, item.offset + 0x2e)
-      addr = data.writeShort(addr, rand.palette)
-    })
   }
 
   function shuffleEquipmentStats(rng, data, newNames, stats) {
@@ -390,6 +379,17 @@
           shuffleHandStats(rng, data, newNames, items, handType)
         }
       )
+      // Choose random item's palette for cards.
+      const rand = shuffled(rng, stats.hand).pop()
+      stats.hand.filter(function(item) {
+        return [
+          'Meal ticket',
+          'Library card',
+        ].indexOf(item.name) !== -1
+      }).forEach(function(item) {
+        let addr = util.romOffset(constants.exe, item.offset + 0x2e)
+        addr = data.writeShort(addr, rand.palette)
+      })
       // Randomize equipment item stats.
       Object.getOwnPropertyNames(constants.TYPE).forEach(
         function(type) {
