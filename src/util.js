@@ -4650,15 +4650,39 @@
     return Array(level).fill(' ').join('')
   }
 
+  function hasNonCircularPath(node, visited) {
+    if (!node.locks) {
+      return true
+    }
+    return node.locks.some(function(lock) {
+      if (lock.some(function(node) { return visited.has(node) })) {
+        return false
+      }
+      return lock.every(function(node) {
+        visited.add(node)
+        const res = hasNonCircularPath(node, visited)
+        visited.delete(node)
+        return res
+      })
+    })
+  }
+
   function minifySolution(visited) {
     return function(min, lock, index) {
-      if (lock.some(function(item) { return visited.has(item) })) {
-        return min
-      }
       const requirements = lock.map(function(node) {
         if (node.locks) {
           visited.add(node)
-          const solution = node.locks.reduce(minifySolution(visited), {
+          const solution = node.locks.filter(function(lock) {
+            if (lock.some(function(node) { return visited.has(node) })) {
+              return false
+            }
+            return lock.every(function(node) {
+              visited.add(node)
+              const res = hasNonCircularPath(node, visited)
+              visited.delete(node)
+              return res
+            })
+          }).reduce(minifySolution(visited), {
             depth: 0,
             weight: 0,
           })
@@ -4902,6 +4926,7 @@
     randomizeItems: randomizeItems,
     applyWrites: applyWrites,
     finalizeData: finalizeData,
+    hasNonCircularPath: hasNonCircularPath,
     renderSolutions: renderSolutions,
     workerCountFromCores: workerCountFromCores,
   }

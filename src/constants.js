@@ -513,7 +513,7 @@
     SHIELD_ROD:                  'Shield rod',
     KNIGHT_SHIELD:               'Knight shield',
     HOLY_SWORD:                  'Holy sword',
-    BANDANA:                     'Bandana',
+    BANDANNA:                    'Bandanna',
     SECRET_BOOTS:                'Secret boots',
     NUNCHAKU:                    'Nunchaku',
     KNUCKLE_DUSTER:              'Knuckle duster',

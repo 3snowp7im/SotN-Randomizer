@@ -318,7 +318,7 @@
       y: 0x00b0,
     },
   }, {
-    name: LOCATION.BANDANA,
+    name: LOCATION.BANDANNA,
     extension: EXTENSION.EQUIPMENT,
     itemId: 198,
     tileIndex: 0,

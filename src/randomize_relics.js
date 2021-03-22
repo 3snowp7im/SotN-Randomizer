@@ -771,7 +771,7 @@
   }
 
   function graph(mapping) {
-    let graph = Object.getOwnPropertyNames(mapping).map(function(key) {
+    const graph = Object.getOwnPropertyNames(mapping).map(function(key) {
       return {
         item: key,
         locks: (mapping[key].locks || []).filter(function(lock) {
@@ -790,9 +790,7 @@
           }).pop()
         })
       })
-    })
-    // Clean locks.
-    graph.forEach(function(node) {
+      // Clean locks.
       if (!node.locks.length) {
         delete node.locks
       }
@@ -984,6 +982,12 @@
     return requirements.length > 0
   }
 
+  function isValidSolution(goal) {
+    return goal.every(function (node) {
+      return util.hasNonCircularPath(node, new WeakSet([node]))
+    })
+  }
+
   function randomize(
     rng,
     placed,
@@ -1072,8 +1076,10 @@
     let depth
     if (target !== undefined) {
       // Solve for completion goals.
-      solutions = solve(graphed, goal)
-      const start = new Date()
+      solutions = solve(graphed, goal).filter(isValidSolution)
+      if (!solutions.length) {
+        throw new errors.SoftlockError()
+      }
       depth = complexity(solutions)
       // If the complexity target is not met, fail.
       if ((!Number.isNaN(target.min) && depth < target.min)

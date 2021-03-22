@@ -41,9 +41,6 @@
     "item": "Library card"
   }, {
     "relic": "Sprite Card",
-    "item": "Library card"
-  }, {
-    "relic": "Faerie Scroll",
     "item": "Toadstool"
   }],
   "alias": [{
@@ -76,7 +73,7 @@
     "alias": "LB"
   }, {
     "comment": "Alias Faerie Scroll as Toadstool",
-    "relic": "Faerie Scroll",
+    "relic": "Sprite Card",
     "alias": "Tstool"
   }, {
     "comment": "Alias Thrust sword as Clay",
@@ -138,7 +135,7 @@
     "location": "Jewel sword",
     "locks": [
       "LB + Clay + HR1 + HR2 + Dupe + Form of Mist",
-      "LB + Clay + Soul of Wolf + Soul of Bat"
+      "Soul of Wolf + Soul of Bat"
     ]
   }, {
     "location": "Bat Card",
@@ -168,7 +165,7 @@
       "Gravity Boots + Leap Stone",
       "Gravity Boots + Form of Mist",
       "Gravity Boots + Soul of Wolf",
-      "Gravity Boots + Thrust sword",
+      "Gravity Boots + Clay",
       "Soul of Bat",
       "LB"
     ]
@@ -306,11 +303,16 @@
   }, {
     "location": "Bastard sword",
     "locks": [
-      "Tstool + Dupe",
-      "Soul of Wolf",
-      "Gravity Boots",
-      "Leap Stone",
-      "Clay"
+      "Gravity Boots + Holy glasses",
+      "Gravity Boots + HR1 + HR2 + Dupe",
+      "Gravity Boots + Form of Mist + HR1 + Dupe",
+      "Gravity Boots + Form of Mist + HR2 + Dupe",
+      "Soul of Wolf + Power of Wolf",
+      "Form of Mist + Srod + Gravity Boots",
+      "Soul of Bat",
+      "Soul of Wolf + Form of Mist",
+      "Soul of Wolf + Clay",
+      "Form of Mist + Power of Mist + Holy glasses"
     ]
   }, {
     "location": "Fire of Bat",
@@ -379,6 +381,35 @@
       "Soul of Wolf + Form of Mist"
     ]
   }, {
+    "location": "Library Onyx",
+    "locks": [
+      "Soul of Bat",
+      "Leap Stone",
+      "Gravity Boots",
+      "Form of Mist"
+    ]
+  }, {
+    "location": "Alucart sword",
+    "locks": [
+      "Cube of Zoe + Soul of Bat",
+      "Cube of Zoe + Soul of Wolf",
+      "Cube of Zoe + Form of Mist",
+      "Cube of Zoe + Clay",
+      "Cube of Zoe + Leap Stone",
+      "Cube of Zoe + Gravity Boots",
+      "Cube of Zoe + HR1 + Tstool + Dupe",
+      "Cube of Zoe + HR1 + Tstool + Dupe"
+    ]
+  }, {
+    "location": "Broadsword",
+    "locks": [
+      "Tstool + Dupe",
+      "Soul of Wolf",
+      "Gravity Boots",
+      "Leap Stone",
+      "Clay"
+    ]
+  }, {
     "location": "Merman Statue",
     "locks": [
       "HR1 + Dupe",
@@ -391,11 +422,17 @@
     "locks": [
       "Soul of Wolf + Power of Wolf + Soul of Bat",
       "Soul of Wolf + HR1 + Dupe + Gravity Boots",
+      "Soul of Wolf + Skill of Wolf + HR1 + Dupe",
       "Soul of Wolf + HR2 + Dupe + Gravity Boots",
+      "Soul of Wolf + Skill of Wolf + HR2 + Dupe",
       "Form of Mist + HR1 + Dupe + Gravity Boots",
       "Form of Mist + HR2 + Dupe + Gravity Boots",
       "Leap Stone + HR1 + Dupe + Gravity Boots",
       "Leap Stone + HR2 + Dupe + Gravity Boots",
+      "Leap Stone + Srod + Gravity Boots",
+      "Leap Stone + Srod + Soul of Wolf + Skill of Wolf",
+      "Clay + Srod + Gravity Boots",
+      "Clay + Srod + Soul of Wolf + Skill of Wolf",
       "HR1 + Dupe + Soul of Wolf + Clay",
       "HR2 + Dupe + Soul of Wolf + Clay",
       "HR1 + Dupe + Soul of Wolf + Form of Mist",
@@ -410,13 +447,8 @@
       "Soul of Wolf + Power of Wolf + Soul of Bat",
       "HR1 + Dupe",
       "HR2 + Dupe",
-      "Soul of Wolf + HR1 + Dupe + Gravity Boots",
-      "Soul of Wolf + HR2 + Dupe + Gravity Boots",
-      "Form of Mist + HR1 + Dupe + Gravity Boots",
-      "Form of Mist + HR2 + Dupe + Gravity Boots",
-      "Leap Stone + HR2 + Dupe + Gravity Boots",
-      "Leap Stone + HR2 + Dupe + Gravity Boots",
-      "HR1 + HR2 + Dupe"
+      "Leap Stone + Srod",
+      "Clay + Srod"
     ]
   }, {
     "location": "Secret boots",
@@ -424,12 +456,8 @@
       "Soul of Wolf + Power of Wolf + Soul of Bat",
       "HR1 + Dupe",
       "HR2 + Dupe",
-      "Soul of Wolf + HR1 + Dupe + Gravity Boots",
-      "Soul of Wolf + HR2 + Dupe + Gravity Boots",
-      "Form of Mist + HR1 + Dupe + Gravity Boots",
-      "Form of Mist + HR2 + Dupe + Gravity Boots",
-      "Leap Stone + HR1 + Dupe + Gravity Boots",
-      "Leap Stone + HR2 + Dupe + Gravity Boots"
+      "Leap Stone + Srod",
+      "Clay + Srod"
     ]
   }, {
     "location": "Nunchaku",
@@ -437,12 +465,8 @@
       "Soul of Wolf + Power of Wolf + Soul of Bat",
       "HR1 + Dupe",
       "HR2 + Dupe",
-      "Soul of Wolf + HR1 + Dupe + Gravity Boots",
-      "Soul of Wolf + HR2 + Dupe + Gravity Boots",
-      "Form of Mist + HR1 + Dupe + Gravity Boots",
-      "Form of Mist + HR2 + Dupe + Gravity Boots",
-      "Leap Stone + HR1 + Dupe + Gravity Boots",
-      "Leap Stone + HR2 + Dupe + Gravity Boots"
+      "Leap Stone + Srod",
+      "Clay + Srod"
     ]
   }, {
     "location": "Crystal cloak",
@@ -450,12 +474,8 @@
       "Soul of Wolf + Power of Wolf + Soul of Bat",
       "HR1 + Dupe",
       "HR2 + Dupe",
-      "Soul of Wolf + HR1 + Dupe + Gravity Boots",
-      "Soul of Wolf + HR2 + Dupe + Gravity Boots",
-      "Form of Mist + HR1 + Dupe + Gravity Boots",
-      "Form of Mist + HR2 + Dupe + Gravity Boots",
-      "Leap Stone + HR1 + Dupe + Gravity Boots",
-      "Leap Stone + HR2 + Dupe + Gravity Boots"
+      "Leap Stone + Srod + Gravity Boots",
+      "Clay + Srod + Gravity Boots"
     ],
     "escapeRequirements": []
   }, {
@@ -464,12 +484,8 @@
       "Soul of Wolf + Power of Wolf + Soul of Bat",
       "HR1 + Dupe",
       "HR2 + Dupe",
-      "Soul of Wolf + HR1 + Dupe + Gravity Boots",
-      "Soul of Wolf + HR2 + Dupe + Gravity Boots",
-      "Form of Mist + HR1 + Dupe + Gravity Boots",
-      "Form of Mist + HR2 + Dupe + Gravity Boots",
-      "Leap Stone + HR1 + Dupe + Gravity Boots",
-      "Leap Stone + HR2 + Dupe + Gravity Boots"
+      "Leap Stone + Srod + Gravity Boots",
+      "Clay + Srod + Gravity Boots"
     ]
   }, {
     "location": "Caverns Onyx",
@@ -483,21 +499,19 @@
       "HR2 + Dupe + Leap Stone",
       "HR1 + Dupe + Soul of Wolf",
       "HR2 + Dupe + Soul of Wolf",
-      "Soul of Wolf + HR1 + Dupe + Gravity Boots",
-      "Soul of Wolf + HR2 + Dupe +  Gravity Boots",
       "Form of Mist + HR1 + Dupe + Gravity Boots",
       "Form of Mist + HR2 + Dupe + Gravity Boots",
-      "Leap Stone + HR1 + Dupe + Gravity Boots",
-      "Leap Stone + HR2 + Dupe + Gravity Boots"
+      "Leap Stone + Srod + Merman Statue",
+      "Clay + Srod + Merman Statue"
     ]
   }, {
     "location": "Combat knife",
     "locks": [
       "Soul of Wolf + Power of Wolf + Soul of Bat",
-      "HR1 + Dupe + Soul of Wolf + Power of Wolf",
-      "HR2 + Dupe + Soul of Wolf + Skill of Wolf",
-      "HR1 + Dupe + Soul of Wolf + Power of Wolf",
-      "HR2 + Dupe + Soul of Wolf + Skill of Wolf",
+      "LB + HR1 + Dupe + Soul of Wolf + Power of Wolf",
+      "LB + HR2 + Dupe + Soul of Wolf + Skill of Wolf",
+      "LB + HR1 + Dupe + Soul of Wolf + Power of Wolf",
+      "LB + HR2 + Dupe + Soul of Wolf + Skill of Wolf",
       "Soul of Wolf + HR1 + Dupe + Gravity Boots",
       "Soul of Wolf + HR2 + Dupe + Gravity Boots",
       "Form of Mist + HR1 + Dupe + Gravity Boots",
@@ -556,6 +570,23 @@
       "Leap Stone + HR2 + Dupe + Gravity Boots",
       "HR1 + HR2 + Dupe + Leap Stone",
       "HR1 + HR2 + Dupe + Gravity Boots"
+    ],
+    "escapeRequirements": []
+  }, {
+    "location": "Icebrand",
+    "locks": [
+      "Soul of Wolf + Power of Wolf + Soul of Bat",
+      "HR1 + Dupe + Soul of Wolf + Power of Wolf",
+      "HR2 + Dupe + Soul of Wolf + Skill of Wolf",
+      "HR1 + Dupe + Soul of Wolf + Power of Wolf",
+      "HR2 + Dupe + Soul of Wolf + Skill of Wolf",
+      "Soul of Wolf + HR1 + Dupe + Gravity Boots",
+      "Soul of Wolf + HR2 + Dupe + Gravity Boots",
+      "Form of Mist + HR1 + Dupe + Gravity Boots",
+      "Form of Mist + HR2 + Dupe + Gravity Boots",
+      "Leap Stone + HR1 + Dupe + Gravity Boots",
+      "Leap Stone + HR2 + Dupe + Gravity Boots",
+      "HR1 + HR2 + Dupe"
     ],
     "escapeRequirements": []
   }, {
@@ -660,7 +691,7 @@
       "Gravity Boots + Form of Mist + HR1 + Dupe",
       "Gravity Boots + Form of Mist + HR2 + Dupe",
       "Soul of Wolf + Power of Wolf",
-      "Form of Mist + Srod",
+      "Form of Mist + Srod + Gravity Boots",
       "Soul of Bat",
       "Soul of Wolf + Form of Mist",
       "Soul of Wolf + Clay",
@@ -778,7 +809,9 @@
   }, {
     "location": "Badelaire",
     "locks": [
-      "Gravity Boots + Holy glasses",
+      "Gravity Boots + Leap Stone + Holy glasses",
+      "Gravity Boots + Form of Mist + Holy glasses",
+      "Gravity Boots + Clay + Holy glasses",
       "Gravity Boots + HR1 + HR2 + Dupe + Clay",
       "Gravity Boots + Form of Mist + HR1 + Dupe",
       "Gravity Boots + Form of Mist + HR2 + Dupe",
@@ -790,7 +823,23 @@
   }, {
     "location": "Forbidden Library Opal",
     "locks": [
-      "Gravity Boots + Holy glasses",
+      "Gravity Boots + Leap Stone + Holy glasses",
+      "Gravity Boots + Form of Mist + Holy glasses",
+      "Gravity Boots + Clay + Holy glasses",
+      "Gravity Boots + HR1 + HR2 + Dupe + Clay",
+      "Gravity Boots + Form of Mist + HR1 + Dupe",
+      "Gravity Boots + Form of Mist + HR2 + Dupe",
+      "Soul of Wolf + Gravity Boots",
+      "Form of Mist + Srod + Gravity Boots",
+      "Soul of Bat",
+      "Form of Mist + Power of Mist + Holy glasses"
+    ]
+  }, {
+    "location": "Reverse Caverns Garnet",
+    "locks": [
+      "Gravity Boots + Leap Stone + Holy glasses",
+      "Gravity Boots + Form of Mist + Holy glasses",
+      "Gravity Boots + Clay + Holy glasses",
       "Gravity Boots + HR1 + HR2 + Dupe + Clay",
       "Gravity Boots + Form of Mist + HR1 + Dupe",
       "Gravity Boots + Form of Mist + HR2 + Dupe",
@@ -802,7 +851,9 @@
   }, {
     "location": "Reverse Caverns Diamond",
     "locks": [
-      "Gravity Boots + Holy glasses",
+      "Gravity Boots + Leap Stone + Holy glasses",
+      "Gravity Boots + Form of Mist + Holy glasses",
+      "Gravity Boots + Clay + Holy glasses",
       "Gravity Boots + HR1 + HR2 + Dupe + Clay",
       "Gravity Boots + Form of Mist + HR1 + Dupe",
       "Gravity Boots + Form of Mist + HR2 + Dupe",
@@ -814,7 +865,9 @@
   }, {
     "location": "Reverse Caverns Opal",
     "locks": [
-      "Gravity Boots + Holy glasses",
+      "Gravity Boots + Leap Stone + Holy glasses",
+      "Gravity Boots + Form of Mist + Holy glasses",
+      "Gravity Boots + Clay + Holy glasses",
       "Gravity Boots + HR1 + HR2 + Dupe + Clay",
       "Gravity Boots + Form of Mist + HR1 + Dupe",
       "Gravity Boots + Form of Mist + HR2 + Dupe",
@@ -826,7 +879,9 @@
   }, {
     "location": "Rverse Caverns Garnet",
     "locks": [
-      "Gravity Boots + Holy glasses",
+      "Gravity Boots + Leap Stone + Holy glasses",
+      "Gravity Boots + Form of Mist + Holy glasses",
+      "Gravity Boots + Clay + Holy glasses",
       "Gravity Boots + HR1 + HR2 + Dupe + Clay",
       "Gravity Boots + Form of Mist + HR1 + Dupe",
       "Gravity Boots + Form of Mist + HR2 + Dupe",
@@ -838,7 +893,9 @@
   }, {
     "location": "Osafune katana",
     "locks": [
-      "Gravity Boots + Holy glasses",
+      "Gravity Boots + Leap Stone + Holy glasses",
+      "Gravity Boots + Form of Mist + Holy glasses",
+      "Gravity Boots + Clay + Holy glasses",
       "Gravity Boots + HR1 + HR2 + Dupe + Clay",
       "Gravity Boots + Form of Mist + HR1 + Dupe",
       "Gravity Boots + Form of Mist + HR2 + Dupe",
@@ -850,7 +907,9 @@
   }, {
     "location": "Alucard shield",
     "locks": [
-      "Gravity Boots + Holy glasses",
+      "Gravity Boots + Leap Stone + Holy glasses",
+      "Gravity Boots + Form of Mist + Holy glasses",
+      "Gravity Boots + Clay + Holy glasses",
       "Gravity Boots + HR1 + HR2 + Dupe + Clay",
       "Gravity Boots + Form of Mist + HR1 + Dupe",
       "Gravity Boots + Form of Mist + HR2 + Dupe",
@@ -862,7 +921,9 @@
   }, {
     "location": "Alucard sword",
     "locks": [
-      "Gravity Boots + Holy glasses",
+      "Gravity Boots + Leap Stone + Holy glasses",
+      "Gravity Boots + Form of Mist + Holy glasses",
+      "Gravity Boots + Clay + Holy glasses",
       "Gravity Boots + HR1 + HR2 + Dupe + Clay",
       "Gravity Boots + Form of Mist + HR1 + Dupe",
       "Gravity Boots + Form of Mist + HR2 + Dupe",
@@ -874,7 +935,9 @@
   }, {
     "location": "Necklace of J",
     "locks": [
-      "Gravity Boots + Holy glasses",
+      "Gravity Boots + Leap Stone + Holy glasses",
+      "Gravity Boots + Form of Mist + Holy glasses",
+      "Gravity Boots + Clay + Holy glasses",
       "Gravity Boots + HR1 + HR2 + Dupe + Clay",
       "Gravity Boots + Form of Mist + HR1 + Dupe",
       "Gravity Boots + Form of Mist + HR2 + Dupe",
@@ -886,7 +949,9 @@
   }, {
     "location": "Floating Catacombs Diamond",
     "locks": [
-      "Gravity Boots + Holy glasses",
+      "Gravity Boots + Leap Stone + Holy glasses",
+      "Gravity Boots + Form of Mist + Holy glasses",
+      "Gravity Boots + Clay + Holy glasses",
       "Gravity Boots + HR1 + HR2 + Dupe + Clay",
       "Gravity Boots + Form of Mist + HR1 + Dupe",
       "Gravity Boots + Form of Mist + HR2 + Dupe",
@@ -898,7 +963,9 @@
   }, {
     "location": "Sword of Hador",
     "locks": [
-      "Gravity Boots + Holy glasses",
+      "Gravity Boots + Leap Stone + Holy glasses",
+      "Gravity Boots + Form of Mist + Holy glasses",
+      "Gravity Boots + Clay + Holy glasses",
       "Gravity Boots + HR1 + HR2 + Dupe + Clay",
       "Gravity Boots + Form of Mist + HR1 + Dupe",
       "Gravity Boots + Form of Mist + HR2 + Dupe",
@@ -910,7 +977,9 @@
   }, {
     "location": "Alucard mail",
     "locks": [
-      "Gravity Boots + Holy glasses",
+      "Gravity Boots + Leap Stone + Holy glasses",
+      "Gravity Boots + Form of Mist + Holy glasses",
+      "Gravity Boots + Clay + Holy glasses",
       "Gravity Boots + HR1 + HR2 + Dupe + Clay",
       "Gravity Boots + Form of Mist + HR1 + Dupe",
       "Gravity Boots + Form of Mist + HR2 + Dupe",
@@ -922,7 +991,9 @@
   }, {
     "location": "Gram",
     "locks": [
-      "Gravity Boots + Holy glasses",
+      "Gravity Boots + Leap Stone + Holy glasses",
+      "Gravity Boots + Form of Mist + Holy glasses",
+      "Gravity Boots + Clay + Holy glasses",
       "Gravity Boots + HR1 + HR2 + Dupe + Clay",
       "Gravity Boots + Form of Mist + HR1 + Dupe",
       "Gravity Boots + Form of Mist + HR2 + Dupe",
@@ -934,7 +1005,9 @@
   }, {
     "location": "Fury plate",
     "locks": [
-      "Gravity Boots + Holy glasses",
+      "Gravity Boots + Leap Stone + Holy glasses",
+      "Gravity Boots + Form of Mist + Holy glasses",
+      "Gravity Boots + Clay + Holy glasses",
       "Gravity Boots + HR1 + HR2 + Dupe + Clay",
       "Gravity Boots + Form of Mist + HR1 + Dupe",
       "Gravity Boots + Form of Mist + HR2 + Dupe",
@@ -951,7 +1024,9 @@
   }, {
     "location": "Talisman",
     "locks": [
-      "Gravity Boots + Holy glasses",
+      "Gravity Boots + Leap Stone + Holy glasses",
+      "Gravity Boots + Form of Mist + Holy glasses",
+      "Gravity Boots + Clay + Holy glasses",
       "Gravity Boots + HR1 + HR2 + Dupe + Clay",
       "Gravity Boots + Form of Mist + HR1 + Dupe",
       "Gravity Boots + Form of Mist + HR2 + Dupe",
@@ -963,7 +1038,9 @@
   }, {
     "location": "Katana",
     "locks": [
-      "Gravity Boots + Holy glasses",
+      "Gravity Boots + Leap Stone + Holy glasses",
+      "Gravity Boots + Form of Mist + Holy glasses",
+      "Gravity Boots + Clay + Holy glasses",
       "Gravity Boots + HR1 + HR2 + Dupe + Clay",
       "Gravity Boots + Form of Mist + HR1 + Dupe",
       "Gravity Boots + Form of Mist + HR2 + Dupe",
@@ -973,9 +1050,11 @@
       "Form of Mist + Power of Mist + Holy glasses"
     ]
   }, {
-    "location": "Goddress shield",
+    "location": "Goddess shield",
     "locks": [
-      "Gravity Boots + Holy glasses",
+      "Gravity Boots + Leap Stone + Holy glasses",
+      "Gravity Boots + Form of Mist + Holy glasses",
+      "Gravity Boots + Clay + Holy glasses",
       "Gravity Boots + HR1 + HR2 + Dupe + Clay",
       "Gravity Boots + Form of Mist + HR1 + Dupe",
       "Gravity Boots + Form of Mist + HR2 + Dupe",
@@ -987,7 +1066,9 @@
   }, {
     "location": "Talwar",
     "locks": [
-      "Gravity Boots + Holy glasses",
+      "Gravity Boots + Leap Stone + Holy glasses",
+      "Gravity Boots + Form of Mist + Holy glasses",
+      "Gravity Boots + Clay + Holy glasses",
       "Gravity Boots + HR1 + HR2 + Dupe + Clay",
       "Gravity Boots + Form of Mist + HR1 + Dupe",
       "Gravity Boots + Form of Mist + HR2 + Dupe",
@@ -1014,7 +1095,9 @@
   }, {
     "location": "Ring of Vlad",
     "locks": [
-      "Gravity Boots + Holy glasses",
+      "Gravity Boots + Leap Stone + Holy glasses",
+      "Gravity Boots + Form of Mist + Holy glasses",
+      "Gravity Boots + Clay + Holy glasses",
       "Gravity Boots + HR1 + HR2 + Dupe + Clay",
       "Gravity Boots + Form of Mist + HR1 + Dupe",
       "Gravity Boots + Form of Mist + HR2 + Dupe",
@@ -1026,14 +1109,15 @@
     "block": [
       "HR1",
       "HR2",
-      "LB",
       "Frang1",
       "Frang2"
     ]
   }, {
     "location": "Heart of Vlad",
     "locks": [
-      "Gravity Boots + Holy glasses",
+      "Gravity Boots + Leap Stone + Holy glasses",
+      "Gravity Boots + Form of Mist + Holy glasses",
+      "Gravity Boots + Clay + Holy glasses",
       "Gravity Boots + HR1 + HR2 + Dupe + Clay",
       "Gravity Boots + Form of Mist + HR1 + Dupe",
       "Gravity Boots + Form of Mist + HR2 + Dupe",
@@ -1045,14 +1129,15 @@
     "block": [
       "HR1",
       "HR2",
-      "LB",
       "Frang1",
       "Frang2"
     ]
   }, {
     "location": "Eye of Vlad",
     "locks": [
-      "Gravity Boots + Holy glasses",
+      "Gravity Boots + Leap Stone + Holy glasses",
+      "Gravity Boots + Form of Mist + Holy glasses",
+      "Gravity Boots + Clay + Holy glasses",
       "Gravity Boots + HR1 + HR2 + Dupe + Clay",
       "Gravity Boots + Form of Mist + HR1 + Dupe",
       "Gravity Boots + Form of Mist + HR2 + Dupe",
@@ -1064,15 +1149,13 @@
     "block": [
       "HR1",
       "HR2",
-      "LB",
       "Frang1",
       "Frang2"
     ]
   }, {
     "location": "Rib of Vlad",
     "locks": [
-      "Gravity Boots + Holy glasses",
-      "Gravity Boots + HR1 + HR2 + Dupe + Clay",
+      "Gravity Boots + Form of Mist + Holy glasses",
       "Gravity Boots + Form of Mist + HR1 + Dupe",
       "Gravity Boots + Form of Mist + HR2 + Dupe",
       "Soul of Wolf + Gravity Boots",
@@ -1083,14 +1166,15 @@
     "block": [
       "HR1",
       "HR2",
-      "LB",
       "Frang1",
       "Frang2"
     ]
   }, {
     "location": "Tooth of Vlad",
     "locks": [
-      "Gravity Boots + Holy glasses",
+      "Gravity Boots + Leap Stone + Holy glasses",
+      "Gravity Boots + Form of Mist + Holy glasses",
+      "Gravity Boots + Clay + Holy glasses",
       "Gravity Boots + HR1 + HR2 + Dupe + Clay",
       "Gravity Boots + Form of Mist + HR1 + Dupe",
       "Gravity Boots + Form of Mist + HR2 + Dupe",
@@ -1102,14 +1186,15 @@
     "block": [
       "HR1",
       "HR2",
-      "LB",
       "Frang1",
       "Frang2"
     ]
   }, {
     "location": "Trio",
     "locks": [
-      "Gravity Boots + Holy glasses",
+      "Gravity Boots + Leap Stone + Holy glasses",
+      "Gravity Boots + Form of Mist + Holy glasses",
+      "Gravity Boots + Clay + Holy glasses",
       "Gravity Boots + HR1 + HR2 + Dupe + Clay",
       "Gravity Boots + Form of Mist + HR1 + Dupe",
       "Gravity Boots + Form of Mist + HR2 + Dupe",
@@ -1121,14 +1206,15 @@
     "block": [
       "HR1",
       "HR2",
-      "LB",
       "Frang1",
       "Frang2"
     ]
   }, {
     "location": "Force of Echo",
     "locks": [
-      "Gravity Boots + Holy glasses",
+      "Gravity Boots + Leap Stone + Holy glasses",
+      "Gravity Boots + Form of Mist + Holy glasses",
+      "Gravity Boots + Clay + Holy glasses",
       "Gravity Boots + HR1 + HR2 + Dupe + Clay",
       "Gravity Boots + Form of Mist + HR1 + Dupe",
       "Gravity Boots + Form of Mist + HR2 + Dupe",
@@ -1140,7 +1226,9 @@
   }, {
     "location": "Gas Cloud",
     "locks": [
-      "Gravity Boots + Holy glasses",
+      "Gravity Boots + Leap Stone + Holy glasses",
+      "Gravity Boots + Form of Mist + Holy glasses",
+      "Gravity Boots + Clay + Holy glasses",
       "Gravity Boots + HR1 + HR2 + Dupe + Clay",
       "Gravity Boots + Form of Mist + HR1 + Dupe",
       "Gravity Boots + Form of Mist + HR2 + Dupe",
@@ -1156,6 +1244,7 @@
       "Soul of Bat + HR1",
       "Soul of Bat + HR2",
       "Soul of Bat + Srod + Leap Stone",
+      "Soul of Bat + Srod + Clay",
       "Leap Stone + Gravity Boots + HR1 + HR2 + Dupe",
       "Soul of Wolf + Gravity Boots + HR1 + HR2 + Dupe",
       "Form of Mist + Gravity Boots + HR1 + HR2 + Dupe"

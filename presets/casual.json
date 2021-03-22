@@ -230,5 +230,11 @@
       "Gravity Boots + Leap Stone",
       "Form of Mist + Power of Mist"
     ]
-  }]
+  }],
+  "complexityGoal": {
+    "min": 1,
+    "goals": [
+      "Holy glasses + Heart of Vlad + Tooth of Vlad + Rib of Vlad + Ring of Vlad + Eye of Vlad"
+    ]
+  }
 }
