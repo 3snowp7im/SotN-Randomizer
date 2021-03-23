@@ -1362,15 +1362,21 @@
       if (typeof(placedItems) !== 'object') {
         placedItems = {}
       }
+      let replaced
+      let leakPrevention = true
+      if (typeof(options.relicLocations) === 'object') {
+        replaced = options.relicLocations.replaced
+        leakPrevention = !('leakPrevention' in options.relicLocations)
+          || options.relicLocations.leakPrevention
+      }
       // Write data to ROM.
       writeMapping(
         data,
         rng,
         result.mapping,
         placedItems,
-        options.relicLocations.replaced,
-        !('leakPrevention' in options.relicLocations)
-          || options.relicLocations.leakPrevention,
+        replaced,
+        leakPrevention,
       )
       // Patch out cutscenes.
       patchAlchemyLabCutscene(data)
