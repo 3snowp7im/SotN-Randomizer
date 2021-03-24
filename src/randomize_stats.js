@@ -163,7 +163,7 @@
         'Stone mask',
         'Felt hat',
         'Leather hat',
-        'Velwet hat',
+        'Velvet hat',
         'Wizard hat',
         'Ring of Pales',
         'Ring of Ares',
@@ -188,7 +188,7 @@
       return [
         'Felt hat',
         'Leather hat',
-        'Velwet hat',
+        'Velvet hat',
         'Wizard hat',
       ].indexOf(item.name) !== -1
     }))
@@ -278,7 +278,7 @@
         'Stone mask',
         'Felt hat',
         'Leather hat',
-        'Velwet hat',
+        'Velvet hat',
         'Wizard hat',
         'Circlet',
         'Gold circlet',
@@ -321,7 +321,7 @@
       return [
         'Felt hat',
         'Leather hat',
-        'Velwet hat',
+        'Velvet hat',
         'Wizard hat',
       ].indexOf(item.name) !== -1
     }))
