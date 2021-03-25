@@ -956,6 +956,7 @@ if ('inBin' in argv) {
           rng,
           applied,
           result,
+          newNames,
         )
         check.apply(result.data)
         // Randomize items.

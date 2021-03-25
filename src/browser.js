@@ -562,7 +562,6 @@
         0,
       ))
       const result = randomizeStats(rng, applied)
-      const thrustSwords = result.thrustSwords
       const newNames = result.newNames
       check.apply(result.data)
       // Randomize relics.
@@ -587,7 +586,7 @@
           rng,
           applied,
           result,
-          thrustSwords,
+          newNames,
         )
         check.apply(result.data)
         return util.randomizeItems(

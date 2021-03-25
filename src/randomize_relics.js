@@ -148,6 +148,8 @@
     mapping,
     placedItems,
     replaced,
+    thrustSword,
+    newNames,
     removeItems,
   ) {
     const erased = {
@@ -203,6 +205,17 @@
       let item
       if (key in (replaced || {})) {
         item = util.itemFromName(replaced[key])
+      } else if (relic.ability === constants.RELIC.THRUST_SWORD) {
+        const newName = newNames.filter(function(item) {
+          return item.id === thrustSword.id
+        }).pop()
+        if (newName) {
+          item = Object.assign({}, thrustSword, {
+            name: newName.name,
+          })
+        } else {
+          item = thrustSword
+        }
       } else if ('itemId' in relic) {
         let itemId = relic.itemId
         if (Array.isArray(itemId)) {
@@ -1351,11 +1364,12 @@
       solutions: result.solutions,
       locations: locations,
       relics: enabledRelics,
+      thrustSword: thrustSword,
       info: info,
     }
   }
 
-  function writeRelics(rng, options, result) {
+  function writeRelics(rng, options, result, newNames) {
     const data = new util.checked()
     if (options.relicLocations) {
       let placedItems = options.itemLocations
@@ -1376,6 +1390,8 @@
         result.mapping,
         placedItems,
         replaced,
+        result.thrustSword,
+        newNames,
         leakPrevention,
       )
       // Patch out cutscenes.

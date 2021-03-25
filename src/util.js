@@ -3121,11 +3121,11 @@
       }
     }
     if ('blockEquipment' in json) {
-      json.startingEquipment.forEach(function(blockedEquipment) {
+      json.blockEquipment.forEach(function(blockedEquipment) {
         const key = blockedEquipment.slot.toUpperCase().replace(' ', '_')
         builder.blockEquipment(
           constants.SLOT[key],
-          blockEquipment.item,
+          blockedEquipment.item,
         )
       })
     }

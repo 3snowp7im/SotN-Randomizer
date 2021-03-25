@@ -123,6 +123,13 @@
       "Obsidian sword"
     ]
   }],
+  "blockEquipment": [{
+    "slot": "Right hand",
+    "item": [
+      "Shield rod",
+      "Mablung Sword"
+    ]
+  }],
   "thrustSwordAbility": true,
   "lockLocation": [{
     "location": "Holy mail",
