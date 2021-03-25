@@ -3099,7 +3099,7 @@
     }
     if ('blockRewards' in json) {
       json.blockRewards.forEach(function(blockedReward) {
-        builder.prologueRewards(
+        builder.blockReward(
           blockedReward.item,
           blockedReward.replacement,
         )
@@ -3996,7 +3996,7 @@
       this.rewards.blocked = this.rewards.blocked || {}
       this.rewards.blocked[rewardsMap[itemName]] =
         this.rewards.blocked[rewardsMap[itemName]] || []
-      replaceNames.forEach(function(replaceName) {
+      blocked.forEach(function(replaceName) {
         const replace = items.filter(function(item) {
           return item.name === replaceName
         })[0]
