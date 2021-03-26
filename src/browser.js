@@ -613,6 +613,7 @@
         check.apply(result)
         return util.finalizeData(
           seed,
+          version,
           options.preset,
           options.tournamentMode,
           file,

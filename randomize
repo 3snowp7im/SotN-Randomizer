@@ -993,7 +993,7 @@ if ('inBin' in argv) {
         }
         process.exit(1)
       }
-      util.setSeedText(check, seed, options.preset, options.tournamentMode)
+      util.setSeedText(check, seed, version, options.preset, options.tournamentMode)
       checksum = check.sum()
       // Verify expected checksum matches actual checksum.
       if (haveChecksum && expectChecksum !== checksum) {

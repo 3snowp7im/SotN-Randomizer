@@ -161,6 +161,7 @@ function randomizeWorker() {
             util.setSeedText(
               check,
               message.seed,
+              message.version,
               message.preset,
               message.tournament,
             )

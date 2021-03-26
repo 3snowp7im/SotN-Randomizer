@@ -2191,23 +2191,26 @@
     data.writeString(range.start, string.slice(0, length).concat([0x00]))
   }
 
-  function setSeedText(data, seed, preset, tournament) {
+  function setSeedText(data, seed, version, preset, tournament) {
     const seedRange = {
       start: 0x04389c6c,
-      length: 31,
+      length: 30,
     }
     const presetRange = {
       start: 0x04389c8c,
-      length: 20,
+      length: 30,
     }
+    // 801bc3ac
     data.writeShort(0x043930c4, 0x78b4)
     data.writeShort(0x043930d4, 0x78d4)
     data.writeShort(0x0439312c, 0x78b4)
     data.writeShort(0x0439313c, 0x78d4)
+    data.writeShort(0x04393484, 0x78b4)
+    data.writeShort(0x04393494, 0x78d4)
     writeMenuText(data, seed, seedRange)
     writeMenuText(
       data,
-      (preset || '') + (tournament ? ' tournament' : ''),
+      version + ' ' + (preset || '') + (tournament ? ' tournament' : ''),
       presetRange
     )
   }
@@ -4605,6 +4608,7 @@
 
   function finalizeData(
     seed,
+    version,
     preset,
     tournament,
     file,
@@ -4632,6 +4636,7 @@
       worker.postMessage({
         action: constants.WORKER_ACTION.FINALIZE,
         seed: seed,
+        version: version,
         preset: preset,
         tournament: tournament,
         file: file,
