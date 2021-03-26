@@ -419,97 +419,99 @@
   }, {
     "location": "Merman Statue",
     "locks": [
-      "HR1 + Dupe",
-      "HR2 + Dupe",
-      "Srod + Leap Stone",
-      "Soul of Wolf + Power of Wolf + Soul of Bat"
+      "Soul of Wolf + Power of Wolf + Soul of Bat",
+      "LB + HR1 + Dupe",
+      "LB + HR2 + Dupe",
+      "LB + Leap Stone + Srod",
+      "LB + Clay + Srod"
     ]
   }, {
     "location": "Gold ring",
     "locks": [
       "Soul of Wolf + Power of Wolf + Soul of Bat",
-      "Soul of Wolf + HR1 + Dupe + Gravity Boots",
-      "Soul of Wolf + Skill of Wolf + HR1 + Dupe",
-      "Soul of Wolf + HR2 + Dupe + Gravity Boots",
-      "Soul of Wolf + Skill of Wolf + HR2 + Dupe",
-      "Form of Mist + HR1 + Dupe + Gravity Boots",
-      "Form of Mist + HR2 + Dupe + Gravity Boots",
-      "Leap Stone + HR1 + Dupe + Gravity Boots",
-      "Leap Stone + HR2 + Dupe + Gravity Boots",
-      "Leap Stone + Srod + Gravity Boots",
-      "Leap Stone + Srod + Soul of Wolf + Skill of Wolf",
-      "Clay + Srod + Gravity Boots",
-      "Clay + Srod + Soul of Wolf + Skill of Wolf",
-      "HR1 + Dupe + Soul of Wolf + Clay",
-      "HR2 + Dupe + Soul of Wolf + Clay",
-      "HR1 + Dupe + Soul of Wolf + Form of Mist",
-      "HR2 + Dupe + Soul of Wolf + Form of Mist",
-      "HR1 + Dupe + Soul of Wolf + Leap Stone",
-      "HR2 + Dupe + Soul of Wolf + Leap Stone",
-      "HR1 + HR2 + Dupe"
+      "LB + Soul of Wolf + Skill of Wolf + HR1 + Dupe",
+      "LB + Soul of Wolf + Skill of Wolf + HR2 + Dupe",
+      "LB + Soul of Wolf + HR1 + Dupe + Gravity Boots",
+      "LB + Soul of Wolf + HR2 + Dupe + Gravity Boots",
+      "LB + Form of Mist + HR1 + Dupe + Gravity Boots",
+      "LB + Form of Mist + HR2 + Dupe + Gravity Boots",
+      "LB + Leap Stone + HR1 + Dupe + Gravity Boots",
+      "LB + Leap Stone + HR2 + Dupe + Gravity Boots",
+      "LB + Leap Stone + Srod + Gravity Boots",
+      "LB + Leap Stone + Srod + Soul of Wolf + Skill of Wolf",
+      "LB + Clay + Srod + Gravity Boots",
+      "LB + Clay + Srod + Soul of Wolf + Skill of Wolf",
+      "LB + HR1 + Dupe + Soul of Wolf + Clay",
+      "LB + HR2 + Dupe + Soul of Wolf + Clay",
+      "LB + HR1 + Dupe + Soul of Wolf + Form of Mist",
+      "LB + HR2 + Dupe + Soul of Wolf + Form of Mist",
+      "LB + HR1 + Dupe + Soul of Wolf + Leap Stone",
+      "LB + HR2 + Dupe + Soul of Wolf + Leap Stone",
+      "LB + HR1 + HR2 + Dupe"
     ]
   }, {
     "location": "Bandanna",
     "locks": [
       "Soul of Wolf + Power of Wolf + Soul of Bat",
-      "HR1 + Dupe",
-      "HR2 + Dupe",
-      "Leap Stone + Srod",
-      "Clay + Srod"
+      "LB + HR1 + Dupe",
+      "LB + HR2 + Dupe",
+      "LB + Leap Stone + Srod",
+      "LB + Clay + Srod"
     ]
   }, {
     "location": "Secret boots",
     "locks": [
       "Soul of Wolf + Power of Wolf + Soul of Bat",
-      "HR1 + Dupe",
-      "HR2 + Dupe",
-      "Leap Stone + Srod",
-      "Clay + Srod"
+      "LB + HR1 + Dupe",
+      "LB + HR2 + Dupe",
+      "LB + Leap Stone + Srod",
+      "LB + Clay + Srod"
     ]
   }, {
     "location": "Nunchaku",
     "locks": [
       "Soul of Wolf + Power of Wolf + Soul of Bat",
-      "HR1 + Dupe",
-      "HR2 + Dupe",
-      "Leap Stone + Srod",
-      "Clay + Srod"
+      "LB + HR1 + Dupe",
+      "LB + HR2 + Dupe",
+      "LB + Leap Stone + Srod",
+      "LB + Clay + Srod"
     ]
   }, {
     "location": "Crystal cloak",
     "locks": [
       "Soul of Wolf + Power of Wolf + Soul of Bat",
-      "HR1 + Dupe",
-      "HR2 + Dupe",
-      "Leap Stone + Srod + Gravity Boots",
-      "Clay + Srod + Gravity Boots"
+      "LB + HR1 + Dupe",
+      "LB + HR2 + Dupe",
+      "LB + Leap Stone + Srod",
+      "LB + Clay + Srod"
     ],
     "escapeRequirements": []
   }, {
     "location": "Knuckle duster",
     "locks": [
       "Soul of Wolf + Power of Wolf + Soul of Bat",
-      "HR1 + Dupe",
-      "HR2 + Dupe",
-      "Leap Stone + Srod + Gravity Boots",
-      "Clay + Srod + Gravity Boots"
+      "LB + HR1 + Dupe",
+      "LB + HR2 + Dupe",
+      "LB + Leap Stone + Srod",
+      "LB + Clay + Srod"
     ]
   }, {
     "location": "Caverns Onyx",
     "locks": [
       "Soul of Wolf + Power of Wolf + Soul of Bat",
-      "HR1 + Dupe + Merman Statue",
-      "HR2 + Dupe + Merman Statue",
-      "HR1 + Dupe + Soul of Wolf + Clay",
-      "HR2 + Dupe + Soul of Wolf + Clay",
-      "HR1 + Dupe + Leap Stone",
-      "HR2 + Dupe + Leap Stone",
-      "HR1 + Dupe + Soul of Wolf",
-      "HR2 + Dupe + Soul of Wolf",
-      "Form of Mist + HR1 + Dupe + Gravity Boots",
-      "Form of Mist + HR2 + Dupe + Gravity Boots",
-      "Leap Stone + Srod + Merman Statue",
-      "Clay + Srod + Merman Statue"
+      "LB + HR1 + Dupe",
+      "LB + HR2 + Dupe",
+      "LB + Leap Stone + Srod",
+      "LB + Clay + Srod"
+    ]
+  }, {
+    "location": "Holy Symbol",
+    "locks": [
+      "Merman Statue + Soul of Wolf + Power of Wolf + Soul of Bat",
+      "Merman Statue + LB + HR1 + Dupe",
+      "Merman Statue + LB + HR2 + Dupe",
+      "Merman Statue + LB + Leap Stone + Srod + Gravity Boots",
+      "Merman Statue + LB + Clay + Srod + Gravity Boots"
     ]
   }, {
     "location": "Combat knife",
@@ -519,133 +521,133 @@
       "LB + HR2 + Dupe + Soul of Wolf + Skill of Wolf",
       "LB + HR1 + Dupe + Soul of Wolf + Power of Wolf",
       "LB + HR2 + Dupe + Soul of Wolf + Skill of Wolf",
-      "Soul of Wolf + HR1 + Dupe + Gravity Boots",
-      "Soul of Wolf + HR2 + Dupe + Gravity Boots",
-      "Form of Mist + HR1 + Dupe + Gravity Boots",
-      "Form of Mist + HR2 + Dupe + Gravity Boots",
-      "Leap Stone + HR1 + Dupe + Gravity Boots",
-      "Leap Stone + HR2 + Dupe + Gravity Boots",
-      "HR1 + HR2 + Dupe"
+      "LB + Soul of Wolf + HR1 + Dupe + Gravity Boots",
+      "LB + Soul of Wolf + HR2 + Dupe + Gravity Boots",
+      "LB + Form of Mist + HR1 + Dupe + Gravity Boots",
+      "LB + Form of Mist + HR2 + Dupe + Gravity Boots",
+      "LB + Leap Stone + HR1 + Dupe + Gravity Boots",
+      "LB + Leap Stone + HR2 + Dupe + Gravity Boots",
+      "LB + HR1 + HR2 + Dupe"
     ],
     "escapeRequirements": []
   }, {
     "location": "Ring of Ares",
     "locks": [
       "Soul of Wolf + Power of Wolf + Soul of Bat + Demon Card",
-      "HR1 + Dupe + Soul of Wolf + Power of Wolf",
-      "HR2 + Dupe + Soul of Wolf + Skill of Wolf",
-      "HR1 + Dupe + Soul of Wolf + Power of Wolf",
-      "HR2 + Dupe + Soul of Wolf + Skill of Wolf",
-      "Soul of Wolf + HR1 + Dupe + Gravity Boots",
-      "Soul of Wolf + HR2 + Dupe + Gravity Boots",
-      "Form of Mist + HR1 + Dupe + Gravity Boots",
-      "Form of Mist + HR2 + Dupe + Gravity Boots",
-      "Leap Stone + HR1 + Dupe + Gravity Boots",
-      "Leap Stone + HR2 + Dupe + Gravity Boots",
-      "HR1 + HR2 + Dupe"
+      "LB + HR1 + Dupe + Soul of Wolf + Power of Wolf",
+      "LB + HR2 + Dupe + Soul of Wolf + Skill of Wolf",
+      "LB + HR1 + Dupe + Soul of Wolf + Power of Wolf",
+      "LB + HR2 + Dupe + Soul of Wolf + Skill of Wolf",
+      "LB + Soul of Wolf + HR1 + Dupe + Gravity Boots",
+      "LB + Soul of Wolf + HR2 + Dupe + Gravity Boots",
+      "LB + Form of Mist + HR1 + Dupe + Gravity Boots",
+      "LB + Form of Mist + HR2 + Dupe + Gravity Boots",
+      "LB + Leap Stone + HR1 + Dupe + Gravity Boots",
+      "LB + Leap Stone + HR2 + Dupe + Gravity Boots",
+      "LB + HR1 + HR2 + Dupe"
     ],
     "escapeRequirements": []
   }, {
     "location": "Demon Card",
     "locks": [
       "Soul of Wolf + Power of Wolf + Soul of Bat",
-      "HR1 + Dupe + Soul of Wolf + Power of Wolf",
-      "HR2 + Dupe + Soul of Wolf + Skill of Wolf",
-      "HR1 + Dupe + Soul of Wolf + Power of Wolf",
-      "HR2 + Dupe + Soul of Wolf + Skill of Wolf",
-      "Soul of Wolf + HR1 + Dupe + Gravity Boots",
-      "Soul of Wolf + HR2 + Dupe + Gravity Boots",
-      "Form of Mist + HR1 + Dupe + Gravity Boots",
-      "Form of Mist + HR2 + Dupe + Gravity Boots",
-      "Leap Stone + HR1 + Dupe + Gravity Boots",
-      "Leap Stone + HR2 + Dupe + Gravity Boots",
-      "HR1 + HR2 + Dupe"
+      "LB + HR1 + Dupe + Soul of Wolf + Power of Wolf",
+      "LB + HR2 + Dupe + Soul of Wolf + Skill of Wolf",
+      "LB + HR1 + Dupe + Soul of Wolf + Power of Wolf",
+      "LB + HR2 + Dupe + Soul of Wolf + Skill of Wolf",
+      "LB + Soul of Wolf + HR1 + Dupe + Gravity Boots",
+      "LB + Soul of Wolf + HR2 + Dupe + Gravity Boots",
+      "LB + Form of Mist + HR1 + Dupe + Gravity Boots",
+      "LB + Form of Mist + HR2 + Dupe + Gravity Boots",
+      "LB + Leap Stone + HR1 + Dupe + Gravity Boots",
+      "LB + Leap Stone + HR2 + Dupe + Gravity Boots",
+      "LB + HR1 + HR2 + Dupe"
     ]
   }, {
     "location": "Bloodstone",
     "locks": [
       "Soul of Wolf + Power of Wolf + Soul of Bat",
-      "HR1 + Dupe + Soul of Wolf + Power of Wolf + Leap Stone",
-      "HR2 + Dupe + Soul of Wolf + Skill of Wolf + Leap Stone",
-      "HR1 + Dupe + Soul of Wolf + Power of Wolf + Leap Stone",
-      "HR2 + Dupe + Soul of Wolf + Skill of Wolf + Leap Stone",
-      "Soul of Wolf + HR1 + Dupe + Gravity Boots",
-      "Soul of Wolf + HR2 + Dupe + Gravity Boots",
-      "Form of Mist + HR1 + Dupe + Gravity Boots",
-      "Form of Mist + HR2 + Dupe + Gravity Boots",
-      "Leap Stone + HR1 + Dupe + Gravity Boots",
-      "Leap Stone + HR2 + Dupe + Gravity Boots",
-      "HR1 + HR2 + Dupe + Leap Stone",
-      "HR1 + HR2 + Dupe + Gravity Boots"
+      "LB + HR1 + Dupe + Soul of Wolf + Power of Wolf + Leap Stone",
+      "LB + HR2 + Dupe + Soul of Wolf + Skill of Wolf + Leap Stone",
+      "LB + HR1 + Dupe + Soul of Wolf + Power of Wolf + Leap Stone",
+      "LB + HR2 + Dupe + Soul of Wolf + Skill of Wolf + Leap Stone",
+      "LB + Soul of Wolf + HR1 + Dupe + Gravity Boots",
+      "LB + Soul of Wolf + HR2 + Dupe + Gravity Boots",
+      "LB + Form of Mist + HR1 + Dupe + Gravity Boots",
+      "LB + Form of Mist + HR2 + Dupe + Gravity Boots",
+      "LB + Leap Stone + HR1 + Dupe + Gravity Boots",
+      "LB + Leap Stone + HR2 + Dupe + Gravity Boots",
+      "LB + HR1 + HR2 + Dupe + Leap Stone",
+      "LB + HR1 + HR2 + Dupe + Gravity Boots"
     ],
     "escapeRequirements": []
   }, {
     "location": "Icebrand",
     "locks": [
       "Soul of Wolf + Power of Wolf + Soul of Bat",
-      "HR1 + Dupe + Soul of Wolf + Power of Wolf",
-      "HR2 + Dupe + Soul of Wolf + Skill of Wolf",
-      "HR1 + Dupe + Soul of Wolf + Power of Wolf",
-      "HR2 + Dupe + Soul of Wolf + Skill of Wolf",
-      "Soul of Wolf + HR1 + Dupe + Gravity Boots",
-      "Soul of Wolf + HR2 + Dupe + Gravity Boots",
-      "Form of Mist + HR1 + Dupe + Gravity Boots",
-      "Form of Mist + HR2 + Dupe + Gravity Boots",
-      "Leap Stone + HR1 + Dupe + Gravity Boots",
-      "Leap Stone + HR2 + Dupe + Gravity Boots",
-      "HR1 + HR2 + Dupe"
+      "LB + HR1 + Dupe + Soul of Wolf + Power of Wolf",
+      "LB + HR2 + Dupe + Soul of Wolf + Skill of Wolf",
+      "LB + HR1 + Dupe + Soul of Wolf + Power of Wolf",
+      "LB + HR2 + Dupe + Soul of Wolf + Skill of Wolf",
+      "LB + Soul of Wolf + HR1 + Dupe + Gravity Boots",
+      "LB + Soul of Wolf + HR2 + Dupe + Gravity Boots",
+      "LB + Form of Mist + HR1 + Dupe + Gravity Boots",
+      "LB + Form of Mist + HR2 + Dupe + Gravity Boots",
+      "LB + Leap Stone + HR1 + Dupe + Gravity Boots",
+      "LB + Leap Stone + HR2 + Dupe + Gravity Boots",
+      "LB + HR1 + HR2 + Dupe"
     ],
     "escapeRequirements": []
   }, {
     "location": "Spike Breaker",
     "locks": [
       "Soul of Wolf + Power of Wolf + Soul of Bat",
-      "HR1 + Dupe + Soul of Wolf + Power of Wolf + Leap Stone",
-      "HR2 + Dupe + Soul of Wolf + Power of Wolf + Leap Stone",
-      "HR1 + Dupe + Soul of Wolf + Skill of Wolf + Leap Stone",
-      "HR2 + Dupe + Soul of Wolf + Skill of Wolf + Leap Stone",
-      "Soul of Wolf + HR1 + Dupe + Gravity Boots",
-      "Soul of Wolf + HR2 + Dupe + Gravity Boots",
-      "Form of Mist + HR1 + Dupe + Gravity Boots",
-      "Form of Mist + HR2 + Dupe + Gravity Boots",
-      "Leap Stone + HR1 + Dupe",
-      "Leap Stone + HR2 + Dupe",
-      "HR1 + HR2 + Dupe + Soul of Wolf",
-      "HR1 + HR2 + Dupe + Form of Mist",
-      "HR1 + Dupe + Spike Breaker + Soul of Wolf + Frang1 + Frang2",
-      "HR2 + Dupe + Spike Breaker + Soul of Wolf + Frang1 + Frang2"
+      "LB + HR1 + Dupe + Soul of Wolf + Power of Wolf + Leap Stone",
+      "LB + HR2 + Dupe + Soul of Wolf + Power of Wolf + Leap Stone",
+      "LB + HR1 + Dupe + Soul of Wolf + Skill of Wolf + Leap Stone",
+      "LB + HR2 + Dupe + Soul of Wolf + Skill of Wolf + Leap Stone",
+      "LB + Soul of Wolf + HR1 + Dupe + Gravity Boots",
+      "LB + Soul of Wolf + HR2 + Dupe + Gravity Boots",
+      "LB + Form of Mist + HR1 + Dupe + Gravity Boots",
+      "LB + Form of Mist + HR2 + Dupe + Gravity Boots",
+      "LB + Leap Stone + HR1 + Dupe",
+      "LB + Leap Stone + HR2 + Dupe",
+      "LB + HR1 + HR2 + Dupe + Soul of Wolf",
+      "LB + HR1 + HR2 + Dupe + Form of Mist",
+      "LB + HR1 + Dupe + Spike Breaker + Soul of Wolf + Frang1 + Frang2",
+      "LB + HR2 + Dupe + Spike Breaker + Soul of Wolf + Frang1 + Frang2"
     ]
   }, {
     "location": "Walk armor",
     "locks": [
       "Soul of Wolf + Power of Wolf + Soul of Bat",
-      "HR1 + Dupe + Soul of Wolf + Power of Wolf",
-      "HR2 + Dupe + Soul of Wolf + Skill of Wolf",
-      "HR1 + Dupe + Soul of Wolf + Power of Wolf",
-      "HR2 + Dupe + Soul of Wolf + Skill of Wolf",
-      "Soul of Wolf + HR1 + Dupe + Gravity Boots",
-      "Soul of Wolf + HR2 + Dupe + Gravity Boots",
-      "Form of Mist + HR1 + Dupe + Gravity Boots",
-      "Form of Mist + HR2 + Dupe + Gravity Boots",
-      "Leap Stone + HR1 + Dupe + Gravity Boots",
-      "Leap Stone + HR2 + Dupe + Gravity Boots",
-      "HR1 + HR2 + Dupe"
+      "LB + HR1 + Dupe + Soul of Wolf + Power of Wolf",
+      "LB + HR2 + Dupe + Soul of Wolf + Skill of Wolf",
+      "LB + HR1 + Dupe + Soul of Wolf + Power of Wolf",
+      "LB + HR2 + Dupe + Soul of Wolf + Skill of Wolf",
+      "LB + Soul of Wolf + HR1 + Dupe + Gravity Boots",
+      "LB + Soul of Wolf + HR2 + Dupe + Gravity Boots",
+      "LB + Form of Mist + HR1 + Dupe + Gravity Boots",
+      "LB + Form of Mist + HR2 + Dupe + Gravity Boots",
+      "LB + Leap Stone + HR1 + Dupe + Gravity Boots",
+      "LB + Leap Stone + HR2 + Dupe + Gravity Boots",
+      "LB + HR1 + HR2 + Dupe"
     ]
   }, {
     "location": "Mormegil",
     "locks": [
       "Soul of Wolf + Power of Wolf + Soul of Bat",
-      "HR1 + Dupe + Soul of Wolf + Power of Wolf",
-      "HR2 + Dupe + Soul of Wolf + Skill of Wolf",
-      "HR1 + Dupe + Soul of Wolf + Power of Wolf",
-      "HR2 + Dupe + Soul of Wolf + Skill of Wolf",
-      "Soul of Wolf + HR1 + Dupe + Gravity Boots",
-      "Soul of Wolf + HR2 + Dupe + Gravity Boots",
-      "Form of Mist + HR1 + Dupe + Gravity Boots",
-      "Form of Mist + HR2 + Dupe + Gravity Boots",
-      "Leap Stone + HR1 + Dupe + Gravity Boots",
-      "Leap Stone + HR2 + Dupe + Gravity Boots",
-      "HR1 + HR2 + Dupe"
+      "LB + HR1 + Dupe + Soul of Wolf + Power of Wolf",
+      "LB + HR2 + Dupe + Soul of Wolf + Skill of Wolf",
+      "LB + HR1 + Dupe + Soul of Wolf + Power of Wolf",
+      "LB + HR2 + Dupe + Soul of Wolf + Skill of Wolf",
+      "LB + Soul of Wolf + HR1 + Dupe + Gravity Boots",
+      "LB + Soul of Wolf + HR2 + Dupe + Gravity Boots",
+      "LB + Form of Mist + HR1 + Dupe + Gravity Boots",
+      "LB + Form of Mist + HR2 + Dupe + Gravity Boots",
+      "LB + Leap Stone + HR1 + Dupe + Gravity Boots",
+      "LB + Leap Stone + HR2 + Dupe + Gravity Boots",
+      "LB + HR1 + HR2 + Dupe"
     ],
     "escapeRequirements": []
   }, {
