@@ -906,10 +906,21 @@
                   && itemZones.indexOf(tile.zones[0]) !== -1
                   && !util.rewardTileFilter(tile)
                   && !util.dropTileFilter(tile)
-              })
-              tiles.filter(function(tile, tileIndex) {
+              }).filter(function(tile, tileIndex) {
                 return itemName === '*' || tileIndex === index
               })
+              // Remove tiles that may have been previously randomized.
+              pool.forEach(function(item) {
+                if (item.tiles) {
+                  tiles.forEach(function(tile) {
+                    const index = item.tiles.indexOf(tile)
+                    if (index !== -1) {
+                      item.tiles.splice(index, 1)
+                    }
+                  })
+                }
+              })
+              // Push tiles to planned item.
               pushTile.apply(poolItem, tiles)
             })
           })
