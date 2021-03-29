@@ -151,41 +151,30 @@ function randomizeWorker() {
           break
         }
         case constants.WORKER_ACTION.FINALIZE: {
+          let array
+          if (message.file) {
+            array = new Uint8Array(message.file)
+          }
+          const check = new util.checked(array)
+          check.apply(message.data)
+          util.setSeedText(
+            check,
+            message.seed,
+            message.version,
+            message.preset,
+            message.tournament,
+          )
+          const checksum = check.sum()
+          if (message.checksum && message.checksum !== checksum) {
+            throw new errors.VersionError()
+          }
           let output
-          let checksum
           let objects
           if (message.file) {
-            const array = new Uint8Array(message.file)
-            const check = new util.checked(array)
-            check.apply(message.data)
-            util.setSeedText(
-              check,
-              message.seed,
-              message.version,
-              message.preset,
-              message.tournament,
-            )
-            checksum = check.sum()
-            if (message.checksum && message.checksum !== checksum) {
-              throw new errors.VersionError()
-            }
             eccEdcCalc(array, array.length, true)
             output = message.file
             objects = [output]
           } else {
-            const check = new util.checked()
-            check.apply(message.data)
-            util.setSeedText(
-              check,
-              message.seed,
-              message.version,
-              message.preset,
-              message.tournament,
-            )
-            checksum = check.sum()
-            if (message.checksum && message.checksum !== checksum) {
-              throw new errors.VersionError()
-            }
             output = check.toPatch(
               message.seed,
               message.preset,
