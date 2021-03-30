@@ -91,11 +91,20 @@
     })
     // Randomize damage shield stats together.
     if (handType === 'SHIELD') {
-      shuffled(rng, stats).forEach(function(item, index) {
+      // Shuffle damage shield stats among each other.
+      items = stats.filter(function(item) {
+        return [
+          'Dark shield',
+          'Medusa shield',
+          'Alucard shield',
+        ].indexOf(item.name) !== -1
+      })
+      shuffled(rng, items).forEach(function(item, index) {
         let addr
         addr = util.romOffset(constants.exe, stats[index].offset + 0x08)
         addr = data.writeShort(addr, item.attack)
-        addr = util.romOffset(constants.exe, stats[index].offset + 0x28)
+        addr = util.romOffset(constants.exe, stats[index].offset + 0x26)
+        addr = data.writeShort(addr, item.stunframes)
         addr = data.writeShort(addr, item.range)
       })
       shuffleStats(rng, data, stats, 'defense', 0x0a, data.writeShort)
