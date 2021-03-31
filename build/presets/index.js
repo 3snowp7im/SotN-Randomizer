@@ -13,6 +13,7 @@
       require('./glitch'),
       require('./scavenger'),
       require('./empty-hand'),
+      require('./april-fools'),
     ]
   }
   exports.sort(function(a, b) {
