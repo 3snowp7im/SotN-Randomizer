@@ -1,12 +1,10 @@
 {
   "metadata": {
-    "id": "april-fools",
-    "name": "April Fools'",
-    "description": "April Fools' Day 2021",
+    "id": "gem-farmer",
+    "name": "Gem farmer",
+    "description": "All progression must be purchased from the librarian. Released on April 1st, 2021.",
     "author": "3snow_p7im",
-    "weight": 300,
-    "override": true,
-    "hidden": true
+    "weight": 300
   },
   "stats": false,
   "preventLeaks": false,
