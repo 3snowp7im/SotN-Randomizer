@@ -401,15 +401,30 @@
     const data = new util.checked()
     const newNames = []
     if (options.stats) {
-      // Randomize hand item stats.
+      // Randomize non-weapon hand type item stats.
+      const weaponHandTypes = [
+        constants.HAND_TYPE.SHORT_SWORD,
+        constants.HAND_TYPE.SWORD,
+        constants.HAND_TYPE.THROWING_SWORD,
+        constants.HAND_TYPE.FIST,
+        constants.HAND_TYPE.CLUB,
+        constants.HAND_TYPE.TWO_HANDED_SWORD,
+      ]
       Object.getOwnPropertyNames(constants.HAND_TYPE).forEach(
         function(handType) {
-          const items = stats.hand.filter(function(item) {
-            return item.handType === constants.HAND_TYPE[handType]
-          })
-          shuffleHandStats(rng, data, newNames, items, handType)
+          if (weaponHandTypes.indexOf(handType) === -1) {
+            const items = stats.hand.filter(function(item) {
+              return item.handType === constants.HAND_TYPE[handType]
+            })
+            shuffleHandStats(rng, data, newNames, items, handType)
+          }
         }
       )
+      // Randomize weapon hand type item stats.
+      const items = stats.hand.filter(function(item) {
+        return weaponHandTypes.indexOf(item.handType) !== -1
+      })
+      shuffleHandStats(rng, data, newNames, items)
       // Choose random item's palette for cards.
       const rand = shuffled(rng, stats.hand).pop()
       stats.hand.filter(function(item) {
