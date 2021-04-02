@@ -611,6 +611,9 @@
         ))
         result = randomizeMusic(rng, applied)
         check.apply(result)
+        // Apply writes.
+        result = util.applyWrites(rng, applied)
+        check.apply(result)
         return util.finalizeData(
           seed,
           version,
