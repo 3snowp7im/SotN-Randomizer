@@ -340,6 +340,10 @@
     "comment": "lbu v0, 0x0000 (v1)"
   }, {
     "type":    "word",
+    "value":   "0x00000000",
+    "comment": "nop"
+  }, {
+    "type":    "word",
     "value":   "0x2c420005",
     "comment": "sltiu v0, v0, 0x0005"
   }, {
