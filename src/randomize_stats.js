@@ -19,6 +19,15 @@
 
   const shuffled = util.shuffled
 
+  const weaponHandTypes = [
+    constants.HAND_TYPE.SHORT_SWORD,
+    constants.HAND_TYPE.SWORD,
+    constants.HAND_TYPE.THROWING_SWORD,
+    constants.HAND_TYPE.FIST,
+    constants.HAND_TYPE.CLUB,
+    constants.HAND_TYPE.TWO_HANDED_SWORD,
+  ]
+
   function shuffleStats(rng, data, stats, stat, offset, func) {
     shuffled(rng, stats).forEach(function(item, index) {
       const addr = util.romOffset(constants.exe, stats[index].offset + offset)
@@ -130,18 +139,20 @@
         addr = data.writeShort(addr, item.range)
       })
       shuffleStats(rng, data, stats, 'defense', 0x0a, data.writeShort)
-    } else {
+    } else if (weaponHandTypes.indexOf(handType) === -1) {
       shuffled(rng, stats).forEach(function(item, index) {
         let addr
         addr = util.romOffset(constants.exe, stats[index].offset + 0x08)
         addr = data.writeShort(addr, item.attack)
         addr = data.writeShort(addr, item.defense)
       })
+      shuffleStats(rng, data, stats, 'stunFrames', 0x26, data.writeShort)
+      shuffleStats(rng, data, stats, 'range', 0x28, data.writeShort)
+    } else {
       shuffleStats(rng, data, stats, 'range', 0x28, data.writeShort)
     }
     // Randomize everything else.
     shuffleStats(rng, data, stats, 'spell', 0x1c, data.writeShort)
-    shuffleStats(rng, data, stats, 'stunFrames', 0x26, data.writeShort)
     shuffleStats(rng, data, stats, 'extra', 0x2a, data.writeChar)
     // Randomize palettes.
     shuffleStats(rng, data, stats.filter(function(item) {
@@ -401,30 +412,26 @@
     const data = new util.checked()
     const newNames = []
     if (options.stats) {
-      // Randomize non-weapon hand type item stats.
-      const weaponHandTypes = [
-        constants.HAND_TYPE.SHORT_SWORD,
-        constants.HAND_TYPE.SWORD,
-        constants.HAND_TYPE.THROWING_SWORD,
-        constants.HAND_TYPE.FIST,
-        constants.HAND_TYPE.CLUB,
-        constants.HAND_TYPE.TWO_HANDED_SWORD,
-      ]
+      // Randomize hand item stats by type.
       Object.getOwnPropertyNames(constants.HAND_TYPE).forEach(
         function(handType) {
-          if (weaponHandTypes.indexOf(handType) === -1) {
-            const items = stats.hand.filter(function(item) {
-              return item.handType === constants.HAND_TYPE[handType]
-            })
-            shuffleHandStats(rng, data, newNames, items, handType)
-          }
+          const items = stats.hand.filter(function(item) {
+            return item.handType === constants.HAND_TYPE[handType]
+          })
+          shuffleHandStats(rng, data, newNames, items, handType)
         }
       )
-      // Randomize weapon hand type item stats.
-      const items = stats.hand.filter(function(item) {
+      // Randomize attack, defense, and stunFrames of all weapons.
+      const weapons = stats.hand.filter(function(item) {
         return weaponHandTypes.indexOf(item.handType) !== -1
       })
-      shuffleHandStats(rng, data, newNames, items)
+      shuffled(rng, weapons).forEach(function(item, index) {
+        let addr
+        addr = util.romOffset(constants.exe, weapons[index].offset + 0x08)
+        addr = data.writeShort(addr, item.attack)
+        addr = data.writeShort(addr, item.defense)
+      })
+      shuffleStats(rng, data, weapons, 'stunFrames', 0x26, data.writeShort)
       // Choose random item's palette for cards.
       const rand = shuffled(rng, stats.hand).pop()
       stats.hand.filter(function(item) {
