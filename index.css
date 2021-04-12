@@ -20,6 +20,10 @@ h1 {
     display: none;
 }
 
+.contact {
+    text-decoration: none;
+}
+
 #warning {
     padding-top: 1em;
     font-size: x-large;
