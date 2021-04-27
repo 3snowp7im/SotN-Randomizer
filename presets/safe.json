@@ -161,7 +161,7 @@
     ]
   }, {
     "location": "Holy rod",
-    "comment": "Requires at least Gravity Boots",
+    "comment": "Requires at least Leap Stone",
     "locks": [
       "Leap Stone",
       "Soul of Bat",
@@ -339,8 +339,7 @@
     "locks": [
       "Jewel of Open + Soul of Bat",
       "Jewel of Open + Leap Stone",
-      "Jewel of Open + Form of Mist + Power of Mist",
-      "Jewel of Open + Soul of Wolf + Power of Wolf"
+      "Jewel of Open + Form of Mist + Power of Mist"
     ],
     "comment": "Access must also give at least Leap Stone",
     "escapeRequires": [
