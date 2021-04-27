@@ -669,6 +669,9 @@
     '9': [ 0x82, 0x58 ],
   }
 
+  const digest =
+        'ce01203a9df93e001b88ef4c350889c19f11ffba89d20f214bdd8dec0b2d8d7c'
+
   const exports = {
     devBaseUrl: devBaseUrl,
     defaultOptions: defaultOptions,
@@ -709,6 +712,7 @@
     handTypeNames: handTypeNames,
     WORKER_ACTION: WORKER_ACTION,
     characterMap: characterMap,
+    digest: digest,
   }
   if (self) {
     self.sotnRando = Object.assign(self.sotnRando || {}, {

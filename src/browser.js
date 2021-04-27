@@ -548,6 +548,17 @@
     if (!override) {
       applied = util.Preset.options(options)
     }
+    function handleError(err) {
+      if (!errors.isError(err)) {
+        console.error(err)
+      }
+      elems.target.classList.remove('active')
+      elems.target.classList.add('error')
+      elems.status.innerText = err.message
+    }
+    function restoreItems() {
+      sotnRando.items = cloneItems(items)
+    }
     function randomize() {
       const check = new util.checked(this.result)
       // Save handle to file data.
@@ -564,8 +575,9 @@
       const result = randomizeStats(rng, applied)
       const newNames = result.newNames
       check.apply(result.data)
+      check.sum().then(function(sum) { console.log(sum) })
       // Randomize relics.
-      util.randomizeRelics(
+      return util.randomizeRelics(
         version,
         applied,
         options,
@@ -589,6 +601,7 @@
           newNames,
         )
         check.apply(result.data)
+        check.sum().then(function(sum) { console.log(sum) })
         return util.randomizeItems(
           version,
           applied,
@@ -602,6 +615,7 @@
         )
       }).then(function(result) {
         check.apply(result.data)
+        check.sum().then(function(sum) { console.log(sum) })
         util.mergeInfo(info, result.info)
         const rng = new Math.seedrandom(util.saltSeed(
           version,
@@ -611,9 +625,11 @@
         ))
         result = randomizeMusic(rng, applied)
         check.apply(result)
+        check.sum().then(function(sum) { console.log(sum) })
         // Apply writes.
         result = util.applyWrites(rng, applied)
         check.apply(result)
+        check.sum().then(function(sum) { console.log(sum) })
         return util.finalizeData(
           seed,
           version,
@@ -651,23 +667,20 @@
         elems.download.click()
         URL.revokeObjectURL(url)
         resetCopy()
-      }).catch(function(err) {
-        if (!errors.isError(err)) {
-          console.error(err)
-        }
-        elems.target.classList.remove('active')
-        elems.target.classList.add('error')
-        elems.status.innerText = err.message
-      }).finally(function() {
-        // Reset global items list.
-        sotnRando.items = cloneItems(items)
       })
     }
     if (elems.output.ppf.checked) {
-      randomize()
+      randomize().catch(handleError).finally(restoreItems)
     } else {
       const reader = new FileReader()
-      reader.addEventListener('load', randomize)
+      reader.addEventListener('load', function() {
+        // Verify vanilla bin.
+        util.sha256(this.result).then(function(digest) {
+          if (digest !== constants.digest) {
+            throw new Error('Disc image is not a valid or vanilla backup')
+          }
+        }).then(randomize.bind(this)).catch(handleError).finally(restoreItems)
+      })
       reader.readAsArrayBuffer(selectedFile)
     }
   }

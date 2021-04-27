@@ -7,7 +7,7 @@
   let items
   let relics
   let fs
-  let sha256
+  let crypto
 
   if (self) {
     constants = self.sotnRando.constants
@@ -16,9 +16,7 @@
     extension = self.sotnRando.extension
     items = self.sotnRando.items
     relics = self.sotnRando.relics
-    sha256 = function(input) {
-      return self.sjcl.codec.hex.fromBits(self.sjcl.hash.sha256.hash(input))
-    }
+    crypto = self.crypto
   } else {
     constants = require('./constants')
     enemies = require('./enemies')
@@ -26,11 +24,14 @@
     extension = require('./extension')
     items = require('./items')
     relics = require('./relics')
-    const crypto = require('crypto')
+    crypto = require('crypto').webcrypto
     fs = require('fs')
-    sha256 = function(input) {
-      return crypto.createHash('sha256').update(input).digest().toString('hex')
-    }
+  }
+
+  function sha256(input) {
+    return crypto.subtle.digest('SHA-256', input).then(function(buf) {
+      return bufToHex(new Uint8Array(buf))
+    })
   }
 
   function assert(value, message) {
@@ -665,13 +666,16 @@
   }
 
   checked.prototype.sum = function sum() {
-    const state = JSON.stringify(this.writes)
-    let hex = sha256(state)
-    let zeros = 0
-    while (hex.length > 3 && hex[zeros] === '0') {
-      zeros++
-    }
-    return parseInt(hex.slice(zeros, zeros + 3), 16)
+    const state = JSON.stringify(this.writes).split('').map(function(b) {
+      return b.charCodeAt()
+    })
+    return sha256(new Uint8Array(state)).then(function(hex) {
+      let zeros = 0
+      while (hex.length > 3 && hex[zeros] === '0') {
+        zeros++
+      }
+      return parseInt(hex.slice(zeros, zeros + 3), 16)
+    })
   }
 
   function optionsFromString(randomize) {
@@ -4879,6 +4883,7 @@
   }
 
   const exports = {
+    sha256: sha256,
     assert: assert,
     shopItemType: shopItemType,
     shopTileFilter: shopTileFilter,

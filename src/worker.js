@@ -11,7 +11,6 @@ function randomizeWorker() {
   function loadBrowser(url) {
     importScripts(
       'https://cdnjs.cloudflare.com/ajax/libs/seedrandom/3.0.1/seedrandom.min.js',
-      'https://cdnjs.cloudflare.com/ajax/libs/sjcl/1.0.8/sjcl.min.js',
       url + "src/constants.js",
       url + 'src/enemies.js',
       url + 'src/errors.js',
@@ -165,28 +164,30 @@ function randomizeWorker() {
             message.preset,
             message.tournament,
           )
-          const checksum = check.sum()
-          if (message.checksum && message.checksum !== checksum) {
-            throw new errors.VersionError()
-          }
-          let output
-          let objects
-          if (message.file) {
-            eccEdcCalc(array, array.length, true)
-            output = message.file
-            objects = [output]
-          } else {
-            output = check.toPatch(
-              message.seed,
-              message.preset,
-              message.tournament,
-            )
-          }
-          this.postMessage({
-            action: 'finalize',
-            file: output,
-            checksum: checksum,
-          }, objects)
+          const self = this
+          check.sum().then(function(checksum) {
+            if (message.checksum && message.checksum !== checksum) {
+              throw new errors.VersionError()
+            }
+            let output
+            let objects
+            if (message.file) {
+              eccEdcCalc(array, array.length, true)
+              output = message.file
+              objects = [output]
+            } else {
+              output = check.toPatch(
+                message.seed,
+                message.preset,
+                message.tournament,
+              )
+            }
+            self.postMessage({
+              action: 'finalize',
+              file: output,
+              checksum: checksum,
+            }, objects)
+          })
           break
         }}
       } catch (err) {

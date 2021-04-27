@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 'use strict'
+const crypto = require('crypto')
 const fs = require('fs')
 const path = require('path')
 const os = require('os')
@@ -883,10 +884,21 @@ let size
 // Read bin file if provided.
 if ('inBin' in argv) {
   eccEdcCalc = require('./src/ecc-edc-recalc-js')
+  let digest
   if (!('out' in argv)) {
-    const stats = fs.statSync(argv.inBin)
     fd = fs.openSync(argv.inBin, 'r+')
-    size = stats.size
+    size = fs.fstatSync(fd).size
+    const bin = Buffer.alloc(size)
+    fs.readSync(fd, bin, 0, size)
+    digest = crypto.createHash('sha256').update(bin).digest()
+  } else {
+    fd = fs.readFileSync(argv.inBin)
+    size = fd.length
+    digest = crypto.createHash('sha256').update(fd).digest()
+  }
+  if (digest.toString('hex') !== constants.digest) {
+    console.error('Error: Disc image is not a valid or vanilla backup.')
+    process.exit(1)
   }
 }
 
@@ -895,7 +907,7 @@ if ('inBin' in argv) {
     let check
     let checksum
     if (!argv.noSeed) {
-      check = new util.checked(fd)
+      check = new util.checked(typeof(fd) === 'object' ? undefined : fd)
       let applied
       try {
         // Check for overriding preset.
@@ -929,6 +941,7 @@ if ('inBin' in argv) {
         result = randomizeStats(rng, applied)
         const newNames = result.newNames
         check.apply(result.data)
+        console.log(await check.sum())
         // Randomize relics.
         const cores = os.cpus().length
         const workers = Array(util.workerCountFromCores(cores))
@@ -959,6 +972,7 @@ if ('inBin' in argv) {
           newNames,
         )
         check.apply(result.data)
+        console.log(await check.sum())
         // Randomize items.
         result = await util.randomizeItems(
           version,
@@ -971,6 +985,7 @@ if ('inBin' in argv) {
           newNames,
         )
         check.apply(result.data)
+        console.log(await check.sum())
         util.mergeInfo(info, result.info)
         // Randomize music.
         rng = new require('seedrandom')(util.saltSeed(
@@ -981,9 +996,11 @@ if ('inBin' in argv) {
         ))
         result = randomizeMusic(rng, applied)
         check.apply(result)
+        console.log(await check.sum())
         // Apply writes.
         result = util.applyWrites(rng, applied)
         check.apply(result)
+        console.log(await check.sum())
       } catch (err) {
         console.error('Seed:  ' + seed)
         if (errors.isError(err)) {
@@ -993,8 +1010,14 @@ if ('inBin' in argv) {
         }
         process.exit(1)
       }
-      util.setSeedText(check, seed, version, options.preset, options.tournamentMode)
-      checksum = check.sum()
+      util.setSeedText(
+        check,
+        seed,
+        version,
+        options.preset,
+        options.tournamentMode,
+      )
+      checksum = await check.sum()
       // Verify expected checksum matches actual checksum.
       if (haveChecksum && expectChecksum !== checksum) {
         console.error('Checksum mismatch.')
@@ -1025,9 +1048,8 @@ if ('inBin' in argv) {
     if (!argv.noSeed) {
       if ('out' in argv) {
         if ('inBin' in argv) {
-          // Read input file if this is not an in-place randomization.
-          fd = fs.readFileSync(argv.inBin)
-          size = fd.length
+          // If is not an in-place randomization, apply writes to the buffer
+          // containing the disc image bytes.
           const writer = new util.checked(fd)
           writer.apply(check)
         } else {
@@ -1035,7 +1057,7 @@ if ('inBin' in argv) {
           const patch = check.toPatch(
             seed,
             options.preset,
-            options.tournamentMode
+            options.tournamentMode,
           )
           fs.writeFileSync(argv.out, patch)
         }
