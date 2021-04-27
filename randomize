@@ -941,7 +941,6 @@ if ('inBin' in argv) {
         result = randomizeStats(rng, applied)
         const newNames = result.newNames
         check.apply(result.data)
-        console.log(await check.sum())
         // Randomize relics.
         const cores = os.cpus().length
         const workers = Array(util.workerCountFromCores(cores))
@@ -972,7 +971,6 @@ if ('inBin' in argv) {
           newNames,
         )
         check.apply(result.data)
-        console.log(await check.sum())
         // Randomize items.
         result = await util.randomizeItems(
           version,
@@ -985,7 +983,6 @@ if ('inBin' in argv) {
           newNames,
         )
         check.apply(result.data)
-        console.log(await check.sum())
         util.mergeInfo(info, result.info)
         // Randomize music.
         rng = new require('seedrandom')(util.saltSeed(
@@ -996,11 +993,9 @@ if ('inBin' in argv) {
         ))
         result = randomizeMusic(rng, applied)
         check.apply(result)
-        console.log(await check.sum())
         // Apply writes.
         result = util.applyWrites(rng, applied)
         check.apply(result)
-        console.log(await check.sum())
       } catch (err) {
         console.error('Seed:  ' + seed)
         if (errors.isError(err)) {

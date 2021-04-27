@@ -27,6 +27,9 @@
     "empty-hand",
     "gem-farmer"
   ],
+  "engines": {
+    "node": ">=15"
+  },
   "author": "Wild Mouse <3snowp7im@gmail.com>",
   "license": "WTFPL",
   "bugs": {

@@ -601,7 +601,6 @@
           newNames,
         )
         check.apply(result.data)
-        check.sum().then(function(sum) { console.log(sum) })
         return util.randomizeItems(
           version,
           applied,
@@ -615,7 +614,6 @@
         )
       }).then(function(result) {
         check.apply(result.data)
-        check.sum().then(function(sum) { console.log(sum) })
         util.mergeInfo(info, result.info)
         const rng = new Math.seedrandom(util.saltSeed(
           version,
@@ -625,11 +623,9 @@
         ))
         result = randomizeMusic(rng, applied)
         check.apply(result)
-        check.sum().then(function(sum) { console.log(sum) })
         // Apply writes.
         result = util.applyWrites(rng, applied)
         check.apply(result)
-        check.sum().then(function(sum) { console.log(sum) })
         return util.finalizeData(
           seed,
           version,
