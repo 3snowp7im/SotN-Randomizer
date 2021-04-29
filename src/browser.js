@@ -575,7 +575,6 @@
       const result = randomizeStats(rng, applied)
       const newNames = result.newNames
       check.apply(result.data)
-      check.sum().then(function(sum) { console.log(sum) })
       // Randomize relics.
       return util.randomizeRelics(
         version,
