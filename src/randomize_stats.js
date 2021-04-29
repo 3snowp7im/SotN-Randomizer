@@ -392,7 +392,6 @@
         'Opal',
         'Diamond',
         'Lapis lazuli',
-        'Ring of Ares',
         'Gold ring',
         'Silver ring',
         'Ring of Varda',
