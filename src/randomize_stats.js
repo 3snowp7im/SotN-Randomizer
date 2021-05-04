@@ -56,6 +56,7 @@
         'Sword Familiar',
         'Harper',
         'Gram',
+        'Yasutsuna',
         'Monster vial 1',
         'Monster vial 2',
         'Monster vial 3',
