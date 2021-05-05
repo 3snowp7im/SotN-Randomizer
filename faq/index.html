@@ -14,10 +14,51 @@
       <h1><a href="/">sotn.io</a>: FAQ</h1>
       <div class="pure-g">
         <div class="pure-u-24-24">
+          <h3>Why won't the randomizer randomize my bin file?</h3>
+          <p>The randomizer targets the original NTSC-U release of
+            <a href="http://redump.org/disc/3379/"><i>Castlevania: Symphony of
+                the Night</i> (SLUS-00067)</a>. If your bin has been altered
+            (eg. has already been randomized or patched) or it is not a known,
+            good rip of SLUS-00067, it will be rejected.</p>
           <h3>Why aren't candles dropping items?</h3>
-          <p>Just as in the vanilla game, you need
-            <a href="https://castlevania.fandom.com/wiki/Cube_of_Zoe">Cube of
-              Zoe</a> for candles to drop items.</p>
+          <p>Just as in the vanilla game, you need Cube of Zoe for candles to
+            drop items.</p>
+          <h3>Why can't I chain Gravity Boots jumps?</h3>
+          <p>Just as in the vanilla game, you need Leap Stone in order to chain
+            Gravity Boots jumps. Technically, you only need to be in a divekick
+            airstate which can be achieved by untransforming from wolf or mist
+            while airborne, or after performing an airborne thrust (back,
+            forward, attack) with a 2-handed thrust sword (Claymore, Estoc,
+            Flamberge, Zwei hander, or Obsidian sword).</p>
+          <h3>How do I disable music/sprite/item/whatever randomization?</h3>
+          <p>Uncheck the checkbox next to Preset then uncheck whatever
+            randomization options you prefer.</p>
+          <h3>Why are there missing items in my seed?</h3>
+          <p>There is a hard limit to how many items an area may have. In order
+            to randomize progression items (Holy glasses, Spike Breaker, Silver
+            ring, Gold ring) to a new area, an item must be removed from that
+            area. To prevent leaking information to the player as to which area
+            has received progression items, between 1 and 3 items have been
+            removed from some areas.</p>
+          <h3>What is the difference between the Casual and Safe presets?</h3>
+          <p>Casual uses the Classic location extension. Safe uses the
+            Guarded location extension. See the
+            <a href="#extensions">question regarding location extensions</a>
+            for more information.</p>
+          <h3>What is the difference between the Safe and Adventure
+            presets?</h3>
+          <p>Safe uses the Guarded location extension. Adventure uses the
+            Equipment location extension. See the
+            <a href="#extensions">question regarding location extensions</a>
+            for more information.</p>
+          <h3 id="extensions">What are the Classic, Guarded, and Equipment
+            location extensions?</h3>
+          <p>These options adjust the pool of possible relic locations. Classic
+            locations are limited to the locations of the vanilla game. Guarded
+            adds Crystal cloak (behind Scylla), Mormegil (behind Granfalloon),
+            Ring of Arcana (behind Beezelbub), Dark Blade (behind Doppleganger
+            40), and Fake Trio. Equipment adds every location that holds
+            equipment.</p>
           <h3>Why does generating a seed take so long?</h3>
           <p>It's complicated. It also depends on which platform you're using.
             The best performance is achieved by running the

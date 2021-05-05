@@ -235,11 +235,32 @@
               </div>
               <div class="pure-u-1">
                 <input id="append-seed" type="checkbox">
-                <label for="append-seed">Append seed to filename</label>
+                <label for="append-seed">Append seed to filename
+                  <span class="tooltip-wrapper">
+                    <span class="tooltip-indicator">?</span>
+                    <span class="tooltip hidden">
+                      <span>
+                        Appends the seed to the filename of the randomized bin.
+                        You will need to modify your cue file track listing to
+                        reference the new filename.
+                      </span>
+                    </span>
+                  </span>
+                </label>
               </div>
               <div class="pure-u-1">
                 <input id="tournament-mode" type="checkbox">
-                <label for="tournament-mode">Tournament mode</label>
+                <label for="tournament-mode">Tournament mode
+                  <span class="tooltip-wrapper">
+                    <span class="tooltip-indicator">?</span>
+                    <span class="tooltip hidden">
+                      <span>
+                        Prevents displaying the relic locations and solutions.
+                        For use when racing.
+                      </span>
+                    </span>
+                  </span>
+                </label>
               </div>
               <div class="pure-u-1">
                 <input id="show-spoilers" type="checkbox">
@@ -277,29 +298,6 @@
       </form>
       <div id="notification"><span>Copied to clipboard<span></div>
       <hr>
-      <h2><a name="help">Help</a></h2>
-      <h4><a name="usage">Usage</a></h4>
-      <p>
-        This randomizer targets the original NTSC-U release of
-        <a href="http://redump.org/disc/3379/"><i>Castlevania: Symphony of the
-            Night</i> (SLUS-00067)</a>. You will need an image of your game
-        disc in BIN/CUE format. If your disc image is split across two .bin
-        files, drag only the first .bin file (track 1) into the drop zone.
-      </p>
-      <p>
-        If the seed name is appended to your randomized image filename after
-        downloading, you will need to modify your cue file track listing to
-        reference the new filename.
-      </p>
-      <p>Read the <a href="/faq">FAQ</a> for more.</p>
-      <h4><a name="cli">Command line interface</a></h4>
-      <p>
-        See the
-        <a href="https://github.com/3snowp7im/SotN-Randomizer#cli">github
-          repository</a> for information on running the randomizer at the
-        command line.
-      </p>
-      <hr>
       <h2><a name="links">Links</a></h2>
       <ul>
         <li><a href="/faq">FAQ</a></li>
@@ -310,13 +308,6 @@
         <li><a href="https://discord.gg/wGMdDRG">The Long Library</a>, a SotN
           discord server with a dedicated <code>#randomizer</code> channel</li>
       </ul>
-      <hr>
-      <h2><a name="bugs">Bugs</a></h2>
-      <p>
-        Think you found a bug? Make sure you read the <a href="/faq">FAQ</a>
-        before reporting. The best way to report a bug is by using
-        <a href="https://github.com/3snowp7im/SotN-Randomizer/issues/new/choose">GitHub issues</a>.
-      </p>
       <hr>
       <h2><a name="changelog">Changelog</a></h2>
       <h3><time>April 27, 2021</time></h3>
