@@ -10,6 +10,7 @@
   "relicLocationsExtension": false,
   "preventLeaks": false,
   "stats": false,
+  "music": false,
   "placeRelic": [{
     "location": "Silver ring",
     "relic": "Silver ring"
