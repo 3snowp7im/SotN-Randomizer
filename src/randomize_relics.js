@@ -156,6 +156,15 @@
       id: 0xffff,
       slots: [ 0x0000, 0x0000 ],
     }
+    // Count number of relics per zone.
+    const relicCounts = relics.reduce(function(counts, relic) {
+      if ('entity' in relic) {
+        relic.entity.zones.forEach(function(zone) {
+          counts[zone] = (counts[zone] || 0) + 1
+        })
+      }
+      return counts
+    }, {})
     // Remove placeholders.
     mapping = Object.getOwnPropertyNames(mapping).reduce(
       function(culled, ability) {
@@ -338,7 +347,8 @@
     })
     // If a zone has an item removed, it leaks information that a progression
     // item has been randomized to relic a location in that zone. To prevent
-    // this leak, remove at most 3 items from every zone.
+    // this leak, remove at most as many items from the zone as there are
+    // vanilla relics in that zone.
     if (removeItems) {
       constants.zones.filter(function(zone) {
         return [
@@ -356,8 +366,8 @@
           zones.push(constants.ZONE.BO3)
           break
         }
-        if ('items' in zone) {
-          const rand = Math.floor(rng() * 4)
+        if ('items' in zone && zone.id in relicCounts) {
+          const rand = Math.floor(rng() * (1 + relicCounts[zone.id]))
           const removed = zoneRemovedItems[zone.id] || 0
           for (let i = 0; i < rand - removed; i++) {
             const tileItem = getRandomZoneItem(
