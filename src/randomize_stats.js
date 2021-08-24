@@ -60,6 +60,10 @@
         'Monster vial 1',
         'Monster vial 2',
         'Monster vial 3',
+        'Pentagram',
+        'Bat Pentagram',
+        'Neutron bomb',
+        'Power of Sire',
       ].indexOf(item.name) !== -1) {
         return false
       }
