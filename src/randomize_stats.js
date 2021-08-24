@@ -155,7 +155,6 @@
       shuffleStats(rng, data, stats, 'range', 0x28, data.writeShort)
     }
     // Randomize everything else.
-    shuffleStats(rng, data, stats, 'spell', 0x1c, data.writeShort)
     shuffleStats(rng, data, stats, 'extra', 0x2a, data.writeChar)
     // Randomize palettes.
     shuffleStats(rng, data, stats.filter(function(item) {
