@@ -64,6 +64,7 @@
         'Bat Pentagram',
         'Neutron bomb',
         'Power of Sire',
+        'Jewel sword',
       ].indexOf(item.name) !== -1) {
         return false
       }
