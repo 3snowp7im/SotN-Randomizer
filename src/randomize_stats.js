@@ -92,57 +92,7 @@
       }
       return true
     })
-    let alucardShield
-    if (handType === 'SHIELD') {
-      alucardShield = stats.filter(function(item) {
-        return item.name === 'Alucard shield'
-      }).pop()
-    }
-    let newAlucardShield
-    shuffled(rng, items).forEach(function(item, index) {
-      let addr
-      if (handType === 'SHIELD') {
-        if (item.name === 'Alucard shield') {
-          newAlucardShield = items[index]
-        }
-        addr = util.romOffset(constants.exe, items[index].offset + 0x0f)
-        addr = data.writeChar(addr, item.sprite)
-      }
-      addr = util.romOffset(constants.exe, items[index].offset + 0x2c)
-      addr = data.writeShort(addr, item.icon)
-    })
-    if (handType === 'SHIELD') {
-      // Choose a random damage shield to transfer its attack stats to
-      // Alucard shield.
-      const randDamageShield = shuffled(rng, stats.filter(function(item) {
-        return [
-          'Dark shield',
-          'Medusa shield',
-          'Alucard shield',
-        ].indexOf(item.name) === -1
-      })).pop()
-      let addr
-      addr = util.romOffset(constants.exe, alucardShield.offset + 0x08)
-      addr = data.writeShort(addr, randDamageShield.attack)
-      addr = util.romOffset(constants.exe, alucardShield.offset + 0x26)
-      addr = data.writeShort(addr, randDamageShield.stunFrames)
-      addr = data.writeShort(addr, randDamageShield.range)
-      // Randomize stats for other shields.
-      items = stats.filter(function(item) {
-        return item !== newAlucardShield
-      })
-      shuffled(rng, stats.filter(function(item) {
-        return item !== randDamageShield
-      })).forEach(function(item, index) {
-        let addr
-        addr = util.romOffset(constants.exe, items[index].offset + 0x08)
-        addr = data.writeShort(addr, item.attack)
-        addr = util.romOffset(constants.exe, items[index].offset + 0x26)
-        addr = data.writeShort(addr, item.stunFrames)
-        addr = data.writeShort(addr, item.range)
-      })
-      shuffleStats(rng, data, stats, 'defense', 0x0a, data.writeShort)
-    } else if (weaponHandTypes.indexOf(handType) === -1) {
+    if (weaponHandTypes.indexOf(handType) === -1) {
       shuffled(rng, stats).forEach(function(item, index) {
         let addr
         addr = util.romOffset(constants.exe, stats[index].offset + 0x08)
@@ -151,7 +101,7 @@
       })
       shuffleStats(rng, data, stats, 'stunFrames', 0x26, data.writeShort)
       shuffleStats(rng, data, stats, 'range', 0x28, data.writeShort)
-    } else {
+    } else if (handType != 'SHIELD') {
       shuffleStats(rng, data, stats, 'range', 0x28, data.writeShort)
     }
     // Randomize everything else.
