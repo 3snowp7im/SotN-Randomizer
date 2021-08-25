@@ -78,39 +78,42 @@
       let addr = util.romOffset(constants.exe, items[index].offset + 0x00)
       addr = data.writeWord(addr, item.nameAddress)
     })
-    // Randomize icons and sprite.
-    items = stats.filter(function(item) {
-      if ([
-        constants.HAND_TYPE.FOOD,
-        constants.HAND_TYPE.DAMAGE_CONSUMABLE,
-        constants.HAND_TYPE.PROJECTILE_CONSUMABLE,
-      ].indexOf(item.handType) !== -1) {
-        return false
+    if (handType != 'SHIELD') {
+      // Randomize stats.
+      if (weaponHandTypes.indexOf(handType) === -1) {
+        shuffled(rng, stats).forEach(function(item, index) {
+          let addr
+          addr = util.romOffset(constants.exe, stats[index].offset + 0x08)
+          addr = data.writeShort(addr, item.attack)
+          addr = data.writeShort(addr, item.defense)
+        })
+        shuffleStats(rng, data, stats, 'stunFrames', 0x26, data.writeShort)
+        shuffleStats(rng, data, stats, 'range', 0x28, data.writeShort)
+      } else {
+        shuffleStats(rng, data, stats, 'range', 0x28, data.writeShort)
       }
-      if ([
-        'Library card',
-        'Meal ticket',
-        'Life apple',
-        'Hammer',
-      ].indexOf(item.name) !== -1) {
-        return false
-      }
-      return true
-    })
-    if (weaponHandTypes.indexOf(handType) === -1) {
-      shuffled(rng, stats).forEach(function(item, index) {
-        let addr
-        addr = util.romOffset(constants.exe, stats[index].offset + 0x08)
-        addr = data.writeShort(addr, item.attack)
-        addr = data.writeShort(addr, item.defense)
+      shuffleStats(rng, data, stats, 'extra', 0x2a, data.writeChar)
+      // Randomize icons and sprite.
+      items = stats.filter(function(item) {
+        if ([
+          constants.HAND_TYPE.FOOD,
+          constants.HAND_TYPE.DAMAGE_CONSUMABLE,
+          constants.HAND_TYPE.PROJECTILE_CONSUMABLE,
+        ].indexOf(item.handType) !== -1) {
+          return false
+        }
+        if ([
+          'Library card',
+          'Meal ticket',
+          'Life apple',
+          'Hammer',
+        ].indexOf(item.name) !== -1) {
+          return false
+        }
+        return true
       })
-      shuffleStats(rng, data, stats, 'stunFrames', 0x26, data.writeShort)
-      shuffleStats(rng, data, stats, 'range', 0x28, data.writeShort)
-    } else if (handType != 'SHIELD') {
-      shuffleStats(rng, data, stats, 'range', 0x28, data.writeShort)
+      shuffleStats(rng, data, items, 'icon', 0x2c, data.writeShort)
     }
-    // Randomize everything else.
-    shuffleStats(rng, data, stats, 'extra', 0x2a, data.writeChar)
     // Randomize palettes.
     shuffleStats(rng, data, stats.filter(function(item) {
       return [
