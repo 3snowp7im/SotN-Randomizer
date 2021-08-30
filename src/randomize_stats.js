@@ -92,7 +92,15 @@
       } else {
         shuffleStats(rng, data, stats, 'range', 0x28, data.writeShort)
       }
-      shuffleStats(rng, data, stats, 'extra', 0x2a, data.writeChar)
+      items = stats.filter(function(item) {
+        if ([
+          'Mourneblade',
+          'Jewel sword',
+        ].indexOf(item.name) !== -1) {
+          return false
+        }
+      })
+      shuffleStats(rng, data, items, 'extra', 0x2a, data.writeChar)
       // Randomize icons and sprite.
       items = stats.filter(function(item) {
         if ([
