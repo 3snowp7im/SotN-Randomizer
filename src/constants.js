@@ -477,6 +477,7 @@
   const EXTENSION = {
     GUARDED:   'guarded',
     EQUIPMENT: 'equipment',
+	SPREAD: 'spread',
   }
 
   const defaultExtension = EXTENSION.GUARDED
