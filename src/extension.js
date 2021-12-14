@@ -500,7 +500,7 @@
     tileIndex: 0,
   }, {
     name: LOCATION.DRAGON_HELM,
-    extension: EXTENSION.EQUIPMENT,
+    extension: EXTENSION.SPREAD,
     itemId: 214,
     tileIndex: 0,
     asRelic: {
@@ -508,7 +508,7 @@
     },
   }, {
     name: LOCATION.SHOTEL,
-    extension: EXTENSION.EQUIPMENT,
+    extension: EXTENSION.SPREAD,
     itemId: 147, // Actually the hammer.
     tileIndex: 2,
     asRelic: {
@@ -516,7 +516,7 @@
     },
   }, {
     name: LOCATION.STAUROLITE,
-    extension: EXTENSION.EQUIPMENT,
+    extension: EXTENSION.SPREAD,
     itemId: 230,
     tileIndex: 0,
     asRelic: {

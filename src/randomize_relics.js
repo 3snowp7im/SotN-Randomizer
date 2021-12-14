@@ -1250,6 +1250,8 @@
     switch (options.relicLocations.extension) {
     case constants.EXTENSION.EQUIPMENT:
       extensions.push(constants.EXTENSION.EQUIPMENT)
+    case constants.EXTENSION.SPREAD:
+      extensions.push(constants.EXTENSION.SPREAD)
     case constants.EXTENSION.GUARDED:
       extensions.push(constants.EXTENSION.GUARDED)
     }
@@ -1410,6 +1412,7 @@
       // Patch relics menu.
       switch (options.relicLocations.extension) {
       case constants.EXTENSION.EQUIPMENT:
+      case constants.EXTENSION.SPREAD:
       case constants.EXTENSION.GUARDED:
         patchRelicsMenu(data)
         patchPixieSong(data)
