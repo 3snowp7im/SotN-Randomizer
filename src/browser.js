@@ -209,6 +209,9 @@
       elems.relicLocationsExtension.guarded.checked =
         options.relicLocations
         && options.relicLocations.extension === constants.EXTENSION.GUARDED
+      elems.relicLocationsExtension.spread.checked =
+        options.relicLocations
+        && options.relicLocations.extension === constants.EXTENSION.SPREAD
       elems.relicLocationsExtension.equipment.checked =
         options.relicLocations
         && options.relicLocations.extension === constants.EXTENSION.EQUIPMENT
@@ -248,12 +251,15 @@
     if (!elems.relicLocations.checked) {
       elems.relicLocationsSet.disabled = true
       elems.relicLocationsExtension.guarded.checked = false
+      elems.relicLocationsExtension.spread.checked = false
       elems.relicLocationsExtension.equipment.checked = false
       elems.relicLocationsExtension.classic.checked = false
     } else {
       elems.relicLocationsSet.disabled = false
       elems.relicLocationsExtension.guarded.checked =
         relicLocationsExtensionCache === constants.EXTENSION.GUARDED
+      elems.relicLocationsExtension.spread.checked =
+        relicLocationsExtensionCache === constants.EXTENSION.SPREAD
       elems.relicLocationsExtension.equipment.checked =
         relicLocationsExtensionCache === constants.EXTENSION.EQUIPMENT
       elems.relicLocationsExtension.classic.checked =
@@ -264,6 +270,7 @@
   function adjustMaxComplexity() {
     switch (relicLocationsExtensionCache) {
     case constants.EXTENSION.GUARDED:
+    case constants.EXTENSION.SPREAD:
       elems.complexity.max = 11
       break
     case constants.EXTENSION.EQUIPMENT:
@@ -282,6 +289,8 @@
     let value
     if (elems.relicLocationsExtension.guarded.checked) {
       value = constants.EXTENSION.GUARDED
+    } else if (elems.relicLocationsExtension.spread.checked) {
+      value = constants.EXTENSION.SPREAD
     } else if (elems.relicLocationsExtension.equipment.checked) {
       value = constants.EXTENSION.EQUIPMENT
     } else{
@@ -428,6 +437,8 @@
       // Add extension from form.
       if (elems.relicLocationsExtension.guarded.checked) {
         relicLocations.extension = constants.EXTENSION.GUARDED
+      } else if (elems.relicLocationsExtension.spread.checked) {
+        relicLocations.extension = constants.EXTENSION.SPREAD
       } else if (elems.relicLocationsExtension.equipment.checked) {
         relicLocations.extension = constants.EXTENSION.EQUIPMENT
       } else {
@@ -437,6 +448,8 @@
       switch (relicLocations.extension) {
       case constants.EXTENSION.EQUIPMENT:
         extensions.push(constants.EXTENSION.EQUIPMENT)
+      case constants.EXTENSION.SPREAD:
+        extensions.push(constants.EXTENSION.SPREAD)
       case constants.EXTENSION.GUARDED:
         extensions.push(constants.EXTENSION.GUARDED)
       }
@@ -812,6 +825,7 @@
     relicLocations: document.getElementById('relic-locations'),
     relicLocationsExtension: {
       guarded: document.getElementById('extension-guarded'),
+      spread: document.getElementById('extension-spread'),
       equipment: document.getElementById('extension-equipment'),
       classic: document.getElementById('extension-classic'),
     },
@@ -854,6 +868,10 @@
   elems.startingEquipment.addEventListener('change', startingEquipmentChange)
   elems.relicLocations.addEventListener('change', relicLocationsChange)
   elems.relicLocationsExtension.guarded.addEventListener(
+    'change',
+    relicLocationsExtensionChange,
+  )
+  elems.relicLocationsExtension.spread.addEventListener(
     'change',
     relicLocationsExtensionChange,
   )
@@ -1028,6 +1046,9 @@
     elems.relicLocationsExtension.guarded.checked =
       applied.relicLocations
       && applied.relicLocations.extension === constants.EXTENSION.GUARDED
+    elems.relicLocationsExtension.spread.checked =
+      applied.relicLocations
+      && applied.relicLocations.extension === constants.EXTENSION.SPREAD
     elems.relicLocationsExtension.equipment.checked =
       applied.relicLocations
       && applied.relicLocations.extension === constants.EXTENSION.EQUIPMENT
@@ -1077,6 +1098,9 @@
       switch (relicLocationsExtension) {
       case constants.EXTENSION.GUARDED:
         elems.relicLocationsExtension.guarded.checked = true
+        break
+      case constants.EXTENSION.SPREAD:
+        elems.relicLocationsExtension.spread.checked = true
         break
       case constants.EXTENSION.EQUIPMENT:
         elems.relicLocationsExtension.equipment.checked = true

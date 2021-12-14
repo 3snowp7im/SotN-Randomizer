@@ -283,11 +283,13 @@ const relicsHelp = [
   'will allow progression to be placed in locations that do not contain',
   'progression in the vanilla game.',
   '',
-  'There are two extension modes:',
+  'There are three extension modes:',
   '  guarded    Adds Crystal cloak, Mormegil, Dark Blade, and Ring of Arcana',
   '             to the location pool. This is the default extension mode when',
   '             when enabled without an argument.',
-  '  equipment  Adds equipment tiles to the location pool.',
+  '  spread     Based on guarded, and adds Dragon helm, Shotel, and Staurolite',
+  '             to the location pool.',
+  '  equipment  Adds remaining equipment tiles to the location pool.',
   '',
   'Extension format:',
   '  x:<mode>',
@@ -429,6 +431,8 @@ function presetMetaHelp(preset) {
     switch (options.relicLocations.extension) {
     case constants.EXTENSION.EQUIPMENT:
       extensions.push(constants.EXTENSION.EQUIPMENT)
+    case constants.EXTENSION.SPREAD:
+      extensions.push(constants.EXTENSION.SPREAD)
     case constants.EXTENSION.GUARDED:
       extensions.push(constants.EXTENSION.GUARDED)
     }
