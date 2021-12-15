@@ -912,7 +912,7 @@
   const isDev = url.hostname !== releaseHostname
   const fakeVersion = '0.0.0-0'
   if (url.protocol !== 'file:') {
-    fetch('package.json', {cache: 'reload'}).then(function(response) {
+    fetch('package.json', {cache: 'no-store'}).then(function(response) {
       if (response.ok) {
         response.json().then(function(json) {
           version = json.version
