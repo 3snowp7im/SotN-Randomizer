@@ -10,6 +10,7 @@
       require('./adventure'),
       require('./og'),
       require('./speedrun'),
+      require('./bat-master'),
       require('./glitch'),
       require('./scavenger'),
       require('./empty-hand'),
