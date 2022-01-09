@@ -7,7 +7,7 @@
     "weight": -200
   },
   "inherits": "casual",
-  "preventLeaks": true,
+  "preventLeaks": false,
   "stats": false,
   "music": false,
   "placeRelic": [{

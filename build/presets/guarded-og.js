@@ -13,7 +13,7 @@
   const PresetBuilder = util.PresetBuilder
 
   // Create PresetBuilder.
-  const builder = PresetBuilder.fromJSON({"metadata":{"id":"guarded-og","name":"Guarded O.G.","description":"Simulates randomizer season 1, but adds additional guarded locations. No stat randomization. Gold ring, Silver ring, Holy glasses and Spike Breaker are in vanilla locations.","author":"TalicZealot","weight":-200},"inherits":"casual","preventLeaks":true,"stats":false,"music":false,"placeRelic":[{"location":"Silver ring","relic":"Silver ring"},{"location":"Gold ring","relic":"Gold ring"},{"location":"Holy glasses","relic":"Holy glasses"},{"location":"Spike Breaker","relic":"Spike Breaker"}]})
+  const builder = PresetBuilder.fromJSON({"metadata":{"id":"guarded-og","name":"Guarded O.G.","description":"Simulates randomizer season 1, but adds additional guarded locations. No stat randomization. Gold ring, Silver ring, Holy glasses and Spike Breaker are in vanilla locations.","author":"TalicZealot","weight":-200},"inherits":"casual","preventLeaks":false,"stats":false,"music":false,"placeRelic":[{"location":"Silver ring","relic":"Silver ring"},{"location":"Gold ring","relic":"Gold ring"},{"location":"Holy glasses","relic":"Holy glasses"},{"location":"Spike Breaker","relic":"Spike Breaker"}]})
 
   // Export.
   const preset = builder.build()
