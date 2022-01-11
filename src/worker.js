@@ -22,6 +22,7 @@ function randomizeWorker() {
       url + 'build/presets/safe.js',
       url + 'build/presets/adventure.js',
       url + 'build/presets/og.js',
+      url + 'build/presets/guarded-og.js',
       url + 'build/presets/speedrun.js',
       url + 'build/presets/bat-master.js',
       url + 'build/presets/glitch.js',

@@ -1,13 +1,12 @@
 {
   "metadata": {
-    "id": "og",
-    "name": "O.G.",
-    "description": "Simulates randomizer season 1. No stat randomization. Gold ring, Silver ring, Holy glasses and Spike Breaker are in vanilla locations.",
-    "author": "3snow_p7im",
-    "weight": -300
+    "id": "guarded-og",
+    "name": "Guarded O.G.",
+    "description": "Simulates randomizer season 1, but adds additional guarded locations. No stat randomization. Gold ring, Silver ring, Holy glasses and Spike Breaker are in vanilla locations.",
+    "author": "TalicZealot",
+    "weight": -200
   },
   "inherits": "casual",
-  "relicLocationsExtension": false,
   "preventLeaks": false,
   "stats": false,
   "music": false,
