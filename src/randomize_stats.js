@@ -65,6 +65,12 @@
         'Neutron bomb',
         'Power of Sire',
         'Jewel sword',
+        'Shield rod',
+        'Mace',
+        'Morningstar',
+        'Holy rod',
+        'Star flail',
+        'Moon rod',
       ].indexOf(item.name) !== -1) {
         return false
       }
