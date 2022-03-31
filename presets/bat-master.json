@@ -6,7 +6,7 @@
     "author": "asdheyb, MT_Fun",
     "weight": -100
   },
-  
+
   "inherits": "casual",
   "relicLocationsExtension": "spread",
   "stats": false,
@@ -17,7 +17,7 @@
     "location": "Mormegil",
     "relic": []
   }],
-  
+
   "lockLocation": [{
     "location": "Soul of Bat",
     "comment": "Requires Mist + at least Leap Stone",

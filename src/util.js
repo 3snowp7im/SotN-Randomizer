@@ -331,8 +331,10 @@
         const startx = dims & 0x3f
         const width  = endx - startx + 1
         const height = endy - starty + 1
-        const flags  = zone[8]
+        const roomFlags = zone[offset + 0xa]
+        const drawFlags = zone.readUInt16LE(offset + 0xd)
         return {
+          offset: offset,
           id: id,
           tiles: tiles,
           defs: defs,
@@ -340,7 +342,8 @@
           y: starty,
           width: width,
           height: height,
-          flags: flags,
+          roomFlags: roomFlags,
+          drawFlags: drawFlags,
         }
       }
     })
@@ -1492,6 +1495,7 @@
           if (!value.length) {
             throw new Error('Expected value')
           }
+          let isRandom = value.startsWith('n')
           let isInt = value.startsWith('0x')
           let hex
           if (isInt) {
@@ -1502,13 +1506,26 @@
           } else {
             hex = value
           }
-          if (hex.length % 2 || !hex.match(/^[a-fA-F0-9]+$/)) {
+          if (!isRandom && (hex.length % 2 || !hex.match(/^[a-fA-F0-9]+$/))) {
             throw new Error('Invalid value: ' + value)
           }
           let type
-          if (isInt) {
-            value = parseInt(value)
-            switch (hex.length) {
+          if (isInt || isRandom) {
+            let length
+            if (isRandom) {
+              switch (value) {
+              case 'rc': length = 1
+              case 'rs': length = 2
+              case 'rw': length = 4
+              case 'rl': length = 8
+              default:
+                throw new Error('Invalid value: ' + value)
+              }
+            } else {
+              value = parseInt(value)
+              length = hex.length
+            }
+            switch (length) {
             case 2:
               writes.push({
                 type: 'char',
@@ -2050,18 +2067,35 @@
           let opt = 'w'
           options.writes.forEach(function(write) {
             opt += ':' + numToHex(write.address) + ':'
+            let value
             switch (write.type) {
             case 'char':
-              opt += numToHex(write.value, 2)
+              if (write.value === 'random') {
+                opt += 'rc'
+              } else {
+                opt += numToHex(write.value, 2)
+              }
               break
             case 'short':
-              opt += numToHex(write.value, 4)
+              if (write.value === 'random') {
+                opt += 'rs'
+              } else {
+                opt += numToHex(write.value, 4)
+              }
               break
             case 'word':
-              opt += numToHex(write.value, 8)
+              if (write.value === 'random') {
+                opt += 'rw'
+              } else {
+                opt += numToHex(write.value, 8)
+              }
               break
             case 'long':
-              opt += numToHex(write.value, 16)
+              if (write.value === 'random') {
+                opt += 'rl'
+              } else {
+                opt += numToHex(write.value, 16)
+              }
               break
             case 'string':
               opt += bufToHex(write.value)
@@ -2206,7 +2240,6 @@
       start: 0x04389c8c,
       length: 30,
     }
-    // 801bc3ac
     data.writeShort(0x043930c4, 0x78b4)
     data.writeShort(0x043930d4, 0x78d4)
     data.writeShort(0x0439312c, 0x78b4)
@@ -2298,12 +2331,14 @@
         case 'sprite':
         case 'special':
         case 'extra':
+        case 'flags':
           value = numToHex(entry[1], 2)
           break
         case 'offset':
         case 'icon':
         case 'palette':
         case 'spell':
+        case 'drawFlags':
           value = numToHex(entry[1], 4)
           break
         case 'elements':
@@ -2311,6 +2346,8 @@
           break
         case 'nameAddress':
         case 'descriptionAddress':
+        case 'tiles':
+        case 'defs':
           value = numToHex(entry[1], 8)
           break
         case 'hasSpell':
@@ -3240,16 +3277,16 @@
         if (!('enabled' in write) || write.enabled) {
           switch (write.type) {
           case 'char':
-            lastAddress = builder.writeChar(address, parseInt(write.value))
+            lastAddress = builder.writeChar(address, write.value)
             break
           case 'short':
-            lastAddress = builder.writeShort(address, parseInt(write.value))
+            lastAddress = builder.writeShort(address, write.value)
             break
           case 'word':
-            lastAddress = builder.writeWord(address, parseInt(write.value))
+            lastAddress = builder.writeWord(address, write.value)
             break
           case 'long':
-            lastAddress = builder.writeLong(address, parseInt(write.value))
+            lastAddress = builder.writeLong(address, write.value)
             break
           case 'string':
             lastAddress = builder.writeString(address, write.value)
@@ -4167,6 +4204,9 @@
 
   // Write a character.
   PresetBuilder.prototype.writeChar = function writeChar(address, value) {
+    if (value !== 'random') {
+      value = parseInt(value)
+    }
     this.writes = this.writes || []
     this.writes.push({
       type: 'char',
@@ -4178,6 +4218,9 @@
 
   // Write a short.
   PresetBuilder.prototype.writeShort = function writeShort(address, value) {
+    if (value !== 'random') {
+      value = parseInt(value)
+    }
     this.writes = this.writes || []
     this.writes.push({
       type: 'short',
@@ -4189,6 +4232,9 @@
 
   // Write a word.
   PresetBuilder.prototype.writeWord = function writeWord(address, value) {
+    if (value !== 'random') {
+      value = parseInt(value)
+    }
     this.writes = this.writes || []
     this.writes.push({
       type: 'word',
@@ -4211,7 +4257,6 @@
 
   // Write a string.
   PresetBuilder.prototype.writeString = function writeString(address, value) {
-    this.writes = this.writes || []
     if (typeof(value) === 'string') {
       const hexBytes = value.split(/([a-fA-F0-9]{2})/g)
       value = hexBytes.reduce(function(bytes, byteValue) {
@@ -4221,6 +4266,7 @@
         return bytes
       }, [])
     }
+    this.writes = this.writes || []
     this.writes.push({
       type: 'string',
       address: address,
@@ -4590,18 +4636,35 @@
     const data = new checked()
     if (options.writes) {
       options.writes.forEach(function(write) {
+        let value
         switch (write.type) {
         case 'char':
-          data.writeChar(write.address, write.value)
+          value = write.value
+          if (value === 'random') {
+            value = Math.floor(rng() * 0x100)
+          }
+          data.writeChar(write.address, value)
           break
         case 'short':
-          data.writeShort(write.address, write.value)
+          value = write.value
+          if (value === 'random') {
+            value = Math.floor(rng() * 0x10000)
+          }
+          data.writeShort(write.address, value)
           break
         case 'word':
-          data.writeWord(write.address, write.value)
+          value = write.value
+          if (value === 'random') {
+            value = Math.floor(rng() * 0x100000000)
+          }
+          data.writeWord(write.address, value)
           break
         case 'long':
-          data.writeLong(write.address, write.value)
+          value = write.value
+          if (value === 'random') {
+            value = Math.floor(rng() * 0x10000000000000000)
+          }
+          data.writeLong(write.address, value)
           break
         case 'string':
           data.writeString(write.address, write.value)
@@ -4902,6 +4965,7 @@
     itemFromTileId: itemFromTileId,
     itemSlots: itemSlots,
     tileValue: tileValue,
+    getRooms: getRooms,
     tileData: tileData,
     replaceBossRelicWithItem: replaceBossRelicWithItem,
     entityData: entityData,
