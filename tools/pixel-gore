@@ -1,0 +1,50 @@
+#!/usr/bin/env node
+// This tool parsese a rom and generates a series of writes that randomize
+// tileset data for every zone.
+// Usage: tools/pixel-gore <path-to-rom>
+
+const fs = require('fs')
+const constants = require('../src/constants')
+const util = require('../src/util')
+
+const ZONE = constants.ZONE
+const zones = constants.zones
+
+// Read input bin.
+const bin = fs.readFileSync(process.argv[2])
+
+// Randomize tileset data.
+const writes = zones.filter(function(zone) {
+  return zone.id != ZONE.ST0
+}).reduce(function(writes, zone) {
+  const data = util.restoreFile(bin, zone)
+  const rooms = util.getRooms(data).filter(function(room) {
+    return !!room
+  })
+  const defs = Array.from(new Set(rooms.map(function(room) {
+    return room.defs
+  }))).map(function(def) {
+    return {
+      offset: def,
+      tileset: data.readUInt32LE(def) - 0x80180000,
+    }
+  })
+  return writes.concat(defs.map(function(def) {
+    return {
+      address: util.numToHex(util.romOffset(zone, def.offset), 8),
+      type: 'short',
+      value: 'random',
+    }
+  }))
+}, [])
+
+// Format data.
+const indent = parseInt(process.argv[4] || 2)
+const spaces = Array(indent).fill(' ').join('')
+const str = JSON.stringify(writes, null, 2)
+.replace(/\},\n\s*\{/g, '}, {')
+.replace(/\[\n\s*\{/g, '[{')
+.replace(/\}\n\s*\]/g, '}]')
+.replace(/\n\s\s/g, '\n')
+.split('\n').join('\n' + spaces)
+console.log(spaces + str)

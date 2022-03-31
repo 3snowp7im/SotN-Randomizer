@@ -27,7 +27,8 @@
     "glitch",
     "scavenger",
     "empty-hand",
-    "gem-farmer"
+    "gem-farmer",
+    "third-castle"
   ],
   "engines": {
     "node": ">=15"

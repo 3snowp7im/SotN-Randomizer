@@ -29,6 +29,7 @@ function randomizeWorker() {
       url + 'build/presets/scavenger.js',
       url + 'build/presets/empty-hand.js',
       url + 'build/presets/gem-farmer.js',
+      url + 'build/presets/third-castle.js',
       url + 'src/randomize_items.js',
       url + 'src/randomize_relics.js',
       url + 'src/ecc-edc-recalc-js.js',

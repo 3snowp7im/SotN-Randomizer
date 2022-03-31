@@ -16,6 +16,7 @@
       require('./scavenger'),
       require('./empty-hand'),
       require('./gem-farmer'),
+      require('./third-castle'),
     ]
   }
   exports.sort(function(a, b) {
