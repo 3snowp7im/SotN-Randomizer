@@ -64,46 +64,50 @@
     CEN:  3,  // Center Cube
     CHI:  4,  // Abandoned Mine
     DAI:  5,  // Royal Chapel
-    LIB:  6,  // Long Library
-    NO0:  7,  // Marble Gallery
-    NO1:  8,  // Outer Wall
-    NO2:  9,  // Olrox's Quarters
-    NO3:  10, // Castle Entrance
-    NP3:  11, // Castle Entrance (after visiting Alchemy Laboratory)
-    NO4:  12, // Underground Caverns
-    NZ0:  13, // Alchemy Laboratory
-    NZ1:  14, // Clock Tower
-    TOP:  15, // Castle Keep
-    RARE: 16, // Reverse Colosseum
-    RCAT: 17, // Floating Catacombs
-    RCHI: 18, // Cave
-    RDAI: 19, // Anti-Chapel
-    RLIB: 20, // Forbidden Library
-    RNO0: 21, // Black Marble Gallery
-    RNO1: 22, // Reverse Outer Wall
-    RNO2: 23, // Death Wing's Lair
-    RNO3: 24, // Reverse Entrance
-    RNO4: 25, // Reverse Caverns
-    RNZ0: 26, // Necromancy Laboratory
-    RNZ1: 27, // Reverse Clock Tower
-    RTOP: 28, // Reverse Castle Keep
-    BO0:  29, // Olrox
-    BO1:  30, // Legion
-    BO2:  31, // Werewolf & Minotaur
-    BO3:  32, // Scylla
-    BO4:  33, // Doppleganger10
-    BO5:  34, // Hippogryph
-    BO6:  35, // Richter
-    BO7:  36, // Cerberus
-    RBO0: 37, // Trio
-    RBO1: 38, // Beezlebub
-    RBO2: 39, // Death
-    RBO3: 40, // Medusa
-    RBO4: 41, // Creature
-    RBO5: 42, // Doppleganger40
-    RBO6: 43, // Shaft/Dracula
-    RBO7: 44, // Akmodan II
-    RBO8: 45, // Galamoth
+    DRE:  6,  // Nightmare
+    LIB:  7,  // Long Library
+    NO0:  8,  // Marble Gallery
+    NO1:  9,  // Outer Wall
+    NO2:  10, // Olrox's Quarters
+    NO3:  11, // Castle Entrance
+    NP3:  12, // Castle Entrance (after visiting Alchemy Laboratory)
+    NO4:  13, // Underground Caverns
+    NZ0:  14, // Alchemy Laboratory
+    NZ1:  15, // Clock Tower
+    TOP:  16, // Castle Keep
+    WRP:  17, // Warp rooms
+    RARE: 18, // Reverse Colosseum
+    RCAT: 19, // Floating Catacombs
+    RCEN: 20, // Reverse Center Cube
+    RCHI: 21, // Cave
+    RDAI: 22, // Anti-Chapel
+    RLIB: 23, // Forbidden Library
+    RNO0: 24, // Black Marble Gallery
+    RNO1: 25, // Reverse Outer Wall
+    RNO2: 26, // Death Wing's Lair
+    RNO3: 27, // Reverse Entrance
+    RNO4: 28, // Reverse Caverns
+    RNZ0: 29, // Necromancy Laboratory
+    RNZ1: 30, // Reverse Clock Tower
+    RTOP: 31, // Reverse Castle Keep
+    RWRP: 32, // Reverse Warp rooms
+    BO0:  33, // Olrox
+    BO1:  34, // Legion
+    BO2:  35, // Werewolf & Minotaur
+    BO3:  36, // Scylla
+    BO4:  37, // Doppleganger10
+    BO5:  38, // Hippogryph
+    BO6:  39, // Richter
+    BO7:  40, // Cerberus
+    RBO0: 41, // Trio
+    RBO1: 42, // Beezlebub
+    RBO2: 43, // Death
+    RBO3: 44, // Medusa
+    RBO4: 45, // Creature
+    RBO5: 46, // Doppleganger40
+    RBO6: 47, // Shaft/Dracula
+    RBO7: 48, // Akmodan II
+    RBO8: 49, // Galamoth
   }
 
   // List of zone strings for logging.
@@ -114,6 +118,7 @@
     'CEN',
     'CHI',
     'DAI',
+    'DRE',
     'LIB',
     'NO0',
     'NO1',
@@ -124,8 +129,10 @@
     'NZ0',
     'NZ1',
     'TOP',
+    'WRP',
     'RARE',
     'RCAT',
+    'RCEN',
     'RCHI',
     'RDAI',
     'RLIB',
@@ -137,6 +144,7 @@
     'RNZ0',
     'RNZ1',
     'RTOP',
+    'RWRP',
     'BO0',
     'BO1',
     'BO2',
@@ -186,6 +194,10 @@
     pos: 0x04675f08,
     len: 373764,
     items: 0x0ec0,
+  }, {
+    id: ZONE.DRE,
+    pos: 0x05af2478,
+    len: 147456,
   }, {
     id: ZONE.LIB,
     pos: 0x047a1ae8,
@@ -237,6 +249,10 @@
     len: 247132,
     items: 0x0d10,
   }, {
+    id: ZONE.WRP,
+    pos: 0x05883408,
+    len: 83968,
+  }, {
     id: ZONE.RARE,
     pos: 0x057509e8,
     len: 234384,
@@ -246,6 +262,10 @@
     pos: 0x04cfa0b8,
     len: 278188,
     items: 0x13c8,
+  }, {
+    id: ZONE.RCEN,
+    pos: 0x056bd9e8,
+    len: 186368,
   }, {
     id: ZONE.RCHI,
     pos: 0x04da4968,
@@ -302,6 +322,10 @@
     pos: 0x057df998,
     len: 200988,
     items: 0x07c8,
+  }, {
+    id: ZONE.RWRP,
+    pos: 0x05a6e358,
+    len: 92160,
   }, {
     id: ZONE.BO0,
     pos: 0x05fa9dc8,
