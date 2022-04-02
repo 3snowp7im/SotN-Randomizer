@@ -4,9 +4,7 @@
     "name": "Third castle",
     "description": "Randomizes tileset data producing intense pixel gore. Released on April 1st, 2022.",
     "author": "3snow_p7im",
-    "weight": 400,
-    "hidden": true,
-    "override": true
+    "weight": 400
   },
   "inherits": "safe",
   "writes": [{
