@@ -4,7 +4,7 @@
     "name": "Casual",
     "description": "Use safe logic, but with lower average complexity.",
     "author": "3snow_p7im, setz, and soba",
-    "weight": -400
+    "weight": -700
   },
   "lockLocation": [{
     "location": "Soul of Bat",
@@ -101,7 +101,6 @@
     ]
   }, {
     "location": "Holy Symbol",
-    "comment": "Requires Jewel of Open and Merman Statue",
     "locks": [
       "Jewel of Open + Merman Statue"
     ]
@@ -192,7 +191,7 @@
       "Holy glasses + Gravity Boots + Leap Stone",
       "Holy glasses + Form of Mist + Power of Mist"
     ]
-  }, {    
+  }, {
     "location": "Eye of Vlad",
     "comment": "In second castle",
     "locks": [
@@ -201,7 +200,7 @@
       "Holy glasses + Form of Mist + Power of Mist"
     ]
   }, {
-    "location":  "Spike Breaker",
+    "location": "Spike Breaker",
     "locks": [
       "Jewel of Open + Soul of Bat + Echo of Bat"
     ]
@@ -231,7 +230,6 @@
     ]
   }, {
     "location": "Crystal cloak",
-    "comment": "Requires Jewel of Open",
     "locks": [
       "Jewel of Open"
     ]

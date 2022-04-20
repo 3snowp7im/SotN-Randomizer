@@ -12,6 +12,7 @@
       require('./guarded-og'),
       require('./speedrun'),
       require('./bat-master'),
+      require('./nimble'),
       require('./glitch'),
       require('./scavenger'),
       require('./empty-hand'),

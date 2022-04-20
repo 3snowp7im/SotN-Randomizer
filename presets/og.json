@@ -4,7 +4,7 @@
     "name": "O.G.",
     "description": "Simulates randomizer season 1. No stat randomization. Gold ring, Silver ring, Holy glasses and Spike Breaker are in vanilla locations.",
     "author": "3snow_p7im",
-    "weight": -300
+    "weight": -500
   },
   "inherits": "casual",
   "relicLocationsExtension": false,
