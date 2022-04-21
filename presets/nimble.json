@@ -7,8 +7,6 @@
     "weight": -100
   },
   "stats": false,
-  "items": false,
-  "prologueRewards": false,
   "startingEquipment": [{
     "slot": "Right hand",
     "item": "Manna prism"
