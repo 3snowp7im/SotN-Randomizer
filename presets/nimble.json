@@ -178,5 +178,9 @@
     "type": "word",
     "value": "0x0803924f",
     "comment": "j 0x800e493c"
+  }, {
+    "type": "word",
+    "value": "0x00000000",
+    "comment": "nop"
   }]
 }
