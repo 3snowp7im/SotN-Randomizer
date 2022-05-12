@@ -71,6 +71,8 @@
         'Holy rod',
         'Star flail',
         'Moon rod',
+        'Were Bane',
+        'Rapier',
       ].indexOf(item.name) !== -1) {
         return false
       }
