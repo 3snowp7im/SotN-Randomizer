@@ -60,7 +60,7 @@ the patch, you must perform ECC/EDC recalculation.
 
 Useful links:
 * [ppf.sotn.io](https://ppf.sotn.io) (Browser)
-* [ppfdev](https://github.com/meunierd/pp) (Source)
+* [ppfdev](https://github.com/meunierd/ppf) (Source)
 * [PPF-O-Matic](https://www.romhacking.net/utilities/356/) (Windows binary)
 * [error_recalc](https://www.romhacking.net/utilities/1264/) (Windows binary
   and source)
