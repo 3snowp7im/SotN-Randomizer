@@ -15,9 +15,9 @@ $ cd SotN-Randomizer
 $ npm install
 ```
 
-### Usage
+### Basic usage
 
-To randomize your disc image, just pass in the path to your vanilla  .bin file
+To randomize your disc image, just pass in the path to your vanilla .bin file
 using the `--in-bin` option and an output path using the `--out` option.
 This will use the current time as the seed:
 
@@ -102,10 +102,10 @@ $ node randomize -vvv -i rando.bin https://sotn.io/?myseed  # More verbose
 
 ### Dry running
 
-You can omit the `--in-bin` option to perform a dry run.
+You can omit the `--in-bin` and `--out` options to perform a dry run.
 
 To print starting equipment and relic locations for a URL without actually
-writing the randomizations to your disc image:
+writing the randomizations to your disc image or PPF patch file:
 
 ```shell
 $ node randomize -vvv https://sotn.io/?myseed
