@@ -3551,7 +3551,8 @@
       this.turkey = preset.turkeyMode
     }
     if ('writes' in preset) {
-      this.writes = preset.writes
+      this.writes = this.writes || []
+      this.writes.push.apply(this.write, preset.writes)
     }
   }
 
