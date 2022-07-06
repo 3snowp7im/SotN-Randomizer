@@ -253,7 +253,7 @@
       //                                          // lbu s0, slot (s0)
       offset = data.writeWord(offset, 0x92100000 + (slot & 0xffff))
       offset = data.writeWord(offset, 0x00000000) // nop
-      const next = 4 + 5 * (slots.length - index - 1)
+      const next = 5 + 5 * (slots.length - index - 1)
       //                                          // beq s0, v0, pc + next
       offset = data.writeWord(offset, 0x12020000 + next)
       offset = data.writeWord(offset, 0x00000000) // nop
