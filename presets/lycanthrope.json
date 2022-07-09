@@ -2,7 +2,7 @@
   "metadata": {
     "id": "lycanthrope",
     "name": "Lycanthrope",
-    "description": "Start with all wolf relics.",
+    "description": "Start with all wolf relics. Mana consumption in wolf form is greatly reduced.",
     "author": "3snow_p7im",
     "weight": -300
   },
@@ -24,7 +24,7 @@
     "item": "Blood cloak"
   }, {
     "slot": "Other",
-    "item": "Ring of Varda"
+    "item": "Mystic pendant"
   }],
   "lockLocation": [{
     "location": "Soul of Bat",
@@ -863,5 +863,15 @@
     "type": "word",
     "value": "0x00000000",
     "comment": "nop"
+  }, {
+    "comment": "Don't consume mana in wolf form",
+    "type": "short",
+    "address": "0x00118cc8",
+    "value": "0x0000"
+  }, {
+    "comment": "Reduce mana consumption during wolf dash",
+    "type": "char",
+    "address": "0x000b53b0",
+    "value": "0x01"
   }]
 }
