@@ -2,7 +2,7 @@
   "metadata": {
     "id": "lycanthrope",
     "name": "Lycanthrope",
-    "description": "Start with all wolf relics. Mana consumption in wolf form is greatly reduced.",
+    "description": "Start with all wolf relics. Mana consumption is greatly reduced when in wolf form.",
     "author": "3snow_p7im",
     "weight": -300
   },
