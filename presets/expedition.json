@@ -8,6 +8,27 @@
   },
   "inherits": "nimble",
   "relicLocationsExtension": "equipment",
+  
+  "startingEquipment": [{
+    "slot": "Right hand",
+    "item": "Manna prism"
+  }, {
+    "slot": "Left hand",
+    "item": "Buffalo star"
+  }, {
+    "slot": "Head",
+    "item": "Dragon helm"
+  }, {
+    "slot": "Body",
+    "item": "Alucard mail"
+  }, {
+    "slot": "Cloak",
+    "item": "Twilight cloak"
+  }, {
+    "slot": "Other",
+    "item": "Duplicator"
+  }],
+  
   "complexityGoal": {
     "min": 4,
     "max": 6,
