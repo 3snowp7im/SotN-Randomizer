@@ -7,7 +7,6 @@
     "weight": -100
   },
   "inherits": "nimble",
-  "stats": false,
   "relicLocationsExtension": "equipment",
   "complexityGoal": {
     "min": 4,
