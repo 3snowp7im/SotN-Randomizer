@@ -193,7 +193,7 @@
       Object.getOwnPropertyNames(options.relicLocations).forEach(
         function(key) {
           if (/^[0-9]+(-[0-9]+)?/.test(key)) {
-            complexity = key.split('-').pop()
+            complexity = key.split('-').shift()
           }
         }
       )
