@@ -269,15 +269,13 @@
 
   function adjustMaxComplexity() {
     switch (relicLocationsExtensionCache) {
-    case constants.EXTENSION.GUARDED:
-    case constants.EXTENSION.SPREAD:
-      elems.complexity.max = 11
-      break
     case constants.EXTENSION.EQUIPMENT:
       elems.complexity.max = 14
       break
+    case constants.EXTENSION.GUARDED:
+    case constants.EXTENSION.SPREAD:
     default:
-      elems.complexity.max = 8
+      elems.complexity.max = 11
       break
     }
     if (parseInt(elems.complexity.value) > parseInt(elems.complexity.max)) {
@@ -980,7 +978,7 @@
     Object.getOwnPropertyNames(locations).forEach(
       function(key) {
         if (/^[0-9]+(-[0-9]+)?$/.test(key)) {
-          elems.complexity.value = key.split('-').pop()
+          elems.complexity.value = key.split('-').shift()
         }
       }
     )
