@@ -3408,9 +3408,13 @@
         slots.filter(function(slot) {
           return slot !== 'blocked'
         }).forEach(function(slot) {
-          self.equipment[slot] = items.filter(function(item) {
-            return item.name === preset.startingEquipment[slot]
-          }).pop()
+          self.equipment[slot] = preset.startingEquipment[slot].map(
+            function(itemName) {
+              return items.filter(function(item) {
+                return item.name === itemName
+              }).pop()
+            }
+          )
         })
       } else {
         this.equipment = preset.startingEquipment
