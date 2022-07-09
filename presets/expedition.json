@@ -2,8 +2,8 @@
   "metadata": {
     "id": "expedition",
     "name": "Expedition",
-    "description": "Start with Soul of Bat, Leap Stone, Gravity Boots, Duplicator, Manna prism, and Buffalo star in a faster, lower-complexity adventure preset.",
-    "author": "3snow_p7im and eldri7ch",
+    "description": "Adventure locations with Nimble build.",
+    "author": "eldri7ch",
     "weight": -100
   },
   "inherits": "nimble",
@@ -15,18 +15,17 @@
       "Holy glasses + Heart of Vlad + Tooth of Vlad + Rib of Vlad + Ring of Vlad + Eye of Vlad"
     ]
   },
-
   "itemLocations": [{
     "comment": "Place Stopwatch in the Clock Room",
     "zone": "NO0",
     "item": "Big heart",
-    "index": 17,
+    "index": 16,
     "replacement": "Stopwatch"
   }, {
     "comment": "Place Stopwatch in the Clock Room",
     "zone": "NO0",
     "item": "Big heart",
-    "index": 16,
+    "index": 17,
     "replacement": "Stopwatch"
   }]
 }

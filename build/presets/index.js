@@ -13,6 +13,7 @@
       require('./speedrun'),
       require('./bat-master'),
       require('./nimble'),
+      require('./expedition'),
       require('./glitch'),
       require('./scavenger'),
       require('./empty-hand'),

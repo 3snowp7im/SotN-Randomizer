@@ -3552,7 +3552,7 @@
     }
     if ('writes' in preset) {
       this.writes = this.writes || []
-      this.writes.push.apply(this.write, preset.writes)
+      this.writes.push.apply(this.writes, preset.writes)
     }
   }
 
@@ -4345,7 +4345,7 @@
         )
       }
       Object.getOwnPropertyNames(self.equipment).filter(function(slot) {
-        return slot !== 'blocked'
+        return self.equipment[slot] && slot !== 'blocked'
       }).forEach(function(slot) {
         equipment[slot] = self.equipment[slot].map(function(item) {
           if (item) {

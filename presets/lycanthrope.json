@@ -1,11 +1,31 @@
 {
   "metadata": {
-    "id": "casual",
-    "name": "Casual",
-    "description": "Use safe logic, but with lower average complexity.",
-    "author": "3snow_p7im, setz, and soba",
-    "weight": -900
+    "id": "lycanthrope",
+    "name": "Lycanthrope",
+    "description": "Start with all wolf relics.",
+    "author": "3snow_p7im",
+    "weight": -300
   },
+  "stats": false,
+  "startingEquipment": [{
+    "slot": "Right hand",
+    "item": "Shield rod"
+  }, {
+    "slot": "Left hand",
+    "item": "Shaman shield"
+  }, {
+    "slot": "Head",
+    "item": "Silver crown"
+  }, {
+    "slot": "Body",
+    "item": "Brilliant mail"
+  }, {
+    "slot": "Cloak",
+    "item": "Blood cloak"
+  }, {
+    "slot": "Other",
+    "item": "Ring of Varda"
+  }],
   "lockLocation": [{
     "location": "Soul of Bat",
     "comment": "Requires Mist + at least Leap Stone",
@@ -28,8 +48,7 @@
     "comment": "Requires flight + a transformation",
     "locks": [
       "Soul of Bat",
-      "Gravity Boots + Leap Stone + Form of Mist",
-      "Gravity Boots + Leap Stone + Soul of Wolf",
+      "Gravity Boots + Leap Stone",
       "Form of Mist + Power of Mist"
     ]
   }, {
@@ -138,10 +157,7 @@
     "location": "Demon Card",
     "comment": "Requires Jewel of Open + at least Leap Stone",
     "locks": [
-      "Jewel of Open + Leap Stone",
-      "Jewel of Open + Soul of Bat",
-      "Jewel of Open + Form of Mist + Power of Mist",
-      "Jewel of Open + Soul of Wolf + Power of Wolf"
+      "Jewel of Open"
     ],
     "comment": "Access must also give at least Leap Stone",
     "escapeRequires": [
@@ -179,8 +195,7 @@
     "comment": "In second castle",
     "locks": [
       "Holy glasses + Soul of Bat",
-      "Holy glasses + Gravity Boots + Leap Stone + Form of Mist",
-      "Holy glasses + Gravity Boots + Leap Stone + Soul of Wolf",
+      "Holy glasses + Gravity Boots + Leap Stone",
       "Holy glasses + Form of Mist + Power of Mist"
     ]
   }, {
@@ -237,10 +252,7 @@
     "location": "Mormegil",
     "comment": "Requires Jewel of Open + at least Leap Stone",
     "locks": [
-      "Jewel of Open + Leap Stone",
-      "Jewel of Open + Soul of Bat",
-      "Jewel of Open + Form of Mist + Power of Mist",
-      "Jewel of Open + Soul of Wolf + Power of Wolf"
+      "Jewel of Open"
     ],
     "comment": "Access must also give at least Leap Stone",
     "escapeRequires": [
@@ -285,7 +297,7 @@
     "location": "Jewel sword",
     "comment": "Requires Wolf + Bat",
     "locks": [
-      "Soul of Wolf + Soul of Bat"
+      "Soul of Bat"
     ]
   }, {
     "location": "Mystic pendant",
@@ -504,10 +516,7 @@
     "location": "Combat knife",
     "comment": "Requires Jewel of Open + at least Leap Stone",
     "locks": [
-      "Jewel of Open + Soul of Bat",
-      "Jewel of Open + Leap Stone",
-      "Jewel of Open + Form of Mist + Power of Mist",
-      "Jewel of Open + Soul of Wolf + Power of Wolf"
+      "Jewel of Open"
     ],
     "comments": "Access must also give at least Leap Stone",
     "escapeRequires": [
@@ -520,14 +529,8 @@
     "location": "Ring of Ares",
     "comment": "Requires Jewel of Open + Demon Card + at least Leap Stone",
     "locks": [
-      "Jewel of Open + Demon Card + Soul of Bat",
-      "Jewel of Open + Demon Card + Leap Stone",
-      "Jewel of Open + Demon Card + Form of Mist + Power of Mist",
-      "Jewel of Open + Demon Card + Soul of Wolf + Power of Wolf",
-      "Jewel of Open + Nosedevil Card + Soul of Bat",
-      "Jewel of Open + Nosedevil Card + Leap Stone",
-      "Jewel of Open + Nosedevil Card + Form of Mist + Power of Mist",
-      "Jewel of Open + Nosedevil Card + Soul of Wolf + Power of Wolf"
+      "Jewel of Open + Demon Card",
+      "Jewel of Open + Nosedevil Card"
     ],
     "comment": "Access must also give at least Leap Stone",
     "escapeRequires": [
@@ -540,10 +543,7 @@
     "location": "Bloodstone",
     "comment": "Requires Jewel of Open + at least Leap Stone",
     "locks": [
-      "Jewel of Open + Soul of Bat",
-      "Jewel of Open + Leap Stone",
-      "Jewel of Open + Form of Mist + Power of Mist",
-      "Jewel of Open + Soul of Wolf + Power of Wolf"
+      "Jewel of Open"
     ],
     "comment": "Access must also give at least Leap Stone",
     "escapeRequires": [
@@ -571,10 +571,7 @@
     "location": "Walk armor",
     "comment": "Requires Jewel of Open + at least Leap Stone",
     "locks": [
-      "Jewel of Open + Soul of Bat",
-      "Jewel of Open + Leap Stone",
-      "Jewel of Open + Form of Mist + Power of Mist",
-      "Jewel of Open + Soul of Wolf + Power of Wolf"
+      "Jewel of Open"
     ],
     "comment": "Access must also give at least Leap Stone",
     "escapeRequires": [
@@ -587,7 +584,7 @@
     "location": "Beryl circlet",
     "comment": "Requires Holy glasses + Bat + Wolf",
     "locks": [
-      "Holy glasses + Soul of Bat + Soul of Wolf"
+      "Holy glasses + Soul of Bat"
     ]
   }, {
     "location": "Talisman",
@@ -827,5 +824,44 @@
     "goals": [
       "Holy glasses + Heart of Vlad + Tooth of Vlad + Rib of Vlad + Ring of Vlad + Eye of Vlad"
     ]
-  }
+  },
+  "writes": [{
+    "comment": "Jump to injected code",
+    "address": "0x000fa97c",
+    "type": "word",
+    "value": "0x0c04db00"
+  }, {
+    "address": "0x00158c98",
+    "type": "word",
+    "value": "0x34020003",
+    "comment": "ori v0, 0x0003"
+  }, {
+    "type": "word",
+    "value": "0x3c038009",
+    "comment": "lui v1, 0x8009"
+  }, {
+    "comment": "Enable Soul of Wolf",
+    "type": "word",
+    "value": "0xa0627968",
+    "comment": "sb v0, 0x7968 (v1)"
+  }, {
+    "comment": "Enable Power of Wolf",
+    "type": "word",
+    "value": "0xa0627969",
+    "comment": "sb v0, 0x7969 (v1)"
+  }, {
+    "comment": "Enable Skill of Wolf",
+    "type": "word",
+    "value": "0xa062796a",
+    "comment": "sb v0, 0x796a (v1)"
+  }, {
+    "comment": "Return from injected code",
+    "type": "word",
+    "value": "0x0803924f",
+    "comment": "j 0x800e493c"
+  }, {
+    "type": "word",
+    "value": "0x00000000",
+    "comment": "nop"
+  }]
 }

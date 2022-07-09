@@ -4,7 +4,7 @@
     "name": "Guarded O.G.",
     "description": "Simulates randomizer season 1, but adds additional guarded locations. No stat randomization. Gold ring, Silver ring, Holy glasses and Spike Breaker are in vanilla locations.",
     "author": "TalicZealot",
-    "weight": -400
+    "weight": -600
   },
   "inherits": "casual",
   "preventLeaks": false,

@@ -3,8 +3,8 @@
     "id": "bat-master",
     "name": "Bat master",
     "description": "Soul of Bat always in first castle. Adds relic checks in Darkwing's Lair, Reverse Outer Wall, and Forbidden Library. May require limited speedrun tech to complete.",
-    "author": "asdheyb, MT_Fun",
-    "weight": -200
+    "author": "asdheyb and MT_Fun",
+    "weight": -400
   },
 
   "inherits": "casual",
