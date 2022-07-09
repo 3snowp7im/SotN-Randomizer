@@ -224,11 +224,11 @@
     data.writeShort(offset, id + tileIdOffset)
     // Injection point.
     offset = util().romOffset(zone, 0x02c860)
-    data.writeWord(offset, 0x0807bc40)          // j 0x801ef100
+    data.writeWord(offset, 0x0806fbb4)          // j 0x801beed0
     offset = util().romOffset(zone, 0x02c868)
     data.writeWord(offset, 0x00000000)          // nop
     // Get Bat defeat time.
-    offset = util().romOffset(zone, 0x03f100)
+    offset = util().romOffset(zone, 0x3eed0)
     offset = data.writeWord(offset, 0x3c020003) // lui v0, 0x0003
     offset = data.writeWord(offset, 0x3442ca78) // ori v0, v0, 0xca78
     offset = data.writeWord(offset, 0x8c420000) // lw v0, 0x0000 (v0)
@@ -253,7 +253,7 @@
       //                                          // lbu s0, slot (s0)
       offset = data.writeWord(offset, 0x92100000 + (slot & 0xffff))
       offset = data.writeWord(offset, 0x00000000) // nop
-      const next = 4 + 5 * (slots.length - index - 1)
+      const next = 5 + 5 * (slots.length - index - 1)
       //                                          // beq s0, v0, pc + next
       offset = data.writeWord(offset, 0x12020000 + next)
       offset = data.writeWord(offset, 0x00000000) // nop
