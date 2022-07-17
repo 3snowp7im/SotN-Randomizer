@@ -12,6 +12,7 @@
       require('./guarded-og'),
       require('./speedrun'),
       require('./bat-master'),
+      require('./lycanthrope'),
       require('./nimble'),
       require('./expedition'),
       require('./glitch'),
