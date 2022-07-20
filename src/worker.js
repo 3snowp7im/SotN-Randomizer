@@ -26,6 +26,7 @@ function randomizeWorker() {
       url + 'build/presets/speedrun.js',
       url + 'build/presets/bat-master.js',
       url + 'build/presets/lycanthrope.js',
+      url + 'build/presets/warlock.js',
       url + 'build/presets/nimble.js',
       url + 'build/presets/expedition.js',
       url + 'build/presets/glitch.js',
