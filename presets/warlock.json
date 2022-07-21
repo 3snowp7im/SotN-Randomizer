@@ -741,11 +741,11 @@
     "type": "word",
     "value": "0x0c04db00"
   }, {
+    "address": "0x00158c98",
     "type": "word",
     "value": "0x3c038009",
     "comment": "lui v1, 0x8009"
   }, {
-    "address": "0x00158c98",
     "type": "word",
     "value": "0x34020003",
     "comment": "ori v0, 0x0003"
