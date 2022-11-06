@@ -13,6 +13,7 @@ const randomizeStats = require('./src/randomize_stats')
 const randomizeRelics = require('./src/randomize_relics')
 const randomizeItems = require('./src/randomize_items')
 const randomizeMusic = require('./src/randomize_music')
+const applyAccessibilityPatches = require('./src/accessibility_patches')
 const relics = require('./src/relics')
 const util = require('./src/util')
 let version = require('./package').version
@@ -582,6 +583,11 @@ const yargs = require('yargs')
     describe: 'Enable tournament mode',
     type: 'boolean',
   })
+  .option('accessibilityPatches', {
+    alias: 'a',
+    describe: 'Disable accessibility patches',
+    type: 'boolean',
+  })
   .option('no-seed', {
     alias: 'n',
     describe: 'Disable seed generation',
@@ -886,6 +892,12 @@ if ('complexity' in argv) {
 if (argv.tournament) {
   options.tournamentMode = true
 }
+// Disable accessibility patches if specified.
+if (argv.accessibilityPatches) {
+  options.accessibilityPatches = false
+} else {
+  options.accessibilityPatches = true
+}
 // Set misc options.
 if ('verbose' in argv) {
   options.verbose = argv.verbose
@@ -1009,6 +1021,10 @@ if ('inBin' in argv) {
         ))
         result = randomizeMusic(rng, applied)
         check.apply(result)
+        // Apply accessibility patches
+        result = applyAccessibilityPatches(applied)
+        check.apply(result.data)
+
         // Apply writes.
         result = util.applyWrites(rng, applied)
         check.apply(result)

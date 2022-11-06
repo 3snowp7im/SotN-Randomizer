@@ -551,11 +551,6 @@
     data.writeChar(0x055a110c, 0xe0)
   }
 
-  function patchPowerOfSireFlashing(data) {
-    // Fix researched by MottZilla.
-    data.writeWord(0x00136580, 0x03e00008)
-  }
-
   function patchRelicsMenu(data) {
     // If relic locations are extended, the relic pool is padded out with the
     // familiars disabled in the NTSC-U release. To make them usable, they will
@@ -1420,8 +1415,6 @@
       // Patch out cutscenes.
       patchAlchemyLabCutscene(data)
       patchClockRoomCutscene(data)
-      // Apply accessibility patches.
-      patchPowerOfSireFlashing(data)
       // Apply extension specific patches.
       switch (options.relicLocations.extension) {
       case constants.EXTENSION.EQUIPMENT:

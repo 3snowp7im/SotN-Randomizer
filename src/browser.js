@@ -8,6 +8,7 @@
   const randomizeItems = sotnRando.randomizeItems
   const randomizeRelics = sotnRando.randomizeRelics
   const randomizeMusic = sotnRando.randomizeMusic
+  const applyAccessibilityPatches = sotnRando.applyAccessibilityPatches
   const relics = sotnRando.relics
 
   let info
@@ -349,6 +350,10 @@
     localStorage.setItem('tournamentMode', elems.tournamentMode.checked)
   }
 
+  function accessibilityPatchesChange() {
+    localStorage.setItem('accessibilityPatches', elems.accessibilityPatches.checked)
+  }
+
   function spoilersChange() {
     if (elems.showSpoilers.checked) {
       showSpoilers()
@@ -481,6 +486,9 @@
       if (elems.tournamentMode.checked) {
         options.tournamentMode = true
       }
+      if (elems.accessibilityPatches.checked) {
+        options.accessibilityPatches = true
+      }
       return options
     }
     const options = {
@@ -493,6 +501,7 @@
       music: elems.music.checked,
       turkeyMode: elems.turkeyMode.checked,
       tournamentMode: elems.tournamentMode.checked,
+      accessibilityPatches: elems.accessibilityPatches.checked,
     }
     if (elems.enemyDropsArg.value) {
       options.enemyDrops = util.optionsFromString(
@@ -633,6 +642,9 @@
         ))
         result = randomizeMusic(rng, applied)
         check.apply(result)
+        // Apply accessibility patches
+        result = applyAccessibilityPatches(applied)
+        check.apply(result.data)
         // Apply writes.
         result = util.applyWrites(rng, applied)
         check.apply(result)
@@ -840,6 +852,7 @@
     theme: document.getElementById('theme'),
     appendSeed: document.getElementById('append-seed'),
     tournamentMode: document.getElementById('tournament-mode'),
+    accessibilityPatches: document.getElementById('accessibility-patches'),
     showSpoilers: document.getElementById('show-spoilers'),
     showRelics: document.getElementById('show-relics'),
     showSolutions: document.getElementById('show-solutions'),
@@ -890,6 +903,7 @@
   elems.theme.addEventListener('change', themeChange)
   elems.appendSeed.addEventListener('change', appendSeedChange)
   elems.tournamentMode.addEventListener('change', tournamentModeChange)
+  elems.accessibilityPatches.addEventListener('change', accessibilityPatchesChange)
   elems.showSpoilers.addEventListener('change', spoilersChange)
   elems.showRelics.addEventListener('change', showRelicsChange)
   elems.showSolutions.addEventListener('change', showSolutionsChange)
@@ -1162,6 +1176,7 @@
   loadOption('showSolutions', showSolutionsChange, false)
   loadOption('showRelics', showRelicsChange, false)
   loadOption('tournamentMode', tournamentModeChange, false)
+  loadOption('accessibilityPatches', accessibilityPatchesChange, true)
   loadOption('showSpoilers', spoilersChange, true)
   setTimeout(function() {
     const els = document.getElementsByClassName('tooltip')
