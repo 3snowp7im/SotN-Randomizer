@@ -31,6 +31,7 @@ const optionsHelp = [
   '  "w" for writes (`--help writes`)',
   '  "k" for turkey mode',
   '  "t" for tournament mode (disables spoilers)',
+  '  "a" for disabling accessibility patches',
   '',
   'The default randomization mode is "'
     +  constants.defaultOptions
@@ -583,7 +584,7 @@ const yargs = require('yargs')
     describe: 'Enable tournament mode',
     type: 'boolean',
   })
-  .option('accessibilityPatches', {
+  .option('accessibility-patches', {
     alias: 'a',
     describe: 'Disable accessibility patches',
     type: 'boolean',
