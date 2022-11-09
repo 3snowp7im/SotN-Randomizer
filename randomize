@@ -31,7 +31,6 @@ const optionsHelp = [
   '  "w" for writes (`--help writes`)',
   '  "k" for turkey mode',
   '  "t" for tournament mode (disables spoilers)',
-  '  "a" for disabling accessibility patches',
   '',
   'The default randomization mode is "'
     +  constants.defaultOptions
@@ -893,12 +892,6 @@ if ('complexity' in argv) {
 if (argv.tournament) {
   options.tournamentMode = true
 }
-// Disable accessibility patches if specified.
-if (argv.accessibilityPatches) {
-  options.accessibilityPatches = false
-} else {
-  options.accessibilityPatches = true
-}
 // Set misc options.
 if ('verbose' in argv) {
   options.verbose = argv.verbose
@@ -1022,10 +1015,6 @@ if ('inBin' in argv) {
         ))
         result = randomizeMusic(rng, applied)
         check.apply(result)
-        // Apply accessibility patches
-        result = applyAccessibilityPatches(applied)
-        check.apply(result.data)
-
         // Apply writes.
         result = util.applyWrites(rng, applied)
         check.apply(result)
@@ -1051,6 +1040,11 @@ if ('inBin' in argv) {
         console.error('Checksum mismatch.')
         process.exit(1)
       }
+    }
+    if (!argv.accessibilityPatches) {
+      // Apply accessibility patches
+      const result = applyAccessibilityPatches()
+      check.apply(result)
     }
     // Show url if not provided as arg.
     if ('url' in argv && !argv._[0] && !argv.quiet) {

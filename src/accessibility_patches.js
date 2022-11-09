@@ -12,14 +12,10 @@
         data.writeWord(0x00136580, 0x03e00008)
       }
   
-    function applyAccessibilityPatches(options) {
+    function applyAccessibilityPatches() {
       const data = new util.checked()
-      if (options.accessibilityPatches) {
-        patchPowerOfSireFlashing(data)
-      }
-      return {
-        data: data
-      }
+      patchPowerOfSireFlashing(data)
+      return data
     }
   
     const exports = applyAccessibilityPatches
@@ -31,4 +27,3 @@
       module.exports = exports
     }
   })(typeof(self) !== 'undefined' ? self : null)
-  

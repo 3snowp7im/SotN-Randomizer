@@ -1593,14 +1593,6 @@
         options.tournamentMode = true
         break
       }
-      case 'a': {
-        if (negate) {
-          options.accessibilityPatches = false
-          break
-        }
-        options.accessibilityPatches = true
-        break
-      }
       default:
         throw new Error('Invalid randomization: ' + c)
       }
@@ -1665,9 +1657,6 @@
           randomize.push('t')
         }
         delete options.tournamentMode
-      } else if ('accessibilityPatches' in options) {
-        randomize.push('a')
-        delete options.accessibilityPatches
       } else if ('preset' in options) {
         randomize.push('p:' + options.preset)
         delete options.preset
@@ -4698,7 +4687,6 @@
     tournament,
     file,
     data,
-    checksum,
     worker,
     url,
   ) {
@@ -4726,7 +4714,6 @@
         tournament: tournament,
         file: file,
         data: data,
-        checksum: checksum,
         url: url,
       }, objects)
     })

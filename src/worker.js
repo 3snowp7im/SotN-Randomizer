@@ -164,37 +164,25 @@ function randomizeWorker() {
           }
           const check = new util.checked(array)
           check.apply(message.data)
-          util.setSeedText(
-            check,
-            message.seed,
-            message.version,
-            message.preset,
-            message.tournament,
-          )
           const self = this
-          check.sum().then(function(checksum) {
-            if (message.checksum && message.checksum !== checksum) {
-              throw new errors.VersionError()
-            }
-            let output
-            let objects
-            if (message.file) {
-              eccEdcCalc(array, array.length, true)
-              output = message.file
-              objects = [output]
-            } else {
-              output = check.toPatch(
-                message.seed,
-                message.preset,
-                message.tournament,
-              )
-            }
-            self.postMessage({
-              action: 'finalize',
-              file: output,
-              checksum: checksum,
-            }, objects)
-          })
+          let output
+          let objects
+          if (message.file) {
+            eccEdcCalc(array, array.length, true)
+            output = message.file
+            objects = [output]
+          } else {
+            output = check.toPatch(
+              message.seed,
+              message.preset,
+              message.tournament,
+            )
+          }
+          self.postMessage({
+            action: 'finalize',
+            file: output,
+          }, objects)
+
           break
         }}
       } catch (err) {
