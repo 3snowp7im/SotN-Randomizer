@@ -583,7 +583,7 @@ const yargs = require('yargs')
     describe: 'Enable tournament mode',
     type: 'boolean',
   })
-  .option('accessibility-patches', {
+  .option('disable-accessibility-patches', {
     alias: 'a',
     describe: 'Disable accessibility patches',
     type: 'boolean',
