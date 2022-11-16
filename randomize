@@ -1041,7 +1041,7 @@ if ('inBin' in argv) {
         process.exit(1)
       }
     }
-    if (!argv.accessibilityPatches) {
+    if (!argv.disableAccessibilityPatches) {
       // Apply accessibility patches
       const result = applyAccessibilityPatches()
       check.apply(result)
