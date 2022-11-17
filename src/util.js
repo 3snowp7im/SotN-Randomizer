@@ -4687,7 +4687,6 @@
     tournament,
     file,
     data,
-    checksum,
     worker,
     url,
   ) {
@@ -4715,7 +4714,6 @@
         tournament: tournament,
         file: file,
         data: data,
-        checksum: checksum,
         url: url,
       }, objects)
     })

@@ -8,6 +8,7 @@
   const randomizeItems = sotnRando.randomizeItems
   const randomizeRelics = sotnRando.randomizeRelics
   const randomizeMusic = sotnRando.randomizeMusic
+  const applyAccessibilityPatches = sotnRando.applyAccessibilityPatches
   const relics = sotnRando.relics
 
   let info
@@ -349,6 +350,10 @@
     localStorage.setItem('tournamentMode', elems.tournamentMode.checked)
   }
 
+  function accessibilityPatchesChange() {
+    localStorage.setItem('accessibilityPatches', elems.accessibilityPatches.checked)
+  }
+
   function spoilersChange() {
     if (elems.showSpoilers.checked) {
       showSpoilers()
@@ -636,6 +641,24 @@
         // Apply writes.
         result = util.applyWrites(rng, applied)
         check.apply(result)
+        util.setSeedText(
+          check,
+          seed,
+          version,
+          options.preset,
+          options.tournamentMode,
+        )
+        return check.sum()
+      }).then(function(result) {
+        checksum = result
+        if (expectChecksum && expectChecksum !== checksum) {
+          throw new errors.VersionError()
+        }
+        // Apply accessibility patches
+        if (elems.accessibilityPatches.checked) {
+          result = applyAccessibilityPatches()
+          check.apply(result)
+        }
         return util.finalizeData(
           seed,
           version,
@@ -643,14 +666,12 @@
           options.tournamentMode,
           file,
           check,
-          expectChecksum,
           createWorkers(1)[0],
           getUrl(),
         )
       }).then(function(result) {
         const duration = new Date().getTime() - start
         console.log('Seed generation took ' + (duration / 1000) + 's')
-        checksum = result.checksum
         showSpoilers()
         const url = URL.createObjectURL(new Blob([result.file], {
           type: 'application/octet-binary',
@@ -840,6 +861,7 @@
     theme: document.getElementById('theme'),
     appendSeed: document.getElementById('append-seed'),
     tournamentMode: document.getElementById('tournament-mode'),
+    accessibilityPatches: document.getElementById('accessibility-patches'),
     showSpoilers: document.getElementById('show-spoilers'),
     showRelics: document.getElementById('show-relics'),
     showSolutions: document.getElementById('show-solutions'),
@@ -890,6 +912,7 @@
   elems.theme.addEventListener('change', themeChange)
   elems.appendSeed.addEventListener('change', appendSeedChange)
   elems.tournamentMode.addEventListener('change', tournamentModeChange)
+  elems.accessibilityPatches.addEventListener('change', accessibilityPatchesChange)
   elems.showSpoilers.addEventListener('change', spoilersChange)
   elems.showRelics.addEventListener('change', showRelicsChange)
   elems.showSolutions.addEventListener('change', showSolutionsChange)
@@ -1162,6 +1185,7 @@
   loadOption('showSolutions', showSolutionsChange, false)
   loadOption('showRelics', showRelicsChange, false)
   loadOption('tournamentMode', tournamentModeChange, false)
+  loadOption('accessibilityPatches', accessibilityPatchesChange, true)
   loadOption('showSpoilers', spoilersChange, true)
   setTimeout(function() {
     const els = document.getElementsByClassName('tooltip')

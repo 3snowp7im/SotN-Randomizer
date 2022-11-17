@@ -13,6 +13,7 @@ const randomizeStats = require('./src/randomize_stats')
 const randomizeRelics = require('./src/randomize_relics')
 const randomizeItems = require('./src/randomize_items')
 const randomizeMusic = require('./src/randomize_music')
+const applyAccessibilityPatches = require('./src/accessibility_patches')
 const relics = require('./src/relics')
 const util = require('./src/util')
 let version = require('./package').version
@@ -582,6 +583,11 @@ const yargs = require('yargs')
     describe: 'Enable tournament mode',
     type: 'boolean',
   })
+  .option('disable-accessibility-patches', {
+    alias: 'a',
+    describe: 'Disable accessibility patches',
+    type: 'boolean',
+  })
   .option('no-seed', {
     alias: 'n',
     describe: 'Disable seed generation',
@@ -1034,6 +1040,11 @@ if ('inBin' in argv) {
         console.error('Checksum mismatch.')
         process.exit(1)
       }
+    }
+    if (!argv.disableAccessibilityPatches) {
+      // Apply accessibility patches
+      const result = applyAccessibilityPatches()
+      check.apply(result)
     }
     // Show url if not provided as arg.
     if ('url' in argv && !argv._[0] && !argv.quiet) {
