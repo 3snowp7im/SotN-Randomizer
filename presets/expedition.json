@@ -9,8 +9,7 @@
   "inherits": "nimble",
   "relicLocationsExtension": "equipment",
   "complexityGoal": {
-    "min": 4,
-    "max": 6,
+    "min": 8,
     "goals": [
       "Holy glasses + Heart of Vlad + Tooth of Vlad + Rib of Vlad + Ring of Vlad + Eye of Vlad"
     ]
@@ -27,5 +26,10 @@
     "item": "Big heart",
     "index": 17,
     "replacement": "Stopwatch"
+  }, {
+    "comment": "Place Library Card in Reverce Entrance",
+    "zone": "RNO3",
+    "item": "Hammer",
+    "replacement": "Library card"
   }]
 }
