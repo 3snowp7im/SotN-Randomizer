@@ -13,7 +13,7 @@
   const PresetBuilder = util.PresetBuilder
 
   // Create PresetBuilder.
-  const builder = PresetBuilder.fromJSON({"metadata":{"id":"expedition","name":"Expedition","description":"Adventure locations with Nimble build.","author":"eldri7ch","weight":-100},"inherits":"nimble","relicLocationsExtension":"equipment","complexityGoal":{"min":4,"max":6,"goals":["Holy glasses + Heart of Vlad + Tooth of Vlad + Rib of Vlad + Ring of Vlad + Eye of Vlad"]},"itemLocations":[{"comment":"Place Stopwatch in the Clock Room","zone":"NO0","item":"Big heart","index":16,"replacement":"Stopwatch"},{"comment":"Place Stopwatch in the Clock Room","zone":"NO0","item":"Big heart","index":17,"replacement":"Stopwatch"}]})
+  const builder = PresetBuilder.fromJSON({"metadata":{"id":"expedition","name":"Expedition","description":"Adventure locations with Nimble build.","author":"eldri7ch","weight":-100},"inherits":"nimble","relicLocationsExtension":"equipment","complexityGoal":{"min":8,"goals":["Holy glasses + Heart of Vlad + Tooth of Vlad + Rib of Vlad + Ring of Vlad + Eye of Vlad"]},"itemLocations":[{"comment":"Place Stopwatch in the Clock Room","zone":"NO0","item":"Big heart","index":16,"replacement":"Stopwatch"},{"comment":"Place Stopwatch in the Clock Room","zone":"NO0","item":"Big heart","index":17,"replacement":"Stopwatch"},{"comment":"Place Library Card in Reverce Entrance","zone":"RNO3","item":"Hammer","replacement":"Library card"}]})
 
   // Export.
   const preset = builder.build()
