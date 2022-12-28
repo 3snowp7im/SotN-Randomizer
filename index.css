@@ -266,7 +266,7 @@ body.menu {
     background: transparent;
 }
 
-.menu select:focus:hover {
+.menu select {
     background: rgb(32,32,75,1);
 }
 
