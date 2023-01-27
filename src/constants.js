@@ -592,45 +592,45 @@
     FINALIZE:  4,
   }
 
-  const MUSIC = [
-    0x01, // Lost Painting
-    0x03, // Curse Zone
-    0x05, // Requiem for the Gods
-    0x07, // Rainbow Cemetary
-    0x09, // Wood Carving Partita
-    0x0b, // Crystal Teardrops
-    0x0d, // Marble Gallery
-    0x0f, // Dracula's Castle
-    0x11, // The Tragic Prince
-    0x13, // Tower of Mist
-    0x15, // Door of Holy Spirits
-    0x17, // Dance of Pales
-    0x19, // Abandoned Pit
-    0x1b, // Heavenly Doorway
-    0x1d, // Festival of Servants
-    0x23, // Wandering Ghosts
-    0x25, // The Door to the Abyss
-    0x2e, // Dance of Gold
-    0x30, // Enchanted Banquet
-    0x34, // Death Ballad
-    0x38, // Final Tocatta
-    // 0x1f, // Dance of Illusions
-    // 0x21, // Prologue
-    // 0x27, // Metamorphosis
-    // 0x28, // Metamorphosis II
-    // 0x29, // Metamorphosis III
-    // 0x2a, // Howling Wind
-    // 0x32, // Prayer
-    // 0x36, // Blood Relations
-    // 0x3a, // Black Banquet
-    // 0x3c, // I Am the Wind
-    // 0x3d, // Silence
-    // 0x3e, // Land of Benediction
-    // 0x3f, // Nocturne
-    // 0x40, // Moonlight Nocturne
-    // 0x41, // Spoken
-    // 0x42, // Spoken
-  ]
+  const MUSIC = {
+    LOST_PAINTING: 0x01, // Lost Painting
+    CURSE_ZONE: 0x03, // Curse Zone
+    REQUIEM_FOR_THE_GODS: 0x05, // Requiem for the Gods
+    RAINBOW_CEMETARY: 0x07, // Rainbow Cemetary
+    WOOD_CARVING_PARTITA: 0x09, // Wood Carving Partita
+    CRYSTAL_TEARDROPS: 0x0b, // Crystal Teardrops
+    MARBLE_GALLERY: 0x0d, // Marble Gallery
+    DRACULAS_CASTLE: 0x0f, // Dracula's Castle
+    THE_TRAGIC_PRINCE: 0x11, // The Tragic Prince
+    TOWER_OF_MIST: 0x13, // Tower of Mist
+    DOOR_OF_HOLY_SPIRITS: 0x15, // Door of Holy Spirits
+    DANCE_OF_PALES: 0x17, // Dance of Pales
+    ABANDONED_PIT: 0x19, // Abandoned Pit
+    HEAVENLY_DOORWAY: 0x1b, // Heavenly Doorway
+    FESTIVAL_OF_SERVANTS: 0x1d, // Festival of Servants
+    WANDERING_GHOSTS: 0x23, // Wandering Ghosts
+    THE_DOOR_TO_THE_ABYSS: 0x25, // The Door to the Abyss
+    DANCE_OF_GOLD: 0x2e, // Dance of Gold
+    ENCHANTED_BANQUET: 0x30, // Enchanted Banquet
+    DEATH_BALLAD: 0x34, // Death Ballad
+    FINAL_TOCCATA: 0x38, // Final Tocatta
+    // DANCE_OF_ILLUSIONS: 0x1f, // Dance of Illusions
+    // PROLOGUE: 0x21, // Prologue
+    // METAMORPHOSIS: 0x27, // Metamorphosis
+    // METAMORPHOSIS_II: 0x28, // Metamorphosis II
+    // METAMORPHOSIS_III: 0x29, // Metamorphosis III
+    // HOWLING_WIND: 0x2a, // Howling Wind
+    // PRAYER: 0x32, // Prayer
+    // BLOOD_RELATIONS: 0x36, // Blood Relations
+    // BLACK_BANQUET: 0x3a, // Black Banquet
+    // I_AM_THE_WIND: 0x3c, // I Am the Wind
+    // SILENCE: 0x3d, // Silence
+    // LAND_OF_BENEDICTION: 0x3e, // Land of Benediction
+    // NOCTURNE: 0x3f, // Nocturne
+    // MOONLIGHT_NOCTURNE: 0x40, // Moonlight Nocturne
+    // SPOKEN: 0x41, // Spoken
+    // SPOKEN: 0x42, // Spoken
+  }
 
   const HAND_TYPE = {
     SHORT_SWORD: 0x00,
