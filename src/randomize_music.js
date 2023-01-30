@@ -145,15 +145,15 @@
   function randomizeMusic(rng, options) {
     const data = new util.checked()
     if (options.music) {
-      let music = musicBySong;
+      let music = Object.values(musicBySong);
       if (options.turkeyMode)
-        music = musicByArea;
+        music = Object.values(musicByArea);
       const songSrc = Object.values(constants.MUSIC)
       const songPool = songSrc.slice()
       while (songPool.length < music.length)
         songPool.push(songSrc[Math.floor(rng() * songSrc.length)])
       const randSongs = util.shuffled(rng, songPool)
-      for (const zone of Object.values(music)) {
+      for (const zone of music) {
         const randSong = randSongs.pop()
         for (const addr of zone) {
           data.writeChar(addr, randSong)
