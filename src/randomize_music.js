@@ -151,7 +151,7 @@
       } else {
         music = Object.values(musicBySong)
       }
-      const songSrc = Object.getOwnPropertyNames(constants.MUSIC)
+      const songSrc = Object.values(constants.MUSIC)
       const songPool = songSrc.slice()
       while (songPool.length < music.length) {
         songPool.push(songSrc[Math.floor(rng() * songSrc.length)])
