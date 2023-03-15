@@ -30,7 +30,7 @@ const optionsHelp = [
   '  "m" for music',
   '  "w" for writes (`--help writes`)',
   '  "k" for turkey mode',
-  '  "t" for tournament mode (disables spoilers)',
+  '  "t" for tournament mode (`--help tournament`)',
   '',
   'The default randomization mode is "'
     +  constants.defaultOptions
@@ -400,6 +400,13 @@ const writesHelp = [
   '  $0 --opt w:0x0abb28:0x00:0x0abb2a:0x01,dpt',
 ].join('\n')
 
+const tournamentHelp = [
+  'Tournament mode applies the following:',
+  '- Spoiler log verbosity maximum is 2 (seed and starting equipment).',
+  '- The library shop relic is free.',
+  '- The clock room statue is always open.',
+].join('\n')
+
 const presetHelp = [
   'Presets specify collection of randomization options. A preset is enabled',
   'by using argument syntax.',
@@ -580,7 +587,7 @@ const yargs = require('yargs')
   })
   .option('tournament', {
     alias: 't',
-    describe: 'Enable tournament mode',
+    describe: 'Enable tournament mode (`--help tournament`)',
     type: 'boolean',
   })
   .option('disable-accessibility-patches', {
@@ -644,6 +651,7 @@ if ('help' in argv) {
     rewards: rewardsHelp,
     relics: relicsHelp,
     writes: writesHelp,
+    tournament: tournamentHelp,
     preset: presetHelp,
   }
   const script = path.basename(process.argv[1])
@@ -1013,13 +1021,15 @@ if ('inBin' in argv) {
           seed,
           3,
         ))
-        result = randomizeMusic(rng, applied)
-        check.apply(result)
+        check.apply(randomizeMusic(rng, applied))
+        if (options.tournamentMode) {
+          // Apply tournament mode patches.
+          check.apply(util.applyTournamentModePatches())
+        }
         // Apply writes.
-        result = util.applyWrites(rng, applied)
-        check.apply(result)
+        check.apply(util.applyWrites(rng, applied))
       } catch (err) {
-        console.error('Seed:  ' + seed)
+        console.error('Seed: ' + seed)
         if (errors.isError(err)) {
           console.error('Error: ' + err.message)
         } else {
@@ -1042,9 +1052,8 @@ if ('inBin' in argv) {
       }
     }
     if (!argv.disableAccessibilityPatches) {
-      // Apply accessibility patches
-      const result = applyAccessibilityPatches()
-      check.apply(result)
+      // Apply accessibility patches.
+      check.apply(applyAccessibilityPatches())
     }
     // Show url if not provided as arg.
     if ('url' in argv && !argv._[0] && !argv.quiet) {

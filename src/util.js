@@ -4522,6 +4522,16 @@
     })
   }
 
+  function applyTournamentModePatches() {
+    const data = new checked()
+    // Patch shop relic cost.
+    data.writeWord(0x047a3098, 0x00000000)
+    // Open clock statue.
+    data.writeWord(0x04951d4c, 0x3c020002)
+    data.writeWord(0x04fcf264, 0x3c020002)
+    return data
+  }
+
   function randomizeRelics(
     version,
     applied,
@@ -5001,6 +5011,7 @@
     enemyFromIdString: enemyFromIdString,
     Preset: Preset,
     PresetBuilder: PresetBuilder,
+    applyTournamentModePatches: applyTournamentModePatches,
     randomizeRelics: randomizeRelics,
     randomizeItems: randomizeItems,
     applyWrites: applyWrites,

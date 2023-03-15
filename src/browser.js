@@ -636,11 +636,13 @@
           seed,
           3,
         ))
-        result = randomizeMusic(rng, applied)
-        check.apply(result)
+        check.apply(randomizeMusic(rng, applied))
+        // Apply tournament mode patches.
+        if (options.tournamentMode) {
+          check.apply(util.applyTournamentModePatches())
+        }
         // Apply writes.
-        result = util.applyWrites(rng, applied)
-        check.apply(result)
+        check.apply(util.applyWrites(rng, applied))
         util.setSeedText(
           check,
           seed,
@@ -654,10 +656,9 @@
         if (expectChecksum && expectChecksum !== checksum) {
           throw new errors.VersionError()
         }
-        // Apply accessibility patches
+        // Apply accessibility patches.
         if (elems.accessibilityPatches.checked) {
-          result = applyAccessibilityPatches()
-          check.apply(result)
+          check.apply(applyAccessibilityPatches())
         }
         return util.finalizeData(
           seed,
