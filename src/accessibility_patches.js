@@ -58,7 +58,7 @@
   }
 
   function patchScyllaDoor(data) {
-    data.writeChar(0x061ce8ec, 0xCE)
+    data.writeChar(0x061ce8ec, 0xce)
   }
 
   function applyAccessibilityPatches() {
