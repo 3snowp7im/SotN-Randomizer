@@ -91,6 +91,7 @@
     patchClockTowerPuzzleGate(data)
     patchOlroxDeath(data)
     patchScyllaDoor(data)
+    patchMinotaurWerewolf(data)
     return data
   }
 
