@@ -545,12 +545,6 @@
     data.writeChar(0x119af4, 0x00)
   }
 
-  function patchClockTowerPuzzleGate(data) {
-    // Fix researched by MottZilla.
-    data.writeChar(0x05574dee, 0x80)
-    data.writeChar(0x055a110c, 0xe0)
-  }
-
   function patchRelicsMenu(data) {
     // If relic locations are extended, the relic pool is padded out with the
     // familiars disabled in the NTSC-U release. To make them usable, they will
@@ -1418,8 +1412,6 @@
       // Apply extension specific patches.
       switch (options.relicLocations.extension) {
       case constants.EXTENSION.EQUIPMENT:
-        // Patch Clock Tower puzzle gate.
-        patchClockTowerPuzzleGate(data)
       case constants.EXTENSION.SPREAD:
       case constants.EXTENSION.GUARDED:
         // Patch relics menu.

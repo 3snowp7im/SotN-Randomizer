@@ -43,9 +43,22 @@
     }
   }
 
+  // Patches researched by MottZilla.
   function patchPowerOfSireFlashing(data) {
-    // Fix researched by MottZilla.
     data.writeWord(0x00136580, 0x03e00008)
+  }
+
+  function patchClockTowerPuzzleGate(data) {
+    data.writeChar(0x05574dee, 0x80)
+    data.writeChar(0x055a110c, 0xe0)
+  }
+
+  function patchOlroxDeath(data) {
+    data.writeChar(0x05fe6914, 0x80)
+  }
+
+  function patchScyllaDoor(data) {
+    data.writeChar(0x061ce8ec, 0xCE)
   }
 
   function applyAccessibilityPatches() {
@@ -55,6 +68,9 @@
     patchCLUT(data, POWER_OF_MIST_CLUT, POWER_OF_MIST_COLORS)
     patchCLUT(data, POWER_OF_WOLF_CLUT, POWER_OF_WOLF_COLORS)
     patchCLUT(data, FIRE_OF_BAT_CLUT, FIRE_OF_BAT_COLORS)
+    patchClockTowerPuzzleGate(data)
+    patchOlroxDeath(data)
+    patchScyllaDoor(data)
     return data
   }
 
