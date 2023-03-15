@@ -24,7 +24,6 @@ function randomizeWorker() {
       url + 'build/presets/og.js',
       url + 'build/presets/guarded-og.js',
       url + 'build/presets/speedrun.js',
-      url + 'build/presets/bat-master.js',
       url + 'build/presets/lycanthrope.js',
       url + 'build/presets/warlock.js',
       url + 'build/presets/nimble.js',

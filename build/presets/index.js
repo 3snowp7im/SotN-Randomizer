@@ -11,7 +11,6 @@
       require('./og'),
       require('./guarded-og'),
       require('./speedrun'),
-      require('./bat-master'),
       require('./lycanthrope'),
       require('./warlock'),
       require('./nimble'),
