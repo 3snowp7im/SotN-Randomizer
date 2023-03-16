@@ -69,7 +69,7 @@
     offset = data.writeWord(offset, 0x00000000)
     offset = data.writeWord(offset, 0x8c420000)
     offset = data.writeWord(offset, 0x00000000)
-    offset = data.writeWord(offset, 0x2442FF80)
+    offset = data.writeWord(offset, 0x2442ff80)
     offset = data.writeWord(offset, 0x00000000)
     offset = data.writeWord(offset, 0x04400004)
     offset = data.writeWord(offset, 0x34020001)
