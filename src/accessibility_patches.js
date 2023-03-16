@@ -60,6 +60,26 @@
   function patchScyllaDoor(data) {
     data.writeChar(0x061ce8ec, 0xce)
   }
+  
+  function patchMinotaurWerewolf(data) {
+    let offset = 0x0613a640
+    data.writeWord(0x061294dc, 0x0806d732)
+    offset = data.writeWord(offset, 0x3c028007)
+    offset = data.writeWord(offset, 0x34423484)
+    offset = data.writeWord(offset, 0x00000000)
+    offset = data.writeWord(offset, 0x8c420000)
+    offset = data.writeWord(offset, 0x00000000)
+    offset = data.writeWord(offset, 0x2442FF80)
+    offset = data.writeWord(offset, 0x00000000)
+    offset = data.writeWord(offset, 0x04400004)
+    offset = data.writeWord(offset, 0x34020001)
+    offset = data.writeWord(offset, 0x00000000)
+    offset = data.writeWord(offset, 0xac82002c)
+    offset = data.writeWord(offset, 0x00000000)
+    offset = data.writeWord(offset, 0x3c028007)
+    offset = data.writeWord(offset, 0x944233da)
+    offset = data.writeWord(offset, 0x08069bc3)
+  }
 
   function applyAccessibilityPatches() {
     const data = new util.checked()
@@ -71,6 +91,7 @@
     patchClockTowerPuzzleGate(data)
     patchOlroxDeath(data)
     patchScyllaDoor(data)
+    patchMinotaurWerewolf(data)
     return data
   }
 
