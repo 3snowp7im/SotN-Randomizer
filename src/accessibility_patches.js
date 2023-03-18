@@ -59,19 +59,29 @@
 
   function patchScyllaDoor(data) {
     data.writeChar(0x061ce8ec, 0xce)
+    data.writeWord(0x061cb734, 0x304200fe)
   }
   
   function patchMinotaurWerewolf(data) {
     let offset = 0x0613a640
     data.writeWord(0x061294dc, 0x0806d732)
     offset = data.writeWord(offset, 0x3c028007)
-    offset = data.writeWord(offset, 0x34423484)
+    offset = data.writeWord(offset, 0x34423404)
+    offset = data.writeWord(offset, 0x34030005)
+    offset = data.writeWord(offset, 0x90420000)
     offset = data.writeWord(offset, 0x00000000)
-    offset = data.writeWord(offset, 0x8c420000)
+    offset = data.writeWord(offset, 0x1043000b)
+    offset = data.writeWord(offset, 0x34030018)
     offset = data.writeWord(offset, 0x00000000)
-    offset = data.writeWord(offset, 0x2442ff80)
+    offset = data.writeWord(offset, 0x10430008)
+    offset = data.writeWord(offset, 0x34030009)
     offset = data.writeWord(offset, 0x00000000)
-    offset = data.writeWord(offset, 0x04400004)
+    offset = data.writeWord(offset, 0x10430005)
+    offset = data.writeWord(offset, 0x34030019)
+    offset = data.writeWord(offset, 0x00000000)
+    offset = data.writeWord(offset, 0x10430002)
+    offset = data.writeWord(offset, 0x00000000)
+    offset = data.writeWord(offset, 0x0806d747)
     offset = data.writeWord(offset, 0x34020001)
     offset = data.writeWord(offset, 0x00000000)
     offset = data.writeWord(offset, 0xac82002c)
