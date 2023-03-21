@@ -2987,6 +2987,8 @@
     this.stats = true
     // Music randomization.
     this.music = true
+    // Starting zone randomization.
+    this.startingZone = false
     // Turkey mode.
     this.turkey = true
     // Arbitrary writes.

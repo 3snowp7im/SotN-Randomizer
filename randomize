@@ -13,6 +13,7 @@ const randomizeStats = require('./src/randomize_stats')
 const randomizeRelics = require('./src/randomize_relics')
 const randomizeItems = require('./src/randomize_items')
 const randomizeMusic = require('./src/randomize_music')
+const randomizeStartingZone = require('./src/randomize_starting_zone')
 const applyAccessibilityPatches = require('./src/accessibility_patches')
 const relics = require('./src/relics')
 const util = require('./src/util')
@@ -1022,6 +1023,14 @@ if ('inBin' in argv) {
           3,
         ))
         check.apply(randomizeMusic(rng, applied))
+        // Randomize starting zone.
+        rng = new require('seedrandom')(util.saltSeed(
+          version,
+          options,
+          seed,
+          4,
+        ))
+        check.apply(randomizeStartingZone(rng, applied))
         if (options.tournamentMode) {
           // Apply tournament mode patches.
           check.apply(util.applyTournamentModePatches())

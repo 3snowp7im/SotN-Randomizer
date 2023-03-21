@@ -8,6 +8,7 @@
   const randomizeItems = sotnRando.randomizeItems
   const randomizeRelics = sotnRando.randomizeRelics
   const randomizeMusic = sotnRando.randomizeMusic
+  const randomizeStartingZone = sotnRando.randomizeStartingZone
   const applyAccessibilityPatches = sotnRando.applyAccessibilityPatches
   const relics = sotnRando.relics
 
@@ -627,16 +628,24 @@
           newNames,
           getUrl(),
         )
-      }).then(function(result) {
+      })
+      .then(function(result) {
         check.apply(result.data)
         util.mergeInfo(info, result.info)
-        const rng = new Math.seedrandom(util.saltSeed(
+        let rng = new Math.seedrandom(util.saltSeed(
           version,
           options,
           seed,
           3,
         ))
         check.apply(randomizeMusic(rng, applied))
+        rng = new Math.seedrandom(util.saltSeed(
+          version,
+          options,
+          seed,
+          4,
+        ))
+        check.apply(randomizeStartingZone(rng, applied))
         // Apply tournament mode patches.
         if (options.tournamentMode) {
           check.apply(util.applyTournamentModePatches())
