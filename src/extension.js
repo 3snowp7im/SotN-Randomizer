@@ -500,7 +500,7 @@
     tileIndex: 0,
   }, {
     name: LOCATION.DRAGON_HELM,
-    extension: EXTENSION.SPREAD,
+    extension: EXTENSION.EQUIPMENT,
     itemId: 214,
     tileIndex: 0,
     asRelic: {
@@ -508,7 +508,7 @@
     },
   }, {
     name: LOCATION.SHOTEL,
-    extension: EXTENSION.SPREAD,
+    extension: EXTENSION.EQUIPMENT,
     itemId: 147, // Actually the hammer.
     tileIndex: 2,
     asRelic: {
@@ -516,7 +516,7 @@
     },
   }, {
     name: LOCATION.STAUROLITE,
-    extension: EXTENSION.SPREAD,
+    extension: EXTENSION.EQUIPMENT,
     itemId: 230,
     tileIndex: 0,
     asRelic: {
@@ -524,7 +524,7 @@
     },
   }, {
     name: LOCATION.BADELAIRE,
-    extension: EXTENSION.EQUIPMENT,
+    extension: EXTENSION.SPREAD,
     itemId: 125,
     tileIndex: 0,
     asRelic: {
@@ -532,7 +532,7 @@
     },
   }, {
     name: LOCATION.FORBIDDEN_LIBRARY_OPAL,
-    extension: EXTENSION.EQUIPMENT,
+    extension: EXTENSION.SPREAD,
     itemId: 237,
     tileIndex: 0,
     asRelic: {
