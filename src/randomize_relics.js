@@ -498,6 +498,7 @@
           return pickRelicLocations(rng, {
             locations: newLocations,
             relics: remainingRelics,
+            blocked: pool.blocked,
           }, locations, newMapping)
         }
       }
