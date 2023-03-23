@@ -21,12 +21,12 @@
   }, {
     "location": "Echo of Bat",
     "locks": [
-      "Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo"
+      "Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card"
     ]
   }, {
     "location": "Force of Echo",
     "locks": [
-      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo"
+      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card + Bat Card"
     ]
   }, {
     "location": "Power of Wolf",
@@ -51,12 +51,12 @@
   }, {
     "location": "Gas Cloud",
     "locks": [
-      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo"
+      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card + Bat Card"
     ]
   }, {
     "location": "Gravity Boots",
     "locks": [
-      "Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo"
+      "Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card"
     ]
   }, {
     "location": "Leap Stone",
@@ -68,7 +68,7 @@
   }, {
     "location": "Holy Symbol",
     "locks": [
-      "Jewel of Open + Merman Statue + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo"
+      "Jewel of Open + Merman Statue + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card"
     ]
   }, {
     "location": "Merman Statue",
@@ -93,7 +93,7 @@
   }, {
     "location": "Demon Card",
     "locks": [
-      "Jewel of Open + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo"
+      "Jewel of Open + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card"
     ],
     "escapeRequires": [
       "Soul of Bat"
@@ -101,52 +101,52 @@
   }, {
     "location": "Sword Card",
     "locks": [
-      "Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo"
+      "Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card"
     ]
   }, {
     "location": "Heart of Vlad",
     "locks": [
-      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo"
+      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card + Bat Card"
     ]
   }, {
     "location": "Tooth of Vlad",
     "locks": [
-      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo"
+      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card + Bat Card"
     ]
   }, {
     "location": "Rib of Vlad",
     "locks": [
-      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo"
+      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card + Bat Card"
     ]
   }, {
     "location": "Ring of Vlad",
     "locks": [
-      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo"
+      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card + Bat Card"
     ]
   }, {
     "location": "Eye of Vlad",
     "locks": [
-      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo"
+      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card + Bat Card"
     ]
   }, {
     "location": "Spike Breaker",
     "locks": [
-      "Jewel of Open + Soul of Bat + Echo of Bat + Spike Breaker + Fire of Bat + Force of Echo"
+      "Jewel of Open + Soul of Bat + Echo of Bat + Spike Breaker + Fire of Bat + Force of Echo + Bat Card"
     ]
   }, {
     "location": "Gold ring",
     "locks": [
-      "Jewel of Open + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo"
+      "Jewel of Open + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card"
     ]
   }, {
     "location": "Silver ring",
     "locks": [
-      "Jewel of Open + Spike Breaker + Form of Mist + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo"
+      "Jewel of Open + Spike Breaker + Form of Mist + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card"
     ]
   }, {
     "location": "Holy glasses",
     "locks": [
-      "Silver ring + Gold ring + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo"
+      "Silver ring + Gold ring + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card"
     ],
     "escapeRequires": [
       "Soul of Bat"
@@ -159,7 +159,7 @@
   }, {
     "location": "Mormegil",
     "locks": [
-      "Jewel of Open + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo"
+      "Jewel of Open + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card"
     ],
     "escapeRequires": [
       "Soul of Bat"
@@ -167,137 +167,137 @@
   }, {
     "location": "Dark Blade",
     "locks": [
-      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo"
+      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card + Bat Card"
     ]
   }, {
     "location": "Ring of Arcana",
     "locks": [
-      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo"
+      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card + Bat Card"
     ]
   }, {
     "location": "Trio",
     "locks": [
-      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo"
+      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card + Bat Card"
     ]
   }, {
     "location": "Holy mail",
     "locks": [
-      "Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo"
+      "Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card"
     ]
   }, {
     "location": "Jewel sword",
     "locks": [
-      "Soul of Wolf + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo"
+      "Soul of Wolf + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card"
     ]
   }, {
     "location": "Mystic pendant",
     "locks": [
-      "Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo"
+      "Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card"
     ]
   }, {
     "location": "Ankh of Life",
     "locks": [
-      "Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo"
+      "Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card"
     ]
   }, {
     "location": "Morningstar",
     "locks": [
-      "Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo"
+      "Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card"
     ]
   }, {
     "location": "Goggles",
     "locks": [
-      "Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo"
+      "Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card"
     ]
   }, {
     "location": "Silver plate",
     "locks": [
-      "Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo"
+      "Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card"
     ]
   }, {
     "location": "Cutlass",
     "locks": [
-      "Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo"
+      "Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card"
     ]
   }, {
     "location": "Platinum mail",
     "locks": [
-      "Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo"
+      "Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card"
     ]
   }, {
     "location": "Falchion",
     "locks": [
-      "Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo"
+      "Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card"
     ]
   }, {
     "location": "Gold plate",
     "locks": [
-      "Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo"
+      "Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card"
     ]
   }, {
     "location": "Bekatowa",
     "locks": [
-      "Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo"
+      "Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card"
     ]
   }, {
     "location": "Holy rod",
     "locks": [
-      "Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo"
+      "Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card"
     ]
   }, {
     "location": "Library Onyx",
     "locks": [
-      "Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo"
+      "Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card"
     ]
   }, {
     "location": "Alucart sword",
     "locks": [
-      "Cube of Zoe + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo"
+      "Cube of Zoe + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card"
     ]
   }, {
     "location": "Broadsword",
     "locks": [
-      "Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo"
+      "Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card"
     ]
   }, {
     "location": "Estoc",
     "locks": [
-      "Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo"
+      "Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card"
     ]
   }, {
     "location": "Olrox Garnet",
     "locks": [
-      "Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo"
+      "Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card"
     ]
   }, {
     "location": "Blood cloak",
     "locks": [
-      "Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo"
+      "Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card"
     ]
   }, {
     "location": "Shield rod",
     "locks": [
-      "Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo"
+      "Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card"
     ]
   }, {
     "location": "Knight shield",
     "locks": [
-      "Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo"
+      "Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card"
     ]
   }, {
     "location": "Holy sword",
     "locks": [
-      "Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo"
+      "Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card"
     ]
   }, {
     "location": "Bandanna",
     "locks": [
-      "Jewel of Open + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo"
+      "Jewel of Open + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card"
     ]
   }, {
     "location": "Secret boots",
     "locks": [
-      "Jewel of Open + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo"
+      "Jewel of Open + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card"
     ]
   }, {
     "location": "Nunchaku",
@@ -307,17 +307,17 @@
   }, {
     "location": "Knuckle duster",
     "locks": [
-      "Jewel of Open + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo"
+      "Jewel of Open + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card"
     ]
   }, {
     "location": "Caverns Onyx",
     "locks": [
-      "Jewel of Open + Merman Statue + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo"
+      "Jewel of Open + Merman Statue + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card"
     ]
   }, {
     "location": "Combat knife",
     "locks": [
-      "Jewel of Open + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo"
+      "Jewel of Open + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card"
     ],
     "escapeRequires": [
       "Soul of Bat"
@@ -325,8 +325,8 @@
   }, {
     "location": "Ring of Ares",
     "locks": [
-      "Jewel of Open + Demon Card + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo",
-      "Jewel of Open + Nosedevil Card + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo"
+      "Jewel of Open + Demon Card + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card",
+      "Jewel of Open + Nosedevil Card + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card"
     ],
     "escapeRequires": [
       "Soul of Bat"
@@ -334,7 +334,7 @@
   }, {
     "location": "Bloodstone",
     "locks": [
-      "Jewel of Open + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo"
+      "Jewel of Open + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card"
     ],
     "escapeRequires": [
       "Soul of Bat"
@@ -342,7 +342,7 @@
   }, {
     "location": "Icebrand",
     "locks": [
-      "Jewel of Open + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo"
+      "Jewel of Open + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card"
     ],
     "comment": "Access must also give at least Leap Stone",
     "escapeRequires": [
@@ -351,7 +351,7 @@
   }, {
     "location": "Walk armor",
     "locks": [
-      "Jewel of Open + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo"
+      "Jewel of Open + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card"
     ],
     "escapeRequires": [
       "Soul of Bat"
@@ -364,17 +364,17 @@
   }, {
     "location": "Talisman",
     "locks": [
-      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo"
+      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card + Bat Card"
     ]
   }, {
     "location": "Katana",
     "locks": [
-      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo"
+      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card + Bat Card"
     ]
   }, {
     "location": "Goddess shield",
     "locks": [
-      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo"
+      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card + Bat Card"
     ]
   }, {
     "location": "Twilight cloak",
@@ -384,47 +384,47 @@
   }, {
     "location": "Talwar",
     "locks": [
-      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo"
+      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card + Bat Card"
     ]
   }, {
     "location": "Sword of Dawn",
     "locks": [
-      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo"
+      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card + Bat Card"
     ]
   }, {
     "location": "Bastard sword",
     "locks": [
-      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo"
+      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card + Bat Card"
     ]
   }, {
     "location": "Royal cloak",
     "locks": [
-      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo"
+      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card + Bat Card"
     ]
   }, {
     "location": "Lightning mail",
     "locks": [
-      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo"
+      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card + Bat Card"
     ]
   }, {
     "location": "Moon rod",
     "locks": [
-      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo"
+      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card + Bat Card"
     ]
   }, {
     "location": "Sunstone",
     "locks": [
-      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo"
+      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card + Bat Card"
     ]
   }, {
     "location": "Luminus",
     "locks": [
-      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo"
+      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card + Bat Card"
     ]
   }, {
     "location": "Dragon helm",
     "locks": [
-      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo"
+      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card + Bat Card"
     ]
   }, {
     "location": "Shotel",
@@ -439,72 +439,72 @@
   }, {
     "location": "Badelaire",
     "locks": [
-      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo"
+      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card + Bat Card"
     ]
   }, {
     "location": "Forbidden Library Opal",
     "locks": [
-      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo"
+      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card + Bat Card"
     ]
   }, {
     "location": "Reverse Caverns Diamond",
     "locks": [
-      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo"
+      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card + Bat Card"
     ]
   }, {
     "location": "Reverse Caverns Opal",
     "locks": [
-      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo"
+      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card + Bat Card"
     ]
   }, {
     "location": "Reverse Caverns Garnet",
     "locks": [
-      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo"
+      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card + Bat Card"
     ]
   }, {
     "location": "Osafune katana",
     "locks": [
-      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo"
+      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card + Bat Card"
     ]
   }, {
     "location": "Alucard shield",
     "locks": [
-      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo"
+      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card + Bat Card"
     ]
   }, {
     "location": "Alucard sword",
     "locks": [
-      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo"
+      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card + Bat Card"
     ]
   }, {
     "location": "Necklace of J",
     "locks": [
-      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo"
+      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card + Bat Card"
     ]
   }, {
     "location": "Floating Catacombs Diamond",
     "locks": [
-      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo"
+      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card + Bat Card"
     ]
   }, {
     "location": "Sword of Hador",
     "locks": [
-      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo"
+      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card + Bat Card"
     ]
   }, {
     "location": "Alucard mail",
     "locks": [
-      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo"
+      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card + Bat Card"
     ]
   }, {
     "location": "Gram",
     "locks": [
-      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo"
+      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card + Bat Card"
     ]
   }, {
     "location": "Fury plate",
     "locks": [
-      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo"
+      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card + Bat Card"
     ]
   }],
   "complexityGoal": {
@@ -517,7 +517,7 @@
 		"type": "word",
 		"address": "0x000c22a8",
 		"value": "0x27BDFFE0",
-		"comment": "Start of Bat Movement Speed code block"
+		"comment": "Start of Bat Movement Speed and Bat Familiar XP code block"
 	},
 	{
 		"type": "word",
@@ -538,6 +538,42 @@
 	{
 		"type": "word",
 		"value": "0x00000000"
+	},
+	{
+		"type": "word",
+		"value": "0x3C048009"
+	},
+	{
+		"type": "word",
+		"value": "0x90847418"
+	},
+	{
+		"type": "word",
+		"value": "0x00000000"
+	},
+	{
+		"type": "word",
+		"value": "0x10800005"
+	},
+	{
+		"type": "word",
+		"value": "0x00000000"
+	},
+	{
+		"type": "word",
+		"value": "0x3C048007"
+	},
+	{
+		"type": "word",
+		"value": "0x348433E4"
+	},
+	{
+		"type": "word",
+		"value": "0x00000000"
+	},
+	{
+		"type": "word",
+		"value": "0xAC800000"
 	},
 	{
 		"type": "word",
@@ -565,7 +601,27 @@
 	},
 	{
 		"type": "word",
-		"value": "0x14430051"
+		"value": "0x14430056"
+	},
+	{
+		"type": "word",
+		"value": "0x00000000"
+	},
+	{
+		"type": "word",
+		"value": "0x3C048007"
+	},
+	{
+		"type": "word",
+		"value": "0x90842EFC"
+	},
+	{
+		"type": "word",
+		"value": "0x00000000"
+	},
+	{
+		"type": "word",
+		"value": "0x14800051"
 	},
 	{
 		"type": "word",
@@ -929,13 +985,78 @@
 	},
 	{
 		"type": "word",
+		"value": "0x00000000"
+	},
+	{
+		"type": "word",
+		"value": "0x00240821"
+	},
+	{
+		"type": "word",
+		"value": "0x14800008"
+	},
+	{
+		"type": "word",
+		"value": "0x00000000"
+	},
+	{
+		"type": "word",
+		"value": "0x34040004"
+	},
+	{
+		"type": "word",
+		"value": "0x00000000"
+	},
+	{
+		"type": "word",
+		"value": "0x00441021"
+	},
+	{
+		"type": "word",
+		"value": "0x00000000"
+	},
+	{
+		"type": "word",
+		"value": "0x00000000"
+	},
+	{
+		"type": "word",
+		"value": "0x00000000"
+	},
+	{
+		"type": "word",
+		"value": "0x34040000"
+	},
+	{
+		"type": "word",
+		"value": "0xAC227C48"
+	},
+	{
+		"type": "word",
+		"value": "0x0803F8D1"
+	},
+	{
+		"type": "word",
+		"value": "0x00000000"
+	},
+	{
+		"type": "word",
 		"address": "0x0134cc4",
 		"value": "0x0802ce4c"
 	},
 	{
 		"type": "word",
+		"value": "0x00000000"
+	},
+	{
+		"type": "word",
+		"address": "0x117DA8",
+		"value": "0x0802CEC2"
+	},
+	{
+		"type": "word",
 		"value": "0x00000000",
-		"comment": "End of Bat Movement Speed code block"
+		"comment": "End of Bat Movement Speed and Bat Familiar XP code block"
 	},
 	{
 		"type": "word",
@@ -1194,6 +1315,21 @@
 	},
 	{
 		"type": "word",
+		"address": "0x044CF8C4",
+		"value": "0x3C028003",
+		"comment": "Start of Turning on Spike Room Lights code block"
+	},
+	{
+		"type": "word",
+		"value": "0x3442BE2E"
+	},
+	{
+		"type": "word",
+		"value": "0xA4490000",
+		"comment": "End of Turning on Spike Room Lights code block"
+	},
+	{
+		"type": "word",
 		"address": "0x000F8A48",
 		"value": "0x3C038007",
 		"comment": "Start of code block allowing Bat Form to open doors"
@@ -1237,18 +1373,329 @@
 	},
 	{
 		"type": "word",
-		"address": "0x044CF8C4",
-		"value": "0x3C028003",
-		"comment": "Start of Turning on Spike Room Lights code block"
+		"address": "0x4BB4B54",
+		"value": "0x0C038C00",
+		"comment": "Start of marking doors to accept Bat Form opening them."
 	},
 	{
 		"type": "word",
-		"value": "0x3442BE2E"
+		"value": "0x00000000"
 	},
 	{
 		"type": "word",
-		"value": "0xA4490000",
-		"comment": "End of Turning on Spike Room Lights code block"
+		"address": "0x54390B4",
+		"value": "0x0C038C00"
+	},
+	{
+		"type": "word",
+		"value": "0x00000000"
+	},
+	{
+		"type": "word",
+		"address": "0x494A3A0",
+		"value": "0x0C038C00"
+	},
+	{
+		"type": "word",
+		"value": "0x00000000"
+	},
+	{
+		"type": "word",
+		"address": "0x4A0E9A4",
+		"value": "0x0C038C00"
+	},
+	{
+		"type": "word",
+		"value": "0x00000000"
+	},
+	{
+		"type": "word",
+		"address": "0x4AE05AC",
+		"value": "0x0C038C00"
+	},
+	{
+		"type": "word",
+		"value": "0x00000000"
+	},
+	{
+		"type": "word",
+		"address": "0x4C89058",
+		"value": "0x0C038C00"
+	},
+	{
+		"type": "word",
+		"value": "0x00000000"
+	},
+	{
+		"type": "word",
+		"address": "0x54F5B7C",
+		"value": "0x0C038C00"
+	},
+	{
+		"type": "word",
+		"value": "0x00000000"
+	},
+	{
+		"type": "word",
+		"address": "0x55A86FC",
+		"value": "0x0C038C00"
+	},
+	{
+		"type": "word",
+		"value": "0x00000000"
+	},
+	{
+		"type": "word",
+		"address": "0x4405EAC",
+		"value": "0x0C038C00"
+	},
+	{
+		"type": "word",
+		"value": "0x00000000"
+	},
+	{
+		"type": "word",
+		"address": "0x44D6EBC",
+		"value": "0x0C038C00"
+	},
+	{
+		"type": "word",
+		"value": "0x00000000"
+	},
+	{
+		"type": "word",
+		"address": "0x460E22C",
+		"value": "0x0C038C00"
+	},
+	{
+		"type": "word",
+		"value": "0x00000000"
+	},
+	{
+		"type": "word",
+		"address": "0x46C9660",
+		"value": "0x0C038C00"
+	},
+	{
+		"type": "word",
+		"value": "0x00000000"
+	},
+	{
+		"type": "word",
+		"address": "0x47ED348",
+		"value": "0x0C038C00"
+	},
+	{
+		"type": "word",
+		"value": "0x00000000"
+	},
+	{
+		"type": "word",
+		"address": "0x5645B88",
+		"value": "0x0C038C00"
+	},
+	{
+		"type": "word",
+		"value": "0x00000000"
+	},
+	{
+		"type": "word",
+		"address": "0x588FA80",
+		"value": "0x0C038C00"
+	},
+	{
+		"type": "word",
+		"value": "0x00000000"
+	},
+	{
+		"type": "word",
+		"address": "0x51EB318",
+		"value": "0x0C038C00"
+	},
+	{
+		"type": "word",
+		"value": "0x00000000"
+	},
+	{
+		"type": "word",
+		"address": "0x4FC717C",
+		"value": "0x0C038C00"
+	},
+	{
+		"type": "word",
+		"value": "0x00000000"
+	},
+	{
+		"type": "word",
+		"address": "0x507E548",
+		"value": "0x0C038C00"
+	},
+	{
+		"type": "word",
+		"value": "0x00000000"
+	},
+	{
+		"type": "word",
+		"address": "0x5135D08",
+		"value": "0x0C038C00"
+	},
+	{
+		"type": "word",
+		"value": "0x00000000"
+	},
+	{
+		"type": "word",
+		"address": "0x52C2B9C",
+		"value": "0x0C038C00"
+	},
+	{
+		"type": "word",
+		"value": "0x00000000"
+	},
+	{
+		"type": "word",
+		"address": "0x59389BC",
+		"value": "0x0C038C00"
+	},
+	{
+		"type": "word",
+		"value": "0x00000000"
+	},
+	{
+		"type": "word",
+		"address": "0x59F1BE8",
+		"value": "0x0C038C00"
+	},
+	{
+		"type": "word",
+		"value": "0x00000000"
+	},
+	{
+		"type": "word",
+		"address": "0x5780228",
+		"value": "0x0C038C00"
+	},
+	{
+		"type": "word",
+		"value": "0x00000000"
+	},
+	{
+		"type": "word",
+		"address": "0x4D38D18",
+		"value": "0x0C038C00"
+	},
+	{
+		"type": "word",
+		"value": "0x00000000"
+	},
+	{
+		"type": "word",
+		"address": "0x4DC65DC",
+		"value": "0x0C038C00"
+	},
+	{
+		"type": "word",
+		"value": "0x00000000"
+	},
+	{
+		"type": "word",
+		"address": "0x4E708C4",
+		"value": "0x0C038C00"
+	},
+	{
+		"type": "word",
+		"value": "0x00000000"
+	},
+	{
+		"type": "word",
+		"address": "0x4F0D0F8",
+		"value": "0x0C038C00"
+	},
+	{
+		"type": "word",
+		"value": "0x00000000"
+	},
+	{
+		"type": "word",
+		"address": "0x580A20C",
+		"value": "0x0C038C00"
+	},
+	{
+		"type": "word",
+		"value": "0x00000000"
+	},
+		{
+		"type": "word",
+		"address": "0x5139A68",
+		"value": "0x0C038C00"
+	},
+	{
+		"type": "word",
+		"value": "0x00000000"
+	},
+		{
+		"type": "word",
+		"address": "0x4AE430C",
+		"value": "0x0C038C00"
+	},
+	{
+		"type": "word",
+		"value": "0x00000000"
+	},
+	{
+		"type": "word",
+		"address": "0x4964E94",
+		"value": "0x0C038C00"
+	},
+	{
+		"type": "word",
+		"value": "0x00000000"
+	},
+	{
+		"type": "word",
+		"address": "0x5503944",
+		"value": "0x0C038C00"
+	},
+	{
+		"type": "word",
+		"value": "0x00000000"
+	},
+	{
+		"type": "word",
+		"address": "0x46DA788",
+		"value": "0x0C038C00"
+	},
+	{
+		"type": "word",
+		"value": "0x00000000"
+	},
+	{
+		"type": "word",
+		"address": "0x4FE3B80",
+		"value": "0x0C038C00"
+	},
+	{
+		"type": "word",
+		"value": "0x00000000"
+	},
+	{
+		"type": "word",
+		"address": "0x594B634",
+		"value": "0x0C038C00"
+	},
+	{
+		"type": "word",
+		"value": "0x00000000"
+	},
+	{
+		"type": "word",
+		"address": "0x5A7CE10",
+		"value": "0x0C038C00"
+	},
+	{
+		"type": "word",
+		"value": "0x00000000",
+		"comment": "End of marking doors for bat opening them"
 	}
   ]
 }
