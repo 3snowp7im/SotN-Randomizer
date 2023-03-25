@@ -2,16 +2,16 @@
   "metadata": {
     "id": "bat-master",
     "name": "Bat-Master",
-    "description": "Soul of Bat moves faster and costs no mana, Fire of Bat hits harder and has less recovery, Wing Smash lasts longer.  Holding triangle slows bat movement.",
+    "description": "Soul of Bat moves faster, and all abilities and upgrades are greatly enhanced. Hold Triangle to move bat at original speed.  Bat Familiar levels faster.",
     "author": "MT_Fun, MottZilla",
-    "weight": -300
+    "weight": -700
   },
   "stats": false,
   "relicLocationsExtension": "spread",
   "lockLocation": [{
     "location": "Soul of Bat",
     "locks": [
-      "Soul of Bat + Form of Mist + Fire of Bat + Echo of Bat + Force of Echo"
+      "Soul of Bat + Form of Mist + Fire of Bat + Echo of Bat + Force of Echo + Bat Card"
     ]
   }, {
     "location": "Fire of Bat",
@@ -379,7 +379,7 @@
   }, {
     "location": "Twilight cloak",
     "locks": [
-      "Holy glasses + Soul of Bat + Form of Mist + Fire of Bat + Echo of Bat + Force of Echo"
+      "Holy glasses + Soul of Bat + Form of Mist + Fire of Bat + Echo of Bat + Force of Echo + Bat Card"
     ]
   }, {
     "location": "Talwar",
@@ -429,12 +429,12 @@
   }, {
     "location": "Shotel",
     "locks": [
-      "Holy glasses + Soul of Bat + Form of Mist + Fire of Bat + Echo of Bat + Force of Echo"
+      "Holy glasses + Soul of Bat + Form of Mist + Fire of Bat + Echo of Bat + Force of Echo + Bat Card"
     ]
   }, {
     "location": "Staurolite",
     "locks": [
-      "Holy glasses + Soul of Bat + Form of Mist + Fire of Bat + Echo of Bat + Force of Echo"
+      "Holy glasses + Soul of Bat + Form of Mist + Fire of Bat + Echo of Bat + Force of Echo + Bat Card"
     ]
   }, {
     "location": "Badelaire",
