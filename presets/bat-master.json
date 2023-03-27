@@ -2,7 +2,7 @@
   "metadata": {
     "id": "bat-master",
     "name": "Bat-Master",
-    "description": "Soul of Bat moves faster, and all abilities and upgrades are greatly enhanced. Hold Triangle to move bat at original speed.  Bat Familiar levels faster.",
+    "description": "Soul of Bat moves faster and can open doors. All Bat abilities and upgrades are greatly enhanced. Hold Triangle to move bat at original speed.  Bat Familiar levels faster.",
     "author": "MT_Fun, MottZilla",
     "weight": -700
   },
@@ -26,7 +26,7 @@
   }, {
     "location": "Force of Echo",
     "locks": [
-      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card + Bat Card"
+      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card"
     ]
   }, {
     "location": "Power of Wolf",
@@ -51,7 +51,7 @@
   }, {
     "location": "Gas Cloud",
     "locks": [
-      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card + Bat Card"
+      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card"
     ]
   }, {
     "location": "Gravity Boots",
@@ -106,27 +106,27 @@
   }, {
     "location": "Heart of Vlad",
     "locks": [
-      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card + Bat Card"
+      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card"
     ]
   }, {
     "location": "Tooth of Vlad",
     "locks": [
-      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card + Bat Card"
+      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card"
     ]
   }, {
     "location": "Rib of Vlad",
     "locks": [
-      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card + Bat Card"
+      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card"
     ]
   }, {
     "location": "Ring of Vlad",
     "locks": [
-      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card + Bat Card"
+      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card"
     ]
   }, {
     "location": "Eye of Vlad",
     "locks": [
-      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card + Bat Card"
+      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card"
     ]
   }, {
     "location": "Spike Breaker",
@@ -167,17 +167,17 @@
   }, {
     "location": "Dark Blade",
     "locks": [
-      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card + Bat Card"
+      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card"
     ]
   }, {
     "location": "Ring of Arcana",
     "locks": [
-      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card + Bat Card"
+      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card"
     ]
   }, {
     "location": "Trio",
     "locks": [
-      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card + Bat Card"
+      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card"
     ]
   }, {
     "location": "Holy mail",
@@ -364,17 +364,17 @@
   }, {
     "location": "Talisman",
     "locks": [
-      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card + Bat Card"
+      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card"
     ]
   }, {
     "location": "Katana",
     "locks": [
-      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card + Bat Card"
+      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card"
     ]
   }, {
     "location": "Goddess shield",
     "locks": [
-      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card + Bat Card"
+      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card"
     ]
   }, {
     "location": "Twilight cloak",
@@ -384,47 +384,47 @@
   }, {
     "location": "Talwar",
     "locks": [
-      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card + Bat Card"
+      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card"
     ]
   }, {
     "location": "Sword of Dawn",
     "locks": [
-      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card + Bat Card"
+      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card"
     ]
   }, {
     "location": "Bastard sword",
     "locks": [
-      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card + Bat Card"
+      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card"
     ]
   }, {
     "location": "Royal cloak",
     "locks": [
-      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card + Bat Card"
+      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card"
     ]
   }, {
     "location": "Lightning mail",
     "locks": [
-      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card + Bat Card"
+      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card"
     ]
   }, {
     "location": "Moon rod",
     "locks": [
-      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card + Bat Card"
+      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card"
     ]
   }, {
     "location": "Sunstone",
     "locks": [
-      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card + Bat Card"
+      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card"
     ]
   }, {
     "location": "Luminus",
     "locks": [
-      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card + Bat Card"
+      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card"
     ]
   }, {
     "location": "Dragon helm",
     "locks": [
-      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card + Bat Card"
+      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card"
     ]
   }, {
     "location": "Shotel",
@@ -439,72 +439,72 @@
   }, {
     "location": "Badelaire",
     "locks": [
-      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card + Bat Card"
+      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card"
     ]
   }, {
     "location": "Forbidden Library Opal",
     "locks": [
-      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card + Bat Card"
+      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card"
     ]
   }, {
     "location": "Reverse Caverns Diamond",
     "locks": [
-      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card + Bat Card"
+      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card"
     ]
   }, {
     "location": "Reverse Caverns Opal",
     "locks": [
-      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card + Bat Card"
+      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card"
     ]
   }, {
     "location": "Reverse Caverns Garnet",
     "locks": [
-      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card + Bat Card"
+      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card"
     ]
   }, {
     "location": "Osafune katana",
     "locks": [
-      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card + Bat Card"
+      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card"
     ]
   }, {
     "location": "Alucard shield",
     "locks": [
-      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card + Bat Card"
+      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card"
     ]
   }, {
     "location": "Alucard sword",
     "locks": [
-      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card + Bat Card"
+      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card"
     ]
   }, {
     "location": "Necklace of J",
     "locks": [
-      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card + Bat Card"
+      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card"
     ]
   }, {
     "location": "Floating Catacombs Diamond",
     "locks": [
-      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card + Bat Card"
+      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card"
     ]
   }, {
     "location": "Sword of Hador",
     "locks": [
-      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card + Bat Card"
+      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card"
     ]
   }, {
     "location": "Alucard mail",
     "locks": [
-      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card + Bat Card"
+      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card"
     ]
   }, {
     "location": "Gram",
     "locks": [
-      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card + Bat Card"
+      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card"
     ]
   }, {
     "location": "Fury plate",
     "locks": [
-      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card + Bat Card"
+      "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card"
     ]
   }],
   "complexityGoal": {
