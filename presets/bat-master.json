@@ -1162,7 +1162,8 @@
 	{
 		"type": "word",
 		"address": "0x0134cc4",
-		"value": "0x0802ce4c"
+		"value": "0x0802ce4c",
+		"comment": "Hook for Bat Movement Speed"
 	},
 	{
 		"type": "word",
@@ -1172,6 +1173,7 @@
 		"type": "word",
 		"address": "0x117DA8",
 		"value": "0x0802CEE1"
+		"comment": "Hook for Bat Familiar XP"
 	},
 	{
 		"type": "word",
