@@ -18,6 +18,7 @@
       require('./glitch'),
       require('./scavenger'),
       require('./empty-hand'),
+      require('./bat-master'),
       require('./gem-farmer'),
       require('./third-castle'),
     ]
