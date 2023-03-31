@@ -551,13 +551,20 @@
     })
     const candleTiles = shuffled(rng, collectTiles(candleItems, tileFilter))
     let index = 0
+    let repeats = false
     while (candleTiles.length) {
       const tile = candleTiles.pop()
+      let blockCount = 0
       let item
       while (true) {
         item = candleItems[index]
-        if (candleTileCounts[index]
-            && !isBlocked(items, blocked, [tile], item)) {
+        if (isBlocked(items, blocked, [tile], item)) {
+          blockCount++
+          if (blockCount >= candleItems.length) {
+            item = itemFromId(0, undefined, items)
+            break
+          }
+        } else if (candleTileCounts[index]) {
           break
         }
         index = (index + 1) % candleItems.length
@@ -811,11 +818,12 @@
       }, function(jewels) {
         let replacement
         let tile
+        let blockCount = 0
         while (index < jewels.length) {
           replacement = jewels[index]
           index = (index + 1) % jewels.length
           const tiles = shuffledTiles.slice()
-          do {
+          while (true) {
             if (!tiles.length) {
               tile = null
               break
@@ -824,7 +832,16 @@
             if (!tile) {
               break
             }
-          } while (isBlocked(items, blocked, [tile], replacement))
+            if (isBlocked(items, blocked, [tile], replacement)) {
+              tiles.push(tile)
+              blockCount++
+              if (blockCount == jewels.length) {
+                replacement = itemFromId(0, undefined, items)
+              }
+            } else {
+              break
+            }
+          }
           if (tile) {
             shuffledTiles.splice(shuffledTiles.indexOf(tile), 1)
             break
@@ -1066,7 +1083,8 @@
           replacement = jewels[index]
           index = (index + 1) % jewels.length
           const tiles = shuffledTiles.slice()
-          do {
+          let blockCount = 0
+          while (true) {
             if (!tiles.length) {
               tile = null
               break
@@ -1078,7 +1096,16 @@
             enemy = enemies.filter(function(enemy) {
               return enemy.id === tile.enemy
             })
-          } while (isBlocked(enemy, replacement))
+            if (isBlocked(enemy, replacement)) {
+              blockCount++
+              if (blockCount >= jewels.length) {
+                replacement = itemFromId(0, undefined, items)
+                break
+              }
+            } else {
+              break
+            }
+          }
           if (tile) {
             shuffledTiles.splice(shuffledTiles.indexOf(tile), 1)
             break
