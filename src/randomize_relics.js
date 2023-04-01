@@ -453,7 +453,7 @@
           location = shuffled.pop()
           if (pool.blocked
               && pool.blocked[location.id]
-              && pool.blocked[location.id].indexOf(relic.id) !== -1) {
+              && pool.blocked[location.id].indexOf(relic.ability) !== -1) {
             location = undefined
           } else {
             break
