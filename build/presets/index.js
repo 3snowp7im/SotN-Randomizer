@@ -20,6 +20,7 @@
       require('./empty-hand'),
       require('./gem-farmer'),
       require('./third-castle'),
+      require('./rat-race'),
     ]
   }
   exports.sort(function(a, b) {
