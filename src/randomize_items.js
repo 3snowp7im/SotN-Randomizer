@@ -561,7 +561,7 @@
         if (isBlocked(items, blocked, [tile], item)) {
           blockCount++
           if (blockCount >= candleItems.length) {
-            item = itemFromId(0, undefined, items)
+            item = itemFromId(0, undefined, pool)
             break
           }
         } else if (candleTileCounts[index]) {
@@ -836,7 +836,7 @@
               tiles.push(tile)
               blockCount++
               if (blockCount == jewels.length) {
-                replacement = itemFromId(0, undefined, items)
+                replacement = itemFromId(0, undefined, pool)
               }
             } else {
               break
@@ -1099,7 +1099,7 @@
             if (isBlocked(enemy, replacement)) {
               blockCount++
               if (blockCount >= jewels.length) {
-                replacement = itemFromId(0, undefined, items)
+                replacement = itemFromId(0, undefined, pool)
                 break
               }
             } else {
