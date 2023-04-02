@@ -4,9 +4,7 @@
     "name": "Rat race",
     "description": "Just trying to make a buck. Released on April 1st, 2023.",
     "author": "3snow_p7im",
-    "weight": 500,
-    "hidden": true,
-    "override": true
+    "weight": 500
   },
   "inherits": "safe",
   "stats": false,
