@@ -32,7 +32,8 @@
     "scavenger",
     "empty-hand",
     "gem-farmer",
-    "third-castle"
+    "third-castle",
+    "rat-race"
   ],
   "engines": {
     "node": ">=15"
