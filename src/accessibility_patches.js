@@ -90,6 +90,16 @@
     offset = data.writeWord(offset, 0x944233da)
     offset = data.writeWord(offset, 0x08069bc3)
   }
+  
+  // Fix softlock when using gold & silver ring.
+  function patchClockRoom(data) {
+    let offset = 0x492df64
+    offset = data.writeWord(offset, 0xa0202ee8)
+    offset = data.writeWord(offset, 0x080735cc)
+    offset = data.writeWord(offset, 0x00000000)
+    data.writeWord(0x4952454, 0x0806b647)
+    data.writeWord(0x4952474, 0x0806b647)
+  }
 
   function applyAccessibilityPatches() {
     const data = new util.checked()
@@ -102,6 +112,7 @@
     patchOlroxDeath(data)
     patchScyllaDoor(data)
     patchMinotaurWerewolf(data)
+    patchClockRoom(data)
     return data
   }
 
