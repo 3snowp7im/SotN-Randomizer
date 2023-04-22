@@ -551,7 +551,6 @@
     })
     const candleTiles = shuffled(rng, collectTiles(candleItems, tileFilter))
     let index = 0
-    let repeats = false
     while (candleTiles.length) {
       const tile = candleTiles.pop()
       let blockCount = 0
