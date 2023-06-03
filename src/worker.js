@@ -35,6 +35,7 @@ function randomizeWorker() {
       url + 'build/presets/gem-farmer.js',
       url + 'build/presets/third-castle.js',
       url + 'build/presets/rat-race.js',
+      url + 'build/presets/hunter.js',
       url + 'src/randomize_items.js',
       url + 'src/randomize_relics.js',
       url + 'src/ecc-edc-recalc-js.js',
