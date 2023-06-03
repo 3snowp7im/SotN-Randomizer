@@ -33,7 +33,8 @@
     "empty-hand",
     "gem-farmer",
     "third-castle",
-    "rat-race"
+    "rat-race",
+    "hunter"
   ],
   "engines": {
     "node": ">=15"
