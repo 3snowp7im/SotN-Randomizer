@@ -5753,6 +5753,31 @@
     "address": "0x047a3098",
     "value":    "0x00000000"
   }, {
+    "comment": "Patch Shop 12,000 Item",
+    "type":    "word",
+    "address": "0x047A3190",
+    "value":    "0x00001F40"
+  }, {
+    "comment": "Patch Shop 12,000 Item",
+    "type":    "word",
+    "address": "0x047A31A8",
+    "value":    "0x00001F40"
+  }, {
+    "comment": "Patch Shop 15,000 Item",
+    "type":    "word",
+    "address": "0x047A3118",
+    "value":    "0x00001F40"
+  }, {
+    "comment": "Patch Shop 30,000 Item",
+    "type":    "word",
+    "address": "0x047A31C0",
+    "value":    "0x00001F40"
+  }, {
+    "comment": "Patch Shop 500,000 Item",
+    "type":    "word",
+    "address": "0x047A31E0",
+    "value":    "0x00001F40"
+  }, {
     "comment": "Death goes home.",
     "address": "0x4BAEA08",
     "type": "word",
