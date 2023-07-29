@@ -582,7 +582,7 @@
     "comment": "sb v0, 0x796E (v1)"
   }, {
     "type": "word",
-    "value": "0x34020003",
+    "value": "0x34020032",
     "comment": "ori v0, 0x0032"
   }, {
     "comment": "Sword Familiar starts lvl 50",
