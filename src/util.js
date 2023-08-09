@@ -460,7 +460,7 @@
   }
 
   function checkAddressRange(address) {
-    if (address < 0xcfff || address > 0xffffffff || Number.isNaN(address)) {
+    if (address < 0xffff || address > 0xffffffff || Number.isNaN(address)) {
       throw Error('bad address: ' + numToHex(address))
     }
   }
