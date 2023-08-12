@@ -21,6 +21,7 @@
       require('./bat-master'),
       require('./gem-farmer'),
       require('./third-castle'),
+      require('./rat-race'),
       require('./hunter'),
     ]
   }
