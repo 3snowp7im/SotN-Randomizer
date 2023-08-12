@@ -18,8 +18,6 @@
   },
   "presets": [
     "casual",
-    "forge",
-    "jordans",
     "safe",
     "adventure",
     "og",
@@ -37,8 +35,6 @@
     "third-castle",
     "rat-race",
     "hunter",
-    "bountyhunter",
-    "souls",
     "boss-rush"
   ],
   "engines": {
