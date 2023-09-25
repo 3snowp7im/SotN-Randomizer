@@ -22,7 +22,8 @@
       require('./gem-farmer'),
       require('./third-castle'),
       require('./rat-race'),
-      require('./hunter'),
+      require('./boss-rush'),
+      require('./summoner')
     ]
   }
   exports.sort(function(a, b) {
