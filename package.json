@@ -34,8 +34,8 @@
     "gem-farmer",
     "third-castle",
     "rat-race",
-    "summoner",
-    "boss-rush"
+    "boss-rush",
+    "summoner"
   ],
   "engines": {
     "node": ">=15"
