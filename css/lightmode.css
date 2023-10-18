@@ -1,0 +1,108 @@
+/* Light mode */
+
+.light {
+  color: var(--black);
+  background: var(--white);
+}
+
+.light select,
+.light input[type="text"],
+.light input[type="number"],
+.light #spoilers {
+  color: var(--black);
+  background: var(--white);
+}
+
+.light input[type="text"],
+.light select {
+  border: 1px var(--gray4) solid;
+}
+
+.light #notification {
+  color: var(--black);
+  background: var(--green1);
+  border-radius: .5em;
+  padding: 1em;
+}
+
+.light #notification.success {
+  transition: opacity 2s ease-in-out;
+}
+
+.light #notification.success.hide {
+  opacity: 0;
+}
+
+.light .tooltip-indicator {
+  background: var(--gray5);
+  color: var(--white);
+}
+
+.light .tooltip-wrapper .tooltip {
+  width: 320px;
+  padding: 1.25em;
+  transform: translateY(10px);
+  transition: all .25s ease-out;
+  background: var(--white);
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.28);
+}
+
+.light .tooltip-wrapper:hover .tooltip {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0px);
+}
+
+.light #target {
+  border-width: 10px;
+  border-style: dashed;
+  border-color: var(--gray2);
+}
+
+.light #target.active {
+  border-color: var(--green1);
+}
+
+.light #target.error {
+  border-color: var(--red1);
+}
+
+.light #target legend {
+  display: none;
+}
+
+.light input[type="submit"] {
+  color: var(--black);
+  padding: .5em 1em;
+  border-radius: 1px;
+  border: none;
+}
+
+.light input[type="submit"]:disabled {
+  opacity: .4;
+}
+
+.light input[type="submit"]:enabled:hover {
+  background-image: linear-gradient(
+      transparent,
+      rgba(0,0,0,.05) 40%,
+      rgba(0,0,0,.1)
+  );
+}
+
+.light input[type="submit"].primary {
+  color: var(--white);
+  background-color: var(--blue4);
+}
+
+.light #spoilers-container {
+  border: 1px var(--gray3) solid;
+}
+
+.light #spoilers-container.hide {
+  display: none;
+}
+
+.light #options.hide {
+  display: none;
+}
