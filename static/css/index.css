@@ -2,18 +2,52 @@ html, body {
   height: 100%;
 }
 
+header {
+  border-bottom: 1px solid var(--white);
+  padding: 0 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+#logo > * {
+  margin: 0;
+  font-family: var(--sotnFont);
+}
+
+header nav ul {
+  list-style-type: none;
+  display: flex;
+}
+
+header nav ul li {
+  margin: 0 0.5rem;
+}
+
+header nav ul a {
+  text-decoration: none;
+  color: inherit;
+  padding: 0.25rem 0.5rem;
+}
+
+header nav ul a:hover {
+  text-decoration: underline;
+}
+
 #content {
   padding: 0 15% 2em 15%;
 }
-
+/* 
 #version {
   float: right;
   font-size: small;
   margin: 1em 1em 0 0;
-}
+} */
 
 h1 {
   clear: both;
+  font-family: var(--sotnFont);
 }
 
 .dev h1 {
@@ -47,8 +81,9 @@ h1 {
 }
 
 #spoilers-container {
-  margin-top: 1.1ex;
-  margin-left: 1em;
+  /* margin-top: 1.1ex;
+  margin-left: 1em; */
+  grid-column: 1 / 3;
   overflow: hidden;
   font-family: monospace;
 }
@@ -244,6 +279,12 @@ body.menu {
 .menu {
   color: var(--white);
   background: transparent;
+}
+
+#seedCustomization {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5rem;
 }
 
 .menu a:link {
@@ -479,14 +520,14 @@ body.menu {
       max-height: 0;
   }
   100% {
-      max-width: 50ex;
+      /* max-width: 50ex; */
       max-height: 11em;
   }
 }
 
 @keyframes hide-spoilers {
   0% {
-      max-width: 50ex;
+      /* max-width: 50ex; */
       max-height: 11em;
   }
   99.999% {
