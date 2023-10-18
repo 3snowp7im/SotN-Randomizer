@@ -615,3 +615,57 @@ body.menu {
       overflow: hidden;
   }
 }
+
+.tab input {
+  position: absolute;
+  opacity: 0;
+  z-index: -1;
+}
+.tab__content {
+  max-height: 0;
+  overflow: hidden;
+  transition: all 0.35s;
+}
+
+.tab input:checked ~ .tab__content {
+  max-height: 10rem;
+}
+
+.accordion {
+  overflow: hidden;
+}
+.tab__label,
+.tab__close {
+  display: flex;
+  cursor: pointer;
+}
+
+.tab__label {
+  justify-content: space-between;
+  padding: 1rem;
+  border-bottom: 1px solid;
+}
+
+.tab__label h3 {
+  margin: 0;
+}
+.tab__label::after {
+  content: "";
+  text-align: center;
+  transition: all 0.35s;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 10px solid;
+}
+.tab input:checked + .tab__label::after {
+  transform: rotate(180deg);
+}
+.tab__content {
+  margin: 0;
+  padding: 0 2rem;
+}
+.tab__close {
+  justify-content: flex-end;
+  padding: 0.5rem 1rem;
+  font-size: 0.75rem;
+}
