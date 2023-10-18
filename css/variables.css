@@ -1,0 +1,31 @@
+:root {
+  --white: #fff;
+  --black: #000;
+
+  --gray1: #ddd;
+  --gray2: #ccc;
+  --gray3: #c0c0c0;
+  --gray4: #aaa;
+  --gray5: #999;
+  --gray6: #333;
+  --gray7: #222;
+
+  --blue1: #9cf;
+  --blue2: #69f;
+  --blue3: #2980b9;
+  --blue4: #0078e7;
+
+  --violet1: #c9f;
+  --violet2: #96f;
+
+  --red1: #fcc;
+  --red2: #400000;
+  --red3: #580000;
+
+  --green1: #cfc;
+  --green2: #696;
+}
+
+* {
+  box-sizing: border-box;
+}

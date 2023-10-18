@@ -1,0 +1,800 @@
+html, body {
+  height: 100%;
+}
+
+#content {
+  padding: 0 15% 2em 15%;
+}
+
+#version {
+  float: right;
+  font-size: small;
+  margin: 1em 1em 0 0;
+}
+
+h1 {
+  clear: both;
+}
+
+.dev h1 {
+  display: none;
+}
+
+.contact {
+  text-decoration: none;
+}
+
+#warning {
+  padding-top: 1em;
+  font-size: x-large;
+}
+
+#dev-border.dev {
+  border: .5em solid rgba(255, 255, 0, .5);
+  border-image: repeating-linear-gradient(
+      -45deg,
+      rgba(0, 0, 0, .5) 0,
+      rgba(0, 0, 0, .5) 15px,
+      rgba(255, 255, 0, .5) 0,
+      rgba(255, 255, 0, .5) 30px
+  ) 15;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+}
+
+#spoilers-container {
+  margin-top: 1.1ex;
+  margin-left: 1em;
+  overflow: hidden;
+  font-family: monospace;
+}
+
+#spoilers {
+  margin: 0;
+  resize: none;
+  width: 100%;
+  height: 100%;
+  margin-bottom: -.5em;
+  border: none;
+  white-space: pre;
+}
+
+h3 time {
+  font-size: medium;
+}
+
+#target {
+  height: 9em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#target div {
+  text-align: center;
+}
+
+fieldset .pure-g .pure-u-12-24,
+fieldset .pure-g .pure-u-1 {
+  margin: .1em 0;
+}
+
+fieldset .pure-g .pure-u-12-24 fieldset {
+  margin-right: 1em;
+}
+
+form > fieldset,
+form > .pure-u-14-24 > fieldset {
+  margin-bottom: .5em;
+}
+
+fieldset {
+  padding: .45em .5em;
+}
+
+#buttons {
+  margin: 0 0 .5em 0;
+}
+
+#notification {
+  margin: 10px;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  display: none;
+}
+
+#notification.success {
+  display: block;
+  opacity: 1;
+}
+
+#preset-select.hide {
+  visibility: hidden;
+}
+
+#loader {
+  height: 4px;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  background-color: var(--gray1);
+}
+
+#loader.hide {
+  visibility: hidden;
+}
+
+#loader:before{
+  display: block;
+  position: absolute;
+  content: "";
+  left: -200px;
+  width: 200px;
+  height: 4px;
+  background-color: var(--blue3);
+  animation: loading 2s linear infinite;
+}
+
+@keyframes loading {
+  from {left: -200px; width: 30%;}
+  50% {width: 30%;}
+  70% {width: 70%;}
+  80% { left: 50%;}
+  95% {left: 120%;}
+  to {left: 100%;}
+}
+
+#fork {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.tooltip-indicator {
+  font-size: small;
+  font-weight: bold;
+  border-radius: 50%;
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  text-align: center;
+}
+
+.tooltip-wrapper {
+  cursor: help;
+  position: relative;
+}
+
+.tooltip-wrapper .tooltip {
+  margin-bottom: 1em;
+  bottom: 100%;
+  display: block;
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+}
+
+.tooltip-wrapper .tooltip:before {
+  content: ' ';
+  display: block;
+  height: 20px;
+  left: 0;
+  position: absolute;
+  width: 100%;
+}
+
+#preset-author {
+  position: absolute;
+  bottom: 3px;
+  right: 5px;
+  font-size: small;
+  color: var(--gray5);
+}
+
+fieldset > div > div > label:first-child {
+  margin-left: 2.6em;
+}
+
+fieldset > div > fieldset > div > div > label:first-child {
+  margin-left: 1.8em;
+}
+
+fieldset > div > div > input {
+  margin-left: 1.45em;
+}
+
+fieldset > div > fieldset > div > div > input {
+  margin-left: .7em;
+}
+
+div > div + fieldset {
+  margin-top: .5em;
+}
+
+#seed {
+  width: 15ex;
+}
+
+select,
+input[type="text"],
+input[type="number"] {
+  margin-left: 2em;
+}
+
+input[type="number"] {
+  width: 2.5em;
+}
+
+/* Menu mode */
+
+body.menu {
+  background: linear-gradient(
+      180deg,
+      rgba(2,0,36,1) 0%,
+      rgba(0,0,32,1) 11%,
+      rgba(65,65,150,1) 100%
+  ) fixed;
+}
+
+.menu {
+  color: var(--white);
+  background: transparent;
+}
+
+.menu a:link {
+  color: var(--blue1);
+}
+
+.menu a:visited {
+  color: var(--violet1);
+}
+
+.menu .contact {
+  filter: invert(1);
+}
+
+.menu select,
+.menu input[type="text"],
+.menu input[type="number"],
+.menu #spoilers {
+  color: var(--white);
+  background: transparent;
+}
+
+.menu select {
+  background: rgb(32,32,75,1);
+}
+
+.menu input[type="submit"] {
+  font-weight: bold;
+  color: var(--white);
+  background: transparent;
+  border: none;
+  font-size: x-large;
+  padding: 6px;
+}
+
+.menu input[type="submit"]:disabled {
+  visibility: hidden;
+}
+
+.menu input[type="submit"]#randomize:enabled {
+  animation: pulse 1s infinite;
+}
+
+.menu #target.animate {
+  animation: expand-target 2s;
+  overflow: hidden;
+}
+
+.menu #target-container > div {
+  margin: 0 .3em .2em .3em;
+}
+
+.menu #target,
+.menu #spoilers-container {
+  border: 1px var(--white) solid;
+}
+
+.menu #target.error {
+  animation: pulse 1s infinite;
+}
+
+.menu #target.animate.hide {
+  animation: shrink-target 2s;
+  animation-fill-mode: forwards;
+}
+
+.menu #target > div {
+  width: 30em;
+  white-space: nowrap;
+}
+
+@keyframes expand-target {
+  0% {
+      width: 0;
+      height: 0;
+  }
+  100% {
+      width: 100%;
+      height: 9em;
+  }
+}
+
+@keyframes shrink-target {
+  0% {
+      width: 100%;
+      height: 9em;
+  }
+  99% {
+      width: 0;
+      height: 0;
+  }
+  100% {
+      width: 0;
+      height: 0;
+      border-width: 0;
+  }
+}
+
+@keyframes pulse {
+  0% {
+      background-color: var(--red2);
+  }
+  50% {
+      background-color: var(--red3);
+  }
+  100% {
+      background-color: var(--red2);
+  }
+}
+
+.menu .tooltip-wrapper:hover .tooltip {
+  width: 320px;
+  opacity: 1;
+  pointer-events: auto;
+  animation: tooltip .5s;
+  overflow: hidden;
+}
+
+.menu .tooltip-wrapper .tooltip > span {
+  width: 280px;
+  padding: 20px;
+  display: block;
+}
+
+.menu #preset-author {
+  position: absolute;
+  display: block;
+  width: 310px;
+  right: auto;
+  left: 0;
+  text-align: right;
+}
+
+.menu fieldset {
+  border: 1px var(--white) solid;
+}
+
+@keyframes tooltip {
+  0% {
+      width: 0;
+      max-height: 0;
+  }
+  100% {
+      width: 320px;
+      max-height: 9.5em;
+  }
+}
+
+.menu .tooltip-indicator {
+  background: var(--white);
+  color: var(--gray5);
+}
+
+.menu .tooltip-wrapper .tooltip {
+  background: linear-gradient(
+      180deg,
+      rgba(2,0,36,1) 0%,
+      rgba(0,0,32,1) 11%,
+      rgba(65,65,150,1) 100%
+  ) fixed;
+  border: 1px var(--white) solid;
+}
+
+.menu input[type="radio"]:disabled {
+  opacity: .45;
+}
+
+.menu input[type="radio"]:checked:disabled {
+  opacity: 1;
+}
+
+.menu #notification {
+  animation: expand 2s;
+  overflow: hidden;
+  border: 1px var(--white) solid;
+  background: linear-gradient(
+      180deg,
+      rgba(2,0,36,1) 0%,
+      rgba(0,0,32,1) 11%,
+      rgba(65,65,150,1) 100%
+  ) fixed;
+}
+
+.menu #notification.hide {
+  animation: shrink 2s;
+}
+
+.menu #notification span {
+  display: inline-block;
+  position: absolute;
+  bottom: .3em;
+  right: 1em;
+  height: 1.25em;
+  white-space: nowrap;
+  text-align: center;
+  width: 10em;
+}
+
+@keyframes expand {
+  0% {
+      width: 0;
+      height: 0;
+  }
+  100% {
+      width: 12em;
+      height: 2em;
+  }
+}
+
+@keyframes shrink {
+  0% {
+      width: 12em;
+      height: 2em;
+  }
+  100% {
+      width: 0;
+      height: 0;
+  }
+}
+
+.menu #spoilers-container.hide {
+  animation: hide-spoilers 1s;
+  animation-fill-mode: forwards;
+}
+
+.menu #spoilers-container {
+  animation: show-spoilers 1s;
+}
+
+@keyframes show-spoilers {
+  0% {
+      max-width: 0;
+      max-height: 0;
+  }
+  100% {
+      max-width: 50ex;
+      max-height: 11em;
+  }
+}
+
+@keyframes hide-spoilers {
+  0% {
+      max-width: 50ex;
+      max-height: 11em;
+  }
+  99.999% {
+      max-width: 0;
+      max-height: 0;
+  }
+  100% {
+      max-width: 0;
+      max-height: 0;
+      border-width: 0;
+  }
+}
+
+.menu #options > div {
+  width: 47ex;
+}
+
+.menu #options.animate.hide {
+  animation: hide-options 1s;
+  animation-fill-mode: forwards;
+}
+
+.menu #options.animate {
+  animation: show-options 1s;
+}
+
+@keyframes show-options {
+  0% {
+      max-width: 0;
+      max-height: 0;
+      margin-top: 0;
+      padding: 0;
+      overflow: hidden;
+ }
+  100% {
+      max-width: 50ex;
+      max-height: 15em;
+      margin-top: .4em;
+      padding: .45em .5em;
+      overflow: hidden;
+  }
+}
+
+@keyframes hide-options {
+  0% {
+      max-width: 50ex;
+      max-height: 15em;
+      margin-top: .5em;
+      padding: .45em .5em;
+      overflow: hidden;
+  }
+  99.999% {
+      max-width: 0;
+      max-height: 0;
+      margin-top: 0;
+      padding: 0;
+      overflow: hidden;
+  }
+  100% {
+      max-width: 0;
+      max-height: 0;
+      border-width: 0;
+      margin-top: 0;
+      padding: 0;
+      overflow: hidden;
+  }
+}
+
+/* Light mode */
+
+.light {
+  color: var(--black);
+  background: var(--white);
+}
+
+.light select,
+.light input[type="text"],
+.light input[type="number"],
+.light #spoilers {
+  color: var(--black);
+  background: var(--white);
+}
+
+.light input[type="text"],
+.light select {
+  border: 1px var(--gray4) solid;
+}
+
+.light #notification {
+  color: var(--black);
+  background: var(--green1);
+  border-radius: .5em;
+  padding: 1em;
+}
+
+.light #notification.success {
+  transition: opacity 2s ease-in-out;
+}
+
+.light #notification.success.hide {
+  opacity: 0;
+}
+
+.light .tooltip-indicator {
+  background: var(--gray5);
+  color: var(--white);
+}
+
+.light .tooltip-wrapper .tooltip {
+  width: 320px;
+  padding: 1.25em;
+  transform: translateY(10px);
+  transition: all .25s ease-out;
+  background: var(--white);
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.28);
+}
+
+.light .tooltip-wrapper:hover .tooltip {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0px);
+}
+
+.light #target {
+  border-width: 10px;
+  border-style: dashed;
+  border-color: var(--gray2);
+}
+
+.light #target.active {
+  border-color: var(--green1);
+}
+
+.light #target.error {
+  border-color: var(--red1);
+}
+
+.light #target legend {
+  display: none;
+}
+
+.light input[type="submit"] {
+  color: var(--black);
+  padding: .5em 1em;
+  border-radius: 1px;
+  border: none;
+}
+
+.light input[type="submit"]:disabled {
+  opacity: .4;
+}
+
+.light input[type="submit"]:enabled:hover {
+  background-image: linear-gradient(
+      transparent,
+      rgba(0,0,0,.05) 40%,
+      rgba(0,0,0,.1)
+  );
+}
+
+.light input[type="submit"].primary {
+  color: var(--white);
+  background-color: var(--blue4);
+}
+
+.light #spoilers-container {
+  border: 1px var(--gray3) solid;
+}
+
+.light #spoilers-container.hide {
+  display: none;
+}
+
+.light #options.hide {
+  display: none;
+}
+
+/* Dark mode */
+
+.dark {
+  color: var(--white);
+  background: var(--gray7);
+}
+
+.dark select,
+.dark input[type="text"],
+.dark input[type="number"],
+.dark #spoilers {
+  color: var(--white);
+  background: var(--gray7);
+}
+
+.dark input[type="text"],
+.dark select {
+  border: 1px var(--gray2) solid;
+}
+
+.dark a:link {
+  color: var(--blue2);
+}
+
+.dark a:visited {
+  color: var(--violet2);
+}
+
+.dark .contact {
+  filter: invert(1);
+}
+
+.dark #notification {
+  color: var(--white);
+  background: var(--green2);
+  border-radius: .5em;
+  padding: 1em;
+}
+
+.dark #notification.success {
+  transition: opacity 2s ease-in-out;
+}
+
+.dark #notification.success.hide {
+  opacity: 0;
+}
+
+.dark .tooltip-indicator {
+  background: var(--white);
+  color: var(--gray5);
+}
+
+.dark .tooltip-wrapper .tooltip {
+  width: 320px;
+  padding: 1.25em;
+  margin-bottom: 1em;
+  transform: translateY(10px);
+  transition: all .25s ease-out;
+  background: var(--gray6);
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, .8);
+}
+
+.dark .tooltip-wrapper:hover .tooltip {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0px);
+}
+
+.dark #target {
+  border-width: 10px;
+  border-style: dashed;
+  border-color: var(--gray2);
+}
+
+.dark #target.active {
+  border-color: var(--green1);
+}
+
+.dark #target.error {
+  border-color: var(--red1);
+}
+
+.dark #target legend {
+  display: none;
+}
+
+.dark input[type="file"] {
+  color: var(--white);
+  background: var(--gray7);
+}
+
+.dark input[type="radio"]:disabled {
+  opacity: .45;
+}
+
+.dark input[type="radio"]:checked:disabled {
+  opacity: 1;
+}
+
+.dark input[type="submit"] {
+  color: var(--black);
+  padding: .5em 1em;
+  border-radius: 1px;
+  border: none;
+}
+
+.dark input[type="submit"]:disabled {
+  opacity: .4;
+}
+
+.dark input[type="submit"]:enabled:hover {
+  background-image: linear-gradient(
+      transparent,
+      rgba(0,0,0,.05) 40%,
+      rgba(0,0,0,.1)
+  );
+}
+
+.dark input[type="submit"].primary {
+  color: var(--white);
+  background-color: var(--blue4);
+}
+
+.dark #spoilers-container {
+  border: 1px var(--gray3) solid;
+}
+
+.dark #spoilers-container.hide {
+  display: none;
+}
+
+.dark #options.hide {
+  display: none;
+}
