@@ -11,9 +11,25 @@ header {
   margin-bottom: 0.75rem;
 }
 
-#logo > * {
+#logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+#logo > div > * {
   margin: 0;
   font-family: var(--sotnFont);
+}
+
+#logo i {
+  background-image: url("../img/github.svg");
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 50px;
+  height: 50px;
+  display: inline-block;
 }
 
 header nav ul {
@@ -35,7 +51,7 @@ header nav ul a:hover {
   text-decoration: underline;
 }
 
-#content {
+main {
   padding: 0 15% 2em 15%;
 }
 /* 
@@ -132,7 +148,7 @@ fieldset {
 }
 
 #buttons {
-  margin: 0 0 .5em 0;
+  margin: .5em 0;
 }
 
 #notification {
@@ -281,7 +297,16 @@ body.menu {
   background: transparent;
 }
 
-#seedCustomization {
+#output-formats{
+  display: flex;
+  gap: 1rem;
+}
+
+#output-formats input {
+  margin: 0;
+}
+
+#seed-customization {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 0.5rem;
@@ -349,11 +374,6 @@ body.menu {
 .menu #target.animate.hide {
   animation: shrink-target 2s;
   animation-fill-mode: forwards;
-}
-
-.menu #target > div {
-  width: 30em;
-  white-space: nowrap;
 }
 
 @keyframes expand-target {
