@@ -695,6 +695,7 @@
         elems.download.click()
         URL.revokeObjectURL(url)
         resetCopy()
+        hideLoader();
       })
     }
     if (elems.output.ppf.checked) {
@@ -771,11 +772,6 @@
         animationDone = true
       }, 4000)
     }
-  }
-
-  function showOlderHandler(event) {
-    elems.showOlder.classList.add('hidden')
-    elems.older.classList.remove('hidden')
   }
 
   function loadOption(name, changeHandler, defaultValue) {
@@ -873,7 +869,6 @@
     copy: document.getElementById('copy'),
     notification: document.getElementById('notification'),
     seedUrl: document.getElementById('seed-url'),
-    showOlder: document.getElementById('show-older'),
     older: document.getElementById('older'),
   }
   resetState()
@@ -918,7 +913,6 @@
   elems.showRelics.addEventListener('change', showRelicsChange)
   elems.showSolutions.addEventListener('change', showSolutionsChange)
   elems.copy.addEventListener('click', copyHandler)
-  elems.showOlder.addEventListener('click', showOlderHandler)
   // Load presets
   presets.forEach(function(preset) {
     if (!preset.hidden) {
