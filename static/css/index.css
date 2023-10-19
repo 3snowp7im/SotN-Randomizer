@@ -312,6 +312,10 @@ body.menu {
   gap: 0.5rem;
 }
 
+#seed-customization > fieldset {
+  height: fit-content;
+}
+
 .menu a:link {
   color: var(--blue1);
 }
@@ -540,14 +544,12 @@ body.menu {
       max-height: 0;
   }
   100% {
-      /* max-width: 50ex; */
       max-height: 11em;
   }
 }
 
 @keyframes hide-spoilers {
   0% {
-      /* max-width: 50ex; */
       max-height: 11em;
   }
   99.999% {
@@ -616,6 +618,11 @@ body.menu {
   }
 }
 
+.tab,
+.tab input:checked ~ .tab__label {
+  border-bottom: 1px solid;
+}
+
 .tab input {
   position: absolute;
   opacity: 0;
@@ -628,7 +635,7 @@ body.menu {
 }
 
 .tab input:checked ~ .tab__content {
-  max-height: 10rem;
+  max-height: 100%;
 }
 
 .accordion {
@@ -643,7 +650,6 @@ body.menu {
 .tab__label {
   justify-content: space-between;
   padding: 1rem;
-  border-bottom: 1px solid;
 }
 
 .tab__label h3 {
