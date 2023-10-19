@@ -54,20 +54,9 @@ header nav ul a:hover {
 main {
   padding: 0 15% 2em 15%;
 }
-/* 
-#version {
-  float: right;
-  font-size: small;
-  margin: 1em 1em 0 0;
-} */
 
 h1 {
-  clear: both;
   font-family: var(--sotnFont);
-}
-
-.dev h1 {
-  display: none;
 }
 
 .contact {
@@ -97,8 +86,6 @@ h1 {
 }
 
 #spoilers-container {
-  /* margin-top: 1.1ex;
-  margin-left: 1em; */
   grid-column: 1 / 3;
   overflow: hidden;
   font-family: monospace;
