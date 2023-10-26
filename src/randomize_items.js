@@ -1530,6 +1530,25 @@
     capeColor(data, 0x0afa44, 0x0afbac, {rng: rng})
   }
 
+  function randomizeGravBootColors(data, rng) {
+    // Base game has 2 bytes that it can set for a0 and a1
+    // set at 0x8011e1ac and 0x8011e1b0
+    const color1 = Math.floor(rng() * 0x100)
+    data.writeChar(0x13C814, color1)
+    const color2 = Math.floor(rng() * 0x100)
+    data.writeChar(0x13C818, color2)
+    const primWriteAddressStart = 0x13C82A
+    //Iterate through 12 values (r,g,and b for 4 prim corners)
+    for (var i = 0; i < 12; i++) {
+      // Select one color. 0x60 means 0, 0x64 is color1, 0x65 is color2.
+      const selectionIndex = Math.floor(rng() * 3)
+      const selectionByte = [0x60, 0x64, 0x65][selectionIndex]
+      // Go to the proper byte within the sb instruction and change which register writes
+      const targetAddress = primWriteAddressStart + i * 4
+      data.writeChar(targetAddress, selectionByte)
+    }
+  }
+
   function randomizeItems(rng, items, newNames, options) {
     const data = new util.checked()
     const info = util.newInfo()
@@ -1651,6 +1670,7 @@
         if (options.turkeyMode) {
           turkeyMode(items, pool)
           randomizeCapeColors(data, rng)
+          randomizeGravBootColors(data,rng)
         }
         // Write items to ROM.
         if (options.itemLocations
