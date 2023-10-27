@@ -35,7 +35,8 @@
     "third-castle",
     "rat-race",
     "boss-rush",
-    "summoner"
+    "summoner",
+    "aperture"
   ],
   "engines": {
     "node": ">=15"
