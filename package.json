@@ -33,7 +33,9 @@
     "empty-hand",
     "gem-farmer",
     "third-castle",
-    "rat-race"
+    "rat-race",
+    "boss-rush,
+    "aperture"
   ],
   "engines": {
     "node": ">=15"
