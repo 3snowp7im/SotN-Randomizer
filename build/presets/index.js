@@ -23,7 +23,8 @@
       require('./third-castle'),
       require('./rat-race'),
       require('./boss-rush'),
-      require('./summoner')
+      require('./summoner'),
+      require('./aperture')
     ]
   }
   exports.sort(function(a, b) {
