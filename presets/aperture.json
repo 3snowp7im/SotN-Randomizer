@@ -5350,6 +5350,15 @@
     "type": "char",
     "address": "0x53F97A6",
     "value": "0x12"
+  }, {
+    "comment": "Remove Karasuman near Akmodan",
+    "type": "short",
+    "address": "0x50fa80c",
+    "value": "0xA001"
+  }, {
+    "type": "short",
+    "address": "0x50fb162",
+    "value": "0xA001"
   }],
 
   "complexityGoal": {
@@ -5450,9 +5459,9 @@
     "location": "Gravity Boots",
     "comment": "Requires flight + Jewel of Open",
     "locks": [
-      "Holy glasses + Gravity Boots + Form of Mist + Jewel of Open",
-      "Holy glasses + Gravity Boots + Soul of Wolf + Jewel of Open",
-      "Holy glasses + Gravity Boots + Thrust sword + Jewel of Open"
+      "Gravity Boots + Form of Mist + Jewel of Open",
+      "Gravity Boots + Soul of Wolf + Jewel of Open",
+      "Gravity Boots + Thrust sword + Jewel of Open"
     ]
   }, {
     "location": "Holy Symbol",
