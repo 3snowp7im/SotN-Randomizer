@@ -35,7 +35,12 @@
     "third-castle",
     "rat-race",
     "boss-rush",
-    "aperture"
+    "aperture",
+    "breach",
+    "forge",
+    "big-toss",
+    "grand-tour",
+    "crash-course"
   ],
   "engines": {
     "node": ">=15"
