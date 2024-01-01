@@ -24,6 +24,11 @@
       require('./rat-race'),
       require('./boss-rush'),
       require('./aperture'),
+      require('./breach'),
+      require('./forge'),
+      require('./big-toss'),
+      require('./grand-tour'),
+      require('./crash-course'),
     ]
   }
   exports.sort(function(a, b) {
