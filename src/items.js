@@ -7184,7 +7184,7 @@
     name: 'Estoc',
     type: TYPE.WEAPON2,
     id: 95,
-    thrustSword: true,
+    thrustSword: false,
     tiles: [{
       zones: [ ZONE.NO2 ],
       index: 10,

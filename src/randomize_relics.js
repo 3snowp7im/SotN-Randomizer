@@ -1249,6 +1249,8 @@
     let locations = getLocations()
     const extensions = []
     switch (options.relicLocations.extension) {
+    case constants.EXTENSION.TOURIST:
+      extensions.push(constants.EXTENSION.TOURIST)
     case constants.EXTENSION.EQUIPMENT:
       extensions.push(constants.EXTENSION.EQUIPMENT)
     case constants.EXTENSION.SPREAD:
@@ -1412,6 +1414,7 @@
       patchClockRoomCutscene(data)
       // Apply extension specific patches.
       switch (options.relicLocations.extension) {
+      case constants.EXTENSION.TOURIST:
       case constants.EXTENSION.EQUIPMENT:
       case constants.EXTENSION.SPREAD:
       case constants.EXTENSION.GUARDED:

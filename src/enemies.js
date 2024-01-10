@@ -312,7 +312,7 @@
     dropAddresses: [ 0x0b5b92, 0x0b5b94 ],
   }, {
     id: 63,
-    name: 'Spectral Sword ',
+    name: 'Spectral Sword',
     level: 15,
     dropAddresses: [ 0x0b7012, 0x0b7014 ],
   }, {

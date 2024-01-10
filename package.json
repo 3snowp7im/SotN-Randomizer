@@ -33,7 +33,14 @@
     "empty-hand",
     "gem-farmer",
     "third-castle",
-    "rat-race"
+    "rat-race",
+    "boss-rush",
+    "aperture",
+    "breach",
+    "forge",
+    "big-toss",
+    "grand-tour",
+    "crash-course"
   ],
   "engines": {
     "node": ">=15"

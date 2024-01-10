@@ -502,6 +502,7 @@
     GUARDED:   'guarded',
     EQUIPMENT: 'equipment',
     SPREAD:    'spread',
+    TOURIST:   'tourist',
   }
 
   const defaultExtension = EXTENSION.GUARDED
@@ -580,6 +581,19 @@
     ALUCARD_MAIL:                'Alucard mail',
     GRAM:                        'Gram',
     FURY_PLATE:                  'Fury plate',
+    CONFESSIONAL:                'Confessional',
+    COLOSSEUM_GREEN_TEA:         'Colosseum Green tea',
+    CLOCK_TOWER_CLOAKED_KNIGHT:  'Clock Tower Cloaked knight',
+    TELESCOPE:                   'Telescope',
+    WATERFALL_CAVE:              'Waterfall Cave',
+    FLOATING_CATACOMBS_ELIXIR:   'Floating Catacombs Elixir',
+    REVERSE_ENTRANCE_ANTIVENOM:  'Reverse Entrance Antivenom',
+    REVERSE_FORBIDDEN_ROUTE:     'Reverse Forbidden Route',
+    CAVE_LIFE_APPLE:             'Cave Life apple',
+    REVERSE_COLOSSEUM_ZIRCON:    'Reverse Colosseum Zircon',
+    BLACK_MARBLE_GALLERY_VAT:    'Black Marble Gallery Vat',
+    BLACK_MARBLE_MEAL_TICKET:    'Black Marble Meal Ticket',
+    REVERSE_KEEP_HIGH_POTION:    'Reverse Keep High Potion',
   }
 
   const GLOBAL_DROP = 'Global'
@@ -626,7 +640,7 @@
     // I_AM_THE_WIND: 0x3c,       // I Am the Wind
     // SILENCE: 0x3d,             // Silence
     // LAND_OF_BENEDICTION: 0x3e, // Land of Benediction
-    // NOCTURNE: 0x3f,            // Nocturne
+    NOCTURNE: 0x3f,               // Nocturne
     // MOONLIGHT_NOCTURNE: 0x40,  // Moonlight Nocturne
     // SPOKEN: 0x41,
     // SPOKEN: 0x42,

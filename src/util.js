@@ -1972,9 +1972,11 @@
             locations.filter(function(location) {
               const extensions = []
               switch (options.relicLocations.extension) {
+              case constants.EXTENSION.TOURIST:
+                extensions.push(constants.EXTENSION.TOURIST)
               case constants.EXTENSION.EQUIPMENT:
                 extensions.push(constants.EXTENSION.EQUIPMENT)
-	      case constants.EXTENSION.SPREAD:
+	            case constants.EXTENSION.SPREAD:
                 extensions.push(constants.EXTENSION.SPREAD)
               case constants.EXTENSION.GUARDED:
                 extensions.push(constants.EXTENSION.GUARDED)
