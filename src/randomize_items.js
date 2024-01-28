@@ -1530,6 +1530,19 @@
     capeColor(data, 0x0afa44, 0x0afbac, {rng: rng})
   }
 
+  function randomizeHydroStormColor(data, rng){
+    const color1 = Math.floor(rng() * 0x100)
+    const color2 = Math.floor(rng() * 0x100)
+    const color3 = Math.floor(rng() * 0x100)
+    const color4 = Math.floor(rng() * 0x100)
+    const color5 = Math.floor(rng() * 0x100)
+    data.writeChar(0x3A19544, color1)
+    data.writeChar(0x3A19550, color2)
+    data.writeChar(0x3A19558, color3)
+    data.writeChar(0x3A19560, color4)
+    data.writeChar(0x3A19568, color5)
+  }
+
   function randomizeItems(rng, items, newNames, options) {
     const data = new util.checked()
     const info = util.newInfo()
@@ -1651,6 +1664,7 @@
         if (options.turkeyMode) {
           turkeyMode(items, pool)
           randomizeCapeColors(data, rng)
+          randomizeHydroStormColor(data, rng)
         }
         // Write items to ROM.
         if (options.itemLocations
