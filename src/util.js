@@ -1515,6 +1515,10 @@
             if (isRandom) {
               switch (value) {
               case 'rc': length = 1
+              case 'r1': length = 1
+              case 'r3': length = 1
+              case 'r10': length = 1
+              case 'r99': length = 1
               case 'rs': length = 2
               case 'rw': length = 4
               case 'rl': length = 8
@@ -2074,6 +2078,14 @@
             case 'char':
               if (write.value === 'random') {
                 opt += 'rc'
+              } else if (write.value === 'random1') {
+                opt += 'r1'
+              } else if (write.value === 'random3') {
+                opt += 'r3'
+              } else if (write.value === 'random10') {
+                opt += 'r10'
+              } else if (write.value === 'random99') {
+                opt += 'r99'
               } else {
                 opt += numToHex(write.value, 2)
               }
@@ -2088,6 +2100,8 @@
             case 'word':
               if (write.value === 'random') {
                 opt += 'rw'
+              } else if (write.value === 'randomRelic') {
+                opt += 'rr'
               } else {
                 opt += numToHex(write.value, 8)
               }
@@ -4218,7 +4232,7 @@
 
   // Write a character.
   PresetBuilder.prototype.writeChar = function writeChar(address, value) {
-    if (value !== 'random') {
+    if (value !== 'random' && value !== 'random1' && value !== 'random3' && value !== 'random10' && value !== 'random99') {
       value = parseInt(value)
     }
     this.writes = this.writes || []
@@ -4246,7 +4260,7 @@
 
   // Write a word.
   PresetBuilder.prototype.writeWord = function writeWord(address, value) {
-    if (value !== 'random') {
+    if (value !== 'random' && value !== 'randomRelic') {
       value = parseInt(value)
     }
     this.writes = this.writes || []
@@ -4667,6 +4681,30 @@
           if (value === 'random') {
             value = Math.floor(rng() * 0x100)
           }
+          else if (value === 'random1') {
+            // randomizes between 0 and 1 - eldri7ch
+            let randomInt
+            randomInt = Math.floor(rng() * 1)
+            value = '0x0' + randomInt
+          }
+          else if (value === 'random3') {
+            // randomizes between 0 and 3 - eldri7ch
+            let randomInt
+            randomInt = Math.floor(rng() * 3)
+            value = '0x0' + randomInt
+          }
+          else if (value === 'random10') {
+            // randomizes between 1 and 10 - eldri7ch
+            let randomInt
+            randomInt = Math.floor(rng() * 9) + 1
+            value = numToHex(randomInt)
+          }
+          else if (value === 'random99') {
+            // randomizes between 1 and 99 - eldri7ch
+            let randomInt
+            randomInt = Math.floor(rng() * 98) + 1
+            value = numToHex(randomInt)
+          }
           data.writeChar(write.address, value)
           break
         case 'short':
@@ -4680,6 +4718,12 @@
           value = write.value
           if (value === 'random') {
             value = Math.floor(rng() * 0x100000000)
+          }
+          else if (value === 'randomRelic') {
+            // "2690808163" translates to the address before the relic hex is added - eldri7ch
+            let relicHex
+            relicHex = Math.floor(rng() * 29) + 2690808164
+            value = numToHex(relicHex)
           }
           data.writeWord(write.address, value)
           break
