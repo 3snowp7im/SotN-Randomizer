@@ -1382,6 +1382,16 @@
       })[0]
       const replacement = (addon || []).concat(pool).filter(function(item) {
         return item.tiles && item.tiles.some(function(tile) {
+          if (tile === undefined) {
+            if (name === 'Short sword') {
+              addresses = [ 0x0b6b3c ]
+            }
+            else if (name === 'Red Rust') {
+              addresses = [ 0x0b6b3a ]
+            }
+            return addresses
+              && addresses[0] === offsetTile.addresses[0]
+          }
           return tile.addresses
             && tile.addresses[0] === offsetTile.addresses[0]
         })
@@ -1390,7 +1400,10 @@
         if (item.tiles) {
           let index = -1
           item.tiles.forEach(function(tile, tileIndex) {
-            if (tile.addresses
+            if (tile === undefined) {
+              index = tileIndex
+            }
+            else if (tile.addresses
                 && tile.addresses[0] === noOffsetTile.addresses[0]) {
               index = tileIndex
             }
