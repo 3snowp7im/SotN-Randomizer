@@ -3918,12 +3918,19 @@
         this.items[zoneName] = this.items[zoneName] || new Map()
         const map = this.items[zoneName].get(item) || {}
         map[number - 1] = map[number - 1] || []
-        replaceNames.forEach(function(replaceName) {
+        const replaceFunc = function(replaceName) {
           const replace = items.filter(function(item) {
             return item.name === replaceName
           })[0]
           assert(replace, 'Unknown item: ' + replaceName)
           map[number - 1].push(replace)
+        };
+        replaceNames.forEach(name => {
+            if(name instanceof Array) {
+              name.forEach(replaceFunc)
+            } else {
+              replaceFunc(name)
+            }
         })
         this.items[zoneName].set(item, map)
       }
