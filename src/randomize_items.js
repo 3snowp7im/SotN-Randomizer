@@ -1541,6 +1541,10 @@
     randomizeJosephsCloak(data, rng)
     // Twilight Cloak.
     capeColor(data, 0x0afa44, 0x0afbac, {rng: rng})
+    // DOP10 Cloak. - MottZilla
+    capeColor(data, 0x627984c, 0x6279850, {rng: rng})
+    // DOP40 Cloak. - MottZilla
+    capeColor(data, 0x6894054, 0x6894058, {rng: rng})
   }
 
   function randomizeItems(rng, items, newNames, options) {
