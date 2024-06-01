@@ -3064,7 +3064,7 @@
           builder.locationAlias(alias.relic, alias.alias)
         }
         if ('item' in alias) {
-          builder.temAlias(alias.item, alias.alias)
+          builder.itemAlias(alias.item, alias.alias)
         }
       })
     }
@@ -3327,8 +3327,8 @@
   }
 
   PresetBuilder.prototype.itemAlias = function itemAlias(what, alias) {
-    assert.equal(typeof(what), 'string')
-    assert.equal(typeof(alias), 'string')
+    assert.equal(typeof(what) === 'string' || what instanceof Array)
+    assert.equal(typeof(alias) === 'string')
     this.itemAliases[alias] = what
   }
 
