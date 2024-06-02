@@ -597,6 +597,11 @@ const yargs = require('yargs')
     describe: 'Enable replace Heart Max with Magic Max Vessels',
     type: 'boolean',
   })
+  .option('antifreeze', {
+    alias: 'z',
+    describe: 'Enable Anti-Freeze Mode, removes screen freezes from level-up & more.',
+    type: 'boolean',
+  })
   .option('disable-accessibility-patches', {
     alias: 'a',
     describe: 'Disable accessibility patches',
@@ -911,6 +916,10 @@ if (argv.tournament) {
 if (argv.magicmax) { // Adds MP Vessel to replace Heart Vessel - eldrich
   options.magicmaxMode = true
 }
+// Enable anti-freeze mode if specified. - eldri7ch
+if (argv.antifreeze) { // Removes screen freezes from level-up and acquisitions - eldrich
+  options.antiFreezeMode = true
+}
 // Set misc options.
 if ('verbose' in argv) {
   options.verbose = argv.verbose
@@ -1040,6 +1049,10 @@ if ('inBin' in argv) {
         if (options.magicmaxMode) { // Adds MP Vessel to replace Heart Vessel - eldrich
           // Apply magic max mode patches. - MottZilla
           check.apply(util.applyMagicMaxPatches())
+        }
+        if (options.antiFreezeMode) { // Adds MP Vessel to replace Heart Vessel - eldrich
+          // Apply anti-freeze mode patches. - eldri7ch
+          check.apply(util.applyAntiFreezePatches())
         }
         // Apply writes.
         check.apply(util.applyWrites(rng, applied))
