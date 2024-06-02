@@ -354,6 +354,10 @@
     localStorage.setItem('magicmaxMode', elems.magicmaxMode.checked)
   }
 
+  function antiFreezeModeChange() {
+    localStorage.setItem('antiFreezeMode', elems.antiFreezeMode.checked)
+  }
+
   function accessibilityPatchesChange() {
     localStorage.setItem('accessibilityPatches', elems.accessibilityPatches.checked)
   }
@@ -493,6 +497,9 @@
       if (elems.magicmaxMode.checked) {
         options.magicmaxMode = true
       }
+      if (elems.antiFreezeMode.checked) {
+        options.antiFreezeMode = true
+      }
       return options
     }
     const options = {
@@ -506,6 +513,7 @@
       turkeyMode: elems.turkeyMode.checked,
       tournamentMode: elems.tournamentMode.checked,
       magicmaxMode: elems.magicmaxMode.checked,
+      antiFreezeMode: elems.antiFreezeMode.checked,
     }
     if (elems.enemyDropsArg.value) {
       options.enemyDrops = util.optionsFromString(
@@ -652,6 +660,10 @@
         // Apply magic max patches.
         if (options.magicmaxMode) {
           check.apply(util.applyMagicMaxPatches())
+        }
+        // Apply anti-freeze patches.
+        if (options.antiFreezeMode) {
+          check.apply(util.applyAntiFreezePatches())
         }
         // Apply writes.
         check.apply(util.applyWrites(rng, applied))
@@ -875,6 +887,7 @@
     appendSeed: document.getElementById('append-seed'),
     tournamentMode: document.getElementById('tournament-mode'),
     magicmaxMode: document.getElementById('magicmax-mode'),
+    antiFreezeMode: document.getElementById('antifreeze-mode'),
     accessibilityPatches: document.getElementById('accessibility-patches'),
     showSpoilers: document.getElementById('show-spoilers'),
     showRelics: document.getElementById('show-relics'),
@@ -927,6 +940,7 @@
   elems.appendSeed.addEventListener('change', appendSeedChange)
   elems.tournamentMode.addEventListener('change', tournamentModeChange)
   elems.magicmaxMode.addEventListener('change', magicmaxModeChange)
+  elems.antiFreezeMode.addEventListener('change', antiFreezeModeChange)
   elems.accessibilityPatches.addEventListener('change', accessibilityPatchesChange)
   elems.showSpoilers.addEventListener('change', spoilersChange)
   elems.showRelics.addEventListener('change', showRelicsChange)
@@ -1201,6 +1215,7 @@
   loadOption('showRelics', showRelicsChange, false)
   loadOption('tournamentMode', tournamentModeChange, false)
   loadOption('magicmaxMode', magicmaxModeChange, false)
+  loadOption('antiFreezeMode', antiFreezeModeChange, false)
   loadOption('accessibilityPatches', accessibilityPatchesChange, true)
   loadOption('showSpoilers', spoilersChange, true)
   setTimeout(function() {
