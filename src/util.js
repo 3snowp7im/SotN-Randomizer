@@ -2882,6 +2882,8 @@
     stats,
     music,
     turkeyMode,
+    magicmaxMode,
+    antiFreezeMode,
     writes,
   ) {
     this.id = id
@@ -2899,6 +2901,8 @@
     this.stats = stats
     this.music = music
     this.turkeyMode = turkeyMode
+    this.magicmaxMode = magicmaxMode
+    this.antiFreezeMode = antiFreezeMode
     if (writes) {
       this.writes = writes
     }
@@ -3298,6 +3302,12 @@
     if ('turkeyMode' in json) {
       builder.turkeyMode(json.turkeyMode)
     }
+    if ('magicmaxMode' in json) {
+      builder.magicmaxMode(json.magicmaxMode)
+    }
+    if ('antiFreezeMode' in json) {
+      builder.antiFreezeMode(json.antiFreezeMode)
+    }
     if ('writes' in json) {
       let lastAddress = 0
       json.writes.forEach(function(write) {
@@ -3584,6 +3594,12 @@
     }
     if ('turkeyMode' in preset) {
       this.turkey = preset.turkeyMode
+    }
+    if ('magicmaxMode' in preset) {
+      this.magicmax = preset.magicmaxMode
+    }
+    if ('antiFreezeMode' in preset) {
+      this.antifreeze = preset.antiFreezeMode
     }
     if ('writes' in preset) {
       this.writes = this.writes || []
@@ -4245,6 +4261,16 @@
     this.turkey = enabled
   }
 
+  // Enable Magic Max replacing Heart Max
+  PresetBuilder.prototype.magicmaxMode = function magicmaxMode(enabled) {
+    this.magicmax = enabled
+  }
+
+  // remove screen freezes from level up, relic, vessel. - eldri7ch & MottZilla
+  PresetBuilder.prototype.antiFreezeMode = function antiFreezeMode(enabled) {
+    this.antifreeze = enabled
+  }
+
   // Write a character.
   PresetBuilder.prototype.writeChar = function writeChar(address, value) {
     if (value !== 'random' && value !== 'random1' && value !== 'random3' && value !== 'random10' && value !== 'random99') {
@@ -4525,6 +4551,8 @@
     const stats = self.stats
     const music = self.music
     const turkey = self.turkey
+    const magicmax = self.magicmax
+    const antifreeze = self.antifreeze
     const writes = self.writes
     return new Preset(
       self.metadata.id,
@@ -4542,6 +4570,8 @@
       stats,
       music,
       turkey,
+      magicmax,
+      antifreeze,
       writes,
     )
   }
