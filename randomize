@@ -449,6 +449,8 @@ function presetMetaHelp(preset) {
   if (typeof(options.relicLocations) === 'object'
       && 'extension' in options.relicLocations) {
     switch (options.relicLocations.extension) {
+    case constants.EXTENSION.WANDERER:
+      extensions.push(constants.EXTENSION.WANDERER)
     case constants.EXTENSION.EQUIPMENT:
       extensions.push(constants.EXTENSION.EQUIPMENT)
     case constants.EXTENSION.SPREAD:
