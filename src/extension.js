@@ -1151,7 +1151,8 @@
     tileIndex: 0,
     asRelic: {
       y: 0x00b0,
-    }]
+    },
+  }]
 
   const exports = locations
   if (self) {
