@@ -1976,6 +1976,11 @@
             locations.filter(function(location) {
               const extensions = []
               switch (options.relicLocations.extension) {
+              case constants.EXTENSION.WANDERER: // This is a smaller distribution than Equipment but includes all tourist checks + Spread + some Equipment - eldri7ch
+                  extensions.push(constants.EXTENSION.WANDERER)
+                  extensions.push(constants.EXTENSION.SPREAD)
+                  extensions.push(constants.EXTENSION.GUARDED) 
+                  break 
               case constants.EXTENSION.TOURIST:
                 extensions.push(constants.EXTENSION.TOURIST)
               case constants.EXTENSION.EQUIPMENT:
