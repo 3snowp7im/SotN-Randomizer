@@ -592,6 +592,11 @@ const yargs = require('yargs')
     describe: 'Enable tournament mode (`--help tournament`)',
     type: 'boolean',
   })
+  .option('magicmax', {
+    alias: 'x',
+    describe: 'Enable replace Heart Max with Magic Max Vessels',
+    type: 'boolean',
+  })
   .option('disable-accessibility-patches', {
     alias: 'a',
     describe: 'Disable accessibility patches',
@@ -901,6 +906,10 @@ if ('complexity' in argv) {
 // Enable tournament mode if specified.
 if (argv.tournament) {
   options.tournamentMode = true
+}
+// Enable magic max mode if specified. - MottZilla
+if (argv.magicmax) { // Adds MP Vessel to replace Heart Vessel - eldrich
+  options.magicmaxMode = true
 }
 // Set misc options.
 if ('verbose' in argv) {
