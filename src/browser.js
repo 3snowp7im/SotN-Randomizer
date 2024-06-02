@@ -350,6 +350,10 @@
     localStorage.setItem('tournamentMode', elems.tournamentMode.checked)
   }
 
+  function magicmaxModeChange() {
+    localStorage.setItem('magicmaxMode', elems.magicmaxMode.checked)
+  }
+
   function accessibilityPatchesChange() {
     localStorage.setItem('accessibilityPatches', elems.accessibilityPatches.checked)
   }
@@ -486,6 +490,9 @@
       if (elems.tournamentMode.checked) {
         options.tournamentMode = true
       }
+      if (elems.magicmaxMode.checked) {
+        options.magicmaxMode = true
+      }
       return options
     }
     const options = {
@@ -498,6 +505,7 @@
       music: elems.music.checked,
       turkeyMode: elems.turkeyMode.checked,
       tournamentMode: elems.tournamentMode.checked,
+      magicmaxMode: elems.magicmaxMode.checked,
     }
     if (elems.enemyDropsArg.value) {
       options.enemyDrops = util.optionsFromString(
@@ -640,6 +648,10 @@
         // Apply tournament mode patches.
         if (options.tournamentMode) {
           check.apply(util.applyTournamentModePatches())
+        }
+        // Apply magic max patches.
+        if (options.magicmaxMode) {
+          check.apply(util.applyMagicMaxPatches())
         }
         // Apply writes.
         check.apply(util.applyWrites(rng, applied))
@@ -862,6 +874,7 @@
     theme: document.getElementById('theme'),
     appendSeed: document.getElementById('append-seed'),
     tournamentMode: document.getElementById('tournament-mode'),
+    magicmaxMode: document.getElementById('magicmax-mode'),
     accessibilityPatches: document.getElementById('accessibility-patches'),
     showSpoilers: document.getElementById('show-spoilers'),
     showRelics: document.getElementById('show-relics'),
@@ -913,6 +926,7 @@
   elems.theme.addEventListener('change', themeChange)
   elems.appendSeed.addEventListener('change', appendSeedChange)
   elems.tournamentMode.addEventListener('change', tournamentModeChange)
+  elems.magicmaxMode.addEventListener('change', magicmaxModeChange)
   elems.accessibilityPatches.addEventListener('change', accessibilityPatchesChange)
   elems.showSpoilers.addEventListener('change', spoilersChange)
   elems.showRelics.addEventListener('change', showRelicsChange)
@@ -1186,6 +1200,7 @@
   loadOption('showSolutions', showSolutionsChange, false)
   loadOption('showRelics', showRelicsChange, false)
   loadOption('tournamentMode', tournamentModeChange, false)
+  loadOption('magicmaxMode', magicmaxModeChange, false)
   loadOption('accessibilityPatches', accessibilityPatchesChange, true)
   loadOption('showSpoilers', spoilersChange, true)
   setTimeout(function() {
