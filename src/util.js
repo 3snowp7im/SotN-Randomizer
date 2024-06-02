@@ -1661,6 +1661,11 @@
           randomize.push('t')
         }
         delete options.tournamentMode
+      } else if ('magicmaxMode' in options) { 
+        if (options.magicmaxMode) {
+          randomize.push('x')
+        }
+        delete options.magicmaxMode
       } else if ('preset' in options) {
         randomize.push('p:' + options.preset)
         delete options.preset
