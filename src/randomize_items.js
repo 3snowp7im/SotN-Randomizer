@@ -1577,6 +1577,7 @@
       const targetAddress = primWriteAddressStart + i * 4
       data.writeChar(targetAddress, selectionByte)
     }
+  }
   
   function randomizeItems(rng, items, newNames, options) {
     const data = new util.checked()
