@@ -1666,6 +1666,11 @@
           randomize.push('x')
         }
         delete options.magicmaxMode
+      } else if ('antiFreezeMode' in options) { // Removes screen freezes from level-up and acquisitions - eldrich
+        if (options.antiFreezeMode) {
+          randomize.push('z')
+        }
+        delete options.antiFreezeMode
       } else if ('preset' in options) {
         randomize.push('p:' + options.preset)
         delete options.preset
@@ -4727,7 +4732,14 @@
     offset = data.writeWord(offset, 0x67f)
     return data
   }
-	
+
+  function applyAntiFreezePatches() {
+    const data = new checked()
+    // Patch screen freeze value - eldri7ch
+    data.writeChar(0x00140a2c, 0x00)
+    return data
+  }
+
   function randomizeRelics(
     version,
     applied,
@@ -5239,6 +5251,7 @@
     PresetBuilder: PresetBuilder,
     applyTournamentModePatches: applyTournamentModePatches,
     applyMagicMaxPatches: applyMagicMaxPatches,
+    applyAntiFreezePatches: applyAntiFreezePatches,
     randomizeRelics: randomizeRelics,
     randomizeItems: randomizeItems,
     applyWrites: applyWrites,
