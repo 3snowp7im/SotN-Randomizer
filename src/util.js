@@ -4565,6 +4565,169 @@
     return data
   }
 
+  function applyMagicMaxPatches() { // Adds MP Vessel to replace Heart Vessel - eldrich
+    const data = new checked()
+    let offset = 0x00117b50	// Set Starting Offset
+    // Patch MP Vessels function Heart Vessels - code by MottZilla & graphics drawn by eldri7ch
+    offset = data.writeWord(offset, 0x3c028004)
+    offset = data.writeWord(offset, 0x8c42c9a0)
+    offset = data.writeWord(offset, 0x00000000)
+    offset = data.writeWord(offset, 0x10400003)
+    offset = data.writeWord(offset, 0x00000000)
+    offset = data.writeWord(offset, 0x0803f8e7)
+    offset = data.writeWord(offset, 0x34020001)
+    offset = data.writeWord(offset, 0x3c058009)
+    offset = data.writeWord(offset, 0x8ca47bac)
+    offset = data.writeWord(offset, 0x8ca67ba8)
+    offset = data.writeWord(offset, 0x24840005)
+    offset = data.writeWord(offset, 0xaca47bac)
+    offset = data.writeWord(offset, 0x24c60005)
+    offset = data.writeWord(offset, 0xaca67ba8)
+    offset = data.writeWord(offset, 0x8ca47bb4)
+    offset = data.writeWord(offset, 0x00000000)
+    offset = data.writeWord(offset, 0x24840003)
+    offset = data.writeWord(offset, 0xaca47bb0)
+    offset = data.writeWord(offset, 0xaca47bb4)
+    offset = data.writeWord(offset, 0x00000000)
+    offset = data.writeWord(offset, 0x3c058013)
+    offset = data.writeWord(offset, 0x34a57964)
+    offset = data.writeWord(offset, 0x00000000)
+    offset = data.writeWord(offset, 0x8ca40000)
+    offset = data.writeWord(offset, 0x00000000)
+    offset = data.writeWord(offset, 0x24840001)
+    offset = data.writeWord(offset, 0xaca40000)
+    offset = data.writeWord(offset, 0x0803f8e7)
+    offset = data.writeWord(offset, 0x34020000)
+    // Patch GFX - MottZilla
+    offset = 0x3868268
+    offset = data.writeWord(offset, 0x40000000)
+    offset = data.writeWord(offset, 0x3)
+    offset = data.writeWord(offset, 0x40000000)
+    offset = data.writeWord(offset, 0x3)
+    offset = data.writeWord(offset, 0x40000000)
+    offset = data.writeWord(offset, 0x3)
+    offset = data.writeWord(offset, 0x40000000)
+    offset = data.writeWord(offset, 0x3)
+    offset += 0x20
+    offset = data.writeWord(offset, 0xf7200000)
+    offset = data.writeWord(offset, 0x277)
+    offset = data.writeWord(offset, 0xf7200000)
+    offset = data.writeWord(offset, 0x277)
+    offset = data.writeWord(offset, 0xf7200000)
+    offset = data.writeWord(offset, 0x277)
+    offset = data.writeWord(offset, 0xf7200000)
+    offset = data.writeWord(offset, 0x277)
+    offset += 0x20
+    offset = data.writeWord(offset, 0x97122000)
+    offset = data.writeWord(offset, 0x22169)
+    offset = data.writeWord(offset, 0x97122000)
+    offset = data.writeWord(offset, 0x22169)
+    offset = data.writeWord(offset, 0x97122000)
+    offset = data.writeWord(offset, 0x22169)
+    offset = data.writeWord(offset, 0x97122000)
+    offset = data.writeWord(offset, 0x22169)
+    offset += 0x20
+    offset = data.writeWord(offset, 0x1f944300)
+    offset = data.writeWord(offset, 0x344971)
+    offset = data.writeWord(offset, 0x1f944300)
+    offset = data.writeWord(offset, 0x344971)
+    offset = data.writeWord(offset, 0x1f944300)
+    offset = data.writeWord(offset, 0x344971)
+    offset = data.writeWord(offset, 0x1f944300)
+    offset = data.writeWord(offset, 0x344971)
+    offset += 0x20
+    offset = data.writeWord(offset, 0xa9432130)
+    offset = data.writeWord(offset, 0x321449a)
+    offset = data.writeWord(offset, 0xa9432130)
+    offset = data.writeWord(offset, 0x321449a)
+    offset = data.writeWord(offset, 0xa9432130)
+    offset = data.writeWord(offset, 0x321449a)
+    offset = data.writeWord(offset, 0xa9432130)
+    offset = data.writeWord(offset, 0x321449a)
+    offset += 0x20
+    offset = data.writeWord(offset, 0x93319920)
+    offset = data.writeWord(offset, 0x2992349)
+    offset = data.writeWord(offset, 0x93319920)
+    offset = data.writeWord(offset, 0x2992349)
+    offset = data.writeWord(offset, 0x93319920)
+    offset = data.writeWord(offset, 0x2992349)
+    offset = data.writeWord(offset, 0x93319920)
+    offset = data.writeWord(offset, 0x2992349)
+    offset += 0x20
+    offset = data.writeWord(offset, 0x3f2c7690)
+    offset = data.writeWord(offset, 0x9679233)
+    offset = data.writeWord(offset, 0x3f2c7690)
+    offset = data.writeWord(offset, 0x9679233)
+    offset = data.writeWord(offset, 0x3f2c7690)
+    offset = data.writeWord(offset, 0x9679233)
+    offset = data.writeWord(offset, 0x3f2c7690)
+    offset = data.writeWord(offset, 0x9679233)
+    offset += 0x20
+    offset = data.writeWord(offset, 0xf29ccf60)
+    offset = data.writeWord(offset, 0x6fab913)
+    offset = data.writeWord(offset, 0xf29ccf60)
+    offset = data.writeWord(offset, 0x6fab913)
+    offset = data.writeWord(offset, 0xf293cf60)
+    offset = data.writeWord(offset, 0x6fab913)
+    offset = data.writeWord(offset, 0xf23c3f60)
+    offset = data.writeWord(offset, 0x6fab913)
+    offset += 0x20
+    offset = data.writeWord(offset, 0x19accbf0)
+    offset = data.writeWord(offset, 0xf9aaa91)
+    offset = data.writeWord(offset, 0x19cfcbf0)
+    offset = data.writeWord(offset, 0xf9aaa91)
+    offset = data.writeWord(offset, 0x193f3bf0)
+    offset = data.writeWord(offset, 0xf9aaa91)
+    offset = data.writeWord(offset, 0x19cfcbf0)
+    offset = data.writeWord(offset, 0xf9aaa91)
+    offset += 0x20
+    offset = data.writeWord(offset, 0x9accba70)
+    offset = data.writeWord(offset, 0x79baaa9)
+    offset = data.writeWord(offset, 0x9accba70)
+    offset = data.writeWord(offset, 0x79baaa9)
+    offset = data.writeWord(offset, 0x9ac3ba70)
+    offset = data.writeWord(offset, 0x79baaa9)
+    offset = data.writeWord(offset, 0x9a3c3a70)
+    offset = data.writeWord(offset, 0x79baaa9)
+    offset += 0x20
+    offset = data.writeWord(offset, 0xabccaf00)
+    offset = data.writeWord(offset, 0x79baaa)
+    offset = data.writeWord(offset, 0xabccaf00)
+    offset = data.writeWord(offset, 0x79baaa)
+    offset = data.writeWord(offset, 0xabccaf00)
+    offset = data.writeWord(offset, 0x79baaa)
+    offset = data.writeWord(offset, 0xabccaf00)
+    offset = data.writeWord(offset, 0x79baaa)
+    offset += 0x20
+    offset = data.writeWord(offset, 0xbbbaf000)
+    offset = data.writeWord(offset, 0x79bab)
+    offset = data.writeWord(offset, 0xbbbaf000)
+    offset = data.writeWord(offset, 0x79bab)
+    offset = data.writeWord(offset, 0xbbbaf000)
+    offset = data.writeWord(offset, 0x79bab)
+    offset = data.writeWord(offset, 0xbbbaf000)
+    offset = data.writeWord(offset, 0x79bab)
+    offset += 0x20
+    offset = data.writeWord(offset, 0xaaa70000)
+    offset = data.writeWord(offset, 0x79aa)
+    offset = data.writeWord(offset, 0xaaa70000)
+    offset = data.writeWord(offset, 0x79aa)
+    offset = data.writeWord(offset, 0xaaa70000)
+    offset = data.writeWord(offset, 0x79aa)
+    offset = data.writeWord(offset, 0xaaa70000)
+    offset = data.writeWord(offset, 0x79aa)
+    offset += 0x20
+    offset = data.writeWord(offset, 0xf7600000)
+    offset = data.writeWord(offset, 0x67f)
+    offset = data.writeWord(offset, 0xf7600000)
+    offset = data.writeWord(offset, 0x67f)
+    offset = data.writeWord(offset, 0xf7600000)
+    offset = data.writeWord(offset, 0x67f)
+    offset = data.writeWord(offset, 0xf7600000)
+    offset = data.writeWord(offset, 0x67f)
+    return data
+  }
+	
   function randomizeRelics(
     version,
     applied,
@@ -5075,6 +5238,7 @@
     Preset: Preset,
     PresetBuilder: PresetBuilder,
     applyTournamentModePatches: applyTournamentModePatches,
+    applyMagicMaxPatches: applyMagicMaxPatches,
     randomizeRelics: randomizeRelics,
     randomizeItems: randomizeItems,
     applyWrites: applyWrites,
