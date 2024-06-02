@@ -1037,6 +1037,10 @@ if ('inBin' in argv) {
           // Apply tournament mode patches.
           check.apply(util.applyTournamentModePatches())
         }
+        if (options.magicmaxMode) { // Adds MP Vessel to replace Heart Vessel - eldrich
+          // Apply magic max mode patches. - MottZilla
+          check.apply(util.applyMagicMaxPatches())
+        }
         // Apply writes.
         check.apply(util.applyWrites(rng, applied))
       } catch (err) {
