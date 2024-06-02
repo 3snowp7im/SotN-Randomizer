@@ -503,6 +503,7 @@
     EQUIPMENT: 'equipment',
     SPREAD:    'spread',
     TOURIST:   'tourist',
+    WANDERER:  'wanderer',
   }
 
   const defaultExtension = EXTENSION.GUARDED
