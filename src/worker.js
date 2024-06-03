@@ -36,6 +36,7 @@ function randomizeWorker() {
       url + 'build/presets/third-castle.js',
       url + 'build/presets/rat-race.js',
       url + 'build/presets/magic-mirror.js',
+      url + 'build/presets/leg-day.js',
       url + 'src/randomize_items.js',
       url + 'src/randomize_relics.js',
       url + 'src/ecc-edc-recalc-js.js',
