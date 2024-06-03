@@ -101,6 +101,11 @@
     data.writeWord(0x4952474, 0x0806b647)
   }
 
+  // Always have Clear Game Status. - MottZilla
+  function patchClearGame(data) {
+    data.writeChar(0x4397122,0x22)
+  }
+
   function applyAccessibilityPatches() {
     const data = new util.checked()
     patchPowerOfSireFlashing(data)
@@ -113,6 +118,7 @@
     patchScyllaDoor(data)
     patchMinotaurWerewolf(data)
     patchClockRoom(data)
+    patchClearGame(data)
     return data
   }
 
