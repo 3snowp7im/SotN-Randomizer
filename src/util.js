@@ -479,7 +479,11 @@
       len: 1,
       val: val & 0xff,
     }
-    return address + 1
+    address = address + 1					// Step adddress. 
+    if (Math.floor(address % 2352) > 2071) {			// Then check if new address is beyond User Data section.
+      address = ( Math.floor(address / 2352) * 2352) + 2376	// If beyond user data section then return the beginning of the next sector's user data section. - MottZilla
+    }
+    return address
   }
 
   checked.prototype.writeShort = function writeShort(address, val) {
@@ -505,7 +509,11 @@
       len: 2,
       val: val & 0xffff,
     }
-    return address + 2
+    address = address + 2					// Step adddress. 
+    if (Math.floor(address % 2352) > 2071) {			// Then check if new address is beyond User Data section.
+      address = ( Math.floor(address / 2352) * 2352) + 2376	// If beyond user data section then return the beginning of the next sector's user data section. - MottZilla
+    }
+    return address
   }
 
   checked.prototype.writeWord = function writeShort(address, val) {
@@ -533,7 +541,11 @@
       len: 4,
       val: val & 0xffffffff,
     }
-    return address + 4
+    address = address + 4					// Step adddress. 
+    if (Math.floor(address % 2352) > 2071) {			// Then check if new address is beyond User Data section.
+      address = ( Math.floor(address / 2352) * 2352) + 2376	// If beyond user data section then return the beginning of the next sector's user data section. - MottZilla
+    }
+    return address
   }
 
   checked.prototype.writeLong = function writeLong(address, val) {
@@ -565,7 +577,11 @@
       len: 8,
       val: val,
     }
-    return address + 8
+    address = address + 8					// Step adddress. 
+    if (Math.floor(address % 2352) > 2071) {			// Then check if new address is beyond User Data section.
+      address = ( Math.floor(address / 2352) * 2352) + 2376	// If beyond user data section then return the beginning of the next sector's user data section. - MottZilla
+    }
+    return address
   }
 
   checked.prototype.writeString = function writeString(address, val) {
@@ -4282,7 +4298,11 @@
       address: address,
       value: value,
     })
-    return address + 1
+    address = address + 1					// Step adddress. 
+    if (Math.floor(address % 2352) > 2071) {			// Then check if new address is beyond User Data section.
+      address = ( Math.floor(address / 2352) * 2352) + 2376	// If beyond user data section then return the beginning of the next sector's user data section. - MottZilla
+    }
+    return address
   }
 
   // Write a short.
@@ -4296,7 +4316,11 @@
       address: address,
       value: value,
     })
-    return address + 2
+    address = address + 2					// Step adddress. 
+    if (Math.floor(address % 2352) > 2071) {			// Then check if new address is beyond User Data section.
+      address = ( Math.floor(address / 2352) * 2352) + 2376	// If beyond user data section then return the beginning of the next sector's user data section. - MottZilla
+    }
+    return address
   }
 
   // Write a word.
@@ -4310,7 +4334,11 @@
       address: address,
       value: value,
     })
-    return address + 4
+    address = address + 4					// Step adddress. 
+    if (Math.floor(address % 2352) > 2071) {			// Then check if new address is beyond User Data section.
+      address = ( Math.floor(address / 2352) * 2352) + 2376	// If beyond user data section then return the beginning of the next sector's user data section. - MottZilla
+    }
+    return address
   }
 
   // Write a long.
@@ -4321,7 +4349,11 @@
       address: address,
       value: value,
     })
-    return address + 8
+    address = address + 8					// Step adddress. 
+    if (Math.floor(address % 2352) > 2071) {			// Then check if new address is beyond User Data section.
+      address = ( Math.floor(address / 2352) * 2352) + 2376	// If beyond user data section then return the beginning of the next sector's user data section. - MottZilla
+    }
+    return address
   }
 
   // Write a string.
