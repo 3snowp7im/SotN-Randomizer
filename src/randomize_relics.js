@@ -750,6 +750,7 @@
     offset = data.writeWord(offset, 0x26100003) // addiu s0, s0, 0x0003
     offset = data.writeWord(offset, 0x0803f27f) // j 0x800fc9fc
     offset = data.writeWord(offset, 0x00000000) // nop
+    */
   }
 
   function patchPixieSong(data) {
@@ -800,7 +801,6 @@
     offset = data.writeWord(offset, 0xad0a2364) // sw t2, 0x2364 (t0)    
     offset = data.writeWord(offset, 0x03e00008) // jr ra
     offset = data.writeWord(offset, 0x00000000) // nop
-    */
   }
 
   function graph(mapping) {
