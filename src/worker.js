@@ -38,6 +38,7 @@ function randomizeWorker() {
       url + 'build/presets/magic-mirror.js',
       url + 'build/presets/leg-day.js',
       url + 'build/presets/boss-rush.js',
+      url + 'build/presets/aperture.js',
       url + 'src/randomize_items.js',
       url + 'src/randomize_relics.js',
       url + 'src/ecc-edc-recalc-js.js',
