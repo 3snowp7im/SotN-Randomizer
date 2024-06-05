@@ -3040,6 +3040,10 @@
     this.music = true
     // Turkey mode.
     this.turkey = true
+    // Magic Max mode.
+    this.magicmax = false
+    // AntiFreeze mode.
+    this.antifreeze = false
     // Arbitrary writes.
     this.writes = undefined
   }
