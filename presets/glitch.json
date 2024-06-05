@@ -168,7 +168,7 @@
       "LB + HR1 + HR2 + Dupe + Form of Mist",
       "LB + Gold ring + Silver ring"
     ],
-    "escapeRequirements": [
+    "escapeRequires": [
       "Gravity Boots + Leap Stone",
       "Gravity Boots + Form of Mist",
       "Gravity Boots + Soul of Wolf",
@@ -366,7 +366,7 @@
       "LB + HR1 + HR2 + Dupe",
       "Form of Mist"
     ],
-    "escapeRequirements": [
+    "escapeRequires": [
       "LB",
       "Form of Mist"
     ]
@@ -405,7 +405,7 @@
       "Cube of Zoe + Leap Stone",
       "Cube of Zoe + Gravity Boots",
       "Cube of Zoe + HR1 + Tstool + Dupe",
-      "Cube of Zoe + HR1 + Tstool + Dupe"
+      "Cube of Zoe + HR2 + Tstool + Dupe"
     ]
   }, {
     "location": "Broadsword",
@@ -485,7 +485,7 @@
       "LB + Leap Stone + Srod",
       "LB + Clay + Srod"
     ],
-    "escapeRequirements": []
+    "escapeRequires": []
   }, {
     "location": "Knuckle duster",
     "locks": [
@@ -529,7 +529,7 @@
       "LB + Leap Stone + HR2 + Dupe + Gravity Boots",
       "LB + HR1 + HR2 + Dupe"
     ],
-    "escapeRequirements": []
+    "escapeRequires": []
   }, {
     "location": "Ring of Ares",
     "locks": [
@@ -546,7 +546,7 @@
       "LB + Leap Stone + HR2 + Dupe + Gravity Boots",
       "LB + HR1 + HR2 + Dupe"
     ],
-    "escapeRequirements": []
+    "escapeRequires": []
   }, {
     "location": "Demon Card",
     "locks": [
@@ -580,7 +580,7 @@
       "LB + HR1 + HR2 + Dupe + Leap Stone",
       "LB + HR1 + HR2 + Dupe + Gravity Boots"
     ],
-    "escapeRequirements": []
+    "escapeRequires": []
   }, {
     "location": "Icebrand",
     "locks": [
@@ -597,7 +597,7 @@
       "LB + Leap Stone + HR2 + Dupe + Gravity Boots",
       "LB + HR1 + HR2 + Dupe"
     ],
-    "escapeRequirements": []
+    "escapeRequires": []
   }, {
     "location": "Spike Breaker",
     "locks": [
@@ -649,7 +649,7 @@
       "LB + Leap Stone + HR2 + Dupe + Gravity Boots",
       "LB + HR1 + HR2 + Dupe"
     ],
-    "escapeRequirements": []
+    "escapeRequires": []
   }, {
     "location": "Leap Stone",
     "locks": []
@@ -706,7 +706,7 @@
       "Soul of Wolf + Clay",
       "Form of Mist + Power of Mist + Holy glasses"
     ],
-    "escapeRequirements": [
+    "escapeRequires": [
       "LB",
       "Gravity Boots",
       "Soul of Wolf + Clay",
@@ -1097,7 +1097,7 @@
       "LB + Soul of Wolf + Gravity Boots + Clay",
       "Form of Mist + Power of Mist + Holy glasses"
     ],
-    "escapeRequirements": [
+    "escapeRequires": [
       "LB",
       "Form of Mist"
     ]

@@ -1,19 +1,23 @@
 {
   "metadata": {
-    "id": "expedition",
-    "name": "Expedition",
-    "description": "Adventure locations with Nimble build.",
-    "author": "eldri7ch and Mottzilla0",
-    "weight": -100
+    "id": "crash-course",
+    "name": "Crash Course",
+    "description": "Encourages sight-seeing",
+    "author": "eldri7ch & Mottzilla",
+    "weight": -6969
   },
   "inherits": "nimble",
-  "relicLocationsExtension": "equipment",
+  "relicLocationsExtension": "tourist",
+  "stats": false,
+  "music": false,
+
   "complexityGoal": {
-    "min": 8,
+    "min": 7,
     "goals": [
       "Holy glasses + Heart of Vlad + Tooth of Vlad + Rib of Vlad + Ring of Vlad + Eye of Vlad"
     ]
   },
+
   "itemLocations": [{
     "comment": "Place Stopwatch in the Clock Room",
     "zone": "NO0",
@@ -32,6 +36,7 @@
     "item": "Hammer",
     "replacement": "Library card"
   }],
+  
   "writes": [{
     "type": "word",
     "address": "0x158C30",
@@ -118,5 +123,19 @@
     "address": "0x12B534",
     "value": "0x0C04DAE6",
     "comment": "Reverse Library Card"
+  }, {
+    "comment": "Never get Clock Blocked",
+    "type": "word",
+    "address": "0x4951D4C",
+    "value": "0x3C020002"
+  }, {
+    "type": "word",
+    "address": "0x4FCF264",
+    "value": "0x3C020002"
+  }, {
+    "comment": "Open means Free Relics",
+    "type": "word",
+    "address": "0x47A3098",
+    "value": "0x00000000"
   }]
 }
