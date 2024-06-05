@@ -969,8 +969,12 @@
   const url = new URL(window.location.href)
   const releaseBaseUrl = constants.optionsUrls[constants.defaultOptions]
   const releaseHostname = new URL(releaseBaseUrl).hostname
-  const isDev = url.hostname !== releaseHostname
-  const fakeVersion = '0.0.0-dev'
+//  const isDev = url.hostname !== releaseHostname
+//  const fakeVersion = '0.0.0-dev'
+  // Added for index.html browser usage. This removes the development warning and sets the version number.
+  // version number will need to be kept up to date in the future along with the ones in index.html and package jsons.
+  const isDev = false
+  const fakeVersion = '3.16.0'
   if (url.protocol !== 'file:') {
     fetch('package.json', {cache: 'no-store'}).then(function(response) {
       if (response.ok) {
