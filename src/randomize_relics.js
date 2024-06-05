@@ -547,6 +547,14 @@
   }
 
   function patchRelicsMenu(data) {
+    // New patch by MottZilla to add JP Familiars back to the relic menu.
+    data.writeChar(0x10E568, 0x40)
+    data.writeChar(0x116088, 0x1E)
+    data.writeChar(0x1160A8, 0x00)
+    data.writeChar(0xAEF4A, 0xC3)
+    data.writeChar(0xAEF5A, 0xAC)
+    
+    /* Old Relics Menu Patch by Wild Mouse. Makes JP Familiars take the place of normal Faerie and Demon.
     // If relic locations are extended, the relic pool is padded out with the
     // familiars disabled in the NTSC-U release. To make them usable, they will
     // override their remaining counterparts in the menu if they have been
@@ -792,6 +800,7 @@
     offset = data.writeWord(offset, 0xad0a2364) // sw t2, 0x2364 (t0)    
     offset = data.writeWord(offset, 0x03e00008) // jr ra
     offset = data.writeWord(offset, 0x00000000) // nop
+    */
   }
 
   function graph(mapping) {
