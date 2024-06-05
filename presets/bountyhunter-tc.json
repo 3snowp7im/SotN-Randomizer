@@ -4,7 +4,7 @@
     "name": "Bounty Hunter TC",
     "description": "Expanded from Hunter preset, removes Vlads and makes them droppable via third-party app.",
     "author": "eldri7ch and MottZilla0",
-    "weight": -100
+    "weight": 10000
   },
   "inherits": "casual",
   "stats": false,
