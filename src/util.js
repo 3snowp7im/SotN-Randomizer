@@ -4627,6 +4627,7 @@
       stats,
       music,
       turkey,
+      colorrando,
       magicmax,
       antifreeze,
       writes,
