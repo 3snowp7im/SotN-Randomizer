@@ -33,7 +33,15 @@
     "empty-hand",
     "gem-farmer",
     "third-castle",
-    "rat-race"
+    "rat-race",
+    "magic-mirror",
+    "leg-day",
+    "boss-rush",
+    "aperture",
+    "big-toss",
+    "bountyhunter",
+    "bountyhunter-tc",
+    "hitman"
   ],
   "engines": {
     "node": ">=15"
