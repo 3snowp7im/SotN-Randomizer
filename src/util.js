@@ -2903,6 +2903,7 @@
     stats,
     music,
     turkeyMode,
+    colorrandoMode,
     magicmaxMode,
     antiFreezeMode,
     writes,
@@ -2922,6 +2923,7 @@
     this.stats = stats
     this.music = music
     this.turkeyMode = turkeyMode
+    this.colorrandoMode = colorrandoMode
     this.magicmaxMode = magicmaxMode
     this.antiFreezeMode = antiFreezeMode
     if (writes) {
@@ -3045,6 +3047,8 @@
     this.music = true
     // Turkey mode.
     this.turkey = true
+    // Color Palette Rando mode.
+    this.colorrando = false
     // Magic Max mode.
     this.magicmax = false
     // AntiFreeze mode.
