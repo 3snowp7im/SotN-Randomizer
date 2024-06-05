@@ -1046,11 +1046,11 @@ if ('inBin' in argv) {
           // Apply tournament mode patches.
           check.apply(util.applyTournamentModePatches())
         }
-        if (options.magicmaxMode) { // Adds MP Vessel to replace Heart Vessel - eldrich
+        if (options.magicmaxMode || applied.magicmaxMode) { // Adds MP Vessel to replace Heart Vessel - eldrich
           // Apply magic max mode patches. - MottZilla
           check.apply(util.applyMagicMaxPatches())
         }
-        if (options.antiFreezeMode) { // Adds MP Vessel to replace Heart Vessel - eldrich
+        if (options.antiFreezeMode || applied.antiFreezeMode) { // Adds MP Vessel to replace Heart Vessel - eldrich
           // Apply anti-freeze mode patches. - eldri7ch
           check.apply(util.applyAntiFreezePatches())
         }
