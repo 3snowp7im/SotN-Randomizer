@@ -350,6 +350,10 @@
     localStorage.setItem('tournamentMode', elems.tournamentMode.checked)
   }
 
+  function colorrandoModeChange() {
+    localStorage.setItem('colorrandoMode', elems.colorrandoMode.checked)
+  }
+  
   function magicmaxModeChange() {
     localStorage.setItem('magicmaxMode', elems.magicmaxMode.checked)
   }
@@ -494,6 +498,9 @@
       if (elems.tournamentMode.checked) {
         options.tournamentMode = true
       }
+      if (elems.colorrandoMode.checked) {
+        options.colorrandoMode = true
+      }
       if (elems.magicmaxMode.checked) {
         options.magicmaxMode = true
       }
@@ -512,6 +519,7 @@
       music: elems.music.checked,
       turkeyMode: elems.turkeyMode.checked,
       tournamentMode: elems.tournamentMode.checked,
+      colorrandoMode: elems.colorrandoMode.checked,
       magicmaxMode: elems.magicmaxMode.checked,
       antiFreezeMode: elems.antiFreezeMode.checked,
     }
@@ -656,6 +664,10 @@
         // Apply tournament mode patches.
         if (options.tournamentMode) {
           check.apply(util.applyTournamentModePatches())
+        }
+        // Apply color rando patches.
+        if (options.colorrandoMode) {
+          check.apply(util.applyColorRandoPatches())
         }
         // Apply magic max patches.
         if (options.magicmaxMode) {
@@ -886,6 +898,7 @@
     theme: document.getElementById('theme'),
     appendSeed: document.getElementById('append-seed'),
     tournamentMode: document.getElementById('tournament-mode'),
+    colorrandoMode: document.getElementById('colorrando-mode'),
     magicmaxMode: document.getElementById('magicmax-mode'),
     antiFreezeMode: document.getElementById('antifreeze-mode'),
     accessibilityPatches: document.getElementById('accessibility-patches'),
@@ -939,6 +952,7 @@
   elems.theme.addEventListener('change', themeChange)
   elems.appendSeed.addEventListener('change', appendSeedChange)
   elems.tournamentMode.addEventListener('change', tournamentModeChange)
+  elems.colorrandoMode.addEventListener('change', colorrandoModeChange)
   elems.magicmaxMode.addEventListener('change', magicmaxModeChange)
   elems.antiFreezeMode.addEventListener('change', antiFreezeModeChange)
   elems.accessibilityPatches.addEventListener('change', accessibilityPatchesChange)
@@ -1214,6 +1228,7 @@
   loadOption('showSolutions', showSolutionsChange, false)
   loadOption('showRelics', showRelicsChange, false)
   loadOption('tournamentMode', tournamentModeChange, false)
+  loadOption('colorrandoMode', colorrandoModeChange, false)
   loadOption('magicmaxMode', magicmaxModeChange, false)
   loadOption('antiFreezeMode', antiFreezeModeChange, false)
   loadOption('accessibilityPatches', accessibilityPatchesChange, true)
