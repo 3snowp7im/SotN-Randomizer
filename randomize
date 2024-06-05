@@ -1055,9 +1055,6 @@ if ('inBin' in argv) {
           // Apply tournament mode patches.
           check.apply(util.applyTournamentModePatches())
         }
-        if (options.colorrandoMode || applied.colorrandoMode) { // Apply color randomizations - MottZilla
-          check.apply(util.applyColorRandoPatches())
-        }
         if (options.magicmaxMode || applied.magicmaxMode) { // Adds MP Vessel to replace Heart Vessel - eldrich
           // Apply magic max mode patches. - MottZilla
           check.apply(util.applyMagicMaxPatches())
