@@ -42,6 +42,7 @@ function randomizeWorker() {
       url + 'build/presets/bountyhunter.js',
       url + 'build/presets/bountyhunter-tc.js',
       url + 'build/presets/hitman.js',
+      url + 'build/presets/big-toss.js',
       url + 'src/randomize_items.js',
       url + 'src/randomize_relics.js',
       url + 'src/ecc-edc-recalc-js.js',
