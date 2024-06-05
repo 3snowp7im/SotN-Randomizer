@@ -665,10 +665,6 @@
         if (options.tournamentMode) {
           check.apply(util.applyTournamentModePatches())
         }
-        // Apply color rando patches.
-        if (options.colorrandoMode) {
-          check.apply(util.applyColorRandoPatches())
-        }
         // Apply magic max patches.
         if (options.magicmaxMode) {
           check.apply(util.applyMagicMaxPatches())
