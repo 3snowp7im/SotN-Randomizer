@@ -1699,6 +1699,9 @@
         // Turkey mode.
         if (options.turkeyMode) {
           turkeyMode(items, pool)
+        }
+        // Color Palette Rando mode.
+        if (options.colorrandoMode) {
           randomizeCapeColors(data, rng)
           randomizeGravBootColors(data,rng)
           randomizeHydroStormColor(data, rng)
