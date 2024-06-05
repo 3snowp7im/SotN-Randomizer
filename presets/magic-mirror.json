@@ -343,7 +343,7 @@
   }, {
     "location": "Spike Breaker",
     "locks": [
-      "Mirror + Soul of Wolf + Soul of Bat",
+      "Mirror + Soul of Bat",
       "Jewel of Open + Soul of Bat + Echo of Bat"
     ]
   }, {
@@ -1055,6 +1055,752 @@
       "Mirror + Gravity Boots + Nosedevil Card",
       "Mirror + Soul of Bat + Nosedevil Card",
       "Mirror + Form of Mist + Power of Mist + Nosedevil Card"
+    ]
+  }, {
+    "location": "Reverse Colosseum Zircon",
+    "comment": "Requires Mirror + flight",
+    "locks": [
+      "Mirror"
+    ]
+  }, {
+    "location": "Black Marble Gallery Vat",
+    "comment": "Requires Mirror + flight",
+    "locks": [
+      "Mirror"
+    ]
+  }, {
+    "location": "Black Marble Meal Ticket",
+    "comment": "Requires Mirror + flight + Jewel of Open",
+    "locks": [
+      "Mirror + Jewel of Open"
+    ]
+  }, {
+    "location": "Reverse Keep High Potion",
+    "comment": "Requires Mirror + flight",
+    "locks": [
+      "Mirror"
+    ]
+  }],
+
+  "lockLocationAllowed": [{
+    "location": "Faerie Scroll",
+    "comment": "Requires Mirror",
+    "locks": [
+      "Mirror"
+    ]
+  },{
+    "location": "Spirit Orb",
+    "comment": "Requires Mirror or Flight",
+    "locks": [
+      "Gravity Boots"
+    ]
+  },{
+    "location": "Soul of Bat",
+    "comment": "Requires Mist",
+    "locks": [
+      "Form of Mist"
+    ]
+  }, {
+    "location": "Fire of Bat",
+    "comment": "Requires flight",
+    "locks": [
+      "Gravity Boots + Soul of Wolf",
+      "Gravity Boots + Form of Mist",
+      "Gravity Boots + Thrust sword"
+    ]
+  }, {
+    "location": "Echo of Bat",
+    "comment": "Requires flight + a transformation",
+    "locks": [
+      "Gravity Boots + Form of Mist",
+      "Gravity Boots + Soul of Wolf"
+    ]
+  }, {
+    "location": "Force of Echo",
+    "comment": "In second castle",
+    "locks": [
+      "Mirror"
+    ]
+  }, {
+    "location": "Power of Wolf",
+    "comment": "Requires flight",
+    "locks": [
+      "Gravity Boots + Soul of Wolf",
+      "Gravity Boots + Form of Mist",
+      "Gravity Boots + Thrust sword"
+    ]
+  }, {
+    "location": "Skill of Wolf",
+    "comment": "Requires at least Gravity Boots",
+    "locks": [
+      "Mirror",
+      "Gravity Boots",
+      "Soul of Bat",
+      "Form of Mist + Power of Mist"
+    ]
+  }, {
+    "location": "Form of Mist",
+    "comment": "Requires at least Leap Stone",
+    "locks": [
+      "Soul of Wolf",
+      "Form of Mist",
+      "Thrust sword"
+    ]
+  }, {
+    "location": "Power of Mist",
+    "comment": "Requires flight",
+    "locks": [
+      "Gravity Boots + Soul of Wolf",
+      "Gravity Boots + Form of Mist",
+      "Gravity Boots + Thrust sword"
+    ]
+  }, {
+    "location": "Gas Cloud",
+    "comment": "In second castle",
+    "locks": [
+      "Mirror"
+    ]
+  }, {
+    "location": "Gravity Boots",
+    "comment": "Requires flight",
+    "locks": [
+      "Gravity Boots + Soul of Wolf",
+      "Gravity Boots + Form of Mist",
+      "Gravity Boots + Thrust sword"
+    ]
+  }, {
+    "location": "Leap Stone",
+    "comment": "Requires Jewel of Open or at least Leap Stone",
+    "locks": [
+    ]
+  }, {
+    "location": "Holy Symbol",
+    "locks": [
+      "Mirror"
+    ]
+  }, {
+    "location": "Merman Statue",
+    "comment": "Requires Jewel of Open",
+    "locks": [
+      "Mirror"
+    ]
+  }, {
+    "location": "Bat Card",
+    "comment": "Requires at least Gravity Boots",
+    "locks": [
+      "Mirror",
+      "Gravity Boots",
+      "Soul of Bat",
+      "Form of Mist + Power of Mist"
+    ]
+  }, {
+    "location": "Ghost Card",
+    "comment": "Requires flight",
+    "locks": [
+      "Mirror"
+    ]
+  }, {
+    "location": "Faerie Card",
+    "comment": "Requires at least Gravity Boots",
+    "locks": [
+      "Soul of Wolf",
+      "Form of Mist",
+      "Leap Stone",
+      "Thrust sword"
+    ]
+  }, {
+    "location": "Demon Card",
+    "comment": "Requires Jewel of Open + at least Leap Stone",
+    "locks": [
+      "Mirror"
+    ]
+  }, {
+    "location": "Sword Card",
+    "comment": "Requires flight",
+    "locks": [
+      "Mirror"
+    ]
+  }, {
+    "location": "Heart of Vlad",
+    "comment": "In second castle",
+    "locks": [
+      "Mirror"
+    ]
+  }, {
+    "location": "Tooth of Vlad",
+    "comment": "In second castle",
+    "locks": [
+      "Mirror"
+    ]
+  }, {
+    "location": "Rib of Vlad",
+    "comment": "In second castle",
+    "locks": [
+      "Mirror + Soul of Bat",
+      "Mirror + Soul of Wolf",
+      "Mirror + Form of Mist"
+    ]
+  }, {
+    "location": "Ring of Vlad",
+    "comment": "In second castle",
+    "locks": [
+      "Mirror"
+    ]
+  }, {
+    "location": "Eye of Vlad",
+    "comment": "In second castle",
+    "locks": [
+      "Mirror"
+    ]
+  }, {
+    "location": "Spike Breaker",
+    "locks": [
+      "Mirror + Soul of Bat",
+      "Mirror + Leap Stone + Spike Breaker",
+      "Mirror + Form of Mist + Power of Mist",
+      "Mirror + Gravity Boots + Form of Mist + Spike Breaker",
+      "Mirror + Gravity Boots + Soul of Wolf + Spike Breaker",
+      "Mirror + Gravity Boots + Thrust sword + Spike Breaker",
+      "Jewel of Open + Soul of Bat",
+      "Jewel of Open + Leap Stone + Spike Breaker",
+      "Jewel of Open + Form of Mist + Power of Mist",
+      "Jewel of Open + Gravity Boots + Form of Mist + Spike Breaker",
+      "Jewel of Open + Gravity Boots + Soul of Wolf + Spike Breaker",
+      "Jewel of Open + Gravity Boots + Thrust sword + Spike Breaker"
+    ]
+  }, {
+    "location": "Gold ring",
+    "comment": "Requires Jewel of Open + flight",
+    "locks": [
+      "Mirror",
+      "Jewel of Open + Gravity Boots + Soul of Wolf",
+      "Jewel of Open + Gravity Boots + Form of Mist",
+      "Jewel of Open + Gravity Boots + Thrust sword",
+      "Jewel of Open + Form of Mist + Power of Mist",
+      "Jewel of Open + Soul of Wolf + Skill of Wolf",
+      "Jewel of Open + Soul of Wolf + Leap Stone"
+    ]
+  }, {
+    "location": "Silver ring",
+    "locks": [
+      "Mirror + Form of Mist + Soul of Bat",
+      "Jewel of Open + Form of Mist + Soul of Bat",
+      "Jewel of Open + Form of Mist + Power of Mist"
+    ]
+  }, {
+    "location": "Holy glasses",
+    "locks": [
+      "Silver ring + Gold ring"
+    ]
+  }, {
+    "location": "Crystal cloak",
+    "locks": [
+      "Mirror"
+    ]
+  }, {
+    "location": "Mormegil",
+    "comment": "Requires Jewel of Open + at least Leap Stone",
+    "locks": [
+      "Mirror"
+    ]
+  }, {
+    "location": "Dark Blade",
+    "comment": "In second castle",
+    "locks": [
+      "Mirror"
+    ]
+  }, {
+    "location": "Ring of Arcana",
+    "comment": "In second castle",
+    "locks": [
+      "Mirror"
+    ]
+  }, {
+    "location": "Trio",
+    "comment": "In second castle",
+    "locks": [
+      "Mirror"
+    ]
+  }, {
+    "location": "Holy mail",
+    "comment": "Requires flight",
+    "locks": [
+      "Mirror"
+    ]
+  }, {
+    "location": "Jewel sword",
+    "comment": "Requires Wolf + Bat",
+    "locks": [
+      "Soul of Wolf + Soul of Bat"
+    ]
+  }, {
+    "location": "Mystic pendant",
+    "comment": "Requires at least Leap Stone",
+    "locks": [
+      "Soul of Bat",
+      "Leap Stone",
+      "Gravity Boots",
+      "Form of Mist + Power of Mist"
+    ]
+  }, {
+    "location": "Ankh of Life",
+    "comment": "Requires at least Leap Stone",
+    "locks": [
+      "Soul of Bat",
+      "Leap Stone",
+      "Gravity Boots",
+      "Form of Mist + Power of Mist"
+    ]
+  }, {
+    "location": "Morningstar",
+    "comment": "Requires at least Leap Stone",
+    "locks": [
+      "Mirror",
+      "Soul of Bat",
+      "Leap Stone",
+      "Gravity Boots",
+      "Form of Mist + Power of Mist"
+    ]
+  }, {
+    "location": "Goggles",
+    "comment": "Requires Jewel of Open or at least Leap Stone",
+    "locks": [
+    ]
+  }, {
+    "location": "Silver plate",
+    "comment": "Requires Jewel of Open or at least Leap Stone",
+    "locks": [
+    ]
+  }, {
+    "location": "Cutlass",
+    "comment": "Requires Jewel of Open or at least Leap Stone",
+    "locks": [
+    ]
+  }, {
+    "location": "Platinum mail",
+    "comment": "Requires at least Gravity Boots",
+    "locks": [
+      "Mirror",
+      "Soul of Bat",
+      "Gravity Boots",
+      "Form of Mist + Power of Mist"
+    ]
+  }, {
+    "location": "Falchion",
+    "comment": "Requires at least Leap Stone",
+    "locks": [
+      "Mirror",
+      "Soul of Bat",
+      "Leap Stone",
+      "Gravity Boots",
+      "Form of Mist + Power of Mist"
+    ]
+  }, {
+    "location": "Gold plate",
+    "comment": "Requires at least Leap Stone",
+    "locks": [
+    ]
+  }, {
+    "location": "Bekatowa",
+    "comment": "Requires at least Gravity Boots",
+    "locks": [
+      "Leap Stone"
+    ]
+  }, {
+    "location": "Holy rod",
+    "comment": "Requires at least Leap Stone",
+    "locks": [
+      "Leap Stone",
+      "Soul of Bat",
+      "Gravity Boots",
+      "Form of Mist + Thrust sword"
+    ]
+  }, {
+    "location": "Library Onyx",
+    "comment": "Requires at least Leap Stone",
+    "locks": [
+      "Soul of Wolf",
+      "Form of Mist",
+      "Thrust sword"
+    ]
+  }, {
+    "location": "Alucart sword",
+    "comment": "Requires at least Cube of Zoe + at least Leap Stone",
+    "locks": [
+      "Cube of Zoe + Soul of Wolf",
+      "Cube of Zoe + Thrust sword",
+      "Cube of Zoe + Form of Mist"
+    ]
+  }, {
+    "location": "Broadsword",
+    "comment": "Requires at least Leap Stone",
+    "locks": [
+      "Soul of Wolf",
+      "Form of Mist",
+      "Thrust sword"
+    ]
+  }, {
+    "location": "Estoc",
+    "comment": "Requires flight",
+    "locks": [
+      "Gravity Boots + Soul of Wolf",
+      "Gravity Boots + Form of Mist",
+      "Gravity Boots + Thrust sword"
+    ]
+  }, {
+    "location": "Olrox Garnet",
+    "comment": "Requires flight",
+    "locks": [
+      "Gravity Boots + Soul of Wolf",
+      "Gravity Boots + Form of Mist",
+      "Gravity Boots + Thrust sword"
+    ]
+  }, {
+    "location": "Blood cloak",
+    "comment": "Requires at least Leap Stone",
+    "locks": [
+      "Soul of Wolf",
+      "Form of Mist",
+      "Thrust sword"
+    ]
+  }, {
+    "location": "Shield rod",
+    "comment": "Requires at least Leap Stone",
+    "locks": [
+      "Soul of Wolf",
+      "Form of Mist",
+      "Thrust sword"
+    ]
+  }, {
+    "location": "Knight shield",
+    "comment": "Requires at least Leap Stone",
+    "locks": [
+      "Soul of Wolf",
+      "Form of Mist",
+      "Thrust sword"
+    ]
+  }, {
+    "location": "Holy sword",
+    "comment": "Requires at least Gravity Boots",
+    "locks": [
+      "Mirror"
+    ]
+  }, {
+    "location": "Bandanna",
+    "comment": "Requires Jewel of Open",
+    "locks": [
+      "Mirror"
+    ]
+  }, {
+    "location": "Secret boots",
+    "comment": "Requires Jewel of Open + flight",
+    "locks": [
+      "Mirror"
+    ]
+  }, {
+    "location": "Nunchaku",
+    "comment": "Requires Jewel of Open + Holy Symbol",
+    "locks": [
+      "Mirror",
+      "Jewel of Open"
+    ]
+  }, {
+    "location": "Knuckle duster",
+    "comment": "Requires Jewel of Open",
+    "locks": [
+      "Mirror"
+    ]
+  }, {
+    "location": "Caverns Onyx",
+    "comment": "Requires Jewel of Open + at least Leap Stone",
+    "locks": [
+      "Mirror"
+    ]
+  }, {
+    "location": "Combat knife",
+    "comment": "Requires Jewel of Open + at least Leap Stone",
+    "locks": [
+      "Mirror",
+      "Jewel of Open + Soul of Wolf",
+      "Jewel of Open + Gravity Boots + Soul of Wolf",
+      "Jewel of Open + Gravity Boots + Form of Mist",
+      "Jewel of Open + Gravity Boots + Thrust sword"
+    ]
+  }, {
+    "location": "Ring of Ares",
+    "comment": "Requires Jewel of Open + Demon Card + at least Leap Stone",
+    "locks": [
+      "Mirror + Demon Card",
+      "Mirror + Nosedevil Card",
+      "Jewel of Open + Demon Card + Soul of Wolf",
+      "Jewel of Open + Demon Card + Gravity Boots + Soul of Wolf",
+      "Jewel of Open + Demon Card + Gravity Boots + Form of Mist",
+      "Jewel of Open + Demon Card + Gravity Boots + Thrust sword",
+      "Jewel of Open + Nosedevil Card + Soul of Wolf",
+      "Jewel of Open + Nosedevil Card + Gravity Boots + Soul of Wolf",
+      "Jewel of Open + Nosedevil Card + Gravity Boots + Form of Mist",
+      "Jewel of Open + Nosedevil Card + Gravity Boots + Thrust sword"
+    ]
+  }, {
+    "location": "Bloodstone",
+    "comment": "Requires Jewel of Open + at least Leap Stone",
+    "locks": [
+      "Mirror",
+      "Jewel of Open + Soul of Wolf",
+      "Jewel of Open + Gravity Boots + Soul of Wolf",
+      "Jewel of Open + Gravity Boots + Form of Mist",
+      "Jewel of Open + Gravity Boots + Thrust sword"
+    ]
+  }, {
+    "location": "Icebrand",
+    "comment": "Requires Jewel of Open + at least Leap Stone",
+    "locks": [
+      "Mirror",
+      "Jewel of Open + Gravity Boots + Soul of Wolf",
+      "Jewel of Open + Gravity Boots + Form of Mist",
+      "Jewel of Open + Gravity Boots + Thrust sword"
+    ]
+  }, {
+    "location": "Walk armor",
+    "comment": "Requires Jewel of Open + at least Leap Stone",
+    "locks": [
+      "Mirror",
+      "Jewel of Open + Soul of Wolf",
+      "Jewel of Open + Gravity Boots + Soul of Wolf",
+      "Jewel of Open + Gravity Boots + Form of Mist",
+      "Jewel of Open + Gravity Boots + Thrust sword"
+    ]
+  }, {
+    "location": "Beryl circlet",
+    "comment": "Requires Mirror + Bat + Wolf",
+    "locks": [
+      "Mirror + Soul of Bat + Soul of Wolf"
+    ]
+  }, {
+    "location": "Talisman",
+    "comment": "Requires Mirror + flight",
+    "locks": [
+      "Mirror"
+    ]
+  }, {
+    "location": "Katana",
+    "comment": "Requires Mirror + flight",
+    "locks": [
+      "Mirror"
+    ]
+  }, {
+    "location": "Goddess shield",
+    "comment": "Requires Mirror + flight",
+    "locks": [
+      "Mirror"
+    ]
+  }, {
+    "location": "Twilight cloak",
+    "comment": "Requires Mirror + Mist + flight",
+    "locks": [
+      "Mirror + Form of Mist + Soul of Bat"
+    ]
+  }, {
+    "location": "Talwar",
+    "comment": "Requires Mirror + flight",
+    "locks": [
+      "Mirror"
+    ]
+  }, {
+    "location": "Sword of Dawn",
+    "comment": "Requires Mirror + flight",
+    "locks": [
+      "Mirror + Gravity Boots + Soul of Wolf",
+      "Mirror + Gravity Boots + Form of Mist",
+      "Mirror + Gravity Boots + Thrust sword"
+    ]
+  }, {
+    "location": "Bastard sword",
+    "comment": "Requires Mirror + flight",
+    "locks": [
+      "Mirror"
+    ]
+  }, {
+    "location": "Royal cloak",
+    "comment": "Requires Mirror + flight",
+    "locks": [
+      "Mirror"
+    ]
+  }, {
+    "location": "Lightning mail",
+    "comment": "Requires Mirror + flight",
+    "locks": [
+      "Mirror"
+    ]
+  }, {
+    "location": "Moon rod",
+    "comment": "Requires Mirror + flight",
+    "locks": [
+      "Mirror"
+    ]
+  }, {
+    "location": "Sunstone",
+    "comment": "Requires Mirror + flight",
+    "locks": [
+      "Mirror"
+    ]
+  }, {
+    "location": "Luminus",
+    "comment": "Requires Mirror + flight",
+    "locks": [
+      "Mirror"
+    ]
+  }, {
+    "location": "Dragon helm",
+    "comment": "Requires Mirror + flight",
+    "locks": [
+      "Mirror"
+    ]
+  }, {
+    "location": "Shotel",
+    "comment": "Requires Mirror + Mist + flight",
+    "locks": [
+      "Mirror"
+    ]
+  }, {
+    "location": "Staurolite",
+    "comment": "Requires Mirror + Mist + flight",
+    "locks": [
+      "Mirror + Form of Mist"
+    ]
+  }, {
+    "location": "Badelaire",
+    "comment": "Requires Mirror + flight",
+    "locks": [
+      "Mirror"
+    ]
+  }, {
+    "location": "Forbidden Library Opal",
+    "comment": "Requires Mirror + flight",
+    "locks": [
+      "Mirror"
+    ]
+  }, {
+    "location": "Reverse Caverns Diamond",
+    "comment": "Requires Mirror + flight",
+    "locks": [
+      "Mirror"
+    ]
+  }, {
+    "location": "Reverse Caverns Opal",
+    "comment": "Requires Mirror + flight",
+    "locks": [
+      "Mirror"
+    ]
+  }, {
+    "location": "Reverse Caverns Garnet",
+    "comment": "Requires Mirror + flight",
+    "locks": [
+      "Mirror"
+    ]
+  }, {
+    "location": "Osafune katana",
+    "comment": "Requires Mirror + flight",
+    "locks": [
+      "Mirror"
+    ]
+  }, {
+    "location": "Alucard shield",
+    "comment": "Requires Mirror + flight",
+    "locks": [
+      "Mirror"
+    ]
+  }, {
+    "location": "Alucard sword",
+    "comment": "Requires Mirror + flight",
+    "locks": [
+      "Mirror"
+    ]
+  }, {
+    "location": "Necklace of J",
+    "comment": "Requires Mirror + flight",
+    "locks": [
+      "Mirror"
+    ]
+  }, {
+    "location": "Floating Catacombs Diamond",
+    "comment": "Requires Mirror + flight",
+    "locks": [
+      "Mirror"
+    ]
+  }, {
+    "location": "Sword of Hador",
+    "comment": "Requires Mirror + flight",
+    "locks": [
+      "Mirror"
+    ]
+  }, {
+    "location": "Alucard mail",
+    "comment": "Requires Mirror + flight",
+    "locks": [
+      "Mirror"
+    ]
+  }, {
+    "location": "Gram",
+    "comment": "Requires Mirror + flight",
+    "locks": [
+      "Mirror"
+    ]
+  }, {
+    "location": "Fury plate",
+    "comment": "Requires Mirror + flight",
+    "locks": [
+      "Mirror"
+    ]
+  }, {
+    "location": "Confessional",
+    "comment": "Requires Jewel of Open or at least Leap Stone",
+    "locks": [
+    ]
+  }, {
+    "location": "Colosseum Green tea",
+    "comment": "Requires at least Leap Stone",
+    "locks": [
+      "Form of Mist",
+      "Soul of Wolf",
+      "Thrust sword"
+    ]
+  }, {
+    "location": "Clock Tower Cloaked knight",
+    "comment": "Requires at least Leap Stone",
+    "locks": [
+    ]
+  }, {
+    "location": "Waterfall Cave",
+    "comment": "Requires Jewel of Open",
+    "locks": [
+      "Mirror"
+    ]
+  }, {
+    "location": "Floating Catacombs Elixir",
+    "comment": "Requires Mirror + flight + Possibly Spike Breaker",
+    "locks": [
+      "Mirror + Spike Breaker + Leap Stone",
+      "Mirror + Spike Breaker + Gravity Boots"
+    ]
+  }, {
+    "location": "Reverse Entrance Antivenom",
+    "comment": "Requires Mirror + flight",
+    "locks": [
+      "Mirror"
+    ]
+  }, {
+    "location": "Reverse Forbidden Route",
+    "comment": "Requires Mirror + flight",
+    "locks": [
+      "Mirror"
+    ]
+  }, {
+    "location": "Cave Life apple",
+    "comment": "Requires Mirror + flight + Demon Card",
+    "locks": [
+      "Mirror + Demon Card",
+      "Mirror + Nosedevil Card"
     ]
   }, {
     "location": "Reverse Colosseum Zircon",
@@ -5582,22 +6328,22 @@
     "value": "0x0000"
   }, {
     "type": "short",
-    "value": "0xEB5A"
+    "value": "0xFFFF"
   }, {
     "type": "short",
-    "value": "0xD751"
+    "value": "0xD7FF"
   }, {
     "type": "short",
-    "value": "0xC6E9"
+    "value": "0x839F"
   }, {
     "type": "short",
-    "value": "0x01C4"
+    "value": "0x829B"
   }, {
     "type": "short",
-    "value": "0x9544"
+    "value": "0x80EF"
   }, {
     "type": "short",
-    "value": "0x0100"
+    "value": "0x8047"
   }],
   
   "complexityGoal": {
