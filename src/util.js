@@ -1677,6 +1677,11 @@
           randomize.push('t')
         }
         delete options.tournamentMode
+      } else if ('colorrandoMode' in options) { 
+        if (options.colorrandoMode) {
+          randomize.push('l')
+        }
+        delete options.colorrandoMode
       } else if ('magicmaxMode' in options) { 
         if (options.magicmaxMode) {
           randomize.push('x')
@@ -4636,6 +4641,10 @@
     return data
   }
 
+  function applyColorRandoPatches() {
+	  // temp
+  }
+	
   function applyMagicMaxPatches() { // Adds MP Vessel to replace Heart Vessel - eldrich
     const data = new checked()
     let offset = 0x00117b50	// Set Starting Offset
@@ -5316,7 +5325,8 @@
     Preset: Preset,
     PresetBuilder: PresetBuilder,
     applyTournamentModePatches: applyTournamentModePatches,
-    applyMagicMaxPatches: applyMagicMaxPatches,
+    applyColorRandoPatches: applyColorRandoPatches,
+    applyMagicMaxPatches: applyMagicMaxPatches,		// temp
     applyAntiFreezePatches: applyAntiFreezePatches,
     randomizeRelics: randomizeRelics,
     randomizeItems: randomizeItems,
