@@ -3331,6 +3331,9 @@
     if ('turkeyMode' in json) {
       builder.turkeyMode(json.turkeyMode)
     }
+    if ('colorrandoMode' in json) {
+      builder.colorrandoMode(json.colorrandoMode)
+    }
     if ('magicmaxMode' in json) {
       builder.magicmaxMode(json.magicmaxMode)
     }
@@ -3623,6 +3626,9 @@
     }
     if ('turkeyMode' in preset) {
       this.turkey = preset.turkeyMode
+    }
+    if ('colorrandoMode' in preset) {
+      this.colorrando = preset.colorrandoMode
     }
     if ('magicmaxMode' in preset) {
       this.magicmax = preset.magicmaxMode
@@ -4290,6 +4296,11 @@
     this.turkey = enabled
   }
 
+  // Enable Color Palette Randomization
+  PresetBuilder.prototype.colorrandoMode = function colorrandoMode(enabled) {
+    this.colorrando = enabled
+  }
+
   // Enable Magic Max replacing Heart Max
   PresetBuilder.prototype.magicmaxMode = function magicmaxMode(enabled) {
     this.magicmax = enabled
@@ -4596,6 +4607,7 @@
     const stats = self.stats
     const music = self.music
     const turkey = self.turkey
+    const colorrando = self.colorrando
     const magicmax = self.magicmax
     const antifreeze = self.antifreeze
     const writes = self.writes
