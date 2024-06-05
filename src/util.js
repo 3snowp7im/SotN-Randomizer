@@ -4640,10 +4640,6 @@
     data.writeWord(0x04fcf264, 0x3c020002)
     return data
   }
-
-  function applyColorRandoPatches() {
-	  // temp
-  }
 	
   function applyMagicMaxPatches() { // Adds MP Vessel to replace Heart Vessel - eldrich
     const data = new checked()
@@ -5325,8 +5321,7 @@
     Preset: Preset,
     PresetBuilder: PresetBuilder,
     applyTournamentModePatches: applyTournamentModePatches,
-    applyColorRandoPatches: applyColorRandoPatches,
-    applyMagicMaxPatches: applyMagicMaxPatches,		// temp
+    applyMagicMaxPatches: applyMagicMaxPatches,
     applyAntiFreezePatches: applyAntiFreezePatches,
     randomizeRelics: randomizeRelics,
     randomizeItems: randomizeItems,
