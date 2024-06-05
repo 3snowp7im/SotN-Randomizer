@@ -592,6 +592,11 @@ const yargs = require('yargs')
     describe: 'Enable tournament mode (`--help tournament`)',
     type: 'boolean',
   })
+  .option('colorrando', {
+    alias: 'l',
+    describe: 'Enable color palette randomizing for various things',
+    type: 'boolean',
+  })
   .option('magicmax', {
     alias: 'x',
     describe: 'Enable replace Heart Max with Magic Max Vessels',
@@ -912,6 +917,10 @@ if ('complexity' in argv) {
 if (argv.tournament) {
   options.tournamentMode = true
 }
+// Enable color rando mode if specified. - MottZilla
+if (argv.colorrando) { // Enable Color Randomizations
+  options.colorrandoMode = true
+}
 // Enable magic max mode if specified. - MottZilla
 if (argv.magicmax) { // Adds MP Vessel to replace Heart Vessel - eldrich
   options.magicmaxMode = true
@@ -1045,6 +1054,9 @@ if ('inBin' in argv) {
         if (options.tournamentMode) {
           // Apply tournament mode patches.
           check.apply(util.applyTournamentModePatches())
+        }
+        if (options.colorrandoMode || applied.colorrandoMode) { // Apply color randomizations - MottZilla
+          check.apply(util.applyColorRandoPatches())
         }
         if (options.magicmaxMode || applied.magicmaxMode) { // Adds MP Vessel to replace Heart Vessel - eldrich
           // Apply magic max mode patches. - MottZilla
