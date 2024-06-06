@@ -59,7 +59,7 @@ You can then use your choice of PPF patcher utilities. *Note:* After applying
 the patch, you must perform ECC/EDC recalculation.
 
 Useful links:
-* [ppf.sotnrando.net](https://ppf.sotnrando.net) (Browser)
+* [ppf.sotn.io](https://ppf.sotn.io) (Browser)
 * [ppfdev](https://github.com/meunierd/ppf) (Source)
 * [PPF-O-Matic](https://www.romhacking.net/utilities/356/) (Windows binary)
 * [error_recalc](https://www.romhacking.net/utilities/1264/) (Windows binary
