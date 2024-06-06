@@ -5,7 +5,7 @@ Symphony of the Night`.
 
 ## Browser
 
-https://sotn.io
+https://sotnrando.net
 
 ## CLI
 
