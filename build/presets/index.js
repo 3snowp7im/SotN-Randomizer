@@ -22,6 +22,23 @@
       require('./gem-farmer'),
       require('./third-castle'),
       require('./rat-race'),
+      require('./magic-mirror'),
+      require('./leg-day'),
+      require('./boss-rush'),
+      require('./aperture'),
+      require('./big-toss'),
+      require('./bountyhunter'),
+      require('./bountyhunter-tc'),
+      require('./hitman'),
+      require('./chaos-lite'),
+      require('./beyond'),
+      require('./breach'),
+      require('./grand-tour'),
+      require('./crash-course'),
+      require('./forge'),
+      require('./lookingglass'),
+      require('./skinwalker'),
+      require('./summoner'),
     ]
   }
   exports.sort(function(a, b) {

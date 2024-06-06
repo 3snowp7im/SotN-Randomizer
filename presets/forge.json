@@ -6,6 +6,8 @@
     "author": "3snow_p7im, Dr4gonBlitz, and eldri7ch",
     "weight": -500
   },
+  
+  "colorrandoMode": true,
 
   "replaceRelic": [{
     "relic": "Holy glasses",

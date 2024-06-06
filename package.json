@@ -41,7 +41,16 @@
     "big-toss",
     "bountyhunter",
     "bountyhunter-tc",
-    "hitman"
+    "hitman",
+    "chaos-lite",
+    "beyond",
+    "breach",
+    "grand-tour",
+    "crash-Course",
+    "forge",
+    "lookingglass",
+    "skinwalker",
+    "summoner"
   ],
   "engines": {
     "node": ">=15"

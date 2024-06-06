@@ -7,6 +7,7 @@
     "weight": 100
   },
   "inherits": "safe",
+  "colorrandoMode": true,
   "enemyDrops": [{
     "enemy": "*",
     "items": [null, null]
