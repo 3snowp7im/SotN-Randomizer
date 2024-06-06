@@ -451,6 +451,9 @@ function presetMetaHelp(preset) {
     switch (options.relicLocations.extension) {
     case constants.EXTENSION.WANDERER:
       extensions.push(constants.EXTENSION.WANDERER)
+      break
+    case constants.EXTENSION.TOURIST:
+      extensions.push(constants.EXTENSION.TOURIST)  
     case constants.EXTENSION.EQUIPMENT:
       extensions.push(constants.EXTENSION.EQUIPMENT)
     case constants.EXTENSION.SPREAD:
