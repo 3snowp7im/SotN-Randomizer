@@ -1107,6 +1107,12 @@
       relicLocationsArg = util.optionsToString(relicOptions)
     }
     elems.relicLocationsArg.value = relicLocationsArg
+    elems.relicLocationsExtension.wanderer.checked =
+      applied.relicLocations
+      && applied.relicLocations.extension === constants.EXTENSION.WANDERER
+    elems.relicLocationsExtension.tourist.checked =
+      applied.relicLocations
+      && applied.relicLocations.extension === constants.EXTENSION.TOURIST
     elems.relicLocationsExtension.guarded.checked =
       applied.relicLocations
       && applied.relicLocations.extension === constants.EXTENSION.GUARDED
@@ -1168,6 +1174,12 @@
         break
       case constants.EXTENSION.EQUIPMENT:
         elems.relicLocationsExtension.equipment.checked = true
+        break
+      case constants.EXTENSION.WANDERER:
+        elems.relicLocationsExtension.wanderer.checked = true
+        break
+      case constants.EXTENSION.TOURIST:
+        elems.relicLocationsExtension.tourist.checked = true
         break
       default:
         elems.relicLocationsExtension.classic.checked = true
