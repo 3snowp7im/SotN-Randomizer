@@ -378,8 +378,11 @@
   }, {
     "location": "Crystal cloak",
     "locks": [
+      "Jewel of Open",
       "Mirror + Soul of Wolf",
-      "Jewel of Open"
+      "Mirror + Gravity Boots",
+      "Mirror + Soul of Bat",
+      "Mirror + Form of Mist + Power of Mist"
     ]
   }, {
     "location": "Mormegil",
@@ -6319,6 +6322,56 @@
     "address": "0x5A7909C",
     "type": "char",
     "value": "0xBC"
+  }, {
+    "comment": "Death Softlock Fix",
+    "type": "word",
+    "address": "0x6647250",
+    "value": "0x34020000"
+  }, {
+    "type": "word",
+    "value": "0x00000000"
+  }, {
+    "comment": "Teleport not bright as hell",
+    "type":    "char",
+    "address": "0xFB1F8",
+    "value":    "0x20"
+  }, {
+    "type":    "char",
+    "address": "0xFB1FC",
+    "value":    "0x20"
+  }, {
+    "type":    "char",
+    "address": "0xFB204",
+    "value":    "0x20"
+  }, {
+    "type":    "char",
+    "address": "0x10AD98",
+    "value":    "0x20"
+  }, {
+    "type":    "char",
+    "address": "0x10ADA8",
+    "value":    "0x20"
+  }, {
+    "type":    "char",
+    "address": "0x10ADB0",
+    "value":    "0x40"
+  }, {
+    "type":    "char",
+    "address": "0x10B29C",
+    "value":    "0x20"
+  }, {
+    "type":    "char",
+    "address": "0x10B2A0",
+    "value":    "0x20"
+  }, {
+    "type":    "char",
+    "address": "0x10B2A8",
+    "value":    "0x40"
+  }, {
+    "comment":"last Teleport not bright",
+    "type":    "char",
+    "address": "0x143C58",
+    "value":    "0x40"
   }],
   
   "complexityGoal": {
