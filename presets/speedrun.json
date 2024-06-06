@@ -7,6 +7,7 @@
     "weight": -500
   },
   "thrustSwordAbility": true,
+  "colorrandoMode": true,
   "blockItems": [{
     "zone": "*",
     "item": "*",

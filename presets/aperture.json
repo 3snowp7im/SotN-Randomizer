@@ -6,6 +6,8 @@
     "author": "eldri7ch, Mottzilla, Wecoc",
     "weight": -900
   },
+  
+  "colorrandoMode": true,
 
   "itemLocations": [{
     "comment": "Force library card spawn in vanilla location for convenience",

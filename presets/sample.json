@@ -9,6 +9,11 @@
 
   "comment": "Build off the Safe preset",
   "inherits": "safe",
+  "relicLocationsExtension": "equipment",
+  "preventLeaks": false,
+  "stats": false,
+  "music": false,
+  "turkeyMode": false,
 
   "alias": [{
     "comment": "Alias NO3 as Entrance",
@@ -60,7 +65,7 @@
       "Form of Mist + Power of Mist"
     ],
     "comment": "Access to Soul of Bat location must also give Soul of Wolf or form of Mist + Power of Mist",
-    "escapeRequirements": [
+    "escapeRequires": [
       "Soul of Wolf",
       "Form of Mist + Power of Mist"
     ]
@@ -82,6 +87,11 @@
       "Form of Mist",
       "Soul of Bat"
     ]
+  }, {
+    "location": "Leap Stone",
+    "comment": "No Requirements",
+    "locks": [
+    ]
   }],
 
   "enemyDrops": [{
@@ -93,6 +103,13 @@
     "enemy": "Merman",
     "level": 3,
     "items": ["Duplicator", "Manna prism"]
+  }],
+  
+  "blockDrops": [{
+    "enemy": "Bat",
+    "items": [
+      "Crissaegrim"
+    ]
   }],
 
   "startingEquipment": [{
@@ -121,6 +138,38 @@
     "item": "Talisman"
   }],
 
+  "blockEquipment": [{
+    "slot": "Right hand",
+    "item": [
+        "Crissaegrim"
+      ]
+  }, {
+    "slot": "Left hand",
+    "item": [
+        "Alucard shield"
+      ]
+  }, {
+    "slot": "Head",
+    "item": [
+        "Dragon helm"
+      ]
+  }, {
+    "slot": "Body",
+    "item": [
+        "God's Garb"
+      ]
+  }, {
+    "slot": "Cloak",
+    "item": [
+        "Twilight cloak"
+      ]
+  }, {
+    "slot": "Other",
+    "item": [
+        "Duplicator"
+    ]
+  }],
+
   "itemLocations": [{
     "comment": "Place a Library Card in the Pot Roast wall of Entrance",
     "zone": "Entrance",
@@ -144,6 +193,94 @@
     "item": "Potion",
     "replacement": "Elixir"
   }],
+  
+  "blockRewards": [{
+    "item": "Heart Refresh",
+    "replacement": "Library card"
+  }, {
+    "item": "Neutron bomb",
+    "replacement": "Library card"
+  }, {
+    "item": "Potion",
+    "replacement": "Library card"
+  }],
+  
+  "writes": [{
+    "comment": "Jump to injected code (Used for editing things requiring to be edited in RAM)",
+    "address": "0x000fa97c",
+    "type": "word",
+    "value": "0x0c04db00"
+  }, {
+    "address": "0x00158c98",
+    "type": "word",
+    "value": "0x34020003",
+    "comment": "ori v0, 0x0003"
+  }, {
+    "comment": "Write to 8009 RAM addresses (Granting relics, stats, items, etc.)",
+    "type": "word",
+    "value": "0x3c038009",
+    "comment": "lui v1, 0x8009"
+  }, {
+    "comment": "Enable Gravity Boots",
+    "type": "word",
+    "value": "0xa0627970",
+    "comment": "sb v0, 0x7970 (v1)"
+  }, {
+    "comment": "Write to 8003 RAM addresses (Editing the game flags and calling functions)",
+    "type": "word",
+    "value": "0x3c038004",
+    "comment": "lui v1, 0x8004"
+  }, {
+    "comment": "Save Return Address for rA (Map Code)",
+    "type": "word",
+    "value": "0x37F70000"
+  }, {
+    "comment": "Call Map Acquisition Function (Map Code)",
+    "type": "word",
+    "value": "0x0C03C8A2"
+  }, {
+    "type": "word",
+    "value": "0x34040000",
+    "comment": "Arg0 w/ 0"
+  }, {
+    "comment": "Recall Return Address for rA (Map Code)",
+    "type": "word",
+    "value": "0x36FF0000"
+  }, {
+    "comment": "(End Map Code)",
+    "type": "word",
+    "value": "0x00000000",
+    "comment": "nop"
+  }, {
+    "comment": "Return from injected code",
+    "type": "word",
+    "value": "0x0803924f",
+    "comment": "j 0x800e493c"
+  }, {
+    "comment": "Finish Return from injected code (Writes after this allow for direct editing of the ROM)",
+    "type": "word",
+    "value": "0x00000000",
+    "comment": "nop"
+  }, {
+    "comment": "Death isn't there to steal equipment",
+    "address": "0x4BAEA08",
+    "type": "word",
+    "value": "0x18000006"
+  }, {
+    "comment": "Rename Faerie Scroll to 'Portal Spell'",
+    "address": "0xF56A8",
+    "type": "word",
+    "value": "0x74726F50"
+  }, {
+    "type": "word",
+    "value": "0x53206C61"
+  }, {
+    "type": "word",
+    "value": "0x6C6C6570"
+  }, {
+    "type": "char",
+    "value": "0x00"
+  }],
 
   "complexityGoal": {
     "min": 2,
@@ -153,5 +290,18 @@
       "Soul of Bat + Soul of Wolf",
       "Gravity Boots + Form of Mist"
     ]
-  }
+  },
+
+  "lockLocationAllowed": [{
+    "location": "Merman Statue",
+    "comment": "Merman Statue Out of Logic with Shield Rod",
+    "locks": [
+      "Shield Rod"
+    ],
+    "comment": "Never let Merman Statue location have Form of Mist or Soul of Bat",
+    "block": [
+      "Form of Mist",
+      "Soul of Bat"
+    ]
+  }]
 }

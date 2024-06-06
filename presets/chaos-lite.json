@@ -6,6 +6,8 @@
     "author": "3snow_p7im, eldri7ch and MottZilla0",
     "weight": -100
   },
+  
+  "colorrandoMode": true,
 
   "itemLocations": [{
     "comment": "Force library card spawn in vanilla location for convenience",

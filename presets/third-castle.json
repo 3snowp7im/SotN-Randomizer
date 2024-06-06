@@ -7,6 +7,7 @@
     "weight": 400
   },
   "inherits": "safe",
+  "colorrandoMode": true,
   "writes": [{
     "address": "0x043f0448",
     "type": "short",

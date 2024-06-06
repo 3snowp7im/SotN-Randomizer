@@ -1,12 +1,17 @@
 {
   "metadata": {
-    "id": "casual",
-    "name": "Casual",
-    "description": "Use safe logic, but with lower average complexity.",
-    "author": "3snow_p7im, setz, and soba",
+    "id": "test",
+    "name": "Test",
+    "description": "A test preset for new features",
+    "author": "eldri7ch and MottZilla",
     "weight": -900
   },
-  "colorrandoMode": true,
+  "relics": false,
+  "items": false,
+  "magicmaxMode": true,
+  "antiFreezeMode": true,
+  "relicLocationsExtension": "wanderer",
+
   "lockLocation": [{
     "location": "Soul of Bat",
     "comment": "Requires Mist + at least Leap Stone",
