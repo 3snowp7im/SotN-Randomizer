@@ -2,8 +2,8 @@
   "metadata": {
     "id": "beyond",
     "name": "Beyond",
-    "description": "Similar to casual but with new stuff, complexity 9, spread locations, no death at entrance",
-    "author": "Forat Negre, Wecoc",
+    "description": "Similar to casual but with new stuff, complexity 8, spread locations, no death at entrance",
+    "author": "Forat Negre, Wecoc, eldri7ch",
     "weight": -3250
   },
   "inherits": "safe",
@@ -11,7 +11,7 @@
   "relicLocationsExtension": "spread",
 
   "complexityGoal": {
-    "min": 9,
+    "min": 8,
     "goals": [
       "Holy glasses + Heart of Vlad + Tooth of Vlad + Rib of Vlad + Ring of Vlad + Eye of Vlad"
     ]
@@ -116,6 +116,20 @@
       "Sunstone",
       "Bloodstone"
     ]
+  }],
+
+  "prologueRewards": [{
+    "comment": "Maria rescues Richter",
+    "item": "Potion",
+    "replacement": "Potion"
+  }, {
+    "comment": "No hearts left",
+    "item": "Heart Refresh",
+    "replacement": "Heart Refresh"
+  }, {
+    "comment": "More than 41 hearts in cutscene",
+    "item": "Neutron bomb",
+    "replacement": "Power of Sire"
   }],
 
   "placeRelic": [{
@@ -2394,22 +2408,22 @@
     "value": "0x3C888009"
   }, {
     "type": "word",
+    "value": "0x8D067628"
+  }, {
+    "type": "word",
     "value": "0x910974A0"
+  }, {
+    "type": "word",
+    "value": "0x00000000"
   }, {
     "type": "word",
     "value": "0x90820000"
   }, {
     "type": "word",
-    "value": "0x3C068009"
+    "value": "0x00000000"
   }, {
     "type": "word",
     "value": "0x000210C0"
-  }, {
-    "type": "word",
-    "value": "0x8CC67928"
-  }, {
-    "type": "word",
-    "value": "0x00000000"
   }, {
     "type": "word",
     "value": "0x00093040"
@@ -2433,13 +2447,13 @@
     "value": "0x00260821"
   }, {
     "type": "word",
-    "value": "0x8C263C40"
+    "value": "0x8C243C40"
   }, {
     "type": "word",
     "value": "0x34030041"
   }, {
     "type": "word",
-    "value": "0x11230007"
+    "value": "0x11230005"
   }, {
     "type": "word",
     "value": "0x00000000"
@@ -2448,13 +2462,13 @@
     "value": "0x3C088013"
   }, {
     "type": "word",
-    "value": "0xAD066818"
+    "value": "0xAD046818"
   }, {
     "type": "word",
-    "value": "0xA109681C"
+    "value": "0xA509681C"
   }, {
     "type": "word",
-    "value": "0xA102681E"
+    "value": "0xA502681E"
   }, {
     "type": "word",
     "value": "0x03E00008"
@@ -2465,6 +2479,9 @@
     "value": "0x0C04DA22"
   }, {
     "type": "word",
+    "value": "0x00000000"
+  }, {
+    "type": "word",
     "address": "0x158920",
     "value": "0x3C088013"
   }, {
@@ -2472,10 +2489,10 @@
     "value": "0x8D196818"
   }, {
     "type": "word",
-    "value": "0x9116681C"
+    "value": "0x9516681C"
   }, {
     "type": "word",
-    "value": "0x9117681E"
+    "value": "0x9517681E"
   }, {
     "type": "word",
     "value": "0x00000000"
@@ -2487,22 +2504,25 @@
     "value": "0xAD193C98"
   }, {
     "type": "word",
-    "value": "0xA11625EA"
+    "value": "0xA51625EA"
   }, {
     "type": "word",
-    "value": "0xA11725E6"
+    "value": "0xA51725E6"
+  }, {
+    "type": "word",
+    "value": "0x00000000"
   }, {
     "type": "word",
     "value": "0x3C08800F"
   }, {
     "type": "word",
-    "value": "0xA1161724"
+    "value": "0xA5161724"
   }, {
     "type": "word",
     "value": "0x3AD60020"
   }, {
     "type": "word",
-    "value": "0xA11632A4"
+    "value": "0xA51632A4"
   }, {
     "type": "word",
     "value": "0x34040000"
@@ -2536,6 +2556,54 @@
   }, {
     "type": "word",
     "value": "0xAD153C98"
+  }, {
+    "type": "word",
+    "value": "0x03E00008"
+  }, {
+    "comment": "Memorial [Succubus Bugfix]",
+    "type": "word",
+    "address": "0x15890C",
+    "value": "0x0804D9CE"
+  }, {
+    "type": "word",
+    "value": "0x00000000"
+  }, {
+    "type": "word",
+    "value": "0x00000000"
+  }, {
+    "type": "word",
+    "address": "0x1586A0",
+    "value": "0x340B0009"
+  }, {
+    "type": "word",
+    "value": "0x340C0128"
+  }, {
+    "type": "word",
+    "value": "0x152B0005"
+  }, {
+    "type": "word",
+    "value": "0x00000000"
+  }, {
+    "type": "word",
+    "value": "0x144C0003"
+  }, {
+    "type": "word",
+    "value": "0x00000000"
+  }, {
+    "type": "word",
+    "value": "0x0804D9D9"
+  }, {
+    "type": "word",
+    "value": "0x00000000"
+  }, {
+    "type": "word",
+    "value": "0xAD046818"
+  }, {
+    "type": "word",
+    "value": "0xA509681C"
+  }, {
+    "type": "word",
+    "value": "0xA502681E"
   }, {
     "type": "word",
     "value": "0x03E00008"
@@ -3229,6 +3297,16 @@
   }, {
     "type": "word",
     "value": "0x03E00008"
+  }, {
+    "comment": "Faster Warping",
+    "type": "char",
+    "address": "0x588BE90",
+    "value": "0x02"
+  }, {
+    "comment": "Faster Warping",
+    "type": "char",
+    "address": "0x5A78FE4",
+    "value": "0x02"
   }, {
     "comment": "Castle Key [Properties]",
     "type": "word",
