@@ -4,7 +4,7 @@
     "name": "Bat-Master",
     "description": "Soul of Bat moves faster and can open doors. All Bat abilities and upgrades are greatly enhanced. Hold Triangle to move bat at original speed.  Bat Familiar levels faster.",
     "author": "MT_Fun, MottZilla",
-    "weight": -700
+    "weight": -3500
   },
   "stats": false,
   "relicLocationsExtension": "spread",

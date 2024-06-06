@@ -4,7 +4,7 @@
     "name": "Aperture",
     "description": "Opens several shortcuts and all teleporters but hides the end of the game behind a Portal Spell (Faerie Scroll)",
     "author": "eldri7ch, Mottzilla, Wecoc",
-    "weight": -900
+    "weight": -3750
   },
   
   "colorrandoMode": true,

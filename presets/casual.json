@@ -4,7 +4,7 @@
     "name": "Casual",
     "description": "Use safe logic, but with lower average complexity.",
     "author": "3snow_p7im, setz, and soba",
-    "weight": -900
+    "weight": -2250
   },
   "colorrandoMode": true,
   "lockLocation": [{

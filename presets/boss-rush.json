@@ -4,7 +4,7 @@
     "name": "Boss Rush",
     "description": "Boss Rush Mode",
     "author": "Mottzilla and eldri7ch",
-    "weight": 0
+    "weight": -2750
   },
 
   "comment": "Build off the Adventure preset for relic location data",

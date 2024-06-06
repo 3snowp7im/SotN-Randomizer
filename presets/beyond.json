@@ -4,7 +4,7 @@
     "name": "Beyond",
     "description": "Similar to casual but with new stuff, complexity 9, spread locations, no death at entrance",
     "author": "Forat Negre, Wecoc",
-    "weight": -900
+    "weight": -3250
   },
   "inherits": "safe",
   "stats": false,

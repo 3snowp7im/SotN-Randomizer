@@ -4,7 +4,7 @@
     "name": "Expedition",
     "description": "Adventure locations with Nimble build.",
     "author": "eldri7ch and Mottzilla0",
-    "weight": -100
+    "weight": -1250
   },
   "inherits": "nimble",
   "relicLocationsExtension": "equipment",
