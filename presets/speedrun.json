@@ -4,7 +4,7 @@
     "name": "Speedrun",
     "description": "Requires knowledge of movement mechanics used in glitchless speedruns.",
     "author": "3snow_p7im",
-    "weight": -500
+    "weight": 2750
   },
   "thrustSwordAbility": true,
   "colorrandoMode": true,

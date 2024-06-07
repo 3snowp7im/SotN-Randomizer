@@ -4,7 +4,7 @@
     "name": "Summoner",
     "description": "Utilize Familiars and Summon Items to defeat your foes",
     "author": "eldri7ch and Mottzilla",
-    "weight": -400
+    "weight": 3000
   },
   
   "inherits": "safe",

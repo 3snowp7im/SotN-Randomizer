@@ -1,10 +1,10 @@
 {
   "metadata": {
     "id": "skinwalker",
-    "name": "skinwalker",
+    "name": "Skinwalker",
     "description": "Includes all changes from Aperture, rebalances transformations and guarantees early access to at least 1 transformation.",
     "author": "Zako, eldri7ch, Mottzilla, Wecoc",
-    "weight": -900
+    "weight": 2500
   },
   "stats": false,
   "relicLOcationsExtension": "wanderer",

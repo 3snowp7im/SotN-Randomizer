@@ -4,7 +4,7 @@
     "name": "Nimble",
     "description": "Start with Soul of Bat, Leap Stone, Gravity Boots, Duplicator, Manna prism, and Buffalo star.",
     "author": "3snow_p7im",
-    "weight": -200
+    "weight": 1000
   },
   "stats": false,
   "startingEquipment": [{

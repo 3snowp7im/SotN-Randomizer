@@ -4,7 +4,7 @@
     "name": "Lookingglass",
     "description": "Wanderer extension: Use a Magic Mirror (Replaces Holy Glasses) to move between first and second castles.",
     "author": "eldri7ch, Mottzilla",
-    "weight": -900
+    "weight": -5001
   },
   
   "stats": false,

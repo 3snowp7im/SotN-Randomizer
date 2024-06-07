@@ -4,7 +4,7 @@
     "name": "Chaos Lite",
     "description": "Bounty Hunter, Aperture, and Grand Tour combined with additional random elements.",
     "author": "3snow_p7im, eldri7ch and MottZilla0",
-    "weight": -100
+    "weight": 10000
   },
   
   "colorrandoMode": true,

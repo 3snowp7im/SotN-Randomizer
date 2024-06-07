@@ -4,7 +4,7 @@
     "name": "Big Toss",
     "description": "Bat and fast Wolf are removed, and any amount of damage causes a Big Toss.",
     "author": "Wecoc, eldri7ch, Mottzilla",
-    "weight": -700
+    "weight": -3000
   },
 
   "stats": false,
