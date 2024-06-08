@@ -987,7 +987,7 @@
   // Added for index.html browser usage. This removes the development warning and sets the version number.
   // version number will need to be kept up to date in the future along with the ones in index.html and package jsons.
   const isDev = false
-  const fakeVersion = '3.16.01'
+  const fakeVersion = '3.16.0'
   if (url.protocol !== 'file:') {
     fetch('package.json', {cache: 'no-store'}).then(function(response) {
       if (response.ok) {
