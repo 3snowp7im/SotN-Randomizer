@@ -610,6 +610,17 @@ const yargs = require('yargs')
     describe: 'Enable Anti-Freeze Mode, removes screen freezes from level-up & more.',
     type: 'boolean',
   })
+  .option('mypurse', {
+    alias: 'y',
+    describe: 'Enable replace Heart Max with Magic Max Vessels',
+    type: 'boolean',
+  })
+  .option('mapcolor', {
+    alias: 'm',
+    describe: 'Change map color',
+    type: 'string',
+    requiresArg: true,
+  })
   .option('disable-accessibility-patches', {
     alias: 'a',
     describe: 'Disable accessibility patches',
@@ -932,6 +943,21 @@ if (argv.magicmax) { // Adds MP Vessel to replace Heart Vessel - eldrich
 if (argv.antifreeze) { // Removes screen freezes from level-up and acquisitions - eldrich
   options.antiFreezeMode = true
 }
+// Enable my purse mode if specified. - eldri7ch
+if (argv.mypurse) { // Adds MP Vessel to replace Heart Vessel - eldrich
+  options.mypurseMode = true
+}
+// Map Color Features if specified. - eldri7ch
+if ('mapcolor' in argv && typeof(argv.mapcolor) !== 'undefined') {
+  let termsAllowed = 'u,r,b,g,y,p,k'
+  if (!(termsAllowed.includes(argv.mapcolor))) {
+    yargs.showHelp()
+    console.error('\nMust contain a letter \'u\'(Blue), \'r\'(Crimson), \'b\'(Brown), \'g\'(Green), \'y\'(Gray), \'p\'(Purple), \'k\'(Pink)')
+    process.exit(1)
+  } else {
+    options.mapcolorTheme = argv.mapcolor.toString()
+  }
+}
 // Set misc options.
 if ('verbose' in argv) {
   options.verbose = argv.verbose
@@ -1062,9 +1088,18 @@ if ('inBin' in argv) {
           // Apply magic max mode patches. - MottZilla
           check.apply(util.applyMagicMaxPatches())
         }
-        if (options.antiFreezeMode || applied.antiFreezeMode) { // Adds MP Vessel to replace Heart Vessel - eldrich
+        if (options.antiFreezeMode || applied.antiFreezeMode) { // Removes screen freezes on relic / vessel collection and level-up - eldrich
           // Apply anti-freeze mode patches. - eldri7ch
           check.apply(util.applyAntiFreezePatches())
+        }
+        if (options.mypurseMode || applied.mypurseMode) { // Removes Death from Entrance - eldrich
+          // Apply anti-freeze mode patches. - eldri7ch
+          check.apply(util.applyMyPursePatches())
+        }
+        if ('mapcolor' in argv) { // Colors the map - eldrich
+          // Apply map color patches. - eldri7ch
+          let mapcol = argv.mapcolor
+          check.apply(util.applyMapColor(mapcol))
         }
         // Apply writes.
         check.apply(util.applyWrites(rng, applied))

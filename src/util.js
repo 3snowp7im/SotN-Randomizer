@@ -1692,6 +1692,14 @@
           randomize.push('z')
         }
         delete options.antiFreezeMode
+      } else if ('mypurseMode' in options) { 
+        if (options.mypurseMode) {
+          randomize.push('y')
+        }
+        delete options.mypurseMode
+      } else if ('mapcolorTheme' in options) {
+        randomize.push('m:' + options.mapcolorTheme)
+        delete options.mapcolorTheme
       } else if ('preset' in options) {
         randomize.push('p:' + options.preset)
         delete options.preset
@@ -2906,6 +2914,8 @@
     colorrandoMode,
     magicmaxMode,
     antiFreezeMode,
+    mypurseMode,
+    mapcolorTheme,
     writes,
   ) {
     this.id = id
@@ -2926,6 +2936,8 @@
     this.colorrandoMode = colorrandoMode
     this.magicmaxMode = magicmaxMode
     this.antiFreezeMode = antiFreezeMode
+    this.mypurseMode = mypurseMode
+    this.mapcolorTheme = mapcolorTheme
     if (writes) {
       this.writes = writes
     }
@@ -3053,6 +3065,10 @@
     this.magicmax = false
     // AntiFreeze mode.
     this.antifreeze = false
+    // That's My Purse mode.
+    this.mypurse = false
+    // Map color theme.
+    this.mapcolor = false
     // Arbitrary writes.
     this.writes = undefined
   }
@@ -3339,6 +3355,9 @@
     }
     if ('antiFreezeMode' in json) {
       builder.antiFreezeMode(json.antiFreezeMode)
+    }
+    if ('mypurseMode' in json) {
+      builder.mypurseMode(json.mypurseMode)
     }
     if ('writes' in json) {
       let lastAddress = 0
@@ -3635,6 +3654,9 @@
     }
     if ('antiFreezeMode' in preset) {
       this.antifreeze = preset.antiFreezeMode
+    }
+    if ('mypurseMode' in preset) {
+      this.mypurse = preset.mypurseMode
     }
     if ('writes' in preset) {
       this.writes = this.writes || []
@@ -4311,6 +4333,11 @@
     this.antifreeze = enabled
   }
 
+  // Prevent Death from stealing equipment - eldri7ch
+  PresetBuilder.prototype.mypurseMode = function mypurseMode(enabled) {
+    this.mypurse = enabled
+  }
+
   // Write a character.
   PresetBuilder.prototype.writeChar = function writeChar(address, value) {
     if (value !== 'random' && value !== 'random1' && value !== 'random3' && value !== 'random10' && value !== 'random99') {
@@ -4610,6 +4637,7 @@
     const colorrando = self.colorrando
     const magicmax = self.magicmax
     const antifreeze = self.antifreeze
+    const mypurse = self.mypurse
     const writes = self.writes
     return new Preset(
       self.metadata.id,
@@ -4630,6 +4658,7 @@
       colorrando,
       magicmax,
       antifreeze,
+      mypurse,
       writes,
     )
   }
@@ -4825,6 +4854,68 @@
     const data = new checked()
     // Patch screen freeze value - eldri7ch
     data.writeChar(0x00140a2c, 0x00)
+    return data
+  }
+
+  function applyMyPursePatches() {
+    const data = new checked()
+    // Patch Death goes home - eldri7ch
+    data.writeWord(0x04baea08, 0x18000006)
+    return data
+  }
+
+  function applyMapColor(mapcol) {
+    const data = new checked()
+    const addressAl = 0x03874848 //define address for alucard maps - eldri7ch
+    const addressRi = 0x038C0508 //define address for richter maps - eldri7ch
+    const addressAlBord = 0x03874864 //define address for alucard maps borders - eldri7ch
+    const addressRiBord = 0x038C0524 //define address for richter maps borders - eldri7ch
+    let colorWrite
+    let bordWrite
+    // Patch map colors - eldri7ch
+    switch (mapcol) {
+    case 'u': // Dark Blue
+      colorWrite = 0xb0000000
+      data.writeWord(addressAl, colorWrite)
+      data.writeWord(addressRi, colorWrite)
+      break
+    case 'r': // Crimson
+      colorWrite = 0x00500000
+      data.writeWord(addressAl, colorWrite)
+      data.writeWord(addressRi, colorWrite)
+      break
+    case 'b': // Brown
+      colorWrite = 0x80ca0000
+      data.writeWord(addressAl, colorWrite)
+      data.writeWord(addressRi, colorWrite)
+      break
+    case 'g': // Dark Green
+      colorWrite = 0x09000000
+      data.writeWord(addressAl, colorWrite)
+      data.writeWord(addressRi, colorWrite)
+      break
+    case 'y': // Gray
+      colorWrite = 0xE3180000
+      bordWrite = 0xffff
+      data.writeWord(addressAl, colorWrite)
+      data.writeWord(addressRi, colorWrite)
+      data.writeShort(addressAlBord,bordWrite)
+      data.writeShort(addressRiBord,bordWrite)
+      break
+    case 'p': // Purple
+      colorWrite = 0xB0080000
+      data.writeWord(addressAl, colorWrite)
+      data.writeWord(addressRi, colorWrite)
+      break
+    case 'y': // Pink
+      colorWrite = 0xff1f0000
+      bordWrite = 0xfd0f
+      data.writeWord(addressAl, colorWrite)
+      data.writeWord(addressRi, colorWrite)
+      data.writeShort(addressAlBord,bordWrite)
+      data.writeShort(addressRiBord,bordWrite)
+      break
+    }
     return data
   }
 
@@ -5340,6 +5431,8 @@
     applyTournamentModePatches: applyTournamentModePatches,
     applyMagicMaxPatches: applyMagicMaxPatches,
     applyAntiFreezePatches: applyAntiFreezePatches,
+    applyMyPursePatches: applyMyPursePatches,
+    applyMapColor: applyMapColor,
     randomizeRelics: randomizeRelics,
     randomizeItems: randomizeItems,
     applyWrites: applyWrites,

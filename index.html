@@ -133,7 +133,16 @@
                   </div>
                   <div class="pure-u-12-24">
                     <input id="turkey-mode" type="checkbox">
-                    <label for="turkey-mode">Turkey mode</label>
+                    <label for="turkey-mode">Turkey mode
+                      <span class="tooltip-wrapper">
+                        <span class="tooltip-indicator">?</span>
+                        <span class="tooltip hidden">
+                          <span>
+                            Replaces the subweapons in the glass vats at Alchemy Lab and Black Marble Gallery with useless turkeys.
+                          </span>
+                        </span>
+                      </span>
+                    </label>
                   </div>
                   <div class="pure-u-12-24">
                     <fieldset id="relic-locations-set">
@@ -334,6 +343,19 @@
                 </label>
               </div>
               <div class="pure-u-1">
+                <input id="mypurse-mode" type="checkbox">
+                <label for="mypurse-mode">That's my purse! mode
+                  <span class="tooltip-wrapper">
+                    <span class="tooltip-indicator">?</span>
+                    <span class="tooltip hidden">
+                      <span>
+                        Prevents Death from stealing your gear.
+                      </span>
+                    </span>
+                  </span>
+                </label>
+              </div>
+              <div class="pure-u-1">
                 <input id="accessibility-patches" type="checkbox">
                 <label for="accessibility-patches">Apply accessibility patches
                   <span class="tooltip-wrapper">
@@ -346,6 +368,116 @@
                   </span>
                 </label>
               </div>
+              <!<div class="pure-u-12-24">
+                <fieldset id="mapcolor-set">
+                  <legend>
+                    <input id="custom-map" type="checkbox">
+                    <label for="custom-map">Map Color</label>
+                  </legend>
+                  <div>
+                    <input id="mapcolor-darkblue"
+                           name="mapcolor"
+                           type="radio"
+                           value="darkblue">
+                    <label for="mapcolor-darkblue">
+                      Dark Blue
+                      <span class="tooltip-wrapper">
+                        <span class="tooltip-indicator">?</span>
+                        <span class="tooltip hidden">
+                          <span>
+                            A dark blue theme for the map.
+                          </span>
+                        </span>
+                      </span>
+                    </label>
+                  </div>
+                  <div>
+                    <input id="mapcolor-crimson"
+                           name="mapcolor"
+                           type="radio"
+                           value="crimson">
+                    <label for="mapcolor-crimson">
+                      Crimson
+                      <span class="tooltip-wrapper">
+                        <span class="tooltip-indicator">?</span>
+                        <span class="tooltip hidden">
+                          <span>
+                            A crimson theme for the map.
+                          </span>
+                        </span>
+                      </span>
+                    </label>
+                  </div>
+                  <div>
+                    <input id="mapcolor-brown"
+                           name="mapcolor"
+                           type="radio"
+                           value="brown">
+                    <label for="mapcolor-brown">
+                      Brown
+                      <span class="tooltip-wrapper">
+                        <span class="tooltip-indicator">?</span>
+                        <span class="tooltip hidden">
+                          <span>
+                            A brown theme for the map.
+                          </span>
+                        </span>
+                      </span>
+                    </label>
+                  </div>
+                  <div>
+                    <input id="mapcolor-darkgreen"
+                           name="mapcolor"
+                           type="radio"
+                           value="darkgreen">
+                    <label for="mapcolor-darkgreen">
+                      Dark Green
+                      <span class="tooltip-wrapper">
+                        <span class="tooltip-indicator">?</span>
+                        <span class="tooltip hidden">
+                          <span>
+                            A dark green theme for the map.
+                          </span>
+                        </span>
+                      </span>
+                    </label>
+                  </div>
+                  <div>
+                    <input id="mapcolor-gray"
+                           name="mapcolor"
+                           type="radio"
+                           value="gray">
+                    <label for="mapcolor-gray">
+                      Gray
+                      <span class="tooltip-wrapper">
+                        <span class="tooltip-indicator">?</span>
+                        <span class="tooltip hidden">
+                          <span>
+                            A gray theme for the map.
+                          </span>
+                        </span>
+                      </span>
+                    </label>
+                  </div>
+                  <div>
+                    <input id="mapcolor-pink"
+                           name="mapcolor"
+                           type="radio"
+                           value="pink">
+                    <label for="mapcolor-pink">
+                      Pink
+                      <span class="tooltip-wrapper">
+                        <span class="tooltip-indicator">?</span>
+                        <span class="tooltip hidden">
+                          <span>
+                            A pink theme for the map.
+                          </span>
+                        </span>
+                      </span>
+                    </label>
+                  </div>
+                </fieldset>
+              </div>>
               <div class="pure-u-1">
                 <input id="show-spoilers" type="checkbox">
                 <label for="show-spoilers">Show spoilers</label>
@@ -382,7 +514,7 @@
       </form>
       <div id="notification"><span>Copied to clipboard<span></div>
       <hr>
-      <h2><a name="version">Version 3.16.0</a></h2>
+      <h2><a name="version">Version 3.16.01</a></h2>
       <hr>
       <h2><a name="links">Links</a></h2>
       <ul>
@@ -403,6 +535,11 @@
       </ul>
       <hr>
       <h2><a name="changelog">Changelog</a></h2>
+      <h3><time>June 8, 2024</time></h3>
+      <ul>
+        <li>Added map color feature for CLI.</li>
+        <li>Added "That's my purse!" to stop Death from stealing items.</li>
+      </ul>
       <h3><time>June 5, 2024</time></h3>
       <ul>
         <li>Added Doppleganger's capes, Gravity Boots trails, and Hydrostorm color rando.</li>
