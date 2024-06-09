@@ -612,7 +612,7 @@ const yargs = require('yargs')
   })
   .option('mypurse', {
     alias: 'y',
-    describe: 'Enable replace Heart Max with Magic Max Vessels',
+    describe: 'Prevents Death from stealing your belongings.',
     type: 'boolean',
   })
   .option('mapcolor', {
@@ -1093,7 +1093,7 @@ if ('inBin' in argv) {
           check.apply(util.applyAntiFreezePatches())
         }
         if (options.mypurseMode || applied.mypurseMode) { // Removes Death from Entrance - eldrich
-          // Apply anti-freeze mode patches. - eldri7ch
+          // Apply Death repellant patches. - eldri7ch
           check.apply(util.applyMyPursePatches())
         }
         if ('mapcolor' in argv) { // Colors the map - eldrich
