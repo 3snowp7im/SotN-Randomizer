@@ -39,6 +39,7 @@
       require('./lookingglass'),
       require('./skinwalker'),
       require('./summoner'),
+      require('./agonizetwtw'),
     ]
   }
   exports.sort(function(a, b) {
