@@ -362,6 +362,10 @@
     localStorage.setItem('antiFreezeMode', elems.antiFreezeMode.checked)
   }
 
+  function mypurseModeChange() {
+    localStorage.setItem('mypurseMode', elems.mypurseMode.checked)
+  }
+
   function accessibilityPatchesChange() {
     localStorage.setItem('accessibilityPatches', elems.accessibilityPatches.checked)
   }
@@ -507,6 +511,9 @@
       if (elems.antiFreezeMode.checked) {
         options.antiFreezeMode = true
       }
+      if (elems.mypurseMode.checked) {
+        options.mypurseMode = true
+      }
       return options
     }
     const options = {
@@ -522,6 +529,7 @@
       colorrandoMode: elems.colorrandoMode.checked,
       magicmaxMode: elems.magicmaxMode.checked,
       antiFreezeMode: elems.antiFreezeMode.checked,
+      mypurseMode: elems.mypurseMode.checked,
     }
     if (elems.enemyDropsArg.value) {
       options.enemyDrops = util.optionsFromString(
@@ -672,6 +680,9 @@
         // Apply anti-freeze patches.
         if (options.antiFreezeMode) {
           check.apply(util.applyAntiFreezePatches())
+        }
+        if (options.mypurseMode) {
+          check.apply(util.applyMyPursePatches())
         }
         // Apply writes.
         check.apply(util.applyWrites(rng, applied))
@@ -897,6 +908,7 @@
     colorrandoMode: document.getElementById('colorrando-mode'),
     magicmaxMode: document.getElementById('magicmax-mode'),
     antiFreezeMode: document.getElementById('antifreeze-mode'),
+    mypurseMode: document.getElementById('mypurse-mode'),
     accessibilityPatches: document.getElementById('accessibility-patches'),
     showSpoilers: document.getElementById('show-spoilers'),
     showRelics: document.getElementById('show-relics'),
@@ -951,6 +963,7 @@
   elems.colorrandoMode.addEventListener('change', colorrandoModeChange)
   elems.magicmaxMode.addEventListener('change', magicmaxModeChange)
   elems.antiFreezeMode.addEventListener('change', antiFreezeModeChange)
+  elems.mypurseMode.addEventListener('change', mypurseModeChange)
   elems.accessibilityPatches.addEventListener('change', accessibilityPatchesChange)
   elems.showSpoilers.addEventListener('change', spoilersChange)
   elems.showRelics.addEventListener('change', showRelicsChange)
@@ -1243,6 +1256,7 @@
   loadOption('colorrandoMode', colorrandoModeChange, false)
   loadOption('magicmaxMode', magicmaxModeChange, false)
   loadOption('antiFreezeMode', antiFreezeModeChange, false)
+  loadOption('mypurseMode', mypurseModeChange, false)
   loadOption('accessibilityPatches', accessibilityPatchesChange, true)
   loadOption('showSpoilers', spoilersChange, true)
   setTimeout(function() {

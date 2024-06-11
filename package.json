@@ -50,7 +50,10 @@
     "forge",
     "lookingglass",
     "skinwalker",
-    "summoner"
+    "summoner",
+    "agonizetwtw",
+    "stwosafe",
+    "open"
   ],
   "engines": {
     "node": ">=15"

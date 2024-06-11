@@ -711,7 +711,7 @@
         c = randomize[i++]
       }
       switch (c) {
-      case 'p': {
+      case 'p': { // start preset selection from args/options - eldri7ch
         // Check for an argument.
         if (negate) {
           throw new Error('Cannot negate preset option')
@@ -735,8 +735,8 @@
           i++
         }
         break
-      }
-      case 'd': {
+      } // end preset selection from args/options - eldri7ch
+      case 'd': { // start drops selection from args/options - eldri7ch
         if (negate) {
           options.enemyDrops = false
           break
@@ -869,8 +869,8 @@
         }
         options.enemyDrops = enemyDrops
         break
-      }
-      case 'e': {
+      } // end drops selection from args/options - eldri7ch
+      case 'e': { // start equipment selection from args/options - eldri7ch
         if (negate) {
           options.startingEquipment = false
           break
@@ -1017,8 +1017,8 @@
         }
         options.startingEquipment = startingEquipment
         break
-      }
-      case 'i': {
+      } // end equipment selection from args/options - eldri7ch
+      case 'i': { // start item location selection from args/options - eldri7ch
         if (negate) {
           options.itemLocations = false
           break
@@ -1154,8 +1154,8 @@
         }
         options.itemLocations = itemLocations
         break
-      }
-      case 'b': {
+      } // end item location selection from args/options - eldri7ch
+      case 'b': { // start prologue rewards selection from args/options - eldri7ch
         if (negate) {
           options.prologueRewards = false
           break
@@ -1236,8 +1236,8 @@
         }
         options.prologueRewards = prologueRewards
         break
-      }
-      case 'r': {
+      } // end prologue rewards selection from args/options - eldri7ch
+      case 'r': { // start relic locations selection from args/options - eldri7ch
         if (negate) {
           options.relicLocations = false
           break
@@ -1446,32 +1446,32 @@
         }
         options.relicLocations = relicLocations
         break
-      }
-      case 's': {
+      } // end relic locations selection from args/options - eldri7ch
+      case 's': { // start stats selection from args/options - eldri7ch
         if (negate) {
           options.stats = false
           break
         }
         options.stats = true
         break;
-      }
-      case 'm': {
+      } // end stats selection from args/options - eldri7ch
+      case 'm': { // start music selection from args/options - eldri7ch
         if (negate) {
           options.music = false
           break
         }
         options.music = true
         break
-      }
-      case 'k': {
+      } // end music selection from args/options - eldri7ch
+      case 'k': { // start turkey mode selection from args/options - eldri7ch
         if (negate) {
           options.turkeyMode = false
           break
         }
         options.turkeyMode = true
         break
-      }
-      case 'w': {
+      } // end turkey mode selection from args/options - eldri7ch
+      case 'w': { // start writes selection from args/options - eldri7ch
         if (negate) {
           break
         }
@@ -1604,20 +1604,20 @@
         }
         options.writes = writes
         break
-      }
-      case 't': {
+      } // end writes selection from args/options - eldri7ch
+      case 't': { // start tournament mode selection from args/options - eldri7ch
         if (negate) {
           options.tournamentMode = false
           break
         }
         options.tournamentMode = true
         break
-      }
+      } // end tournament mode selection from args/options - eldri7ch
       default:
-        throw new Error('Invalid randomization: ' + c)
+        throw new Error('Invalid randomization: ' + c) // kick out the remainder of options - eldri7ch
       }
     }
-    if (!Object.getOwnPropertyNames(options).length) {
+    if (!Object.getOwnPropertyNames(options).length) { // error out if all randomization negated - eldri7ch
       throw new Error('No randomizations')
     }
     return options
@@ -1672,17 +1672,17 @@
     }
     let randomize = []
     while (Object.getOwnPropertyNames(options).length) {
-      if ('tournamentMode' in options) {
+      if ('tournamentMode' in options) { // stunts spoilers, changes seed randomization, opens statue in clock room and $0 relic in shop - eldrich
         if (options.tournamentMode) {
           randomize.push('t')
         }
         delete options.tournamentMode
-      } else if ('colorrandoMode' in options) { 
+      } else if ('colorrandoMode' in options) { // randomizes cape, grav boots, and hydro storm colors - eldrich
         if (options.colorrandoMode) {
           randomize.push('l')
         }
         delete options.colorrandoMode
-      } else if ('magicmaxMode' in options) { 
+      } else if ('magicmaxMode' in options) { // replaces Heart Vessel with Magic Vessel - eldrich
         if (options.magicmaxMode) {
           randomize.push('x')
         }
@@ -1692,6 +1692,14 @@
           randomize.push('z')
         }
         delete options.antiFreezeMode
+      } else if ('mypurseMode' in options) { // Removes Death from entrance - eldrich
+        if (options.mypurseMode) {
+          randomize.push('y')
+        }
+        delete options.mypurseMode
+      } else if ('mapcolorTheme' in options) {
+        randomize.push('m:' + options.mapcolorTheme)
+        delete options.mapcolorTheme
       } else if ('preset' in options) {
         randomize.push('p:' + options.preset)
         delete options.preset
@@ -2906,6 +2914,8 @@
     colorrandoMode,
     magicmaxMode,
     antiFreezeMode,
+    mypurseMode,
+    mapcolorTheme,
     writes,
   ) {
     this.id = id
@@ -2926,6 +2936,8 @@
     this.colorrandoMode = colorrandoMode
     this.magicmaxMode = magicmaxMode
     this.antiFreezeMode = antiFreezeMode
+    this.mypurseMode = mypurseMode
+    this.mapcolorTheme = mapcolorTheme
     if (writes) {
       this.writes = writes
     }
@@ -3053,6 +3065,10 @@
     this.magicmax = false
     // AntiFreeze mode.
     this.antifreeze = false
+    // That's My Purse mode.
+    this.mypurse = false
+    // Map color theme.
+    this.mapcolor = false
     // Arbitrary writes.
     this.writes = undefined
   }
@@ -3339,6 +3355,12 @@
     }
     if ('antiFreezeMode' in json) {
       builder.antiFreezeMode(json.antiFreezeMode)
+    }
+    if ('mypurseMode' in json) {
+      builder.mypurseMode(json.mypurseMode)
+    }
+    if ('mapcolorTheme' in json) {
+      builder.mapcolorTheme(json.mapcolorTheme)
     }
     if ('writes' in json) {
       let lastAddress = 0
@@ -3635,6 +3657,12 @@
     }
     if ('antiFreezeMode' in preset) {
       this.antifreeze = preset.antiFreezeMode
+    }
+    if ('mypurseMode' in preset) {
+      this.mypurse = preset.mypurseMode
+    }
+    if ('mapcolorTheme' in preset) {
+      this.mapcolor = preset.mapcolorTheme
     }
     if ('writes' in preset) {
       this.writes = this.writes || []
@@ -4311,6 +4339,17 @@
     this.antifreeze = enabled
   }
 
+  // Prevent Death from stealing equipment - eldri7ch
+  PresetBuilder.prototype.mypurseMode = function mypurseMode(enabled) {
+    this.mypurse = enabled
+  }
+
+  // Map Color added for compatibility - eldri7ch
+  PresetBuilder.prototype.mapcolorTheme = function mapcolorTheme(mapcol) {
+    mapcol = 'u'
+    this.mapcolor = mapcol
+  }
+
   // Write a character.
   PresetBuilder.prototype.writeChar = function writeChar(address, value) {
     if (value !== 'random' && value !== 'random1' && value !== 'random3' && value !== 'random10' && value !== 'random99') {
@@ -4610,6 +4649,8 @@
     const colorrando = self.colorrando
     const magicmax = self.magicmax
     const antifreeze = self.antifreeze
+    const mypurse = self.mypurse
+    const mapcolor = self.mapcolor
     const writes = self.writes
     return new Preset(
       self.metadata.id,
@@ -4630,6 +4671,8 @@
       colorrando,
       magicmax,
       antifreeze,
+      mypurse,
+      mapcolor,
       writes,
     )
   }
@@ -4825,6 +4868,68 @@
     const data = new checked()
     // Patch screen freeze value - eldri7ch
     data.writeChar(0x00140a2c, 0x00)
+    return data
+  }
+
+  function applyMyPursePatches() {
+    const data = new checked()
+    // Patch Death goes home - eldri7ch
+    data.writeWord(0x04baea08, 0x18000006)
+    return data
+  }
+
+  function applyMapColor(mapcol) {
+    const data = new checked()
+    const addressAl = 0x03874848 //define address for alucard maps - eldri7ch
+    const addressRi = 0x038C0508 //define address for richter maps - eldri7ch
+    const addressAlBord = 0x03874864 //define address for alucard maps borders - eldri7ch
+    const addressRiBord = 0x038C0524 //define address for richter maps borders - eldri7ch
+    let colorWrite
+    let bordWrite
+    // Patch map colors - eldri7ch
+    switch (mapcol) {
+    case 'u': // Dark Blue
+      colorWrite = 0xb0000000
+      data.writeWord(addressAl, colorWrite)
+      data.writeWord(addressRi, colorWrite)
+      break
+    case 'r': // Crimson
+      colorWrite = 0x00500000
+      data.writeWord(addressAl, colorWrite)
+      data.writeWord(addressRi, colorWrite)
+      break
+    case 'b': // Brown
+      colorWrite = 0x80ca0000
+      data.writeWord(addressAl, colorWrite)
+      data.writeWord(addressRi, colorWrite)
+      break
+    case 'g': // Dark Green
+      colorWrite = 0x09000000
+      data.writeWord(addressAl, colorWrite)
+      data.writeWord(addressRi, colorWrite)
+      break
+    case 'y': // Gray
+      colorWrite = 0xE3180000
+      bordWrite = 0xffff
+      data.writeWord(addressAl, colorWrite)
+      data.writeWord(addressRi, colorWrite)
+      data.writeShort(addressAlBord,bordWrite)
+      data.writeShort(addressRiBord,bordWrite)
+      break
+    case 'p': // Purple
+      colorWrite = 0xB0080000
+      data.writeWord(addressAl, colorWrite)
+      data.writeWord(addressRi, colorWrite)
+      break
+    case 'y': // Pink
+      colorWrite = 0xff1f0000
+      bordWrite = 0xfd0f
+      data.writeWord(addressAl, colorWrite)
+      data.writeWord(addressRi, colorWrite)
+      data.writeShort(addressAlBord,bordWrite)
+      data.writeShort(addressRiBord,bordWrite)
+      break
+    }
     return data
   }
 
@@ -5340,6 +5445,8 @@
     applyTournamentModePatches: applyTournamentModePatches,
     applyMagicMaxPatches: applyMagicMaxPatches,
     applyAntiFreezePatches: applyAntiFreezePatches,
+    applyMyPursePatches: applyMyPursePatches,
+    applyMapColor: applyMapColor,
     randomizeRelics: randomizeRelics,
     randomizeItems: randomizeItems,
     applyWrites: applyWrites,

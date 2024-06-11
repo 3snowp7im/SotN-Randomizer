@@ -10,6 +10,7 @@
   "items": false,
   "magicmaxMode": true,
   "antiFreezeMode": true,
+  "mypurseMode": true,
   "relicLocationsExtension": "wanderer",
 
   "lockLocation": [{
