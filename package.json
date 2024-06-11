@@ -51,7 +51,9 @@
     "lookingglass",
     "skinwalker",
     "summoner",
-    "agonizetwtw"
+    "agonizetwtw",
+    "stwosafe",
+    "open"
   ],
   "engines": {
     "node": ">=15"
