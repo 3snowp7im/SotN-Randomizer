@@ -4867,23 +4867,23 @@
   function applyAntiFreezePatches() {
     const data = new checked()
     // Patch screen freeze value - eldri7ch
-    data.writeChar(0x00140a2c, 0x00)
+    data.writeChar(0x00140a2c, 0x00)	// Patch from Boss-Rush / MottZilla
     return data
   }
 
   function applyMyPursePatches() {
     const data = new checked()
     // Patch Death goes home - eldri7ch
-    data.writeWord(0x04baea08, 0x18000006)
+    data.writeWord(0x04baea08, 0x18000006)	// Patch from Boss-Rush / MottZilla
     return data
   }
 
-  function applyMapColor(mapcol) {
+  function applyMapColor(mapcol) {	// Researched by MottZilla & eldri7ch. Function by eldri7ch
     const data = new checked()
-    const addressAl = 0x03874848 //define address for alucard maps - eldri7ch
-    const addressRi = 0x038C0508 //define address for richter maps - eldri7ch
-    const addressAlBord = 0x03874864 //define address for alucard maps borders - eldri7ch
-    const addressRiBord = 0x038C0524 //define address for richter maps borders - eldri7ch
+    const addressAl = 0x03874848 //define address for alucard maps
+    const addressRi = 0x038C0508 //define address for richter maps
+    const addressAlBord = 0x03874864 //define address for alucard maps borders
+    const addressRiBord = 0x038C0524 //define address for richter maps borders
     let colorWrite
     let bordWrite
     // Patch map colors - eldri7ch

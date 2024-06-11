@@ -2,7 +2,7 @@
   "metadata": {
     "id": "hitman",
     "name": "Hitman",
-    "description": "Expanded from Bounty Hunter preset, removes Vlads and makes them droppable via third-party app.",
+    "description": "Faster playing Bounty Hunter. Start with all Targets known. App URL: https://github.com/MottZilla/BountyHunterTool",
     "author": "eldri7ch and MottZilla0",
     "weight": 10000
   },
@@ -212,6 +212,10 @@
     "type": "word",
     "value": "0xa0627973",
     "comment": "sb v0, 0x7973 (v1)"
+  }, {
+    "type": "word",
+    "value": "0x34020001",
+    "comment": "ori v0, 0x0001"
   }, {
     "comment": "Enable Cards",
     "type": "word",
@@ -1122,6 +1126,106 @@
     "type": "char",
     "address": "0x5A78FE4",
     "value": "0x02"
+  },{
+    "comment": "Patch warning A",
+    "address": "0xF5560",
+    "type": "word",
+    "value": "0x20657355"
+  },{
+    "type": "word",
+    "value": "0x6E756F42"
+  },{
+    "type": "word",
+    "value": "0x75487974"
+  },{
+    "type": "word",
+    "value": "0x7265746E"
+  },{
+    "type": "word",
+    "value": "0x6F6F5420"
+  },{
+    "type": "word",
+    "value": "0x0000006C"
+  },{
+    "comment": "Patch warning B",
+    "address": "0xF558C",
+    "type": "word",
+    "value": "0x20657355"
+  },{
+    "type": "word",
+    "value": "0x6E756F42"
+  },{
+    "type": "word",
+    "value": "0x75487974"
+  },{
+    "type": "word",
+    "value": "0x7265746E"
+  },{
+    "type": "word",
+    "value": "0x6F6F5420"
+  },{
+    "type": "word",
+    "value": "0x0000006C"
+  },{
+    "comment": "Patch warning C",
+    "address": "0xF55B8",
+    "type": "word",
+    "value": "0x20657355"
+  },{
+    "type": "word",
+    "value": "0x6E756F42"
+  },{
+    "type": "word",
+    "value": "0x75487974"
+  },{
+    "type": "word",
+    "value": "0x7265746E"
+  },{
+    "type": "word",
+    "value": "0x6F6F5420"
+  },{
+    "type": "word",
+    "value": "0x0000006C"
+  },{
+    "comment": "Patch warning D",
+    "address": "0xF55E8",
+    "type": "word",
+    "value": "0x20657355"
+  },{
+    "type": "word",
+    "value": "0x6E756F42"
+  },{
+    "type": "word",
+    "value": "0x75487974"
+  },{
+    "type": "word",
+    "value": "0x7265746E"
+  },{
+    "type": "word",
+    "value": "0x6F6F5420"
+  },{
+    "type": "word",
+    "value": "0x0000006C"
+  },{
+    "comment": "Patch warning E",
+    "address": "0xF5614",
+    "type": "word",
+    "value": "0x20657355"
+  },{
+    "type": "word",
+    "value": "0x6E756F42"
+  },{
+    "type": "word",
+    "value": "0x75487974"
+  },{
+    "type": "word",
+    "value": "0x7265746E"
+  },{
+    "type": "word",
+    "value": "0x6F6F5420"
+  },{
+    "type": "word",
+    "value": "0x0000006C"
   }],
   "complexityGoal": {
     "min": 1,
