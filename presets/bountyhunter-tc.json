@@ -1364,6 +1364,61 @@
     "type": "char",
     "address": "0x5A78FE4",
     "value": "0x02"
+  },{
+    "comment": "Patch warning A",
+    "address": "0xF5560",
+    "type": "long",
+    "value": "0x6E756F4220657355"
+  },{
+    "type": "long",
+    "value": "0x7265746E75487974"
+  },{
+    "type": "long",
+    "value": "0x0000006C6F6F5420"
+  },{
+    "comment": "Patch warning B",
+    "address": "0xF558C",
+    "type": "long",
+    "value": "0x6E756F4220657355"
+  },{
+    "type": "long",
+    "value": "0x7265746E75487974"
+  },{
+    "type": "long",
+    "value": "0x0000006C6F6F5420"
+  },{
+    "comment": "Patch warning C",
+    "address": "0xF55B8",
+    "type": "long",
+    "value": "0x6E756F4220657355"
+  },{
+    "type": "long",
+    "value": "0x7265746E75487974"
+  },{
+    "type": "long",
+    "value": "0x0000006C6F6F5420"
+  },{
+    "comment": "Patch warning D",
+    "address": "0xF55E8",
+    "type": "long",
+    "value": "0x6E756F4220657355"
+  },{
+    "type": "long",
+    "value": "0x7265746E75487974"
+  },{
+    "type": "long",
+    "value": "0x0000006C6F6F5420"
+  },{
+    "comment": "Patch warning E",
+    "address": "0xF5614",
+    "type": "long",
+    "value": "0x6E756F4220657355"
+  },{
+    "type": "long",
+    "value": "0x7265746E75487974"
+  },{
+    "type": "long",
+    "value": "0x0000006C6F6F5420"
   }],
   "complexityGoal": {
     "min": 6,
