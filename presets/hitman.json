@@ -213,6 +213,10 @@
     "value": "0xa0627973",
     "comment": "sb v0, 0x7973 (v1)"
   }, {
+    "type": "word",
+    "value": "0x34020001",
+    "comment": "ori v0, 0x0001"
+  }, {
     "comment": "Enable Cards",
     "type": "word",
     "value": "0xa0627976",
