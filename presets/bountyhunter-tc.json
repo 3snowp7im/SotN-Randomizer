@@ -2,7 +2,7 @@
   "metadata": {
     "id": "bountyhuntertc",
     "name": "Bounty Hunter TC",
-    "description": "Expanded from Hunter preset, removes Vlads and makes them droppable via third-party app. App URL: https://github.com/MottZilla/BountyHunterTool",
+    "description": "Bounty Hunter variant. Vlad drop rates are higher, Hint Cards are required before the drop is unlocked. App URL: https://github.com/MottZilla/BountyHunterTool",
     "author": "eldri7ch and MottZilla0",
     "weight": 10000
   },
