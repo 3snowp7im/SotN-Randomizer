@@ -2,7 +2,7 @@
   "metadata": {
     "id": "hitman",
     "name": "Hitman",
-    "description": "Expanded from Bounty Hunter preset, removes Vlads and makes them droppable via third-party app.",
+    "description": "Faster playing Bounty Hunter. Start with all Targets known. App URL: https://github.com/MottZilla/BountyHunterTool",
     "author": "eldri7ch and MottZilla0",
     "weight": 10000
   },
