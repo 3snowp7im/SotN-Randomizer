@@ -1,0 +1,109 @@
+{
+  "extends": "equipment",
+  
+  "customLocations": [{
+    "location": "Confessional",
+    "x": 65,
+    "y": 66,
+    "secondCastle": false,
+    "rooms": [
+        {"address": "0x06BCC8", "values": ["0x40"]}
+    ]
+  }, {
+    "location": "Colosseum Green tea",
+    "x": 77,
+    "y": 78,
+    "secondCastle": false,
+    "rooms": [
+        {"address": "0x06BCF8", "values": ["0x01"]}
+    ]
+  }, {
+    "location": "Telescope",
+    "x": 241,
+    "y": 98,
+    "secondCastle": false,
+    "rooms": [
+        {"address": "0x06BD53", "values": ["0x40"]}
+    ]
+  }, {
+    "location": "Clock Tower Cloaked knight",
+    "x": 205,
+    "y": 18,
+    "secondCastle": false,
+    "rooms": [
+        {"address": "0x06BC10", "values": ["0x01"]}
+    ]
+  }, {
+    "location": "Waterfall Cave",
+    "x": 101,
+    "y": 150,
+    "secondCastle": false,
+    "rooms": [
+        {"address": "0x06BE1A", "values": ["0x10"]}
+    ]
+  }, {
+    "location": "Reverse Keep High Potion",
+    "x": 96,
+    "y": 193,
+    "secondCastle": true,
+    "rooms": [
+        {"address": "0x06C30A", "values": ["0x40"]}
+    ]
+  }, {
+    "location": "Reverse Colosseum Zircon",
+    "x": 200,
+    "y": 121,
+    "secondCastle": true,
+    "rooms": [
+        {"address": "0x06C1F0", "values": ["0x04"]}
+    ]
+  }, {
+    "location": "Reverse Forbidden Route",
+    "x": 148,
+    "y": 81,
+    "secondCastle": true,
+    "rooms": [
+        {"address": "0x06C14D", "values": ["0x10"]}
+    ]
+  }, {
+    "location": "Black Marble Gallery Vat",
+    "x": 124,
+    "y": 125,
+    "secondCastle": true,
+    "rooms": [
+        {"address": "0x06C1FB", "values": ["0x01"]}
+    ]
+  }, {
+    "location": "Black Marble Meal Ticket",
+    "x": 68,
+    "y": 121,
+    "secondCastle": true,
+    "rooms": [
+        {"address": "0x06C1E8", "values": ["0x10"]}
+    ]
+  }, {
+    "location": "Cave Life apple",
+    "x": 108,
+    "y": 53,
+    "secondCastle": true,
+    "rooms": [
+        {"address": "0x06C0DA", "values": ["0x01"]}
+    ]
+  }, {
+    "location": "Floating Catacombs Elixir",
+    "x": 88,
+    "y": 13,
+    "secondCastle": true,
+    "rooms": [
+        {"address": "0x06C039", "values": ["0x04"]}
+    ]
+  }, {
+    "location": "Reverse Entrance Antivenom",
+    "x": 244,
+    "y": 65,
+    "secondCastle": true,
+    "rooms": [
+        {"address": "0x06C113", "values": ["0x10"]}
+    ]
+  }]
+}
