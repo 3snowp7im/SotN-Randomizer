@@ -236,6 +236,12 @@
       "Gravity Boots",
       "Soul of Bat",
       "Form of Mist + Power of Mist"
+    ],
+    "escapeRequires": [
+      "Gravity Boots",
+      "Soul of Bat",
+      "Form of Mist + Power of Mist",
+      "Jewel of Open"
     ]
   }, {
     "location": "Holy Symbol",
