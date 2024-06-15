@@ -28,7 +28,7 @@
       require('./aperture'),
       require('./big-toss'),
       require('./bountyhunter'),
-      require('./bountyhunter-tc'),
+      require('./bountyhuntertc'),
       require('./hitman'),
       require('./chaos-lite'),
       require('./beyond'),
