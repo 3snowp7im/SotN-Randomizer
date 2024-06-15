@@ -4615,5 +4615,13 @@
     "type": "short",
     "address": "0x0B2E44",
     "value": "random"
+  }, {
+    "comment": "Death Softlock Fix",
+    "type": "word",
+    "address": "0x6647250",
+    "value": "0x34020000"
+  }, {
+    "type": "word",
+    "value": "0x00000000"
   }]
 }
