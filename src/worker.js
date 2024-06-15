@@ -40,7 +40,7 @@ function randomizeWorker() {
       url + 'build/presets/boss-rush.js',
       url + 'build/presets/aperture.js',
       url + 'build/presets/bountyhunter.js',
-      url + 'build/presets/bountyhunter-tc.js',
+      url + 'build/presets/bountyhuntertc.js',
       url + 'build/presets/hitman.js',
       url + 'build/presets/chaos-lite.js',
       url + 'build/presets/big-toss.js',
