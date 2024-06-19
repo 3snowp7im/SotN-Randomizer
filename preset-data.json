@@ -1,0 +1,224 @@
+[
+  {
+    "name": "Casual",
+    "id": "casual",
+    "description": "Use safe logic, but with lower average complexity.",
+    "author": "3snow_p7im, setz, and soba"
+  },
+  {
+    "name": "Safe",
+    "id": "safe",
+    "description": "Requires no speedrun or glitch knowledge for completion.",
+    "author": "3snow_p7im, setz, and soba"
+  },
+  {
+    "name": "Adventure",
+    "id": "adventure",
+    "description": "Requires extensive map coverage.",
+    "author": "3snow_p7im"
+  },
+  {
+    "name": "O.G.",
+    "id": "og",
+    "description": "Simulates randomizer season 1. No stat randomization. Gold ring, Silver ring, Holy glasses and Spike Breaker are in vanilla locations.",
+    "author": "3snow_p7im"
+  },
+  {
+    "name": "Guarded O.G.",
+    "id": "guarded-og",
+    "description": "Simulates randomizer season 1, but adds additional guarded locations. No stat randomization. Gold ring, Silver ring, Holy glasses and Spike Breaker are in vanilla locations.",
+    "author": "TalicZealot"
+  },
+  {
+    "name": "Speedrun",
+    "id": "speedrun",
+    "description": "Requires knowledge of movement mechanics used in glitchless speedruns.",
+    "author": "3snow_p7im"
+  },
+  {
+    "name": "Lycanthrope",
+    "id": "lycanthrope",
+    "description": "Start with all wolf relics. Mana consumption is greatly reduced when in wolf form.",
+    "author": "3snow_p7im"
+  },
+  {
+    "name": "Warlock",
+    "id": "warlock",
+    "description": "Start with high intelligence and Form of Mist.",
+    "author": "3snow_p7im"
+  },
+  {
+    "name": "Nimble",
+    "id": "nimble",
+    "description": "Start with Soul of Bat, Leap Stone, Gravity Boots, Duplicator, Manna prism, and Buffalo star.",
+    "author": "3snow_p7im"
+  },
+  {
+    "name": "Expedition",
+    "id": "expedition",
+    "description": "Adventure locations with Nimble build.",
+    "author": "eldri7ch and Mottzilla0"
+  },
+  {
+    "name": "Bat-Master",
+    "id": "bat-master",
+    "description": "Soul of Bat moves faster and can open doors. All Bat abilities and upgrades are greatly enhanced. Hold Triangle to move bat at original speed.  Bat Familiar levels faster.",
+    "author": "MT_Fun, MottZilla"
+  },
+  {
+    "name": "Glitch Remastered",
+    "id": "glitch",
+    "description": "Requires extensive glitch knowledge, but avoids memory corruption and lengthy wolf rising. Tourist relic extension.",
+    "author": "romscout, DerDrach, eldri7ch, Mottzilla"
+  },
+  {
+    "name": "Scavenger",
+    "id": "scavenger",
+    "description": "No enemy drops challenge mode.",
+    "author": "3snow_p7im"
+  },
+  {
+    "name": "Empty hand",
+    "id": "empty-hand",
+    "description": "No equipment or items challenge mode. Released on April 1st, 2020.",
+    "author": "3snow_p7im"
+  },
+  {
+    "name": "Gem farmer",
+    "id": "gem-farmer",
+    "description": "All progression must be purchased from the librarian. Released on April 1st, 2021.",
+    "author": "3snow_p7im"
+  },
+  {
+    "name": "Third castle",
+    "id": "third-castle",
+    "description": "Randomizes tileset data producing intense pixel gore. Released on April 1st, 2022.",
+    "author": "3snow_p7im"
+  },
+  {
+    "name": "Rat race",
+    "id": "rat-race",
+    "description": "Just trying to make a buck. Released on April 1st, 2023.",
+    "author": "3snow_p7im"
+  },
+  {
+    "name": "Magic Mirror",
+    "id": "magic-mirror",
+    "description": "Use a Magic Mirror (X + Triangle; Replaces Holy Glasses) to move between the castles. Spread extension.",
+    "author": "eldri7ch, Mottzilla"
+  },
+  {
+    "name": "Leg Day",
+    "id": "leg-day",
+    "description": "Alucard has vice grip thighs. Suffocating thighs. Rock hard thighs. Piping hot thighs. He can jump infinitely and his backdash grants him invulnerability.",
+    "author": "MT_Fun, MottZilla"
+  },
+  {
+    "name": "Boss Rush",
+    "id": "boss-rush",
+    "description": "Boss Rush Mode",
+    "author": "Mottzilla and eldri7ch"
+  },
+  {
+    "name": "Aperture",
+    "id": "aperture",
+    "description": "Opens several shortcuts and all teleporters but hides the end of the game behind a Portal Spell (Faerie Scroll)",
+    "author": "eldri7ch, Mottzilla, Wecoc"
+  },
+  {
+    "name": "Big Toss",
+    "id": "big-toss",
+    "description": "Bat and fast Wolf are removed, and any amount of damage causes a Big Toss.",
+    "author": "Wecoc, eldri7ch, Mottzilla"
+  },
+  {
+    "name": "Bounty Hunter",
+    "id": "bountyhunter",
+    "description": "Expanded from Hunter preset, removes Vlads and makes them droppable via third-party app. App URL: https://github.com/MottZilla/BountyHunterTool",
+    "author": "eldri7ch and MottZilla0"
+  },
+  {
+    "name": "Bounty Hunter TC",
+    "id": "bountyhuntertc",
+    "description": "Bounty Hunter variant. Vlad drop rates are higher, Hint Cards are required before the drop is unlocked. App URL: https://github.com/MottZilla/BountyHunterTool",
+    "author": "eldri7ch and MottZilla0"
+  },
+  {
+    "name": "Hitman",
+    "id": "hitman",
+    "description": "Faster playing Bounty Hunter. Start with all Targets known. App URL: https://github.com/MottZilla/BountyHunterTool",
+    "author": "eldri7ch and MottZilla0"
+  },
+  {
+    "name": "Chaos Lite",
+    "id": "chaos-lite",
+    "description": "Bounty Hunter, Aperture, and Grand Tour combined with additional random elements. App URL: https://github.com/MottZilla/BountyHunterTool",
+    "author": "3snow_p7im, eldri7ch and MottZilla0"
+  },
+  {
+    "name": "Beyond",
+    "id": "beyond",
+    "description": "Similar to casual but with new stuff, complexity 8, spread locations, no death at entrance",
+    "author": "Forat Negre, Wecoc, eldri7ch"
+  },
+  {
+    "name": "Breach",
+    "id": "breach",
+    "description": "Blaze through Aperture looking for the Portal Spell",
+    "author": "eldri7ch, Mottzilla, Wecoc"
+  },
+  {
+    "name": "Grand Tour",
+    "id": "grand-tour",
+    "description": "Encourages sight-seeing",
+    "author": "eldri7ch & Mottzilla"
+  },
+  {
+    "name": "Crash Course",
+    "id": "crash-course",
+    "description": "Encourages sight-seeing",
+    "author": "eldri7ch & Mottzilla"
+  },
+  {
+    "name": "Forge",
+    "id": "forge",
+    "description": "Requires knowledge of movement mechanics used in speedruns. Death skip intended and access to second castle is locked behind Richter Skip with Wolf. Goal is Relic Skip",
+    "author": "3snow_p7im, Dr4gonBlitz, and eldri7ch"
+  },
+  {
+    "name": "Lookingglass",
+    "id": "lookingglass",
+    "description": "Wanderer extension: Use a Magic Mirror (Replaces Holy Glasses) to move between first and second castles.",
+    "author": "eldri7ch, Mottzilla"
+  },
+  {
+    "name": "Skinwalker",
+    "id": "skinwalker",
+    "description": "Includes all changes from Aperture, rebalances transformations and guarantees early access to at least 1 transformation.",
+    "author": "Zako, eldri7ch, Mottzilla, Wecoc"
+  },
+  {
+    "name": "Summoner",
+    "id": "summoner",
+    "description": "Utilize Familiars and Summon Items to defeat your foes",
+    "author": "eldri7ch and Mottzilla"
+  },
+  {
+    "name": "Agonize 2020",
+    "id": "agonizetwtw",
+    "description": "Simulates Agonize Preset from 2020. No stat randomization. Fixed locations for various relics to 'Maximize backtracking'.",
+    "author": "3snow_p7im, eldri7ch, Crazy4blades"
+  },
+  {
+    "name": "Safe Season 2",
+    "id": "stwosafe",
+    "description": "Emulates how safe felt in Season 2. Requires no speedrun or glitch knowledge for completion.",
+    "author": "3snow_p7im, setz, and soba"
+  },
+  {
+    "name": "Open",
+    "id": "open",
+    "description": "Opens several shortcuts and all teleporters.",
+    "author": "TalicZealot, eldri7ch, Mottzilla, Wecoc"
+  }
+]
