@@ -1206,7 +1206,7 @@
     relicLocationsExtensionChange()
     let presetId = localStorage.getItem('presetId')
     if (typeof(presetId) !== 'string') {
-      presetId = 'safe'
+      presetId = 'casual'
     }
     let index = 0
     for (let i = 0; i < presets.length; i++) {
