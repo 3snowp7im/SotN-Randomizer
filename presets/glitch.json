@@ -36,7 +36,7 @@
     "item": "Fire boomerang"
   }, {
     "relic": "Eye of Vlad",
-    "item": "High potion"
+    "item": "Antivenom"
   }, {
     "relic": "Nosedevil Card",
     "item": "Diamond"
@@ -90,7 +90,6 @@
       "Meal ticket",
       "Shield rod",
       "Mablung Sword",
-      "Duplicator",
       "Estoc",
       "Claymore",
       "Flamberge",
@@ -109,7 +108,6 @@
       "Meal ticket",
       "Shield rod",
       "Mablung Sword",
-      "Duplicator",
       "Estoc",
       "Claymore",
       "Flamberge",
@@ -1771,21 +1769,6 @@
   },
 
   {
-    "comment": "Give Duplicator",
-    "type": "word",
-    "value": "0x34040054"
-  },{
-    "type": "word",
-    "value": "0x34050001"
-  },{
-    "type": "word",
-    "value": "0x0C03F61D"
-  },{
-    "type": "word",
-    "value": "0x00000000"
-  },
-
-  {
     "comment": "Give Library Card",
     "type": "word",
     "value": "0x340400a6"
@@ -2825,10 +2808,64 @@
   },
   
   {
+    "comment": "Infinite Toadstool",
+    "type": "char",
+    "address": "0x000b1975",
+    "value": "0x00"
+  }, {
+    "comment": "Infinite Fire Boomerangs",
+    "type": "char",
+    "address": "0x000b2fbd",
+    "value": "0x00"
+  }, {
+    "comment": "Infinite Heart Refresh",
+    "type": "char",
+    "address": "0x000b315d",
+    "value": "0x00"
+  }, {
+    "comment": "Infinite Antivenom",
+    "type": "char",
+    "address": "0x000b32f5",
+    "value": "0x00"
+  }, {
+    "comment": "Infinite Library Card",
+    "type": "char",
+    "address": "0x000b376d",
+    "value": "0x00"
+  },
+  
+  {
     "comment": "Force Egregious Price on Relic",
     "type": "word",
     "address": "0x47A3098",
     "value": "0x0007a120"
+  },
+  
+  {
+    "comment": "Faster Heart Refresh",
+    "type": "short",
+    "address": "0x03bb0728",
+    "value": "0x0000"
+  }, {
+    "type": "short",
+    "address": "0x03d8ac08",
+    "value": "0x0000"
+  }, {
+    "type": "word",
+    "address": "0x03bb0ac8",
+    "value": "0x00000000"
+  }, {
+    "type": "word",
+    "address": "0x03d8afa8",
+    "value": "0x00000000"
+  }, {
+    "type": "char",
+    "address": "0x03bb06a9",
+    "value": "0xb3"
+  }, {
+    "type": "char",
+    "address": "0x03d8ac30",
+    "value": "0xb3"
   }],
 
   "complexityGoal": {
