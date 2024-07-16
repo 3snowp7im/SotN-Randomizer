@@ -1,8 +1,8 @@
 [
   {
-    "name": "Brawler",
-    "id": "brawler",
-    "description": "Intended as a challenge preset to get more accustom to the Fist type weapons, OnlyFists if you will.",
-    "author": "Crazy4blades, Mottzilla"
+    "name": "Lookingglass",
+    "id": "lookingglass",
+    "description": "Wanderer extension: Use a Magic Mirror (Replaces Holy Glasses) to move between first and second castles.",
+    "author": "eldri7ch, Mottzilla"
   }
 ]
