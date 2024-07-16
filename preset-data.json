@@ -1,8 +1,8 @@
 [
   {
-    "name": "Lookingglass",
-    "id": "lookingglass",
-    "description": "Wanderer extension: Use a Magic Mirror (Replaces Holy Glasses) to move between first and second castles.",
-    "author": "eldri7ch, Mottzilla"
+    "name": "Summoner",
+    "id": "summoner",
+    "description": "Utilize Familiars and Summon Items to defeat your foes",
+    "author": "eldri7ch and Mottzilla"
   }
 ]
