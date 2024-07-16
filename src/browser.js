@@ -216,6 +216,12 @@
       elems.relicLocationsExtension.equipment.checked =
         options.relicLocations
         && options.relicLocations.extension === constants.EXTENSION.EQUIPMENT
+      elems.relicLocationsExtension.tourist.checked =
+        options.relicLocations
+        && options.relicLocations.extension === constants.EXTENSION.TOURIST
+      elems.relicLocationsExtension.wanderer.checked =
+        options.relicLocations
+        && options.relicLocations.extension === constants.EXTENSION.WANDERER
       elems.relicLocationsExtension.classic.checked =
         options.relicLocations
         && !options.relicLocations.extension
@@ -254,6 +260,8 @@
       elems.relicLocationsExtension.guarded.checked = false
       elems.relicLocationsExtension.spread.checked = false
       elems.relicLocationsExtension.equipment.checked = false
+      elems.relicLocationsExtension.tourist.checked = false
+      elems.relicLocationsExtension.wanderer.checked = false
       elems.relicLocationsExtension.classic.checked = false
     } else {
       elems.relicLocationsSet.disabled = false
@@ -263,6 +271,10 @@
         relicLocationsExtensionCache === constants.EXTENSION.SPREAD
       elems.relicLocationsExtension.equipment.checked =
         relicLocationsExtensionCache === constants.EXTENSION.EQUIPMENT
+      elems.relicLocationsExtension.tourist.checked =
+        relicLocationsExtensionCache === constants.EXTENSION.TOURIST
+      elems.relicLocationsExtension.wanderer.checked =
+        relicLocationsExtensionCache === constants.EXTENSION.WANDERER
       elems.relicLocationsExtension.classic.checked =
         !relicLocationsExtensionCache
     }
@@ -271,10 +283,12 @@
   function adjustMaxComplexity() {
     switch (relicLocationsExtensionCache) {
     case constants.EXTENSION.EQUIPMENT:
-      elems.complexity.max = 14
+    case constants.EXTENSION.TOURIST:
+      elems.complexity.max = 15
       break
     case constants.EXTENSION.GUARDED:
     case constants.EXTENSION.SPREAD:
+    case constants.EXTENSION.WANDERER:
     default:
       elems.complexity.max = 11
       break
@@ -292,6 +306,10 @@
       value = constants.EXTENSION.SPREAD
     } else if (elems.relicLocationsExtension.equipment.checked) {
       value = constants.EXTENSION.EQUIPMENT
+    } else if (elems.relicLocationsExtension.tourist.checked) {
+      value = constants.EXTENSION.TOURIST
+    } else if (elems.relicLocationsExtension.wanderer.checked) {
+      value = constants.EXTENSION.WANDERER
     } else{
       value = false
     }
@@ -364,6 +382,18 @@
 
   function mypurseModeChange() {
     localStorage.setItem('mypurseMode', elems.mypurseMode.checked)
+  }
+
+  function iwsModeChange() {
+    localStorage.setItem('iwsMode', elems.iwsMode.checked)
+  }
+
+  function fastwarpModeChange() {
+    localStorage.setItem('fastwarpMode', elems.fastwarpMode.checked)
+  }
+
+  function noprologueModeChange() {
+    localStorage.setItem('noprologueMode', elems.noprologueMode.checked)
   }
 
   function accessibilityPatchesChange() {
@@ -460,11 +490,20 @@
         relicLocations.extension = constants.EXTENSION.SPREAD
       } else if (elems.relicLocationsExtension.equipment.checked) {
         relicLocations.extension = constants.EXTENSION.EQUIPMENT
+      } else if (elems.relicLocationsExtension.tourist.checked) {
+        relicLocations.extension = constants.EXTENSION.TOURIST
+      } else if (elems.relicLocationsExtension.wanderer.checked) {
+        relicLocations.extension = constants.EXTENSION.WANDERER
       } else {
         delete relicLocations.extension
       }
       const extensions = []
       switch (relicLocations.extension) {
+      case constants.EXTENSION.WANDERER:
+        extensions.push(constants.EXTENSION.WANDERER)
+        break
+      case constants.EXTENSION.TOURIST:
+      extensions.push(constants.EXTENSION.TOURIST)
       case constants.EXTENSION.EQUIPMENT:
         extensions.push(constants.EXTENSION.EQUIPMENT)
       case constants.EXTENSION.SPREAD:
@@ -514,6 +553,15 @@
       if (elems.mypurseMode.checked) {
         options.mypurseMode = true
       }
+      if (elems.iwsMode.checked) {
+        options.iwsMode = true
+      }
+      if (elems.fastwarpMode.checked) {
+        options.fastwarpMode = true
+      }
+      if (elems.noprologueMode.checked) {
+        options.noprologueMode = true
+      }
       return options
     }
     const options = {
@@ -530,6 +578,9 @@
       magicmaxMode: elems.magicmaxMode.checked,
       antiFreezeMode: elems.antiFreezeMode.checked,
       mypurseMode: elems.mypurseMode.checked,
+      iwsMode: elems.iwsMode.checked,
+      fastwarpMode: elems.fastwarpMode.checked,
+      noprologueMode: elems.noprologueMode.checked,
     }
     if (elems.enemyDropsArg.value) {
       options.enemyDrops = util.optionsFromString(
@@ -681,8 +732,21 @@
         if (options.antiFreezeMode) {
           check.apply(util.applyAntiFreezePatches())
         }
+        // Apply my purse patches.
         if (options.mypurseMode) {
           check.apply(util.applyMyPursePatches())
+        }
+        // Apply iws patches.
+        if (options.iwsMode) {
+          check.apply(util.applyiwsPatches())
+        }
+        // Apply fast warp patches.
+        if (options.fastwarpMode) {
+          check.apply(util.applyfastwarpPatches())
+        }
+        // Apply no prologue patches.
+        if (options.noprologueMode) {
+          check.apply(util.applynoprologuePatches())
         }
         // Apply writes.
         check.apply(util.applyWrites(rng, applied))
@@ -890,6 +954,8 @@
       guarded: document.getElementById('extension-guarded'),
       spread: document.getElementById('extension-spread'),
       equipment: document.getElementById('extension-equipment'),
+      guarded: document.getElementById('extension-tourist'),
+      guarded: document.getElementById('extension-wanderer'),
       classic: document.getElementById('extension-classic'),
     },
     relicLocationsArg: document.getElementById('relic-locations-arg'),
@@ -909,6 +975,9 @@
     magicmaxMode: document.getElementById('magicmax-mode'),
     antiFreezeMode: document.getElementById('antifreeze-mode'),
     mypurseMode: document.getElementById('mypurse-mode'),
+    iwsMode: document.getElementById('iws-mode'),
+    fastwarpMode: document.getElementById('fastwarp-mode'),
+    noprologueMode: document.getElementById('noprologue-mode'),
     accessibilityPatches: document.getElementById('accessibility-patches'),
     showSpoilers: document.getElementById('show-spoilers'),
     showRelics: document.getElementById('show-relics'),
@@ -947,6 +1016,14 @@
     'change',
     relicLocationsExtensionChange,
   )
+  elems.relicLocationsExtension.tourist.addEventListener(
+    'change',
+    relicLocationsExtensionChange,
+  )
+  elems.relicLocationsExtension.wanderer.addEventListener(
+    'change',
+    relicLocationsExtensionChange,
+  )
   elems.relicLocationsExtension.classic.addEventListener(
     'change',
     relicLocationsExtensionChange,
@@ -964,6 +1041,9 @@
   elems.magicmaxMode.addEventListener('change', magicmaxModeChange)
   elems.antiFreezeMode.addEventListener('change', antiFreezeModeChange)
   elems.mypurseMode.addEventListener('change', mypurseModeChange)
+  elems.iwsMode.addEventListener('change', iwsModeChange)
+  elems.fastwarpMode.addEventListener('change', fastwarpModeChange)
+  elems.noprologueMode.addEventListener('change', noprologueModeChange)
   elems.accessibilityPatches.addEventListener('change', accessibilityPatchesChange)
   elems.showSpoilers.addEventListener('change', spoilersChange)
   elems.showRelics.addEventListener('change', showRelicsChange)
@@ -1105,11 +1185,11 @@
       // serialized, without including the relic locations extension.
       const relicOptions = util.optionsFromString(util.optionsToString({
         relicLocations: Object.assign({}, applied.relicLocations, {
-          extension: constants.EXTENSION.EQUIPMENT,
+          extension: constants.EXTENSION.TOURIST,
         }),
       }).replace(new RegExp(':?' + util.optionsToString({
         relicLocations: {
-          extension: constants.EXTENSION.EQUIPMENT,
+          extension: constants.EXTENSION.TOURIST,
         },
       }).slice(2)), ''))
       // Restore original extension from URL.
@@ -1257,6 +1337,9 @@
   loadOption('magicmaxMode', magicmaxModeChange, false)
   loadOption('antiFreezeMode', antiFreezeModeChange, false)
   loadOption('mypurseMode', mypurseModeChange, false)
+  loadOption('iwsMode', iwsModeChange, false)
+  loadOption('fastwarpMode', fastwarpModeChange, false)
+  loadOption('noprologueMode', noprologueModeChange, false)
   loadOption('accessibilityPatches', accessibilityPatchesChange, true)
   loadOption('showSpoilers', spoilersChange, true)
   setTimeout(function() {

@@ -11,6 +11,9 @@
   "magicmaxMode": true,
   "antiFreezeMode": true,
   "mypurseMode": true,
+  "iwsMode": true,
+  "fastwarpMode": true,
+  "noprologueMode": true,
   "relicLocationsExtension": "wanderer",
 
   "lockLocation": [{

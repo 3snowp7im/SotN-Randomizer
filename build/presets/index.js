@@ -42,6 +42,7 @@
       require('./agonizetwtw'),
       require('./stwosafe'),
       require('./open'),
+      require('./brawler'),
     ]
   }
   exports.sort(function(a, b) {

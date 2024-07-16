@@ -53,7 +53,8 @@
     "summoner",
     "agonizetwtw",
     "stwosafe",
-    "open"
+    "open",
+    "brawler"
   ],
   "engines": {
     "node": ">=15"

@@ -621,6 +621,21 @@ const yargs = require('yargs')
     type: 'string',
     requiresArg: true,
   })
+  .option('iws', {
+    alias: 'b',
+    describe: 'Makes wing smash essentially infinite.',
+    type: 'boolean',
+  })
+  .option('fastwarp', {
+    alias: '9',
+    describe: 'Quickens warp animation when using teleporters.',
+    type: 'boolean',
+  })
+  .option('noprologue', {
+    alias: 'R',
+    describe: 'Quickens warp animation when using teleporters.',
+    type: 'boolean',
+  })
   .option('disable-accessibility-patches', {
     alias: 'a',
     describe: 'Disable accessibility patches',
@@ -958,6 +973,18 @@ if ('mapcolor' in argv && typeof(argv.mapcolor) !== 'undefined') {
     options.mapcolorTheme = argv.mapcolor.toString()
   }
 }
+// Enable infinite wing smash mode if specified. - eldri7ch
+if (argv.iws) { // Makes wing smashes essentially infinite - eldrich
+  options.iwsMode = true
+}
+// Enable fast warp mode if specified. - eldri7ch
+if (argv.fastwarp) { // quickens teleporter warp animation - eldrich
+  options.fastwarpMode = true
+}
+// Enable no prologue mode if specified. - eldri7ch
+if (argv.noprologue) { // Removes prologue - eldrich
+  options.noprologueMode = true
+}
 // Set misc options.
 if ('verbose' in argv) {
   options.verbose = argv.verbose
@@ -994,6 +1021,11 @@ if ('inBin' in argv) {
   try {
     let check
     let checksum
+    let startTime
+    let endTime
+
+    startTime = performance.now()
+
     if (!argv.noSeed) {
       check = new util.checked(typeof(fd) === 'object' ? undefined : fd)
       let applied
@@ -1101,6 +1133,18 @@ if ('inBin' in argv) {
           let mapcol = argv.mapcolor
           check.apply(util.applyMapColor(mapcol))
         }
+        if (options.iwsMode || applied.iwsMode) { // Makes wing smash essentially infinite - eldrich
+          // Apply infinite wing smashe mode patches. - eldri7ch
+          check.apply(util.applyiwsPatches())
+        }
+        if (options.fastwarpMode || applied.fastwarpMode) { // Quickens teleporter warp animations - eldrich
+          // Apply fast warp mode patches. - eldri7ch
+          check.apply(util.applyfastwarpPatches())
+        }
+        if (options.noprologueMode || applied.noprologueMode) { // removes prologue - eldrich
+          // Apply no prologue mode patches. - eldri7ch
+          check.apply(util.applynoprologuePatches())
+        }
         // Apply writes.
         check.apply(util.applyWrites(rng, applied))
       } catch (err) {
@@ -1147,7 +1191,20 @@ if ('inBin' in argv) {
         verbose = 2
       }
       const text = util.formatInfo(info, verbose)
+
+      //start calculating the time elapsed
+      endTime = performance.now();
+      var timeDiff = endTime - startTime; //in ms 
+      // strip the ms 
+      timeDiff /= 1000; 
+  
+      // get the time 
+      var time = Math.round(timeDiff);
+      var minutes = Math.floor(time / 60)
+      var seconds = time - minutes * 60;
+
       if (text.length) {
+        console.log("Generation time: " + minutes + ":" + seconds)
         console.log(text)
       }
     }

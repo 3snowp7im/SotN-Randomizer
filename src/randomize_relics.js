@@ -534,16 +534,8 @@
     // being to reload the room through the left or right exit first. To
     // make it more convenient and less confusing, disable the cutscene
     // from ever taking place.
-    // The specific room has a time attack entry that needs to be zeroed
-    // out.
-    data.writeChar(0x0aeaa0, 0x00)
-    // The time attack check occurs in Richter mode too, but the game gets
-    // around this by writing the seconds elapsed between pressing Start on
-    // the main screen and on the name entry screen to the time attack
-    // table for events that aren't in Richter mode.
-    // Zero out the time attack entry for the clock room, or Richter will
-    // load the cutscene version every time he enters.
-    data.writeChar(0x119af4, 0x00)
+    // We moved the room into the void where she will spend all of eternity.
+    data.writeChar(0x0aea9c, 0x40)
   }
 
   function patchRelicsMenu(data) {
@@ -1291,11 +1283,11 @@
         const thrustSwords = items().filter(function(item) {
           return item.thrustSword
         })
-        thrustSword = thrustSwords[randIdx(rng, thrustSwords)]
+        thrustSword = thrustSwords[randIdx(rng, thrustSwords)] // this selects a thrust sword at random to be part of the relic pool - eldri7ch
         const name = (newNames.filter(function(item) {
           return item.id === thrustSword.id
         }).pop() || thrustSword).name
-        return Object.assign({}, relic, {
+        return Object.assign({}, relic, { // this is what exports the thrust sword ID to be placed in the relic pool - eldri7ch
           itemId: thrustSword.id,
           name: name,
         })

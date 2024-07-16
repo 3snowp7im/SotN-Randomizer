@@ -52,6 +52,7 @@ function randomizeWorker() {
       url + 'build/presets/lookingglass.js',
       url + 'build/presets/skinwalker.js',
       url + 'build/presets/summoner.js',
+      url + 'build/presets/brawler.js',
       url + 'src/randomize_items.js',
       url + 'src/randomize_relics.js',
       url + 'src/ecc-edc-recalc-js.js',
