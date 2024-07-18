@@ -615,6 +615,42 @@
     return options
   }
 
+  function generateSeedName(){
+    let adjectives = [];
+    let nouns = [];
+
+    let month = new Date().getMonth() + 1;
+
+    switch (month) {
+        case 10:
+            adjectives = constants.adjectivesHalloween;
+            nouns = constants.nounsHalloween;
+            break;
+        case 12:
+            adjectives = constants.adjectivesHolidays;
+            nouns = constants.nounsNormal;
+            break;
+
+        default:
+            adjectives = constants.adjectivesNormal;
+            nouns = constants.nounsNormal;
+            break;
+    }
+
+    let adjective = adjectives[Math.floor(Math.random() * Math.floor(adjectives.length - 1))];
+    let noun = nouns[Math.floor(Math.random() * Math.floor(nouns.length - 1))];
+    let number = Math.floor(Math.random() * 999);
+    if (number % 100 === 69) {
+        number = '69Nice';
+    }
+
+    let suffix = '';
+
+    let seedName = adjective + noun + number + suffix;
+
+    return seedName;
+  }
+
   function submitListener(event) {
     event.preventDefault()
     event.stopPropagation()
@@ -625,7 +661,12 @@
     // Create new info collection.
     info = util.newInfo()
     // Get seed.
-    let seed = (new Date()).getTime().toString()
+    let selectedPreset = null
+    if(elems.preset.checked) {
+      selectedPreset = elems.presetId.childNodes[elems.presetId.selectedIndex].value
+    }
+
+    let seed = generateSeedName()
     if (elems.seed.value.length) {
       seed = elems.seed.value
     }
@@ -786,17 +827,17 @@
         }))
         let fileName
         if (elems.output.ppf.checked) {
-          fileName = 'SotN-Randomizer.ppf'
+          fileName = seed + ".ppf"
+          if(selectedPreset !== null) fileName = selectedPreset + "-" + fileName
         } else {
           fileName = selectedFile.name
         }
         if (elems.appendSeed.checked) {
-          elems.download.download = randomizedFilename(
-            fileName,
-            seed,
-          )
-        } else {
           elems.download.download = fileName
+        } else {
+          resultName = "SotN-Randomizer"
+          if(selectedPreset !== null) resultName = resultName + "-" + selectedPreset
+          elems.download.download = resultName + ".ppf"
         }
         elems.download.href = url
         elems.download.click()
