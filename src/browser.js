@@ -216,6 +216,12 @@
       elems.relicLocationsExtension.equipment.checked =
         options.relicLocations
         && options.relicLocations.extension === constants.EXTENSION.EQUIPMENT
+      elems.relicLocationsExtension.tourist.checked =
+        options.relicLocations
+        && options.relicLocations.extension === constants.EXTENSION.TOURIST
+      elems.relicLocationsExtension.wanderer.checked =
+        options.relicLocations
+        && options.relicLocations.extension === constants.EXTENSION.WANDERER
       elems.relicLocationsExtension.classic.checked =
         options.relicLocations
         && !options.relicLocations.extension
@@ -254,6 +260,8 @@
       elems.relicLocationsExtension.guarded.checked = false
       elems.relicLocationsExtension.spread.checked = false
       elems.relicLocationsExtension.equipment.checked = false
+      elems.relicLocationsExtension.tourist.checked = false
+      elems.relicLocationsExtension.wanderer.checked = false
       elems.relicLocationsExtension.classic.checked = false
     } else {
       elems.relicLocationsSet.disabled = false
@@ -263,6 +271,10 @@
         relicLocationsExtensionCache === constants.EXTENSION.SPREAD
       elems.relicLocationsExtension.equipment.checked =
         relicLocationsExtensionCache === constants.EXTENSION.EQUIPMENT
+      elems.relicLocationsExtension.tourist.checked =
+        relicLocationsExtensionCache === constants.EXTENSION.TOURIST
+      elems.relicLocationsExtension.wanderer.checked =
+        relicLocationsExtensionCache === constants.EXTENSION.WANDERER
       elems.relicLocationsExtension.classic.checked =
         !relicLocationsExtensionCache
     }
@@ -271,10 +283,12 @@
   function adjustMaxComplexity() {
     switch (relicLocationsExtensionCache) {
     case constants.EXTENSION.EQUIPMENT:
-      elems.complexity.max = 14
+    case constants.EXTENSION.TOURIST:
+      elems.complexity.max = 15
       break
     case constants.EXTENSION.GUARDED:
     case constants.EXTENSION.SPREAD:
+    case constants.EXTENSION.WANDERER:
     default:
       elems.complexity.max = 11
       break
@@ -292,6 +306,10 @@
       value = constants.EXTENSION.SPREAD
     } else if (elems.relicLocationsExtension.equipment.checked) {
       value = constants.EXTENSION.EQUIPMENT
+    } else if (elems.relicLocationsExtension.tourist.checked) {
+      value = constants.EXTENSION.TOURIST
+    } else if (elems.relicLocationsExtension.wanderer.checked) {
+      value = constants.EXTENSION.WANDERER
     } else{
       value = false
     }
@@ -364,6 +382,18 @@
 
   function mypurseModeChange() {
     localStorage.setItem('mypurseMode', elems.mypurseMode.checked)
+  }
+
+  function iwsModeChange() {
+    localStorage.setItem('iwsMode', elems.iwsMode.checked)
+  }
+
+  function fastwarpModeChange() {
+    localStorage.setItem('fastwarpMode', elems.fastwarpMode.checked)
+  }
+
+  function noprologueModeChange() {
+    localStorage.setItem('noprologueMode', elems.noprologueMode.checked)
   }
 
   function accessibilityPatchesChange() {
@@ -460,11 +490,20 @@
         relicLocations.extension = constants.EXTENSION.SPREAD
       } else if (elems.relicLocationsExtension.equipment.checked) {
         relicLocations.extension = constants.EXTENSION.EQUIPMENT
+      } else if (elems.relicLocationsExtension.tourist.checked) {
+        relicLocations.extension = constants.EXTENSION.TOURIST
+      } else if (elems.relicLocationsExtension.wanderer.checked) {
+        relicLocations.extension = constants.EXTENSION.WANDERER
       } else {
         delete relicLocations.extension
       }
       const extensions = []
       switch (relicLocations.extension) {
+      case constants.EXTENSION.WANDERER:
+        extensions.push(constants.EXTENSION.WANDERER)
+        break
+      case constants.EXTENSION.TOURIST:
+      extensions.push(constants.EXTENSION.TOURIST)
       case constants.EXTENSION.EQUIPMENT:
         extensions.push(constants.EXTENSION.EQUIPMENT)
       case constants.EXTENSION.SPREAD:
@@ -514,6 +553,15 @@
       if (elems.mypurseMode.checked) {
         options.mypurseMode = true
       }
+      if (elems.iwsMode.checked) {
+        options.iwsMode = true
+      }
+      if (elems.fastwarpMode.checked) {
+        options.fastwarpMode = true
+      }
+      if (elems.noprologueMode.checked) {
+        options.noprologueMode = true
+      }
       return options
     }
     const options = {
@@ -530,6 +578,9 @@
       magicmaxMode: elems.magicmaxMode.checked,
       antiFreezeMode: elems.antiFreezeMode.checked,
       mypurseMode: elems.mypurseMode.checked,
+      iwsMode: elems.iwsMode.checked,
+      fastwarpMode: elems.fastwarpMode.checked,
+      noprologueMode: elems.noprologueMode.checked,
     }
     if (elems.enemyDropsArg.value) {
       options.enemyDrops = util.optionsFromString(
@@ -564,6 +615,42 @@
     return options
   }
 
+  function generateSeedName(){
+    let adjectives = [];
+    let nouns = [];
+
+    let month = new Date().getMonth() + 1;
+
+    switch (month) {
+        case 10:
+            adjectives = constants.adjectivesHalloween;
+            nouns = constants.nounsHalloween;
+            break;
+        case 12:
+            adjectives = constants.adjectivesHolidays;
+            nouns = constants.nounsNormal;
+            break;
+
+        default:
+            adjectives = constants.adjectivesNormal;
+            nouns = constants.nounsNormal;
+            break;
+    }
+
+    let adjective = adjectives[Math.floor(Math.random() * Math.floor(adjectives.length - 1))];
+    let noun = nouns[Math.floor(Math.random() * Math.floor(nouns.length - 1))];
+    let number = Math.floor(Math.random() * 999);
+    if (number % 100 === 69) {
+        number = '69Nice';
+    }
+
+    let suffix = '';
+
+    let seedName = adjective + noun + number + suffix;
+
+    return seedName;
+  }
+
   function submitListener(event) {
     event.preventDefault()
     event.stopPropagation()
@@ -574,7 +661,12 @@
     // Create new info collection.
     info = util.newInfo()
     // Get seed.
-    let seed = (new Date()).getTime().toString()
+    let selectedPreset = null
+    if(elems.preset.checked) {
+      selectedPreset = elems.presetId.childNodes[elems.presetId.selectedIndex].value
+    }
+
+    let seed = generateSeedName()
     if (elems.seed.value.length) {
       seed = elems.seed.value
     }
@@ -681,8 +773,21 @@
         if (options.antiFreezeMode) {
           check.apply(util.applyAntiFreezePatches())
         }
+        // Apply my purse patches.
         if (options.mypurseMode) {
           check.apply(util.applyMyPursePatches())
+        }
+        // Apply iws patches.
+        if (options.iwsMode) {
+          check.apply(util.applyiwsPatches())
+        }
+        // Apply fast warp patches.
+        if (options.fastwarpMode) {
+          check.apply(util.applyfastwarpPatches())
+        }
+        // Apply no prologue patches.
+        if (options.noprologueMode) {
+          check.apply(util.applynoprologuePatches())
         }
         // Apply writes.
         check.apply(util.applyWrites(rng, applied))
@@ -722,17 +827,17 @@
         }))
         let fileName
         if (elems.output.ppf.checked) {
-          fileName = 'SotN-Randomizer.ppf'
+          fileName = seed + ".ppf"
+          if(selectedPreset !== null) fileName = selectedPreset + "-" + fileName
         } else {
           fileName = selectedFile.name
         }
         if (elems.appendSeed.checked) {
-          elems.download.download = randomizedFilename(
-            fileName,
-            seed,
-          )
-        } else {
           elems.download.download = fileName
+        } else {
+          resultName = "SotN-Randomizer"
+          if(selectedPreset !== null) resultName = resultName + "-" + selectedPreset
+          elems.download.download = resultName + ".ppf"
         }
         elems.download.href = url
         elems.download.click()
@@ -890,6 +995,8 @@
       guarded: document.getElementById('extension-guarded'),
       spread: document.getElementById('extension-spread'),
       equipment: document.getElementById('extension-equipment'),
+      tourist: document.getElementById('extension-tourist'),
+      wanderer: document.getElementById('extension-wanderer'),
       classic: document.getElementById('extension-classic'),
     },
     relicLocationsArg: document.getElementById('relic-locations-arg'),
@@ -909,6 +1016,9 @@
     magicmaxMode: document.getElementById('magicmax-mode'),
     antiFreezeMode: document.getElementById('antifreeze-mode'),
     mypurseMode: document.getElementById('mypurse-mode'),
+    iwsMode: document.getElementById('iws-mode'),
+    fastwarpMode: document.getElementById('fastwarp-mode'),
+    noprologueMode: document.getElementById('noprologue-mode'),
     accessibilityPatches: document.getElementById('accessibility-patches'),
     showSpoilers: document.getElementById('show-spoilers'),
     showRelics: document.getElementById('show-relics'),
@@ -947,6 +1057,14 @@
     'change',
     relicLocationsExtensionChange,
   )
+  elems.relicLocationsExtension.tourist.addEventListener(
+    'change',
+    relicLocationsExtensionChange,
+  )
+  elems.relicLocationsExtension.wanderer.addEventListener(
+    'change',
+    relicLocationsExtensionChange,
+  )
   elems.relicLocationsExtension.classic.addEventListener(
     'change',
     relicLocationsExtensionChange,
@@ -964,6 +1082,9 @@
   elems.magicmaxMode.addEventListener('change', magicmaxModeChange)
   elems.antiFreezeMode.addEventListener('change', antiFreezeModeChange)
   elems.mypurseMode.addEventListener('change', mypurseModeChange)
+  elems.iwsMode.addEventListener('change', iwsModeChange)
+  elems.fastwarpMode.addEventListener('change', fastwarpModeChange)
+  elems.noprologueMode.addEventListener('change', noprologueModeChange)
   elems.accessibilityPatches.addEventListener('change', accessibilityPatchesChange)
   elems.showSpoilers.addEventListener('change', spoilersChange)
   elems.showRelics.addEventListener('change', showRelicsChange)
@@ -971,7 +1092,27 @@
   elems.copy.addEventListener('click', copyHandler)
   elems.showOlder.addEventListener('click', showOlderHandler)
   // Load presets
-  presets.forEach(function(preset) {
+  sortedPresets = presets
+  sortedPresets.sort(function(a, b) {
+    if (!('weight' in a && 'id' in a)) {
+      if (!('weight' in b && 'id' in b)) {
+        return 0
+      }
+      return 1
+    } else if (!('weight' in b && 'id' in b)) {
+      return -1
+    }
+    const weight = a.weight - b.weight
+    if (weight === 0) {
+      if (a.id < b.id) {
+        return -1
+      } else if (a.id > b.id) {
+        return 1
+      }
+    }
+    return weight
+  })
+  sortedPresets.forEach(function(preset) {
     if (!preset.hidden) {
       const option = document.createElement('option')
       option.value = preset.id
@@ -1105,11 +1246,11 @@
       // serialized, without including the relic locations extension.
       const relicOptions = util.optionsFromString(util.optionsToString({
         relicLocations: Object.assign({}, applied.relicLocations, {
-          extension: constants.EXTENSION.EQUIPMENT,
+          extension: constants.EXTENSION.TOURIST,
         }),
       }).replace(new RegExp(':?' + util.optionsToString({
         relicLocations: {
-          extension: constants.EXTENSION.EQUIPMENT,
+          extension: constants.EXTENSION.TOURIST,
         },
       }).slice(2)), ''))
       // Restore original extension from URL.
@@ -1206,7 +1347,7 @@
     relicLocationsExtensionChange()
     let presetId = localStorage.getItem('presetId')
     if (typeof(presetId) !== 'string') {
-      presetId = 'safe'
+      presetId = 'casual'
     }
     let index = 0
     for (let i = 0; i < presets.length; i++) {
@@ -1257,6 +1398,9 @@
   loadOption('magicmaxMode', magicmaxModeChange, false)
   loadOption('antiFreezeMode', antiFreezeModeChange, false)
   loadOption('mypurseMode', mypurseModeChange, false)
+  loadOption('iwsMode', iwsModeChange, false)
+  loadOption('fastwarpMode', fastwarpModeChange, false)
+  loadOption('noprologueMode', noprologueModeChange, false)
   loadOption('accessibilityPatches', accessibilityPatchesChange, true)
   loadOption('showSpoilers', spoilersChange, true)
   setTimeout(function() {

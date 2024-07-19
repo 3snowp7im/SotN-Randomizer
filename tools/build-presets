@@ -2,20 +2,30 @@
 // This tool generates a JavaScript module from a preset serialized in JSON.
 // Usage: tools/build-presets [preset-name]
 
-const child_process = require('child_process')
-const path = require('path')
-const runner = require('hygen').runner
+const child_process = require('child_process');
+const path = require('path');
+const fs = require('fs');
+const runner = require('hygen').runner;
 
-process.env.HYGEN_OVERWRITE = 1
+process.env.HYGEN_OVERWRITE = 1;
 
-let presets
+let presets;
 if (process.argv.length > 2) {
-  presets = process.argv.slice(2)
+  presets = process.argv.slice(2);
 } else {
-  presets = require('../package').presets
+  presets = require('../package').presets;
 }
 
+const presetData = [];
+
 presets.forEach(function(name) {
+  const presetPath = path.join(__dirname, '../presets', name + '.json');
+  const preset = require(presetPath);
+
+  // Extract required fields from metadata
+  const { id, name: presetName, description, author } = preset.metadata;
+  presetData.push({ name: presetName, id, description, author });
+
   runner(['preset', 'new', '--name', name], {
     templates: path.join(__dirname, '../templates'),
     cwd: process.cwd(),
@@ -24,5 +34,11 @@ presets.forEach(function(name) {
       log: console.log.bind(console),
     },
     createPrompter: function() {},
-  })
-})
+  });
+});
+
+
+// Write the collected preset data to a JSON file
+const outputPath = path.join(__dirname, '../preset-data.json');
+fs.writeFileSync(outputPath, JSON.stringify(presetData, null, 2));
+console.log('Preset data has been written to', outputPath);

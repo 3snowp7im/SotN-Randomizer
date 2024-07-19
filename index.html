@@ -162,7 +162,7 @@
                             <span class="tooltip hidden">
                               <span>
                                 Relics and progression items may appear in
-                                rooms guarded by bosses.
+                                rooms guarded by bosses. 36 Check locations.
                               </span>
                             </span>
                           </span>
@@ -180,7 +180,7 @@
                             <span class="tooltip hidden">
                               <span>
                                 Add to guarded locations with more checks on
-                                left side of second castle.
+                                left side of second castle. 38 Check locations.
                               </span>
                             </span>
                           </span>
@@ -190,7 +190,7 @@
                         <input id="extension-equipment"
                                name="extension"
                                type="radio"
-                               value="classic">
+                               value="equipment">
                         <label for="extension-equipment">
                           Equipment
                           <span class="tooltip-wrapper">
@@ -198,7 +198,45 @@
                             <span class="tooltip hidden">
                               <span>
                                 Relics and progression items may appear in
-                                place of equipment tiles.
+                                place of equipment tiles. 90 Check locations.
+                              </span>
+                            </span>
+                          </span>
+                        </label>
+                      </div>
+                      <div>
+                        <input id="extension-tourist"
+                                name="extension"
+                                type="radio"
+                                value="tourist">
+                        <label for="extension-tourist">
+                          Tourist
+                          <span class="tooltip-wrapper">
+                            <span class="tooltip-indicator">?</span>
+                            <span class="tooltip hidden">
+                              <span>
+                                Relics and progression items may appear in
+                                place of equipment tiles or in unique 
+                                locations in either castle. 103 Check locations.
+                              </span>
+                            </span>
+                          </span>
+                        </label>
+                      </div>
+                      <div>
+                        <input id="extension-wanderer"
+                                name="extension"
+                                type="radio"
+                                value="wanderer">
+                        <label for="extension-wanderer">
+                          Wanderer
+                          <span class="tooltip-wrapper">
+                            <span class="tooltip-indicator">?</span>
+                            <span class="tooltip hidden">
+                              <span>
+                                Relics and progression items may appear in
+                                place of <i>limited</i> equipment tiles or in unique
+                                locations in either castle. 69 Check locations.
                               </span>
                             </span>
                           </span>
@@ -272,7 +310,8 @@
                   <option value="dark">Dark</option>
                 </select>
               </div>
-              <div class="pure-u-1">
+              <div class="pure-u-1"></div>
+              <div class="pure-u-1-2">
                 <input id="append-seed" type="checkbox">
                 <label for="append-seed">Append seed to filename
                   <span class="tooltip-wrapper">
@@ -287,7 +326,20 @@
                   </span>
                 </label>
               </div>
-              <div class="pure-u-1">
+              <div class="pure-u-1-2">
+                <input id="colorrando-mode" type="checkbox">
+                <label for="colorrando-mode">Color Rando mode
+                  <span class="tooltip-wrapper">
+                    <span class="tooltip-indicator">?</span>
+                    <span class="tooltip hidden">
+                      <span>
+                        Randomize various color palettes. Ex: Cape colors, gravity boots trails, hydrostorm.
+                      </span>
+                    </span>
+                  </span>
+                </label>
+              </div>
+              <div class="pure-u-1-2">
                 <input id="tournament-mode" type="checkbox">
                 <label for="tournament-mode">Tournament mode
                   <span class="tooltip-wrapper">
@@ -303,20 +355,7 @@
                   </span>
                 </label>
               </div>
-              <div class="pure-u-1">
-                <input id="colorrando-mode" type="checkbox">
-                <label for="colorrando-mode">Color Rando mode
-                  <span class="tooltip-wrapper">
-                    <span class="tooltip-indicator">?</span>
-                    <span class="tooltip hidden">
-                      <span>
-                        Randomize various color palettes. Ex: Cape colors, gravity boots trails, hydrostorm.
-                      </span>
-                    </span>
-                  </span>
-                </label>
-              </div>
-              <div class="pure-u-1">
+              <div class="pure-u-1-2">
                 <input id="magicmax-mode" type="checkbox">
                 <label for="magicmax-mode">Magic Max mode
                   <span class="tooltip-wrapper">
@@ -329,33 +368,7 @@
                   </span>
                 </label>
               </div>
-              <div class="pure-u-1">
-                <input id="antifreeze-mode" type="checkbox">
-                <label for="antifreeze-mode">Anti-Freeze mode
-                  <span class="tooltip-wrapper">
-                    <span class="tooltip-indicator">?</span>
-                    <span class="tooltip hidden">
-                      <span>
-                        Remove screen freezes on level-up, relic and vessel acquisition.
-                      </span>
-                    </span>
-                  </span>
-                </label>
-              </div>
-              <div class="pure-u-1">
-                <input id="mypurse-mode" type="checkbox">
-                <label for="mypurse-mode">That's my purse! mode
-                  <span class="tooltip-wrapper">
-                    <span class="tooltip-indicator">?</span>
-                    <span class="tooltip hidden">
-                      <span>
-                        Prevents Death from stealing your gear.
-                      </span>
-                    </span>
-                  </span>
-                </label>
-              </div>
-              <div class="pure-u-1">
+              <div class="pure-u-1-2">
                 <input id="accessibility-patches" type="checkbox">
                 <label for="accessibility-patches">Apply accessibility patches
                   <span class="tooltip-wrapper">
@@ -368,17 +381,83 @@
                   </span>
                 </label>
               </div>
-              <div class="pure-u-1">
+              <div class="pure-u-1-2">
+                <input id="antifreeze-mode" type="checkbox">
+                <label for="antifreeze-mode">Anti-Freeze mode
+                  <span class="tooltip-wrapper">
+                    <span class="tooltip-indicator">?</span>
+                    <span class="tooltip hidden">
+                      <span>
+                        Remove screen freezes on level-up, relic and vessel acquisition.
+                      </span>
+                    </span>
+                  </span>
+                </label>
+              </div>
+              <div class="pure-u-1-2">
                 <input id="show-spoilers" type="checkbox">
                 <label for="show-spoilers">Show spoilers</label>
               </div>
-              <div class="pure-u-1">
+              <div class="pure-u-1-2">
+                <input id="mypurse-mode" type="checkbox">
+                <label for="mypurse-mode">That's my purse! mode
+                  <span class="tooltip-wrapper">
+                    <span class="tooltip-indicator">?</span>
+                    <span class="tooltip hidden">
+                      <span>
+                        Prevents Death from stealing your gear.
+                      </span>
+                    </span>
+                  </span>
+                </label>
+              </div>
+              <div class="pure-u-1-2">
                 <input id="show-relics" type="checkbox">
                 <label for="show-relics">Show relic locations</label>
               </div>
-              <div class="pure-u-1">
+              <div class="pure-u-1-2">
+                <input id="iws-mode" type="checkbox">
+                <label for="iws-mode">Infinite Wing Smash mode
+                  <span class="tooltip-wrapper">
+                    <span class="tooltip-indicator">?</span>
+                    <span class="tooltip hidden">
+                      <span>
+                        Enables infinite Wing Smash for one input.
+                      </span>
+                    </span>
+                  </span>
+                </label>
+              </div>
+              <div class="pure-u-1-2">
                 <input id="show-solutions" type="checkbox">
                 <label for="show-solutions">Show solutions</label>
+              </div>
+              <div class="pure-u-1-2">
+                <input id="fastwarp-mode" type="checkbox">
+                <label for="fastwarp-mode">Fast Warp mode
+                  <span class="tooltip-wrapper">
+                    <span class="tooltip-indicator">?</span>
+                    <span class="tooltip hidden">
+                      <span>
+                        Quickens warp animation when using teleporters.
+                      </span>
+                    </span>
+                  </span>
+                </label>
+              </div>
+              <div class="pure-u-1-2"></div>
+              <div class="pure-u-1-2">
+                <input id="noprologue-mode" type="checkbox">
+                <label for="noprologue-mode">No Prologue mode
+                  <span class="tooltip-wrapper">
+                    <span class="tooltip-indicator">?</span>
+                    <span class="tooltip hidden">
+                      <span>
+                        Removes the Prologue from being required to play. <span style="color: red;">(Will remove potential prologue rewards.)</span>
+                      </span>
+                    </span>
+                  </span>
+                </label>
               </div>
             </div>
           </fieldset>
@@ -421,15 +500,41 @@
           SotN Randomizer Database, containing tutorials, glossaries, and breakdowns.</li>
         <li><a href="https://github.com/LuciaRolon/SotNRandomizerLauncher/releases">SotNRandomizerLauncher</a>,
           A PC-based launcher for the randomizer that helps you get started.</li>
+        <li><a href="https://github.com/MottZilla/BountyHunterTool/releases/">Bounty Hunter Tool</a>,
+          The key ingredient in the highly popular Bounty Hunter preset.</li>
       </ul>
       </ul>
       <hr>
       <h2><a name="changelog">Changelog</a></h2>
+      <h3><time>July 19, 2024</time></h3>
+      <ul>
+        <li>Added new seed naming scheme.</li>
+        <li>Performance enhancement: Moved preset sorting to browser JS file.</li>
+      </ul>
+      <h3><time>July 16, 2024</time></h3>
+      <ul>
+        <li>Added Brawler preset.</li>
+        <li>Added Infinite Wing Smash mode, Fast Warps mode, and No Prologue mode.</li>
+        <li>Adjusted options layout to ease confusion.</li>
+        <li>Added Wanderer and Tourist extensions as options to website.</li>
+        <li>Added check counts to extension descriptions.</li>
+        <li>Added generation time as an output when using spoilers in Command Line.</li>
+        <li>Added $5000 chest to items list. (May or may not appear)</li>
+        <li>Changed how Maria First Meeting room spawns removing the need to change how time attack reads for it.</li>
+      </ul>
+      <h3><time>July 10, 2024</time></h3>
+      <ul>
+        <li>Updated Glitch to remove guaranteed Duplicator, made preset-associated items infinite, made Heart Refresh animation faster.</li>
+      </ul>
+      <h3><time>June 11, 2024</time></h3>
+      <ul>
+        <li>Added Bounty Hunter, Hitman, Chaos Lite, and Bounty Hunter - Target Confirmed. All of these need to be applied to the BIN and then use <a href="https://github.com/MottZilla/BountyHunterTool/releases/">MottZilla's Bounty Hunter Tool</a> to patch the enemy drops.</li>
+      </ul>
       <h3><time>June 10, 2024</time></h3>
       <ul>
         <li>Added Agonize 2020 preset. Simulates the Agonize preset just prior to 3/27/2020.</li>
         <li>Added Season 2 Safe preset. Simulates the Safe logic from Season 2.</li>
-        <li>Added Open preset. Simulates the Season 3 Safe with open shortcuts and teleporters with a few conveniences.</li>
+        <li>Added Open preset. Simulates the the resulting preset if Safe with open shortcuts and teleporters was finalized with a few conveniences.</li>
         <li>Replaced Glitch preset with optimized Glitch Remastered. Reduces load times for the preset and adds logic for more glitches/exploits. Glitch Legacy is still a JSON in files.</li>
       </ul>
       <h3><time>June 8, 2024</time></h3>
@@ -859,7 +964,7 @@
     <script src="build/presets/aperture.js"></script>
     <script src="build/presets/big-toss.js"></script>
     <script src="build/presets/bountyhunter.js"></script>
-    <script src="build/presets/bountyhunter-tc.js"></script>
+    <script src="build/presets/bountyhuntertc.js"></script>
     <script src="build/presets/hitman.js"></script>
     <script src="build/presets/chaos-lite.js"></script>
     <script src="build/presets/beyond.js"></script>
@@ -872,6 +977,7 @@
     <script src="build/presets/summoner.js"></script>
     <script src="build/presets/agonizetwtw.js"></script>
     <script src="build/presets/stwosafe.js"></script>
+    <script src="build/presets/brawler.js"></script>
     <script src="build/presets/open.js"></script>
     <script src="build/presets/index.js"></script>
     <script src="src/worker.js"></script>

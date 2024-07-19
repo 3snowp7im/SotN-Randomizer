@@ -1700,6 +1700,21 @@
       } else if ('mapcolorTheme' in options) {
         randomize.push('m:' + options.mapcolorTheme)
         delete options.mapcolorTheme
+      } else if ('iwsMode' in options) { // Allows for infinite wing smash on first input - eldrich
+        if (options.iwsMode) {
+          randomize.push('b')
+        }
+        delete options.iwsMode
+      } else if ('fastwarpMode' in options) { // quickensd the teleporter warp animations - eldrich
+        if (options.fastwarpMode) {
+          randomize.push('9')
+        }
+        delete options.fastwarpMode
+      } else if ('noprologueMode' in options) { // quickensd the teleporter warp animations - eldrich
+        if (options.noprologueMode) {
+          randomize.push('R')
+        }
+        delete options.noprologueMode
       } else if ('preset' in options) {
         randomize.push('p:' + options.preset)
         delete options.preset
@@ -2915,6 +2930,9 @@
     magicmaxMode,
     antiFreezeMode,
     mypurseMode,
+    iwsMode,
+    fastwarpMode,
+    noprologueMode,
     mapcolorTheme,
     writes,
   ) {
@@ -2937,6 +2955,9 @@
     this.magicmaxMode = magicmaxMode
     this.antiFreezeMode = antiFreezeMode
     this.mypurseMode = mypurseMode
+    this.iwsMode = iwsMode
+    this.fastwarpMode = fastwarpMode
+    this.noprologueMode = noprologueMode
     this.mapcolorTheme = mapcolorTheme
     if (writes) {
       this.writes = writes
@@ -3069,6 +3090,12 @@
     this.mypurse = false
     // Map color theme.
     this.mapcolor = false
+    // Infinite Wing Smash mode.
+    this.iws = false
+    // Fast Warp mode.
+    this.fastwarp = false
+    // No Prologue mode.
+    this.noprologue = false
     // Arbitrary writes.
     this.writes = undefined
   }
@@ -3361,6 +3388,15 @@
     }
     if ('mapcolorTheme' in json) {
       builder.mapcolorTheme(json.mapcolorTheme)
+    }
+    if ('iwsMode' in json) {
+      builder.iwsMode(json.iwsMode)
+    }
+    if ('fastwarpMode' in json) {
+      builder.fastwarpMode(json.fastwarpMode)
+    }
+    if ('noprologueMode' in json) {
+      builder.noprologueMode(json.noprologueMode)
     }
     if ('writes' in json) {
       let lastAddress = 0
@@ -3663,6 +3699,15 @@
     }
     if ('mapcolorTheme' in preset) {
       this.mapcolor = preset.mapcolorTheme
+    }
+    if ('iwsMode' in preset) {
+      this.iws = preset.iwsMode
+    }
+    if ('fastwarpMode' in preset) {
+      this.fastwarp = preset.fastwarpMode
+    }
+    if ('noprologueMode' in preset) {
+      this.noprologue = preset.noprologueMode
     }
     if ('writes' in preset) {
       this.writes = this.writes || []
@@ -4350,6 +4395,21 @@
     this.mapcolor = mapcol
   }
 
+  // Enable Infinite Wing Smash - eldri7ch
+  PresetBuilder.prototype.iwsMode = function iwsMode(enabled) {
+    this.iws = enabled
+  }
+
+  // Enable Faster Warps - eldri7ch
+  PresetBuilder.prototype.fastwarpMode = function fastwarpMode(enabled) {
+    this.fastwarp = enabled
+  }
+
+  // Enable Prologue Skip - eldri7ch
+  PresetBuilder.prototype.noprologueMode = function noprologueMode(enabled) {
+    this.noprologue = enabled
+  }
+
   // Write a character.
   PresetBuilder.prototype.writeChar = function writeChar(address, value) {
     if (value !== 'random' && value !== 'random1' && value !== 'random3' && value !== 'random10' && value !== 'random99') {
@@ -4651,6 +4711,9 @@
     const antifreeze = self.antifreeze
     const mypurse = self.mypurse
     const mapcolor = self.mapcolor
+    const iws = self.iws
+    const fastwarp = self.fastwarp
+    const noprologue = self.noprologue
     const writes = self.writes
     return new Preset(
       self.metadata.id,
@@ -4673,6 +4736,9 @@
       antifreeze,
       mypurse,
       mapcolor,
+      iws,
+      fastwarp,
+      noprologue,
       writes,
     )
   }
@@ -4930,6 +4996,28 @@
       data.writeShort(addressRiBord,bordWrite)
       break
     }
+    return data
+  }
+
+  function applyiwsPatches() {
+    const data = new checked()
+    // Patch wing smash duration - eldri7ch
+    data.writeChar(0x00134074, 0x00)	// Patch from Bat-Master / MottZilla
+    return data
+  }
+
+  function applyfastwarpPatches() {
+    const data = new checked()
+    // Patch warp animation speed - eldri7ch
+    data.writeChar(0x0588be90, 0x02)	// Patch from Aperture / MottZilla
+    data.writeChar(0x05a78fe4, 0x02)
+    return data
+  }
+
+  function applynoprologuePatches() {
+    const data = new checked()
+    // Patch prologue removal; specifically setting the first room to enter as NO3 instead of ST0 - eldri7ch
+    data.writeChar(0x04392b1c, 0x41)	// Patch from Chaos-Lite / MottZilla
     return data
   }
 
@@ -5447,6 +5535,9 @@
     applyAntiFreezePatches: applyAntiFreezePatches,
     applyMyPursePatches: applyMyPursePatches,
     applyMapColor: applyMapColor,
+    applyiwsPatches: applyiwsPatches,
+    applyfastwarpPatches: applyfastwarpPatches,
+    applynoprologuePatches: applynoprologuePatches,
     randomizeRelics: randomizeRelics,
     randomizeItems: randomizeItems,
     applyWrites: applyWrites,

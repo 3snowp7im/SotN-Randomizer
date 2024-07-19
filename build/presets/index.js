@@ -28,7 +28,7 @@
       require('./aperture'),
       require('./big-toss'),
       require('./bountyhunter'),
-      require('./bountyhunter-tc'),
+      require('./bountyhuntertc'),
       require('./hitman'),
       require('./chaos-lite'),
       require('./beyond'),
@@ -42,29 +42,11 @@
       require('./agonizetwtw'),
       require('./stwosafe'),
       require('./open'),
+      require('./brawler'),
     ]
   }
-  exports.sort(function(a, b) {
-    if (!('weight' in a && 'id' in a)) {
-      if (!('weight' in b && 'id' in b)) {
-        return 0
-      }
-      return 1
-    } else if (!('weight' in b && 'id' in b)) {
-      return -1
-    }
-    const weight = a.weight - b.weight
-    if (weight === 0) {
-      if (a.id < b.id) {
-        return -1
-      } else if (a.id > b.id) {
-        return 1
-      }
-    }
-    return weight
-  })
 
-  if (self) {
+  if (self) {    
     self.sotnRando = Object.assign(self.sotnRando || {}, {
       presets: exports,
     })

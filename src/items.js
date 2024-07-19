@@ -9300,6 +9300,11 @@
       index: 6,
       entities: [ 0x3698, 0x4518 ],
     }],
+  }, {
+    name: '$5000',
+    type: TYPE.GOLD,
+    id: 259,
+    blacklist: [ 0x0b6b3c, 0x0b6b3a ],
   }]
 
   const exports = items
