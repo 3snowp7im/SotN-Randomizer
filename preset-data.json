@@ -1,8 +1,8 @@
 [
   {
-    "name": "Summoner",
-    "id": "summoner",
-    "description": "Utilize Familiars and Summon Items to defeat your foes",
-    "author": "eldri7ch and Mottzilla"
+    "name": "Adventure",
+    "id": "adventure",
+    "description": "Requires extensive map coverage.",
+    "author": "3snow_p7im"
   }
 ]
