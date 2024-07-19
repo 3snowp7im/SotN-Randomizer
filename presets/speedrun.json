@@ -4,9 +4,10 @@
     "name": "Speedrun",
     "description": "Requires knowledge of movement mechanics used in glitchless speedruns.",
     "author": "3snow_p7im",
-    "weight": -500
+    "weight": 2750
   },
   "thrustSwordAbility": true,
+  "colorrandoMode": true,
   "blockItems": [{
     "zone": "*",
     "item": "*",
@@ -369,7 +370,7 @@
     "locks": [
       "Jewel of Open + Leap Stone",
       "Jewel of Open + Soul of Bat",
-      "Jewel of Open + Soul of Wolf",
+      "Jewel of Open + Soul of Wolf + Power of Wolf",
       "Jewel of Open + Gravity Boots + Soul of Wolf",
       "Jewel of Open + Gravity Boots + Form of Mist",
       "Jewel of Open + Gravity Boots + Thrust sword",
@@ -388,7 +389,7 @@
     "locks": [
       "Jewel of Open + Leap Stone",
       "Jewel of Open + Soul of Bat",
-      "Jewel of Open + Soul of Wolf",
+      "Jewel of Open + Soul of Wolf + Power of Wolf",
       "Jewel of Open + Gravity Boots + Soul of Wolf",
       "Jewel of Open + Gravity Boots + Form of Mist",
       "Jewel of Open + Gravity Boots + Thrust sword",
@@ -407,7 +408,7 @@
     "locks": [
       "Jewel of Open + Leap Stone",
       "Jewel of Open + Soul of Bat",
-      "Jewel of Open + Soul of Wolf",
+      "Jewel of Open + Soul of Wolf + Power of Wolf",
       "Jewel of Open + Gravity Boots + Soul of Wolf",
       "Jewel of Open + Gravity Boots + Form of Mist",
       "Jewel of Open + Gravity Boots + Thrust sword",
@@ -426,7 +427,7 @@
     "locks": [
       "Jewel of Open + Leap Stone",
       "Jewel of Open + Soul of Bat",
-      "Jewel of Open + Soul of Wolf",
+      "Jewel of Open + Soul of Wolf + Power of Wolf",
       "Jewel of Open + Gravity Boots + Soul of Wolf",
       "Jewel of Open + Gravity Boots + Form of Mist",
       "Jewel of Open + Gravity Boots + Thrust sword",
@@ -446,7 +447,7 @@
 
       "Jewel of Open + Demon Card + Leap Stone",
       "Jewel of Open + Demon Card + Soul of Bat",
-      "Jewel of Open + Demon Card + Soul of Wolf",
+      "Jewel of Open + Demon Card + Soul of Wolf + Power of Wolf",
       "Jewel of Open + Demon Card + Gravity Boots + Soul of Wolf",
       "Jewel of Open + Demon Card + Gravity Boots + Form of Mist",
       "Jewel of Open + Demon Card + Gravity Boots + Thrust sword",
@@ -1018,6 +1019,127 @@
     ]
   }, {
     "location": "Katana",
+    "comment": "Requires Holy glasses + flight",
+    "locks": [
+      "Holy glasses + Soul of Bat",
+      "Holy glasses + Gravity Boots + Leap Stone",
+      "Holy glasses + Form of Mist + Power of Mist",
+      "Holy glasses + Gravity Boots + Soul of Wolf",
+      "Holy glasses + Gravity Boots + Form of Mist",
+      "Holy glasses + Gravity Boots + Thrust sword"
+    ]
+  }, {
+    "location": "Confessional",
+    "comment": "Requires Jewel of Open or at least Leap Stone",
+    "locks": [
+    ]
+  }, {
+    "location": "Colosseum Green tea",
+    "comment": "Requires at least Leap Stone",
+    "locks": [
+      "Leap Stone",
+      "Gravity Boots",
+      "Soul of Bat",
+      "Form of Mist",
+      "Soul of Wolf",
+      "Thrust sword"
+    ]
+  }, {
+    "location": "Clock Tower Cloaked knight",
+    "comment": "Requires at least Leap Stone",
+    "locks": [
+    ]
+  }, {
+    "location": "Waterfall Cave",
+    "comment": "Requires Jewel of Open",
+    "locks": [
+      "Jewel of Open"
+    ]
+  }, {
+    "location": "Floating Catacombs Elixir",
+    "comment": "Requires Holy glasses + flight + Possibly Spike Breaker",
+    "locks": [
+      "Holy glasses + Soul of Bat",
+      "Holy glasses + Spike Breaker + Gravity Boots + Leap Stone",
+      "Holy glasses + Form of Mist + Power of Mist",
+      "Holy glasses + Spike Breaker + Gravity Boots + Soul of Wolf",
+      "Holy glasses + Spike Breaker + Gravity Boots + Form of Mist",
+      "Holy glasses + Spike Breaker + Gravity Boots + Thrust sword"
+    ]
+  }, {
+    "location": "Reverse Entrance Antivenom",
+    "comment": "Requires Holy glasses + flight",
+    "locks": [
+      "Holy glasses + Soul of Bat",
+      "Holy glasses + Gravity Boots + Leap Stone",
+      "Holy glasses + Form of Mist + Power of Mist",
+      "Holy glasses + Gravity Boots + Soul of Wolf",
+      "Holy glasses + Gravity Boots + Form of Mist",
+      "Holy glasses + Gravity Boots + Thrust sword"
+    ]
+  }, {
+    "location": "Reverse Forbidden Route",
+    "comment": "Requires Holy glasses + flight",
+    "locks": [
+      "Holy glasses + Soul of Bat",
+      "Holy glasses + Gravity Boots + Leap Stone",
+      "Holy glasses + Form of Mist + Power of Mist",
+      "Holy glasses + Gravity Boots + Soul of Wolf",
+      "Holy glasses + Gravity Boots + Form of Mist",
+      "Holy glasses + Gravity Boots + Thrust sword"
+    ]
+  }, {
+    "location": "Cave Life apple",
+    "comment": "Requires Holy glasses + flight + Demon Card",
+    "locks": [
+      "Holy glasses + Demon Card + Soul of Bat",
+      "Holy glasses + Demon Card + Gravity Boots + Leap Stone",
+      "Holy glasses + Demon Card + Form of Mist + Power of Mist",
+      "Holy glasses + Demon Card + Gravity Boots + Soul of Wolf",
+      "Holy glasses + Demon Card + Gravity Boots + Form of Mist",
+      "Holy glasses + Demon Card + Gravity Boots + Thrust sword",
+      "Holy glasses + Nosedevil Card + Soul of Bat",
+      "Holy glasses + Nosedevil Card + Gravity Boots + Leap Stone",
+      "Holy glasses + Nosedevil Card + Form of Mist + Power of Mist",
+      "Holy glasses + Nosedevil Card + Gravity Boots + Soul of Wolf",
+      "Holy glasses + Nosedevil Card + Gravity Boots + Form of Mist",
+      "Holy glasses + Nosedevil Card + Gravity Boots + Thrust sword"
+    ]
+  }, {
+    "location": "Reverse Colosseum Zircon",
+    "comment": "Requires Holy glasses + flight",
+    "locks": [
+      "Holy glasses + Soul of Bat",
+      "Holy glasses + Gravity Boots + Leap Stone",
+      "Holy glasses + Form of Mist + Power of Mist",
+      "Holy glasses + Gravity Boots + Soul of Wolf",
+      "Holy glasses + Gravity Boots + Form of Mist",
+      "Holy glasses + Gravity Boots + Thrust sword"
+    ]
+  }, {
+    "location": "Black Marble Gallery Vat",
+    "comment": "Requires Holy glasses + flight",
+    "locks": [
+      "Holy glasses + Soul of Bat",
+      "Holy glasses + Gravity Boots + Leap Stone",
+      "Holy glasses + Form of Mist + Power of Mist",
+      "Holy glasses + Gravity Boots + Soul of Wolf",
+      "Holy glasses + Gravity Boots + Form of Mist",
+      "Holy glasses + Gravity Boots + Thrust sword"
+    ]
+  }, {
+    "location": "Black Marble Meal Ticket",
+    "comment": "Requires Holy glasses + flight + Jewel of Open",
+    "locks": [
+      "Holy glasses + Jewel of Open + Soul of Bat",
+      "Holy glasses + Jewel of Open + Gravity Boots + Leap Stone",
+      "Holy glasses + Jewel of Open + Form of Mist + Power of Mist",
+      "Holy glasses + Jewel of Open + Gravity Boots + Soul of Wolf",
+      "Holy glasses + Jewel of Open + Gravity Boots + Form of Mist",
+      "Holy glasses + Jewel of Open + Gravity Boots + Thrust sword"
+    ]
+  }, {
+    "location": "Reverse Keep High Potion",
     "comment": "Requires Holy glasses + flight",
     "locks": [
       "Holy glasses + Soul of Bat",

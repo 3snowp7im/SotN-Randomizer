@@ -4,9 +4,10 @@
     "name": "Safe",
     "description": "Requires no speedrun or glitch knowledge for completion.",
     "author": "3snow_p7im, setz, and soba",
-    "weight": -5000
+    "weight": 1750
   },
   "inherits": "casual",
+  "colorrandoMode": true,
   "complexityGoal": {
     "min": 9,
     "goals": [

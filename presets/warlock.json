@@ -4,7 +4,7 @@
     "name": "Warlock",
     "description": "Start with high intelligence and Form of Mist.",
     "author": "3snow_p7im",
-    "weight": -300
+    "weight": 3500
   },
   "stats": false,
   "startingEquipment": [{
@@ -723,6 +723,107 @@
     ]
   }, {
     "location": "Fury plate",
+    "locks": [
+      "Holy glasses + Soul of Bat",
+      "Holy glasses + Gravity Boots + Leap Stone",
+      "Holy glasses + Power of Mist"
+    ]
+  }, {
+    "location": "Confessional",
+    "comment": "Requires Jewel of Open or at least Leap Stone",
+    "locks": [
+      "Jewel of Open",
+      "Leap Stone",
+      "Gravity Boots",
+      "Soul of Bat",
+      "Power of Mist"
+    ]
+  }, {
+    "location": "Colosseum Green tea",
+    "comment": "Requires at least Leap Stone",
+    "locks": [
+      "Leap Stone",
+      "Gravity Boots",
+      "Soul of Bat",
+      "Power of Mist"
+    ]
+  }, {
+    "location": "Clock Tower Cloaked knight",
+    "comment": "Requires at least Leap Stone",
+    "locks": [
+      "Leap Stone",
+      "Gravity Boots",
+      "Soul of Bat",
+      "Power of Mist"
+    ]
+  }, {
+    "location": "Waterfall Cave",
+    "comment": "Requires Jewel of Open",
+    "locks": [
+      "Jewel of Open"
+    ]
+  }, {
+    "location": "Floating Catacombs Elixir",
+    "comment": "Requires Holy glasses + flight + Possibly Spike Breaker",
+    "locks": [
+      "Holy glasses + Soul of Bat",
+      "Holy glasses + Gravity Boots + Leap Stone + Spike Breaker",
+      "Holy glasses + Power of Mist"
+    ]
+  }, {
+    "location": "Reverse Entrance Antivenom",
+    "comment": "Requires Holy glasses + flight",
+    "locks": [
+      "Holy glasses + Soul of Bat",
+      "Holy glasses + Gravity Boots + Leap Stone",
+      "Holy glasses + Power of Mist"
+    ]
+  }, {
+    "location": "Reverse Forbidden Route",
+    "comment": "Requires Holy glasses + flight",
+    "locks": [
+      "Holy glasses + Soul of Bat",
+      "Holy glasses + Gravity Boots + Leap Stone",
+      "Holy glasses + Power of Mist"
+    ]
+  }, {
+    "location": "Cave Life apple",
+    "comment": "Requires Holy glasses + flight + Demon Card",
+    "locks": [
+      "Holy glasses + Soul of Bat + Demon Card",
+      "Holy glasses + Gravity Boots + Leap Stone + Demon Card",
+      "Holy glasses + Power of Mist + Demon Card",
+      "Holy glasses + Soul of Bat + Nosedevil Card",
+      "Holy glasses + Gravity Boots + Leap Stone + Nosedevil Card",
+      "Holy glasses + Power of Mist + Nosedevil Card"
+    ]
+  }, {
+    "location": "Reverse Colosseum Zircon",
+    "comment": "Requires Holy glasses + flight",
+    "locks": [
+      "Holy glasses + Soul of Bat",
+      "Holy glasses + Gravity Boots + Leap Stone",
+      "Holy glasses + Power of Mist"
+    ]
+  }, {
+    "location": "Black Marble Gallery Vat",
+    "comment": "Requires Holy glasses + flight",
+    "locks": [
+      "Holy glasses + Soul of Bat",
+      "Holy glasses + Gravity Boots + Leap Stone",
+      "Holy glasses + Power of Mist"
+    ]
+  }, {
+    "location": "Black Marble Meal Ticket",
+    "comment": "Requires Holy glasses + flight + Jewel of Open",
+    "locks": [
+      "Holy glasses + Soul of Bat + Jewel of Open",
+      "Holy glasses + Gravity Boots + Leap Stone + Jewel of Open",
+      "Holy glasses + Power of Mist + Jewel of Open"
+    ]
+  }, {
+    "location": "Reverse Keep High Potion",
+    "comment": "Requires Holy glasses + flight",
     "locks": [
       "Holy glasses + Soul of Bat",
       "Holy glasses + Gravity Boots + Leap Stone",

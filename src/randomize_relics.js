@@ -534,19 +534,19 @@
     // being to reload the room through the left or right exit first. To
     // make it more convenient and less confusing, disable the cutscene
     // from ever taking place.
-    // The specific room has a time attack entry that needs to be zeroed
-    // out.
-    data.writeChar(0x0aeaa0, 0x00)
-    // The time attack check occurs in Richter mode too, but the game gets
-    // around this by writing the seconds elapsed between pressing Start on
-    // the main screen and on the name entry screen to the time attack
-    // table for events that aren't in Richter mode.
-    // Zero out the time attack entry for the clock room, or Richter will
-    // load the cutscene version every time he enters.
-    data.writeChar(0x119af4, 0x00)
+    // We moved the room into the void where she will spend all of eternity.
+    data.writeChar(0x0aea9c, 0x40)
   }
 
   function patchRelicsMenu(data) {
+    // New patch by MottZilla to add JP Familiars back to the relic menu.
+    data.writeChar(0x10E568, 0x40)
+    data.writeChar(0x116088, 0x1E)
+    data.writeChar(0x1160A8, 0x00)
+    data.writeChar(0xAEF4A, 0xC3)
+    data.writeChar(0xAEF5A, 0xAC)
+    
+    /* Old Relics Menu Patch by Wild Mouse. Makes JP Familiars take the place of normal Faerie and Demon.
     // If relic locations are extended, the relic pool is padded out with the
     // familiars disabled in the NTSC-U release. To make them usable, they will
     // override their remaining counterparts in the menu if they have been
@@ -742,6 +742,7 @@
     offset = data.writeWord(offset, 0x26100003) // addiu s0, s0, 0x0003
     offset = data.writeWord(offset, 0x0803f27f) // j 0x800fc9fc
     offset = data.writeWord(offset, 0x00000000) // nop
+    */
   }
 
   function patchPixieSong(data) {
@@ -1249,6 +1250,13 @@
     let locations = getLocations()
     const extensions = []
     switch (options.relicLocations.extension) {
+    case constants.EXTENSION.WANDERER: // This is a smaller distribution than Equipment but includes all tourist checks + Spread + some Equipment - eldri7ch
+      extensions.push(constants.EXTENSION.WANDERER)
+      extensions.push(constants.EXTENSION.SPREAD)
+      extensions.push(constants.EXTENSION.GUARDED) 
+      break
+    case constants.EXTENSION.TOURIST:
+      extensions.push(constants.EXTENSION.TOURIST)
     case constants.EXTENSION.EQUIPMENT:
       extensions.push(constants.EXTENSION.EQUIPMENT)
     case constants.EXTENSION.SPREAD:
@@ -1275,11 +1283,11 @@
         const thrustSwords = items().filter(function(item) {
           return item.thrustSword
         })
-        thrustSword = thrustSwords[randIdx(rng, thrustSwords)]
+        thrustSword = thrustSwords[randIdx(rng, thrustSwords)] // this selects a thrust sword at random to be part of the relic pool - eldri7ch
         const name = (newNames.filter(function(item) {
           return item.id === thrustSword.id
         }).pop() || thrustSword).name
-        return Object.assign({}, relic, {
+        return Object.assign({}, relic, { // this is what exports the thrust sword ID to be placed in the relic pool - eldri7ch
           itemId: thrustSword.id,
           name: name,
         })
@@ -1412,6 +1420,8 @@
       patchClockRoomCutscene(data)
       // Apply extension specific patches.
       switch (options.relicLocations.extension) {
+      case constants.EXTENSION.WANDERER:
+      case constants.EXTENSION.TOURIST:
       case constants.EXTENSION.EQUIPMENT:
       case constants.EXTENSION.SPREAD:
       case constants.EXTENSION.GUARDED:

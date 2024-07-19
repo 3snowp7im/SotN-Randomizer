@@ -479,7 +479,11 @@
       len: 1,
       val: val & 0xff,
     }
-    return address + 1
+    address = address + 1					// Step adddress. 
+    if (Math.floor(address % 2352) > 2071) {			// Then check if new address is beyond User Data section.
+      address = ( Math.floor(address / 2352) * 2352) + 2376	// If beyond user data section then return the beginning of the next sector's user data section. - MottZilla
+    }
+    return address
   }
 
   checked.prototype.writeShort = function writeShort(address, val) {
@@ -505,7 +509,11 @@
       len: 2,
       val: val & 0xffff,
     }
-    return address + 2
+    address = address + 2					// Step adddress. 
+    if (Math.floor(address % 2352) > 2071) {			// Then check if new address is beyond User Data section.
+      address = ( Math.floor(address / 2352) * 2352) + 2376	// If beyond user data section then return the beginning of the next sector's user data section. - MottZilla
+    }
+    return address
   }
 
   checked.prototype.writeWord = function writeShort(address, val) {
@@ -533,7 +541,11 @@
       len: 4,
       val: val & 0xffffffff,
     }
-    return address + 4
+    address = address + 4					// Step adddress. 
+    if (Math.floor(address % 2352) > 2071) {			// Then check if new address is beyond User Data section.
+      address = ( Math.floor(address / 2352) * 2352) + 2376	// If beyond user data section then return the beginning of the next sector's user data section. - MottZilla
+    }
+    return address
   }
 
   checked.prototype.writeLong = function writeLong(address, val) {
@@ -565,7 +577,11 @@
       len: 8,
       val: val,
     }
-    return address + 8
+    address = address + 8					// Step adddress. 
+    if (Math.floor(address % 2352) > 2071) {			// Then check if new address is beyond User Data section.
+      address = ( Math.floor(address / 2352) * 2352) + 2376	// If beyond user data section then return the beginning of the next sector's user data section. - MottZilla
+    }
+    return address
   }
 
   checked.prototype.writeString = function writeString(address, val) {
@@ -695,7 +711,7 @@
         c = randomize[i++]
       }
       switch (c) {
-      case 'p': {
+      case 'p': { // start preset selection from args/options - eldri7ch
         // Check for an argument.
         if (negate) {
           throw new Error('Cannot negate preset option')
@@ -719,8 +735,8 @@
           i++
         }
         break
-      }
-      case 'd': {
+      } // end preset selection from args/options - eldri7ch
+      case 'd': { // start drops selection from args/options - eldri7ch
         if (negate) {
           options.enemyDrops = false
           break
@@ -853,8 +869,8 @@
         }
         options.enemyDrops = enemyDrops
         break
-      }
-      case 'e': {
+      } // end drops selection from args/options - eldri7ch
+      case 'e': { // start equipment selection from args/options - eldri7ch
         if (negate) {
           options.startingEquipment = false
           break
@@ -1001,8 +1017,8 @@
         }
         options.startingEquipment = startingEquipment
         break
-      }
-      case 'i': {
+      } // end equipment selection from args/options - eldri7ch
+      case 'i': { // start item location selection from args/options - eldri7ch
         if (negate) {
           options.itemLocations = false
           break
@@ -1138,8 +1154,8 @@
         }
         options.itemLocations = itemLocations
         break
-      }
-      case 'b': {
+      } // end item location selection from args/options - eldri7ch
+      case 'b': { // start prologue rewards selection from args/options - eldri7ch
         if (negate) {
           options.prologueRewards = false
           break
@@ -1220,8 +1236,8 @@
         }
         options.prologueRewards = prologueRewards
         break
-      }
-      case 'r': {
+      } // end prologue rewards selection from args/options - eldri7ch
+      case 'r': { // start relic locations selection from args/options - eldri7ch
         if (negate) {
           options.relicLocations = false
           break
@@ -1430,32 +1446,32 @@
         }
         options.relicLocations = relicLocations
         break
-      }
-      case 's': {
+      } // end relic locations selection from args/options - eldri7ch
+      case 's': { // start stats selection from args/options - eldri7ch
         if (negate) {
           options.stats = false
           break
         }
         options.stats = true
         break;
-      }
-      case 'm': {
+      } // end stats selection from args/options - eldri7ch
+      case 'm': { // start music selection from args/options - eldri7ch
         if (negate) {
           options.music = false
           break
         }
         options.music = true
         break
-      }
-      case 'k': {
+      } // end music selection from args/options - eldri7ch
+      case 'k': { // start turkey mode selection from args/options - eldri7ch
         if (negate) {
           options.turkeyMode = false
           break
         }
         options.turkeyMode = true
         break
-      }
-      case 'w': {
+      } // end turkey mode selection from args/options - eldri7ch
+      case 'w': { // start writes selection from args/options - eldri7ch
         if (negate) {
           break
         }
@@ -1515,6 +1531,10 @@
             if (isRandom) {
               switch (value) {
               case 'rc': length = 1
+              case 'r1': length = 1
+              case 'r3': length = 1
+              case 'r10': length = 1
+              case 'r99': length = 1
               case 'rs': length = 2
               case 'rw': length = 4
               case 'rl': length = 8
@@ -1584,20 +1604,20 @@
         }
         options.writes = writes
         break
-      }
-      case 't': {
+      } // end writes selection from args/options - eldri7ch
+      case 't': { // start tournament mode selection from args/options - eldri7ch
         if (negate) {
           options.tournamentMode = false
           break
         }
         options.tournamentMode = true
         break
-      }
+      } // end tournament mode selection from args/options - eldri7ch
       default:
-        throw new Error('Invalid randomization: ' + c)
+        throw new Error('Invalid randomization: ' + c) // kick out the remainder of options - eldri7ch
       }
     }
-    if (!Object.getOwnPropertyNames(options).length) {
+    if (!Object.getOwnPropertyNames(options).length) { // error out if all randomization negated - eldri7ch
       throw new Error('No randomizations')
     }
     return options
@@ -1652,11 +1672,54 @@
     }
     let randomize = []
     while (Object.getOwnPropertyNames(options).length) {
-      if ('tournamentMode' in options) {
+      if ('tournamentMode' in options) { // stunts spoilers, changes seed randomization, opens statue in clock room and $0 relic in shop - eldrich
         if (options.tournamentMode) {
           randomize.push('t')
         }
         delete options.tournamentMode
+      } else if ('colorrandoMode' in options) { // randomizes cape, grav boots, and hydro storm colors - eldrich
+        if (options.colorrandoMode) {
+          randomize.push('l')
+        }
+        delete options.colorrandoMode
+      } else if ('magicmaxMode' in options) { // replaces Heart Vessel with Magic Vessel - eldrich
+        if (options.magicmaxMode) {
+          randomize.push('x')
+        }
+        delete options.magicmaxMode
+      } else if ('antiFreezeMode' in options) { // Removes screen freezes from level-up and acquisitions - eldrich
+        if (options.antiFreezeMode) {
+          randomize.push('z')
+        }
+        delete options.antiFreezeMode
+      } else if ('mypurseMode' in options) { // Removes Death from entrance - eldrich
+        if (options.mypurseMode) {
+          randomize.push('y')
+        }
+        delete options.mypurseMode
+      } else if ('mapcolorTheme' in options) {
+        randomize.push('m:' + options.mapcolorTheme)
+        delete options.mapcolorTheme
+      } else if ('iwsMode' in options) { // Allows for infinite wing smash on first input - eldrich
+        if (options.iwsMode) {
+          randomize.push('b')
+        }
+        delete options.iwsMode
+      } else if ('fastwarpMode' in options) { // quickensd the teleporter warp animations - eldrich
+        if (options.fastwarpMode) {
+          randomize.push('9')
+        }
+        delete options.fastwarpMode
+      } else if ('noprologueMode' in options) { // Removes prologue - eldrich
+        if (options.noprologueMode) {
+          randomize.push('R')
+        }
+        delete options.noprologueMode
+      } else if ('debugMode' in options) { // Debug mode - eldrich
+        if (options.debugMode) {
+          randomize.push('D')
+        }
+        delete options.debugMode
       } else if ('preset' in options) {
         randomize.push('p:' + options.preset)
         delete options.preset
@@ -1972,6 +2035,13 @@
             locations.filter(function(location) {
               const extensions = []
               switch (options.relicLocations.extension) {
+              case constants.EXTENSION.WANDERER: // This is a smaller distribution than Equipment but includes all tourist checks + Spread + some Equipment - eldri7ch
+                  extensions.push(constants.EXTENSION.WANDERER)
+                  extensions.push(constants.EXTENSION.SPREAD)
+                  extensions.push(constants.EXTENSION.GUARDED) 
+                  break 
+              case constants.EXTENSION.TOURIST:
+                extensions.push(constants.EXTENSION.TOURIST)
               case constants.EXTENSION.EQUIPMENT:
                 extensions.push(constants.EXTENSION.EQUIPMENT)
 	      case constants.EXTENSION.SPREAD:
@@ -2072,6 +2142,14 @@
             case 'char':
               if (write.value === 'random') {
                 opt += 'rc'
+              } else if (write.value === 'random1') {
+                opt += 'r1'
+              } else if (write.value === 'random3') {
+                opt += 'r3'
+              } else if (write.value === 'random10') {
+                opt += 'r10'
+              } else if (write.value === 'random99') {
+                opt += 'r99'
               } else {
                 opt += numToHex(write.value, 2)
               }
@@ -2086,6 +2164,8 @@
             case 'word':
               if (write.value === 'random') {
                 opt += 'rw'
+              } else if (write.value === 'randomRelic') {
+                opt += 'rr'
               } else {
                 opt += numToHex(write.value, 8)
               }
@@ -2851,6 +2931,15 @@
     stats,
     music,
     turkeyMode,
+    colorrandoMode,
+    magicmaxMode,
+    antiFreezeMode,
+    mypurseMode,
+    iwsMode,
+    fastwarpMode,
+    noprologueMode,
+    debugMode,
+    mapcolorTheme,
     writes,
   ) {
     this.id = id
@@ -2868,6 +2957,15 @@
     this.stats = stats
     this.music = music
     this.turkeyMode = turkeyMode
+    this.colorrandoMode = colorrandoMode
+    this.magicmaxMode = magicmaxMode
+    this.antiFreezeMode = antiFreezeMode
+    this.mypurseMode = mypurseMode
+    this.iwsMode = iwsMode
+    this.fastwarpMode = fastwarpMode
+    this.noprologueMode = noprologueMode
+    this.debugMode = debugMode
+    this.mapcolorTheme = mapcolorTheme
     if (writes) {
       this.writes = writes
     }
@@ -2989,6 +3087,24 @@
     this.music = true
     // Turkey mode.
     this.turkey = true
+    // Color Palette Rando mode.
+    this.colorrando = false
+    // Magic Max mode.
+    this.magicmax = false
+    // AntiFreeze mode.
+    this.antifreeze = false
+    // That's My Purse mode.
+    this.mypurse = false
+    // Map color theme.
+    this.mapcolor = false
+    // Infinite Wing Smash mode.
+    this.iws = false
+    // Fast Warp mode.
+    this.fastwarp = false
+    // No Prologue mode.
+    this.noprologue = false
+    // No Prologue mode.
+    this.debug = false
     // Arbitrary writes.
     this.writes = undefined
   }
@@ -3062,7 +3178,7 @@
           builder.locationAlias(alias.relic, alias.alias)
         }
         if ('item' in alias) {
-          builder.temAlias(alias.item, alias.alias)
+          builder.itemAlias(alias.item, alias.alias)
         }
       })
     }
@@ -3267,6 +3383,30 @@
     if ('turkeyMode' in json) {
       builder.turkeyMode(json.turkeyMode)
     }
+    if ('colorrandoMode' in json) {
+      builder.colorrandoMode(json.colorrandoMode)
+    }
+    if ('magicmaxMode' in json) {
+      builder.magicmaxMode(json.magicmaxMode)
+    }
+    if ('antiFreezeMode' in json) {
+      builder.antiFreezeMode(json.antiFreezeMode)
+    }
+    if ('mypurseMode' in json) {
+      builder.mypurseMode(json.mypurseMode)
+    }
+    if ('mapcolorTheme' in json) {
+      builder.mapcolorTheme(json.mapcolorTheme)
+    }
+    if ('iwsMode' in json) {
+      builder.iwsMode(json.iwsMode)
+    }
+    if ('fastwarpMode' in json) {
+      builder.fastwarpMode(json.fastwarpMode)
+    }
+    if ('noprologueMode' in json) {
+      builder.noprologueMode(json.noprologueMode)
+    }
     if ('writes' in json) {
       let lastAddress = 0
       json.writes.forEach(function(write) {
@@ -3325,8 +3465,8 @@
   }
 
   PresetBuilder.prototype.itemAlias = function itemAlias(what, alias) {
-    assert.equal(typeof(what), 'string')
-    assert.equal(typeof(alias), 'string')
+    assert.equal(typeof(what) === 'string' || what instanceof Array)
+    assert.equal(typeof(alias) === 'string')
     this.itemAliases[alias] = what
   }
 
@@ -3553,6 +3693,30 @@
     }
     if ('turkeyMode' in preset) {
       this.turkey = preset.turkeyMode
+    }
+    if ('colorrandoMode' in preset) {
+      this.colorrando = preset.colorrandoMode
+    }
+    if ('magicmaxMode' in preset) {
+      this.magicmax = preset.magicmaxMode
+    }
+    if ('antiFreezeMode' in preset) {
+      this.antifreeze = preset.antiFreezeMode
+    }
+    if ('mypurseMode' in preset) {
+      this.mypurse = preset.mypurseMode
+    }
+    if ('mapcolorTheme' in preset) {
+      this.mapcolor = preset.mapcolorTheme
+    }
+    if ('iwsMode' in preset) {
+      this.iws = preset.iwsMode
+    }
+    if ('fastwarpMode' in preset) {
+      this.fastwarp = preset.fastwarpMode
+    }
+    if ('noprologueMode' in preset) {
+      this.noprologue = preset.noprologueMode
     }
     if ('writes' in preset) {
       this.writes = this.writes || []
@@ -3916,12 +4080,19 @@
         this.items[zoneName] = this.items[zoneName] || new Map()
         const map = this.items[zoneName].get(item) || {}
         map[number - 1] = map[number - 1] || []
-        replaceNames.forEach(function(replaceName) {
+        const replaceFunc = function(replaceName) {
           const replace = items.filter(function(item) {
             return item.name === replaceName
           })[0]
           assert(replace, 'Unknown item: ' + replaceName)
           map[number - 1].push(replace)
+        };
+        replaceNames.forEach(name => {
+            if(name instanceof Array) {
+              name.forEach(replaceFunc)
+            } else {
+              replaceFunc(name)
+            }
         })
         this.items[zoneName].set(item, map)
       }
@@ -4207,9 +4378,50 @@
     this.turkey = enabled
   }
 
+  // Enable Color Palette Randomization
+  PresetBuilder.prototype.colorrandoMode = function colorrandoMode(enabled) {
+    this.colorrando = enabled
+  }
+
+  // Enable Magic Max replacing Heart Max
+  PresetBuilder.prototype.magicmaxMode = function magicmaxMode(enabled) {
+    this.magicmax = enabled
+  }
+
+  // remove screen freezes from level up, relic, vessel. - eldri7ch & MottZilla
+  PresetBuilder.prototype.antiFreezeMode = function antiFreezeMode(enabled) {
+    this.antifreeze = enabled
+  }
+
+  // Prevent Death from stealing equipment - eldri7ch
+  PresetBuilder.prototype.mypurseMode = function mypurseMode(enabled) {
+    this.mypurse = enabled
+  }
+
+  // Map Color added for compatibility - eldri7ch
+  PresetBuilder.prototype.mapcolorTheme = function mapcolorTheme(mapcol) {
+    mapcol = 'u'
+    this.mapcolor = mapcol
+  }
+
+  // Enable Infinite Wing Smash - eldri7ch
+  PresetBuilder.prototype.iwsMode = function iwsMode(enabled) {
+    this.iws = enabled
+  }
+
+  // Enable Faster Warps - eldri7ch
+  PresetBuilder.prototype.fastwarpMode = function fastwarpMode(enabled) {
+    this.fastwarp = enabled
+  }
+
+  // Enable Prologue Skip - eldri7ch
+  PresetBuilder.prototype.noprologueMode = function noprologueMode(enabled) {
+    this.noprologue = enabled
+  }
+
   // Write a character.
   PresetBuilder.prototype.writeChar = function writeChar(address, value) {
-    if (value !== 'random') {
+    if (value !== 'random' && value !== 'random1' && value !== 'random3' && value !== 'random10' && value !== 'random99') {
       value = parseInt(value)
     }
     this.writes = this.writes || []
@@ -4218,7 +4430,11 @@
       address: address,
       value: value,
     })
-    return address + 1
+    address = address + 1					// Step adddress. 
+    if (Math.floor(address % 2352) > 2071) {			// Then check if new address is beyond User Data section.
+      address = ( Math.floor(address / 2352) * 2352) + 2376	// If beyond user data section then return the beginning of the next sector's user data section. - MottZilla
+    }
+    return address
   }
 
   // Write a short.
@@ -4232,12 +4448,16 @@
       address: address,
       value: value,
     })
-    return address + 2
+    address = address + 2					// Step adddress. 
+    if (Math.floor(address % 2352) > 2071) {			// Then check if new address is beyond User Data section.
+      address = ( Math.floor(address / 2352) * 2352) + 2376	// If beyond user data section then return the beginning of the next sector's user data section. - MottZilla
+    }
+    return address
   }
 
   // Write a word.
   PresetBuilder.prototype.writeWord = function writeWord(address, value) {
-    if (value !== 'random') {
+    if (value !== 'random' && value !== 'randomRelic') {
       value = parseInt(value)
     }
     this.writes = this.writes || []
@@ -4246,7 +4466,11 @@
       address: address,
       value: value,
     })
-    return address + 4
+    address = address + 4					// Step adddress. 
+    if (Math.floor(address % 2352) > 2071) {			// Then check if new address is beyond User Data section.
+      address = ( Math.floor(address / 2352) * 2352) + 2376	// If beyond user data section then return the beginning of the next sector's user data section. - MottZilla
+    }
+    return address
   }
 
   // Write a long.
@@ -4257,7 +4481,11 @@
       address: address,
       value: value,
     })
-    return address + 8
+    address = address + 8					// Step adddress. 
+    if (Math.floor(address % 2352) > 2071) {			// Then check if new address is beyond User Data section.
+      address = ( Math.floor(address / 2352) * 2352) + 2376	// If beyond user data section then return the beginning of the next sector's user data section. - MottZilla
+    }
+    return address
   }
 
   // Write a string.
@@ -4487,6 +4715,15 @@
     const stats = self.stats
     const music = self.music
     const turkey = self.turkey
+    const colorrando = self.colorrando
+    const magicmax = self.magicmax
+    const antifreeze = self.antifreeze
+    const mypurse = self.mypurse
+    const mapcolor = self.mapcolor
+    const iws = self.iws
+    const fastwarp = self.fastwarp
+    const noprologue = self.noprologue
+    const debug = self.debug
     const writes = self.writes
     return new Preset(
       self.metadata.id,
@@ -4504,6 +4741,15 @@
       stats,
       music,
       turkey,
+      colorrando,
+      magicmax,
+      antifreeze,
+      mypurse,
+      mapcolor,
+      iws,
+      fastwarp,
+      noprologue,
+      debug,
       writes,
     )
   }
@@ -4517,8 +4763,14 @@
   }
 
   function loadWorker(worker, url) {
+    if(self){
+      selectedPreset = self.sotnRando.selectedPreset
+    }else{
+      selectedPreset = null
+    }
     worker.postMessage({
       url: url,
+      selectedPreset: selectedPreset
     })
   }
 
@@ -4529,6 +4781,260 @@
     // Open clock statue.
     data.writeWord(0x04951d4c, 0x3c020002)
     data.writeWord(0x04fcf264, 0x3c020002)
+    return data
+  }
+	
+  function applyMagicMaxPatches() { // Adds MP Vessel to replace Heart Vessel - eldrich
+    const data = new checked()
+    let offset = 0x00117b50	// Set Starting Offset
+    // Patch MP Vessels function Heart Vessels - code by MottZilla & graphics drawn by eldri7ch
+    offset = data.writeWord(offset, 0x3c028004)
+    offset = data.writeWord(offset, 0x8c42c9a0)
+    offset = data.writeWord(offset, 0x00000000)
+    offset = data.writeWord(offset, 0x10400003)
+    offset = data.writeWord(offset, 0x00000000)
+    offset = data.writeWord(offset, 0x0803f8e7)
+    offset = data.writeWord(offset, 0x34020001)
+    offset = data.writeWord(offset, 0x3c058009)
+    offset = data.writeWord(offset, 0x8ca47bac)
+    offset = data.writeWord(offset, 0x8ca67ba8)
+    offset = data.writeWord(offset, 0x24840005)
+    offset = data.writeWord(offset, 0xaca47bac)
+    offset = data.writeWord(offset, 0x24c60005)
+    offset = data.writeWord(offset, 0xaca67ba8)
+    offset = data.writeWord(offset, 0x8ca47bb4)
+    offset = data.writeWord(offset, 0x00000000)
+    offset = data.writeWord(offset, 0x24840003)
+    offset = data.writeWord(offset, 0xaca47bb0)
+    offset = data.writeWord(offset, 0xaca47bb4)
+    offset = data.writeWord(offset, 0x00000000)
+    offset = data.writeWord(offset, 0x3c058013)
+    offset = data.writeWord(offset, 0x34a57964)
+    offset = data.writeWord(offset, 0x00000000)
+    offset = data.writeWord(offset, 0x8ca40000)
+    offset = data.writeWord(offset, 0x00000000)
+    offset = data.writeWord(offset, 0x24840001)
+    offset = data.writeWord(offset, 0xaca40000)
+    offset = data.writeWord(offset, 0x0803f8e7)
+    offset = data.writeWord(offset, 0x34020000)
+    // Patch GFX - MottZilla
+    offset = 0x3868268
+    offset = data.writeWord(offset, 0x40000000)
+    offset = data.writeWord(offset, 0x3)
+    offset = data.writeWord(offset, 0x40000000)
+    offset = data.writeWord(offset, 0x3)
+    offset = data.writeWord(offset, 0x40000000)
+    offset = data.writeWord(offset, 0x3)
+    offset = data.writeWord(offset, 0x40000000)
+    offset = data.writeWord(offset, 0x3)
+    offset += 0x20
+    offset = data.writeWord(offset, 0xf7200000)
+    offset = data.writeWord(offset, 0x277)
+    offset = data.writeWord(offset, 0xf7200000)
+    offset = data.writeWord(offset, 0x277)
+    offset = data.writeWord(offset, 0xf7200000)
+    offset = data.writeWord(offset, 0x277)
+    offset = data.writeWord(offset, 0xf7200000)
+    offset = data.writeWord(offset, 0x277)
+    offset += 0x20
+    offset = data.writeWord(offset, 0x97122000)
+    offset = data.writeWord(offset, 0x22169)
+    offset = data.writeWord(offset, 0x97122000)
+    offset = data.writeWord(offset, 0x22169)
+    offset = data.writeWord(offset, 0x97122000)
+    offset = data.writeWord(offset, 0x22169)
+    offset = data.writeWord(offset, 0x97122000)
+    offset = data.writeWord(offset, 0x22169)
+    offset += 0x20
+    offset = data.writeWord(offset, 0x1f944300)
+    offset = data.writeWord(offset, 0x344971)
+    offset = data.writeWord(offset, 0x1f944300)
+    offset = data.writeWord(offset, 0x344971)
+    offset = data.writeWord(offset, 0x1f944300)
+    offset = data.writeWord(offset, 0x344971)
+    offset = data.writeWord(offset, 0x1f944300)
+    offset = data.writeWord(offset, 0x344971)
+    offset += 0x20
+    offset = data.writeWord(offset, 0xa9432130)
+    offset = data.writeWord(offset, 0x321449a)
+    offset = data.writeWord(offset, 0xa9432130)
+    offset = data.writeWord(offset, 0x321449a)
+    offset = data.writeWord(offset, 0xa9432130)
+    offset = data.writeWord(offset, 0x321449a)
+    offset = data.writeWord(offset, 0xa9432130)
+    offset = data.writeWord(offset, 0x321449a)
+    offset += 0x20
+    offset = data.writeWord(offset, 0x93319920)
+    offset = data.writeWord(offset, 0x2992349)
+    offset = data.writeWord(offset, 0x93319920)
+    offset = data.writeWord(offset, 0x2992349)
+    offset = data.writeWord(offset, 0x93319920)
+    offset = data.writeWord(offset, 0x2992349)
+    offset = data.writeWord(offset, 0x93319920)
+    offset = data.writeWord(offset, 0x2992349)
+    offset += 0x20
+    offset = data.writeWord(offset, 0x3f2c7690)
+    offset = data.writeWord(offset, 0x9679233)
+    offset = data.writeWord(offset, 0x3f2c7690)
+    offset = data.writeWord(offset, 0x9679233)
+    offset = data.writeWord(offset, 0x3f2c7690)
+    offset = data.writeWord(offset, 0x9679233)
+    offset = data.writeWord(offset, 0x3f2c7690)
+    offset = data.writeWord(offset, 0x9679233)
+    offset += 0x20
+    offset = data.writeWord(offset, 0xf29ccf60)
+    offset = data.writeWord(offset, 0x6fab913)
+    offset = data.writeWord(offset, 0xf29ccf60)
+    offset = data.writeWord(offset, 0x6fab913)
+    offset = data.writeWord(offset, 0xf293cf60)
+    offset = data.writeWord(offset, 0x6fab913)
+    offset = data.writeWord(offset, 0xf23c3f60)
+    offset = data.writeWord(offset, 0x6fab913)
+    offset += 0x20
+    offset = data.writeWord(offset, 0x19accbf0)
+    offset = data.writeWord(offset, 0xf9aaa91)
+    offset = data.writeWord(offset, 0x19cfcbf0)
+    offset = data.writeWord(offset, 0xf9aaa91)
+    offset = data.writeWord(offset, 0x193f3bf0)
+    offset = data.writeWord(offset, 0xf9aaa91)
+    offset = data.writeWord(offset, 0x19cfcbf0)
+    offset = data.writeWord(offset, 0xf9aaa91)
+    offset += 0x20
+    offset = data.writeWord(offset, 0x9accba70)
+    offset = data.writeWord(offset, 0x79baaa9)
+    offset = data.writeWord(offset, 0x9accba70)
+    offset = data.writeWord(offset, 0x79baaa9)
+    offset = data.writeWord(offset, 0x9ac3ba70)
+    offset = data.writeWord(offset, 0x79baaa9)
+    offset = data.writeWord(offset, 0x9a3c3a70)
+    offset = data.writeWord(offset, 0x79baaa9)
+    offset += 0x20
+    offset = data.writeWord(offset, 0xabccaf00)
+    offset = data.writeWord(offset, 0x79baaa)
+    offset = data.writeWord(offset, 0xabccaf00)
+    offset = data.writeWord(offset, 0x79baaa)
+    offset = data.writeWord(offset, 0xabccaf00)
+    offset = data.writeWord(offset, 0x79baaa)
+    offset = data.writeWord(offset, 0xabccaf00)
+    offset = data.writeWord(offset, 0x79baaa)
+    offset += 0x20
+    offset = data.writeWord(offset, 0xbbbaf000)
+    offset = data.writeWord(offset, 0x79bab)
+    offset = data.writeWord(offset, 0xbbbaf000)
+    offset = data.writeWord(offset, 0x79bab)
+    offset = data.writeWord(offset, 0xbbbaf000)
+    offset = data.writeWord(offset, 0x79bab)
+    offset = data.writeWord(offset, 0xbbbaf000)
+    offset = data.writeWord(offset, 0x79bab)
+    offset += 0x20
+    offset = data.writeWord(offset, 0xaaa70000)
+    offset = data.writeWord(offset, 0x79aa)
+    offset = data.writeWord(offset, 0xaaa70000)
+    offset = data.writeWord(offset, 0x79aa)
+    offset = data.writeWord(offset, 0xaaa70000)
+    offset = data.writeWord(offset, 0x79aa)
+    offset = data.writeWord(offset, 0xaaa70000)
+    offset = data.writeWord(offset, 0x79aa)
+    offset += 0x20
+    offset = data.writeWord(offset, 0xf7600000)
+    offset = data.writeWord(offset, 0x67f)
+    offset = data.writeWord(offset, 0xf7600000)
+    offset = data.writeWord(offset, 0x67f)
+    offset = data.writeWord(offset, 0xf7600000)
+    offset = data.writeWord(offset, 0x67f)
+    offset = data.writeWord(offset, 0xf7600000)
+    offset = data.writeWord(offset, 0x67f)
+    return data
+  }
+
+  function applyAntiFreezePatches() {
+    const data = new checked()
+    // Patch screen freeze value - eldri7ch
+    data.writeChar(0x00140a2c, 0x00)	// Patch from Boss-Rush / MottZilla
+    return data
+  }
+
+  function applyMyPursePatches() {
+    const data = new checked()
+    // Patch Death goes home - eldri7ch
+    data.writeWord(0x04baea08, 0x18000006)	// Patch from Boss-Rush / MottZilla
+    return data
+  }
+
+  function applyMapColor(mapcol) {	// Researched by MottZilla & eldri7ch. Function by eldri7ch
+    const data = new checked()
+    const addressAl = 0x03874848 //define address for alucard maps
+    const addressRi = 0x038C0508 //define address for richter maps
+    const addressAlBord = 0x03874864 //define address for alucard maps borders
+    const addressRiBord = 0x038C0524 //define address for richter maps borders
+    let colorWrite
+    let bordWrite
+    // Patch map colors - eldri7ch
+    switch (mapcol) {
+    case 'u': // Dark Blue
+      colorWrite = 0xb0000000
+      data.writeWord(addressAl, colorWrite)
+      data.writeWord(addressRi, colorWrite)
+      break
+    case 'r': // Crimson
+      colorWrite = 0x00500000
+      data.writeWord(addressAl, colorWrite)
+      data.writeWord(addressRi, colorWrite)
+      break
+    case 'b': // Brown
+      colorWrite = 0x80ca0000
+      data.writeWord(addressAl, colorWrite)
+      data.writeWord(addressRi, colorWrite)
+      break
+    case 'g': // Dark Green
+      colorWrite = 0x09000000
+      data.writeWord(addressAl, colorWrite)
+      data.writeWord(addressRi, colorWrite)
+      break
+    case 'y': // Gray
+      colorWrite = 0xE3180000
+      bordWrite = 0xffff
+      data.writeWord(addressAl, colorWrite)
+      data.writeWord(addressRi, colorWrite)
+      data.writeShort(addressAlBord,bordWrite)
+      data.writeShort(addressRiBord,bordWrite)
+      break
+    case 'p': // Purple
+      colorWrite = 0xB0080000
+      data.writeWord(addressAl, colorWrite)
+      data.writeWord(addressRi, colorWrite)
+      break
+    case 'y': // Pink
+      colorWrite = 0xff1f0000
+      bordWrite = 0xfd0f
+      data.writeWord(addressAl, colorWrite)
+      data.writeWord(addressRi, colorWrite)
+      data.writeShort(addressAlBord,bordWrite)
+      data.writeShort(addressRiBord,bordWrite)
+      break
+    }
+    return data
+  }
+
+  function applyiwsPatches() {
+    const data = new checked()
+    // Patch wing smash duration - eldri7ch
+    data.writeChar(0x00134074, 0x00)	// Patch from Bat-Master / MottZilla
+    return data
+  }
+
+  function applyfastwarpPatches() {
+    const data = new checked()
+    // Patch warp animation speed - eldri7ch
+    data.writeChar(0x0588be90, 0x02)	// Patch from Aperture / MottZilla
+    data.writeChar(0x05a78fe4, 0x02)
+    return data
+  }
+
+  function applynoprologuePatches() {
+    const data = new checked()
+    // Patch prologue removal; specifically setting the first room to enter as NO3 instead of ST0 - eldri7ch
+    data.writeChar(0x04392b1c, 0x41)	// Patch from Chaos-Lite / MottZilla
     return data
   }
 
@@ -4553,7 +5059,7 @@
       function postMessage(bootstrap) {
         const message = {
           action: constants.WORKER_ACTION.RELICS,
-          nonce: nonce++,
+          nonce: nonce++
         }
         if (bootstrap) {
           Object.assign(message, {
@@ -4658,6 +5164,30 @@
           if (value === 'random') {
             value = Math.floor(rng() * 0x100)
           }
+          else if (value === 'random1') {
+            // randomizes between 0 and 1 - eldri7ch
+            let randomInt
+            randomInt = Math.floor(rng() * 1)
+            value = '0x0' + randomInt
+          }
+          else if (value === 'random3') {
+            // randomizes between 0 and 3 - eldri7ch
+            let randomInt
+            randomInt = Math.floor(rng() * 3)
+            value = '0x0' + randomInt
+          }
+          else if (value === 'random10') {
+            // randomizes between 1 and 10 - eldri7ch
+            let randomInt
+            randomInt = Math.floor(rng() * 9) + 1
+            value = numToHex(randomInt)
+          }
+          else if (value === 'random99') {
+            // randomizes between 1 and 99 - eldri7ch
+            let randomInt
+            randomInt = Math.floor(rng() * 98) + 1
+            value = numToHex(randomInt)
+          }
           data.writeChar(write.address, value)
           break
         case 'short':
@@ -4671,6 +5201,12 @@
           value = write.value
           if (value === 'random') {
             value = Math.floor(rng() * 0x100000000)
+          }
+          else if (value === 'randomRelic') {
+            // "2690808163" translates to the address before the relic hex is added - eldri7ch
+            let relicHex
+            relicHex = Math.floor(rng() * 29) + 2690808164
+            value = numToHex(relicHex)
           }
           data.writeWord(write.address, value)
           break
@@ -5012,6 +5548,13 @@
     Preset: Preset,
     PresetBuilder: PresetBuilder,
     applyTournamentModePatches: applyTournamentModePatches,
+    applyMagicMaxPatches: applyMagicMaxPatches,
+    applyAntiFreezePatches: applyAntiFreezePatches,
+    applyMyPursePatches: applyMyPursePatches,
+    applyMapColor: applyMapColor,
+    applyiwsPatches: applyiwsPatches,
+    applyfastwarpPatches: applyfastwarpPatches,
+    applynoprologuePatches: applynoprologuePatches,
     randomizeRelics: randomizeRelics,
     randomizeItems: randomizeItems,
     applyWrites: applyWrites,

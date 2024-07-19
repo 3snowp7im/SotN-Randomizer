@@ -4,7 +4,7 @@
     "name": "Gem farmer",
     "description": "All progression must be purchased from the librarian. Released on April 1st, 2021.",
     "author": "3snow_p7im",
-    "weight": 300
+    "weight": -750
   },
   "stats": false,
   "preventLeaks": false,

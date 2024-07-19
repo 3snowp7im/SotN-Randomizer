@@ -4,9 +4,10 @@
     "name": "Scavenger",
     "description": "No enemy drops challenge mode.",
     "author": "3snow_p7im",
-    "weight": 100
+    "weight": 2250
   },
   "inherits": "safe",
+  "colorrandoMode": true,
   "enemyDrops": [{
     "enemy": "*",
     "items": [null, null]

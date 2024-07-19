@@ -3,8 +3,8 @@
     "id": "expedition",
     "name": "Expedition",
     "description": "Adventure locations with Nimble build.",
-    "author": "eldri7ch",
-    "weight": -100
+    "author": "eldri7ch and Mottzilla0",
+    "weight": -1250
   },
   "inherits": "nimble",
   "relicLocationsExtension": "equipment",
@@ -31,5 +31,92 @@
     "zone": "RNO3",
     "item": "Hammer",
     "replacement": "Library card"
+  }],
+  "writes": [{
+    "type": "word",
+    "address": "0x158C30",
+    "value": "0x3C028004",
+    "comment": "RLBC"
+  }, {
+    "type": "word",
+    "value": "0x9045925D"
+  }, {
+    "type": "word",
+    "value": "0x00000000"
+  }, {
+    "type": "word",
+    "value": "0x38A500FF"
+  }, {
+    "type": "word",
+    "value": "0x30A50040"
+  }, {
+    "type": "word",
+    "value": "0x10A00008"
+  }, {
+    "type": "word",
+    "value": "0x3C028007"
+  }, {
+    "type": "word",
+    "value": "0x9042BBFB"
+  }, {
+    "type": "word",
+    "value": "0x00000000"
+  }, {
+    "type": "word",
+    "value": "0x10400004"
+  }, {
+    "type": "word",
+    "value": "0x34180022"
+  }, {
+    "type": "word",
+    "value": "0x341988BE"
+  }, {
+    "type": "word",
+    "value": "0x18000003"
+  }, {
+    "type": "word",
+    "value": "0x00000000"
+  }, {
+    "type": "word",
+    "value": "0x34180002"
+  }, {
+    "type": "word",
+    "value": "0x34197C0E"
+  }, {
+    "type": "word",
+    "value": "0x3C02800F"
+  }, {
+    "type": "word",
+    "value": "0xA0581724"
+  }, {
+    "type": "word",
+    "value": "0x3B180020"
+  }, {
+    "type": "word",
+    "value": "0xA05832A4"
+  }, {
+    "type": "word",
+    "value": "0x00000000"
+  }, {
+    "type": "word",
+    "value": "0x3C02800A"
+  }, {
+    "type": "word",
+    "value": "0xA4593C98"
+  }, {
+    "type": "word",
+    "value": "0x34040000"
+  }, {
+    "type": "word",
+    "value": "0x0804390B"
+  }, {
+    "type": "word",
+    "value": "0x00000000",
+    "comment": "Block A End"
+  }, {
+    "type": "word",
+    "address": "0x12B534",
+    "value": "0x0C04DAE6",
+    "comment": "Reverse Library Card"
   }]
 }

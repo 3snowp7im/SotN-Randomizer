@@ -1382,6 +1382,16 @@
       })[0]
       const replacement = (addon || []).concat(pool).filter(function(item) {
         return item.tiles && item.tiles.some(function(tile) {
+          if (tile === undefined) {
+            if (name === 'Short sword') {
+              addresses = [ 0x0b6b3c ]
+            }
+            else if (name === 'Red Rust') {
+              addresses = [ 0x0b6b3a ]
+            }
+            return addresses
+              && addresses[0] === offsetTile.addresses[0]
+          }
           return tile.addresses
             && tile.addresses[0] === offsetTile.addresses[0]
         })
@@ -1390,7 +1400,10 @@
         if (item.tiles) {
           let index = -1
           item.tiles.forEach(function(tile, tileIndex) {
-            if (tile.addresses
+            if (tile === undefined) {
+              index = tileIndex
+            }
+            else if (tile.addresses
                 && tile.addresses[0] === noOffsetTile.addresses[0]) {
               index = tileIndex
             }
@@ -1528,8 +1541,44 @@
     randomizeJosephsCloak(data, rng)
     // Twilight Cloak.
     capeColor(data, 0x0afa44, 0x0afbac, {rng: rng})
+    // DOP10 Cloak. - MottZilla
+    capeColor(data, 0x627984c, 0x6279850, {rng: rng})
+    // DOP40 Cloak. - MottZilla
+    capeColor(data, 0x6894054, 0x6894058, {rng: rng})
   }
 
+  function randomizeHydroStormColor(data, rng){
+    const color1 = Math.floor(rng() * 0x100)
+    const color2 = Math.floor(rng() * 0x100)
+    const color3 = Math.floor(rng() * 0x100)
+    const color4 = Math.floor(rng() * 0x100)
+    const color5 = Math.floor(rng() * 0x100)
+    data.writeChar(0x3A19544, color1)
+    data.writeChar(0x3A19550, color2)
+    data.writeChar(0x3A19558, color3)
+    data.writeChar(0x3A19560, color4)
+    data.writeChar(0x3A19568, color5)
+  }
+
+  function randomizeGravBootColors(data, rng) {
+    // Base game has 2 bytes that it can set for a0 and a1
+    // set at 0x8011e1ac and 0x8011e1b0
+    const color1 = Math.floor(rng() * 0x100)
+    data.writeChar(0x13C814, color1)
+    const color2 = Math.floor(rng() * 0x100)
+    data.writeChar(0x13C818, color2)
+    const primWriteAddressStart = 0x13C82A
+    //Iterate through 12 values (r,g,and b for 4 prim corners)
+    for (var i = 0; i < 12; i++) {
+      // Select one color. 0x60 means 0, 0x64 is color1, 0x65 is color2.
+      const selectionIndex = Math.floor(rng() * 3)
+      const selectionByte = [0x60, 0x64, 0x65][selectionIndex]
+      // Go to the proper byte within the sb instruction and change which register writes
+      const targetAddress = primWriteAddressStart + i * 4
+      data.writeChar(targetAddress, selectionByte)
+    }
+  }
+  
   function randomizeItems(rng, items, newNames, options) {
     const data = new util.checked()
     const info = util.newInfo()
@@ -1650,7 +1699,12 @@
         // Turkey mode.
         if (options.turkeyMode) {
           turkeyMode(items, pool)
+        }
+        // Color Palette Rando mode.
+        if (options.colorrandoMode) {
           randomizeCapeColors(data, rng)
+          randomizeGravBootColors(data,rng)
+          randomizeHydroStormColor(data, rng)
         }
         // Write items to ROM.
         if (options.itemLocations

@@ -60,6 +60,161 @@
     }
   }
 
+  function replaceConfessionalWithRelic(data, confessional, relic) {
+    // Regular zone patches.
+    const zone = constants.zones[constants.ZONE.DAI]
+    // Change Entity Position.
+    data.writeWord(0x4678bba, 0x00500070)
+    // Replace entities.
+    confessional.entity.entities.forEach(function(entity) {
+      let addr = util().romOffset(zone, entity + 0x04)
+      addr = data.writeShort(addr, 0x000b)
+      addr = data.writeShort(addr, 0x0010)
+      addr = data.writeShort(addr, relic.relicId)
+    })
+  }
+
+  function replaceConfessionalWithItem(data, confessional, item, index) {
+    // Regular zone patches.
+    const zone = constants.zones[constants.ZONE.DAI]
+    // Change Entity Position.
+    data.writeWord(0x4678bba, 0x00500070)
+    // Replace entities.
+    confessional.entity.entities.forEach(function(entity) {
+      let addr = util().romOffset(zone, entity + 0x04)
+      addr = data.writeShort(addr, 0x000c)
+      addr = data.writeShort(addr, 0x0010)
+      addr = data.writeShort(addr, item.relicId)
+    })
+    // Change Entity to Refer to Table.
+    data.writeShort(0x4678bc2, index)
+  }
+
+  function replaceTelescopeWithRelic(data, telescope, relic) {
+    // Regular zone patches.
+    const zone = constants.zones[constants.ZONE.NO1]
+    // Change Entity Position.
+    data.writeWord(0x49d5a0c, 0x00A00160)
+    // Replace entities.
+    telescope.entity.entities.forEach(function(entity) {
+      let addr = util().romOffset(zone, entity + 0x04)
+      addr = data.writeShort(addr, 0x000b)
+      addr = data.writeShort(addr, 0x0010)
+      addr = data.writeShort(addr, relic.relicId)
+    })
+  }
+
+  function replaceTelescopeWithItem(data, telescope, item, index) {
+    // Regular zone patches.
+    const zone = constants.zones[constants.ZONE.NO1]
+    // Change Entity Position.
+    data.writeWord(0x49d5a0c, 0x00A00160)
+    // Replace entities.
+    telescope.entity.entities.forEach(function(entity) {
+      let addr = util().romOffset(zone, entity + 0x04)
+      addr = data.writeShort(addr, 0x000c)
+      addr = data.writeShort(addr, 0x0010)
+      addr = data.writeShort(addr, item.relicId)
+    })
+    // Change Entity to Refer to Table.
+    data.writeShort(0x49d5a14, index)
+  }
+
+  function replaceCloakedKnightWithRelic(data, cloakedKnight, relic) {
+    // Regular zone patches.
+    const zone = constants.zones[constants.ZONE.NZ1]
+    // Replace entities.
+    cloakedKnight.entity.entities.forEach(function(entity) {
+      let addr = util().romOffset(zone, entity + 0x04)
+      addr = data.writeShort(addr, 0x000b)
+      addr = data.writeShort(addr, 0x0010)
+      addr = data.writeShort(addr, relic.relicId)
+    })
+  }
+
+  function replaceCloakedKnightWithItem(data, cloakedKnight, item, index) {
+    let offset
+    // Regular zone patches.
+    const id = item.id
+    const zone = constants.zones[constants.ZONE.NZ1]
+    // Change Entity Position.
+    data.writeWord(0x5574dbc, 0x01150280)
+    data.writeWord(0x5575902, 0x01150280)
+    // Replace entities.
+    cloakedKnight.entity.entities.forEach(function(entity) {
+      let addr = util().romOffset(zone, entity + 0x04)
+      addr = data.writeShort(addr, 0x000c)
+      addr = data.writeShort(addr, 0x0010)
+      addr = data.writeShort(addr, item.itemId)
+    })
+    // Change Entity to Refer to Table.
+    data.writeShort(0x5574dc4, index)
+    data.writeShort(0x5575900, index)
+  }
+
+  function replaceWaterfallVesselWithRelic(data, waterfallVessel, relic) {
+    // Regular zone patches.
+    const zone = constants.zones[constants.ZONE.NO4]
+    // Change Entity Position.
+    data.writeWord(0x4c34fa6, 0x00a300a0)
+    // Replace entities.
+    waterfallVessel.entity.entities.forEach(function(entity) {
+      let addr = util().romOffset(zone, entity + 0x04)
+      addr = data.writeShort(addr, 0x000b)
+      addr = data.writeShort(addr, 0x0010)
+      addr = data.writeShort(addr, relic.relicId)
+    })
+  }
+
+  function replaceWaterfallVesselWithItem(data, waterfallVessel, item, index) {
+    // Regular zone patches.
+    const zone = constants.zones[constants.ZONE.NO4]
+    // Change Entity Position.
+    data.writeWord(0x4c34fa6, 0x00a300a0)
+    // Replace entities.
+    waterfallVessel.entity.entities.forEach(function(entity) {
+      let addr = util().romOffset(zone, entity + 0x04)
+      addr = data.writeShort(addr, 0x000c)
+      addr = data.writeShort(addr, 0x0010)
+      addr = data.writeShort(addr, item.relicId)
+    })
+    // Change Entity to Refer to Table.
+    data.writeShort(0x4c34fae, index)
+  }
+
+  function replaceBlackMarbleVatWithRelic(data, blackMarbleVat, relic) {
+    // Regular zone patches.
+    const zone = constants.zones[constants.ZONE.RNO0]
+    // Change Entity Position.
+    data.writeWord(0x4f88e62, 0x00a30280)
+    data.writeWord(0x4f8a12c, 0x00a30280)
+    // Replace entities.
+    blackMarbleVat.entity.entities.forEach(function(entity) {
+      let addr = util().romOffset(zone, entity + 0x04)
+      addr = data.writeShort(addr, 0x000b)
+      addr = data.writeShort(addr, 0x0010)
+      addr = data.writeShort(addr, relic.relicId)
+    })
+  }
+
+  function replaceBlackMarbleVatWithItem(data, blackMarbleVat, item, index) {
+    // Regular zone patches.
+    const zone = constants.zones[constants.ZONE.RNO0]
+    // Change Entity Position.
+    data.writeWord(0x4f88e62, 0x00a30280)
+    data.writeWord(0x4f8a12c, 0x00a30280)
+    // Replace entities.
+    blackMarbleVat.entity.entities.forEach(function(entity) {
+      let addr = util().romOffset(zone, entity + 0x04)
+      addr = data.writeShort(addr, 0x000c)
+      addr = data.writeShort(addr, 0x0010)
+      addr = data.writeShort(addr, item.relicId)
+    })
+    // Change Entity to Refer to Table.
+    data.writeShort(0x4f88e6b, index)
+    data.writeShort(0x4f8a135, index)
+  }
+  
   const locations = [{
     name: LOCATION.CRYSTAL_CLOAK,
     extension: EXTENSION.GUARDED,
@@ -636,6 +791,366 @@
     tileIndex: 0,
     asRelic: {
       y: 0x0080,
+    },
+  }, {
+    name: LOCATION.CONFESSIONAL,
+    extension: EXTENSION.TOURIST,
+    entity: {
+      zones: [ ZONE.DAI ],
+      entities: [ 0x27f2, 0x3184 ],
+    },
+    replaceWithRelic: replaceConfessionalWithRelic,
+    replaceWithItem: replaceConfessionalWithItem
+  }, {
+    name: LOCATION.TELESCOPE,
+    extension: EXTENSION.TOURIST,
+    entity: {
+      zones: [ ZONE.NO1 ],
+      entities: [ 0x3904, 0x4108 ],
+    },
+    replaceWithRelic: replaceTelescopeWithRelic,
+    replaceWithItem: replaceTelescopeWithItem
+  }, {
+    name: LOCATION.COLOSSEUM_GREEN_TEA,
+    extension: EXTENSION.TOURIST,
+    itemId: 58,
+    tileIndex: 0,
+    asRelic: {
+      y: 0x00a9,
+    },
+  }, {
+    name: LOCATION.CLOCK_TOWER_CLOAKED_KNIGHT,
+    extension: EXTENSION.TOURIST,
+    entity: {
+      zones: [ ZONE.NZ1 ],
+      entities: [ 0x2444, 0x2e50 ],
+    },
+    replaceWithRelic: replaceCloakedKnightWithRelic,
+    replaceWithItem: replaceCloakedKnightWithItem
+  }, {
+    name: LOCATION.WATERFALL_CAVE,
+    extension: EXTENSION.TOURIST,
+    entity: {
+      zones: [ ZONE.NO4 ],
+      entities: [ 0x3f6e, 0x5000 ],
+    },
+    replaceWithRelic: replaceWaterfallVesselWithRelic,
+    replaceWithItem: replaceWaterfallVesselWithItem
+  }, {
+    name: LOCATION.FLOATING_CATACOMBS_ELIXIR,
+    extension: EXTENSION.TOURIST,
+    itemId: 161,
+    tileIndex: 2,
+    asRelic: {
+      y: 0x0077,
+    },
+  }, {
+    name: LOCATION.REVERSE_ENTRANCE_ANTIVENOM,
+    extension: EXTENSION.TOURIST,
+    itemId: 144,
+    tileIndex: 3,
+    asRelic: {
+      y: 0x0279,
+    },
+  }, {
+    name: LOCATION.REVERSE_FORBIDDEN_ROUTE,
+    extension: EXTENSION.TOURIST,
+    itemId: 166,
+    tileIndex: 5,
+    asRelic: {
+      y: 0x02b5,
+    },
+  }, {
+    name: LOCATION.CAVE_LIFE_APPLE,
+    extension: EXTENSION.TOURIST,
+    itemId: 146,
+    tileIndex: 3,
+    asRelic: {
+      y: 0x00a0,
+    },
+  }, {
+    name: LOCATION.REVERSE_COLOSSEUM_ZIRCON,
+    extension: EXTENSION.TOURIST,
+    itemId: 232,
+    tileIndex: 8,
+    asRelic: {
+      y: 0x00ad,
+    },
+  }, {
+    name: LOCATION.BLACK_MARBLE_GALLERY_VAT,
+    extension: EXTENSION.TOURIST,
+    entity: {
+      zones: [ ZONE.RNO0 ],
+      entities: [ 0x3bea, 0x4c54 ],
+    },
+    replaceWithRelic: replaceBlackMarbleVatWithRelic,
+    replaceWithItem: replaceBlackMarbleVatWithItem
+  }, {
+    name: LOCATION.BLACK_MARBLE_MEAL_TICKET,
+    extension: EXTENSION.TOURIST,
+    itemId: 70,
+    tileIndex: 4,
+    asRelic: {
+      x: 0x0088,
+      y: 0x00a5,
+    },
+  }, {
+    name: LOCATION.REVERSE_KEEP_HIGH_POTION,
+    extension: EXTENSION.TOURIST,
+    itemId: 160,
+    tileIndex: 0,
+    asRelic: {
+      y: 0x0180,
+    },
+  }, {
+    name: LOCATION.CONFESSIONAL,
+    extension: EXTENSION.WANDERER,
+    entity: {
+      zones: [ ZONE.DAI ],
+      entities: [ 0x27f2, 0x3184 ],
+    },
+    replaceWithRelic: replaceConfessionalWithRelic,
+    replaceWithItem: replaceConfessionalWithItem
+  }, {
+    name: LOCATION.TELESCOPE,
+    extension: EXTENSION.WANDERER,
+    entity: {
+      zones: [ ZONE.NO1 ],
+      entities: [ 0x3904, 0x4108 ],
+    },
+    replaceWithRelic: replaceTelescopeWithRelic,
+    replaceWithItem: replaceTelescopeWithItem
+  }, {
+    name: LOCATION.COLOSSEUM_GREEN_TEA,
+    extension: EXTENSION.WANDERER,
+    itemId: 58,
+    tileIndex: 0,
+    asRelic: {
+      y: 0x00a9,
+    },
+  }, {
+    name: LOCATION.CLOCK_TOWER_CLOAKED_KNIGHT,
+    extension: EXTENSION.WANDERER,
+    entity: {
+      zones: [ ZONE.NZ1 ],
+      entities: [ 0x2444, 0x2e50 ],
+    },
+    replaceWithRelic: replaceCloakedKnightWithRelic,
+    replaceWithItem: replaceCloakedKnightWithItem
+  }, {
+    name: LOCATION.WATERFALL_CAVE,
+    extension: EXTENSION.WANDERER,
+    entity: {
+      zones: [ ZONE.NO4 ],
+      entities: [ 0x3f6e, 0x5000 ],
+    },
+    replaceWithRelic: replaceWaterfallVesselWithRelic,
+    replaceWithItem: replaceWaterfallVesselWithItem
+  }, {
+    name: LOCATION.FLOATING_CATACOMBS_ELIXIR,
+    extension: EXTENSION.WANDERER,
+    itemId: 161,
+    tileIndex: 2,
+    asRelic: {
+      y: 0x0077,
+    },
+  }, {
+    name: LOCATION.REVERSE_ENTRANCE_ANTIVENOM,
+    extension: EXTENSION.WANDERER,
+    itemId: 144,
+    tileIndex: 3,
+    asRelic: {
+      y: 0x0279,
+    },
+  }, {
+    name: LOCATION.REVERSE_FORBIDDEN_ROUTE,
+    extension: EXTENSION.WANDERER,
+    itemId: 166,
+    tileIndex: 5,
+    asRelic: {
+      y: 0x02b5,
+    },
+  }, {
+    name: LOCATION.CAVE_LIFE_APPLE,
+    extension: EXTENSION.WANDERER,
+    itemId: 146,
+    tileIndex: 3,
+    asRelic: {
+      y: 0x00a0,
+    },
+  }, {
+    name: LOCATION.REVERSE_COLOSSEUM_ZIRCON,
+    extension: EXTENSION.WANDERER,
+    itemId: 232,
+    tileIndex: 8,
+    asRelic: {
+      y: 0x00ad,
+    },
+  }, {
+    name: LOCATION.BLACK_MARBLE_GALLERY_VAT,
+    extension: EXTENSION.WANDERER,
+    entity: {
+      zones: [ ZONE.RNO0 ],
+      entities: [ 0x3bea, 0x4c54 ],
+    },
+    replaceWithRelic: replaceBlackMarbleVatWithRelic,
+    replaceWithItem: replaceBlackMarbleVatWithItem
+  }, {
+    name: LOCATION.BLACK_MARBLE_MEAL_TICKET,
+    extension: EXTENSION.WANDERER,
+    itemId: 70,
+    tileIndex: 4,
+    asRelic: {
+      x: 0x0088,
+      y: 0x00a5,
+    },
+  }, {
+    name: LOCATION.REVERSE_KEEP_HIGH_POTION,
+    extension: EXTENSION.WANDERER,
+    itemId: 160,
+    tileIndex: 0,
+    asRelic: {
+      y: 0x0180,
+    },
+  }, {
+    name: LOCATION.BASILARD,
+    extension: EXTENSION.WANDERER,
+    itemId: 18,
+    tileIndex: 0,
+    asRelic: {
+      y: 0x0090,
+    },
+  }, {
+    name: LOCATION.GOGGLES,
+    extension: EXTENSION.WANDERER,
+    itemId: 201,
+    tileIndex: 0,
+    asRelic: {
+      y: 0x0120,
+    },
+  }, {
+    name: LOCATION.GOLD_PLATE,
+    extension: EXTENSION.WANDERER,
+    itemId: 176,
+    tileIndex: 0,
+    asRelic: {
+      y: 0x0090,
+    },
+  }, {
+    name: LOCATION.BEKATOWA,
+    extension: EXTENSION.WANDERER,
+    itemId: 92,
+    tileIndex: 0,
+    asRelic: {
+      y: 0x0280,
+    },
+  }, {
+    name: LOCATION.MYSTIC_PENDANT,
+    extension: EXTENSION.WANDERER,
+    itemId: 245,
+    tileIndex: 0,
+  }, {
+    name: LOCATION.JEWEL_KNUCKLES,
+    extension: EXTENSION.WANDERER,
+    itemId: 97,
+    tileIndex: 0,
+    asRelic: {
+      y: 0x0090,
+    },
+  }, {
+    name: LOCATION.ALUCART_SWORD,
+    extension: EXTENSION.WANDERER,
+    itemId: 168,
+    tileIndex: 0,
+    asRelic: {
+      y: 0x00b0,
+    },
+  }, {
+    name: LOCATION.NUNCHAKU,
+    extension: EXTENSION.WANDERER,
+    itemId: 21,
+    tileIndex: 0,
+    asRelic: {
+      y: 0x00f2,
+    },
+  }, {
+    name: LOCATION.RING_OF_ARES,
+    extension: EXTENSION.WANDERER,
+    itemId: 240,
+    tileIndex: 0,
+    asRelic: {
+      y: 0x0190,
+    },
+  }, {
+    name: LOCATION.BERYL_CIRCLET,
+    extension: EXTENSION.WANDERER,
+    itemId: 211,
+    tileIndex: 0,
+    asRelic: {
+      y: 0x0090,
+    },
+  }, {
+    name: LOCATION.KATANA,
+    extension: EXTENSION.WANDERER,
+    itemId: 100,
+    tileIndex: 0,
+    asRelic: {
+      x: 0x0080,
+      y: 0x0070,
+    },
+  }, {
+    name: LOCATION.TWILIGHT_CLOAK,
+    extension: EXTENSION.WANDERER,
+    itemId: 225,
+    tileIndex: 0,
+    asRelic: {
+      y: 0x0080,
+    },
+  }, {
+    name: LOCATION.PLATINUM_MAIL,
+    extension: EXTENSION.WANDERER,
+    itemId: 177,
+    tileIndex: 0,
+    asRelic: {
+      y: 0x00be,
+    },
+  }, {
+    name: LOCATION.MOON_ROD,
+    extension: EXTENSION.WANDERER,
+    itemId: 132,
+    tileIndex: 0,
+    asRelic: {
+      y: 0x0080,
+    },
+  }, {
+    name: LOCATION.LUMINUS,
+    extension: EXTENSION.WANDERER,
+    itemId: 105,
+    tileIndex: 0,
+  }, {
+    name: LOCATION.REVERSE_CAVERNS_OPAL,
+    extension: EXTENSION.WANDERER,
+    itemId: 237,
+    tileIndex: 1,
+    asRelic: {
+      y: 0x0090,
+    },
+  }, {
+    name: LOCATION.OSAFUNE_KATANA,
+    extension: EXTENSION.WANDERER,
+    itemId: 139,
+    tileIndex: 0,
+    asRelic: {
+      x: 0x0080,
+      y: 0x0080,
+    },
+  }, {
+    name: LOCATION.GRAM,
+    extension: EXTENSION.WANDERER,
+    itemId: 108,
+    tileIndex: 0,
+    asRelic: {
+      y: 0x00b0,
     },
   }]
 

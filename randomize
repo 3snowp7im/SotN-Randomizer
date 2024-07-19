@@ -449,6 +449,11 @@ function presetMetaHelp(preset) {
   if (typeof(options.relicLocations) === 'object'
       && 'extension' in options.relicLocations) {
     switch (options.relicLocations.extension) {
+    case constants.EXTENSION.WANDERER:
+      extensions.push(constants.EXTENSION.WANDERER)
+      break
+    case constants.EXTENSION.TOURIST:
+      extensions.push(constants.EXTENSION.TOURIST)  
     case constants.EXTENSION.EQUIPMENT:
       extensions.push(constants.EXTENSION.EQUIPMENT)
     case constants.EXTENSION.SPREAD:
@@ -590,6 +595,52 @@ const yargs = require('yargs')
     describe: 'Enable tournament mode (`--help tournament`)',
     type: 'boolean',
   })
+  .option('colorrando', {
+    alias: 'l',
+    describe: 'Enable color palette randomizing for various things',
+    type: 'boolean',
+  })
+  .option('magicmax', {
+    alias: 'x',
+    describe: 'Enable replace Heart Max with Magic Max Vessels',
+    type: 'boolean',
+  })
+  .option('antifreeze', {
+    alias: 'z',
+    describe: 'Enable Anti-Freeze Mode, removes screen freezes from level-up & more.',
+    type: 'boolean',
+  })
+  .option('mypurse', {
+    alias: 'y',
+    describe: 'Prevents Death from stealing your belongings.',
+    type: 'boolean',
+  })
+  .option('mapcolor', {
+    alias: 'm',
+    describe: 'Change map color',
+    type: 'string',
+    requiresArg: true,
+  })
+  .option('iws', {
+    alias: 'b',
+    describe: 'Makes wing smash essentially infinite.',
+    type: 'boolean',
+  })
+  .option('fastwarp', {
+    alias: '9',
+    describe: 'Quickens warp animation when using teleporters.',
+    type: 'boolean',
+  })
+  .option('noprologue', {
+    alias: 'R',
+    describe: 'Quickens warp animation when using teleporters.',
+    type: 'boolean',
+  })
+  .option('debug', {
+    alias: 'D',
+    describe: 'Debug mode.',
+    type: 'boolean',
+  })
   .option('disable-accessibility-patches', {
     alias: 'a',
     describe: 'Disable accessibility patches',
@@ -637,6 +688,16 @@ if (process.argv.length < 3) {
   console.error('\nAt least 1 argument or option required')
   process.exit(1)
 }
+// check for debug
+if ('debug' in argv) {
+  if ('tournament' in argv) {
+    console.error('\nYou cannot run debug mode at the same time as tournament mode.')
+    process.exit(1)
+  } else {
+    console.log('Begin Debug output:')
+  }
+}
+if ('debug' in argv) {console.log('randomize | Checking for help flags')}
 // Check for help.
 if ('help' in argv) {
   if (!argv.help) {
@@ -675,6 +736,7 @@ if ('help' in argv) {
 if (argv.compat) {
   version = argv.compat
 }
+if ('debug' in argv) {console.log('randomize | Checking for seed string')}
 // Check for seed string.
 if ('seed' in argv) {
   if ('noSeed' in argv) {
@@ -684,6 +746,7 @@ if ('seed' in argv) {
   }
   seed = argv.seed.toString()
 }
+if ('debug' in argv) {console.log('randomize | Checking for base URL')}
 // Check for base url.
 if (argv.url) {
   baseUrl = argv.url
@@ -692,6 +755,7 @@ if (argv.url) {
 if (argv.noSeed) {
   argv.url = ''
 }
+if ('debug' in argv) {console.log('randomize | Checking for expected checksum')}
 // Check for expected checksum.
 if ('expectChecksum' in argv) {
   if (!('seed' in argv) && !argv._[0]) {
@@ -707,6 +771,7 @@ if ('expectChecksum' in argv) {
   expectChecksum = parseInt(argv.expectChecksum, 16)
   haveChecksum = true
 }
+if ('debug' in argv) {console.log('randomize | Checking for randomization string from CLI')}
 // Check for randomization string.
 if ('options' in argv) {
   try {
@@ -717,6 +782,7 @@ if ('options' in argv) {
     process.exit(1)
   }
 }
+if ('debug' in argv) {console.log('randomize | Checking for preset name')}
 // Check for preset.
 if ('preset' in argv) {
   try {
@@ -771,6 +837,7 @@ if (options && 'preset' in options
     process.exit(1)
   }
 }
+if ('debug' in argv) {console.log('randomize | Assume safe if no preset')}
 // Assume safe if negations are specified without a preset.
 if (options) {
   const copy = Object.assign({}, options)
@@ -783,7 +850,7 @@ if (options) {
     options.preset = 'safe'
   }
 }
-
+if ('debug' in argv) {console.log('randomize | Checking for URL seed')}
 // Check for seed url.
 if (argv._[0]) {
   if ('noSeed' in argv) {
@@ -822,6 +889,7 @@ if (argv._[0]) {
     console.error('\nArgument seed is not url seed')
     process.exit(1)
   }
+  if ('debug' in argv) {console.log('randomize | Checking for options matching arguments')}
   // Ensure randomizations match if given using --options.
   const optionStr = util.optionsToString(options)
   if (('options' in argv && argv.options !== optionStr)
@@ -830,6 +898,7 @@ if (argv._[0]) {
     console.error('\nArgument randomizations are not url randomizations')
     process.exit(1)
   }
+  if ('debug' in argv) {console.log('randomize | Checking for expected checksum matching checksum')}
   // Ensure checksum match if given using --expect-checksum.
   if ('expectChecksum' in argv && url.checksum != expectChecksum) {
     yargs.showHelp()
@@ -837,6 +906,7 @@ if (argv._[0]) {
     process.exit(1)
   }
 }
+if ('debug' in argv) {console.log('randomize | Enable race options')}
 // Set options for --race.
 if (argv.race) {
   argv.url = ''
@@ -844,10 +914,12 @@ if (argv.race) {
     argv.verbose = 2
   }
 }
+if ('debug' in argv) {console.log('randomize | Enable quiet option')}
 // Suppress output if quiet argument specified.
 if (argv.quiet) {
   argv.verbose = 0
 }
+if ('debug' in argv) {console.log('randomize | Enable option defaults if non specified')}
 // Create default options if none provided.
 if (typeof(seed) === 'undefined' && !argv.noSeed) {
   seed = (new Date()).getTime().toString()
@@ -855,6 +927,7 @@ if (typeof(seed) === 'undefined' && !argv.noSeed) {
 if (!options) {
   options = util.optionsFromString(constants.defaultOptions)
 }
+if ('debug' in argv) {console.log('randomize | Set complexity')}
 // Check for complexity setting.
 if ('complexity' in argv) {
   let applied = Object.assign({}, options)
@@ -876,6 +949,7 @@ if ('complexity' in argv) {
       process.exit(1)
     }
   }
+  if ('debug' in argv) {console.log('randomize | Set seed goals')}
   // Get seed goals.
   let complexity = Object.getOwnPropertyNames(applied.relicLocations).filter(
     function(key) {
@@ -896,21 +970,77 @@ if ('complexity' in argv) {
     process.exit(1)
   }
 }
+if ('debug' in argv) {console.log('randomize | Set tournament mode')}
 // Enable tournament mode if specified.
 if (argv.tournament) {
   options.tournamentMode = true
 }
+if ('debug' in argv) {console.log('randomize | Set color rando')}
+// Enable color rando mode if specified. - MottZilla
+if (argv.colorrando) { // Enable Color Randomizations
+  options.colorrandoMode = true
+}
+if ('debug' in argv) {console.log('randomize | Set magic max')}
+// Enable magic max mode if specified. - MottZilla
+if (argv.magicmax) { // Adds MP Vessel to replace Heart Vessel - eldrich
+  options.magicmaxMode = true
+}
+if ('debug' in argv) {console.log('randomize | Set anti-freeze')}
+// Enable anti-freeze mode if specified. - eldri7ch
+if (argv.antifreeze) { // Removes screen freezes from level-up and acquisitions - eldrich
+  options.antiFreezeMode = true
+}
+if ('debug' in argv) {console.log('randomize | Set my purse')}
+// Enable my purse mode if specified. - eldri7ch
+if (argv.mypurse) { // Adds MP Vessel to replace Heart Vessel - eldrich
+  options.mypurseMode = true
+}
+if ('debug' in argv) {console.log('randomize | Set map colors')}
+// Map Color Features if specified. - eldri7ch
+if ('mapcolor' in argv && typeof(argv.mapcolor) !== 'undefined') {
+  let termsAllowed = 'u,r,b,g,y,p,k'
+  if (!(termsAllowed.includes(argv.mapcolor))) {
+    yargs.showHelp()
+    console.error('\nMust contain a letter \'u\'(Blue), \'r\'(Crimson), \'b\'(Brown), \'g\'(Green), \'y\'(Gray), \'p\'(Purple), \'k\'(Pink)')
+    process.exit(1)
+  } else {
+    options.mapcolorTheme = argv.mapcolor.toString()
+  }
+}
+if ('debug' in argv) {console.log('randomize | Set infinite wing smash')}
+// Enable infinite wing smash mode if specified. - eldri7ch
+if (argv.iws) { // Makes wing smashes essentially infinite - eldrich
+  options.iwsMode = true
+}
+if ('debug' in argv) {console.log('randomize | Set fast warp')}
+// Enable fast warp mode if specified. - eldri7ch
+if (argv.fastwarp) { // quickens teleporter warp animation - eldrich
+  options.fastwarpMode = true
+}
+if ('debug' in argv) {console.log('randomize | Set no prologue')}
+// Enable no prologue mode if specified. - eldri7ch
+if (argv.noprologue) { // Removes prologue - eldrich
+  options.noprologueMode = true
+}
+if ('debug' in argv) {console.log('randomize | Set debug')}
+// Enable debug mode if specified. - eldri7ch
+if (argv.debug) { // Enables debug - eldrich
+  options.debugMode = true
+}
+if ('debug' in argv) {console.log('randomize | Set verbosity')}
 // Set misc options.
 if ('verbose' in argv) {
   options.verbose = argv.verbose
 }
 const info = util.newInfo()
+if ('debug' in argv) {console.log('randomize | Set seed if not pre-defined')}
 // Add seed to log info if not provided through command line.
 if (!argv.noSeed && (!('url' in argv) || argv._[0])) {
   info[1]['Seed'] = seed
 }
 let fd
 let size
+if ('debug' in argv) {console.log('randomize | Read BIN file')}
 // Read bin file if provided.
 if ('inBin' in argv) {
   eccEdcCalc = require('./src/ecc-edc-recalc-js')
@@ -931,15 +1061,21 @@ if ('inBin' in argv) {
     process.exit(1)
   }
 }
-
+if ('debug' in argv) {console.log('randomize | Start randomization')}
 (async function randomize() {
   try {
     let check
     let checksum
+    let startTime
+    let endTime
+
+    startTime = performance.now()
+
     if (!argv.noSeed) {
       check = new util.checked(typeof(fd) === 'object' ? undefined : fd)
       let applied
       try {
+        if ('debug' in argv) {console.log('randomize | function: randomize | Check for overriding preset')}
         // Check for overriding preset.
         let override
         for (let preset of presets) {
@@ -949,6 +1085,7 @@ if ('inBin' in argv) {
             break
           }
         }
+        if ('debug' in argv) {console.log('randomize | function: randomize | Retrieve user-specified options')}
         // Get user specified options.
         if (!override) {
           applied = util.Preset.options(options)
@@ -961,6 +1098,7 @@ if ('inBin' in argv) {
       try {
         let rng
         let result
+        if ('debug' in argv) {console.log('randomize | function: randomize | Randomize stats')}
         // Randomize stats.
         rng = new require('seedrandom')(util.saltSeed(
           version,
@@ -971,12 +1109,14 @@ if ('inBin' in argv) {
         result = randomizeStats(rng, applied)
         const newNames = result.newNames
         check.apply(result.data)
+        if ('debug' in argv) {console.log('randomize | function: randomize | Randomize Relics:assemble workers')}
         // Randomize relics.
         const cores = os.cpus().length
         const workers = Array(util.workerCountFromCores(cores))
         for (let i = 0; i < workers.length; i++) {
           workers[i] = new Worker('./src/worker.js')
         }
+        if ('debug' in argv) {console.log('randomize | function: randomize | Randomize Relics:call util function')}
         result = await util.randomizeRelics(
           version,
           applied,
@@ -987,8 +1127,9 @@ if ('inBin' in argv) {
           4,
         )
         util.mergeInfo(info, result.info)
+        if ('debug' in argv) {console.log('randomize | function: randomize | Randomize Relics:Write new relic map')}
         // Write relics mapping.
-        rng = new require('seedrandom')(util.saltSeed(
+        rng = new require('seedrandom')(util.saltSeed( //new rng generation?
           version,
           options,
           seed,
@@ -1001,6 +1142,7 @@ if ('inBin' in argv) {
           newNames,
         )
         check.apply(result.data)
+        if ('debug' in argv) {console.log('randomize | function: randomize | Randomize Items:call util function')}
         // Randomize items.
         result = await util.randomizeItems(
           version,
@@ -1012,8 +1154,10 @@ if ('inBin' in argv) {
           result.items,
           newNames,
         )
+        if ('debug' in argv) {console.log('randomize | function: randomize | Randomize Items:Write new item map')}
         check.apply(result.data)
         util.mergeInfo(info, result.info)
+        if ('debug' in argv) {console.log('randomize | function: randomize | Randomize Music')}
         // Randomize music.
         rng = new require('seedrandom')(util.saltSeed(
           version,
@@ -1022,13 +1166,53 @@ if ('inBin' in argv) {
           3,
         ))
         check.apply(randomizeMusic(rng, applied))
+        if ('debug' in argv) {console.log('randomize | function: randomize | Apply patches from options')}
+        if ('debug' in argv) {console.log('randomize | function: randomize | Tournament Mode')}
         if (options.tournamentMode) {
           // Apply tournament mode patches.
           check.apply(util.applyTournamentModePatches())
         }
+        if ('debug' in argv) {console.log('randomize | function: randomize | Magicmax Mode')}
+        if (options.magicmaxMode || applied.magicmaxMode) { // Adds MP Vessel to replace Heart Vessel - eldrich
+          // Apply magic max mode patches. - MottZilla
+          check.apply(util.applyMagicMaxPatches())
+        }
+        if ('debug' in argv) {console.log('randomize | function: randomize | Anti-Freeze Mode')}
+        if (options.antiFreezeMode || applied.antiFreezeMode) { // Removes screen freezes on relic / vessel collection and level-up - eldrich
+          // Apply anti-freeze mode patches. - eldri7ch
+          check.apply(util.applyAntiFreezePatches())
+        }
+        if ('debug' in argv) {console.log('randomize | function: randomize | That\'s my purse! Mode')}
+        if (options.mypurseMode || applied.mypurseMode) { // Removes Death from Entrance - eldrich
+          // Apply Death repellant patches. - eldri7ch
+          check.apply(util.applyMyPursePatches())
+        }
+        if ('debug' in argv) {console.log('randomize | function: randomize | Map colors')}
+        if ('mapcolor' in argv) { // Colors the map - eldrich
+          // Apply map color patches. - eldri7ch
+          let mapcol = argv.mapcolor
+          check.apply(util.applyMapColor(mapcol))
+        }
+        if ('debug' in argv) {console.log('randomize | function: randomize | Infinite Wing Smash Mode')}
+        if (options.iwsMode || applied.iwsMode) { // Makes wing smash essentially infinite - eldrich
+          // Apply infinite wing smashe mode patches. - eldri7ch
+          check.apply(util.applyiwsPatches())
+        }
+        if ('debug' in argv) {console.log('randomize | function: randomize | Fast Warps Mode')}
+        if (options.fastwarpMode || applied.fastwarpMode) { // Quickens teleporter warp animations - eldrich
+          // Apply fast warp mode patches. - eldri7ch
+          check.apply(util.applyfastwarpPatches())
+        }
+        if ('debug' in argv) {console.log('randomize | function: randomize | No Prologue Mode')}
+        if (options.noprologueMode || applied.noprologueMode) { // removes prologue - eldrich
+          // Apply no prologue mode patches. - eldri7ch
+          check.apply(util.applynoprologuePatches())
+        }
+        if ('debug' in argv) {console.log('randomize | function: randomize | Apply Writes')}
         // Apply writes.
         check.apply(util.applyWrites(rng, applied))
       } catch (err) {
+        if ('debug' in argv) {console.log('randomize | function: randomize | Error catching')}
         console.error('Seed: ' + seed)
         if (errors.isError(err)) {
           console.error('Error: ' + err.message)
@@ -1037,6 +1221,7 @@ if ('inBin' in argv) {
         }
         process.exit(1)
       }
+      if ('debug' in argv) {console.log('randomize | function: randomize | Set seed text in menu')}
       util.setSeedText(
         check,
         seed,
@@ -1045,16 +1230,19 @@ if ('inBin' in argv) {
         options.tournamentMode,
       )
       checksum = await check.sum()
+      if ('debug' in argv) {console.log('randomize | function: randomize | Checksum verification')}
       // Verify expected checksum matches actual checksum.
       if (haveChecksum && expectChecksum !== checksum) {
         console.error('Checksum mismatch.')
         process.exit(1)
       }
     }
+    if ('debug' in argv) {console.log('randomize | function: randomize | Accessibility patches')}
     if (!argv.disableAccessibilityPatches) {
       // Apply accessibility patches.
       check.apply(applyAccessibilityPatches())
     }
+    if ('debug' in argv) {console.log('randomize | function: randomize | Show url if not provided as arg')}
     // Show url if not provided as arg.
     if ('url' in argv && !argv._[0] && !argv.quiet) {
       console.log(util.optionsToUrl(
@@ -1065,19 +1253,38 @@ if ('inBin' in argv) {
         baseUrl,
       ))
     }
+    if ('debug' in argv) {console.log('randomize | function: randomize | Show spoilers')}
     // Print spoilers.
     if (argv.verbose > 0) {
       let verbose = argv.verbose
       if (options.tournamentMode && argv.verbose >= 2) {
         verbose = 2
       }
+      if ('debug' in argv && argv.verbose <= 4) {
+        verbose = 4
+      }
       const text = util.formatInfo(info, verbose)
+
+      //start calculating the time elapsed
+      endTime = performance.now();
+      var timeDiff = endTime - startTime; //in ms 
+      // strip the ms 
+      timeDiff /= 1000; 
+  
+      // get the time 
+      var time = Math.round(timeDiff);
+      var minutes = Math.floor(time / 60)
+      var seconds = time - minutes * 60;
+
       if (text.length) {
+        console.log("Generation time: " + minutes + ":" + seconds)
         console.log(text)
       }
     }
     if (!argv.noSeed) {
       if ('out' in argv) {
+        if ('debug' in argv) {console.log('Continue debug output:')}
+        if ('debug' in argv) {console.log('randomize | function: randomize | Check if BIN input, if not, use PPF')}
         if ('inBin' in argv) {
           // If is not an in-place randomization, apply writes to the buffer
           // containing the disc image bytes.
@@ -1093,16 +1300,19 @@ if ('inBin' in argv) {
           fs.writeFileSync(argv.out, patch)
         }
       }
+      if ('debug' in argv) {console.log('randomize | function: randomize | Write error detection')}
       // Write error detection codes.
       if (fd) {
         eccEdcCalc(fd, size, true)
       }
+      if ('debug' in argv) {console.log('randomize | function: randomize | Output BIN')}
       // Write randomized bin.
       if (typeof(fd) === 'object') {
         fs.writeFileSync(argv.out, fd)
       }
     }
   } finally {
+    if ('debug' in argv) {console.log('randomize | function: randomize | Wrap-up')}
     if (typeof(fd) === 'number') {
       fs.closeSync(fd)
     }

@@ -50,7 +50,8 @@
     const workers = Array(count)
     const url = new URL(window.location.href)
     if (url.protocol === 'file:') {
-      const source = '(' + randomizeWorker.toString() + ')()'
+      randomizeWorkerString = randomizeWorker.toString()
+      const source = '(' + randomizeWorkerString + ')()'
       for (let i = 0; i < count; i++) {
         workers[i] = new Worker(
           URL.createObjectURL(new Blob([source], {
@@ -216,6 +217,12 @@
       elems.relicLocationsExtension.equipment.checked =
         options.relicLocations
         && options.relicLocations.extension === constants.EXTENSION.EQUIPMENT
+      elems.relicLocationsExtension.tourist.checked =
+        options.relicLocations
+        && options.relicLocations.extension === constants.EXTENSION.TOURIST
+      elems.relicLocationsExtension.wanderer.checked =
+        options.relicLocations
+        && options.relicLocations.extension === constants.EXTENSION.WANDERER
       elems.relicLocationsExtension.classic.checked =
         options.relicLocations
         && !options.relicLocations.extension
@@ -254,6 +261,8 @@
       elems.relicLocationsExtension.guarded.checked = false
       elems.relicLocationsExtension.spread.checked = false
       elems.relicLocationsExtension.equipment.checked = false
+      elems.relicLocationsExtension.tourist.checked = false
+      elems.relicLocationsExtension.wanderer.checked = false
       elems.relicLocationsExtension.classic.checked = false
     } else {
       elems.relicLocationsSet.disabled = false
@@ -263,6 +272,10 @@
         relicLocationsExtensionCache === constants.EXTENSION.SPREAD
       elems.relicLocationsExtension.equipment.checked =
         relicLocationsExtensionCache === constants.EXTENSION.EQUIPMENT
+      elems.relicLocationsExtension.tourist.checked =
+        relicLocationsExtensionCache === constants.EXTENSION.TOURIST
+      elems.relicLocationsExtension.wanderer.checked =
+        relicLocationsExtensionCache === constants.EXTENSION.WANDERER
       elems.relicLocationsExtension.classic.checked =
         !relicLocationsExtensionCache
     }
@@ -271,10 +284,12 @@
   function adjustMaxComplexity() {
     switch (relicLocationsExtensionCache) {
     case constants.EXTENSION.EQUIPMENT:
-      elems.complexity.max = 14
+    case constants.EXTENSION.TOURIST:
+      elems.complexity.max = 15
       break
     case constants.EXTENSION.GUARDED:
     case constants.EXTENSION.SPREAD:
+    case constants.EXTENSION.WANDERER:
     default:
       elems.complexity.max = 11
       break
@@ -292,6 +307,10 @@
       value = constants.EXTENSION.SPREAD
     } else if (elems.relicLocationsExtension.equipment.checked) {
       value = constants.EXTENSION.EQUIPMENT
+    } else if (elems.relicLocationsExtension.tourist.checked) {
+      value = constants.EXTENSION.TOURIST
+    } else if (elems.relicLocationsExtension.wanderer.checked) {
+      value = constants.EXTENSION.WANDERER
     } else{
       value = false
     }
@@ -348,6 +367,34 @@
       elems.showRelics.disabled = false
     }
     localStorage.setItem('tournamentMode', elems.tournamentMode.checked)
+  }
+
+  function colorrandoModeChange() {
+    localStorage.setItem('colorrandoMode', elems.colorrandoMode.checked)
+  }
+  
+  function magicmaxModeChange() {
+    localStorage.setItem('magicmaxMode', elems.magicmaxMode.checked)
+  }
+
+  function antiFreezeModeChange() {
+    localStorage.setItem('antiFreezeMode', elems.antiFreezeMode.checked)
+  }
+
+  function mypurseModeChange() {
+    localStorage.setItem('mypurseMode', elems.mypurseMode.checked)
+  }
+
+  function iwsModeChange() {
+    localStorage.setItem('iwsMode', elems.iwsMode.checked)
+  }
+
+  function fastwarpModeChange() {
+    localStorage.setItem('fastwarpMode', elems.fastwarpMode.checked)
+  }
+
+  function noprologueModeChange() {
+    localStorage.setItem('noprologueMode', elems.noprologueMode.checked)
   }
 
   function accessibilityPatchesChange() {
@@ -444,11 +491,20 @@
         relicLocations.extension = constants.EXTENSION.SPREAD
       } else if (elems.relicLocationsExtension.equipment.checked) {
         relicLocations.extension = constants.EXTENSION.EQUIPMENT
+      } else if (elems.relicLocationsExtension.tourist.checked) {
+        relicLocations.extension = constants.EXTENSION.TOURIST
+      } else if (elems.relicLocationsExtension.wanderer.checked) {
+        relicLocations.extension = constants.EXTENSION.WANDERER
       } else {
         delete relicLocations.extension
       }
       const extensions = []
       switch (relicLocations.extension) {
+      case constants.EXTENSION.WANDERER:
+        extensions.push(constants.EXTENSION.WANDERER)
+        break
+      case constants.EXTENSION.TOURIST:
+      extensions.push(constants.EXTENSION.TOURIST)
       case constants.EXTENSION.EQUIPMENT:
         extensions.push(constants.EXTENSION.EQUIPMENT)
       case constants.EXTENSION.SPREAD:
@@ -486,6 +542,27 @@
       if (elems.tournamentMode.checked) {
         options.tournamentMode = true
       }
+      if (elems.colorrandoMode.checked) {
+        options.colorrandoMode = true
+      }
+      if (elems.magicmaxMode.checked) {
+        options.magicmaxMode = true
+      }
+      if (elems.antiFreezeMode.checked) {
+        options.antiFreezeMode = true
+      }
+      if (elems.mypurseMode.checked) {
+        options.mypurseMode = true
+      }
+      if (elems.iwsMode.checked) {
+        options.iwsMode = true
+      }
+      if (elems.fastwarpMode.checked) {
+        options.fastwarpMode = true
+      }
+      if (elems.noprologueMode.checked) {
+        options.noprologueMode = true
+      }
       return options
     }
     const options = {
@@ -498,6 +575,13 @@
       music: elems.music.checked,
       turkeyMode: elems.turkeyMode.checked,
       tournamentMode: elems.tournamentMode.checked,
+      colorrandoMode: elems.colorrandoMode.checked,
+      magicmaxMode: elems.magicmaxMode.checked,
+      antiFreezeMode: elems.antiFreezeMode.checked,
+      mypurseMode: elems.mypurseMode.checked,
+      iwsMode: elems.iwsMode.checked,
+      fastwarpMode: elems.fastwarpMode.checked,
+      noprologueMode: elems.noprologueMode.checked,
     }
     if (elems.enemyDropsArg.value) {
       options.enemyDrops = util.optionsFromString(
@@ -532,7 +616,52 @@
     return options
   }
 
+  function generateSeedName(){
+    let adjectives = [];
+    let nouns = [];
+
+    let month = new Date().getMonth() + 1;
+
+    switch (month) {
+        case 10:
+            adjectives = constants.adjectivesHalloween;
+            nouns = constants.nounsHalloween;
+            break;
+        case 12:
+            adjectives = constants.adjectivesHolidays;
+            nouns = constants.nounsNormal;
+            break;
+
+        default:
+            adjectives = constants.adjectivesNormal;
+            nouns = constants.nounsNormal;
+            break;
+    }
+
+    let adjective = adjectives[Math.floor(Math.random() * Math.floor(adjectives.length - 1))];
+    let noun = nouns[Math.floor(Math.random() * Math.floor(nouns.length - 1))];
+    let number = Math.floor(Math.random() * 999);
+    if (number % 100 === 69) {
+        number = '69Nice';
+    }
+
+    let suffix = '';
+
+    let seedName = adjective + noun + number + suffix;
+
+    return seedName;
+  }
+
   function submitListener(event) {
+    // Get seed.
+    let selectedPreset = null
+    if(elems.preset.checked) {
+      selectedPreset = elems.presetId.childNodes[elems.presetId.selectedIndex].value
+      self.sotnRando.selectedPreset = selectedPreset
+    }else{
+      self.sotnRando.selectedPreset = null
+    }
+
     event.preventDefault()
     event.stopPropagation()
     // Disable UI.
@@ -540,9 +669,9 @@
     // Show loading bar.
     showLoader()
     // Create new info collection.
-    info = util.newInfo()
-    // Get seed.
-    let seed = (new Date()).getTime().toString()
+    info = util.newInfo()    
+
+    let seed = generateSeedName()
     if (elems.seed.value.length) {
       seed = elems.seed.value
     }
@@ -592,6 +721,11 @@
       const newNames = result.newNames
       check.apply(result.data)
       // Randomize relics.
+      let selectedPreset = null
+      if(elems.preset.checked) {
+        selectedPreset = elems.presetId.childNodes[elems.presetId.selectedIndex].value
+        util.selectedPreset = selectedPreset
+      }
       return util.randomizeRelics(
         version,
         applied,
@@ -641,6 +775,30 @@
         if (options.tournamentMode) {
           check.apply(util.applyTournamentModePatches())
         }
+        // Apply magic max patches.
+        if (options.magicmaxMode) {
+          check.apply(util.applyMagicMaxPatches())
+        }
+        // Apply anti-freeze patches.
+        if (options.antiFreezeMode) {
+          check.apply(util.applyAntiFreezePatches())
+        }
+        // Apply my purse patches.
+        if (options.mypurseMode) {
+          check.apply(util.applyMyPursePatches())
+        }
+        // Apply iws patches.
+        if (options.iwsMode) {
+          check.apply(util.applyiwsPatches())
+        }
+        // Apply fast warp patches.
+        if (options.fastwarpMode) {
+          check.apply(util.applyfastwarpPatches())
+        }
+        // Apply no prologue patches.
+        if (options.noprologueMode) {
+          check.apply(util.applynoprologuePatches())
+        }
         // Apply writes.
         check.apply(util.applyWrites(rng, applied))
         util.setSeedText(
@@ -679,17 +837,22 @@
         }))
         let fileName
         if (elems.output.ppf.checked) {
-          fileName = 'SotN-Randomizer.ppf'
+          fileName = seed + ".ppf"
+          if(selectedPreset !== null) fileName = selectedPreset + "-" + fileName
         } else {
           fileName = selectedFile.name
         }
         if (elems.appendSeed.checked) {
-          elems.download.download = randomizedFilename(
-            fileName,
-            seed,
-          )
-        } else {
           elems.download.download = fileName
+        } else {
+          resultName = "SotN-Randomizer"
+          if(selectedPreset !== null) resultName = resultName + "-" + selectedPreset
+          if(elems.output.ppf.checked){
+            elems.download.download = resultName + ".ppf"
+          }else{
+            elems.download.download = resultName + ".bin"
+          }
+          
         }
         elems.download.href = url
         elems.download.click()
@@ -847,6 +1010,8 @@
       guarded: document.getElementById('extension-guarded'),
       spread: document.getElementById('extension-spread'),
       equipment: document.getElementById('extension-equipment'),
+      tourist: document.getElementById('extension-tourist'),
+      wanderer: document.getElementById('extension-wanderer'),
       classic: document.getElementById('extension-classic'),
     },
     relicLocationsArg: document.getElementById('relic-locations-arg'),
@@ -862,6 +1027,13 @@
     theme: document.getElementById('theme'),
     appendSeed: document.getElementById('append-seed'),
     tournamentMode: document.getElementById('tournament-mode'),
+    colorrandoMode: document.getElementById('colorrando-mode'),
+    magicmaxMode: document.getElementById('magicmax-mode'),
+    antiFreezeMode: document.getElementById('antifreeze-mode'),
+    mypurseMode: document.getElementById('mypurse-mode'),
+    iwsMode: document.getElementById('iws-mode'),
+    fastwarpMode: document.getElementById('fastwarp-mode'),
+    noprologueMode: document.getElementById('noprologue-mode'),
     accessibilityPatches: document.getElementById('accessibility-patches'),
     showSpoilers: document.getElementById('show-spoilers'),
     showRelics: document.getElementById('show-relics'),
@@ -900,6 +1072,14 @@
     'change',
     relicLocationsExtensionChange,
   )
+  elems.relicLocationsExtension.tourist.addEventListener(
+    'change',
+    relicLocationsExtensionChange,
+  )
+  elems.relicLocationsExtension.wanderer.addEventListener(
+    'change',
+    relicLocationsExtensionChange,
+  )
   elems.relicLocationsExtension.classic.addEventListener(
     'change',
     relicLocationsExtensionChange,
@@ -913,6 +1093,13 @@
   elems.theme.addEventListener('change', themeChange)
   elems.appendSeed.addEventListener('change', appendSeedChange)
   elems.tournamentMode.addEventListener('change', tournamentModeChange)
+  elems.colorrandoMode.addEventListener('change', colorrandoModeChange)
+  elems.magicmaxMode.addEventListener('change', magicmaxModeChange)
+  elems.antiFreezeMode.addEventListener('change', antiFreezeModeChange)
+  elems.mypurseMode.addEventListener('change', mypurseModeChange)
+  elems.iwsMode.addEventListener('change', iwsModeChange)
+  elems.fastwarpMode.addEventListener('change', fastwarpModeChange)
+  elems.noprologueMode.addEventListener('change', noprologueModeChange)
   elems.accessibilityPatches.addEventListener('change', accessibilityPatchesChange)
   elems.showSpoilers.addEventListener('change', spoilersChange)
   elems.showRelics.addEventListener('change', showRelicsChange)
@@ -920,7 +1107,27 @@
   elems.copy.addEventListener('click', copyHandler)
   elems.showOlder.addEventListener('click', showOlderHandler)
   // Load presets
-  presets.forEach(function(preset) {
+  sortedPresets = presets
+  sortedPresets.sort(function(a, b) {
+    if (!('weight' in a && 'id' in a)) {
+      if (!('weight' in b && 'id' in b)) {
+        return 0
+      }
+      return 1
+    } else if (!('weight' in b && 'id' in b)) {
+      return -1
+    }
+    const weight = a.weight - b.weight
+    if (weight === 0) {
+      if (a.id < b.id) {
+        return -1
+      } else if (a.id > b.id) {
+        return 1
+      }
+    }
+    return weight
+  })
+  sortedPresets.forEach(function(preset) {
     if (!preset.hidden) {
       const option = document.createElement('option')
       option.value = preset.id
@@ -931,8 +1138,12 @@
   const url = new URL(window.location.href)
   const releaseBaseUrl = constants.optionsUrls[constants.defaultOptions]
   const releaseHostname = new URL(releaseBaseUrl).hostname
-  const isDev = url.hostname !== releaseHostname
-  const fakeVersion = '0.0.0-dev'
+//  const isDev = url.hostname !== releaseHostname
+//  const fakeVersion = '0.0.0-dev'
+  // Added for index.html browser usage. This removes the development warning and sets the version number.
+  // version number will need to be kept up to date in the future along with the ones in index.html and package jsons.
+  const isDev = false
+  const fakeVersion = '3.16.0'
   if (url.protocol !== 'file:') {
     fetch('package.json', {cache: 'no-store'}).then(function(response) {
       if (response.ok) {
@@ -1050,11 +1261,11 @@
       // serialized, without including the relic locations extension.
       const relicOptions = util.optionsFromString(util.optionsToString({
         relicLocations: Object.assign({}, applied.relicLocations, {
-          extension: constants.EXTENSION.EQUIPMENT,
+          extension: constants.EXTENSION.TOURIST,
         }),
       }).replace(new RegExp(':?' + util.optionsToString({
         relicLocations: {
-          extension: constants.EXTENSION.EQUIPMENT,
+          extension: constants.EXTENSION.TOURIST,
         },
       }).slice(2)), ''))
       // Restore original extension from URL.
@@ -1065,6 +1276,12 @@
       relicLocationsArg = util.optionsToString(relicOptions)
     }
     elems.relicLocationsArg.value = relicLocationsArg
+    elems.relicLocationsExtension.wanderer.checked =
+      applied.relicLocations
+      && applied.relicLocations.extension === constants.EXTENSION.WANDERER
+    elems.relicLocationsExtension.tourist.checked =
+      applied.relicLocations
+      && applied.relicLocations.extension === constants.EXTENSION.TOURIST
     elems.relicLocationsExtension.guarded.checked =
       applied.relicLocations
       && applied.relicLocations.extension === constants.EXTENSION.GUARDED
@@ -1127,6 +1344,12 @@
       case constants.EXTENSION.EQUIPMENT:
         elems.relicLocationsExtension.equipment.checked = true
         break
+      case constants.EXTENSION.WANDERER:
+        elems.relicLocationsExtension.wanderer.checked = true
+        break
+      case constants.EXTENSION.TOURIST:
+        elems.relicLocationsExtension.tourist.checked = true
+        break
       default:
         elems.relicLocationsExtension.classic.checked = true
         break
@@ -1139,7 +1362,7 @@
     relicLocationsExtensionChange()
     let presetId = localStorage.getItem('presetId')
     if (typeof(presetId) !== 'string') {
-      presetId = 'safe'
+      presetId = 'casual'
     }
     let index = 0
     for (let i = 0; i < presets.length; i++) {
@@ -1186,6 +1409,13 @@
   loadOption('showSolutions', showSolutionsChange, false)
   loadOption('showRelics', showRelicsChange, false)
   loadOption('tournamentMode', tournamentModeChange, false)
+  loadOption('colorrandoMode', colorrandoModeChange, false)
+  loadOption('magicmaxMode', magicmaxModeChange, false)
+  loadOption('antiFreezeMode', antiFreezeModeChange, false)
+  loadOption('mypurseMode', mypurseModeChange, false)
+  loadOption('iwsMode', iwsModeChange, false)
+  loadOption('fastwarpMode', fastwarpModeChange, false)
+  loadOption('noprologueMode', noprologueModeChange, false)
   loadOption('accessibilityPatches', accessibilityPatchesChange, true)
   loadOption('showSpoilers', spoilersChange, true)
   setTimeout(function() {
