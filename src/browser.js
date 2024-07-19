@@ -847,7 +847,12 @@
         } else {
           resultName = "SotN-Randomizer"
           if(selectedPreset !== null) resultName = resultName + "-" + selectedPreset
-          elems.download.download = resultName + ".ppf"
+          if(elems.output.ppf.checked){
+            elems.download.download = resultName + ".ppf"
+          }else{
+            elems.download.download = resultName + ".bin"
+          }
+          
         }
         elems.download.href = url
         elems.download.click()
