@@ -1025,10 +1025,8 @@ if ('inBin' in argv) {
     let startTime
     let endTime
 
-    startTime = performance.now()
-    
-    
-    const presets = require('./build/presets')  // REPLACE
+    startTime = performance.now()    
+    const presets = require('./build/presets') 
     if (!argv.noSeed) {
       check = new util.checked(typeof(fd) === 'object' ? undefined : fd)
       let applied
