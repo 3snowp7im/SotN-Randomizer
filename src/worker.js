@@ -8,7 +8,9 @@ function randomizeWorker() {
   let randomizeItems
   let seedrandom
 
-  function loadBrowser(url) {
+  function loadBrowser(url, selectedPreset = null) {
+    // This allows the presets to be loaded from the browser
+    // If you add any inheritance preset, add it to this list.
     importScripts(
       'https://cdnjs.cloudflare.com/ajax/libs/seedrandom/3.0.1/seedrandom.min.js',
       url + 'src/constants.js',
@@ -21,42 +23,18 @@ function randomizeWorker() {
       url + 'build/presets/casual.js',
       url + 'build/presets/safe.js',
       url + 'build/presets/adventure.js',
-      url + 'build/presets/og.js',
-      url + 'build/presets/guarded-og.js',
-      url + 'build/presets/speedrun.js',
-      url + 'build/presets/lycanthrope.js',
-      url + 'build/presets/warlock.js',
       url + 'build/presets/nimble.js',
-      url + 'build/presets/expedition.js',
-      url + 'build/presets/glitch.js',
-      url + 'build/presets/bat-master.js',
-      url + 'build/presets/scavenger.js',
-      url + 'build/presets/empty-hand.js',
-      url + 'build/presets/gem-farmer.js',
-      url + 'build/presets/third-castle.js',
-      url + 'build/presets/rat-race.js',
-      url + 'build/presets/magic-mirror.js',
-      url + 'build/presets/leg-day.js',
-      url + 'build/presets/boss-rush.js',
-      url + 'build/presets/aperture.js',
-      url + 'build/presets/bountyhunter.js',
-      url + 'build/presets/bountyhuntertc.js',
-      url + 'build/presets/hitman.js',
-      url + 'build/presets/chaos-lite.js',
-      url + 'build/presets/big-toss.js',
-      url + 'build/presets/beyond.js',
-      url + 'build/presets/breach.js',
-      url + 'build/presets/grand-tour.js',
-      url + 'build/presets/crash-course.js',
-      url + 'build/presets/forge.js',
-      url + 'build/presets/lookingglass.js',
-      url + 'build/presets/skinwalker.js',
-      url + 'build/presets/summoner.js',
-      url + 'build/presets/brawler.js',
       url + 'src/randomize_items.js',
       url + 'src/randomize_relics.js',
       url + 'src/ecc-edc-recalc-js.js',
     )
+    let loadedPresets = ["casual", "safe", "adventure", "nimble"]
+    console.log(selectedPreset)    
+    
+    if(selectedPreset !== null && !(selectedPreset in loadedPresets)){
+      importScripts(url + `build/presets/${selectedPreset}.js`)
+    }
+
     constants = self.sotnRando.constants
     eccEdcCalc = self.eccEdcCalc
     errors = self.sotnRando.errors
@@ -96,7 +74,7 @@ function randomizeWorker() {
     }
     if (!('action' in message)) {
       if (typeof(module) === 'undefined') {
-        loadBrowser(message.url)
+        loadBrowser(message.url, message.selectedPreset)
       } else {
         loadNode()
       }

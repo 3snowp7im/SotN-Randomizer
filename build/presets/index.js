@@ -1,49 +1,24 @@
 (function(self) {
 
   let exports
-  if (self) {
+  if (self) {    
     exports = self.sotnRando.presets
   } else {
+    // Load the basic presets. All preset used as part of inheritance must be here.
     exports = [
       require('./casual'),
       require('./safe'),
       require('./adventure'),
-      require('./og'),
-      require('./guarded-og'),
-      require('./speedrun'),
-      require('./lycanthrope'),
-      require('./warlock'),
       require('./nimble'),
-      require('./expedition'),
-      require('./glitch'),
-      require('./scavenger'),
-      require('./empty-hand'),
-      require('./bat-master'),
-      require('./gem-farmer'),
-      require('./third-castle'),
-      require('./rat-race'),
-      require('./magic-mirror'),
-      require('./leg-day'),
-      require('./boss-rush'),
-      require('./aperture'),
-      require('./big-toss'),
-      require('./bountyhunter'),
-      require('./bountyhuntertc'),
-      require('./hitman'),
-      require('./chaos-lite'),
-      require('./beyond'),
-      require('./breach'),
-      require('./grand-tour'),
-      require('./crash-course'),
-      require('./forge'),
-      require('./lookingglass'),
-      require('./skinwalker'),
-      require('./summoner'),
-      require('./agonizetwtw'),
-      require('./stwosafe'),
-      require('./open'),
-      require('./brawler'),
     ]
+    // We will use this to know which preset we loaded already. If you add any new inheritance preset, add it here.
+    let loadedPresets = ["casual", "safe", "adventure", "nimble"]  
+    // Then only load the file of the specified preset
+    if(!(process.env.chosenPreset in loadedPresets) && process.env.chosenPreset !== undefined){   
+      let presetToLoad = process.env.chosenPreset
+      loadPreset = require(`./${presetToLoad}`)      
+      exports.push(loadPreset)
+    }
   }
 
   if (self) {    
