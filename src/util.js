@@ -4752,9 +4752,14 @@
   }
 
   function loadWorker(worker, url) {
+    if(self){
+      selectedPreset = self.sotnRando.selectedPreset
+    }else{
+      selectedPreset = null
+    }
     worker.postMessage({
       url: url,
-      selectedPreset: self.sotnRando.selectedPreset
+      selectedPreset: selectedPreset
     })
   }
 
