@@ -1710,11 +1710,16 @@
           randomize.push('9')
         }
         delete options.fastwarpMode
-      } else if ('noprologueMode' in options) { // quickensd the teleporter warp animations - eldrich
+      } else if ('noprologueMode' in options) { // Removes prologue - eldrich
         if (options.noprologueMode) {
           randomize.push('R')
         }
         delete options.noprologueMode
+      } else if ('debugMode' in options) { // Debug mode - eldrich
+        if (options.debugMode) {
+          randomize.push('D')
+        }
+        delete options.debugMode
       } else if ('preset' in options) {
         randomize.push('p:' + options.preset)
         delete options.preset
@@ -2933,6 +2938,7 @@
     iwsMode,
     fastwarpMode,
     noprologueMode,
+    debugMode,
     mapcolorTheme,
     writes,
   ) {
@@ -2958,6 +2964,7 @@
     this.iwsMode = iwsMode
     this.fastwarpMode = fastwarpMode
     this.noprologueMode = noprologueMode
+    this.debugMode = debugMode
     this.mapcolorTheme = mapcolorTheme
     if (writes) {
       this.writes = writes
@@ -3096,6 +3103,8 @@
     this.fastwarp = false
     // No Prologue mode.
     this.noprologue = false
+    // No Prologue mode.
+    this.debug = false
     // Arbitrary writes.
     this.writes = undefined
   }
@@ -4714,6 +4723,7 @@
     const iws = self.iws
     const fastwarp = self.fastwarp
     const noprologue = self.noprologue
+    const debug = self.debug
     const writes = self.writes
     return new Preset(
       self.metadata.id,
@@ -4739,6 +4749,7 @@
       iws,
       fastwarp,
       noprologue,
+      debug,
       writes,
     )
   }
