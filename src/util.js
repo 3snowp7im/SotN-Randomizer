@@ -4754,6 +4754,7 @@
   function loadWorker(worker, url) {
     worker.postMessage({
       url: url,
+      selectedPreset: self.sotnRando.selectedPreset
     })
   }
 
@@ -5042,7 +5043,7 @@
       function postMessage(bootstrap) {
         const message = {
           action: constants.WORKER_ACTION.RELICS,
-          nonce: nonce++,
+          nonce: nonce++
         }
         if (bootstrap) {
           Object.assign(message, {

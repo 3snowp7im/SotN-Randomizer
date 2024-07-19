@@ -50,7 +50,8 @@
     const workers = Array(count)
     const url = new URL(window.location.href)
     if (url.protocol === 'file:') {
-      const source = '(' + randomizeWorker.toString() + ')()'
+      randomizeWorkerString = randomizeWorker.toString()
+      const source = '(' + randomizeWorkerString + ')()'
       for (let i = 0; i < count; i++) {
         workers[i] = new Worker(
           URL.createObjectURL(new Blob([source], {
@@ -652,6 +653,15 @@
   }
 
   function submitListener(event) {
+    // Get seed.
+    let selectedPreset = null
+    if(elems.preset.checked) {
+      selectedPreset = elems.presetId.childNodes[elems.presetId.selectedIndex].value
+      self.sotnRando.selectedPreset = selectedPreset
+    }else{
+      self.sotnRando.selectedPreset = null
+    }
+
     event.preventDefault()
     event.stopPropagation()
     // Disable UI.
@@ -659,12 +669,7 @@
     // Show loading bar.
     showLoader()
     // Create new info collection.
-    info = util.newInfo()
-    // Get seed.
-    let selectedPreset = null
-    if(elems.preset.checked) {
-      selectedPreset = elems.presetId.childNodes[elems.presetId.selectedIndex].value
-    }
+    info = util.newInfo()    
 
     let seed = generateSeedName()
     if (elems.seed.value.length) {
@@ -716,6 +721,11 @@
       const newNames = result.newNames
       check.apply(result.data)
       // Randomize relics.
+      let selectedPreset = null
+      if(elems.preset.checked) {
+        selectedPreset = elems.presetId.childNodes[elems.presetId.selectedIndex].value
+        util.selectedPreset = selectedPreset
+      }
       return util.randomizeRelics(
         version,
         applied,
