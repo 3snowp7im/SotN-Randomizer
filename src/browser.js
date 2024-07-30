@@ -843,14 +843,18 @@
           fileName = selectedFile.name
         }
         if (elems.appendSeed.checked) {
-          elems.download.download = fileName
+          if(elems.output.ppf.checked){
+            elems.download.download = fileName
+          }else{
+            elems.download.download = randomizedFilename(fileName, seed)
+          }          
         } else {
           resultName = "SotN-Randomizer"
           if(selectedPreset !== null) resultName = resultName + "-" + selectedPreset
           if(elems.output.ppf.checked){
             elems.download.download = resultName + ".ppf"
           }else{
-            elems.download.download = resultName + ".bin"
+            elems.download.download = fileName
           }
           
         }
