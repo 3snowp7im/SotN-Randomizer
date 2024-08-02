@@ -1578,6 +1578,15 @@
       data.writeChar(targetAddress, selectionByte)
     }
   }
+
+  // Wing smash uses a palette pulled from the GPU.
+  // By default, this is palette #0x8102 (see EntityWingSmashTrail in decomp)
+  // Keep the 0x8100, but change the lower byte to pick a random palette.
+  // This write is to 8011e438 at runtime.
+  function randomizeWingSmashColor(data,rng) {
+    const newPalette = Math.floor(rng() * 0x100)
+    data.writeChar(0x13CAA0, newPalette)
+  }
   
   function randomizeItems(rng, items, newNames, options) {
     const data = new util.checked()
@@ -1705,6 +1714,8 @@
           randomizeCapeColors(data, rng)
           randomizeGravBootColors(data,rng)
           randomizeHydroStormColor(data, rng)
+          randomizeWingSmashColor(data,rng)
+
         }
         // Write items to ROM.
         if (options.itemLocations
