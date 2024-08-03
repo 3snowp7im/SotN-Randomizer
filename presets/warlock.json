@@ -313,7 +313,7 @@
     "location": "Platinum mail",
     "locks": [
       "Soul of Bat",
-      "Gravity Boots",
+      "Gravity Boots + Leap Stone",
       "Power of Mist"
     ]
   }, {
@@ -425,7 +425,7 @@
     "location": "Secret boots",
     "locks": [
       "Jewel of Open + Soul of Bat",
-      "Jewel of Open + Gravity Boots + Leap Stone",
+      "Jewel of Open + Leap Stone",
       "Jewel of Open + Power of Mist"
     ]
   }, {
@@ -669,8 +669,7 @@
     "location": "Osafune katana",
     "locks": [
       "Holy glasses + Soul of Bat",
-      "Holy glasses + Gravity Boots + Leap Stone",
-      "Holy glasses + Power of Mist"
+      "Holy glasses + Gravity Boots + Leap Stone"
     ]
   }, {
     "location": "Alucard shield",

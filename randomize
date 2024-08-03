@@ -601,6 +601,11 @@ const yargs = require('yargs')
     describe: 'Quickens warp animation when using teleporters.',
     type: 'boolean',
   })
+  .option('unlocked', {
+    alias: 'U',
+    describe: 'Unlocks all shortcuts.',
+    type: 'boolean',
+  })
   .option('debug', {
     alias: 'D',
     describe: 'Debug mode.',
@@ -1021,6 +1026,11 @@ if ('debug' in argv) {console.log('randomize | Set no prologue')}
 if (argv.noprologue) { // Removes prologue - eldrich
   options.noprologueMode = true
 }
+if ('debug' in argv) {console.log('randomize | Set unlocked')}
+// Enable unlocked mode if specified. - eldri7ch
+if (argv.unlocked) { // opens shortcuts - eldrich
+  options.unlockedMode = true
+}
 if ('debug' in argv) {console.log('randomize | Set debug')}
 // Enable debug mode if specified. - eldri7ch
 if (argv.debug) { // Enables debug - eldrich
@@ -1208,6 +1218,11 @@ if ('debug' in argv) {console.log('randomize | Start randomization')}
         if (options.noprologueMode || applied.noprologueMode) { // removes prologue - eldrich
           // Apply no prologue mode patches. - eldri7ch
           check.apply(util.applynoprologuePatches())
+        }
+        if ('debug' in argv) {console.log('randomize | function: randomize | Unlocked Mode')}
+        if (options.unlockedMode || applied.unlockedMode) { // removes prologue - eldrich
+          // Apply unlocked mode patches. - eldri7ch
+          check.apply(util.applyunlockedPatches())
         }
         if ('debug' in argv) {console.log('randomize | function: randomize | Apply Writes')}
         // Apply writes.

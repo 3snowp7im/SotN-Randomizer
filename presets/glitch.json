@@ -144,6 +144,16 @@
       "Sword Card + InfDiam"
     ]
   }, {
+    "location": "Faerie Card",
+    "locks": [
+      "Leap Stone",
+      "Form of Mist",
+      "Soul of Wolf",
+      "Gravity Boots",
+      "Soul of Bat",
+      "Clay"
+    ]
+  }, {
     "location": "Soul of Bat",
     "locks": [
       "Hrefresh1 + Hrefresh2",

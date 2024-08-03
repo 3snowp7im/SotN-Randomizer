@@ -344,7 +344,7 @@
     "comment": "Requires at least Gravity Boots",
     "locks": [
       "Soul of Bat",
-      "Gravity Boots",
+      "Gravity Boots + Leap Stone",
       "Form of Mist + Power of Mist"
     ]
   }, {
@@ -439,7 +439,7 @@
     "comment": "Requires flight",
     "locks": [
       "Soul of Bat",
-      "Gravity Boots + Leap Stone",
+      "Leap Stone",
       "Form of Mist + Power of Mist"
     ]
   }, {
@@ -677,8 +677,7 @@
     "comment": "Requires Holy glasses + flight",
     "locks": [
       "Holy glasses + Soul of Bat",
-      "Holy glasses + Gravity Boots + Leap Stone",
-      "Holy glasses + Form of Mist + Power of Mist"
+      "Holy glasses + Gravity Boots + Leap Stone"
     ]
   }, {
     "location": "Alucard shield",
@@ -5872,7 +5871,6 @@
     "comment": "Requires Wolf Swim up Waterfall",
     "locks": [
       "Soul of Wolf + Skill of Wolf + Holy Symbol",
-      "Leap Stone",
       "Gravity Boots + Form of Mist",
       "Gravity Boots + Soul of Wolf",
       "Gravity Boots + Thrust sword"

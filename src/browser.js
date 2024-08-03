@@ -397,6 +397,10 @@
     localStorage.setItem('noprologueMode', elems.noprologueMode.checked)
   }
 
+  function unlockedModeChange() {
+    localStorage.setItem('unlockedMode', elems.unlockedMode.checked)
+  }
+
   function accessibilityPatchesChange() {
     localStorage.setItem('accessibilityPatches', elems.accessibilityPatches.checked)
   }
@@ -563,6 +567,9 @@
       if (elems.noprologueMode.checked) {
         options.noprologueMode = true
       }
+      if (elems.unlockedMode.checked) {
+        options.unlockedMode = true
+      }
       return options
     }
     const options = {
@@ -582,6 +589,7 @@
       iwsMode: elems.iwsMode.checked,
       fastwarpMode: elems.fastwarpMode.checked,
       noprologueMode: elems.noprologueMode.checked,
+      unlockedMode: elems.unlockedMode.checked,
     }
     if (elems.enemyDropsArg.value) {
       options.enemyDrops = util.optionsFromString(
@@ -798,6 +806,10 @@
         // Apply no prologue patches.
         if (options.noprologueMode) {
           check.apply(util.applynoprologuePatches())
+        }
+        // Apply unlocked patches.
+        if (options.unlockedMode) {
+          check.apply(util.applyunlockedPatches())
         }
         // Apply writes.
         check.apply(util.applyWrites(rng, applied))
@@ -1038,6 +1050,7 @@
     iwsMode: document.getElementById('iws-mode'),
     fastwarpMode: document.getElementById('fastwarp-mode'),
     noprologueMode: document.getElementById('noprologue-mode'),
+    unlockedMode: document.getElementById('unlocked-mode'),
     accessibilityPatches: document.getElementById('accessibility-patches'),
     showSpoilers: document.getElementById('show-spoilers'),
     showRelics: document.getElementById('show-relics'),
@@ -1104,6 +1117,7 @@
   elems.iwsMode.addEventListener('change', iwsModeChange)
   elems.fastwarpMode.addEventListener('change', fastwarpModeChange)
   elems.noprologueMode.addEventListener('change', noprologueModeChange)
+  elems.unlockedMode.addEventListener('change', unlockedModeChange)
   elems.accessibilityPatches.addEventListener('change', accessibilityPatchesChange)
   elems.showSpoilers.addEventListener('change', spoilersChange)
   elems.showRelics.addEventListener('change', showRelicsChange)
@@ -1142,12 +1156,8 @@
   const url = new URL(window.location.href)
   const releaseBaseUrl = constants.optionsUrls[constants.defaultOptions]
   const releaseHostname = new URL(releaseBaseUrl).hostname
-//  const isDev = url.hostname !== releaseHostname
-//  const fakeVersion = '0.0.0-dev'
-  // Added for index.html browser usage. This removes the development warning and sets the version number.
-  // version number will need to be kept up to date in the future along with the ones in index.html and package jsons.
-  const isDev = false
-  const fakeVersion = '3.16.0'
+  const isDev = url.hostname !== releaseHostname
+  const fakeVersion = '0.0.0-dev'
   if (url.protocol !== 'file:') {
     fetch('package.json', {cache: 'no-store'}).then(function(response) {
       if (response.ok) {
@@ -1420,6 +1430,7 @@
   loadOption('iwsMode', iwsModeChange, false)
   loadOption('fastwarpMode', fastwarpModeChange, false)
   loadOption('noprologueMode', noprologueModeChange, false)
+  loadOption('unlockedMode', unlockedModeChange, false)
   loadOption('accessibilityPatches', accessibilityPatchesChange, true)
   loadOption('showSpoilers', spoilersChange, true)
   setTimeout(function() {

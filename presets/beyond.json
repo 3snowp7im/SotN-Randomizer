@@ -502,10 +502,10 @@
     ]
   }, {
     "location": "Platinum mail",
-    "comment": "Requires at least Gravity Boots",
+    "comment": "Requires flight",
     "locks": [
       "Soul of Bat",
-      "Gravity Boots",
+      "Gravity Boots + Leap Stone",
       "Form of Mist + Power of Mist"
     ]
   }, {
@@ -633,10 +633,10 @@
     ]
   }, {
     "location": "Secret boots",
-    "comment": "Requires Jewel of Open + flight",
+    "comment": "Requires Jewel of Open + at least Leap Stone",
     "locks": [
       "Jewel of Open + Soul of Bat",
-      "Jewel of Open + Gravity Boots + Leap Stone",
+      "Jewel of Open + Leap Stone",
       "Jewel of Open + Form of Mist + Power of Mist"
     ]
   }, {
@@ -939,8 +939,7 @@
     "comment": "Requires Holy glasses + flight",
     "locks": [
       "Holy glasses + Soul of Bat",
-      "Holy glasses + Gravity Boots + Leap Stone",
-      "Holy glasses + Form of Mist + Power of Mist"
+      "Holy glasses + Gravity Boots + Leap Stone"
     ]
   }, {
     "location": "Alucard shield",
@@ -2065,7 +2064,6 @@
     "locks": [
       "Holy glasses + Soul of Bat",
       "Holy glasses + Gravity Boots + Leap Stone",
-      "Holy glasses + Form of Mist + Power of Mist",
       "Holy glasses + Gravity Boots + Soul of Wolf",
       "Holy glasses + Gravity Boots + Form of Mist",
       "Holy glasses + Gravity Boots + Thrust sword"

@@ -1715,6 +1715,11 @@
           randomize.push('R')
         }
         delete options.noprologueMode
+      } else if ('unlockedMode' in options) { // Opens shortcuts - eldrich
+        if (options.unlockedMode) {
+          randomize.push('U')
+        }
+        delete options.unlockedMode
       } else if ('debugMode' in options) { // Debug mode - eldrich
         if (options.debugMode) {
           randomize.push('D')
@@ -2938,6 +2943,7 @@
     iwsMode,
     fastwarpMode,
     noprologueMode,
+    unlockedMode,
     debugMode,
     mapcolorTheme,
     writes,
@@ -2964,6 +2970,7 @@
     this.iwsMode = iwsMode
     this.fastwarpMode = fastwarpMode
     this.noprologueMode = noprologueMode
+    this.unlockedMode = unlockedMode
     this.debugMode = debugMode
     this.mapcolorTheme = mapcolorTheme
     if (writes) {
@@ -3103,7 +3110,9 @@
     this.fastwarp = false
     // No Prologue mode.
     this.noprologue = false
-    // No Prologue mode.
+    // Unlocked mode.
+    this.unlocked = false
+    // Debug mode.
     this.debug = false
     // Arbitrary writes.
     this.writes = undefined
@@ -3406,6 +3415,9 @@
     }
     if ('noprologueMode' in json) {
       builder.noprologueMode(json.noprologueMode)
+    }
+    if ('unlockedMode' in json) {
+      builder.unlockedMode(json.unlockedMode)
     }
     if ('writes' in json) {
       let lastAddress = 0
@@ -3717,6 +3729,9 @@
     }
     if ('noprologueMode' in preset) {
       this.noprologue = preset.noprologueMode
+    }
+    if ('unlockedMode' in preset) {
+      this.unlocked = preset.unlockedMode
     }
     if ('writes' in preset) {
       this.writes = this.writes || []
@@ -4419,6 +4434,11 @@
     this.noprologue = enabled
   }
 
+  // Enable Unlocked - eldri7ch
+  PresetBuilder.prototype.unlockedMode = function unlockedMode(enabled) {
+    this.unlocked = enabled
+  }
+
   // Write a character.
   PresetBuilder.prototype.writeChar = function writeChar(address, value) {
     if (value !== 'random' && value !== 'random1' && value !== 'random3' && value !== 'random10' && value !== 'random99') {
@@ -4723,6 +4743,7 @@
     const iws = self.iws
     const fastwarp = self.fastwarp
     const noprologue = self.noprologue
+    const unlocked = self.unlocked
     const debug = self.debug
     const writes = self.writes
     return new Preset(
@@ -4749,6 +4770,7 @@
       iws,
       fastwarp,
       noprologue,
+      unlocked,
       debug,
       writes,
     )
@@ -5035,6 +5057,107 @@
     const data = new checked()
     // Patch prologue removal; specifically setting the first room to enter as NO3 instead of ST0 - eldri7ch
     data.writeChar(0x04392b1c, 0x41)	// Patch from Chaos-Lite / MottZilla
+    return data
+  }
+
+  function applyunlockedPatches() {
+    const data = new checked()
+    const tileRemove = 0x00000000 //set tile overwrites to remove them
+    const memorySkip = 0x34020001 //set register 2 to 01 instead of whatever RAM said
+    const nopValue = 0x00000000 //nop instruction follow-up
+    // Patch the reverse entrance shortcut - eldri7ch
+    let offset = 0x051caaee           // remove the blocking tiles - eldri7ch
+    data.writeWord(offset,tileRemove)
+    offset += 0x40
+    data.writeWord(offset,tileRemove)
+    offset += 0x40
+    data.writeWord(offset,tileRemove)
+    offset += 0x40
+    data.writeWord(offset,tileRemove)
+    offset += 0x40
+    data.writeWord(offset,tileRemove)
+    offset += 0x40
+    data.writeWord(offset,tileRemove)
+    offset += 0x40
+    data.writeWord(offset,tileRemove)
+    offset += 0x40
+    data.writeWord(offset,tileRemove)
+    data.writeShort(0x051b03c2,0x030e) // move the entity down - eldri7ch
+    data.writeShort(0x051afb80,0x030e)
+    // Patch Underground Caverns - Entrance shortcut - eldri7ch
+    offset = 0x05430050
+    offset = data.writeWord(offset,memorySkip)
+    offset = data.writeWord(offset,nopValue)
+    offset = 0x05430518
+    offset = data.writeWord(offset,memorySkip)
+    offset = data.writeWord(offset,nopValue)
+    offset = 0x04ba840c
+    offset = data.writeWord(offset,memorySkip)
+    offset = data.writeWord(offset,nopValue)
+    offset = 0x04ba88ac
+    offset = data.writeWord(offset,memorySkip)
+    offset = data.writeWord(offset,nopValue)
+    // Patch Marble Gallery - Entrance shortcut - eldri7ch
+    offset = 0x04ba8bc4
+    offset = data.writeWord(offset,memorySkip)
+    offset = data.writeWord(offset,nopValue)
+    offset = 0x04ba8dd4
+    offset = data.writeWord(offset,memorySkip)
+    offset = data.writeWord(offset,nopValue)
+    offset = 0x04ba8e00
+    offset = data.writeWord(offset,memorySkip)
+    offset = data.writeWord(offset,nopValue)
+    offset = 0x04ba918c
+    offset = data.writeWord(offset,memorySkip)
+    offset = data.writeWord(offset,nopValue)
+    offset = 0x04ba91b4
+    offset = data.writeWord(offset,memorySkip)
+    offset = data.writeWord(offset,nopValue)
+    offset = 0x05430844
+    offset = data.writeWord(offset,memorySkip)
+    offset = data.writeWord(offset,nopValue)
+    offset = 0x05430a80
+    offset = data.writeWord(offset,memorySkip)
+    offset = data.writeWord(offset,nopValue)
+    offset = 0x05430bd0
+    offset = data.writeWord(offset,memorySkip)
+    offset = data.writeWord(offset,nopValue)
+    offset = 0x05430e3c
+    offset = data.writeWord(offset,memorySkip)
+    offset = data.writeWord(offset,nopValue)
+    offset = 0x05430e64
+    offset = data.writeWord(offset,memorySkip)
+    offset = data.writeWord(offset,nopValue)
+    // Patch Warp Room - Entrance shortcut - eldri7ch
+    offset = 0x04bab2d4
+    offset = data.writeWord(offset,memorySkip)
+    offset = data.writeWord(offset,nopValue)
+    offset = 0x04bab534
+    offset = data.writeWord(offset,memorySkip)
+    offset = data.writeWord(offset,nopValue)
+    offset = 0x04bab674
+    offset = data.writeWord(offset,memorySkip)
+    offset = data.writeWord(offset,nopValue)
+    offset = 0x054325dc
+    offset = data.writeWord(offset,memorySkip)
+    offset = data.writeWord(offset,nopValue)
+    offset = 0x0543283c
+    offset = data.writeWord(offset,memorySkip)
+    offset = data.writeWord(offset,nopValue)
+    offset = 0x0543297c
+    offset = data.writeWord(offset,memorySkip)
+    offset = data.writeWord(offset,nopValue)
+    // Patch Olrox's Quarters - Royal Chapel shortcut - eldri7ch
+    offset = 0x046c082c
+    offset = data.writeWord(offset,memorySkip)
+    offset = data.writeWord(offset,nopValue)
+    // Patch Colosseum - Royal Chapel shortcut - eldri7ch
+    offset = 0x0440100c
+    offset = data.writeWord(offset,memorySkip)
+    offset = data.writeWord(offset,nopValue)
+    offset = 0x04401100
+    offset = data.writeWord(offset,memorySkip)
+    offset = data.writeWord(offset,nopValue)
     return data
   }
 
@@ -5555,6 +5678,7 @@
     applyiwsPatches: applyiwsPatches,
     applyfastwarpPatches: applyfastwarpPatches,
     applynoprologuePatches: applynoprologuePatches,
+    applyunlockedPatches: applyunlockedPatches,
     randomizeRelics: randomizeRelics,
     randomizeItems: randomizeItems,
     applyWrites: applyWrites,
