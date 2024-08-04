@@ -1700,7 +1700,11 @@
       } else if ('mapcolorTheme' in options) {
         randomize.push('m:' + options.mapcolorTheme)
         delete options.mapcolorTheme
-      } else if ('iwsMode' in options) { // Allows for infinite wing smash on first input - eldrich
+      } else if ('excludesongs' in options) {
+        randomize.push('eds:' + options.excludesongs)
+        delete options.excludesongs
+      }
+      else if ('iwsMode' in options) { // Allows for infinite wing smash on first input - eldrich
         if (options.iwsMode) {
           randomize.push('b')
         }

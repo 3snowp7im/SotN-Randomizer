@@ -606,6 +606,12 @@ const yargs = require('yargs')
     describe: 'Unlocks all shortcuts.',
     type: 'boolean',
   })
+  .option('excludesongs', {
+    alias: 'eds',
+    describe: 'Excludes the songs given by parameters. Example: --eds LOST_PAINTING,CURSE_ZONE',
+    type: 'string',
+    requiresArg: true,
+  })
   .option('debug', {
     alias: 'D',
     describe: 'Debug mode.',
@@ -1030,6 +1036,10 @@ if ('debug' in argv) {console.log('randomize | Set unlocked')}
 // Enable unlocked mode if specified. - eldri7ch
 if (argv.unlocked) { // opens shortcuts - eldrich
   options.unlockedMode = true
+}
+if ('excludesongs' in argv && typeof(argv.excludesongs) !== 'undefined') {
+  let songsToExclude = argv.excludesongs.split(",")
+  options.excludesongs = songsToExclude
 }
 if ('debug' in argv) {console.log('randomize | Set debug')}
 // Enable debug mode if specified. - eldri7ch

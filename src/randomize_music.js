@@ -151,7 +151,17 @@
       } else {
         music = Object.values(musicBySong)
       }
-      const songSrc = Object.values(constants.MUSIC)
+      let songSrc
+      if(options.excludesongs){
+        let musicArray = {...constants.MUSIC}
+        options.excludesongs.forEach(key => {
+          delete musicArray[key];
+        });
+        songSrc = Object.values(musicArray)
+      }else{
+        songSrc = Object.values(constants.MUSIC)
+      }
+      
       const songPool = songSrc.slice()
       while (songPool.length < music.length) {
         songPool.push(songSrc[Math.floor(rng() * songSrc.length)])
