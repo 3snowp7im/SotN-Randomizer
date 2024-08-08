@@ -5030,7 +5030,7 @@
       data.writeWord(addressAl, colorWrite)
       data.writeWord(addressRi, colorWrite)
       break
-    case 'y': // Pink
+    case 'k': // Pink
       colorWrite = 0xff1f0000
       bordWrite = 0xfd0f
       data.writeWord(addressAl, colorWrite)
