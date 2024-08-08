@@ -1697,14 +1697,7 @@
           randomize.push('y')
         }
         delete options.mypurseMode
-      } else if ('mapcolorTheme' in options) {
-        randomize.push('m:' + options.mapcolorTheme)
-        delete options.mapcolorTheme
-      } else if ('excludesongs' in options) {
-        randomize.push('eds:' + options.excludesongs)
-        delete options.excludesongs
-      }
-      else if ('iwsMode' in options) { // Allows for infinite wing smash on first input - eldrich
+      } else if ('iwsMode' in options) { // Allows for infinite wing smash on first input - eldrich
         if (options.iwsMode) {
           randomize.push('b')
         }
@@ -1729,6 +1722,12 @@
           randomize.push('D')
         }
         delete options.debugMode
+      } else if ('mapcolorTheme' in options) { // switch map color
+        randomize.push('m:' + options.mapcolorTheme)
+        delete options.mapcolorTheme
+      } else if ('excludesongs' in options) {
+        randomize.push('eds:' + options.excludesongs)
+        delete options.excludesongs
       } else if ('preset' in options) {
         randomize.push('p:' + options.preset)
         delete options.preset
@@ -2949,7 +2948,6 @@
     noprologueMode,
     unlockedMode,
     debugMode,
-    mapcolorTheme,
     writes,
   ) {
     this.id = id
@@ -2976,7 +2974,6 @@
     this.noprologueMode = noprologueMode
     this.unlockedMode = unlockedMode
     this.debugMode = debugMode
-    this.mapcolorTheme = mapcolorTheme
     if (writes) {
       this.writes = writes
     }
@@ -3106,8 +3103,6 @@
     this.antifreeze = false
     // That's My Purse mode.
     this.mypurse = false
-    // Map color theme.
-    this.mapcolor = false
     // Infinite Wing Smash mode.
     this.iws = false
     // Fast Warp mode.
@@ -3407,9 +3402,6 @@
     }
     if ('mypurseMode' in json) {
       builder.mypurseMode(json.mypurseMode)
-    }
-    if ('mapcolorTheme' in json) {
-      builder.mapcolorTheme(json.mapcolorTheme)
     }
     if ('iwsMode' in json) {
       builder.iwsMode(json.iwsMode)
@@ -3721,9 +3713,6 @@
     }
     if ('mypurseMode' in preset) {
       this.mypurse = preset.mypurseMode
-    }
-    if ('mapcolorTheme' in preset) {
-      this.mapcolor = preset.mapcolorTheme
     }
     if ('iwsMode' in preset) {
       this.iws = preset.iwsMode
@@ -4417,12 +4406,6 @@
     this.mypurse = enabled
   }
 
-  // Map Color added for compatibility - eldri7ch
-  PresetBuilder.prototype.mapcolorTheme = function mapcolorTheme(mapcol) {
-    mapcol = 'u'
-    this.mapcolor = mapcol
-  }
-
   // Enable Infinite Wing Smash - eldri7ch
   PresetBuilder.prototype.iwsMode = function iwsMode(enabled) {
     this.iws = enabled
@@ -4743,7 +4726,6 @@
     const magicmax = self.magicmax
     const antifreeze = self.antifreeze
     const mypurse = self.mypurse
-    const mapcolor = self.mapcolor
     const iws = self.iws
     const fastwarp = self.fastwarp
     const noprologue = self.noprologue
@@ -4770,7 +4752,6 @@
       magicmax,
       antifreeze,
       mypurse,
-      mapcolor,
       iws,
       fastwarp,
       noprologue,
@@ -5678,11 +5659,11 @@
     applyMagicMaxPatches: applyMagicMaxPatches,
     applyAntiFreezePatches: applyAntiFreezePatches,
     applyMyPursePatches: applyMyPursePatches,
-    applyMapColor: applyMapColor,
     applyiwsPatches: applyiwsPatches,
     applyfastwarpPatches: applyfastwarpPatches,
     applynoprologuePatches: applynoprologuePatches,
     applyunlockedPatches: applyunlockedPatches,
+    applyMapColor: applyMapColor,
     randomizeRelics: randomizeRelics,
     randomizeItems: randomizeItems,
     applyWrites: applyWrites,
