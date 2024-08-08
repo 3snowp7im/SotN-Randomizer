@@ -1028,10 +1028,10 @@ if (argv.unlocked) { // opens shortcuts - eldrich
 if ('debug' in argv) {console.log('randomize | Set map colors')}
 // Map Color Features if specified. - eldri7ch
 if ('mapcolor' in argv && typeof(argv.mapcolor) !== 'undefined') {
-  let termsAllowed = 'u,r,b,g,y,p,k'
+  let termsAllowed = 'u,r,b,g,y,p,k,n,i'
   if (!(termsAllowed.includes(argv.mapcolor))) {
     yargs.showHelp()
-    console.error('\nMust contain a letter \'u\'(Blue), \'r\'(Crimson), \'b\'(Brown), \'g\'(Green), \'y\'(Gray), \'p\'(Purple), \'k\'(Pink)')
+    console.error('\nMust contain a letter \'u\'(Blue), \'r\'(Crimson), \'n\'(Brown), \'g\'(Green), \'y\'(Gray), \'p\'(Purple), \'k\'(Pink), \'b\'(Black), \'i\'(Invisible)')
     process.exit(1)
   } else {
     options.mapcolorTheme = argv.mapcolor.toString()

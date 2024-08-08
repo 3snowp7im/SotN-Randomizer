@@ -4988,7 +4988,7 @@
       data.writeWord(addressAl, colorWrite)
       data.writeWord(addressRi, colorWrite)
       break
-    case 'b': // Brown
+    case 'n': // Brown
       colorWrite = 0x80ca0000
       data.writeWord(addressAl, colorWrite)
       data.writeWord(addressRi, colorWrite)
@@ -5018,6 +5018,16 @@
       data.writeWord(addressRi, colorWrite)
       data.writeShort(addressAlBord,bordWrite)
       data.writeShort(addressRiBord,bordWrite)
+      break
+    case 'b': // Black
+      colorWrite = 0x10000000
+      data.writeWord(addressAl, colorWrite)
+      data.writeWord(addressRi, colorWrite)
+      break
+    case 'i': // invisible
+      colorWrite = 0x00000000
+      data.writeWord(addressAl, colorWrite)
+      data.writeWord(addressRi, colorWrite)
       break
     }
     return data
