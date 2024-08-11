@@ -156,8 +156,12 @@
   }, {
     "location": "Soul of Bat",
     "locks": [
-      "Hrefresh1 + Hrefresh2",
-      "Form of Mist"
+    "Form of Mist",
+    "Soul of Bat + Hrefresh1 + Hrefresh2",
+    "Leap Stone + Hrefresh1 + Hrefresh2",
+    "Gravity Boots + Hrefresh1 + Hrefresh2",
+    "Soul of Wolf + Hrefresh1 + Hrefresh2",
+    "Clay + Hrefresh1 + Hrefresh2"
     ]
   }, {
     "location": "Fire of Bat",
@@ -285,21 +289,7 @@
       "Merman Statue + Hrefresh1",
       "Merman Statue + Hrefresh2",
       "Merman Statue + Leap Stone + Srod",
-      "Merman Statue + Clay + Srod",
-      "Merman Statue + Hrefresh1 + Soul of Wolf + Skill of Wolf + Holy Symbol",
-      "Merman Statue + Hrefresh2 + Soul of Wolf + Skill of Wolf + Holy Symbol",
-      "Merman Statue + Leap Stone + Clay + Soul of Wolf + Frang + Hrefresh1",
-      "Merman Statue + Leap Stone + Clay + Soul of Wolf + Frang + Hrefresh2",
-      "Merman Statue + Leap Stone + Form of Mist + Soul of Wolf + Frang + Hrefresh1",
-      "Merman Statue + Leap Stone + Form of Mist + Soul of Wolf + Frang + Hrefresh2",
-      "Merman Statue + Hrefresh1 + Gravity Boots + Leap Stone",
-      "Merman Statue + Hrefresh2 + Gravity Boots + Leap Stone",
-      "Merman Statue + Hrefresh1 + Gravity Boots + Soul of Wolf",
-      "Merman Statue + Hrefresh2 + Gravity Boots + Soul of Wolf",
-      "Merman Statue + Hrefresh1 + Gravity Boots + Clay",
-      "Merman Statue + Hrefresh2 + Gravity Boots + Clay",
-      "Merman Statue + Leap Stone + Gravity Boots + Srod",
-      "Merman Statue + Clay + Gravity Boots + Srod"
+      "Merman Statue + Clay + Srod"
     ]
   }, {
     "location": "Merman Statue",
@@ -941,12 +931,34 @@
     "location": "Caverns Onyx",
     "comment": "Requires Jewel of Open + at least Leap Stone",
     "locks": [
-      "Jewel of Open",
+      "Soul of Bat + Jewel of Open",
+      "Soul of Bat + Hrefresh1",
+      "Soul of Bat + Hrefresh2",
+      "Soul of Bat + Clay + Srod",
       "Soul of Wolf + Power of Wolf + Soul of Bat",
-      "Hrefresh1",
-      "Hrefresh2",
+      "Leap Stone + Jewel of Open",
+      "Leap Stone + Hrefresh1",
+      "Leap Stone + Hrefresh2",
       "Leap Stone + Srod",
-      "Clay + Srod"
+      "Form of Mist + Jewel of Open",
+      "Form of Mist + Hrefresh1",
+      "Form of Mist + Hrefresh2",
+      "Form of Mist + Clay + Srod",
+      "Soul of Wolf + Clay + Jewel of Open",
+      "Soul of Wolf + Clay + Hrefresh1",
+      "Soul of Wolf + Clay + Hrefresh2",
+      "Soul of Wolf + Clay + Srod",
+      "Soul of Wolf + Frang + Jewel of Open",
+      "Soul of Wolf + Frang + Hrefresh1",
+      "Soul of Wolf + Frang + Hrefresh2",
+      "Gravity Boots + Jewel of Open",
+      "Gravity Boots + Hrefresh1",
+      "Gravity Boots + Hrefresh2",
+      "Gravity Boots + Clay + Srod",
+      "Merman Statue + Jewel of Open",
+      "Merman Statue + Clay + Srod",
+      "Merman Statue + Hrefresh1",
+      "Merman Statue + Hrefresh2"
     ]
   }, {
     "location": "Combat knife",

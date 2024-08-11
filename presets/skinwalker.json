@@ -73,7 +73,7 @@
     "locks": [
       "Soul of Bat",
       "Gravity Boots + Leap Stone + Form of Mist",
-      "Gravity Boots + Leap Stone + Soul of Wolf",
+      "Gravity Boots + Leap Stone",
       "Form of Mist + Power of Mist"
     ]
   }, {
@@ -82,15 +82,15 @@
     "locks": [
       "Soul of Bat",
       "Gravity Boots + Leap Stone + Form of Mist",
-      "Gravity Boots + Leap Stone + Soul of Wolf",
+      "Gravity Boots + Leap Stone",
       "Form of Mist + Power of Mist"
     ]
   }, {
     "location": "Force of Echo",
-    "comment": "Second Castle, Requires Holy Symbol + Soul of Wolf",
+    "comment": "Second Castle, Requires Holy Symbol + Soul of Wolf + Power of Wolf + Skill of Wolf",
     "locks": [
       "Holy glasses + Soul of Bat + Holy Symbol + Soul of Wolf",
-      "Holy glasses + Gravity Boots + Leap Stone + Holy Symbol + Soul of Wolf",
+      "Holy glasses + Gravity Boots + Leap Stone + Holy Symbol + Soul of Wolf + Power of Wolf + Skill of Wolf",
       "Holy glasses + Form of Mist + Power of Mist + Holy Symbol + Soul of Wolf"
     ]
   }, {
@@ -180,15 +180,15 @@
     "comment": "In second castle",
     "locks": [
       "Holy glasses + Soul of Bat",
-      "Holy glasses + Gravity Boots + Leap Stone",
+      "Holy glasses + Gravity Boots + Leap Stone + Soul of Wolf + Power of Wolf + Skill of Wolf",
       "Holy glasses + Form of Mist + Power of Mist"
     ]
   }, {
     "location": "Tooth of Vlad",
     "comment": "In second castle + Form of Mist",
     "locks": [
-      "Holy glasses + Soul of Bat + Form of Mist",
-      "Holy glasses + Gravity Boots + Leap Stone + Form of Mist",
+      "Holy glasses + Soul of Bat",
+      "Holy glasses + Gravity Boots + Leap Stone + Soul of Wolf + Power of Wolf + Skill of Wolf",
       "Holy glasses + Form of Mist + Power of Mist"
     ]
   }, {
@@ -196,8 +196,7 @@
     "comment": "In second castle + Transformation + Spike Breaker",
     "locks": [
       "Holy glasses + Soul of Bat + Spike Breaker",
-      "Holy glasses + Gravity Boots + Leap Stone + Form of Mist + Spike Breaker",
-      "Holy glasses + Gravity Boots + Leap Stone + Soul of Wolf + Spike Breaker",
+      "Holy glasses + Gravity Boots + Leap Stone + Soul of Wolf + Power of Wolf + Skill of Wolf + Spike Breaker",
       "Holy glasses + Form of Mist + Power of Mist"
     ]
   }, {
@@ -205,7 +204,7 @@
     "comment": "In second castle",
     "locks": [
       "Holy glasses + Soul of Bat",
-      "Holy glasses + Gravity Boots + Leap Stone",
+      "Holy glasses + Gravity Boots + Leap Stone + Soul of Wolf + Power of Wolf + Skill of Wolf",
       "Holy glasses + Form of Mist + Power of Mist"
     ]
   }, {
@@ -213,7 +212,7 @@
     "comment": "In second castle",
     "locks": [
       "Holy glasses + Soul of Bat",
-      "Holy glasses + Gravity Boots + Leap Stone",
+      "Holy glasses + Gravity Boots + Leap Stone + Soul of Wolf + Power of Wolf + Skill of Wolf",
       "Holy glasses + Form of Mist + Power of Mist"
     ]
   }, {
@@ -289,7 +288,7 @@
     "comment": "In second castle",
     "locks": [
       "Holy glasses + Soul of Bat",
-      "Holy glasses + Gravity Boots + Leap Stone",
+      "Holy glasses + Gravity Boots + Leap Stone + Soul of Wolf + Power of Wolf + Skill of Wolf",
       "Holy glasses + Form of Mist + Power of Mist"
     ]
   }, {
@@ -297,7 +296,7 @@
     "comment": "In second castle",
     "locks": [
       "Holy glasses + Soul of Bat",
-      "Holy glasses + Gravity Boots + Leap Stone",
+      "Holy glasses + Gravity Boots + Leap Stone + Soul of Wolf + Power of Wolf + Skill of Wolf",
       "Holy glasses + Form of Mist + Power of Mist"
     ]
   }, {
@@ -512,14 +511,14 @@
     "location": "Beryl circlet",
     "comment": "Requires Holy glasses + Bat + Wolf",
     "locks": [
-      "Holy glasses + Soul of Bat + Soul of Wolf"
+      "Holy glasses + Soul of Bat + Soul of Wolf + Power of Wolf + Skill of Wolf"
     ]
   }, {
     "location": "Talisman",
     "comment": "Requires Holy glasses + flight",
     "locks": [
       "Holy glasses + Soul of Bat",
-      "Holy glasses + Gravity Boots + Leap Stone",
+      "Holy glasses + Gravity Boots + Leap Stone + Soul of Wolf + Power of Wolf + Skill of Wolf",
       "Holy glasses + Form of Mist + Power of Mist"
     ]
   }, {
@@ -527,7 +526,7 @@
     "comment": "Requires Holy glasses + flight",
     "locks": [
       "Holy glasses + Soul of Bat",
-      "Holy glasses + Gravity Boots + Leap Stone",
+      "Holy glasses + Gravity Boots + Leap Stone + Soul of Wolf + Power of Wolf + Skill of Wolf",
       "Holy glasses + Form of Mist + Power of Mist"
     ]
   }, {
@@ -535,7 +534,7 @@
     "comment": "Requires Holy glasses + flight",
     "locks": [
       "Holy glasses + Soul of Bat",
-      "Holy glasses + Gravity Boots + Leap Stone",
+      "Holy glasses + Gravity Boots + Leap Stone + Soul of Wolf + Power of Wolf + Skill of Wolf",
       "Holy glasses + Form of Mist + Power of Mist"
     ]
   }, {
@@ -543,7 +542,7 @@
     "comment": "Requires Holy glasses + Mist + flight",
     "locks": [
       "Holy glasses + Form of Mist + Soul of Bat",
-      "Holy glasses + Form of Mist + Gravity Boots + Leap Stone",
+      "Holy glasses + Form of Mist + Gravity Boots + Leap Stone + Soul of Wolf + Power of Wolf + Skill of Wolf",
       "Holy glasses + Form of Mist + Power of Mist"
     ]
   }, {
@@ -551,7 +550,7 @@
     "comment": "Requires Holy glasses + flight",
     "locks": [
       "Holy glasses + Soul of Bat",
-      "Holy glasses + Gravity Boots + Leap Stone",
+      "Holy glasses + Gravity Boots + Leap Stone + Soul of Wolf + Power of Wolf + Skill of Wolf",
       "Holy glasses + Form of Mist + Power of Mist"
     ]
   }, {
@@ -559,7 +558,7 @@
     "comment": "Requires Holy glasses + flight",
     "locks": [
       "Holy glasses + Soul of Bat",
-      "Holy glasses + Gravity Boots + Leap Stone",
+      "Holy glasses + Gravity Boots + Leap Stone + Soul of Wolf + Power of Wolf + Skill of Wolf",
       "Holy glasses + Form of Mist + Power of Mist"
     ]
   }, {
@@ -567,7 +566,7 @@
     "comment": "Requires Holy glasses + flight",
     "locks": [
       "Holy glasses + Soul of Bat",
-      "Holy glasses + Gravity Boots + Leap Stone",
+      "Holy glasses + Gravity Boots + Leap Stone + Soul of Wolf + Power of Wolf + Skill of Wolf",
       "Holy glasses + Form of Mist + Power of Mist"
     ]
   }, {
@@ -575,7 +574,7 @@
     "comment": "Requires Holy glasses + flight",
     "locks": [
       "Holy glasses + Soul of Bat",
-      "Holy glasses + Gravity Boots + Leap Stone",
+      "Holy glasses + Gravity Boots + Leap Stone + Soul of Wolf + Power of Wolf + Skill of Wolf",
       "Holy glasses + Form of Mist + Power of Mist"
     ]
   }, {
@@ -583,7 +582,7 @@
     "comment": "Requires Holy glasses + flight",
     "locks": [
       "Holy glasses + Soul of Bat",
-      "Holy glasses + Gravity Boots + Leap Stone",
+      "Holy glasses + Gravity Boots + Leap Stone + Soul of Wolf + Power of Wolf + Skill of Wolf",
       "Holy glasses + Form of Mist + Power of Mist"
     ]
   }, {
@@ -591,7 +590,7 @@
     "comment": "Requires Holy glasses + flight",
     "locks": [
       "Holy glasses + Soul of Bat",
-      "Holy glasses + Gravity Boots + Leap Stone",
+      "Holy glasses + Gravity Boots + Leap Stone + Soul of Wolf + Power of Wolf + Skill of Wolf",
       "Holy glasses + Form of Mist + Power of Mist"
     ]
   }, {
@@ -599,7 +598,7 @@
     "comment": "Requires Holy glasses + flight",
     "locks": [
       "Holy glasses + Soul of Bat",
-      "Holy glasses + Gravity Boots + Leap Stone",
+      "Holy glasses + Gravity Boots + Leap Stone + Soul of Wolf + Power of Wolf + Skill of Wolf",
       "Holy glasses + Form of Mist + Power of Mist"
     ]
   }, {
@@ -607,7 +606,7 @@
     "comment": "Requires Holy glasses + flight",
     "locks": [
       "Holy glasses + Soul of Bat",
-      "Holy glasses + Gravity Boots + Leap Stone",
+      "Holy glasses + Gravity Boots + Leap Stone + Soul of Wolf + Power of Wolf + Skill of Wolf",
       "Holy glasses + Form of Mist + Power of Mist"
     ]
   }, {
@@ -615,7 +614,7 @@
     "comment": "Requires Holy glasses + flight",
     "locks": [
       "Holy glasses + Soul of Bat",
-      "Holy glasses + Gravity Boots + Leap Stone",
+      "Holy glasses + Gravity Boots + Leap Stone + Soul of Wolf + Power of Wolf + Skill of Wolf",
       "Holy glasses + Form of Mist + Power of Mist"
     ]
   }, {
@@ -623,7 +622,7 @@
     "comment": "Requires Holy glasses + Mist + flight",
     "locks": [
       "Holy glasses + Form of Mist + Soul of Bat",
-      "Holy glasses + Form of Mist + Gravity Boots + Leap Stone",
+      "Holy glasses + Form of Mist + Gravity Boots + Leap Stone +Soul of Wolf",
       "Holy glasses + Form of Mist + Power of Mist"
     ]
   }, {
@@ -631,7 +630,7 @@
     "comment": "Requires Holy glasses + Mist + flight",
     "locks": [
       "Holy glasses + Form of Mist + Soul of Bat",
-      "Holy glasses + Form of Mist + Gravity Boots + Leap Stone",
+      "Holy glasses + Form of Mist + Gravity Boots + Leap Stone + Soul of Wolf + Power of Wolf + Skill of Wolf",
       "Holy glasses + Form of Mist + Power of Mist"
     ]
   }, {
@@ -639,7 +638,7 @@
     "comment": "Requires Holy glasses + flight",
     "locks": [
       "Holy glasses + Soul of Bat",
-      "Holy glasses + Gravity Boots + Leap Stone",
+      "Holy glasses + Gravity Boots + Leap Stone + Soul of Wolf + Power of Wolf + Skill of Wolf",
       "Holy glasses + Form of Mist + Power of Mist"
     ]
   }, {
@@ -647,7 +646,7 @@
     "comment": "Requires Holy glasses + flight",
     "locks": [
       "Holy glasses + Soul of Bat",
-      "Holy glasses + Gravity Boots + Leap Stone",
+      "Holy glasses + Gravity Boots + Leap Stone + Soul of Wolf + Power of Wolf + Skill of Wolf",
       "Holy glasses + Form of Mist + Power of Mist"
     ]
   }, {
@@ -655,7 +654,7 @@
     "comment": "Requires Holy glasses + flight",
     "locks": [
       "Holy glasses + Soul of Bat",
-      "Holy glasses + Gravity Boots + Leap Stone",
+      "Holy glasses + Gravity Boots + Leap Stone + Soul of Wolf + Power of Wolf + Skill of Wolf",
       "Holy glasses + Form of Mist + Power of Mist"
     ]
   }, {
@@ -663,7 +662,7 @@
     "comment": "Requires Holy glasses + flight",
     "locks": [
       "Holy glasses + Soul of Bat",
-      "Holy glasses + Gravity Boots + Leap Stone",
+      "Holy glasses + Gravity Boots + Leap Stone + Soul of Wolf + Power of Wolf + Skill of Wolf",
       "Holy glasses + Form of Mist + Power of Mist"
     ]
   }, {
@@ -671,7 +670,7 @@
     "comment": "Requires Holy glasses + flight",
     "locks": [
       "Holy glasses + Soul of Bat",
-      "Holy glasses + Gravity Boots + Leap Stone",
+      "Holy glasses + Gravity Boots + Leap Stone + Soul of Wolf + Power of Wolf + Skill of Wolf",
       "Holy glasses + Form of Mist + Power of Mist"
     ]
   }, {
@@ -679,14 +678,14 @@
     "comment": "Requires Holy glasses + flight",
     "locks": [
       "Holy glasses + Soul of Bat",
-      "Holy glasses + Gravity Boots + Leap Stone"
+      "Holy glasses + Gravity Boots + Leap Stone + Soul of Wolf + Power of Wolf + Skill of Wolf"
     ]
   }, {
     "location": "Alucard shield",
     "comment": "Requires Holy glasses + flight",
     "locks": [
       "Holy glasses + Soul of Bat",
-      "Holy glasses + Gravity Boots + Leap Stone",
+      "Holy glasses + Gravity Boots + Leap Stone + Soul of Wolf + Power of Wolf + Skill of Wolf",
       "Holy glasses + Form of Mist + Power of Mist"
     ]
   }, {
@@ -694,7 +693,7 @@
     "comment": "Requires Holy glasses + flight",
     "locks": [
       "Holy glasses + Soul of Bat",
-      "Holy glasses + Gravity Boots + Leap Stone",
+      "Holy glasses + Gravity Boots + Leap Stone + Soul of Wolf + Power of Wolf + Skill of Wolf",
       "Holy glasses + Form of Mist + Power of Mist"
     ]
   }, {
@@ -702,7 +701,7 @@
     "comment": "Requires Holy glasses + flight",
     "locks": [
       "Holy glasses + Soul of Bat",
-      "Holy glasses + Gravity Boots + Leap Stone",
+      "Holy glasses + Gravity Boots + Leap Stone + Soul of Wolf + Power of Wolf + Skill of Wolf",
       "Holy glasses + Form of Mist + Power of Mist"
     ]
   }, {
@@ -710,7 +709,7 @@
     "comment": "Requires Holy glasses + flight",
     "locks": [
       "Holy glasses + Soul of Bat",
-      "Holy glasses + Gravity Boots + Leap Stone",
+      "Holy glasses + Gravity Boots + Leap Stone + Soul of Wolf + Power of Wolf + Skill of Wolf",
       "Holy glasses + Form of Mist + Power of Mist"
     ]
   }, {
@@ -718,7 +717,7 @@
     "comment": "Requires Holy glasses + flight",
     "locks": [
       "Holy glasses + Soul of Bat",
-      "Holy glasses + Gravity Boots + Leap Stone",
+      "Holy glasses + Gravity Boots + Leap Stone + Soul of Wolf + Power of Wolf + Skill of Wolf",
       "Holy glasses + Form of Mist + Power of Mist"
     ]
   }, {
@@ -726,7 +725,7 @@
     "comment": "Requires Holy glasses + flight",
     "locks": [
       "Holy glasses + Soul of Bat",
-      "Holy glasses + Gravity Boots + Leap Stone",
+      "Holy glasses + Gravity Boots + Leap Stone + Soul of Wolf + Power of Wolf + Skill of Wolf",
       "Holy glasses + Form of Mist + Power of Mist"
     ]
   }, {
@@ -734,7 +733,7 @@
     "comment": "Requires Holy glasses + flight",
     "locks": [
       "Holy glasses + Soul of Bat",
-      "Holy glasses + Gravity Boots + Leap Stone",
+      "Holy glasses + Gravity Boots + Leap Stone + Soul of Wolf + Power of Wolf + Skill of Wolf",
       "Holy glasses + Form of Mist + Power of Mist"
     ]
   }, {
@@ -742,7 +741,7 @@
     "comment": "Requires Holy glasses + flight",
     "locks": [
       "Holy glasses + Soul of Bat",
-      "Holy glasses + Gravity Boots + Leap Stone",
+      "Holy glasses + Gravity Boots + Leap Stone + Soul of Wolf + Power of Wolf + Skill of Wolf",
       "Holy glasses + Form of Mist + Power of Mist"
     ]
   }, {
@@ -774,7 +773,7 @@
     "comment": "Requires Holy glasses + flight + Possibly Spike Breaker",
     "locks": [
       "Holy glasses + Soul of Bat",
-      "Holy glasses + Gravity Boots + Leap Stone + Spike Breaker + Soul of Wolf",
+      "Holy glasses + Gravity Boots + Leap Stone + Spike Breaker + Soul of Wolf + Power of Wolf + Skill of Wolf",
       "Holy glasses + Gravity Boots + Leap Stone + Spike Breaker + Form of Mist",
       "Holy glasses + Form of Mist + Power of Mist"
     ]
@@ -783,8 +782,7 @@
     "comment": "Requires Holy glasses + flight",
     "locks": [
       "Holy glasses + Soul of Bat",
-      "Holy glasses + Gravity Boots + Leap Stone + Spike Breaker + Soul of Wolf",
-      "Holy glasses + Gravity Boots + Leap Stone + Spike Breaker + Form of Mist",
+      "Holy glasses + Gravity Boots + Leap Stone + Spike Breaker + Soul of Wolf + Power of Wolf + Skill of Wolf",
       "Holy glasses + Form of Mist + Power of Mist"
     ]
   }, {
@@ -792,8 +790,7 @@
     "comment": "Requires Holy glasses + flight",
     "locks": [
       "Holy glasses + Soul of Bat",
-      "Holy glasses + Gravity Boots + Leap Stone + Spike Breaker + Soul of Wolf",
-      "Holy glasses + Gravity Boots + Leap Stone + Spike Breaker + Form of Mist",
+      "Holy glasses + Gravity Boots + Leap Stone + Spike Breaker + Soul of Wolf + Power of Wolf + Skill of Wolf",
       "Holy glasses + Form of Mist + Power of Mist"
     ]
   }, {
@@ -801,12 +798,10 @@
     "comment": "Requires Holy glasses + flight + Demon Card",
     "locks": [
       "Holy glasses + Soul of Bat + Demon Card",
-      "Holy glasses + Gravity Boots + Leap Stone + Soul of Wolf + Demon Card",
-      "Holy glasses + Gravity Boots + Leap Stone + Form of Mist + Demon Card",
+      "Holy glasses + Gravity Boots + Leap Stone + Soul of Wolf + Power of Wolf + Skill of Wolf + Demon Card",
       "Holy glasses + Form of Mist + Power of Mist + Demon Card",
       "Holy glasses + Soul of Bat + Nosedevil Card",
-      "Holy glasses + Gravity Boots + Leap Stone + Soul of Wolf + Nosedevil Card",
-      "Holy glasses + Gravity Boots + Leap Stone + Form of Mist + Nosedevil Card",
+      "Holy glasses + Gravity Boots + Leap Stone + Soul of Wolf + Power of Wolf + Skill of Wolf + Nosedevil Card",
       "Holy glasses + Form of Mist + Power of Mist + Nosedevil Card"
     ]
   }, {
@@ -814,8 +809,7 @@
     "comment": "Requires Holy glasses + flight",
     "locks": [
       "Holy glasses + Soul of Bat",
-      "Holy glasses + Gravity Boots + Leap Stone + Spike Breaker + Soul of Wolf",
-      "Holy glasses + Gravity Boots + Leap Stone + Spike Breaker + Form of Mist",
+      "Holy glasses + Gravity Boots + Leap Stone + Spike Breaker + Soul of Wolf + Power of Wolf + Skill of Wolf",
       "Holy glasses + Form of Mist + Power of Mist"
     ]
   }, {
@@ -823,8 +817,7 @@
     "comment": "Requires Holy glasses + flight",
     "locks": [
       "Holy glasses + Soul of Bat",
-      "Holy glasses + Gravity Boots + Leap Stone + Spike Breaker + Soul of Wolf",
-      "Holy glasses + Gravity Boots + Leap Stone + Spike Breaker + Form of Mist",
+      "Holy glasses + Gravity Boots + Leap Stone + Spike Breaker + Soul of Wolf + Power of Wolf + Skill of Wolf",
       "Holy glasses + Form of Mist + Power of Mist"
     ]
   }, {
@@ -832,8 +825,7 @@
     "comment": "Requires Holy glasses + flight + Jewel of Open",
     "locks": [
       "Holy glasses + Jewel of Open + Soul of Bat",
-      "Holy glasses + Jewel of Open + Gravity Boots + Leap Stone + Spike Breaker + Soul of Wolf",
-      "Holy glasses + Jewel of Open + Gravity Boots + Leap Stone + Spike Breaker + Form of Mist",
+      "Holy glasses + Jewel of Open + Gravity Boots + Leap Stone + Spike Breaker + Soul of Wolf + Power of Wolf + Skill of Wolf",
       "Holy glasses + Jewel of Open + Form of Mist + Power of Mist"
     ]
   }, {
@@ -841,8 +833,7 @@
     "comment": "Requires Holy glasses + flight",
     "locks": [
       "Holy glasses + Soul of Bat",
-      "Holy glasses + Gravity Boots + Leap Stone + Spike Breaker + Soul of Wolf",
-      "Holy glasses + Gravity Boots + Leap Stone + Spike Breaker + Form of Mist",
+      "Holy glasses + Gravity Boots + Leap Stone + Spike Breaker + Soul of Wolf + Power of Wolf + Skill of Wolf",
       "Holy glasses + Form of Mist + Power of Mist"
     ]
   }],
