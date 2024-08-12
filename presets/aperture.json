@@ -179,7 +179,6 @@
     "comment": "In second castle + Transformation + Spike Breaker",
     "locks": [
       "Holy glasses + Soul of Bat + Spike Breaker",
-      "Holy glasses + Gravity Boots + Leap Stone + Form of Mist + Spike Breaker",
       "Holy glasses + Gravity Boots + Leap Stone + Soul of Wolf + Spike Breaker",
       "Holy glasses + Form of Mist + Power of Mist"
     ]
@@ -344,7 +343,7 @@
     "comment": "Requires at least Gravity Boots",
     "locks": [
       "Soul of Bat",
-      "Gravity Boots",
+      "Gravity Boots + Leap Stone",
       "Form of Mist + Power of Mist"
     ]
   }, {
@@ -439,7 +438,7 @@
     "comment": "Requires flight",
     "locks": [
       "Soul of Bat",
-      "Gravity Boots + Leap Stone",
+      "Leap Stone",
       "Form of Mist + Power of Mist"
     ]
   }, {
@@ -677,8 +676,7 @@
     "comment": "Requires Holy glasses + flight",
     "locks": [
       "Holy glasses + Soul of Bat",
-      "Holy glasses + Gravity Boots + Leap Stone",
-      "Holy glasses + Form of Mist + Power of Mist"
+      "Holy glasses + Gravity Boots + Leap Stone"
     ]
   }, {
     "location": "Alucard shield",
@@ -973,7 +971,7 @@
     "value": "0x30A50040"
   }, {
     "type": "word",
-    "value": "0x10A00008"
+    "value": "0x10A00009"
   }, {
     "type": "word",
     "value": "0x3C028007"
@@ -983,6 +981,9 @@
   }, {
     "type": "word",
     "value": "0x00000000"
+  }, {
+    "type": "word",
+    "value": "0x30420001"
   }, {
     "type": "word",
     "value": "0x10400004"
@@ -5872,7 +5873,6 @@
     "comment": "Requires Wolf Swim up Waterfall",
     "locks": [
       "Soul of Wolf + Skill of Wolf + Holy Symbol",
-      "Leap Stone",
       "Gravity Boots + Form of Mist",
       "Gravity Boots + Soul of Wolf",
       "Gravity Boots + Thrust sword"

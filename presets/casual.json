@@ -350,7 +350,7 @@
     "comment": "Requires at least Gravity Boots",
     "locks": [
       "Soul of Bat",
-      "Gravity Boots",
+      "Gravity Boots + Leap Stone",
       "Form of Mist + Power of Mist"
     ]
   }, {
@@ -477,7 +477,7 @@
     "comment": "Requires Jewel of Open + flight",
     "locks": [
       "Jewel of Open + Soul of Bat",
-      "Jewel of Open + Gravity Boots + Leap Stone",
+      "Jewel of Open + Leap Stone",
       "Jewel of Open + Form of Mist + Power of Mist"
     ]
   }, {
@@ -755,8 +755,7 @@
     "comment": "Requires Holy glasses + flight",
     "locks": [
       "Holy glasses + Soul of Bat",
-      "Holy glasses + Gravity Boots + Leap Stone",
-      "Holy glasses + Form of Mist + Power of Mist"
+      "Holy glasses + Gravity Boots + Leap Stone"
     ]
   }, {
     "location": "Alucard shield",

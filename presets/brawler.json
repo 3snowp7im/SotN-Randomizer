@@ -884,8 +884,7 @@
     "location": "Osafune katana",
     "comment": "Requires Holy glasses + flight",
     "locks": [
-      "Holy glasses + Gravity Boots + Leap Stone",
-      "Holy glasses + Form of Mist + Power of Mist"
+      "Holy glasses + Gravity Boots + Leap Stone"
     ]
   }, {
     "location": "Alucard shield",
@@ -1396,7 +1395,7 @@
     "location": "Platinum mail",
     "comment": "Requires flight",
     "locks": [
-      "Gravity Boots",
+      "Gravity Boots + Leap Stone",
       "Form of Mist + Power of Mist"
     ]
   }, {
@@ -1526,7 +1525,6 @@
     "comment": "Requires Jewel of Open + flight",
     "locks": [
       "Jewel of Open + Leap Stone",
-      "Jewel of Open + Gravity Boots + Leap Stone",
       "Jewel of Open + Form of Mist + Power of Mist"
     ]
   }, {

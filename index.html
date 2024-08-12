@@ -15,7 +15,7 @@
     <div id="content">
       <h1>Castlevania: Symphony of the Night Randomizer</h1>
       <div>
-        by Wild Mouse
+        by Wild Mouse,
         <a class="contact" href="https://twitter.com/3snow_p7im">
           <img height="16" width="16"
                src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/twitter.svg">
@@ -23,7 +23,7 @@
         <a class="contact" href="https://twitch.tv/3snow_p7im">
           <img height="16" width="16"
                src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/twitch.svg"></a>
-	 and eldri7ch
+	      , eldri7ch
         <a class="contact" href="https://twitter.com/eldri7ch">
           <img height="16" width="16"
                src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/twitter.svg">
@@ -31,10 +31,14 @@
         <a class="contact" href="https://twitch.tv/eldri7ch">
           <img height="16" width="16"
                src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/twitch.svg"></a>
-	 and MottZilla
+	      , MottZilla
         <a class="contact" href="https://twitch.tv/MottZilla0">
           <img height="16" width="16"
                src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/twitch.svg"></a>
+        , and SacredLucy
+        <a class="contact" href="https://twitch.tv/sacredlucyy">
+          <img height="16" width="16"
+              src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/twitch.svg"></a>
       </div>
       <form id="form" class="pure-u-1">
         <fieldset id="output" class="pure-u-1">
@@ -459,6 +463,20 @@
                   </span>
                 </label>
               </div>
+              <div class="pure-u-1-2"></div>
+              <div class="pure-u-1-2">
+                <input id="unlocked-mode" type="checkbox">
+                <label for="unlocked-mode">Unlocked mode
+                  <span class="tooltip-wrapper">
+                    <span class="tooltip-indicator">?</span>
+                    <span class="tooltip hidden">
+                      <span>
+                        Opens all five shortcuts in first castle and one in second castle. <span style="color: red;">(Will break logic for most presets.)</span>
+                      </span>
+                    </span>
+                  </span>
+                </label>
+              </div>
             </div>
           </fieldset>
         </div>
@@ -506,6 +524,22 @@
       </ul>
       <hr>
       <h2><a name="changelog">Changelog</a></h2>
+      <h3><time>August 12, 2024</time></h3>
+      <ul>
+        <li>Updated logic to be more intuitive in equipment and tourist extensions.</li>
+        <li>Added new option: Unlocked Mode to open shortcuts.</li>
+        <li>Restored dev mode for webpage when not on SOTN.io.</li>
+        <li>Removed map color preset compatibility to fix preset options offset. (CLI / Launcher only)</li>
+        <li>Restored pink map color to be able to be selected. (CLI / Launcher only)</li>
+        <li>Added two new "colors" for the map: Black and Invisible. (CLI / Launcher only)</li>
+        <li>Added track exclusion from the music rando. (CLI / Launcher only)</li>
+        <li>Removed error where Aperture map reveal allowed early reverse Library card.</li>
+        <li>Corrected Skinwalker logic to force early transformations.</li>
+        <li>Added Wing Smash trail color randomization provided by Bismurphy.</li>
+        <li>Removed zero-relic Faerie Card logic and replaced with more accessible options in Glitch.</li>
+        <li>Removed softlock with Maria Silver Ring cutscene in Glitch.</li>
+        <li>Fixed Glitch logic again.</li>
+      </ul>
       <h3><time>July 19, 2024</time></h3>
       <ul>
         <li>Added new seed naming scheme.</li>
@@ -602,33 +636,33 @@
       <ul>
         <li>Add Guarded O.G. preset.</li>
       </ul>
-      <h3><time>December 26, 2021</time></h3>
-      <ul>
-        <li>Add Spread relic locations extension.</li>
-        <li>Add Bat Master preset.</li>
-      </ul>
-      <h3><time>May 17, 2021</time></h3>
-      <ul>
-        <li>Use Guarded relic locations for Casual preset.</li>
-      </ul>
-      <h3><time>April 27, 2021</time></h3>
-      <ul>
-        <li>Reject disc images that are not valid, vanilla backups.</li>
-      </ul>
-      <h3><time>April 2, 2021</time></h3>
-      <ul>
-        <li>Add Gem Farmer preset.</li>
-      </ul>
-      <h3><time>March 12, 2021</time></h3>
-      <ul>
-        <li>Add O.G. preset.</li>
-      </ul>
-      <h3><time>February 27, 2021</time></h3>
-      <ul>
-        <li>Add item stats randomization.</li>
-      </ul>
       <a id="show-older" href="#older">Show older changes</a>
       <div id="older" class="hidden">
+        <h3><time>December 26, 2021</time></h3>
+        <ul>
+          <li>Add Spread relic locations extension.</li>
+          <li>Add Bat Master preset.</li>
+        </ul>
+        <h3><time>May 17, 2021</time></h3>
+        <ul>
+          <li>Use Guarded relic locations for Casual preset.</li>
+        </ul>
+        <h3><time>April 27, 2021</time></h3>
+        <ul>
+          <li>Reject disc images that are not valid, vanilla backups.</li>
+        </ul>
+        <h3><time>April 2, 2021</time></h3>
+        <ul>
+          <li>Add Gem Farmer preset.</li>
+        </ul>
+        <h3><time>March 12, 2021</time></h3>
+        <ul>
+          <li>Add O.G. preset.</li>
+        </ul>
+        <h3><time>February 27, 2021</time></h3>
+        <ul>
+          <li>Add item stats randomization.</li>
+        </ul>
         <h3><time>February 15, 2021</time></h3>
         <ul>
           <li>Add PPF output option.</li>

@@ -580,12 +580,6 @@ const yargs = require('yargs')
     describe: 'Prevents Death from stealing your belongings.',
     type: 'boolean',
   })
-  .option('mapcolor', {
-    alias: 'm',
-    describe: 'Change map color',
-    type: 'string',
-    requiresArg: true,
-  })
   .option('iws', {
     alias: 'b',
     describe: 'Makes wing smash essentially infinite.',
@@ -601,10 +595,27 @@ const yargs = require('yargs')
     describe: 'Quickens warp animation when using teleporters.',
     type: 'boolean',
   })
+  .option('unlocked', {
+    alias: 'U',
+    describe: 'Unlocks all shortcuts.',
+    type: 'boolean',
+  })
   .option('debug', {
     alias: 'D',
     describe: 'Debug mode.',
     type: 'boolean',
+  })
+  .option('mapcolor', {
+    alias: 'm',
+    describe: 'Change map color',
+    type: 'string',
+    requiresArg: true,
+  })
+  .option('excludesongs', {
+    alias: 'eds',
+    describe: 'Excludes the songs given by parameters. Example: --eds LOST_PAINTING,CURSE_ZONE',
+    type: 'string',
+    requiresArg: true,
   })
   .option('disable-accessibility-patches', {
     alias: 'a',
@@ -994,18 +1005,6 @@ if ('debug' in argv) {console.log('randomize | Set my purse')}
 if (argv.mypurse) { // Adds MP Vessel to replace Heart Vessel - eldrich
   options.mypurseMode = true
 }
-if ('debug' in argv) {console.log('randomize | Set map colors')}
-// Map Color Features if specified. - eldri7ch
-if ('mapcolor' in argv && typeof(argv.mapcolor) !== 'undefined') {
-  let termsAllowed = 'u,r,b,g,y,p,k'
-  if (!(termsAllowed.includes(argv.mapcolor))) {
-    yargs.showHelp()
-    console.error('\nMust contain a letter \'u\'(Blue), \'r\'(Crimson), \'b\'(Brown), \'g\'(Green), \'y\'(Gray), \'p\'(Purple), \'k\'(Pink)')
-    process.exit(1)
-  } else {
-    options.mapcolorTheme = argv.mapcolor.toString()
-  }
-}
 if ('debug' in argv) {console.log('randomize | Set infinite wing smash')}
 // Enable infinite wing smash mode if specified. - eldri7ch
 if (argv.iws) { // Makes wing smashes essentially infinite - eldrich
@@ -1020,6 +1019,27 @@ if ('debug' in argv) {console.log('randomize | Set no prologue')}
 // Enable no prologue mode if specified. - eldri7ch
 if (argv.noprologue) { // Removes prologue - eldrich
   options.noprologueMode = true
+}
+if ('debug' in argv) {console.log('randomize | Set unlocked')}
+// Enable unlocked mode if specified. - eldri7ch
+if (argv.unlocked) { // opens shortcuts - eldrich
+  options.unlockedMode = true
+}
+if ('debug' in argv) {console.log('randomize | Set map colors')}
+// Map Color Features if specified. - eldri7ch
+if ('mapcolor' in argv && typeof(argv.mapcolor) !== 'undefined') {
+  let termsAllowed = 'u,r,b,g,y,p,k,n,i'
+  if (!(termsAllowed.includes(argv.mapcolor))) {
+    yargs.showHelp()
+    console.error('\nMust contain a letter \'u\'(Blue), \'r\'(Crimson), \'n\'(Brown), \'g\'(Green), \'y\'(Gray), \'p\'(Purple), \'k\'(Pink), \'b\'(Black), \'i\'(Invisible)')
+    process.exit(1)
+  } else {
+    options.mapcolorTheme = argv.mapcolor.toString()
+  }
+}
+if ('excludesongs' in argv && typeof(argv.excludesongs) !== 'undefined') {
+  let songsToExclude = argv.excludesongs.split(",")
+  options.excludesongs = songsToExclude
 }
 if ('debug' in argv) {console.log('randomize | Set debug')}
 // Enable debug mode if specified. - eldri7ch
@@ -1067,6 +1087,7 @@ if ('debug' in argv) {console.log('randomize | Start randomization')}
     let checksum
     let startTime
     let endTime
+    let optFlag
 
     startTime = performance.now()
     const presets = require('./build/presets')
@@ -1168,47 +1189,69 @@ if ('debug' in argv) {console.log('randomize | Start randomization')}
         ))
         check.apply(randomizeMusic(rng, applied))
         if ('debug' in argv) {console.log('randomize | function: randomize | Apply patches from options')}
-        if ('debug' in argv) {console.log('randomize | function: randomize | Tournament Mode')}
+        optFlag = false
         if (options.tournamentMode) {
           // Apply tournament mode patches.
+          optFlag = true
           check.apply(util.applyTournamentModePatches())
         }
-        if ('debug' in argv) {console.log('randomize | function: randomize | Magicmax Mode')}
+        if ('debug' in argv) {console.log('randomize | function: randomize | Tournament Mode | ' + optFlag)}
+        optFlag = false
         if (options.magicmaxMode || applied.magicmaxMode) { // Adds MP Vessel to replace Heart Vessel - eldrich
           // Apply magic max mode patches. - MottZilla
+          optFlag = true
           check.apply(util.applyMagicMaxPatches())
         }
-        if ('debug' in argv) {console.log('randomize | function: randomize | Anti-Freeze Mode')}
+        if ('debug' in argv) {console.log('randomize | function: randomize | Magicmax Mode | ' + optFlag)}
+        optFlag = false
         if (options.antiFreezeMode || applied.antiFreezeMode) { // Removes screen freezes on relic / vessel collection and level-up - eldrich
           // Apply anti-freeze mode patches. - eldri7ch
+          optFlag = true
           check.apply(util.applyAntiFreezePatches())
         }
-        if ('debug' in argv) {console.log('randomize | function: randomize | That\'s my purse! Mode')}
+        if ('debug' in argv) {console.log('randomize | function: randomize | Anti-Freeze Mode | ' + optFlag)}
+        optFlag = false
         if (options.mypurseMode || applied.mypurseMode) { // Removes Death from Entrance - eldrich
           // Apply Death repellant patches. - eldri7ch
+          optFlag = true
           check.apply(util.applyMyPursePatches())
         }
-        if ('debug' in argv) {console.log('randomize | function: randomize | Map colors')}
+        if ('debug' in argv) {console.log('randomize | function: randomize | That\'s my purse! Mode | ' + optFlag)}
+        optFlag = false
+        if (options.iwsMode || applied.iwsMode) { // Makes wing smash essentially infinite - eldrich
+          // Apply infinite wing smashe mode patches. - eldri7ch
+          optFlag = true
+          check.apply(util.applyiwsPatches())
+        }
+        if ('debug' in argv) {console.log('randomize | function: randomize | Infinite Wing Smash Mode | ' + optFlag)}
+        optFlag = false
+        if (options.fastwarpMode || applied.fastwarpMode) { // Quickens teleporter warp animations - eldrich
+          // Apply fast warp mode patches. - eldri7ch
+          optFlag = true
+          check.apply(util.applyfastwarpPatches())
+        }
+        if ('debug' in argv) {console.log('randomize | function: randomize | Fast Warps Mode | ' + optFlag)}
+        optFlag = false
+        if (options.noprologueMode || applied.noprologueMode) { // removes prologue - eldrich
+          // Apply no prologue mode patches. - eldri7ch
+          optFlag = false
+          check.apply(util.applynoprologuePatches())
+        }
+        if ('debug' in argv) {console.log('randomize | function: randomize | No Prologue Mode | ' + optFlag)}
+        optFlag = false
+        if (options.unlockedMode || applied.unlockedMode) { // Unlocks shortcuts - eldrich
+          // Apply unlocked mode patches. - eldri7ch
+          optFlag = true
+          check.apply(util.applyunlockedPatches())
+        }
+        if ('debug' in argv) {console.log('randomize | function: randomize | Unlocked Mode | ' + optFlag)}
+        optFlag = false
         if ('mapcolor' in argv) { // Colors the map - eldrich
           // Apply map color patches. - eldri7ch
           let mapcol = argv.mapcolor
           check.apply(util.applyMapColor(mapcol))
         }
-        if ('debug' in argv) {console.log('randomize | function: randomize | Infinite Wing Smash Mode')}
-        if (options.iwsMode || applied.iwsMode) { // Makes wing smash essentially infinite - eldrich
-          // Apply infinite wing smashe mode patches. - eldri7ch
-          check.apply(util.applyiwsPatches())
-        }
-        if ('debug' in argv) {console.log('randomize | function: randomize | Fast Warps Mode')}
-        if (options.fastwarpMode || applied.fastwarpMode) { // Quickens teleporter warp animations - eldrich
-          // Apply fast warp mode patches. - eldri7ch
-          check.apply(util.applyfastwarpPatches())
-        }
-        if ('debug' in argv) {console.log('randomize | function: randomize | No Prologue Mode')}
-        if (options.noprologueMode || applied.noprologueMode) { // removes prologue - eldrich
-          // Apply no prologue mode patches. - eldri7ch
-          check.apply(util.applynoprologuePatches())
-        }
+        if ('debug' in argv) {console.log('randomize | function: randomize | Map colors')}
         if ('debug' in argv) {console.log('randomize | function: randomize | Apply Writes')}
         // Apply writes.
         check.apply(util.applyWrites(rng, applied))

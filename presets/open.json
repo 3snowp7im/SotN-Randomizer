@@ -8,6 +8,7 @@
   },
   
   "colorrandoMode": true,
+  "unlockedMode": true,
 
   "lockLocation": [{
     "location": "Merman Statue",
@@ -328,10 +329,10 @@
     ]
   }, {
     "location": "Platinum mail",
-    "comment": "Requires at least Gravity Boots",
+    "comment": "Requires flight",
     "locks": [
       "Soul of Bat",
-      "Gravity Boots",
+      "Gravity Boots + Leap Stone",
       "Form of Mist + Power of Mist"
     ]
   }, {
@@ -426,7 +427,7 @@
     "comment": "Requires flight",
     "locks": [
       "Soul of Bat",
-      "Gravity Boots + Leap Stone",
+      "Leap Stone",
       "Form of Mist + Power of Mist"
     ]
   }, {
@@ -664,8 +665,7 @@
     "comment": "Requires Holy glasses + flight",
     "locks": [
       "Holy glasses + Soul of Bat",
-      "Holy glasses + Gravity Boots + Leap Stone",
-      "Holy glasses + Form of Mist + Power of Mist"
+      "Holy glasses + Gravity Boots + Leap Stone"
     ]
   }, {
     "location": "Alucard shield",
@@ -849,35 +849,10 @@
     "value": "0x34020001",
     "comment": "ori v0, 0x0001"
   }, {
-    "comment": "Open Shortcut: Caverns - Entrance",
-    "type": "word",
-    "value": "0xa062BE1C",
-    "comment": "sb v0, 0xBE1C (v1)"
-  }, {
-    "comment": "Open Shortcut: Marble Gallery - Entrance",
-    "type": "word",
-    "value": "0xa062BE1D",
-    "comment": "sb v0, 0xBE1D (v1)"
-  }, {
-    "comment": "Open Shortcut: Teleporter - Entrance",
-    "type": "word",
-    "value": "0xa062BE1E",
-    "comment": "sb v0, 0xBE1E (v1)"
-  }, {
     "comment": "Open Shortcut: Alchemy Lab Cannon",
     "type": "word",
     "value": "0xa062BE6F",
     "comment": "sb v0, 0xBE6F (v1)"
-  }, {
-    "comment": "Open Shortcut: Olrox's Quarters - Royal Chapel",
-    "type": "word",
-    "value": "0xa062BE4C",
-    "comment": "sb v0, 0xBE4C (v1)"
-  }, {
-    "comment": "Open Shortcut: Colosseum - Royal Chapel",
-    "type": "word",
-    "value": "0xa062BE9D",
-    "comment": "sb v0, 0xBE9D (v1)"
   }, {
     "comment": "Open Keep Attic Stairs",
     "type": "word",
@@ -1001,6 +976,48 @@
   }, {
     "type": "word",
     "value": "0x00000000"
+  }, {
+    "comment": "remove tiles blocking shortcut for reverse entrance",
+    "address": "0x051caaee",
+    "type": "word",
+    "value": "0x00000000"
+  }, {
+    "address": "0x051cab2e",
+    "type": "word",
+    "value": "0x00000000"
+  }, {
+    "address": "0x051cab6e",
+    "type": "word",
+    "value": "0x00000000"
+  }, {
+    "address": "0x051cabae",
+    "type": "word",
+    "value": "0x00000000"
+  }, {
+    "address": "0x051cabee",
+    "type": "word",
+    "value": "0x00000000"
+  }, {
+    "address": "0x051cac2e",
+    "type": "word",
+    "value": "0x00000000"
+  }, {
+    "address": "0x051cac6e",
+    "type": "word",
+    "value": "0x00000000"
+  }, {
+    "address": "0x051cacae",
+    "type": "word",
+    "value": "0x00000000"
+  }, {
+    "comment": "Change Pillar Position",
+    "address": "0x051b03c2",
+    "type": "short",
+    "value": "0x030d"
+  }, {
+    "address": "0x051afb80",
+    "type": "short",
+    "value": "0x030d"
   }],
 
   "complexityGoal": {
