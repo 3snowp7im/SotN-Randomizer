@@ -971,7 +971,7 @@
     "value": "0x30A50040"
   }, {
     "type": "word",
-    "value": "0x10A00008"
+    "value": "0x10A00009"
   }, {
     "type": "word",
     "value": "0x3C028007"
@@ -981,6 +981,9 @@
   }, {
     "type": "word",
     "value": "0x00000000"
+  }, {
+    "type": "word",
+    "value": "0x30420001"
   }, {
     "type": "word",
     "value": "0x10400004"

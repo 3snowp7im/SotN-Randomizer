@@ -2888,6 +2888,13 @@
     "type": "char",
     "address": "0x03d8ac30",
     "value": "0xb3"
+  },
+  
+  {
+    "comment": "Remove Maria Silver Ring Cutscene",
+    "type": "word",
+    "address": "0x46C4B48",
+    "value": "0x34020001"
   }],
 
   "complexityGoal": {
