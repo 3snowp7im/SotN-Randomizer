@@ -780,35 +780,35 @@
         ))
         check.apply(randomizeMusic(rng, applied))
         // Apply tournament mode patches.
-        if (options.tournamentMode) {
+        if (options.tournamentMode || applied.tournamentMode) {
           check.apply(util.applyTournamentModePatches())
         }
         // Apply magic max patches.
-        if (options.magicmaxMode) {
+        if (options.magicmaxMode || applied.magicmaxMode) {
           check.apply(util.applyMagicMaxPatches())
         }
         // Apply anti-freeze patches.
-        if (options.antiFreezeMode) {
+        if (options.antiFreezeMode || applied.antiFreezeMode) {
           check.apply(util.applyAntiFreezePatches())
         }
         // Apply my purse patches.
-        if (options.mypurseMode) {
+        if (options.mypurseMode || applied.mypurseMode) {
           check.apply(util.applyMyPursePatches())
         }
         // Apply iws patches.
-        if (options.iwsMode) {
+        if (options.iwsMode || applied.iwsMode) {
           check.apply(util.applyiwsPatches())
         }
         // Apply fast warp patches.
-        if (options.fastwarpMode) {
+        if (options.fastwarpMode || applied.fastwarpMode) {
           check.apply(util.applyfastwarpPatches())
         }
         // Apply no prologue patches.
-        if (options.noprologueMode) {
+        if (options.noprologueMode || applied.noprologueMode) {
           check.apply(util.applynoprologuePatches())
         }
         // Apply unlocked patches.
-        if (options.unlockedMode) {
+        if (options.unlockedMode || applied.unlockedMode) {
           check.apply(util.applyunlockedPatches())
         }
         // Apply writes.
