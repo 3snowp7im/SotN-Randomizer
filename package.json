@@ -54,7 +54,8 @@
     "agonizetwtw",
     "stwosafe",
     "open",
-    "brawler"
+    "brawler",
+    "first-castle"
   ],
   "engines": {
     "node": ">=15"

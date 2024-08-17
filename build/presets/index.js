@@ -10,9 +10,10 @@
       require('./safe'),
       require('./adventure'),
       require('./nimble'),
+      require('./open'),
     ]
     // We will use this to know which preset we loaded already. If you add any new inheritance preset, add it here.
-    let loadedPresets = ["casual", "safe", "adventure", "nimble"]  
+    let loadedPresets = ["casual", "safe", "adventure", "nimble", "open"]  
     // Then only load the file of the specified preset
     if(!(process.env.chosenPreset in loadedPresets) && process.env.chosenPreset !== undefined){   
       let presetToLoad = process.env.chosenPreset

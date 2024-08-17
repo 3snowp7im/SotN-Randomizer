@@ -24,11 +24,12 @@ function randomizeWorker() {
       url + 'build/presets/safe.js',
       url + 'build/presets/adventure.js',
       url + 'build/presets/nimble.js',
+      url + 'build/presets/open.js',
       url + 'src/randomize_items.js',
       url + 'src/randomize_relics.js',
       url + 'src/ecc-edc-recalc-js.js',
     )
-    let loadedPresets = ["casual", "safe", "adventure", "nimble"]
+    let loadedPresets = ["casual", "safe", "adventure", "nimble", "open"]
     console.log(selectedPreset)    
     
     if(selectedPreset !== null && !(selectedPreset in loadedPresets)){
