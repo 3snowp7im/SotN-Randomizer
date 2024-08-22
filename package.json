@@ -55,7 +55,8 @@
     "stwosafe",
     "open",
     "brawler",
-    "first-castle"
+    "first-castle",
+    "luckysevens"
   ],
   "engines": {
     "node": ">=15"
