@@ -600,6 +600,11 @@ const yargs = require('yargs')
     describe: 'Unlocks all shortcuts.',
     type: 'boolean',
   })
+  .option('surprise', {
+    alias: 'S',
+    describe: 'Hides relics behind the same sprite and palette forcing the player to collect the relic to find out what it is.',
+    type: 'boolean',
+  })
   .option('debug', {
     alias: 'D',
     describe: 'Debug mode.',
@@ -1025,6 +1030,11 @@ if ('debug' in argv) {console.log('randomize | Set unlocked')}
 if (argv.unlocked) { // opens shortcuts - eldrich
   options.unlockedMode = true
 }
+if ('debug' in argv) {console.log('randomize | Set surprise')}
+// Enable surprise mode if specified. - eldri7ch
+if (argv.surprise) { // opens shortcuts - eldrich
+  options.surpriseMode = true
+}
 if ('debug' in argv) {console.log('randomize | Set map colors')}
 // Map Color Features if specified. - eldri7ch
 if ('mapcolor' in argv && typeof(argv.mapcolor) !== 'undefined') {
@@ -1245,6 +1255,13 @@ if ('debug' in argv) {console.log('randomize | Start randomization')}
           check.apply(util.applyunlockedPatches())
         }
         if ('debug' in argv) {console.log('randomize | function: randomize | Unlocked Mode | ' + optFlag)}
+        optFlag = false
+        if (options.surpriseMode || applied.surpriseMode) { // Hides relics behind the same sprite - eldrich
+          // Apply surprise mode patches. - eldri7ch
+          optFlag = true
+          check.apply(util.applysurprisePatches())
+        }
+        if ('debug' in argv) {console.log('randomize | function: randomize | Surprise Mode | ' + optFlag)}
         optFlag = false
         if ('mapcolor' in argv) { // Colors the map - eldrich
           // Apply map color patches. - eldri7ch

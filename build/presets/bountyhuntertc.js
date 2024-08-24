@@ -1,6 +1,6 @@
 // This is a generated file. Do not edit it directly.
-// Make your changes to presets/bountyhunter-tc.json then rebuild
-// this file with `npm run build-presets -- bountyhunter-tc`.
+// Make your changes to presets/bountyhuntertc.json then rebuild
+// this file with `npm run build-presets -- bountyhuntertc`.
 (function(self) {
 
   // Boilerplate.

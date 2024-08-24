@@ -401,6 +401,10 @@
     localStorage.setItem('unlockedMode', elems.unlockedMode.checked)
   }
 
+  function surpriseModeChange() {
+    localStorage.setItem('surpriseMode', elems.surpriseMode.checked)
+  }
+
   function accessibilityPatchesChange() {
     localStorage.setItem('accessibilityPatches', elems.accessibilityPatches.checked)
   }
@@ -570,6 +574,9 @@
       if (elems.unlockedMode.checked) {
         options.unlockedMode = true
       }
+      if (elems.surpriseMode.checked) {
+        options.surpriseMode = true
+      }
       return options
     }
     const options = {
@@ -590,6 +597,7 @@
       fastwarpMode: elems.fastwarpMode.checked,
       noprologueMode: elems.noprologueMode.checked,
       unlockedMode: elems.unlockedMode.checked,
+      surpriseMode: elems.surpriseMode.checked,
     }
     if (elems.enemyDropsArg.value) {
       options.enemyDrops = util.optionsFromString(
@@ -810,6 +818,10 @@
         // Apply unlocked patches.
         if (options.unlockedMode || applied.unlockedMode) {
           check.apply(util.applyunlockedPatches())
+        }
+        // Apply surprise patches.
+        if (options.surpriseMode || applied.surpriseMode) {
+          check.apply(util.applysurprisePatches())
         }
         // Apply writes.
         check.apply(util.applyWrites(rng, applied))
@@ -1051,6 +1063,7 @@
     fastwarpMode: document.getElementById('fastwarp-mode'),
     noprologueMode: document.getElementById('noprologue-mode'),
     unlockedMode: document.getElementById('unlocked-mode'),
+    surpriseMode: document.getElementById('surprise-mode'),
     accessibilityPatches: document.getElementById('accessibility-patches'),
     showSpoilers: document.getElementById('show-spoilers'),
     showRelics: document.getElementById('show-relics'),
@@ -1118,6 +1131,7 @@
   elems.fastwarpMode.addEventListener('change', fastwarpModeChange)
   elems.noprologueMode.addEventListener('change', noprologueModeChange)
   elems.unlockedMode.addEventListener('change', unlockedModeChange)
+  elems.surpriseMode.addEventListener('change', surpriseModeChange)
   elems.accessibilityPatches.addEventListener('change', accessibilityPatchesChange)
   elems.showSpoilers.addEventListener('change', spoilersChange)
   elems.showRelics.addEventListener('change', showRelicsChange)
@@ -1431,6 +1445,7 @@
   loadOption('fastwarpMode', fastwarpModeChange, false)
   loadOption('noprologueMode', noprologueModeChange, false)
   loadOption('unlockedMode', unlockedModeChange, false)
+  loadOption('surpriseMode', surpriseModeChange, false)
   loadOption('accessibilityPatches', accessibilityPatchesChange, true)
   loadOption('showSpoilers', spoilersChange, true)
   setTimeout(function() {

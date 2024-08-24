@@ -1717,6 +1717,11 @@
           randomize.push('U')
         }
         delete options.unlockedMode
+      } else if ('surpriseMode' in options) { // Hides relics behind the same sprite - eldrich
+        if (options.surpriseMode) {
+          randomize.push('S')
+        }
+        delete options.surpriseMode
       } else if ('debugMode' in options) { // Debug mode - eldrich
         if (options.debugMode) {
           randomize.push('D')
@@ -2947,6 +2952,7 @@
     fastwarpMode,
     noprologueMode,
     unlockedMode,
+    surpriseMode,
     debugMode,
     writes,
   ) {
@@ -2973,6 +2979,7 @@
     this.fastwarpMode = fastwarpMode
     this.noprologueMode = noprologueMode
     this.unlockedMode = unlockedMode
+    this.surpriseMode = surpriseMode
     this.debugMode = debugMode
     if (writes) {
       this.writes = writes
@@ -3111,6 +3118,8 @@
     this.noprologue = false
     // Unlocked mode.
     this.unlocked = false
+    // Surprise mode.
+    this.surprise = false
     // Debug mode.
     this.debug = false
     // Arbitrary writes.
@@ -3414,6 +3423,9 @@
     }
     if ('unlockedMode' in json) {
       builder.unlockedMode(json.unlockedMode)
+    }
+    if ('surpriseMode' in json) {
+      builder.surpriseMode(json.surpriseMode)
     }
     if ('writes' in json) {
       let lastAddress = 0
@@ -3725,6 +3737,9 @@
     }
     if ('unlockedMode' in preset) {
       this.unlocked = preset.unlockedMode
+    }
+    if ('surpriseMode' in preset) {
+      this.surprise = preset.surpriseMode
     }
     if ('writes' in preset) {
       this.writes = this.writes || []
@@ -4426,6 +4441,11 @@
     this.unlocked = enabled
   }
 
+  // Enable Surprise - eldri7ch
+  PresetBuilder.prototype.surpriseMode = function surpriseMode(enabled) {
+    this.surprise = enabled
+  }
+
   // Write a character.
   PresetBuilder.prototype.writeChar = function writeChar(address, value) {
     if (value !== 'random' && value !== 'random1' && value !== 'random3' && value !== 'random10' && value !== 'random99') {
@@ -4730,6 +4750,7 @@
     const fastwarp = self.fastwarp
     const noprologue = self.noprologue
     const unlocked = self.unlocked
+    const surprise = self.surprise
     const debug = self.debug
     const writes = self.writes
     return new Preset(
@@ -4756,6 +4777,7 @@
       fastwarp,
       noprologue,
       unlocked,
+      surprise,
       debug,
       writes,
     )
@@ -5153,6 +5175,74 @@
     offset = 0x04401100
     offset = data.writeWord(offset,memorySkip)
     offset = data.writeWord(offset,nopValue)
+    return data
+  }
+
+  function applysurprisePatches() {
+    const data = new checked()
+    const spritePal = 0x01020111 //set tile overwrites to remove them
+    // Patch the sprites for each relic - eldri7ch; code by MottZilla
+    let offset = 0x000b5550           // start with Soul of Bat - eldri7ch
+    data.writeWord(offset,spritePal)
+    offset += 0x10
+    data.writeWord(offset,spritePal)
+    offset += 0x10
+    data.writeWord(offset,spritePal)
+    offset += 0x10
+    data.writeWord(offset,spritePal)
+    offset += 0x10
+    data.writeWord(offset,spritePal)
+    offset += 0x10
+    data.writeWord(offset,spritePal)
+    offset += 0x10
+    data.writeWord(offset,spritePal)
+    offset += 0x10
+    data.writeWord(offset,spritePal)
+    offset += 0x10
+    data.writeWord(offset,spritePal)
+    offset += 0x10
+    data.writeWord(offset,spritePal)
+    offset += 0x10
+    data.writeWord(offset,spritePal)
+    offset += 0x10
+    data.writeWord(offset,spritePal)
+    offset += 0x10
+    data.writeWord(offset,spritePal)
+    offset += 0x10
+    data.writeWord(offset,spritePal)
+    offset += 0x140
+    data.writeWord(offset,spritePal)
+    offset += 0x10
+    data.writeWord(offset,spritePal)
+    offset += 0x10
+    data.writeWord(offset,spritePal)
+    offset += 0x10
+    data.writeWord(offset,spritePal)
+    offset += 0x10
+    data.writeWord(offset,spritePal)
+    offset += 0x10
+    data.writeWord(offset,spritePal)
+    offset += 0x10
+    data.writeWord(offset,spritePal)
+    offset += 0x10
+    data.writeWord(offset,spritePal)
+    offset += 0x10
+    data.writeWord(offset,spritePal)
+    offset += 0x10
+    data.writeWord(offset,spritePal)
+    offset += 0x10
+    data.writeWord(offset,spritePal)
+    offset += 0x10
+    data.writeWord(offset,spritePal)
+    offset += 0x10
+    data.writeWord(offset,spritePal)
+    offset += 0x10
+    data.writeWord(offset,spritePal)
+    offset += 0x10
+    data.writeWord(offset,spritePal)
+    offset += 0x10
+    data.writeWord(offset,spritePal)
+    offset += 0x10
     return data
   }
 
@@ -5673,6 +5763,7 @@
     applyfastwarpPatches: applyfastwarpPatches,
     applynoprologuePatches: applynoprologuePatches,
     applyunlockedPatches: applyunlockedPatches,
+    applysurprisePatches: applysurprisePatches,
     applyMapColor: applyMapColor,
     randomizeRelics: randomizeRelics,
     randomizeItems: randomizeItems,

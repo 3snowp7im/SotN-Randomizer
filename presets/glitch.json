@@ -2895,7 +2895,10 @@
     "type": "word",
     "address": "0x46C4B48",
     "value": "0x34020001"
-  }],
+  }, {
+    "type": "word",
+    "value": "0x00000000"
+}],
 
   "complexityGoal": {
     "min": 5,

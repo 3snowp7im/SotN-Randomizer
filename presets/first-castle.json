@@ -2,9 +2,9 @@
   "metadata": {
     "id": "first-castle",
     "name": "First Castle",
-    "description": "All relics are available in the first castle. Zoom through the castle and defeat Dracula!",
+    "description": "All relics are available in the first castle. No need to stop anywhere in second castle!",
     "author": "SacredLucy",
-    "weight": 250
+    "weight": -5005
   },
   "inherits": "open",
   "stats": false,

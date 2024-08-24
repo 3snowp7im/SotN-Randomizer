@@ -2,7 +2,7 @@
   "metadata": {
     "id": "big-toss",
     "name": "Big Toss",
-    "description": "Bat and fast Wolf are removed, and any amount of damage causes a Big Toss.",
+    "description": "Bat and fast Wolf are removed, and any amount of damage causes a 'big toss', launching Alucard across the screen.",
     "author": "Wecoc, eldri7ch, Mottzilla",
     "weight": -3000
   },
