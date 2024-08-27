@@ -24,6 +24,7 @@
   const equipmentInvIdOffset = constants.equipmentInvIdOffset
   const GLOBAL_DROP = constants.GLOBAL_DROP
   const globalDropsCount = constants.globalDropsCount
+  const enemiesDrops = enemies.enemiesDrops
 
   const shuffled = util.shuffled
 
@@ -987,14 +988,14 @@
     const dupTypes = {}
     items.forEach(function(item) {
       if (equipmentFilter(item) && !salableFilter(item) && item.tiles) {
-        const enemies = item.tiles.filter(function(tile) {
+        const enemiesDrops = item.tiles.filter(function(tile) {
           return 'enemy' in tile && tile.enemy !== GLOBAL_DROP
         }).map(function(tile) {
           return tile.enemy
         })
-        if (enemies.length > 1) {
+        if (enemiesDrops.length > 1) {
           dupTypes[item.type] = dupTypes[item.type] || []
-          dupTypes[item.type].push(enemies.length - 1)
+          dupTypes[item.type].push(enemiesDrops.length - 1)
         }
       }
     })
@@ -1072,7 +1073,7 @@
           do {
             tile = takeTile(tiles, uniqueDrops(replacement))
             if (tile) {
-              enemy = enemies.filter(function(enemy) {
+              enemy = enemiesDrops.filter(function(enemy) {
                 return enemy.id === tile.enemy
               })
               tileCount++
@@ -1116,7 +1117,7 @@
           do {
             tile = takeTile(tiles, uniqueDrops(replacement))
             if (tile) {
-              enemy = enemies.filter(function(enemy) {
+              enemy = enemiesDrops.filter(function(enemy) {
                 return enemy.id === tile.enemy
               })
               tileCount++
@@ -1165,7 +1166,7 @@
           do {
             tile = takeTile(tiles, uniqueDrops(replacement))
             if (tile) {
-              enemy = enemies.filter(function(enemy) {
+              enemy = enemiesDrops.filter(function(enemy) {
                 return enemy.id === tile.enemy
               })
               tileCount++
@@ -1207,7 +1208,7 @@
           do {
             tile = takeTile(tiles, uniqueDrops(replacement))
             if (tile) {
-              enemy = enemies.filter(function(enemy) {
+              enemy = enemiesDrops.filter(function(enemy) {
                 return enemy.id === tile.enemy
               })
               tileCount++
@@ -1276,7 +1277,7 @@
         // Get enemies being targeted.
         let targets
         if (key === '*') {
-          targets = enemies.concat([{librarian: true}])
+          targets = enemiesDrops.concat([{librarian: true}])
         } else if (key === GLOBAL_DROP) {
           targets = [{id: GLOBAL_DROP}]
         } else if (key.toLowerCase() === 'librarian') {

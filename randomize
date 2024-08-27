@@ -605,6 +605,11 @@ const yargs = require('yargs')
     describe: 'Hides relics behind the same sprite and palette forcing the player to collect the relic to find out what it is.',
     type: 'boolean',
   })
+  .option('enemyStatRando', {
+    alias: 'E',
+    describe: 'Enemy stats are randomized ranging from 25% to 200% of their original value and their attack and defense types are randomized to include random elements.',
+    type: 'boolean',
+  })
   .option('debug', {
     alias: 'D',
     describe: 'Debug mode.',
@@ -1035,6 +1040,11 @@ if ('debug' in argv) {console.log('randomize | Set surprise')}
 if (argv.surprise) { // opens shortcuts - eldrich
   options.surpriseMode = true
 }
+if ('debug' in argv) {console.log('randomize | Set enemyStatRando')}
+// Enable Enemy Stat Rando mode if specified. - eldri7ch
+if (argv.enemyStatRando) { // randomizes enemy stats - eldrich
+  options.enemyStatRandoMode = true
+}
 if ('debug' in argv) {console.log('randomize | Set map colors')}
 // Map Color Features if specified. - eldri7ch
 if ('mapcolor' in argv && typeof(argv.mapcolor) !== 'undefined') {
@@ -1262,6 +1272,19 @@ if ('debug' in argv) {console.log('randomize | Start randomization')}
           check.apply(util.applysurprisePatches())
         }
         if ('debug' in argv) {console.log('randomize | function: randomize | Surprise Mode | ' + optFlag)}
+        optFlag = false
+        if (options.enemyStatRandoMode || applied.enemyStatRandoMode) { // Randomizes enemy stats - eldrich
+          // Apply Enemy Stat Rando mode patches. - eldri7ch
+          optFlag = true
+          rng = new require('seedrandom')(util.saltSeed(
+            version,
+            options,
+            seed,
+            0,
+          ))
+          check.apply(util.applyenemyStatRandoPatches(rng))
+        }
+        if ('debug' in argv) {console.log('randomize | function: randomize | Enemy Stat Randomizer Mode | ' + optFlag)}
         optFlag = false
         if ('mapcolor' in argv) { // Colors the map - eldrich
           // Apply map color patches. - eldri7ch

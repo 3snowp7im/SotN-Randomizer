@@ -15,6 +15,7 @@ const ZONE = constants.ZONE
 const GLOBAL_DROP = constants.GLOBAL_DROP
 const globalDropsCount = constants.globalDropsCount
 const zones = constants.zones
+const enemiesDrops = enemies.enemiesDrops
 
 // Clear existing drop data from item list.
 items.filter(function(item) {
@@ -28,7 +29,7 @@ items.filter(function(item) {
 // Read input bin.
 const bin = fs.readFileSync(process.argv[2])
 // Add tiles.
-enemies.forEach(function(enemy) {
+enemiesDrops.forEach(function(enemy) {
   enemy.dropAddresses.forEach(function(address) {
     const id = bin.readUInt16LE(address)
     if (id === 0) {

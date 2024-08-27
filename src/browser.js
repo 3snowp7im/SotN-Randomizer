@@ -405,6 +405,10 @@
     localStorage.setItem('surpriseMode', elems.surpriseMode.checked)
   }
 
+  function enemyStatRandoModeChange() {
+    localStorage.setItem('enemyStatRandoMode', elems.enemyStatRandoMode.checked)
+  }
+
   function accessibilityPatchesChange() {
     localStorage.setItem('accessibilityPatches', elems.accessibilityPatches.checked)
   }
@@ -577,6 +581,9 @@
       if (elems.surpriseMode.checked) {
         options.surpriseMode = true
       }
+      if (elems.enemyStatRandoMode.checked) {
+        options.enemyStatRandoMode = true
+      }
       return options
     }
     const options = {
@@ -598,6 +605,7 @@
       noprologueMode: elems.noprologueMode.checked,
       unlockedMode: elems.unlockedMode.checked,
       surpriseMode: elems.surpriseMode.checked,
+      enemyStatRandoMode: elems.enemyStatRandoMode.checked,
     }
     if (elems.enemyDropsArg.value) {
       options.enemyDrops = util.optionsFromString(
@@ -822,6 +830,10 @@
         // Apply surprise patches.
         if (options.surpriseMode || applied.surpriseMode) {
           check.apply(util.applysurprisePatches())
+        }
+        // Apply enemy stat rando patches.
+        if (options.enemyStatRandoMode || applied.enemyStatRandoMode) {
+          check.apply(util.applyenemyStatRandoPatches(rng))
         }
         // Apply writes.
         check.apply(util.applyWrites(rng, applied))
@@ -1064,6 +1076,7 @@
     noprologueMode: document.getElementById('noprologue-mode'),
     unlockedMode: document.getElementById('unlocked-mode'),
     surpriseMode: document.getElementById('surprise-mode'),
+    enemyStatRandoMode: document.getElementById('enemyStatRando-mode'),
     accessibilityPatches: document.getElementById('accessibility-patches'),
     showSpoilers: document.getElementById('show-spoilers'),
     showRelics: document.getElementById('show-relics'),
@@ -1132,6 +1145,7 @@
   elems.noprologueMode.addEventListener('change', noprologueModeChange)
   elems.unlockedMode.addEventListener('change', unlockedModeChange)
   elems.surpriseMode.addEventListener('change', surpriseModeChange)
+  elems.enemyStatRandoMode.addEventListener('change', enemyStatRandoModeChange)
   elems.accessibilityPatches.addEventListener('change', accessibilityPatchesChange)
   elems.showSpoilers.addEventListener('change', spoilersChange)
   elems.showRelics.addEventListener('change', showRelicsChange)
@@ -1446,6 +1460,7 @@
   loadOption('noprologueMode', noprologueModeChange, false)
   loadOption('unlockedMode', unlockedModeChange, false)
   loadOption('surpriseMode', surpriseModeChange, false)
+  loadOption('enemyStatRandoMode', enemyStatRandoModeChange, false)
   loadOption('accessibilityPatches', accessibilityPatchesChange, true)
   loadOption('showSpoilers', spoilersChange, true)
   setTimeout(function() {

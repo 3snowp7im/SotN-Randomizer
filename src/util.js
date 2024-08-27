@@ -149,6 +149,72 @@
     })[0]
   }
 
+  function convertToHexString(input) {
+    const hexMapping = {
+        '00': ' ', '01': '!', '02': '"', '03': '#',
+        '04': '$', '05': '%', '06': '&', '07': "'",
+        '08': '(', '09': ')', '0b': '+', '0c': ',',
+        '0d': '-', '0e': '.', '0f': '/', '10': '0',
+        '11': '1', '12': '2', '13': '3', '14': '4',
+        '15': '5', '16': '6', '17': '7', '18': '8',
+        '19': '9', '1a': ':', '1d': '=', '1f': '?',
+        '21': 'A', '41': 'a', '22': 'B', '42': 'b',
+        '23': 'C', '43': 'c', '24': 'D', '44': 'd',
+        '25': 'E', '45': 'e', '26': 'F', '46': 'f',
+        '27': 'G', '47': 'g', '28': 'H', '48': 'h',
+        '29': 'I', '49': 'i', '2a': 'J', '4a': 'j',
+        '2b': 'K', '4b': 'k', '2c': 'L', '4c': 'l',
+        '2d': 'M', '4d': 'm', '2e': 'N', '4e': 'n',
+        '2f': 'O', '4f': 'o', '30': 'P', '50': 'p',
+        '31': 'Q', '51': 'q', '32': 'R', '52': 'r',
+        '33': 'S', '53': 's', '34': 'T', '54': 't',
+        '35': 'U', '55': 'u', '36': 'V', '56': 'v',
+        '37': 'W', '57': 'w', '38': 'X', '58': 'x',
+        '39': 'Y', '59': 'y', '3a': 'Z', '5a': 'z',
+        '3b': '[', '3d': ']', '3f': '_', '5e': '~',
+        '62': '┌', '63': '┘', '65': '•', 'e0': '←',
+        'e1': '↖', 'e2': '↑', 'e3': '↗', 'e4': '→',
+        'e5': '↘', 'e6': '↓', 'e7': '↙', 'f0': 'é', // é is the sword icon
+        'f1': 'â', 'f2': 'ä', // â is the shield icon; ä is the armor icon
+        'f6': 'à', 'f7': 'å', // à is the ring icon; å is the potion icon
+        'ff': 'ÿ' // This is the label end character
+    };
+
+    let result = '';
+    for (let i = 0; i < input.length; i++) {
+        const char = input[i];
+        const hexKey = Object.keys(hexMapping).find(key => hexMapping[key] === char);
+        if (hexKey) {
+            result += hexKey;
+        } else {
+            result += char; // Keeps characters that aren't in the mapping unchanged
+        }
+    }
+
+    return '0x' + result;
+  }
+
+  function findRequiredNumbers(total, numbers) {
+    // This returns the numbers that compose a value. For example, if the total is 12 and the possible numbers are 1, 2, 4 and 8, it will return [8, 4]
+    // Sort the numbers in descending order
+    numbers.sort((a, b) => b - a);
+
+    // Initialize an array to store the result
+    let result = [];
+
+    // Iterate through the sorted numbers
+    for (let number of numbers) {
+        if (total >= number) {
+            // If the current number can be subtracted from the total, add it to the result
+            result.push(number);
+            total -= number;
+        }
+    }
+
+    // Return the list of required numbers
+    return result;
+  }
+
   function itemFromTileId(items, id) {
     return items.filter(function(item) {
       if (id > constants.tileIdOffset) {
@@ -465,6 +531,734 @@
     }
   }
 
+  function replaceTextAtIndex(oldStr, newStr, index) {
+    oldStr.substring(0,index) + newStr + oldStr.substring(index + newStr.length)
+  }
+
+  function enemyNumStatRand(rng,statAmt) { // a function to return a new value for a stat based on the stat's original value
+    let randomFloat // set aside for floating decimal
+    let tempAmt // temp holding space for the number to be converted
+    let newAmt // this will ultimately be our output
+    randomFloat = ((Math.floor(rng() * 175) +25)/ 100) // select a random % between 25% and 200%
+    tempAmt = Math.round(randomFloat * statAmt) // set the temp to the new value for the stat
+    newAmt = numToHex(tempAmt,4) // convert the new stat amount to hex width 4 to avoid giving large HP enemies 15k+ HP
+    return newAmt // return the resulting hex for implementation
+  }
+
+  function enemyResistTypeStatRand(rng) {
+    let newType
+    // We want nothing 50% of the time, and a random type all other times
+    if(rng() >= 0.5) return 0x0000;
+    
+    let typeList = [
+      0x0020, // hit
+      0x0040, // cut
+      0x0080, // poison
+      0x8000, // Fire
+      0x2000, // Ice
+      0x1000, // Holy
+      0x4000, // Lightning
+      0x0100, // Curse
+      0x0200, // Stone
+      0x0800  // Dark
+    ]
+    newType = typeList[Math.floor(rng() * Math.floor(typeList.length - 1))]
+    return newType
+  }
+
+  function enemyWeakTypeStatRand(rng) {
+    let newType
+    let typeList = [
+      0x0020, // hit
+      0x0040, // cut
+      0x0080, // poison
+      0x8000, // Fire
+      0x2000, // Ice
+      0x1000, // Holy
+      0x4000, // Lightning
+      0x0100, // Curse
+      0x0200, // Stone
+      0x0800  // Dark
+    ]
+    newType = typeList[Math.floor(rng() * Math.floor(typeList.length - 1))]
+    return newType
+  }
+
+  function enemyAtkTypeStatRand(rng) {
+    let newType
+    let typeList = [
+      // 0x0000, // No hitbox - Do not combine
+      // 0x1000, // Hit 1/6 - Do not combine within the 0xn000 tier. These do not combine with each other. Do not combine with the 0x0n00 tier.
+      // 0x2000, // hit - Do not combine within the 0xn000 tier. These do not combine with each other.
+      // 0x4000, // cut - Do not combine within the 0xn000 tier. These do not combine with each other.
+      // 0x5000, // cut 1/6 - Do not combine within the 0xn000 tier. These do not combine with each other. Do not combine with the 0x0n00 tier.
+      // 0x6000, // weak cut - Do not combine
+      // 0x8000, // Poison - Do not combine within the 0xn000 tier. These do not combine with each other.
+      // 0x0001, // Curse
+      // 0x0002, // Stone
+      // 0x0004, // Water
+      // 0x0008, // Dark
+      // 0x0010, // Holy
+      // 0x0020, // Ice
+      // 0x0040, // Lightning
+      // 0x0080, // Fire
+      // 0x0200, // Weak Hit - do not combine within the 0x0n00 tier. These do not combine with each other.
+      // 0x0400, // Big Toss - do not combine within the 0x0n00 tier. These do not combine with each other.
+      // 0x0600, // guard - do not combine.
+      // 0x0700, // Cat - do not combine within the 0x0n00 tier. These do not combine with each other.
+      0x0000, // No hitbox
+      0x0000, // No hitbox
+      0x0000, // No hitbox
+      0x0006, // guard
+      0x0006, // guard
+      0x0006, // guard
+      0x0021, // Normal Hit
+      0x0021, // Normal Hit
+      0x0021, // Normal Hit
+      0x0121, // Hit Curse
+      0x0221, // Hit Stone
+      0x0321, // Hit Stone Curse
+      0x0421, // Hit Water
+      0x0421, // Hit Water
+      0x0421, // Hit Water
+      0x0521, // Hit Water Curse
+      0x0621, // Hit Water Stone
+      0x0821, // Hit Dark
+      0x0821, // Hit Dark
+      0x0821, // Hit Dark
+      0x0921, // Hit Dark Curse
+      0x0a21, // Hit Dark Stone
+      0x0c21, // Hit Dark Water
+      0x0c21, // Hit Dark Water
+      0x0c21, // Hit Dark Water
+      0x1021, // Hit Holy
+      0x1021, // Hit Holy
+      0x1021, // Hit Holy
+      0x1021, // Hit Holy
+      0x1021, // Hit Holy
+      0x1121, // Hit Holy Curse
+      0x1221, // Hit Holy Stone
+      0x1421, // Hit Holy Water
+      0x1421, // Hit Holy Water
+      0x1421, // Hit Holy Water
+      0x1821, // Hit Holy Dark
+      0x1821, // Hit Holy Dark
+      0x1821, // Hit Holy Dark
+      0x2021, // Hit Ice
+      0x2021, // Hit Ice
+      0x2021, // Hit Ice
+      0x2121, // Hit Ice Curse
+      0x2221, // Hit Ice Stone
+      0x2421, // Hit Ice Water
+      0x2821, // Hit Ice Dark
+      0x2821, // Hit Ice Dark
+      0x2821, // Hit Ice Dark
+      0x3021, // Hit Holy Ice
+      0x3021, // Hit Holy Ice
+      0x3021, // Hit Holy Ice
+      0x4021, // Hit Lightning
+      0x4021, // Hit Lightning
+      0x4021, // Hit Lightning
+      0x4121, // Hit Lightning Curse
+      0x4221, // Hit Lightning Stone
+      0x4421, // Hit Lightning Water
+      0x4421, // Hit Lightning Water
+      0x4421, // Hit Lightning Water
+      0x4821, // Hit Lightning Dark
+      0x4821, // Hit Lightning Dark
+      0x4821, // Hit Lightning Dark
+      0x5021, // Hit Holy Lightning
+      0x5021, // Hit Holy Lightning
+      0x5021, // Hit Holy Lightning
+      0x6021, // Hit Ice Lightning
+      0x6021, // Hit Ice Lightning
+      0x6021, // Hit Ice Lightning
+      0x8021, // Hit Fire
+      0x8021, // Hit Fire
+      0x8021, // Hit Fire
+      0x8121, // Hit Fire Curse
+      0x8221, // Hit Fire Stone
+      0x8421, // Hit Fire Water
+      0x8421, // Hit Fire Water
+      0x8421, // Hit Fire Water
+      0x8821, // Hit Fire Dark
+      0x8821, // Hit Fire Dark
+      0x8821, // Hit Fire Dark
+      0x9021, // Hit Holy Fire
+      0x9021, // Hit Holy Fire
+      0x9021, // Hit Holy Fire
+      0xA021, // Hit Ice Fire
+      0xA021, // Hit Ice Fire
+      0xA021, // Hit Ice Fire
+      0xC021, // Hit Lightning Fire
+      0xC021, // Hit Lightning Fire
+      0xC021, // Hit Lightning Fire
+      0x0124, // Hit Curse
+      0x0224, // Hit Stone
+      0x0324, // Hit Stone Curse
+      0x0424, // Hit Water
+      0x0424, // Hit Water
+      0x0424, // Hit Water
+      0x0524, // Hit Water Curse
+      0x0624, // Hit Water Stone
+      0x0824, // Hit Dark
+      0x0824, // Hit Dark
+      0x0824, // Hit Dark
+      0x0924, // Hit Dark Curse
+      0x0a24, // Hit Dark Stone
+      0x0c24, // Hit Dark Water
+      0x0c24, // Hit Dark Water
+      0x0c24, // Hit Dark Water
+      0x1024, // Hit Holy
+      0x1024, // Hit Holy
+      0x1024, // Hit Holy
+      0x1024, // Hit Holy
+      0x1024, // Hit Holy
+      0x1124, // Hit Holy Curse
+      0x1224, // Hit Holy Stone
+      0x1424, // Hit Holy Water
+      0x1424, // Hit Holy Water
+      0x1424, // Hit Holy Water
+      0x1824, // Hit Holy Dark
+      0x1824, // Hit Holy Dark
+      0x1824, // Hit Holy Dark
+      0x2024, // Hit Ice
+      0x2024, // Hit Ice
+      0x2024, // Hit Ice
+      0x2124, // Hit Ice Curse
+      0x2224, // Hit Ice Stone
+      0x2424, // Hit Ice Water
+      0x2824, // Hit Ice Dark
+      0x2824, // Hit Ice Dark
+      0x2824, // Hit Ice Dark
+      0x3024, // Hit Holy Ice
+      0x3024, // Hit Holy Ice
+      0x3024, // Hit Holy Ice
+      0x4024, // Hit Lightning
+      0x4024, // Hit Lightning
+      0x4024, // Hit Lightning
+      0x4124, // Hit Lightning Curse
+      0x4224, // Hit Lightning Stone
+      0x4424, // Hit Lightning Water
+      0x4424, // Hit Lightning Water
+      0x4424, // Hit Lightning Water
+      0x4824, // Hit Lightning Dark
+      0x4824, // Hit Lightning Dark
+      0x4824, // Hit Lightning Dark
+      0x5024, // Hit Holy Lightning
+      0x5024, // Hit Holy Lightning
+      0x5024, // Hit Holy Lightning
+      0x6024, // Hit Ice Lightning
+      0x6024, // Hit Ice Lightning
+      0x6024, // Hit Ice Lightning
+      0x8024, // Hit Fire
+      0x8024, // Hit Fire
+      0x8024, // Hit Fire
+      0x8124, // Hit Fire Curse
+      0x8224, // Hit Fire Stone
+      0x8424, // Hit Fire Water
+      0x8424, // Hit Fire Water
+      0x8424, // Hit Fire Water
+      0x8824, // Hit Fire Dark
+      0x8824, // Hit Fire Dark
+      0x8824, // Hit Fire Dark
+      0x9024, // Hit Holy Fire
+      0x9024, // Hit Holy Fire
+      0x9024, // Hit Holy Fire
+      0xA024, // Hit Ice Fire
+      0xA024, // Hit Ice Fire
+      0xA024, // Hit Ice Fire
+      0xC024, // Hit Lightning Fire
+      0xC024, // Hit Lightning Fire
+      0xC024, // Hit Lightning Fire
+      0x0041, // Normal Cut
+      0x0041, // Normal Cut
+      0x0041, // Normal Cut
+      0x0141, // Cut Curse
+      0x0241, // Cut Stone
+      0x0341, // Cut Stone Curse
+      0x0441, // Cut Water
+      0x0441, // Cut Water
+      0x0441, // Cut Water
+      0x0541, // Cut Water Curse
+      0x0641, // Cut Water Stone
+      0x0841, // Cut Dark
+      0x0841, // Cut Dark
+      0x0841, // Cut Dark
+      0x0941, // Cut Dark Curse
+      0x0a41, // Cut Dark Stone
+      0x0c41, // Cut Dark Water
+      0x0c41, // Cut Dark Water
+      0x0c41, // Cut Dark Water
+      0x1041, // Cut Holy
+      0x1041, // Cut Holy
+      0x1041, // Cut Holy
+      0x1141, // Cut Holy Curse
+      0x1241, // Cut Holy Stone
+      0x1441, // Cut Holy Water
+      0x1441, // Cut Holy Water
+      0x1441, // Cut Holy Water
+      0x1841, // Cut Holy Dark
+      0x1841, // Cut Holy Dark
+      0x1841, // Cut Holy Dark
+      0x2041, // Cut Ice
+      0x2041, // Cut Ice
+      0x2041, // Cut Ice
+      0x2141, // Cut Ice Curse
+      0x2241, // Cut Ice Stone
+      0x2441, // Cut Ice Water
+      0x2441, // Cut Ice Water
+      0x2441, // Cut Ice Water
+      0x2841, // Cut Ice Dark
+      0x2841, // Cut Ice Dark
+      0x2841, // Cut Ice Dark
+      0x3041, // Cut Holy Ice
+      0x3041, // Cut Holy Ice
+      0x3041, // Cut Holy Ice
+      0x4041, // Cut Lightning
+      0x4041, // Cut Lightning
+      0x4041, // Cut Lightning
+      0x4141, // Cut Lightning Curse
+      0x4241, // Cut Lightning Stone
+      0x4441, // Cut Lightning Water
+      0x4441, // Cut Lightning Water
+      0x4441, // Cut Lightning Water
+      0x4841, // Cut Lightning Dark
+      0x4841, // Cut Lightning Dark
+      0x4841, // Cut Lightning Dark
+      0x5041, // Cut Holy Lightning
+      0x5041, // Cut Holy Lightning
+      0x5041, // Cut Holy Lightning
+      0x6041, // Cut Ice Lightning
+      0x6041, // Cut Ice Lightning
+      0x6041, // Cut Ice Lightning
+      0x8041, // Cut Fire
+      0x8041, // Cut Fire
+      0x8041, // Cut Fire
+      0x8141, // Cut Fire Curse
+      0x8241, // Cut Fire Stone
+      0x8441, // Cut Fire Water
+      0x8441, // Cut Fire Water
+      0x8441, // Cut Fire Water
+      0x8841, // Cut Fire Dark
+      0x8841, // Cut Fire Dark
+      0x8841, // Cut Fire Dark
+      0x9041, // Cut Holy Fire
+      0x9041, // Cut Holy Fire
+      0x9041, // Cut Holy Fire
+      0xA041, // Cut Ice Fire
+      0xA041, // Cut Ice Fire
+      0xA041, // Cut Ice Fire
+      0xC041, // Cut Lightning Fire
+      0xC041, // Cut Lightning Fire
+      0xC041, // Cut Lightning Fire
+      0x0044, // Normal Cut
+      0x0044, // Normal Cut
+      0x0044, // Normal Cut
+      0x0144, // Cut Curse
+      0x0244, // Cut Stone
+      0x0344, // Cut Stone Curse
+      0x0444, // Cut Water
+      0x0444, // Cut Water
+      0x0444, // Cut Water
+      0x0544, // Cut Water Curse
+      0x0644, // Cut Water Stone
+      0x0844, // Cut Dark
+      0x0844, // Cut Dark
+      0x0844, // Cut Dark
+      0x0944, // Cut Dark Curse
+      0x0a44, // Cut Dark Stone
+      0x0c44, // Cut Dark Water
+      0x0c44, // Cut Dark Water
+      0x0c44, // Cut Dark Water
+      0x1044, // Cut Holy
+      0x1044, // Cut Holy
+      0x1044, // Cut Holy
+      0x1144, // Cut Holy Curse
+      0x1244, // Cut Holy Stone
+      0x1444, // Cut Holy Water
+      0x1444, // Cut Holy Water
+      0x1444, // Cut Holy Water
+      0x1844, // Cut Holy Dark
+      0x1844, // Cut Holy Dark
+      0x1844, // Cut Holy Dark
+      0x2044, // Cut Ice
+      0x2044, // Cut Ice
+      0x2044, // Cut Ice
+      0x2144, // Cut Ice Curse
+      0x2244, // Cut Ice Stone
+      0x2444, // Cut Ice Water
+      0x2444, // Cut Ice Water
+      0x2444, // Cut Ice Water
+      0x2844, // Cut Ice Dark
+      0x2844, // Cut Ice Dark
+      0x2844, // Cut Ice Dark
+      0x3044, // Cut Holy Ice
+      0x3044, // Cut Holy Ice
+      0x3044, // Cut Holy Ice
+      0x4044, // Cut Lightning
+      0x4044, // Cut Lightning
+      0x4044, // Cut Lightning
+      0x4144, // Cut Lightning Curse
+      0x4244, // Cut Lightning Stone
+      0x4444, // Cut Lightning Water
+      0x4444, // Cut Lightning Water
+      0x4444, // Cut Lightning Water
+      0x4844, // Cut Lightning Dark
+      0x4844, // Cut Lightning Dark
+      0x4844, // Cut Lightning Dark
+      0x5044, // Cut Holy Lightning
+      0x5044, // Cut Holy Lightning
+      0x5044, // Cut Holy Lightning
+      0x6044, // Cut Ice Lightning
+      0x6044, // Cut Ice Lightning
+      0x6044, // Cut Ice Lightning
+      0x8044, // Cut Fire
+      0x8044, // Cut Fire
+      0x8044, // Cut Fire
+      0x8144, // Cut Fire Curse
+      0x8244, // Cut Fire Stone
+      0x8444, // Cut Fire Water
+      0x8444, // Cut Fire Water
+      0x8444, // Cut Fire Water
+      0x8844, // Cut Fire Dark
+      0x8844, // Cut Fire Dark
+      0x8844, // Cut Fire Dark
+      0x9044, // Cut Holy Fire
+      0x9044, // Cut Holy Fire
+      0x9044, // Cut Holy Fire
+      0xA044, // Cut Ice Fire
+      0xA044, // Cut Ice Fire
+      0xA044, // Cut Ice Fire
+      0xC044, // Cut Lightning Fire
+      0xC044, // Cut Lightning Fire
+      0xC044, // Cut Lightning Fire
+      0x0080, // Normal Poison
+      0x0080, // Normal Poison
+      0x0080, // Normal Poison
+      0x0180, // Poison Curse
+      0x0280, // Poison Stone
+      0x0480, // Poison Water
+      0x0480, // Poison Water
+      0x0480, // Poison Water
+      0x0880, // Poison Dark
+      0x0880, // Poison Dark
+      0x0880, // Poison Dark
+      0x1080, // Poison Holy
+      0x1080, // Poison Holy
+      0x1080, // Poison Holy
+      0x2080, // Poison Ice
+      0x2080, // Poison Ice
+      0x2080, // Poison Ice
+      0x4080, // Poison Lightning
+      0x4080, // Poison Lightning
+      0x4080, // Poison Lightning
+      0x8080, // Poison Fire
+      0x8080, // Poison Fire
+      0x8080, // Poison Fire
+      0x0084, // Poison Big Toss
+      0x0084, // Poison Big Toss
+      0x0084, // Poison Big Toss
+      0x0184, // Poison Big Toss Curse
+      0x0284, // Poison Big Toss Stone
+      0x0484, // Poison Big Toss Water
+      0x0484, // Poison Big Toss Water
+      0x0484, // Poison Big Toss Water
+      0x0884, // Poison Big Toss Dark
+      0x0884, // Poison Big Toss Dark
+      0x0884, // Poison Big Toss Dark
+      0x1084, // Poison Big Toss Holy
+      0x1084, // Poison Big Toss Holy
+      0x1084, // Poison Big Toss Holy
+      0x2084, // Poison Big Toss Ice
+      0x2084, // Poison Big Toss Ice
+      0x2084, // Poison Big Toss Ice
+      0x4084, // Poison Big Toss Lightning
+      0x4084, // Poison Big Toss Lightning
+      0x4084, // Poison Big Toss Lightning
+      0x8084, // Poison Big Toss Fire
+      0x8084, // Poison Big Toss Fire
+      0x8084, // Poison Big Toss Fire
+      0x0007, // Cat
+      0x0007, // Cat
+      0x0007, // Cat
+      0x0107, // Cat Curse
+      0x0207, // Cat Stone
+      0x0407, // Cat Water
+      0x0407, // Cat Water
+      0x0407, // Cat Water
+      0x0807, // Cat Dark
+      0x0807, // Cat Dark
+      0x0807, // Cat Dark
+      0x1007, // Cat Holy
+      0x1007, // Cat Holy
+      0x1007, // Cat Holy
+      0x2007, // Cat Ice
+      0x2007, // Cat Ice
+      0x2007, // Cat Ice
+      0x4007, // Cat Lightning
+      0x4007, // Cat Lightning
+      0x4007, // Cat Lightning
+      0x8007, // Cat Fire
+      0x8007, // Cat Fire
+      0x8007, // Cat Fire
+      0x0011, // Normal Hit 1/6
+      0x0011, // Normal Hit 1/6
+      0x0011, // Normal Hit 1/6
+      0x0411, // Hit 1/6 Water
+      0x0411, // Hit 1/6 Water
+      0x0411, // Hit 1/6 Water
+      0x0811, // Hit 1/6 Dark
+      0x0811, // Hit 1/6 Dark
+      0x0811, // Hit 1/6 Dark
+      0x0c11, // Hit 1/6 Dark Water
+      0x0c11, // Hit 1/6 Dark Water
+      0x0c11, // Hit 1/6 Dark Water
+      0x1011, // Hit 1/6 Holy
+      0x1011, // Hit 1/6 Holy
+      0x1011, // Hit 1/6 Holy
+      0x1411, // Hit 1/6 Holy Water
+      0x1411, // Hit 1/6 Holy Water
+      0x1411, // Hit 1/6 Holy Water
+      0x1811, // Hit 1/6 Holy Dark
+      0x1811, // Hit 1/6 Holy Dark
+      0x1811, // Hit 1/6 Holy Dark
+      0x2011, // Hit 1/6 Ice
+      0x2011, // Hit 1/6 Ice
+      0x2011, // Hit 1/6 Ice
+      0x2411, // Hit 1/6 Ice Water
+      0x2411, // Hit 1/6 Ice Water
+      0x2411, // Hit 1/6 Ice Water
+      0x2811, // Hit 1/6 Ice Dark
+      0x2811, // Hit 1/6 Ice Dark
+      0x2811, // Hit 1/6 Ice Dark
+      0x3011, // Hit 1/6 Holy Ice
+      0x3011, // Hit 1/6 Holy Ice
+      0x3011, // Hit 1/6 Holy Ice
+      0x4011, // Hit 1/6 Lightning
+      0x4011, // Hit 1/6 Lightning
+      0x4011, // Hit 1/6 Lightning
+      0x4411, // Hit 1/6 Lightning Water
+      0x4411, // Hit 1/6 Lightning Water
+      0x4411, // Hit 1/6 Lightning Water
+      0x4811, // Hit 1/6 Lightning Dark
+      0x4811, // Hit 1/6 Lightning Dark
+      0x4811, // Hit 1/6 Lightning Dark
+      0x5011, // Hit 1/6 Holy Lightning
+      0x5011, // Hit 1/6 Holy Lightning
+      0x5011, // Hit 1/6 Holy Lightning
+      0x6011, // Hit 1/6 Ice Lightning
+      0x6011, // Hit 1/6 Ice Lightning
+      0x6011, // Hit 1/6 Ice Lightning
+      0x8011, // Hit 1/6 Fire
+      0x8011, // Hit 1/6 Fire
+      0x8011, // Hit 1/6 Fire
+      0x8411, // Hit 1/6 Fire Water
+      0x8411, // Hit 1/6 Fire Water
+      0x8411, // Hit 1/6 Fire Water
+      0x8811, // Hit 1/6 Fire Dark
+      0x8811, // Hit 1/6 Fire Dark
+      0x8811, // Hit 1/6 Fire Dark
+      0x9011, // Hit 1/6 Holy Fire
+      0x9011, // Hit 1/6 Holy Fire
+      0x9011, // Hit 1/6 Holy Fire
+      0xA011, // Hit 1/6 Ice Fire
+      0xA011, // Hit 1/6 Ice Fire
+      0xA011, // Hit 1/6 Ice Fire
+      0xC011, // Hit 1/6 Lightning Fire
+      0xC011, // Hit 1/6 Lightning Fire
+      0xC011, // Hit 1/6 Lightning Fire
+      0x0051, // Normal Cut 1/6
+      0x0051, // Normal Cut 1/6
+      0x0051, // Normal Cut 1/6
+      0x0451, // Cut 1/6 Water
+      0x0451, // Cut 1/6 Water
+      0x0451, // Cut 1/6 Water
+      0x0851, // Cut 1/6 Dark
+      0x0851, // Cut 1/6 Dark
+      0x0851, // Cut 1/6 Dark
+      0x0c51, // Cut 1/6 Dark Water
+      0x0c51, // Cut 1/6 Dark Water
+      0x0c51, // Cut 1/6 Dark Water
+      0x1051, // Cut 1/6 Holy
+      0x1051, // Cut 1/6 Holy
+      0x1051, // Cut 1/6 Holy
+      0x1451, // Cut 1/6 Holy Water
+      0x1451, // Cut 1/6 Holy Water
+      0x1451, // Cut 1/6 Holy Water
+      0x1851, // Cut 1/6 Holy Dark
+      0x1851, // Cut 1/6 Holy Dark
+      0x1851, // Cut 1/6 Holy Dark
+      0x2051, // Cut 1/6 Ice
+      0x2051, // Cut 1/6 Ice
+      0x2051, // Cut 1/6 Ice
+      0x2451, // Cut 1/6 Ice Water
+      0x2451, // Cut 1/6 Ice Water
+      0x2451, // Cut 1/6 Ice Water
+      0x2851, // Cut 1/6 Ice Dark
+      0x2851, // Cut 1/6 Ice Dark
+      0x2851, // Cut 1/6 Ice Dark
+      0x3051, // Cut 1/6 Holy Ice
+      0x3051, // Cut 1/6 Holy Ice
+      0x3051, // Cut 1/6 Holy Ice
+      0x4051, // Cut 1/6 Lightning
+      0x4051, // Cut 1/6 Lightning
+      0x4051, // Cut 1/6 Lightning
+      0x4451, // Cut 1/6 Lightning Water
+      0x4451, // Cut 1/6 Lightning Water
+      0x4451, // Cut 1/6 Lightning Water
+      0x4851, // Cut 1/6 Lightning Dark
+      0x4851, // Cut 1/6 Lightning Dark
+      0x4851, // Cut 1/6 Lightning Dark
+      0x5051, // Cut 1/6 Holy Lightning
+      0x5051, // Cut 1/6 Holy Lightning
+      0x5051, // Cut 1/6 Holy Lightning
+      0x6051, // Cut 1/6 Ice Lightning
+      0x6051, // Cut 1/6 Ice Lightning
+      0x6051, // Cut 1/6 Ice Lightning
+      0x8051, // Cut 1/6 Fire
+      0x8051, // Cut 1/6 Fire
+      0x8051, // Cut 1/6 Fire
+      0x8451, // Cut 1/6 Fire Water
+      0x8451, // Cut 1/6 Fire Water
+      0x8451, // Cut 1/6 Fire Water
+      0x8851, // Cut 1/6 Fire Dark
+      0x8851, // Cut 1/6 Fire Dark
+      0x8851, // Cut 1/6 Fire Dark
+      0x9051, // Cut 1/6 Holy Fire
+      0x9051, // Cut 1/6 Holy Fire
+      0x9051, // Cut 1/6 Holy Fire
+      0xA051, // Cut 1/6 Ice Fire
+      0xA051, // Cut 1/6 Ice Fire
+      0xA051, // Cut 1/6 Ice Fire
+      0xC051, // Cut 1/6 Lightning Fire
+      0xC051, // Cut 1/6 Lightning Fire
+      0xC051, // Cut 1/6 Lightning Fire
+    ]
+    newType = typeList[Math.floor(rng() * Math.floor(typeList.length - 1))]
+    return newType
+  }
+
+  function getStatType(typeObj, value){
+    let valuesForDamage = findRequiredNumbers(value, Object.keys(typeObj))
+    valuesForDamage.sort((a, b) => a - b);  // Sort them ascending
+    let valueType = ""
+    for(value of valuesForDamage){
+        valueType += typeObj[value]
+    }
+    return valueType
+}
+
+function hexValueToDamageString(hexValue) {
+    // Hit types can't be combined
+    let hitTypes = {
+        0: "",     // No Hit Box
+        1: "",     // Hit 16%
+        2: "",     // Hit
+        4: "",     // Cut
+        5: "",     // Cut 16%
+        6: "",     // Cut Weak
+        8: "30"      // Poison
+    }
+
+    // Hit effects can't be combined
+    let hitEffects = {
+        0: "",         // No Hit Box
+        1: "",         // Ignore normal attack styles
+        2: "",       // Hit Weak
+        4: "",       // Big Toss
+        6: "",       // Guard
+        7: "23"        // Cat
+    }
+
+    // Damage Types CAN be combined
+    let damageTypes = {
+        0: "",         // None
+        1: "28",        // Holy
+        2: "29",        // Ice
+        4: "2c",        // Lightning
+        8: "26"         // Fire
+    }
+
+    // Special Types CAN be combined
+    let specialTypes = {
+        0: "",          // None
+        1: "35",         // Curse
+        2: "33",         // Stone
+        4: "37",         // Water
+        8: "24"          // Dark
+    }
+
+    let hitTypeValue = (hexValue >> 4) & 0xF;
+    let hitType = hitTypes[hitTypeValue]
+
+    let hitEffectValue = hexValue & 0xF
+    let hitEffect = hitEffects[hitEffectValue]
+
+    let damageTypeValue = (hexValue >> 12) & 0xF;
+    let damageType = getStatType(damageTypes, damageTypeValue);
+
+    let specialTypeValue = (hexValue >> 8) & 0xF;
+    let specialType = getStatType(specialTypes, specialTypeValue)
+
+    return `${hitType}${hitEffect}${damageType}${specialType}`
+  }
+
+  function hexValueToDefenceString(hexValue) {
+    // Hit types can't be combined
+    let hitTypes = {
+        0: "3f",     // No Resistance
+        1: "",     // Hit 16%
+        2: "03",     // Hit
+        4: "0f",     // Cut
+        5: "",     // Cut 16%
+        6: "",     // Cut Weak
+        8: "30"      // Poison
+    }
+
+    // Hit effects can't be combined
+    let hitEffects = {
+        0: "",         // No Hit Box
+        1: "",         // Ignore normal attack styles
+        2: "",       // Hit Weak
+        4: "",       // Big Toss
+        6: "",       // Guard
+        7: "23"        // Cat
+    }
+
+    // Damage Types CAN be combined
+    let damageTypes = {
+        0: "",         // None
+        1: "28",        // Holy
+        2: "29",        // Ice
+        4: "2c",        // Lightning
+        8: "26"         // Fire
+    }
+
+    // Special Types CAN be combined
+    let specialTypes = {
+        0: "",          // None
+        1: "35",         // Curse
+        2: "33",         // Stone
+        4: "37",         // Water
+        8: "24"          // Dark
+    }
+
+    let hitTypeValue = (hexValue >> 4) & 0xF;
+    let hitType = hitTypes[hitTypeValue]
+
+    let hitEffectValue = hexValue & 0xF
+    let hitEffect = hitEffects[hitEffectValue]
+
+    let damageTypeValue = (hexValue >> 12) & 0xF;
+    let damageType = getStatType(damageTypes, damageTypeValue);
+
+    let specialTypeValue = (hexValue >> 8) & 0xF;
+    let specialType = getStatType(specialTypes, specialTypeValue)
+
+    return `${hitType}${hitEffect}${damageType}${specialType}`
+  }
+
   checked.prototype.writeChar = function writeChar(address, val) {
     checkAddressRange(address)
     if (this.file) {
@@ -779,7 +1573,8 @@
                 enemy = {name: 'Librarian'}
                 matches = []
               } else {
-                matches = enemies.filter(function(enemy) {
+                const enemiesDrops = enemies.enemiesDrops
+                matches = enemiesDrops.filter(function(enemy) {
                   let name = enemy.name.replace(/[^a-zA-Z0-9]/g, '')
                   name = name.toLowerCase()
                   return name === arg.toLowerCase()
@@ -1722,6 +2517,11 @@
           randomize.push('S')
         }
         delete options.surpriseMode
+      } else if ('enemyStatRandoMode' in options) { // Hides relics behind the same sprite - eldrich
+        if (options.enemyStatRandoMode) {
+          randomize.push('E')
+        }
+        delete options.enemyStatRandoMode
       } else if ('debugMode' in options) { // Debug mode - eldrich
         if (options.debugMode) {
           randomize.push('D')
@@ -2910,6 +3710,7 @@
   }
 
   function enemyFromIdString(idString) {
+    const enemiesDrops = enemies.enemiesDrops
     const dashIndex = idString.lastIndexOf('-')
     let enemyName = idString.toLowerCase()
     let level
@@ -2917,7 +3718,7 @@
       level = parseInt(enemyName.slice(dashIndex + 1))
       enemyName = idString.slice(0, dashIndex).toLowerCase()
     }
-    return enemies.filter(function(enemy) {
+    return enemiesDrops.filter(function(enemy) {
       const name = enemy.name.toLowerCase().replace(/[^a-zA-Z0-9]/g, '')
       if (name === enemyName) {
         if (typeof(level) !== 'undefined') {
@@ -2953,6 +3754,7 @@
     noprologueMode,
     unlockedMode,
     surpriseMode,
+    enemyStatRandoMode,
     debugMode,
     writes,
   ) {
@@ -2980,6 +3782,7 @@
     this.noprologueMode = noprologueMode
     this.unlockedMode = unlockedMode
     this.surpriseMode = surpriseMode
+    this.enemyStatRandoMode = enemyStatRandoMode
     this.debugMode = debugMode
     if (writes) {
       this.writes = writes
@@ -3120,6 +3923,8 @@
     this.unlocked = false
     // Surprise mode.
     this.surprise = false
+    // enemyStatRando mode.
+    this.enemyStatRando = false
     // Debug mode.
     this.debug = false
     // Arbitrary writes.
@@ -3426,6 +4231,9 @@
     }
     if ('surpriseMode' in json) {
       builder.surpriseMode(json.surpriseMode)
+    }
+    if ('enemyStatRandoMode' in json) {
+      builder.enemyStatRandoMode(json.enemyStatRandoMode)
     }
     if ('writes' in json) {
       let lastAddress = 0
@@ -3741,6 +4549,9 @@
     if ('surpriseMode' in preset) {
       this.surprise = preset.surpriseMode
     }
+    if ('enemyStatRandoMode' in preset) {
+      this.enemyStatRando = preset.enemyStatRandoMode
+    }
     if ('writes' in preset) {
       this.writes = this.writes || []
       this.writes.push.apply(this.writes, preset.writes)
@@ -3775,7 +4586,8 @@
           if (enemyName === '*') {
             enemy = '*'
           } else {
-            enemy = enemies.filter(function(enemy) {
+            const enemiesDrops = enemies.enemiesDrops
+            enemy = enemiesDrops.filter(function(enemy) {
               if (enemy.name === enemyName) {
                 if (typeof(level) !== 'undefined') {
                   return enemy.level === level
@@ -3816,7 +4628,8 @@
         if (enemyName === '*') {
           enemy = '*'
         } else {
-          enemy = enemies.filter(function(enemy) {
+          const enemiesDrops = enemies.enemiesDrops
+          enemy = enemiesDrops.filter(function(enemy) {
             if (enemy.name === enemyName) {
               if (typeof(level) !== 'undefined') {
                 return enemy.level === level
@@ -4446,6 +5259,11 @@
     this.surprise = enabled
   }
 
+  // Enable Enemy Stat Rando - eldri7ch
+  PresetBuilder.prototype.enemyStatRandoMode = function enemyStatRandoMode(enabled) {
+    this.enemyStatRando = enabled
+  }
+
   // Write a character.
   PresetBuilder.prototype.writeChar = function writeChar(address, value) {
     if (value !== 'random' && value !== 'random1' && value !== 'random3' && value !== 'random10' && value !== 'random99') {
@@ -4553,7 +5371,8 @@
             enemyname = enemy
           } else {
             enemyName = enemy.name
-            const amb = enemies.filter(function(enemy) {
+            const enemiesDrops = enemies.enemiesDrops
+            const amb = enemiesDrops.filter(function(enemy) {
               return enemy.name === enemyName
             })
             enemyName = enemyName.replace(/\s+/g, '')
@@ -4575,7 +5394,8 @@
           enemyName = enemy
         } else {
           enemyName = enemy.name
-          const amb = enemies.filter(function(enemy) {
+          const enemiesDrops = enemies.enemiesDrops
+          const amb = enemiesDrops.filter(function(enemy) {
             return enemy.name === enemyName
           })
           enemyName = enemyName.replace(/\s+/g, '')
@@ -4751,6 +5571,7 @@
     const noprologue = self.noprologue
     const unlocked = self.unlocked
     const surprise = self.surprise
+    const enemyStatRando = self.enemyStatRando
     const debug = self.debug
     const writes = self.writes
     return new Preset(
@@ -4778,6 +5599,7 @@
       noprologue,
       unlocked,
       surprise,
+      enemyStatRando,
       debug,
       writes,
     )
@@ -5243,6 +6065,122 @@
     offset += 0x10
     data.writeWord(offset,spritePal)
     offset += 0x10
+    return data
+  }
+
+  function applyenemyStatRandoPatches(rng) {
+    const enemyStats = enemies.enemyStats
+    const data = new checked()
+    // Patch the enemy stats being randomized
+    let offset                                                                  // enemy offset addr - eldri7ch
+    let hexOffset                                                               // the offset converted to hex
+    let statHp                                                                  // The starting HP amount
+    let newHp                                                                   // The adjusted HP amount
+    let statAtk                                                                 // The starting attack amount
+    let newAtk                                                                  // The adjusted attack amount
+    let statDef                                                                 // The starting defense amount
+    let newDef                                                                  // The adjusted defense amount
+    let disclosureCard                                                          // Tracks the disclosure card contents before they are applied to the name of the enemy
+    let newAtkType                                                              // The new damage type for an attack
+    let newWeakType                                                             // The new damage type for weakness stat
+    let newResistType                                                           // The new damage type for resist stat
+    let newImmuneType                                                           // The new damage type for Guard / Absorb stat
+    let newDisclosure                                                           // this is a holding spot for re-formatting before inclusion into the main disclosure
+    let newResistDisclosure                                                     // Adding new disclosure info for the weakness resist
+
+    enemyStats.forEach(function(enemy) {
+      statHp = enemy.hpValue                                                    // obtain the HP value from the enemy data
+      statAtk = enemy.atkValue                                                  // obtain the Atk value from the enemy data
+      statDef = enemy.defValue                                                  // obtain the Def value from the enemy data
+      
+      newHp = enemyNumStatRand(rng,statHp)                                      // Randomly adjust by 25%-200%
+      data.writeWord(enemy.hpOffset,newHp)                                      // Write the HP
+
+      newAtk = enemyNumStatRand(rng,statAtk)                                    // Randomly adjust by 25%-200%
+      data.writeWord(enemy.atkOffset,newAtk)                                    // Write the Atk
+
+      newDef = enemyNumStatRand(rng,statDef)                                    // Randomly adjust by 25%-200%
+      data.writeWord(enemy.defOffset,newDef)                                    // Write the Def
+
+      newAtkType = enemyAtkTypeStatRand(rng)                                    // Select a random attack type
+      data.writeWord(enemy.atkTypeOffset,newAtkType)                            // Write the attack type
+
+      newWeakType = enemyWeakTypeStatRand(rng)                                  // Select a random weakness type
+      data.writeWord(enemy.weakOffset,newWeakType)                              // Write the weakness type
+
+      newResistType = enemyResistTypeStatRand(rng)                              // Select a random resist type
+      data.writeWord(enemy.resistOffset,newResistType)                          // Write the resist type
+
+      switch (newResistType) {                                                  // create a new code for disclosure card based on weakness value
+        case 0:
+          newResistDisclosure = '3f'
+        case 8192:
+          newResistDisclosure = '03'
+        case 16384:
+          newResistDisclosure = '0f'
+      }
+
+      let resIndex = Math.floor(rng() * 1)                                      // select a random number between 0, 1 to choose which we use between guard, absorb
+      switch (resIndex) {                                                       // start selection and execution process based on teh random selection
+        case 0: 
+          offset = enemy.guardOffset                                            // Goto guard
+          newImmuneType = enemyResistTypeStatRand(rng)                          // Select a random guard type
+          data.writeWord(offset,newImmuneType)                                  // Write the guard type
+          break
+        case 1:
+          offset = enemy.absorbOffset                                           // Goto absorb
+          newImmuneType = enemyResistTypeStatRand(rng)                          // Select a random absorb type
+          data.writeWord(offset,newImmuneType)                                  // Write the absorb type
+          break
+      }
+
+      disclosureCard = 'f0'                                                   // start the Disclosure with the attack elements by indicating a sword.
+      newDisclosure = hexValueToDamageString(newAtkType)                        // store the values from hex being converted
+      if (newDisclosure.startsWith('05')) {                                     // if the attack type is a 16% hit or cut, use %dam indicator
+        replaceTextAtIndex(newDisclosure,'00',0)
+        disclosureCard += '05'                                                  // if the % is used, space out the %
+      } else if (newDisclosure.startsWith('3f')) {                              // if the attack was negated by becoming no hitbox or guard, use no-hit indicator
+        replaceTextAtIndex(newDisclosure,'00',0)
+        disclosureCard += '3f'                                                  // if the % is used, space out the _
+      } else if (newAtk > statAtk) {                                            // Determine the direction of the arrow based on the attack stat differences
+        disclosureCard += 'e2'
+      } else {
+        disclosureCard += 'e6'
+      }
+      disclosureCard += newDisclosure + 'f1'                                    // continue the Disclosure with the defense elements by indicating a shield.
+      if (newDef > statDef) {                                                   // Determine the direction of the arrow based on the attack stat differences
+        disclosureCard += 'e2'
+      } else {
+        disclosureCard += 'e6'
+      }                                                  
+      newDisclosure = hexValueToDefenceString(newWeakType).slice(-2)            // create a new code for disclosure card based on weakness value
+      disclosureCard += newDisclosure
+      newDisclosure = hexValueToDefenceString(newResistType).slice(-2)          // create a new code for disclosure card based on Resist value
+      disclosureCard += newDisclosure
+      switch (resIndex) {                                                       // This is already selected above between guard and absorb
+        case 0:                                                                 // Process if Guard
+          disclosureCard += 'f7'                                                // add final character to Disclosure Card 3
+          newDisclosure = hexValueToDefenceString(newImmuneType).slice(-2)      // indicate that this is a guard
+          disclosureCard += newDisclosure                                       // adds indicators to tell the player what guard the monster has
+          break
+        case 1:                                                                 // Process if Absorb
+          disclosureCard += 'f6'                                                // add final character to Disclosure Card 3
+          newDisclosure = hexValueToDefenceString(newImmuneType).slice(-2)      // indicate that this is an absorb ex: é↓#!HLâ↑I/FàS (11)
+          disclosureCard += newDisclosure                                       // adds indicators to tell the player what absorb the monster has
+          break
+      }
+      disclosureCard += 'ff'                                                    // cap the label
+      while (disclosureCard.length < 24) {                                      // add zeroes to space out different names from before
+        disclosureCard += '00'
+      }
+      offset = enemy.newNameText                                                // pull enemy name locatrion in BIN
+      for (let i = 0; i < disclosureCard.length; i += 2) {                      // write 1 byte at a time
+        const twoChars = '0x' + disclosureCard.slice(i, i + 2)
+        offset = data.writeChar(offset,twoChars)
+      }
+      data.writeWord(enemy.nameOffset,enemy.newNameReference)                   // Change the reference for the name to match the new address for the disclosure.
+    })
+
     return data
   }
 
@@ -5764,6 +6702,7 @@
     applynoprologuePatches: applynoprologuePatches,
     applyunlockedPatches: applyunlockedPatches,
     applysurprisePatches: applysurprisePatches,
+    applyenemyStatRandoPatches: applyenemyStatRandoPatches,
     applyMapColor: applyMapColor,
     randomizeRelics: randomizeRelics,
     randomizeItems: randomizeItems,
