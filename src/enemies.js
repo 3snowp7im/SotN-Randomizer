@@ -774,7 +774,7 @@
       index: 9,
       name: "Sword lord",
       nameOffset: 0x0b59c0,
-      newNameReference: 0x800e06d4, // Used to be 0x800e0cbc but got switched with Medusa Head 303
+      newNameReference: 0x800e0cbc,
       newNameText: 0x0f6114,
       hpOffset: 0x0b59c4,
       hpValue: 61,
@@ -3035,7 +3035,7 @@
       index: 303,
       name: "Medusa head",
       nameOffset: 0x0b8ed0,
-      newNameReference: 0x800e0cbc, // Used to be 0x800e06d4 but exchanged with Sword Lord
+      newNameReference: 0x800e06d4,
       newNameText: 0x0f59fc,
       hpOffset: 0x0b8ed4,
       hpValue: 12,

@@ -56,7 +56,8 @@
     "open",
     "brawler",
     "first-castle",
-    "luckysevens"
+    "luckysevens",
+    "bingo"
   ],
   "engines": {
     "node": ">=15"
