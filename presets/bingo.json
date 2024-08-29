@@ -10,7 +10,6 @@
   "preventLeaks": false,
   "stats": false,
   "colorrandoMode": true,
-  "relics": false,
   "turkeyMode": false,
   "music": false,
   "relicLocationsExtension": false,
@@ -137,12 +136,6 @@
     "value": "0x0c04db00"
   },{
     "address": "0x00158c98",
-    "type": "word",
-    "value": "0x3c038004",
-    "comment": "lui v1, 0x8004"
-  },
-  
-  {
     "comment": "Save Return Address for rA (Armor Code)",
     "type": "word",
     "value": "0x37F70000"
@@ -151,13 +144,13 @@
   {
     "comment": "Give Holy glasses",
     "type": "word",
-    "value": "0x34040019"
+    "value": "0x34040022"
   },{
     "type": "word",
     "value": "0x34050001"
   },{
     "type": "word",
-    "value": "0x0C03F622"
+    "value": "0x0C03F61D"
   },{
     "type": "word",
     "value": "0x00000000"
@@ -180,5 +173,26 @@
     "type": "word",
     "value": "0x00000000",
     "comment": "nop"
+  },
+  
+  {
+    "comment": "Require Different Buttons",
+    "type": "word",
+    "address": "0x53765DC",
+    "value": "0x3C028009"
+  }, {
+    "type": "word",
+    "value": "0x94427490"
+  }, {
+    "type": "word",
+    "address": "0x53765E8",
+    "value": "0x34040101"
+  }, {
+    "type": "word",
+    "value": "0x1444000D"
+  }, {
+    "type": "word",
+    "address": "0x5376618",
+    "value": "0x18000002"
   }]
 }

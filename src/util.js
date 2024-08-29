@@ -194,6 +194,11 @@
     return '0x' + result;
   }
 
+  function isEven(n) {
+    n = Number(n);
+    return n === 0 || !!(n && !(n%2));
+  }
+
   function findRequiredNumbers(total, numbers) {
     // This returns the numbers that compose a value. For example, if the total is 12 and the possible numbers are 1, 2, 4 and 8, it will return [8, 4]
     // Sort the numbers in descending order
@@ -6120,14 +6125,15 @@ function hexValueToDamageString(hexValue) {
           newResistDisclosure = '0f'
       }
 
-      let resIndex = Math.floor(rng() * 1)                                      // select a random number between 0, 1 to choose which we use between guard, absorb
+      let resIndex = Math.floor(rng() * 100)                                      // select a random number between 0, 1 to choose which we use between guard, absorb
+      resIndex = isEven(resIndex)
       switch (resIndex) {                                                       // start selection and execution process based on teh random selection
-        case 0: 
+        case false: 
           offset = enemy.guardOffset                                            // Goto guard
           newImmuneType = enemyResistTypeStatRand(rng)                          // Select a random guard type
           data.writeWord(offset,newImmuneType)                                  // Write the guard type
           break
-        case 1:
+        case true:
           offset = enemy.absorbOffset                                           // Goto absorb
           newImmuneType = enemyResistTypeStatRand(rng)                          // Select a random absorb type
           data.writeWord(offset,newImmuneType)                                  // Write the absorb type
@@ -6158,12 +6164,12 @@ function hexValueToDamageString(hexValue) {
       newDisclosure = hexValueToDefenceString(newResistType).slice(-2)          // create a new code for disclosure card based on Resist value
       disclosureCard += newDisclosure
       switch (resIndex) {                                                       // This is already selected above between guard and absorb
-        case 0:                                                                 // Process if Guard
+        case false:                                                                 // Process if Guard
           disclosureCard += 'f7'                                                // add final character to Disclosure Card 3
           newDisclosure = hexValueToDefenceString(newImmuneType).slice(-2)      // indicate that this is a guard
           disclosureCard += newDisclosure                                       // adds indicators to tell the player what guard the monster has
           break
-        case 1:                                                                 // Process if Absorb
+        case true:                                                                 // Process if Absorb
           disclosureCard += 'f6'                                                // add final character to Disclosure Card 3
           newDisclosure = hexValueToDefenceString(newImmuneType).slice(-2)      // indicate that this is an absorb ex: é↓#!HLâ↑I/FàS (11)
           disclosureCard += newDisclosure                                       // adds indicators to tell the player what absorb the monster has
@@ -6180,6 +6186,17 @@ function hexValueToDamageString(hexValue) {
       }
       data.writeWord(enemy.nameOffset,enemy.newNameReference)                   // Change the reference for the name to match the new address for the disclosure.
     })
+
+    offset = 0x0f6138                                                           // move to writing normal / extra name content
+    let normalNames = '0024524143554C41FF0027414C414D4F5448FF00F700214C4CFF00274F4F44002C55434BFF00' // identify what to write: "Dracula Galamoth Immune All Good Luck"
+
+    for (let i = 0; i < normalNames.length; i += 2) {                           // write 1 byte at a time
+      const twoChars = '0x' + normalNames.slice(i, i + 2)
+      offset = data.writeChar(offset,twoChars)
+    }
+
+    offset = 0x0b9ca8                                                           // Fix Stone Skull reference
+    data.writeWord(offset,0x800e0cf4)                                           // Shows Immune All
 
     return data
   }
