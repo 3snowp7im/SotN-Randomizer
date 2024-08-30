@@ -2144,812 +2144,812 @@
   }, {
     "comment": "Adjust Plate Lord drop rate",
     "type": "char",
-    "address": "0xB68CE",
+    "address": "0xB69FE",
     "value": "0x10"
   }, {
     "comment": "Adjust Plate Lord drop rate",
     "type": "char",
-    "address": "0xB68D0",
+    "address": "0xB6A00",
     "value": "0x10"
   }, {
     "comment": "Adjust Frozen Shade drop rate",
     "type": "char",
-    "address": "0xB691E",
+    "address": "0xB6A4E",
     "value": "0x10"
   }, {
     "comment": "Adjust Frozen Shade drop rate",
     "type": "char",
-    "address": "0xB6920",
+    "address": "0xB6A50",
     "value": "0x10"
   }, {
     "comment": "Adjust Bone Musket drop rate",
     "type": "char",
-    "address": "0xB6996",
+    "address": "0xB6AC6",
     "value": "0x10"
   }, {
     "comment": "Adjust Bone Musket drop rate",
     "type": "char",
-    "address": "0xB6998",
+    "address": "0xB6AC8",
     "value": "0x10"
   }, {
     "comment": "Adjust Dodo Bird drop rate",
     "type": "char",
-    "address": "0xB69E6",
+    "address": "0xB6B16",
     "value": "0x10"
   }, {
     "comment": "Adjust Dodo Bird drop rate",
     "type": "char",
-    "address": "0xB69E8",
+    "address": "0xB6B18",
     "value": "0x10"
   }, {
     "comment": "Adjust Bone Scimitar drop rate",
     "type": "char",
-    "address": "0xB6A0E",
+    "address": "0xB6B3E",
     "value": "0x10"
   }, {
     "comment": "Adjust Bone Scimitar drop rate",
     "type": "char",
-    "address": "0xB6A10",
+    "address": "0xB6B40",
     "value": "0x10"
   }, {
     "comment": "Adjust Toad drop rate",
     "type": "char",
-    "address": "0xB6A36",
+    "address": "0xB6B66",
     "value": "0x10"
   }, {
     "comment": "Adjust Toad drop rate",
     "type": "char",
-    "address": "0xB6A38",
+    "address": "0xB6B68",
     "value": "0x10"
   }, {
     "comment": "Adjust Frog drop rate",
     "type": "char",
-    "address": "0xB6A5E",
+    "address": "0xB6B8E",
     "value": "0x10"
   }, {
     "comment": "Adjust Frog drop rate",
     "type": "char",
-    "address": "0xB6A60",
+    "address": "0xB6B90",
     "value": "0x10"
   }, {
     "comment": "Adjust Bone Archer drop rate",
     "type": "char",
-    "address": "0xB6A86",
+    "address": "0xB6BB6",
     "value": "0x10"
   }, {
     "comment": "Adjust Bone Archer drop rate",
     "type": "char",
-    "address": "0xB6A88",
+    "address": "0xB6BB8",
     "value": "0x10"
   }, {
     "comment": "Adjust Zombie drop rate",
     "type": "char",
-    "address": "0xB6AD6",
+    "address": "0xB6C06",
     "value": "0x10"
   }, {
     "comment": "Adjust Zombie drop rate",
     "type": "char",
-    "address": "0xB6AD8",
+    "address": "0xB6C08",
     "value": "0x10"
   }, {
     "comment": "Adjust Grave Keeper drop rate",
     "type": "char",
-    "address": "0xB6AFE",
+    "address": "0xB6C2E",
     "value": "0x10"
   }, {
     "comment": "Adjust Grave Keeper drop rate",
     "type": "char",
-    "address": "0xB6B00",
+    "address": "0xB6C30",
     "value": "0x10"
   }, {
     "comment": "Adjust Tombstone drop rate",
     "type": "char",
-    "address": "0xB6B4E",
+    "address": "0xB6C7E",
     "value": "0x10"
   }, {
     "comment": "Adjust Tombstone drop rate",
     "type": "char",
-    "address": "0xB6B50",
+    "address": "0xB6C80",
     "value": "0x10"
   }, {
     "comment": "Adjust Blue Raven drop rate",
     "type": "char",
-    "address": "0xB6B76",
+    "address": "0xB6CA6",
     "value": "0x10"
   }, {
     "comment": "Adjust Blue Raven drop rate",
     "type": "char",
-    "address": "0xB6B78",
+    "address": "0xB6CA8",
     "value": "0x10"
   }, {
     "comment": "Adjust Black Crow drop rate",
     "type": "char",
-    "address": "0xB6B9E",
+    "address": "0xB6CCE",
     "value": "0x10"
   }, {
     "comment": "Adjust Black Crow drop rate",
     "type": "char",
-    "address": "0xB6BA0",
+    "address": "0xB6CD0",
     "value": "0x10"
   }, {
     "comment": "Adjust Jack O'Bones drop rate",
     "type": "char",
-    "address": "0xB6BC6",
+    "address": "0xB6CF6",
     "value": "0x10"
   }, {
     "comment": "Adjust Jack O'Bones drop rate",
     "type": "char",
-    "address": "0xB6BC8",
+    "address": "0xB6CF8",
     "value": "0x10"
   }, {
     "comment": "Adjust Bone Halberd drop rate",
     "type": "char",
-    "address": "0xB6C16",
+    "address": "0xB6D46",
     "value": "0x10"
   }, {
     "comment": "Adjust Bone Halberd drop rate",
     "type": "char",
-    "address": "0xB6C18",
+    "address": "0xB6D48",
     "value": "0x10"
   }, {
     "comment": "Adjust Yorick drop rate",
     "type": "char",
-    "address": "0xB6C66",
+    "address": "0xB6D96",
     "value": "0x10"
   }, {
     "comment": "Adjust Yorick drop rate",
     "type": "char",
-    "address": "0xB6C68",
+    "address": "0xB6D98",
     "value": "0x10"
   }, {
     "comment": "Adjust Skull drop rate",
     "type": "char",
-    "address": "0xB6C8E",
+    "address": "0xB6DBE",
     "value": "0x10"
   }, {
     "comment": "Adjust Skull drop rate",
     "type": "char",
-    "address": "0xB6C90",
+    "address": "0xB6DC0",
     "value": "0x10"
   }, {
     "comment": "Adjust Blade Master drop rate",
     "type": "char",
-    "address": "0xB6CB6",
+    "address": "0xB6DE6",
     "value": "0x10"
   }, {
     "comment": "Adjust Blade Master drop rate",
     "type": "char",
-    "address": "0xB6CB8",
+    "address": "0xB6DE8",
     "value": "0x10"
   }, {
     "comment": "Adjust Blade Soldier drop rate",
     "type": "char",
-    "address": "0xB6D06",
+    "address": "0xB6E36",
     "value": "0x10"
   }, {
     "comment": "Adjust Blade Soldier drop rate",
     "type": "char",
-    "address": "0xB6D08",
+    "address": "0xB6E38",
     "value": "0x10"
   }, {
     "comment": "Adjust Nova Skeleton drop rate",
     "type": "char",
-    "address": "0xB6D56",
+    "address": "0xB6E86",
     "value": "0x10"
   }, {
     "comment": "Adjust Nova Skeleton drop rate",
     "type": "char",
-    "address": "0xB6D58",
+    "address": "0xB6E88",
     "value": "0x10"
   }, {
     "comment": "Adjust Winged Guard drop rate",
     "type": "char",
-    "address": "0xB6DA6",
+    "address": "0xB6ED6",
     "value": "0x10"
   }, {
     "comment": "Adjust Winged Guard drop rate",
     "type": "char",
-    "address": "0xB6DA8",
+    "address": "0xB6ED8",
     "value": "0x10"
   }, {
     "comment": "Adjust Spectral Sword drop rate",
     "type": "char",
-    "address": "0xB6DCE",
+    "address": "0xB6EFE",
     "value": "0x10"
   }, {
     "comment": "Adjust Spectral Sword drop rate",
     "type": "char",
-    "address": "0xB6DD0",
+    "address": "0xB6F00",
     "value": "0x10"
   }, {
     "comment": "Adjust Lossoth drop rate",
     "type": "char",
-    "address": "0xB6E1E",
+    "address": "0xB6F4E",
     "value": "0x10"
   }, {
     "comment": "Adjust Lossoth drop rate",
     "type": "char",
-    "address": "0xB6E20",
+    "address": "0xB6F50",
     "value": "0x10"
   }, {
     "comment": "Adjust Valhalla Knight drop rate",
     "type": "char",
-    "address": "0xB6E6E",
+    "address": "0xB6F9E",
     "value": "0x10"
   }, {
     "comment": "Adjust Valhalla Knight drop rate",
     "type": "char",
-    "address": "0xB6E70",
+    "address": "0xB6FA0",
     "value": "0x10"
   }, {
     "comment": "Adjust Spectral Sword  drop rate",
     "type": "char",
-    "address": "0xB6EE6",
+    "address": "0xB7016",
     "value": "0x10"
   }, {
     "comment": "Adjust Spectral Sword  drop rate",
     "type": "char",
-    "address": "0xB6EE8",
+    "address": "0xB7018",
     "value": "0x10"
   }, {
     "comment": "Adjust Spectral Sword drop rate",
     "type": "char",
-    "address": "0xB6F36",
+    "address": "0xB7066",
     "value": "0x10"
   }, {
     "comment": "Adjust Spectral Sword drop rate",
     "type": "char",
-    "address": "0xB6F38",
+    "address": "0xB7068",
     "value": "0x10"
   }, {
     "comment": "Adjust Orobourous drop rate",
     "type": "char",
-    "address": "0xB6FAE",
+    "address": "0xB70DE",
     "value": "0x10"
   }, {
     "comment": "Adjust Orobourous drop rate",
     "type": "char",
-    "address": "0xB6FB0",
+    "address": "0xB70E0",
     "value": "0x10"
   }, {
     "comment": "Adjust Dhuron drop rate",
     "type": "char",
-    "address": "0xB7076",
+    "address": "0xB71A6",
     "value": "0x10"
   }, {
     "comment": "Adjust Dhuron drop rate",
     "type": "char",
-    "address": "0xB7078",
+    "address": "0xB71A8",
     "value": "0x10"
   }, {
     "comment": "Adjust Fire Warg drop rate",
     "type": "char",
-    "address": "0xB70C6",
+    "address": "0xB7326",
     "value": "0x10"
   }, {
     "comment": "Adjust Fire Warg drop rate",
     "type": "char",
-    "address": "0xB70C8",
+    "address": "0xB7328",
     "value": "0x10"
   }, {
     "comment": "Adjust Cave Troll drop rate",
     "type": "char",
-    "address": "0xB718E",
+    "address": "0xB73EE",
     "value": "0x10"
   }, {
     "comment": "Adjust Cave Troll drop rate",
     "type": "char",
-    "address": "0xB7190",
+    "address": "0xB73F0",
     "value": "0x10"
   }, {
     "comment": "Adjust Ghost drop rate",
     "type": "char",
-    "address": "0xB7336",
+    "address": "0xB7466",
     "value": "0x10"
   }, {
     "comment": "Adjust Ghost drop rate",
     "type": "char",
-    "address": "0xB7338",
+    "address": "0xB7468",
     "value": "0x10"
   }, {
     "comment": "Adjust Thornweed drop rate",
     "type": "char",
-    "address": "0xB735E",
+    "address": "0xB748E",
     "value": "0x10"
   }, {
     "comment": "Adjust Thornweed drop rate",
     "type": "char",
-    "address": "0xB7360",
+    "address": "0xB7490",
     "value": "0x10"
   }, {
     "comment": "Adjust Corpseweed drop rate",
     "type": "char",
-    "address": "0xB7386",
+    "address": "0xB74B6",
     "value": "0x10"
   }, {
     "comment": "Adjust Corpseweed drop rate",
     "type": "char",
-    "address": "0xB7388",
+    "address": "0xB74B8",
     "value": "0x10"
   }, {
     "comment": "Adjust Corpseweed drop rate",
     "type": "char",
-    "address": "0xB73AE",
+    "address": "0xB74DE",
     "value": "0x10"
   }, {
     "comment": "Adjust Corpseweed drop rate",
     "type": "char",
-    "address": "0xB73B0",
+    "address": "0xB74E0",
     "value": "0x10"
   }, {
     "comment": "Adjust Venus Weed drop rate",
     "type": "char",
-    "address": "0xB73FE",
+    "address": "0xB752E",
     "value": "0x10"
   }, {
     "comment": "Adjust Venus Weed drop rate",
     "type": "char",
-    "address": "0xB7400",
+    "address": "0xB7530",
     "value": "0x10"
   }, {
     "comment": "Adjust Venus Weed drop rate",
     "type": "char",
-    "address": "0xB7426",
+    "address": "0xB7556",
     "value": "0x10"
   }, {
     "comment": "Adjust Venus Weed drop rate",
     "type": "char",
-    "address": "0xB7428",
+    "address": "0xB7558",
     "value": "0x10"
   }, {
     "comment": "Adjust Bomb Knight drop rate",
     "type": "char",
-    "address": "0xB749E",
+    "address": "0xB75CE",
     "value": "0x10"
   }, {
     "comment": "Adjust Bomb Knight drop rate",
     "type": "char",
-    "address": "0xB74A0",
+    "address": "0xB75D0",
     "value": "0x10"
   }, {
     "comment": "Adjust Rock Knight drop rate",
     "type": "char",
-    "address": "0xB74EE",
+    "address": "0xB761E",
     "value": "0x10"
   }, {
     "comment": "Adjust Rock Knight drop rate",
     "type": "char",
-    "address": "0xB74F0",
+    "address": "0xB7620",
     "value": "0x10"
   }, {
     "comment": "Adjust Slinger drop rate",
     "type": "char",
-    "address": "0xB76A6",
+    "address": "0xB77D6",
     "value": "0x10"
   }, {
     "comment": "Adjust Slinger drop rate",
     "type": "char",
-    "address": "0xB76A8",
+    "address": "0xB77D8",
     "value": "0x10"
   }, {
     "comment": "Adjust Corner Guard drop rate",
     "type": "char",
-    "address": "0xB76F6",
+    "address": "0xB7826",
     "value": "0x10"
   }, {
     "comment": "Adjust Corner Guard drop rate",
     "type": "char",
-    "address": "0xB76F8",
+    "address": "0xB7828",
     "value": "0x10"
   }, {
     "comment": "Adjust Bitterfly drop rate",
     "type": "char",
-    "address": "0xB7746",
+    "address": "0xB7876",
     "value": "0x10"
   }, {
     "comment": "Adjust Bitterfly drop rate",
     "type": "char",
-    "address": "0xB7748",
+    "address": "0xB7878",
     "value": "0x10"
   }, {
     "comment": "Adjust Bone Pillar drop rate",
     "type": "char",
-    "address": "0xB776E",
+    "address": "0xB789E",
     "value": "0x10"
   }, {
     "comment": "Adjust Bone Pillar drop rate",
     "type": "char",
-    "address": "0xB7770",
+    "address": "0xB78A0",
     "value": "0x10"
   }, {
     "comment": "Adjust Spiked Ball drop rate",
     "type": "char",
-    "address": "0xB77BE",
+    "address": "0xB78EE",
     "value": "0x10"
   }, {
     "comment": "Adjust Spiked Ball drop rate",
     "type": "char",
-    "address": "0xB77C0",
+    "address": "0xB78F0",
     "value": "0x10"
   }, {
     "comment": "Adjust Hammer drop rate",
     "type": "char",
-    "address": "0xB77E6",
+    "address": "0xB7916",
     "value": "0x10"
   }, {
     "comment": "Adjust Hammer drop rate",
     "type": "char",
-    "address": "0xB77E8",
+    "address": "0xB7918",
     "value": "0x10"
   }, {
     "comment": "Adjust Gurkha drop rate",
     "type": "char",
-    "address": "0xB7836",
+    "address": "0xB7966",
     "value": "0x10"
   }, {
     "comment": "Adjust Gurkha drop rate",
     "type": "char",
-    "address": "0xB7838",
+    "address": "0xB7968",
     "value": "0x10"
   }, {
     "comment": "Adjust Blade drop rate",
     "type": "char",
-    "address": "0xB7886",
+    "address": "0xB79B6",
     "value": "0x10"
   }, {
     "comment": "Adjust Blade drop rate",
     "type": "char",
-    "address": "0xB7888",
+    "address": "0xB79B8",
     "value": "0x10"
   }, {
     "comment": "Adjust Ouija Table drop rate",
     "type": "char",
-    "address": "0xB78FE",
+    "address": "0xB7A2E",
     "value": "0x10"
   }, {
     "comment": "Adjust Ouija Table drop rate",
     "type": "char",
-    "address": "0xB7900",
+    "address": "0xB7A30",
     "value": "0x10"
   }, {
     "comment": "Adjust Sniper Of Goth drop rate",
     "type": "char",
-    "address": "0xB794E",
+    "address": "0xB7A7E",
     "value": "0x10"
   }, {
     "comment": "Adjust Sniper Of Goth drop rate",
     "type": "char",
-    "address": "0xB7950",
+    "address": "0xB7A80",
     "value": "0x10"
   }, {
     "comment": "Adjust Paranthropus drop rate",
     "type": "char",
-    "address": "0xB7BCE",
+    "address": "0xB7E2E",
     "value": "0x10"
   }, {
     "comment": "Adjust Paranthropus drop rate",
     "type": "char",
-    "address": "0xB7BD0",
+    "address": "0xB7E30",
     "value": "0x10"
   }, {
     "comment": "Adjust Ghost Dancer drop rate",
     "type": "char",
-    "address": "0xB7C96",
+    "address": "0xB7EF6",
     "value": "0x10"
   }, {
     "comment": "Adjust Ghost Dancer drop rate",
     "type": "char",
-    "address": "0xB7C98",
+    "address": "0xB7EF8",
     "value": "0x10"
   }, {
     "comment": "Adjust Frozen Half drop rate",
     "type": "char",
-    "address": "0xB7CBE",
+    "address": "0xB7F1E",
     "value": "0x10"
   }, {
     "comment": "Adjust Frozen Half drop rate",
     "type": "char",
-    "address": "0xB7CC0",
+    "address": "0xB7F20",
     "value": "0x10"
   }, {
     "comment": "Adjust Salem Witch drop rate",
     "type": "char",
-    "address": "0xB7D5E",
+    "address": "0xB7FBE",
     "value": "0x10"
   }, {
     "comment": "Adjust Salem Witch drop rate",
     "type": "char",
-    "address": "0xB7D60",
+    "address": "0xB7FC0",
     "value": "0x10"
   }, {
     "comment": "Adjust Azaghal drop rate",
     "type": "char",
-    "address": "0xB7DD6",
+    "address": "0xB8036",
     "value": "0x10"
   }, {
     "comment": "Adjust Azaghal drop rate",
     "type": "char",
-    "address": "0xB7DD8",
+    "address": "0xB8038",
     "value": "0x10"
   }, {
     "comment": "Adjust Gremlin drop rate",
     "type": "char",
-    "address": "0xB7DFE",
+    "address": "0xB805E",
     "value": "0x10"
   }, {
     "comment": "Adjust Gremlin drop rate",
     "type": "char",
-    "address": "0xB7E00",
+    "address": "0xB8060",
     "value": "0x10"
   }, {
     "comment": "Adjust Hunting Girl drop rate",
     "type": "char",
-    "address": "0xB7E4E",
+    "address": "0xB80AE",
     "value": "0x10"
   }, {
     "comment": "Adjust Hunting Girl drop rate",
     "type": "char",
-    "address": "0xB7E50",
+    "address": "0xB80B0",
     "value": "0x10"
   }, {
     "comment": "Adjust Vandal Sword drop rate",
     "type": "char",
-    "address": "0xB7E76",
+    "address": "0xB80D6",
     "value": "0x10"
   }, {
     "comment": "Adjust Vandal Sword drop rate",
     "type": "char",
-    "address": "0xB7E78",
+    "address": "0xB80D8",
     "value": "0x10"
   }, {
     "comment": "Adjust Salome drop rate",
     "type": "char",
-    "address": "0xB7E9E",
+    "address": "0xB80FE",
     "value": "0x10"
   }, {
     "comment": "Adjust Salome drop rate",
     "type": "char",
-    "address": "0xB7EA0",
+    "address": "0xB8100",
     "value": "0x10"
   }, {
     "comment": "Adjust Ctulhu drop rate",
     "type": "char",
-    "address": "0xB7F3E",
+    "address": "0xB819E",
     "value": "0x10"
   }, {
     "comment": "Adjust Ctulhu drop rate",
     "type": "char",
-    "address": "0xB7F40",
+    "address": "0xB81A0",
     "value": "0x10"
   }, {
     "comment": "Adjust Malachi drop rate",
     "type": "char",
-    "address": "0xB7FB6",
+    "address": "0xB8216",
     "value": "0x10"
   }, {
     "comment": "Adjust Malachi drop rate",
     "type": "char",
-    "address": "0xB7FB8",
+    "address": "0xB8218",
     "value": "0x10"
   }, {
     "comment": "Adjust Harpy drop rate",
     "type": "char",
-    "address": "0xB802E",
+    "address": "0xB828E",
     "value": "0x10"
   }, {
     "comment": "Adjust Harpy drop rate",
     "type": "char",
-    "address": "0xB8030",
+    "address": "0xB8290",
     "value": "0x10"
   }, {
     "comment": "Adjust Axe Knight drop rate",
     "type": "char",
-    "address": "0xB8146",
+    "address": "0xB83A6",
     "value": "0x10"
   }, {
     "comment": "Adjust Axe Knight drop rate",
     "type": "char",
-    "address": "0xB8148",
+    "address": "0xB83A8",
     "value": "0x10"
   }, {
     "comment": "Adjust Spellbook drop rate",
     "type": "char",
-    "address": "0xB816E",
+    "address": "0xB83CE",
     "value": "0x10"
   }, {
     "comment": "Adjust Spellbook drop rate",
     "type": "char",
-    "address": "0xB8170",
+    "address": "0xB83D0",
     "value": "0x10"
   }, {
     "comment": "Adjust Magic Tome drop rate",
     "type": "char",
-    "address": "0xB820E",
+    "address": "0xB859E",
     "value": "0x10"
   }, {
     "comment": "Adjust Magic Tome drop rate",
     "type": "char",
-    "address": "0xB8210",
+    "address": "0xB85A0",
     "value": "0x10"
   }, {
     "comment": "Adjust Skull Lord drop rate",
     "type": "char",
-    "address": "0xB839E",
+    "address": "0xB872E",
     "value": "0x10"
   }, {
     "comment": "Adjust Skull Lord drop rate",
     "type": "char",
-    "address": "0xB83A0",
+    "address": "0xB8730",
     "value": "0x10"
   }, {
     "comment": "Adjust Lion drop rate",
     "type": "char",
-    "address": "0xB83C6",
+    "address": "0xB8756",
     "value": "0x10"
   }, {
     "comment": "Adjust Lion drop rate",
     "type": "char",
-    "address": "0xB83C8",
+    "address": "0xB8758",
     "value": "0x10"
   }, {
     "comment": "Adjust Tin Man drop rate",
     "type": "char",
-    "address": "0xB8416",
+    "address": "0xB87A6",
     "value": "0x10"
   }, {
     "comment": "Adjust Tin Man drop rate",
     "type": "char",
-    "address": "0xB8418",
+    "address": "0xB87A8",
     "value": "0x10"
   }, {
     "comment": "Adjust Cloaked Knight drop rate",
     "type": "char",
-    "address": "0xB865E",
+    "address": "0xB88BE",
     "value": "0x10"
   }, {
     "comment": "Adjust Cloaked Knight drop rate",
     "type": "char",
-    "address": "0xB8660",
+    "address": "0xB88C0",
     "value": "0x10"
   }, {
     "comment": "Adjust Fishhead drop rate",
     "type": "char",
-    "address": "0xB874E",
+    "address": "0xB89AE",
     "value": "0x10"
   }, {
     "comment": "Adjust Fishhead drop rate",
     "type": "char",
-    "address": "0xB8750",
+    "address": "0xB89B0",
     "value": "0x10"
   }, {
     "comment": "Adjust Karasuman drop rate",
     "type": "char",
-    "address": "0xB87C6",
+    "address": "0xB8A26",
     "value": "0x10"
   }, {
     "comment": "Adjust Karasuman drop rate",
     "type": "char",
-    "address": "0xB87C8",
+    "address": "0xB8A28",
     "value": "0x10"
   }, {
     "comment": "Adjust Imp drop rate",
     "type": "char",
-    "address": "0xB8866",
+    "address": "0xB8AC6",
     "value": "0x10"
   }, {
     "comment": "Adjust Imp drop rate",
     "type": "char",
-    "address": "0xB8868",
+    "address": "0xB8AC8",
     "value": "0x10"
   }, {
     "comment": "Adjust Medusa Head drop rate",
     "type": "char",
-    "address": "0xB8B5E",
+    "address": "0xB8EEE",
     "value": "0x10"
   }, {
     "comment": "Adjust Medusa Head drop rate",
     "type": "char",
-    "address": "0xB8B60",
+    "address": "0xB8EF0",
     "value": "0x10"
   }, {
     "comment": "Adjust Medusa Head drop rate",
     "type": "char",
-    "address": "0xB8B86",
+    "address": "0xB8F16",
     "value": "0x10"
   }, {
     "comment": "Adjust Medusa Head drop rate",
     "type": "char",
-    "address": "0xB8B88",
+    "address": "0xB8F18",
     "value": "0x10"
   }, {
     "comment": "Adjust Archer drop rate",
     "type": "char",
-    "address": "0xB8BAE",
+    "address": "0xB8F3E",
     "value": "0x10"
   }, {
     "comment": "Adjust Archer drop rate",
     "type": "char",
-    "address": "0xB8BB0",
+    "address": "0xB8F40",
     "value": "0x10"
   }, {
     "comment": "Adjust Scarecrow drop rate",
     "type": "char",
-    "address": "0xB8E56",
+    "address": "0xB91E6",
     "value": "0x10"
   }, {
     "comment": "Adjust Scarecrow drop rate",
     "type": "char",
-    "address": "0xB8E58",
+    "address": "0xB91E8",
     "value": "0x10"
   }, {
     "comment": "Adjust Schmoo drop rate",
     "type": "char",
-    "address": "0xB8E7E",
+    "address": "0xB920E",
     "value": "0x10"
   }, {
     "comment": "Adjust Schmoo drop rate",
     "type": "char",
-    "address": "0xB8E80",
+    "address": "0xB9210",
     "value": "0x10"
   }, {
     "comment": "Adjust Killer Fish drop rate",
     "type": "char",
-    "address": "0xB92B6",
+    "address": "0xB9646",
     "value": "0x10"
   }, {
     "comment": "Adjust Killer Fish drop rate",
     "type": "char",
-    "address": "0xB92B8",
+    "address": "0xB9648",
     "value": "0x10"
   }, {
     "comment": "Adjust Minotaur drop rate",
     "type": "char",
-    "address": "0xB9986",
+    "address": "0xB9D16",
     "value": "0x10"
   }, {
     "comment": "Adjust Minotaur drop rate",
     "type": "char",
-    "address": "0xB9988",
+    "address": "0xB9D18",
     "value": "0x10"
   }, {
     "comment": "Adjust Werewolf drop rate",
     "type": "char",
-    "address": "0xB99FE",
+    "address": "0xB9D8E",
     "value": "0x10"
   }, {
     "comment": "Adjust Werewolf drop rate",
     "type": "char",
-    "address": "0xB9A00",
+    "address": "0xB9D90",
     "value": "0x10"
   }, {
     "comment": "Adjust Blue Venus Weed drop rate",
     "type": "char",
-    "address": "0xB9A76",
+    "address": "0xB9E06",
     "value": "0x10"
   }, {
     "comment": "Adjust Blue Venus Weed drop rate",
     "type": "char",
-    "address": "0xB9A78",
+    "address": "0xB9E08",
     "value": "0x10"
   }, {
     "comment": "Adjust Blue Venus Weed drop rate",
     "type": "char",
-    "address": "0xB9A9E",
+    "address": "0xB9E2E",
     "value": "0x10"
   }, {
     "comment": "Adjust Blue Venus Weed drop rate",
     "type": "char",
-    "address": "0xB9AA0",
+    "address": "0xB9E30",
     "value": "0x10"
   }, {
     "comment": "Adjust Guardian drop rate",
     "type": "char",
-    "address": "0xB9B16",
+    "address": "0xB9EA6",
     "value": "0x10"
   }, {
     "comment": "Adjust Guardian drop rate",
     "type": "char",
-    "address": "0xB9B18",
+    "address": "0xB9EA8",
     "value": "0x10"
   }]
 }
