@@ -116,8 +116,16 @@
                     <label for="enemy-drops">Enemy drops</label>
                   </div>
                   <div class="pure-u-12-24">
-                    <input id="starting-equipment" type="checkbox">
+                    <input id="starting-equipment" type="checkbox" disabled>
                     <label for="starting-equipment">Starting equipment</label>
+                    <span class="tooltip-wrapper">
+                      <span class="tooltip-indicator">?</span>
+                      <span class="tooltip hidden">
+                        <span>
+                        <span style="color: red;">*Disabled because breaks presets with guaranteed starting gear.</span>
+                        </span>
+                      </span>
+                    </span>
                   </div>
                   <div class="pure-u-12-24">
                     <input id="item-locations" type="checkbox">
