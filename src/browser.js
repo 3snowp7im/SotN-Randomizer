@@ -168,7 +168,7 @@
       adjustMaxComplexity()
       elems.complexity.value = complexity
       elems.enemyDrops.checked = !!options.enemyDrops
-      elems.startingEquipment.checked = !!options.startingEquipment
+      //elems.startingEquipment.checked = !!options.startingEquipment            // removed because it caused presets with guarenteed to break
       elems.itemLocations.checked = !!options.itemLocations
       elems.prologueRewards.checked = !!options.prologueRewards
       elems.relicLocations.checked = !!options.relicLocations
@@ -193,6 +193,17 @@
       elems.stats.checked = !!options.stats
       elems.music.checked = !!options.music
       elems.turkeyMode.checked = !!options.turkeyMode
+      elems.magicmaxMode.checked = !!options.magicmaxMode
+      elems.colorrandoMode.checked = !!options.colorrandoMode
+      elems.antiFreezeMode.checked = !!options.antiFreezeMode
+      elems.mypurseMode.checked = !!options.mypurseMode
+      elems.iwsMode.checked = !!options.iwsMode
+      elems.fastwarpMode.checked = !!options.fastwarpMode
+      elems.noprologueMode.checked = !!options.noprologueMode
+      elems.unlockedMode.checked = !!options.unlockedMode
+      elems.surpriseMode.checked = !!options.surpriseMode
+      elems.enemyStatRandoMode.checked = !!options.enemyStatRandoMode
+      
     }
   }
 
@@ -200,9 +211,9 @@
     localStorage.setItem('complexity', elems.complexity.value)
   }
 
-  function startingEquipmentChange() {
-    localStorage.setItem('startingEquipment', elems.startingEquipment.checked)
-  }
+  //function startingEquipmentChange() {
+  //  localStorage.setItem('startingEquipment', elems.startingEquipment.checked)          // removed because it caused presets with guarenteed to break
+  //}
 
   function itemLocationsChange() {
     localStorage.setItem('itemLocations', elems.itemLocations.checked)
@@ -228,6 +239,8 @@
       elems.relicLocationsExtension.tourist.checked = false
       elems.relicLocationsExtension.wanderer.checked = false
       elems.relicLocationsExtension.classic.checked = false
+      //elems.relicLocationsSet.remove("hide")
+      
     } else {
       elems.relicLocationsSet.disabled = false
       elems.relicLocationsExtension.guarded.checked =
@@ -242,6 +255,7 @@
         relicLocationsExtensionCache === constants.EXTENSION.WANDERER
       elems.relicLocationsExtension.classic.checked =
         !relicLocationsExtensionCache
+       // elems.relicLocationsSet.add("hide")
     }
   }
 
@@ -265,6 +279,7 @@
 
   function relicLocationsExtensionChange() {
     let value
+    
     if (elems.relicLocationsExtension.guarded.checked) {
       value = constants.EXTENSION.GUARDED
     } else if (elems.relicLocationsExtension.spread.checked) {
@@ -548,11 +563,12 @@
       if (elems.enemyStatRandoMode.checked) {
         options.enemyStatRandoMode = true
       }
+      
       return options
     }
     const options = {
       enemyDrops: elems.enemyDrops.checked,
-      startingEquipment: elems.startingEquipment.checked,
+      //startingEquipment: elems.startingEquipment.checked,   // removed because it caused presets with guarenteed to break
       itemLocations: elems.itemLocations.checked,
       prologueRewards: elems.prologueRewards.checked,
       relicLocations: getFormRelicLocations(),
@@ -576,11 +592,11 @@
         elems.enemyDropsArg.value,
       ).enemyDrops
     }
-    if (elems.startingEquipmentArg.value) {
-      options.startingEquipment = util.optionsFromString(
-        elems.startingEquipmentArg.value,
-      ).startingEquipment
-    }
+    //if (elems.startingEquipmentArg.value) {
+    //  options.startingEquipment = util.optionsFromString(                           // removed because it caused presets with guarenteed to break
+    //    elems.startingEquipmentArg.value,
+    //  ).startingEquipment
+    //}
     if (elems.itemLocationsArg.value) {
       options.itemLocations = util.optionsFromString(
         elems.itemLocationsArg.value,
@@ -708,7 +724,7 @@
       applied.stats = elems.stats.checked
       applied.enemyDrops = elems.enemyDrops.checked
       applied.music = elems.music.checked
-      //applied.startingEquipment = elems.startingEquipment.checked         //disabled because breaks presets with guarenteed starting relics
+      //applied.startingEquipment = elems.startingEquipment.checked             //disabled because breaks presets with guarenteed starting relics
       applied.turkeyMode = elems.turkeyMode.checked
       applied.prologueRewards = elems.prologueRewards.checked
       applied.itemLocations = elems.itemLocations.checked
@@ -820,6 +836,7 @@
           check.apply(util.applyenemyStatRandoPatches(rng))
         }
         
+        
         // Apply writes.
         check.apply(util.applyWrites(rng, applied))
         util.setSeedText(
@@ -911,8 +928,8 @@
     elems.presetId.disabled = false
     elems.enemyDrops.disabled = false
     elems.enemyDropsArg.value = ''
-    elems.startingEquipment.disabled = false
-    elems.startingEquipmentArg.value = ''
+    //elems.startingEquipment.disabled = false                        // removed because it caused presets with guarenteed to break
+   //elems.startingEquipmentArg.value = ''
     elems.itemLocations.disabled = false
     elems.itemLocationsArg.value = ''
     elems.prologueRewards.disabled = false
@@ -1026,8 +1043,8 @@
     complexity: document.getElementById('complexity'),
     enemyDrops: document.getElementById('enemy-drops'),
     enemyDropsArg: document.getElementById('enemy-drops-arg'),
-    startingEquipment: document.getElementById('starting-equipment'),
-    startingEquipmentArg: document.getElementById('starting-equipment-arg'),
+    //startingEquipment: document.getElementById('starting-equipment'),                 // removed because it caused presets with guarenteed to break
+    //startingEquipmentArg: document.getElementById('starting-equipment-arg'),
     relicLocationsSet: document.getElementById('relic-locations-set'),
     relicLocations: document.getElementById('relic-locations'),
     relicLocationsExtension: {
@@ -1084,7 +1101,7 @@
   elems.presetId.addEventListener('change', presetIdChange)
   elems.complexity.addEventListener('change', complexityChange)
   elems.enemyDrops.addEventListener('change', enemyDropsChange)
-  elems.startingEquipment.addEventListener('change', startingEquipmentChange)
+ // elems.startingEquipment.addEventListener('change', startingEquipmentChange)       // removed because it caused presets with guarenteed to break
   elems.relicLocations.addEventListener('change', relicLocationsChange)
   elems.relicLocationsExtension.guarded.addEventListener(
     'change',
@@ -1251,14 +1268,14 @@
       })
     }
     elems.enemyDropsArg.value = enemyDropsArg
-    elems.startingEquipment.checked = applied.startingEquipment
-    startingEquipmentChange()
-    let startingEquipmentArg = ''
-    if (typeof(options.startingEquipment) === 'object') {
-      startingEquipmentArg = util.optionsToString({
-        startingEquipment: options.startingEquipment,
-      })
-    }
+    /*elems.startingEquipment.checked = applied.startingEquipment           // removed because it caused presets with guarenteed to break
+    //startingEquipmentChange()
+    //let startingEquipmentArg = ''
+    //if (typeof(options.startingEquipment) === 'object') {
+    //  startingEquipmentArg = util.optionsToString({
+    //    startingEquipment: options.startingEquipment,
+    //  })
+    //}*/
     elems.startingEquipmentArg.value = startingEquipmentArg
     elems.itemLocations.checked = applied.itemLocations
     itemLocationsChange()
@@ -1335,7 +1352,7 @@
     elems.presetId.disabled = true
     elems.complexity.disabled = true
     elems.enemyDrops.disabled = true
-    elems.startingEquipment.disabled = true
+    //elems.startingEquipment.disabled = true                           // removed because it caused presets with guarenteed to break
     elems.itemLocations.disabled = true
     elems.prologueRewards.disabled = true
     elems.relicLocations.disabled = true
@@ -1349,7 +1366,7 @@
   } else {
     loadOption('complexity', complexityChange, 7)
     loadOption('enemyDrops', enemyDropsChange, true)
-    loadOption('startingEquipment', startingEquipmentChange, true)
+    //loadOption('startingEquipment', startingEquipmentChange, true)    // removed because it caused presets with guarenteed to break
     loadOption('itemLocations', itemLocationsChange, true)
     loadOption('prologueRewards', prologueRewardsChange, true)
     loadOption('relicLocations', relicLocationsChange, true)

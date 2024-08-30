@@ -296,7 +296,12 @@ body.menu {
     margin: 0 .3em .2em .3em;
 }
 
-.menu #target,
+.menu #target {
+    border-width: 10px;
+    border-style: dashed;
+    border-color: #ccc;
+}
+
 .menu #spoilers-container {
     border: 1px #fff solid;
 }
@@ -501,7 +506,7 @@ body.menu {
 }
 
 .menu #options > div {
-    width: 47ex;
+    width: ex;
 }
 
 .menu #options.animate.hide {
@@ -610,6 +615,15 @@ body.menu {
     transform: translateY(0px);
 }
 
+.light #target.animate {
+    animation: expand-target 2s;
+    overflow: hidden;
+}
+
+.light #target-container > div {
+    margin: 0 .3em .2em .3em;
+}
+
 .light #target {
     border-width: 10px;
     border-style: dashed;
@@ -626,6 +640,16 @@ body.menu {
 
 .light #target legend {
     display: none;
+}
+
+.light #target.animate.hide {
+    animation: shrink-target 2s;
+    animation-fill-mode: forwards;
+}
+
+.light #target > div {
+    width: 30em;
+    white-space: nowrap;
 }
 
 .light input[type="submit"] {
@@ -732,6 +756,15 @@ body.menu {
     transform: translateY(0px);
 }
 
+.dark #target.animate {
+    animation: expand-target 2s;
+    overflow: hidden;
+}
+
+.dark #target-container > div {
+    margin: 0 .3em .2em .3em;
+}
+
 .dark #target {
     border-width: 10px;
     border-style: dashed;
@@ -748,6 +781,16 @@ body.menu {
 
 .dark #target legend {
     display: none;
+}
+
+.dark #target.animate.hide {
+    animation: shrink-target 2s;
+    animation-fill-mode: forwards;
+}
+
+.dark #target > div {
+    width: 30em;
+    white-space: nowrap;
 }
 
 .dark input[type="file"] {
