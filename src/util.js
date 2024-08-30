@@ -6198,6 +6198,17 @@ function hexValueToDamageString(hexValue) {
     offset = 0x0b9ca8                                                           // Fix Stone Skull reference
     data.writeWord(offset,0x800e0cf4)                                           // Shows Immune All
 
+    const faerieScrollForceAddresses = constants.faerieScrollForceAddresses     // summon the faerie scroll force on locations
+
+    faerieScrollForceAddresses.forEach(function(address) {
+      const forceOn = 0x34020003                                                // Faerie Scroll is forced "on"
+      const forceNop = 0x00000000                                               // replace the line after with a 'nop' that negates the other half of the data move to r2
+      offset = address
+
+      offset = data.writeWord(offset,forceOn)                                   // Overwrite the first half of the movbp instr
+      data.writeWord(offset,forceNop)                                           // Overwrite the second half of the movbp instr
+    })
+
     return data
   }
 
