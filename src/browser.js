@@ -708,7 +708,7 @@
       applied.stats = elems.stats.checked
       applied.enemyDrops = elems.enemyDrops.checked
       applied.music = elems.music.checked
-      applied.startingEquipment = elems.startingEquipment.checked
+      //applied.startingEquipment = elems.startingEquipment.checked         //disabled because breaks presets with guarenteed starting relics
       applied.turkeyMode = elems.turkeyMode.checked
       applied.prologueRewards = elems.prologueRewards.checked
       applied.itemLocations = elems.itemLocations.checked
