@@ -144,43 +144,7 @@
     elems.copy.disabled = true
     haveChecksum = false
   }
-
-  function presetChange(event) {
-    localStorage.setItem('preset', elems.preset.checked)
-    if (elems.preset.checked) {
-      elems.presetSelect.classList.remove('hide')
-      elems.complexity.disabled = true
-      elems.enemyDrops.disabled = true
-      elems.startingEquipment.disabled = true
-      elems.itemLocations.disabled = true
-      elems.prologueRewards.disabled = true
-      elems.relicLocations.disabled = true
-      elems.relicLocationsSet.disabled = true
-      elems.stats.disabled = true
-      elems.music.disabled = true
-      elems.turkeyMode.disabled = true
-      presetIdChange()
-      elems.options.classList.add('hide')
-    } else {
-      elems.presetSelect.classList.add('hide')
-      elems.complexity.disabled = false
-      elems.enemyDrops.disabled = false
-      elems.startingEquipment.disabled = false
-      elems.itemLocations.disabled = false
-      elems.prologueRewards.disabled = false
-      elems.relicLocations.disabled = false
-      elems.relicLocationsSet.disabled = !elems.relicLocations.checked
-      elems.stats.disabled = false
-      elems.music.disabled = false
-      elems.turkeyMode.disabled = false
-      elems.options.classList.remove('hidden')
-      elems.options.classList.remove('hide')
-    }
-    if (event) {
-      elems.options.classList.add('animate')
-    }
-  }
-
+  
   function presetIdChange() {
     const id = elems.presetId.childNodes[elems.presetId.selectedIndex].value
     const preset = presets.filter(function(preset) {
@@ -741,6 +705,26 @@
         seed,
         0,
       ))
+      applied.stats = elems.stats.checked
+      applied.enemyDrops = elems.enemyDrops.checked
+      applied.music = elems.music.checked
+      applied.startingEquipment = elems.startingEquipment.checked
+      applied.turkeyMode = elems.turkeyMode.checked
+      applied.prologueRewards = elems.prologueRewards.checked
+      applied.itemLocations = elems.itemLocations.checked
+      if (elems.relicLocationsExtension.guarded.checked) {
+        applied.relicLocations = constants.EXTENSION.GUARDED
+      } else if (elems.relicLocationsExtension.spread.checked) {
+        applied.relicLocations = constants.EXTENSION.SPREAD
+      } else if (elems.relicLocationsExtension.equipment.checked) {
+        applied.relicLocations = constants.EXTENSION.EQUIPMENT
+      } else if (elems.relicLocationsExtension.tourist.checked) {
+        applied.relicLocations = constants.EXTENSION.TOURIST
+      } else if (elems.relicLocationsExtension.wanderer.checked) {
+        applied.relicLocations = constants.EXTENSION.WANDERER
+      } else{
+        applied.relicLocations = false
+      }      
       const result = randomizeStats(rng, applied)
       const newNames = result.newNames
       check.apply(result.data)
@@ -835,6 +819,7 @@
         if (options.enemyStatRandoMode || applied.enemyStatRandoMode) {
           check.apply(util.applyenemyStatRandoPatches(rng))
         }
+        
         // Apply writes.
         check.apply(util.applyWrites(rng, applied))
         util.setSeedText(
@@ -939,7 +924,6 @@
     elems.turkeyMode.disabled = false
     elems.tournamentMode.disabled = false
     elems.clear.classList.add('hidden')
-    presetChange()
   }
 
   let animationDone = true
@@ -1097,7 +1081,6 @@
   elems.file.addEventListener('change', fileChange)
   elems.form.addEventListener('submit', submitListener)
   elems.seed.addEventListener('change', seedChange)
-  elems.preset.addEventListener('change', presetChange)
   elems.presetId.addEventListener('change', presetIdChange)
   elems.complexity.addEventListener('change', complexityChange)
   elems.enemyDrops.addEventListener('change', enemyDropsChange)
@@ -1417,7 +1400,7 @@
       }
     }
     presetIdChange()
-    loadOption('preset', presetChange, true)
+    //loadOption('preset', presetChange, true)
   }
   let path = url.pathname
   if (path.match(/index\.html$/)) {
