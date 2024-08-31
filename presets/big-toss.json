@@ -8,6 +8,8 @@
   },
 
   "stats": false,
+  "colorrandoMode": true,
+  
 
   "complexityGoal": {
     "min": 5,

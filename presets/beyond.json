@@ -8,6 +8,9 @@
   },
   "inherits": "safe",
   "stats": false,
+  "fastwarpMode": true,
+  "mypurseMode": true,
+  
   "relicLocationsExtension": "spread",
 
   "complexityGoal": {

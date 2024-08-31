@@ -7,6 +7,10 @@
     "weight": 2500
   },
   "stats": false,
+  "colorrandoMode": true,
+  "fastwarpMode": true,
+  "mypurseMode": true,
+  "unlockedMode": true,
   "relicLOcationsExtension": "wanderer",
   
   "startingEquipment": [{

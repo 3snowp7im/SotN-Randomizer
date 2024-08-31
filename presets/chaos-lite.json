@@ -8,6 +8,11 @@
   },
   
   "colorrandoMode": true,
+  
+  "fastwarpMode": true,
+  "mypurseMode": true,
+  "unlockedMode": true,
+  
 
   "itemLocations": [{
     "comment": "Force library card spawn in vanilla location for convenience",
