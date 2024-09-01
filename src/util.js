@@ -6198,6 +6198,10 @@ function hexValueToDamageString(hexValue) {
     offset = 0x0b9ca8                                                           // Fix Stone Skull reference
     data.writeWord(offset,0x800e0cf4)                                           // Shows Immune All
 
+    offset = 0x0b6220                                                           // fix Olrox second phase name
+    data.writeWord(offset,0x800e0cfb)                                           // Shows "Good Luck"
+
+
     const faerieScrollForceAddresses = constants.faerieScrollForceAddresses     // summon the faerie scroll force on locations
 
     faerieScrollForceAddresses.forEach(function(address) {
