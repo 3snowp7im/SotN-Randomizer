@@ -144,7 +144,43 @@
     elems.copy.disabled = true
     haveChecksum = false
   }
-  
+
+  function presetChange(event) {
+    localStorage.setItem('preset', elems.preset.checked)
+    if (elems.preset.checked) {
+      elems.presetSelect.classList.remove('hide')
+      elems.complexity.disabled = true
+      //elems.enemyDrops.disabled = true
+      elems.startingEquipment.disabled = true
+      //elems.itemLocations.disabled = true
+      elems.prologueRewards.disabled = true
+      elems.relicLocations.disabled = true
+      elems.relicLocationsSet.disabled = true
+      //elems.stats.disabled = true
+      //elems.music.disabled = true
+      //elems.turkeyMode.disabled = true
+      presetIdChange()
+      elems.options.classList.add('hide')
+    } else {
+      elems.presetSelect.classList.add('hide')
+      elems.complexity.disabled = false
+      //elems.enemyDrops.disabled = false
+      elems.startingEquipment.disabled = false
+      //elems.itemLocations.disabled = false
+      elems.prologueRewards.disabled = false
+      elems.relicLocations.disabled = false
+      elems.relicLocationsSet.disabled = !elems.relicLocations.checked
+      //elems.stats.disabled = false
+      //elems.music.disabled = false
+      //elems.turkeyMode.disabled = false
+      elems.options.classList.remove('hidden')
+      elems.options.classList.remove('hide')
+    }
+    if (event) {
+      elems.options.classList.add('animate')
+    }
+  }
+
   function presetIdChange() {
     const id = elems.presetId.childNodes[elems.presetId.selectedIndex].value
     const preset = presets.filter(function(preset) {
@@ -168,7 +204,7 @@
       adjustMaxComplexity()
       elems.complexity.value = complexity
       elems.enemyDrops.checked = !!options.enemyDrops
-      //elems.startingEquipment.checked = !!options.startingEquipment            // removed because it caused presets with guarenteed to break
+      elems.startingEquipment.checked = !!options.startingEquipment
       elems.itemLocations.checked = !!options.itemLocations
       elems.prologueRewards.checked = !!options.prologueRewards
       elems.relicLocations.checked = !!options.relicLocations
@@ -201,9 +237,8 @@
       elems.fastwarpMode.checked = !!options.fastwarpMode
       elems.noprologueMode.checked = !!options.noprologueMode
       elems.unlockedMode.checked = !!options.unlockedMode
-      elems.surpriseMode.checked = !!options.surpriseMode
-      elems.enemyStatRandoMode.checked = !!options.enemyStatRandoMode
-      
+      //elems.surpriseMode.checked = !!options.surpriseMode
+      //elems.enemyStatRandoMode.checked = !!options.enemyStatRandoMode
     }
   }
 
@@ -211,9 +246,9 @@
     localStorage.setItem('complexity', elems.complexity.value)
   }
 
-  //function startingEquipmentChange() {
-  //  localStorage.setItem('startingEquipment', elems.startingEquipment.checked)          // removed because it caused presets with guarenteed to break
-  //}
+  function startingEquipmentChange() {
+    localStorage.setItem('startingEquipment', elems.startingEquipment.checked)
+  }
 
   function itemLocationsChange() {
     localStorage.setItem('itemLocations', elems.itemLocations.checked)
@@ -239,8 +274,6 @@
       elems.relicLocationsExtension.tourist.checked = false
       elems.relicLocationsExtension.wanderer.checked = false
       elems.relicLocationsExtension.classic.checked = false
-      //elems.relicLocationsSet.remove("hide")
-      
     } else {
       elems.relicLocationsSet.disabled = false
       elems.relicLocationsExtension.guarded.checked =
@@ -255,7 +288,6 @@
         relicLocationsExtensionCache === constants.EXTENSION.WANDERER
       elems.relicLocationsExtension.classic.checked =
         !relicLocationsExtensionCache
-       // elems.relicLocationsSet.add("hide")
     }
   }
 
@@ -279,7 +311,6 @@
 
   function relicLocationsExtensionChange() {
     let value
-    
     if (elems.relicLocationsExtension.guarded.checked) {
       value = constants.EXTENSION.GUARDED
     } else if (elems.relicLocationsExtension.spread.checked) {
@@ -378,14 +409,6 @@
 
   function unlockedModeChange() {
     localStorage.setItem('unlockedMode', elems.unlockedMode.checked)
-  }
-
-  function surpriseModeChange() {
-    localStorage.setItem('surpriseMode', elems.surpriseMode.checked)
-  }
-
-  function enemyStatRandoModeChange() {
-    localStorage.setItem('enemyStatRandoMode', elems.enemyStatRandoMode.checked)
   }
 
   function accessibilityPatchesChange() {
@@ -557,46 +580,30 @@
       if (elems.unlockedMode.checked) {
         options.unlockedMode = true
       }
-      if (elems.surpriseMode.checked) {
-        options.surpriseMode = true
-      }
-      if (elems.enemyStatRandoMode.checked) {
-        options.enemyStatRandoMode = true
-      }
-      
       return options
     }
     const options = {
       enemyDrops: elems.enemyDrops.checked,
-      //startingEquipment: elems.startingEquipment.checked,   // removed because it caused presets with guarenteed to break
+      //startingEquipment: elems.startingEquipment.checked,
       itemLocations: elems.itemLocations.checked,
-      prologueRewards: elems.prologueRewards.checked,
-      relicLocations: getFormRelicLocations(),
+      //prologueRewards: elems.prologueRewards.checked,
+      //relicLocations: getFormRelicLocations(),
       stats: elems.stats.checked,
       music: elems.music.checked,
       turkeyMode: elems.turkeyMode.checked,
       tournamentMode: elems.tournamentMode.checked,
-      colorrandoMode: elems.colorrandoMode.checked,
-      magicmaxMode: elems.magicmaxMode.checked,
-      antiFreezeMode: elems.antiFreezeMode.checked,
-      mypurseMode: elems.mypurseMode.checked,
-      iwsMode: elems.iwsMode.checked,
-      fastwarpMode: elems.fastwarpMode.checked,
-      noprologueMode: elems.noprologueMode.checked,
-      unlockedMode: elems.unlockedMode.checked,
-      surpriseMode: elems.surpriseMode.checked,
-      enemyStatRandoMode: elems.enemyStatRandoMode.checked,
+      
     }
     if (elems.enemyDropsArg.value) {
       options.enemyDrops = util.optionsFromString(
         elems.enemyDropsArg.value,
       ).enemyDrops
     }
-    //if (elems.startingEquipmentArg.value) {
-    //  options.startingEquipment = util.optionsFromString(                           // removed because it caused presets with guarenteed to break
-    //    elems.startingEquipmentArg.value,
-    //  ).startingEquipment
-    //}
+    if (elems.startingEquipmentArg.value) {
+      options.startingEquipment = util.optionsFromString(
+        elems.startingEquipmentArg.value,
+      ).startingEquipment
+    }
     if (elems.itemLocationsArg.value) {
       options.itemLocations = util.optionsFromString(
         elems.itemLocationsArg.value,
@@ -721,26 +728,6 @@
         seed,
         0,
       ))
-      applied.stats = elems.stats.checked
-      applied.enemyDrops = elems.enemyDrops.checked
-      applied.music = elems.music.checked
-      //applied.startingEquipment = elems.startingEquipment.checked             //disabled because breaks presets with guarenteed starting relics
-      applied.turkeyMode = elems.turkeyMode.checked
-      applied.prologueRewards = elems.prologueRewards.checked
-      applied.itemLocations = elems.itemLocations.checked
-      if (elems.relicLocationsExtension.guarded.checked) {
-        applied.relicLocations = constants.EXTENSION.GUARDED
-      } else if (elems.relicLocationsExtension.spread.checked) {
-        applied.relicLocations = constants.EXTENSION.SPREAD
-      } else if (elems.relicLocationsExtension.equipment.checked) {
-        applied.relicLocations = constants.EXTENSION.EQUIPMENT
-      } else if (elems.relicLocationsExtension.tourist.checked) {
-        applied.relicLocations = constants.EXTENSION.TOURIST
-      } else if (elems.relicLocationsExtension.wanderer.checked) {
-        applied.relicLocations = constants.EXTENSION.WANDERER
-      } else{
-        applied.relicLocations = false
-      }      
       const result = randomizeStats(rng, applied)
       const newNames = result.newNames
       check.apply(result.data)
@@ -796,47 +783,37 @@
         ))
         check.apply(randomizeMusic(rng, applied))
         // Apply tournament mode patches.
-        if (options.tournamentMode || applied.tournamentMode) {
+        if (options.tournamentMode) {
           check.apply(util.applyTournamentModePatches())
         }
         // Apply magic max patches.
-        if (options.magicmaxMode || applied.magicmaxMode) {
+        if (options.magicmaxMode) {
           check.apply(util.applyMagicMaxPatches())
         }
         // Apply anti-freeze patches.
-        if (options.antiFreezeMode || applied.antiFreezeMode) {
+        if (options.antiFreezeMode) {
           check.apply(util.applyAntiFreezePatches())
         }
         // Apply my purse patches.
-        if (options.mypurseMode || applied.mypurseMode) {
+        if (options.mypurseMode) {
           check.apply(util.applyMyPursePatches())
         }
         // Apply iws patches.
-        if (options.iwsMode || applied.iwsMode) {
+        if (options.iwsMode) {
           check.apply(util.applyiwsPatches())
         }
         // Apply fast warp patches.
-        if (options.fastwarpMode || applied.fastwarpMode) {
+        if (options.fastwarpMode) {
           check.apply(util.applyfastwarpPatches())
         }
         // Apply no prologue patches.
-        if (options.noprologueMode || applied.noprologueMode) {
+        if (options.noprologueMode) {
           check.apply(util.applynoprologuePatches())
         }
         // Apply unlocked patches.
-        if (options.unlockedMode || applied.unlockedMode) {
+        if (options.unlockedMode) {
           check.apply(util.applyunlockedPatches())
         }
-        // Apply surprise patches.
-        if (options.surpriseMode || applied.surpriseMode) {
-          check.apply(util.applysurprisePatches())
-        }
-        // Apply enemy stat rando patches.
-        if (options.enemyStatRandoMode || applied.enemyStatRandoMode) {
-          check.apply(util.applyenemyStatRandoPatches(rng))
-        }
-        
-        
         // Apply writes.
         check.apply(util.applyWrites(rng, applied))
         util.setSeedText(
@@ -928,8 +905,8 @@
     elems.presetId.disabled = false
     elems.enemyDrops.disabled = false
     elems.enemyDropsArg.value = ''
-    //elems.startingEquipment.disabled = false                        // removed because it caused presets with guarenteed to break
-   //elems.startingEquipmentArg.value = ''
+    elems.startingEquipment.disabled = false
+    elems.startingEquipmentArg.value = ''
     elems.itemLocations.disabled = false
     elems.itemLocationsArg.value = ''
     elems.prologueRewards.disabled = false
@@ -939,8 +916,18 @@
     elems.relicLocationsArg.value = ''
     elems.writes.value = ''
     elems.turkeyMode.disabled = false
+    elems.magicmaxMode.disabled = false
+    elems.colorrandoMode.disabled = false
+    elems.antiFreezeMode.disabled = false
+    elems.mypurseMode.disabled = false
+    elems.iwsMode.disabled = false
+    elems.fastwarpMode.disabled = false
+    elems.noprologueMode.disabled = false
+    elems.unlockedMode.disabled = false
+    elems.enemyStatRandoMode.disabled = false
     elems.tournamentMode.disabled = false
     elems.clear.classList.add('hidden')
+    presetChange()
   }
 
   let animationDone = true
@@ -1043,8 +1030,8 @@
     complexity: document.getElementById('complexity'),
     enemyDrops: document.getElementById('enemy-drops'),
     enemyDropsArg: document.getElementById('enemy-drops-arg'),
-    //startingEquipment: document.getElementById('starting-equipment'),                 // removed because it caused presets with guarenteed to break
-    //startingEquipmentArg: document.getElementById('starting-equipment-arg'),
+    startingEquipment: document.getElementById('starting-equipment'),
+    startingEquipmentArg: document.getElementById('starting-equipment-arg'),
     relicLocationsSet: document.getElementById('relic-locations-set'),
     relicLocations: document.getElementById('relic-locations'),
     relicLocationsExtension: {
@@ -1076,8 +1063,6 @@
     fastwarpMode: document.getElementById('fastwarp-mode'),
     noprologueMode: document.getElementById('noprologue-mode'),
     unlockedMode: document.getElementById('unlocked-mode'),
-    surpriseMode: document.getElementById('surprise-mode'),
-    enemyStatRandoMode: document.getElementById('enemyStatRando-mode'),
     accessibilityPatches: document.getElementById('accessibility-patches'),
     showSpoilers: document.getElementById('show-spoilers'),
     showRelics: document.getElementById('show-relics'),
@@ -1098,10 +1083,11 @@
   elems.file.addEventListener('change', fileChange)
   elems.form.addEventListener('submit', submitListener)
   elems.seed.addEventListener('change', seedChange)
+  elems.preset.addEventListener('change', presetChange)
   elems.presetId.addEventListener('change', presetIdChange)
   elems.complexity.addEventListener('change', complexityChange)
   elems.enemyDrops.addEventListener('change', enemyDropsChange)
- // elems.startingEquipment.addEventListener('change', startingEquipmentChange)       // removed because it caused presets with guarenteed to break
+  elems.startingEquipment.addEventListener('change', startingEquipmentChange)
   elems.relicLocations.addEventListener('change', relicLocationsChange)
   elems.relicLocationsExtension.guarded.addEventListener(
     'change',
@@ -1144,8 +1130,6 @@
   elems.fastwarpMode.addEventListener('change', fastwarpModeChange)
   elems.noprologueMode.addEventListener('change', noprologueModeChange)
   elems.unlockedMode.addEventListener('change', unlockedModeChange)
-  elems.surpriseMode.addEventListener('change', surpriseModeChange)
-  elems.enemyStatRandoMode.addEventListener('change', enemyStatRandoModeChange)
   elems.accessibilityPatches.addEventListener('change', accessibilityPatchesChange)
   elems.showSpoilers.addEventListener('change', spoilersChange)
   elems.showRelics.addEventListener('change', showRelicsChange)
@@ -1268,14 +1252,14 @@
       })
     }
     elems.enemyDropsArg.value = enemyDropsArg
-    /*elems.startingEquipment.checked = applied.startingEquipment           // removed because it caused presets with guarenteed to break
-    //startingEquipmentChange()
-    //let startingEquipmentArg = ''
-    //if (typeof(options.startingEquipment) === 'object') {
-    //  startingEquipmentArg = util.optionsToString({
-    //    startingEquipment: options.startingEquipment,
-    //  })
-    //}*/
+    elems.startingEquipment.checked = applied.startingEquipment
+    startingEquipmentChange()
+    let startingEquipmentArg = ''
+    if (typeof(options.startingEquipment) === 'object') {
+      startingEquipmentArg = util.optionsToString({
+        startingEquipment: options.startingEquipment,
+      })
+    }
     elems.startingEquipmentArg.value = startingEquipmentArg
     elems.itemLocations.checked = applied.itemLocations
     itemLocationsChange()
@@ -1352,7 +1336,7 @@
     elems.presetId.disabled = true
     elems.complexity.disabled = true
     elems.enemyDrops.disabled = true
-    //elems.startingEquipment.disabled = true                           // removed because it caused presets with guarenteed to break
+    elems.startingEquipment.disabled = true
     elems.itemLocations.disabled = true
     elems.prologueRewards.disabled = true
     elems.relicLocations.disabled = true
@@ -1366,7 +1350,7 @@
   } else {
     loadOption('complexity', complexityChange, 7)
     loadOption('enemyDrops', enemyDropsChange, true)
-    //loadOption('startingEquipment', startingEquipmentChange, true)    // removed because it caused presets with guarenteed to break
+    loadOption('startingEquipment', startingEquipmentChange, true)
     loadOption('itemLocations', itemLocationsChange, true)
     loadOption('prologueRewards', prologueRewardsChange, true)
     loadOption('relicLocations', relicLocationsChange, true)
@@ -1417,7 +1401,7 @@
       }
     }
     presetIdChange()
-    //loadOption('preset', presetChange, true)
+    loadOption('preset', presetChange, true)
   }
   let path = url.pathname
   if (path.match(/index\.html$/)) {
@@ -1459,8 +1443,6 @@
   loadOption('fastwarpMode', fastwarpModeChange, false)
   loadOption('noprologueMode', noprologueModeChange, false)
   loadOption('unlockedMode', unlockedModeChange, false)
-  loadOption('surpriseMode', surpriseModeChange, false)
-  loadOption('enemyStatRandoMode', enemyStatRandoModeChange, false)
   loadOption('accessibilityPatches', accessibilityPatchesChange, true)
   loadOption('showSpoilers', spoilersChange, true)
   setTimeout(function() {

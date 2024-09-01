@@ -42,7 +42,7 @@
       </div>
       <form id="form" class="pure-u-1">
         <fieldset id="output" class="pure-u-1">
-          <legend><b>Output</b></legend>
+          <legend>Output</legend>
           <div class="pure-u-2-24">
             <input id="output-bin"
                    name="output"
@@ -70,7 +70,7 @@
         </fieldset>
         <div class="pure-u-1">
           <fieldset>
-            <legend><b>Randomizations</b></legend>
+            <legend>Randomizations</legend>
             <div class="pure-g">
               <div class="pure-u-12-24">
                 <label for="seed">Seed:</label>
@@ -79,7 +79,7 @@
                 <input id="seed" type="text" placeholder="Optional">
               </div>
               <div class="pure-u-12-24">
-                <input id="preset" type="checkbox"disabled checked>
+                <input id="preset" type="checkbox">
                 <label for="preset">Preset</label>
               </div>
               <div id="preset-select" class="pure-u-12-24">
@@ -97,16 +97,6 @@
               <fieldset id="options">
                 <div class="pure-g">
                   <div class="pure-u-12-24">
-                      <label for="theme">Theme</label>
-                    </div>
-                  <div class="pure-u-12-24">
-                    <select id="theme" type="checkbox">
-                        <option value="menu">Menu</option>
-                        <option value="light">Light</option>
-                        <option value="dark">Dark</option>
-                      </select>
-                    </div>
-                  <div class="pure-u-12-24">
                     <label for="complexity">Complexity</label>
                   </div>
                   <div class="pure-u-12-24">
@@ -122,11 +112,27 @@
                     </span>
                   </div>
                   <div class="pure-u-12-24">
-                    <fieldset id="relic-locations-set" >
+                    <input id="starting-equipment" type="checkbox" disabled>
+                    <label for="starting-equipment">Starting equipment</label>
+                    <span class="tooltip-wrapper">
+                      <span class="tooltip-indicator">?</span>
+                      <span class="tooltip hidden">
+                        <span>
+                        <span style="color: red;">*Disabled because breaks presets with guaranteed starting gear.</span>
+                        </span>
+                      </span>
+                    </span>
+                  </div>
+                  <div class="pure-u-12-24">
+                    <input id="prologue-rewards" type="checkbox">
+                    <label for="prologue-rewards">Prologue rewards</label>
+                  </div>                         
+                  <div class="pure-u-12-24">
+                    <fieldset id="relic-locations-set">
                       <legend>
-                        <input id="relic-locations" type="checkbox" >
-                        <label for="relic-locations">Relic locations</label >
-                      </legend> 
+                        <input id="relic-locations" type="checkbox">
+                        <label for="relic-locations">Relic locations</label>
+                      </legend>
                       <div>
                         <input id="extension-guarded"
                                name="extension"
@@ -264,232 +270,244 @@
                          type="text"
                          disabled="disabled"
                          style="display: none">
-                </div>                  
-                    <div class="pure-u-1-2">
-                      <input id="append-seed" type="checkbox">
-                      <label for="append-seed">Append seed to filename
-                        <span class="tooltip-wrapper">
-                          <span class="tooltip-indicator">?</span>
-                          <span class="tooltip hidden">
-                            <span>
-                              Appends the seed to the filename of the randomized bin.
-                              You will need to modify your cue file track listing to
-                              reference the new filename.
-                            </span>
-                          </span>
-                        </span>
-                      </label>
-                    </div>
-                    <div class="pure-u-1-2">
-                    <input id="tournament-mode" type="checkbox">
-                    <label for="tournament-mode">Tournament mode
-                      <span class="tooltip-wrapper">
-                        <span class="tooltip-indicator">?</span>
-                        <span class="tooltip hidden">
-                          <span>
-                            Prevents displaying the relic locations and solutions.
-                            Sets the library shop relic cost to 0.
-                            Permanently opens the clock room statue.
-                            For use when racing.
-                          </span>
-                        </span>
-                      </span>
-                    </label>
-                  </div>
-                    <div class="pure-u-12-24">
-                      <input id="turkey-mode" type="checkbox">
-                      <label for="turkey-mode">Turkey mode
-                        <span class="tooltip-wrapper">
-                          <span class="tooltip-indicator">?</span>
-                          <span class="tooltip hidden">
-                            <span>
-                              Replaces the subweapons in the glass vats at Alchemy Lab and Black Marble Gallery with useless turkeys.
-                            </span>
-                          </span>
-                        </span>
-                      </label>
-                    </div>
-                    <div class="pure-u-1-2">
-                      <input id="colorrando-mode" type="checkbox">
-                      <label for="colorrando-mode">Color Rando mode
-                        <span class="tooltip-wrapper">
-                          <span class="tooltip-indicator">?</span>
-                          <span class="tooltip hidden">
-                            <span>
-                              Randomize various color palettes. Ex: Cape colors, gravity boots trails, hydrostorm.
-                            </span>
-                          </span>
-                        </span>
-                      </label>
-                    </div>
-                    <div class="pure-u-1-2">
-                      <input id="accessibility-patches" type="checkbox">
-                      <label for="accessibility-patches">Apply accessibility patches
-                        <span class="tooltip-wrapper">
-                          <span class="tooltip-indicator">?</span>
-                          <span class="tooltip hidden">
-                            <span>
-                              Reduces screen flashing from use items, adjusts some relics for better visibility and patches some softlocks.
-                            </span>
-                          </span>
-                        </span>
-                      </label>
-                    </div>
-                    <div class="pure-u-1-2">
-                      <input id="magicmax-mode" type="checkbox">
-                      <label for="magicmax-mode">Magic Max mode
-                        <span class="tooltip-wrapper">
-                          <span class="tooltip-indicator">?</span>
-                          <span class="tooltip hidden">
-                            <span>
-                              Replace Heart Max Up with Magic Max Up.
-                            </span>
-                          </span>
-                        </span>
-                      </label>
-                    </div>
-                    <div class="pure-u-1-2">
-                      <input id="show-spoilers" type="checkbox">
-                      <label for="show-spoilers">Show spoilers</label>
-                    </div>
-                    <div class="pure-u-1-2">
-                      <input id="antifreeze-mode" type="checkbox">
-                      <label for="antifreeze-mode">Anti-Freeze mode
-                        <span class="tooltip-wrapper">
-                          <span class="tooltip-indicator">?</span>
-                          <span class="tooltip hidden">
-                            <span>
-                              Remove screen freezes on level-up, relic and vessel acquisition.
-                            </span>
-                          </span>
-                        </span>
-                      </label>
-                    </div>
-                    <div class="pure-u-1-2">
-                      <input id="show-relics" type="checkbox">
-                      <label for="show-relics">Show relic locations</label>
-                    </div>
-                    <div class="pure-u-1-2">
-                      <input id="mypurse-mode" type="checkbox">
-                      <label for="mypurse-mode">That's my purse! mode
-                        <span class="tooltip-wrapper">
-                          <span class="tooltip-indicator">?</span>
-                          <span class="tooltip hidden">
-                            <span>
-                              Prevents Death from stealing your gear.
-                            </span>
-                          </span>
-                        </span>
-                      </label>
-                    </div>
-                    <div class="pure-u-1-2">
-                      <input id="show-solutions" type="checkbox">
-                      <label for="show-solutions">Show solutions</label>
-                    </div>
-                    <div class="pure-u-1-2">
-                      <input id="iws-mode" type="checkbox">
-                      <label for="iws-mode">Infinite Wing Smash mode
-                        <span class="tooltip-wrapper">
-                          <span class="tooltip-indicator">?</span>
-                          <span class="tooltip hidden">
-                            <span>
-                              Enables infinite Wing Smash for one input.
-                            </span>
-                          </span>
-                        </span>
-                      </label>
-                    </div>
-                    <div class="pure-u-12-24">
-                      <input id="enemy-drops" type="checkbox">
-                      <label for="enemy-drops">Enemy drops</label>
-                    </div>
-                    <div class="pure-u-1-2">
-                      <input id="fastwarp-mode" type="checkbox">
-                      <label for="fastwarp-mode">Fast Warp mode
-                        <span class="tooltip-wrapper">
-                          <span class="tooltip-indicator">?</span>
-                          <span class="tooltip hidden">
-                            <span>
-                              Quickens warp animation when using teleporters.
-                            </span>
-                          </span>
-                        </span>
-                      </label>
-                    </div>                  
-                      <div class="pure-u-12-24">
-                        <input id="item-locations" type="checkbox">
-                        <label for="item-locations">Item locations</label>
-                      </div>
-                     <div class="pure-u-1-2">
-                      <input id="noprologue-mode" type="checkbox">
-                      <label for="noprologue-mode">No Prologue mode
-                        <span class="tooltip-wrapper">
-                          <span class="tooltip-indicator">?</span>
-                          <span class="tooltip hidden">
-                            <span>
-                              Removes the Prologue from being required to play. <span style="color: red;">(Will remove potential prologue rewards.)</span>
-                            </span>
-                          </span>
-                        </span>
-                      </label>
-                    </div>
-                  <div class="pure-u-12-24">
-                    <input id="stats" type="checkbox">
-                    <label for="stats">Item stats</label>
-                  </div>
-                    <div class="pure-u-1-2">
-                      <input id="unlocked-mode" type="checkbox">
-                      <label for="unlocked-mode">Unlocked mode
-                        <span class="tooltip-wrapper">
-                          <span class="tooltip-indicator">?</span>
-                          <span class="tooltip hidden">
-                            <span>
-                              Opens all five shortcuts in first castle and one in second castle. <span style="color: red;">(Will break logic for most presets.)</span>
-                            </span>
-                          </span>
-                        </span>
-                      </label>
-                    </div> 
-                    <div class="pure-u-12-24">
-                    <input id="prologue-rewards" type="checkbox">
-                    <label for="prologue-rewards">Prologue rewards</label>
-                  </div>                   
-                    <div class="pure-u-1-2">
-                      <input id="surprise-mode" type="checkbox">
-                      <label for="surprise-mode">Surprise mode
-                        <span class="tooltip-wrapper">
-                          <span class="tooltip-indicator">?</span>
-                          <span class="tooltip hidden">
-                            <span>
-                              All relics are hidden behind the same sprite and palette. The player cannot tell what the relic is until they collect it.
-                            </span>
-                          </span>
-                        </span>
-                      </label>
-                    </div>
-                   <div class="pure-u-12-24">
-                    <input id="music" type="checkbox">
-                    <label for="music">Music</label>
-                  </div>
-                    <div class="pure-u-1-2">
-                      <input id="enemyStatRando-mode" type="checkbox">
-                      <label for="enemyStatRando-mode">Enemy Stat Randomizer mode
-                        <span class="tooltip-wrapper">
-                          <span class="tooltip-indicator">?</span>
-                          <span class="tooltip hidden">
-                            <span>
-                              Enemy stats are randomized ranging from 25% to 200% of their original value and their attack and defense types are randomized to include random elements.
-                            </span>
-                          </span>
-                        </span>
-                      </label>
-                    </div>                                   
+                </div>
               </fieldset>
               <div class="pure-u-1">
                 <input id="clear"
                        type="submit"
                        class="pure-button hidden"
                        value="Clear">
+              </div>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend>Options</legend>
+            <div class="pure-g">
+              <div class="pure-u-12-24">
+                <label for="theme">Theme</label>
+              </div>
+              <div class="pure-u-12-24">
+                <select id="theme" type="checkbox">
+                  <option value="menu">Menu</option>
+                  <option value="light">Light</option>
+                  <option value="dark">Dark</option>
+                </select>
+              </div>
+              <div class="pure-u-1"></div>
+              <div class="pure-u-1-2">
+                <input id="append-seed" type="checkbox">
+                <label for="append-seed">Append seed to filename
+                  <span class="tooltip-wrapper">
+                    <span class="tooltip-indicator">?</span>
+                    <span class="tooltip hidden">
+                      <span>
+                        Appends the seed to the filename of the randomized bin.
+                        You will need to modify your cue file track listing to
+                        reference the new filename.
+                      </span>
+                    </span>
+                  </span>
+                </label>
+              </div>
+              <div class="pure-u-1-2">
+                <input id="colorrando-mode" type="checkbox">
+                <label for="colorrando-mode">Color Rando mode
+                  <span class="tooltip-wrapper">
+                    <span class="tooltip-indicator">?</span>
+                    <span class="tooltip hidden">
+                      <span>
+                        Randomize various color palettes. Ex: Cape colors, gravity boots trails, hydrostorm.
+                      </span>
+                    </span>
+                  </span>
+                </label>
+              </div>
+              <div class="pure-u-1-2">
+                <input id="tournament-mode" type="checkbox">
+                <label for="tournament-mode">Tournament mode
+                  <span class="tooltip-wrapper">
+                    <span class="tooltip-indicator">?</span>
+                    <span class="tooltip hidden">
+                      <span>
+                        Prevents displaying the relic locations and solutions.
+                        Sets the library shop relic cost to 0.
+                        Permanently opens the clock room statue.
+                        For use when racing.
+                      </span>
+                    </span>
+                  </span>
+                </label>
+              </div>
+              <div class="pure-u-1-2">
+                <input id="magicmax-mode" type="checkbox">
+                <label for="magicmax-mode">Magic Max mode
+                  <span class="tooltip-wrapper">
+                    <span class="tooltip-indicator">?</span>
+                    <span class="tooltip hidden">
+                      <span>
+                        Replace Heart Max Up with Magic Max Up.
+                      </span>
+                    </span>
+                  </span>
+                </label>
+              </div>
+              <div class="pure-u-1-2">
+                <input id="accessibility-patches" type="checkbox">
+                <label for="accessibility-patches">Apply accessibility patches
+                  <span class="tooltip-wrapper">
+                    <span class="tooltip-indicator">?</span>
+                    <span class="tooltip hidden">
+                      <span>
+                        Reduces screen flashing from use items, adjusts some relics for better visibility and patches some softlocks.
+                      </span>
+                    </span>
+                  </span>
+                </label>
+              </div>
+              <div class="pure-u-1-2">
+                <input id="antifreeze-mode" type="checkbox">
+                <label for="antifreeze-mode">Anti-Freeze mode
+                  <span class="tooltip-wrapper">
+                    <span class="tooltip-indicator">?</span>
+                    <span class="tooltip hidden">
+                      <span>
+                        Remove screen freezes on level-up, relic and vessel acquisition.
+                      </span>
+                    </span>
+                  </span>
+                </label>
+              </div>
+              <div class="pure-u-1-2">
+                <input id="show-spoilers" type="checkbox">
+                <label for="show-spoilers">Show spoilers</label>
+              </div>
+              <div class="pure-u-1-2">
+                <input id="mypurse-mode" type="checkbox">
+                <label for="mypurse-mode">That's my purse! mode
+                  <span class="tooltip-wrapper">
+                    <span class="tooltip-indicator">?</span>
+                    <span class="tooltip hidden">
+                      <span>
+                        Prevents Death from stealing your gear.
+                      </span>
+                    </span>
+                  </span>
+                </label>
+              </div>
+              <div class="pure-u-1-2">
+                <input id="show-relics" type="checkbox">
+                <label for="show-relics">Show relic locations</label>
+              </div>
+              <div class="pure-u-1-2">
+                <input id="iws-mode" type="checkbox">
+                <label for="iws-mode">Infinite Wing Smash mode
+                  <span class="tooltip-wrapper">
+                    <span class="tooltip-indicator">?</span>
+                    <span class="tooltip hidden">
+                      <span>
+                        Enables infinite Wing Smash for one input.
+                      </span>
+                    </span>
+                  </span>
+                </label>
+              </div>
+              <div class="pure-u-1-2">
+                <input id="show-solutions" type="checkbox">
+                <label for="show-solutions">Show solutions</label>
+              </div>
+              <div class="pure-u-1-2">
+                <input id="fastwarp-mode" type="checkbox">
+                <label for="fastwarp-mode">Fast Warp mode
+                  <span class="tooltip-wrapper">
+                    <span class="tooltip-indicator">?</span>
+                    <span class="tooltip hidden">
+                      <span>
+                        Quickens warp animation when using teleporters.
+                      </span>
+                    </span>
+                  </span>
+                </label>
+              </div>
+              <div class="pure-u-12-24">
+                    <input id="enemy-drops" type="checkbox">
+                    <label for="enemy-drops">Enemy drops</label>
+            </div>              
+              <div class="pure-u-1-2">
+                <input id="noprologue-mode" type="checkbox">
+                <label for="noprologue-mode">No Prologue mode
+                  <span class="tooltip-wrapper">
+                    <span class="tooltip-indicator">?</span>
+                    <span class="tooltip hidden">
+                      <span>
+                        Removes the Prologue from being required to play. <span style="color: red;">(Will remove potential prologue rewards.)</span>
+                      </span>
+                    </span>
+                  </span>
+                </label>
+              </div>
+              <div class="pure-u-12-24">
+                <input id="stats" type="checkbox">
+                <label for="stats">Item stats</label>
+              </div>
+              <div class="pure-u-1-2">
+                <input id="unlocked-mode" type="checkbox">
+                <label for="unlocked-mode">Unlocked mode
+                  <span class="tooltip-wrapper">
+                    <span class="tooltip-indicator">?</span>
+                    <span class="tooltip hidden">
+                      <span>
+                        Opens all five shortcuts in first castle and one in second castle. <span style="color: red;">(Will break logic for most presets.)</span>
+                      </span>
+                    </span>
+                  </span>
+                </label>
+              </div>
+              <div class="pure-u-12-24">
+                <input id="turkey-mode" type="checkbox">
+                <label for="turkey-mode">Turkey mode
+                  <span class="tooltip-wrapper">
+                    <span class="tooltip-indicator">?</span>
+                    <span class="tooltip hidden">
+                      <span>
+                        Replaces the subweapons in the glass vats at Alchemy Lab and Black Marble Gallery with useless turkeys.
+                      </span>
+                    </span>
+                  </span>
+                </label>
+              </div>
+              <div class="pure-u-1-2">
+                <input id="surprise-mode" type="checkbox">
+                <label for="surprise-mode">Surprise mode
+                  <span class="tooltip-wrapper">
+                    <span class="tooltip-indicator">?</span>
+                    <span class="tooltip hidden">
+                      <span>
+                        All relics are hidden behind the same sprite and palette. The player cannot tell what the relic is until they collect it.
+                      </span>
+                    </span>
+                  </span>
+                </label>
+              </div>
+              <div class="pure-u-12-24">
+                <input id="music" type="checkbox">
+                <label for="music">Music</label>
+              </div>
+              <div class="pure-u-1-2">
+                <input id="enemyStatRando-mode" type="checkbox">
+                <label for="enemyStatRando-mode">Enemy Stat Randomizer mode
+                  <span class="tooltip-wrapper">
+                    <span class="tooltip-indicator">?</span>
+                    <span class="tooltip hidden">
+                      <span>
+                        Enemy stats are randomized ranging from 25% to 200% of their original value and their attack and defense types are randomized to include random elements.
+                      </span>
+                    </span>
+                  </span>
+                </label>
+              </div>
+              <div class="pure-u-12-24">
+                <input id="item-locations" type="checkbox">
+                <label for="item-locations">Item locations</label>
               </div>
             </div>
           </fieldset>
