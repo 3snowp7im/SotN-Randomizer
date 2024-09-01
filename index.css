@@ -558,10 +558,6 @@ body.menu {
     }
 }
 
-.menu #options.hide {
-    display: none;
-}
-
 /* Light mode */
 
 .light {
