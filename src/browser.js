@@ -728,6 +728,11 @@
         seed,
         0,
       ))
+      applied.stats = elems.stats.checked
+      applied.enemyDrops = elems.enemyDrops.checked
+      applied.music = elems.music.checked
+      applied.turkeyMode = elems.turkeyMode.checked
+      applied.itemLocations = elems.itemLocations.checked
       const result = randomizeStats(rng, applied)
       const newNames = result.newNames
       check.apply(result.data)
