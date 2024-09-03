@@ -757,7 +757,7 @@
         0,
       ))
       applied.stats = elems.stats.checked
-<<<<<<< HEAD
+
       if(applied.startingEquipment == null || typeof(applied.startingEquipment) != 'object'){
         applied.startingEquipment = elems.startingEquipment.checked
       }
@@ -772,12 +772,6 @@
       }
       applied.music = elems.music.checked
       applied.turkeyMode = elems.turkeyMode.checked
-=======
-      applied.enemyDrops = elems.enemyDrops.checked
-      applied.music = elems.music.checked
-      applied.turkeyMode = elems.turkeyMode.checked
-      applied.itemLocations = elems.itemLocations.checked
->>>>>>> 9e225a7211d60e169d6873326ce285d4769852f8
       const result = randomizeStats(rng, applied)
       const newNames = result.newNames
       check.apply(result.data)
