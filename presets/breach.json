@@ -8,6 +8,11 @@
   },
 
   "stats": false,
+  "colorrandoMode": true,
+  "fastwarpMode": true,
+  "mypurseMode": true,
+  "unlockedMode": true,
+  
 
   "startingEquipment": [{
     "slot": "Right hand",

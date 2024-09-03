@@ -288,7 +288,7 @@ body.menu {
 }
 
 .menu #target.animate {
-    animation: expand-target 2s;
+    animation: expand-target .5s;
     overflow: hidden;
 }
 
@@ -296,7 +296,12 @@ body.menu {
     margin: 0 .3em .2em .3em;
 }
 
-.menu #target,
+.menu #target {
+    border-width: 10px;
+    border-style: dashed;
+    border-color: #ccc;
+}
+
 .menu #spoilers-container {
     border: 1px #fff solid;
 }
@@ -306,7 +311,7 @@ body.menu {
 }
 
 .menu #target.animate.hide {
-    animation: shrink-target 2s;
+    animation: shrink-target .5s;
     animation-fill-mode: forwards;
 }
 
@@ -321,14 +326,14 @@ body.menu {
         height: 0;
     }
     100% {
-        width: 100%;
+        width: 98.5%;
         height: 9em;
     }
 }
 
 @keyframes shrink-target {
     0% {
-        width: 100%;
+        width: 98.5%;
         height: 9em;
     }
     99% {
@@ -428,7 +433,7 @@ body.menu {
 }
 
 .menu #notification.hide {
-    animation: shrink 2s;
+    animation: shrink .5s;
 }
 
 .menu #notification span {
@@ -501,16 +506,16 @@ body.menu {
 }
 
 .menu #options > div {
-    width: 47ex;
+    width: ex;
 }
 
 .menu #options.animate.hide {
-    animation: hide-options 1s;
+    animation: hide-options .5s;
     animation-fill-mode: forwards;
 }
 
 .menu #options.animate {
-    animation: show-options 1s;
+    animation: show-options .5s;
 }
 
 @keyframes show-options {
@@ -522,11 +527,9 @@ body.menu {
         overflow: hidden;
    }
     100% {
-        max-width: 50ex;
+        max-width: 100ex;
         max-height: 15em;
-        margin-top: .$em;
-        padding: .45em .5em;
-        overflow: hidden;
+        
     }
 }
 
@@ -610,6 +613,15 @@ body.menu {
     transform: translateY(0px);
 }
 
+.light #target.animate {
+    animation: expand-target .5s;
+    overflow: hidden;
+}
+
+.light #target-container > div {
+    margin: 0 .3em .2em .3em;
+}
+
 .light #target {
     border-width: 10px;
     border-style: dashed;
@@ -626,6 +638,16 @@ body.menu {
 
 .light #target legend {
     display: none;
+}
+
+.light #target.animate.hide {
+    animation: shrink-target .5s;
+    animation-fill-mode: forwards;
+}
+
+.light #target > div {
+    width: 30em;
+    white-space: nowrap;
 }
 
 .light input[type="submit"] {
@@ -660,9 +682,16 @@ body.menu {
     display: none;
 }
 
-.light #options.hide {
-    display: none;
+.light #options.animate.hide {
+    animation: hide-options .5s;
+    animation-fill-mode: forwards;
 }
+
+.light #options.animate {
+    animation: show-options .5s;
+}
+
+
 
 /* Dark mode */
 
@@ -732,6 +761,15 @@ body.menu {
     transform: translateY(0px);
 }
 
+.dark #target.animate {
+    animation: expand-target .5s;
+    overflow: hidden;
+}
+
+.dark #target-container > div {
+    margin: 0 .3em .2em .3em;
+}
+
 .dark #target {
     border-width: 10px;
     border-style: dashed;
@@ -748,6 +786,16 @@ body.menu {
 
 .dark #target legend {
     display: none;
+}
+
+.dark #target.animate.hide {
+    animation: shrink-target .5s;
+    animation-fill-mode: forwards;
+}
+
+.dark #target > div {
+    width: 30em;
+    white-space: nowrap;
 }
 
 .dark input[type="file"] {
@@ -795,6 +843,12 @@ body.menu {
     display: none;
 }
 
-.dark #options.hide {
-    display: none;
+.dark #options.animate.hide {
+    animation: hide-options .5s;
+    animation-fill-mode: forwards;
 }
+
+.dark #options.animate {
+    animation: show-options .5s;
+}
+

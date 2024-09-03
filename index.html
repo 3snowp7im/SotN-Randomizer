@@ -68,7 +68,7 @@
             </div>
           </div>
         </fieldset>
-        <div class="pure-u-14-24">
+        <div class="pure-u-1">
           <fieldset>
             <legend>Randomizations</legend>
             <div class="pure-g">
@@ -79,7 +79,7 @@
                 <input id="seed" type="text" placeholder="Optional">
               </div>
               <div class="pure-u-12-24">
-                <input id="preset" type="checkbox"disabled checked>
+                <input id="preset" type="checkbox">
                 <label for="preset">Preset</label>
               </div>
               <div id="preset-select" class="pure-u-12-24">
@@ -110,52 +110,7 @@
                         </span>
                       </span>
                     </span>
-                  </div>
-                  <div class="pure-u-12-24">
-                    <input id="enemy-drops" type="checkbox">
-                    <label for="enemy-drops">Enemy drops</label>
-                  </div>
-                  <div class="pure-u-12-24">
-                    <input id="starting-equipment" type="checkbox" disabled>
-                    <label for="starting-equipment">Starting equipment</label>
-                    <span class="tooltip-wrapper">
-                      <span class="tooltip-indicator">?</span>
-                      <span class="tooltip hidden">
-                        <span>
-                        <span style="color: red;">*Disabled because breaks presets with guaranteed starting gear.</span>
-                        </span>
-                      </span>
-                    </span>
-                  </div>
-                  <div class="pure-u-12-24">
-                    <input id="item-locations" type="checkbox">
-                    <label for="item-locations">Item locations</label>
-                  </div>
-                  <div class="pure-u-12-24">
-                    <input id="prologue-rewards" type="checkbox">
-                    <label for="prologue-rewards">Prologue rewards</label>
-                  </div>
-                  <div class="pure-u-12-24">
-                    <input id="stats" type="checkbox">
-                    <label for="stats">Item stats</label>
-                  </div>
-                  <div class="pure-u-12-24">
-                    <input id="music" type="checkbox">
-                    <label for="music">Music</label>
-                  </div>
-                  <div class="pure-u-12-24">
-                    <input id="turkey-mode" type="checkbox">
-                    <label for="turkey-mode">Turkey mode
-                      <span class="tooltip-wrapper">
-                        <span class="tooltip-indicator">?</span>
-                        <span class="tooltip hidden">
-                          <span>
-                            Replaces the subweapons in the glass vats at Alchemy Lab and Black Marble Gallery with useless turkeys.
-                          </span>
-                        </span>
-                      </span>
-                    </label>
-                  </div>
+                  </div>                       
                   <div class="pure-u-12-24">
                     <fieldset id="relic-locations-set">
                       <legend>
@@ -301,8 +256,7 @@
                          style="display: none">
                 </div>
               </fieldset>
-              <div class="pure-u-1">
-                <input id="clear"
+              <div class="pure-u-1">                <input id="clear"
                        type="submit"
                        class="pure-button hidden"
                        value="Clear">
@@ -457,7 +411,10 @@
                   </span>
                 </label>
               </div>
-              <div class="pure-u-1-2"></div>
+              <div class="pure-u-12-24">
+                    <input id="enemy-drops" type="checkbox">
+                    <label for="enemy-drops">Enemy drops</label>
+            </div>              
               <div class="pure-u-1-2">
                 <input id="noprologue-mode" type="checkbox">
                 <label for="noprologue-mode">No Prologue mode
@@ -471,7 +428,10 @@
                   </span>
                 </label>
               </div>
-              <div class="pure-u-1-2"></div>
+              <div class="pure-u-12-24">
+                <input id="stats" type="checkbox">
+                <label for="stats">Item stats</label>
+              </div>
               <div class="pure-u-1-2">
                 <input id="unlocked-mode" type="checkbox">
                 <label for="unlocked-mode">Unlocked mode
@@ -485,7 +445,19 @@
                   </span>
                 </label>
               </div>
-              <div class="pure-u-1-2"></div>
+              <div class="pure-u-12-24">
+                <input id="turkey-mode" type="checkbox">
+                <label for="turkey-mode">Turkey mode
+                  <span class="tooltip-wrapper">
+                    <span class="tooltip-indicator">?</span>
+                    <span class="tooltip hidden">
+                      <span>
+                        Replaces the subweapons in the glass vats at Alchemy Lab and Black Marble Gallery with useless turkeys.
+                      </span>
+                    </span>
+                  </span>
+                </label>
+              </div>
               <div class="pure-u-1-2">
                 <input id="surprise-mode" type="checkbox">
                 <label for="surprise-mode">Surprise mode
@@ -499,7 +471,10 @@
                   </span>
                 </label>
               </div>
-              <div class="pure-u-1-2"></div>
+              <div class="pure-u-12-24">
+                <input id="music" type="checkbox">
+                <label for="music">Music</label>
+              </div>
               <div class="pure-u-1-2">
                 <input id="enemyStatRando-mode" type="checkbox">
                 <label for="enemyStatRando-mode">Enemy Stat Randomizer mode
@@ -512,6 +487,20 @@
                     </span>
                   </span>
                 </label>
+              </div>
+              <div class="pure-u-12-24">
+                <input id="item-locations" type="checkbox">
+                <label for="item-locations">Item locations</label>
+              </div>
+              <div class="pure-u-1-2"></div>
+              <div class="pure-u-12-24">
+                <input id="starting-equipment" type="checkbox" disabled>
+                <label for="starting-equipment">Starting equipment</label>
+              </div>
+              <div class="pure-u-1-2"></div>
+              <div class="pure-u-12-24">
+                <input id="prologue-rewards" type="checkbox">
+                <label for="prologue-rewards">Prologue rewards</label>
               </div>
             </div>
           </fieldset>

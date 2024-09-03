@@ -9,6 +9,7 @@
   
   "stats": false,
   "relicLocationsExtension": "spread",
+  "magicmaxMode": true,
 
   "alias": [{
     "comment": "Alias Holy Glasses as Mirror",

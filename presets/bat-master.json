@@ -7,7 +7,11 @@
     "weight": -3500
   },
   "stats": false,
+  "colorrandoMode": true,
+  "iwsMode": true,
   "relicLocationsExtension": "spread",
+  
+
   "lockLocation": [{
     "location": "Soul of Bat",
     "locks": [
