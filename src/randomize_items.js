@@ -1585,7 +1585,15 @@
   // Keep the 0x8100, but change the lower byte to pick a random palette.
   // This write is to 8011e438 at runtime.
   function randomizeWingSmashColor(data,rng) {
-    const newPalette = Math.floor(rng() * 0x100)
+    // Index 0 in most cluts is transparent. In some it is not. In these non-transparent cluts, we won't
+    // get a recolored wing smash outline and will instead get an ugly rectangle, since all the pixels
+    // that are supposed to be transparent won't be. These CLUTS were identified by python script as having
+    // a non-transparent index 0. If we get one of them, we will re-roll the palette.
+    const bad_cluts = [11, 12, 58, 59, 60, 61, 62, 63, 69, 70, 71, 73, 74, 75, 76, 77, 78, 79, 81, 82, 83, 84, 85, 86, 87]
+    var newPalette
+    do {
+      newPalette = Math.floor(rng() * 0x100)
+    } while (bad_cluts.includes(newPalette))
     data.writeChar(0x13CAA0, newPalette)
   }
   
