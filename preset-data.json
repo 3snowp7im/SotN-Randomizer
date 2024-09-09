@@ -1,8 +1,8 @@
 [
   {
-    "name": "Lucky Sevens",
-    "id": "luckysevens",
-    "description": "Start with 77 all stats and 77% chance for drops. Open shortcuts and some teleporters in the second castle. Enemies have a chance to drop relics.",
-    "author": "eldri7ch"
+    "name": "Chaos Lite",
+    "id": "chaos-lite",
+    "description": "Bounty Hunter and Aperture combined with the 'tourist' extension and additional random elements. Released on April 1st, 2024. App URL: https://github.com/MottZilla/BountyHunterTool",
+    "author": "3snow_p7im, eldri7ch and MottZilla0"
   }
 ]
