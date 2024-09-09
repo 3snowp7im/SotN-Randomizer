@@ -68,7 +68,7 @@
             </div>
           </div>
         </fieldset>
-        <div class="pure-u-14-24">
+        <div class="pure-u-1">
           <fieldset>
             <legend>Randomizations</legend>
             <div class="pure-g">
@@ -94,7 +94,7 @@
                   </span>
                 </span>
               </div>
-              <fieldset id="options" class="hidden">
+              <fieldset id="options">
                 <div class="pure-g">
                   <div class="pure-u-12-24">
                     <label for="complexity">Complexity</label>
@@ -110,44 +110,7 @@
                         </span>
                       </span>
                     </span>
-                  </div>
-                  <div class="pure-u-12-24">
-                    <input id="enemy-drops" type="checkbox">
-                    <label for="enemy-drops">Enemy drops</label>
-                  </div>
-                  <div class="pure-u-12-24">
-                    <input id="starting-equipment" type="checkbox">
-                    <label for="starting-equipment">Starting equipment</label>
-                  </div>
-                  <div class="pure-u-12-24">
-                    <input id="item-locations" type="checkbox">
-                    <label for="item-locations">Item locations</label>
-                  </div>
-                  <div class="pure-u-12-24">
-                    <input id="prologue-rewards" type="checkbox">
-                    <label for="prologue-rewards">Prologue rewards</label>
-                  </div>
-                  <div class="pure-u-12-24">
-                    <input id="stats" type="checkbox">
-                    <label for="stats">Item stats</label>
-                  </div>
-                  <div class="pure-u-12-24">
-                    <input id="music" type="checkbox">
-                    <label for="music">Music</label>
-                  </div>
-                  <div class="pure-u-12-24">
-                    <input id="turkey-mode" type="checkbox">
-                    <label for="turkey-mode">Turkey mode
-                      <span class="tooltip-wrapper">
-                        <span class="tooltip-indicator">?</span>
-                        <span class="tooltip hidden">
-                          <span>
-                            Replaces the subweapons in the glass vats at Alchemy Lab and Black Marble Gallery with useless turkeys.
-                          </span>
-                        </span>
-                      </span>
-                    </label>
-                  </div>
+                  </div>                       
                   <div class="pure-u-12-24">
                     <fieldset id="relic-locations-set">
                       <legend>
@@ -293,8 +256,7 @@
                          style="display: none">
                 </div>
               </fieldset>
-              <div class="pure-u-1">
-                <input id="clear"
+              <div class="pure-u-1">                <input id="clear"
                        type="submit"
                        class="pure-button hidden"
                        value="Clear">
@@ -449,7 +411,10 @@
                   </span>
                 </label>
               </div>
-              <div class="pure-u-1-2"></div>
+              <div class="pure-u-12-24">
+                    <input id="enemy-drops" type="checkbox">
+                    <label for="enemy-drops">Enemy drops</label>
+            </div>              
               <div class="pure-u-1-2">
                 <input id="noprologue-mode" type="checkbox">
                 <label for="noprologue-mode">No Prologue mode
@@ -463,7 +428,10 @@
                   </span>
                 </label>
               </div>
-              <div class="pure-u-1-2"></div>
+              <div class="pure-u-12-24">
+                <input id="stats" type="checkbox">
+                <label for="stats">Item stats</label>
+              </div>
               <div class="pure-u-1-2">
                 <input id="unlocked-mode" type="checkbox">
                 <label for="unlocked-mode">Unlocked mode
@@ -476,6 +444,63 @@
                     </span>
                   </span>
                 </label>
+              </div>
+              <div class="pure-u-12-24">
+                <input id="turkey-mode" type="checkbox">
+                <label for="turkey-mode">Turkey mode
+                  <span class="tooltip-wrapper">
+                    <span class="tooltip-indicator">?</span>
+                    <span class="tooltip hidden">
+                      <span>
+                        Replaces the subweapons in the glass vats at Alchemy Lab and Black Marble Gallery with useless turkeys.
+                      </span>
+                    </span>
+                  </span>
+                </label>
+              </div>
+              <div class="pure-u-1-2">
+                <input id="surprise-mode" type="checkbox">
+                <label for="surprise-mode">Surprise mode
+                  <span class="tooltip-wrapper">
+                    <span class="tooltip-indicator">?</span>
+                    <span class="tooltip hidden">
+                      <span>
+                        All relics are hidden behind the same sprite and palette. The player cannot tell what the relic is until they collect it.
+                      </span>
+                    </span>
+                  </span>
+                </label>
+              </div>
+              <div class="pure-u-12-24">
+                <input id="music" type="checkbox">
+                <label for="music">Music</label>
+              </div>
+              <div class="pure-u-1-2">
+                <input id="enemyStatRando-mode" type="checkbox">
+                <label for="enemyStatRando-mode">Enemy Stat Randomizer mode
+                  <span class="tooltip-wrapper">
+                    <span class="tooltip-indicator">?</span>
+                    <span class="tooltip hidden">
+                      <span>
+                        Enemy stats are randomized ranging from 25% to 200% of their original value and their attack and defense types are randomized to include random elements.
+                      </span>
+                    </span>
+                  </span>
+                </label>
+              </div>
+              <div class="pure-u-12-24">
+                <input id="item-locations" type="checkbox">
+                <label for="item-locations">Item locations</label>
+              </div>
+              <div class="pure-u-1-2"></div>
+              <div class="pure-u-12-24">
+                <input id="starting-equipment" type="checkbox" disabled>
+                <label for="starting-equipment">Starting equipment</label>
+              </div>
+              <div class="pure-u-1-2"></div>
+              <div class="pure-u-12-24">
+                <input id="prologue-rewards" type="checkbox">
+                <label for="prologue-rewards">Prologue rewards</label>
               </div>
             </div>
           </fieldset>
@@ -524,6 +549,20 @@
       </ul>
       <hr>
       <h2><a name="changelog">Changelog</a></h2>
+      <h3><time>September 10, 2024</time></h3>
+      <ul>
+        <li>Added First Castle Preset.</li>
+        <li>Added Lucky Sevens Preset.</li>
+        <li>Added Surprise mode to hide relic's true identity until collected.</li>
+        <li>Added Enemy Stat Randomizer mode to randomize enemy stats like attack, defense, and HP.</li>
+        <li>Updated preset descriptions to do their job better.</li>
+        <li>Updated website animations in and out of Menu Mode.</li>
+        <li>Moved Starting Equipment, Enemy Drops, Item Location, Turkey Mode, Item Stats and Prologue Rewards to the Options section.</li>
+        <li>Choosing presets on site will now check boxes of options used in preset files.</li>
+        <li>Certain presets on sitw will disable incompatible options.</li>
+        <li>Formatting updates.</li>
+        <li>Fixed Glitch logic yet again.</li>
+      </ul>
       <h3><time>August 12, 2024</time></h3>
       <ul>
         <li>Updated logic to be more intuitive in equipment and tourist extensions.</li>
@@ -1014,6 +1053,8 @@
     <script src="build/presets/stwosafe.js"></script>
     <script src="build/presets/brawler.js"></script>
     <script src="build/presets/open.js"></script>
+    <script src="build/presets/first-castle.js"></script>
+    <script src="build/presets/luckysevens.js"></script>
     <script src="build/presets/index.js"></script>
     <script src="src/worker.js"></script>
     <script src="src/browser.js"></script>

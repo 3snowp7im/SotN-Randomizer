@@ -2,11 +2,15 @@
   "metadata": {
     "id": "skinwalker",
     "name": "Skinwalker",
-    "description": "Includes all changes from Aperture, rebalances transformations and guarantees early access to at least 1 transformation.",
+    "description": "Includes all changes from Aperture, rebalances transformations and guarantees early access to at least one transformation.",
     "author": "Zako, eldri7ch, Mottzilla, Wecoc",
     "weight": 2500
   },
   "stats": false,
+  "colorrandoMode": true,
+  "fastwarpMode": true,
+  "mypurseMode": true,
+  "unlockedMode": true,
   "relicLOcationsExtension": "wanderer",
   
   "startingEquipment": [{

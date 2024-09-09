@@ -2,12 +2,17 @@
   "metadata": {
     "id": "breach",
     "name": "Breach",
-    "description": "Blaze through Aperture looking for the Portal Spell",
+    "description": "Utilizes the Aperture model including Portal Spell and Map, but also gives the player all five Vlad Relics and the nimble movement loadout.",
     "author": "eldri7ch, Mottzilla, Wecoc",
     "weight": -2500
   },
 
   "stats": false,
+  "colorrandoMode": true,
+  "fastwarpMode": true,
+  "mypurseMode": true,
+  "unlockedMode": true,
+  
 
   "startingEquipment": [{
     "slot": "Right hand",

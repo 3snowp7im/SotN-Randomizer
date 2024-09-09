@@ -13,7 +13,7 @@
   const PresetBuilder = util.PresetBuilder
 
   // Create PresetBuilder.
-  const builder = PresetBuilder.fromJSON({"metadata":{"id":"grand-tour","name":"Grand Tour","description":"Encourages sight-seeing","author":"eldri7ch & Mottzilla","weight":0},"inherits":"casual","relicLocationsExtension":"tourist","colorrandoMode":true,"music":false,"complexityGoal":{"min":8,"goals":["Holy glasses + Heart of Vlad + Tooth of Vlad + Rib of Vlad + Ring of Vlad + Eye of Vlad"]}})
+  const builder = PresetBuilder.fromJSON({"metadata":{"id":"grand-tour","name":"Grand Tour","description":"Soon to be discontinued after website rework. Base preset featuring 'tourist' relic extension.","author":"eldri7ch & Mottzilla","weight":0},"inherits":"casual","relicLocationsExtension":"tourist","colorrandoMode":true,"music":false,"complexityGoal":{"min":8,"goals":["Holy glasses + Heart of Vlad + Tooth of Vlad + Rib of Vlad + Ring of Vlad + Eye of Vlad"]}})
 
   // Export.
   const preset = builder.build()

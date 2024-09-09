@@ -2,7 +2,7 @@
   "metadata": {
     "id": "crash-course",
     "name": "Crash Course",
-    "description": "Encourages sight-seeing",
+    "description": "Start with Soul of Bat, Leap Stone, Gravity Boots, Duplicator, Manna prism, and Buffalo star. 'Tourist' relic extension.",
     "author": "eldri7ch & Mottzilla",
     "weight": -1750
   },
@@ -10,6 +10,7 @@
   "relicLocationsExtension": "tourist",
   "stats": false,
   "music": false,
+  "colorrandoMode": true,
 
   "complexityGoal": {
     "min": 7,

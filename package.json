@@ -54,7 +54,10 @@
     "agonizetwtw",
     "stwosafe",
     "open",
-    "brawler"
+    "brawler",
+    "first-castle",
+    "luckysevens",
+    "bingo"
   ],
   "engines": {
     "node": ">=15"

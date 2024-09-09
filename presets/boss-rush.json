@@ -2,16 +2,18 @@
   "metadata": {
     "id": "boss-rush",
     "name": "Boss Rush",
-    "description": "Boss Rush Mode",
+    "description": "Boss Rush Mode featuring safe rooms after every three bosses and low to medium powered equipment.",
     "author": "Mottzilla and eldri7ch",
     "weight": -2750
   },
-
+  
   "comment": "Build off the Adventure preset for relic location data",
   "inherits": "adventure",
   "stats": false,
   "music": false,
   "turkeyMode": false,
+  "antiFreezeMode": true,
+  "mypurseMode": true,
 
   "replaceRelic": [{
     "comment": "Replace all non-entrance Relics with Meal ticket",

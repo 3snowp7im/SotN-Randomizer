@@ -2,12 +2,15 @@
   "metadata": {
     "id": "beyond",
     "name": "Beyond",
-    "description": "Similar to casual but with new stuff, complexity 8, spread locations, no death at entrance",
+    "description": "Similar to safe but with new items and a new relic. Spread relic extension.",
     "author": "Forat Negre, Wecoc, eldri7ch",
     "weight": -3250
   },
   "inherits": "safe",
   "stats": false,
+  "fastwarpMode": true,
+  "mypurseMode": true,
+  
   "relicLocationsExtension": "spread",
 
   "complexityGoal": {

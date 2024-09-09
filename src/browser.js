@@ -24,7 +24,7 @@
     return preset.id === 'safe'
   }).pop()
 
-  function cloneItems(items) {
+  function cloneItems(items) {                                                              //Saves previous selections
     return items.map(function(item) {
       const clone = Object.assign({}, item)
       delete clone.tiles
@@ -145,34 +145,34 @@
     haveChecksum = false
   }
 
-  function presetChange(event) {
+  function presetChange(event) {                                                    //Disables options if presets is checked.
     localStorage.setItem('preset', elems.preset.checked)
     if (elems.preset.checked) {
       elems.presetSelect.classList.remove('hide')
       elems.complexity.disabled = true
-      elems.enemyDrops.disabled = true
-      elems.startingEquipment.disabled = true
-      elems.itemLocations.disabled = true
-      elems.prologueRewards.disabled = true
+      //elems.enemyDrops.disabled = true
+      //elems.startingEquipment.disabled = true
+      //elems.itemLocations.disabled = true
+      //elems.prologueRewards.disabled = true
       elems.relicLocations.disabled = true
       elems.relicLocationsSet.disabled = true
-      elems.stats.disabled = true
-      elems.music.disabled = true
-      elems.turkeyMode.disabled = true
+      //elems.stats.disabled = true
+      //elems.music.disabled = true
+      //elems.turkeyMode.disabled = true
       presetIdChange()
       elems.options.classList.add('hide')
     } else {
       elems.presetSelect.classList.add('hide')
       elems.complexity.disabled = false
-      elems.enemyDrops.disabled = false
-      elems.startingEquipment.disabled = false
-      elems.itemLocations.disabled = false
-      elems.prologueRewards.disabled = false
+      //elems.enemyDrops.disabled = false
+      //elems.startingEquipment.disabled = false
+      //elems.itemLocations.disabled = false
+      //elems.prologueRewards.disabled = false
       elems.relicLocations.disabled = false
       elems.relicLocationsSet.disabled = !elems.relicLocations.checked
-      elems.stats.disabled = false
-      elems.music.disabled = false
-      elems.turkeyMode.disabled = false
+      //elems.stats.disabled = false
+      //elems.music.disabled = false
+      //elems.turkeyMode.disabled = false
       elems.options.classList.remove('hidden')
       elems.options.classList.remove('hide')
     }
@@ -181,21 +181,21 @@
     }
   }
 
-  function presetIdChange() {
-    const id = elems.presetId.childNodes[elems.presetId.selectedIndex].value
-    const preset = presets.filter(function(preset) {
-      return preset.id === id
-    }).pop()
-    elems.presetDescription.innerText = preset.description
-    elems.presetAuthor.innerText = 'by ' + preset.author
-    localStorage.setItem('presetId', preset.id)
-    if (elems.preset.checked) {
-      const options = preset.options()
-      let complexity = 1
-      Object.getOwnPropertyNames(options.relicLocations).forEach(
-        function(key) {
-          if (/^[0-9]+(-[0-9]+)?/.test(key)) {
-            complexity = key.split('-').shift()
+  function presetIdChange() {                                                     //auto checks modes and options that presets use
+    const id = elems.presetId.childNodes[elems.presetId.selectedIndex].value      //
+    const preset = presets.filter(function(preset) {                              // 
+      return preset.id === id                                                     //
+    }).pop()                                                                      //
+    elems.presetDescription.innerText = preset.description                        //
+    elems.presetAuthor.innerText = 'by ' + preset.author                          //  
+    localStorage.setItem('presetId', preset.id)                                   //  
+    if (elems.preset.checked) {                                                   //
+      const options = preset.options()                                            //
+      let complexity = 1                                                          //
+      Object.getOwnPropertyNames(options.relicLocations).forEach(                 //  
+        function(key) {                                                           //
+          if (/^[0-9]+(-[0-9]+)?/.test(key)) {                                    //  
+            complexity = key.split('-').shift()                                 
           }
         }
       )
@@ -204,9 +204,13 @@
       adjustMaxComplexity()
       elems.complexity.value = complexity
       elems.enemyDrops.checked = !!options.enemyDrops
+      elems.enemyDrops.disabled = options.enemyDrops != null && typeof(options.enemyDrops) == 'object'
       elems.startingEquipment.checked = !!options.startingEquipment
+      elems.startingEquipment.disabled = options.startingEquipment != null && typeof(options.startingEquipment) == 'object'
       elems.itemLocations.checked = !!options.itemLocations
+      elems.itemLocations.disabled = options.itemLocations != null && typeof(options.itemLocations) == 'object'
       elems.prologueRewards.checked = !!options.prologueRewards
+      elems.prologueRewards.disabled = options.prologueRewards != null && typeof(options.startingEquipment) == 'object'
       elems.relicLocations.checked = !!options.relicLocations
       elems.relicLocationsExtension.guarded.checked =
         options.relicLocations
@@ -229,6 +233,16 @@
       elems.stats.checked = !!options.stats
       elems.music.checked = !!options.music
       elems.turkeyMode.checked = !!options.turkeyMode
+      elems.magicmaxMode.checked = !!options.magicmaxMode
+      elems.colorrandoMode.checked = !!options.colorrandoMode
+      elems.antiFreezeMode.checked = !!options.antiFreezeMode
+      elems.mypurseMode.checked = !!options.mypurseMode
+      elems.iwsMode.checked = !!options.iwsMode
+      elems.fastwarpMode.checked = !!options.fastwarpMode
+      elems.noprologueMode.checked = !!options.noprologueMode
+      elems.unlockedMode.checked = !!options.unlockedMode
+      elems.surpriseMode.checked = !!options.surpriseMode
+      elems.enemyStatRandoMode.checked = !!options.enemyStatRandoMode
     }
   }
 
@@ -401,6 +415,14 @@
     localStorage.setItem('unlockedMode', elems.unlockedMode.checked)
   }
 
+  function surpriseModeChange() {
+    localStorage.setItem('surpriseMode', elems.surpriseMode.checked)
+  }
+
+  function enemyStatRandoModeChange() {
+    localStorage.setItem('enemyStatRandoMode', elems.enemyStatRandoMode.checked)
+  }
+
   function accessibilityPatchesChange() {
     localStorage.setItem('accessibilityPatches', elems.accessibilityPatches.checked)
   }
@@ -570,6 +592,12 @@
       if (elems.unlockedMode.checked) {
         options.unlockedMode = true
       }
+      if (elems.surpriseMode.checked) {
+        options.surpriseMode = true
+      }
+      if (elems.enemyStatRandoMode.checked) {
+        options.enemyStatRandoMode = true
+      }
       return options
     }
     const options = {
@@ -582,6 +610,7 @@
       music: elems.music.checked,
       turkeyMode: elems.turkeyMode.checked,
       tournamentMode: elems.tournamentMode.checked,
+      tournamentMode: elems.tournamentMode.checked,
       colorrandoMode: elems.colorrandoMode.checked,
       magicmaxMode: elems.magicmaxMode.checked,
       antiFreezeMode: elems.antiFreezeMode.checked,
@@ -590,6 +619,8 @@
       fastwarpMode: elems.fastwarpMode.checked,
       noprologueMode: elems.noprologueMode.checked,
       unlockedMode: elems.unlockedMode.checked,
+      surpriseMode: elems.surpriseMode.checked,
+      enemyStatRandoMode: elems.enemyStatRandoMode.checked,
     }
     if (elems.enemyDropsArg.value) {
       options.enemyDrops = util.optionsFromString(
@@ -725,6 +756,22 @@
         seed,
         0,
       ))
+      applied.stats = elems.stats.checked
+
+      if(applied.startingEquipment == null || typeof(applied.startingEquipment) != 'object'){
+        applied.startingEquipment = elems.startingEquipment.checked
+      }
+      if(applied.prologueRewards == null || typeof(applied.prologueRewards) != 'object'){
+        applied.prologueRewards = elems.prologueRewards.checked
+      }
+      if(applied.itemLocations == null || typeof(applied.itemLocations) != 'object'){
+        applied.itemLocations = elems.itemLocations.checked
+      }
+      if(applied.enemyDrops == null || typeof(applied.enemyDrops) != 'object'){
+        applied.enemyDrops = elems.enemyDrops.checked
+      }
+      applied.music = elems.music.checked
+      applied.turkeyMode = elems.turkeyMode.checked
       const result = randomizeStats(rng, applied)
       const newNames = result.newNames
       check.apply(result.data)
@@ -810,6 +857,14 @@
         // Apply unlocked patches.
         if (options.unlockedMode) {
           check.apply(util.applyunlockedPatches())
+        }
+        // Apply surprise patches.
+        if (options.surpriseMode || applied.surpriseMode) {
+          check.apply(util.applysurprisePatches())
+        }
+        // Apply enemy stat rando patches.
+        if (options.enemyStatRandoMode || applied.enemyStatRandoMode) {
+          check.apply(util.applyenemyStatRandoPatches(rng))
         }
         // Apply writes.
         check.apply(util.applyWrites(rng, applied))
@@ -913,6 +968,16 @@
     elems.relicLocationsArg.value = ''
     elems.writes.value = ''
     elems.turkeyMode.disabled = false
+    elems.magicmaxMode.disabled = false
+    elems.colorrandoMode.disabled = false
+    elems.antiFreezeMode.disabled = false
+    elems.mypurseMode.disabled = false
+    elems.iwsMode.disabled = false
+    elems.fastwarpMode.disabled = false
+    elems.noprologueMode.disabled = false
+    elems.unlockedMode.disabled = false
+    elems.surpriseMode.disabled = false
+    elems.enemyStatRandoMode.disabled = false
     elems.tournamentMode.disabled = false
     elems.clear.classList.add('hidden')
     presetChange()
@@ -1051,6 +1116,8 @@
     fastwarpMode: document.getElementById('fastwarp-mode'),
     noprologueMode: document.getElementById('noprologue-mode'),
     unlockedMode: document.getElementById('unlocked-mode'),
+    surpriseMode: document.getElementById('surprise-mode'),
+    enemyStatRandoMode: document.getElementById('enemyStatRando-mode'),
     accessibilityPatches: document.getElementById('accessibility-patches'),
     showSpoilers: document.getElementById('show-spoilers'),
     showRelics: document.getElementById('show-relics'),
@@ -1118,6 +1185,8 @@
   elems.fastwarpMode.addEventListener('change', fastwarpModeChange)
   elems.noprologueMode.addEventListener('change', noprologueModeChange)
   elems.unlockedMode.addEventListener('change', unlockedModeChange)
+  elems.surpriseMode.addEventListener('change', surpriseModeChange)
+  elems.enemyStatRandoMode.addEventListener('change', enemyStatRandoModeChange)
   elems.accessibilityPatches.addEventListener('change', accessibilityPatchesChange)
   elems.showSpoilers.addEventListener('change', spoilersChange)
   elems.showRelics.addEventListener('change', showRelicsChange)
@@ -1431,6 +1500,8 @@
   loadOption('fastwarpMode', fastwarpModeChange, false)
   loadOption('noprologueMode', noprologueModeChange, false)
   loadOption('unlockedMode', unlockedModeChange, false)
+  loadOption('surpriseMode', surpriseModeChange, false)
+  loadOption('enemyStatRandoMode', enemyStatRandoModeChange, false)
   loadOption('accessibilityPatches', accessibilityPatchesChange, true)
   loadOption('showSpoilers', spoilersChange, true)
   setTimeout(function() {
