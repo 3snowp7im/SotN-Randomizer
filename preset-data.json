@@ -1,8 +1,8 @@
 [
   {
-    "name": "Chaos Lite",
-    "id": "chaos-lite",
-    "description": "Bounty Hunter and Aperture combined with the 'tourist' extension and additional random elements. Released on April 1st, 2024. App URL: https://github.com/MottZilla/BountyHunterTool",
-    "author": "3snow_p7im, eldri7ch and MottZilla0"
+    "name": "Skinwalker",
+    "id": "skinwalker",
+    "description": "Includes all changes from Aperture, rebalances transformations and guarantees early access to at least one transformation.",
+    "author": "Zako, eldri7ch, Mottzilla, Wecoc"
   }
 ]

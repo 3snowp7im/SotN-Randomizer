@@ -11,7 +11,7 @@
   "fastwarpMode": true,
   "mypurseMode": true,
   "unlockedMode": true,
-  "relicLOcationsExtension": "wanderer",
+  "relicLocationsExtension": "wanderer",
   
   "startingEquipment": [{
     "slot": "Other",
@@ -86,7 +86,7 @@
     "locks": [
       "Soul of Bat",
       "Gravity Boots + Leap Stone + Form of Mist",
-      "Gravity Boots + Leap Stone",
+      "Gravity Boots + Leap Stone + Soul of Wolf",
       "Form of Mist + Power of Mist"
     ]
   }, {
@@ -126,7 +126,7 @@
     "comment": "In second castle",
     "locks": [
       "Holy glasses + Soul of Bat",
-      "Holy glasses + Gravity Boots + Leap Stone",
+      "Holy glasses + Gravity Boots + Leap Stone + Soul of Wolf + Power of Wolf + Skill of Wolf",
       "Holy glasses + Form of Mist + Power of Mist"
     ]
   }, {
@@ -284,7 +284,7 @@
     "comment": "In second castle",
     "locks": [
       "Holy glasses + Soul of Bat",
-      "Holy glasses + Gravity Boots + Leap Stone",
+      "Holy glasses + Gravity Boots + Leap Stone + Soul of Wolf + Power of Wolf + Skill of Wolf",
       "Holy glasses + Form of Mist + Power of Mist"
     ]
   }, {
@@ -626,7 +626,6 @@
     "comment": "Requires Holy glasses + Mist + flight",
     "locks": [
       "Holy glasses + Form of Mist + Soul of Bat",
-      "Holy glasses + Form of Mist + Gravity Boots + Leap Stone +Soul of Wolf",
       "Holy glasses + Form of Mist + Power of Mist"
     ]
   }, {
@@ -778,7 +777,6 @@
     "locks": [
       "Holy glasses + Soul of Bat",
       "Holy glasses + Gravity Boots + Leap Stone + Spike Breaker + Soul of Wolf + Power of Wolf + Skill of Wolf",
-      "Holy glasses + Gravity Boots + Leap Stone + Spike Breaker + Form of Mist",
       "Holy glasses + Form of Mist + Power of Mist"
     ]
   }, {
@@ -817,12 +815,12 @@
       "Holy glasses + Form of Mist + Power of Mist"
     ]
   }, {
-    "location": "Black Marble Gallery Vat",
-    "comment": "Requires Holy glasses + flight",
+    "location": "Reverse Alucart Sword",
+    "comment": "Requires Holy glasses + flight + Cube of Zoe",
     "locks": [
-      "Holy glasses + Soul of Bat",
-      "Holy glasses + Gravity Boots + Leap Stone + Spike Breaker + Soul of Wolf + Power of Wolf + Skill of Wolf",
-      "Holy glasses + Form of Mist + Power of Mist"
+      "Holy glasses + Soul of Bat + Cube of Zoe",
+      "Holy glasses + Gravity Boots + Leap Stone + Spike Breaker + Soul of Wolf + Power of Wolf + Skill of Wolf + Cube of Zoe",
+      "Holy glasses + Form of Mist + Power of Mist + Cube of Zoe"
     ]
   }, {
     "location": "Black Marble Meal Ticket",
@@ -5793,7 +5791,8 @@
     "location": "Platinum mail",
     "comment": "Requires at least Leap Stone",
     "locks": [
-      "Leap Stone"
+      "Leap Stone",
+      "Gravity Boots"
     ]
   }, {
     "location": "Falchion",

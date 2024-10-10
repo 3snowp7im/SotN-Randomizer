@@ -8545,10 +8545,6 @@
     "type": "char",
     "value": "0x01"
   }, {
-    "address": "0x3BE976C",
-    "type": "word",
-    "value": "0x34020001"
-  }, {
     "comment": "5k spawns from a certain candle",
     "address": "0x047A5946",
     "type": "char",

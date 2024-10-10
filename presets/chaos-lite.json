@@ -815,12 +815,12 @@
       "Form of Mist + Power of Mist"
     ]
   }, {
-    "location": "Black Marble Gallery Vat",
-    "comment": "Requires Holy glasses + flight",
+    "location": "Reverse Alucart Sword",
+    "comment": "Requires Holy glasses + flight + Cube of Zoe",
     "locks": [
-      "Soul of Bat",
-      "Gravity Boots + Leap Stone",
-      "Form of Mist + Power of Mist"
+      "Soul of Bat + Cube of Zoe",
+      "Gravity Boots + Leap Stone + Cube of Zoe",
+      "Form of Mist + Power of Mist + Cube of Zoe"
     ]
   }, {
     "location": "Black Marble Meal Ticket",
@@ -8273,12 +8273,12 @@
       "Gravity Boots + Thrust sword"
     ]
   }, {
-    "location": "Black Marble Gallery Vat",
-    "comment": "Requires Holy glasses + flight",
+    "location": "Reverse Alucart Sword",
+    "comment": "Requires Holy glasses + flight + Cube of Zoe",
     "locks": [
-      "Gravity Boots + Form of Mist",
-      "Gravity Boots + Soul of Wolf",
-      "Gravity Boots + Thrust sword"
+      "Gravity Boots + Form of Mist + Cube of Zoe",
+      "Gravity Boots + Soul of Wolf + Cube of Zoe",
+      "Gravity Boots + Thrust sword + Cube of Zoe"
     ]
   }, {
     "location": "Black Marble Meal Ticket",

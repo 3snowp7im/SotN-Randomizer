@@ -592,7 +592,7 @@
     REVERSE_FORBIDDEN_ROUTE:     'Reverse Forbidden Route',
     CAVE_LIFE_APPLE:             'Cave Life apple',
     REVERSE_COLOSSEUM_ZIRCON:    'Reverse Colosseum Zircon',
-    BLACK_MARBLE_GALLERY_VAT:    'Black Marble Gallery Vat',
+    REVERSE_ALUCART_SWORD:       'Reverse Alucart Sword',
     BLACK_MARBLE_MEAL_TICKET:    'Black Marble Meal Ticket',
     REVERSE_KEEP_HIGH_POTION:    'Reverse Keep High Potion',
   }
