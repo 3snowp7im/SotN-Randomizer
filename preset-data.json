@@ -1,8 +1,8 @@
 [
   {
-    "name": "Lucky Sevens",
-    "id": "luckysevens",
-    "description": "Start with 77 all stats and 77% chance for drops. Open shortcuts and some teleporters in the second castle. Enemies have a chance to drop relics.",
-    "author": "eldri7ch"
+    "name": "Skinwalker",
+    "id": "skinwalker",
+    "description": "Includes all changes from Aperture, rebalances transformations and guarantees early access to at least one transformation.",
+    "author": "Zako, eldri7ch, Mottzilla, Wecoc"
   }
 ]

@@ -799,12 +799,12 @@
       "Holy glasses + Form of Mist + Power of Mist"
     ]
   }, {
-    "location": "Black Marble Gallery Vat",
-    "comment": "Requires Holy glasses + flight",
+    "location": "Reverse Alucart Sword",
+    "comment": "Requires Holy glasses + flight + Cube of Zoe",
     "locks": [
-      "Holy glasses + Soul of Bat",
-      "Holy glasses + Gravity Boots + Leap Stone",
-      "Holy glasses + Form of Mist + Power of Mist"
+      "Holy glasses + Soul of Bat + Cube of Zoe",
+      "Holy glasses + Gravity Boots + Leap Stone + Cube of Zoe",
+      "Holy glasses + Form of Mist + Power of Mist + Cube of Zoe"
     ]
   }, {
     "location": "Black Marble Meal Ticket",
@@ -858,6 +858,16 @@
     "type": "word",
     "value": "0xa062BE80",
     "comment": "sb v0, 0xBE80 (v1)"
+  }, {
+    "comment": "Open Shortcut: Olrox's Quarters - Royal Chapel",
+    "type": "word",
+    "value": "0xa062BE4C",
+    "comment": "sb v0, 0xBE4C (v1)"
+  }, {
+    "comment": "Open Shortcut: Colosseum - Royal Chapel",
+    "type": "word",
+    "value": "0xa062BE9D",
+    "comment": "sb v0, 0xBE9D (v1)"
   }, {
     "comment": "Turn on Outer Wall Elevator",
     "type": "word",
@@ -1780,12 +1790,12 @@
       "Holy glasses + Gravity Boots + Thrust sword"
     ]
   }, {
-    "location": "Black Marble Gallery Vat",
-    "comment": "Requires Holy glasses + flight",
+    "location": "Reverse Alucart Sword",
+    "comment": "Requires Holy glasses + flight + Cube of Zoe",
     "locks": [
-      "Holy glasses + Gravity Boots + Form of Mist",
-      "Holy glasses + Gravity Boots + Soul of Wolf",
-      "Holy glasses + Gravity Boots + Thrust sword"
+      "Holy glasses + Gravity Boots + Form of Mist + Cube of Zoe",
+      "Holy glasses + Gravity Boots + Soul of Wolf + Cube of Zoe",
+      "Holy glasses + Gravity Boots + Thrust sword + Cube of Zoe"
     ]
   }, {
     "location": "Black Marble Meal Ticket",

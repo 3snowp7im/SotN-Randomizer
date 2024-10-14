@@ -398,10 +398,10 @@
       "Holy glasses"
     ]
   }, {
-    "location": "Black Marble Gallery Vat",
-    "comment": "Requires Holy glasses + flight",
+    "location": "Reverse Alucart Sword",
+    "comment": "Requires Holy glasses + flight + Cube of Zoe",
     "locks": [
-      "Holy glasses"
+      "Holy glasses + Cube of Zoe"
     ]
   }, {
     "location": "Black Marble Meal Ticket",

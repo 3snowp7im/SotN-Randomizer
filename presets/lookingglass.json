@@ -1067,10 +1067,10 @@
       "Mirror"
     ]
   }, {
-    "location": "Black Marble Gallery Vat",
-    "comment": "Requires Mirror + flight",
+    "location": "Reverse Alucart Sword",
+    "comment": "Requires Mirror + flight + Cube of Zoe",
     "locks": [
-      "Mirror"
+      "Mirror + Cube of Zoe"
     ]
   }, {
     "location": "Black Marble Meal Ticket",
@@ -1813,10 +1813,10 @@
       "Mirror"
     ]
   }, {
-    "location": "Black Marble Gallery Vat",
-    "comment": "Requires Mirror + flight",
+    "location": "Reverse Alucart Sword",
+    "comment": "Requires Mirror + flight + Cube of Zoe",
     "locks": [
-      "Mirror"
+      "Mirror + Cube of Zoe"
     ]
   }, {
     "location": "Black Marble Meal Ticket",

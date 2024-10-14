@@ -64,12 +64,12 @@
         {"address": "0x06C14D", "values": ["0x10"]}
     ]
   }, {
-    "location": "Black Marble Gallery Vat",
-    "x": 124,
-    "y": 125,
+    "location": "Reverse Alucart Sword",
+    "x": 116,
+    "y": 117,
     "secondCastle": true,
     "rooms": [
-        {"address": "0x06C1FB", "values": ["0x01"]}
+        {"address": "0x06C1DB", "values": ["0x10"]}
     ]
   }, {
     "location": "Black Marble Meal Ticket",

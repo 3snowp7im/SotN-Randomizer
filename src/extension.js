@@ -182,12 +182,12 @@
     data.writeShort(0x4c34fae, index)
   }
 
-  function replaceBlackMarbleVatWithRelic(data, blackMarbleVat, relic) {
+  function replaceReverseAlucartSwordWithRelic(data, blackMarbleVat, relic) {
     // Regular zone patches.
     const zone = constants.zones[constants.ZONE.RNO0]
     // Change Entity Position.
-    data.writeWord(0x4f88e62, 0x00a30280)
-    data.writeWord(0x4f8a12c, 0x00a30280)
+    // data.writeWord(0x4f8987a, 0x00a300a0)
+    // data.writeWord(0x4f8ab3a, 0x00a300a0)
     // Replace entities.
     blackMarbleVat.entity.entities.forEach(function(entity) {
       let addr = util().romOffset(zone, entity + 0x04)
@@ -197,12 +197,12 @@
     })
   }
 
-  function replaceBlackMarbleVatWithItem(data, blackMarbleVat, item, index) {
+  function replaceReverseAlucartSwordWithItem(data, blackMarbleVat, item, index) {
     // Regular zone patches.
     const zone = constants.zones[constants.ZONE.RNO0]
     // Change Entity Position.
-    data.writeWord(0x4f88e62, 0x00a30280)
-    data.writeWord(0x4f8a12c, 0x00a30280)
+    // data.writeWord(0x4f8987a, 0x00a300a0)
+    // data.writeWord(0x4f8ab3a, 0x00a300a0)
     // Replace entities.
     blackMarbleVat.entity.entities.forEach(function(entity) {
       let addr = util().romOffset(zone, entity + 0x04)
@@ -211,8 +211,8 @@
       addr = data.writeShort(addr, item.relicId)
     })
     // Change Entity to Refer to Table.
-    data.writeShort(0x4f88e6b, index)
-    data.writeShort(0x4f8a135, index)
+    data.writeShort(0x4f89883, index)
+    data.writeShort(0x4f8ab43, index)
   }
   
   const locations = [{
@@ -877,14 +877,10 @@
       y: 0x00ad,
     },
   }, {
-    name: LOCATION.BLACK_MARBLE_GALLERY_VAT,
+    name: LOCATION.REVERSE_ALUCART_SWORD,
     extension: EXTENSION.TOURIST,
-    entity: {
-      zones: [ ZONE.RNO0 ],
-      entities: [ 0x3bea, 0x4c54 ],
-    },
-    replaceWithRelic: replaceBlackMarbleVatWithRelic,
-    replaceWithItem: replaceBlackMarbleVatWithItem
+    itemId: 157,
+    tileIndex: 1,
   }, {
     name: LOCATION.BLACK_MARBLE_MEAL_TICKET,
     extension: EXTENSION.TOURIST,
@@ -987,14 +983,10 @@
       y: 0x00ad,
     },
   }, {
-    name: LOCATION.BLACK_MARBLE_GALLERY_VAT,
+    name: LOCATION.REVERSE_ALUCART_SWORD,
     extension: EXTENSION.WANDERER,
-    entity: {
-      zones: [ ZONE.RNO0 ],
-      entities: [ 0x3bea, 0x4c54 ],
-    },
-    replaceWithRelic: replaceBlackMarbleVatWithRelic,
-    replaceWithItem: replaceBlackMarbleVatWithItem
+    itemId: 157,
+    tileIndex: 1,
   }, {
     name: LOCATION.BLACK_MARBLE_MEAL_TICKET,
     extension: EXTENSION.WANDERER,

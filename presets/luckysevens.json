@@ -921,10 +921,10 @@
       "Holy glasses + Soul of Bat"
     ]
   }, {
-    "location": "Black Marble Gallery Vat",
-    "comment": "Requires Holy glasses + flight",
+    "location": "Reverse Alucart Sword",
+    "comment": "Requires Holy glasses + flight + Cube of Zoe",
     "locks": [
-      "Holy glasses + Soul of Bat"
+      "Holy glasses + Soul of Bat + Cube of Zoe"
     ]
   }, {
     "location": "Black Marble Meal Ticket",

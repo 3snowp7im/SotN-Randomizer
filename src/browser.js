@@ -1226,14 +1226,14 @@
   const releaseBaseUrl = constants.optionsUrls[constants.defaultOptions]
   const releaseHostname = new URL(releaseBaseUrl).hostname
   const isDev = url.hostname !== releaseHostname
-  const fakeVersion = '0.0.0-dev'
+  const fakeVersion = '0.0.0D'
   if (url.protocol !== 'file:') {
     fetch('package.json', {cache: 'no-store'}).then(function(response) {
       if (response.ok) {
         response.json().then(function(json) {
           version = json.version
           if (isDev && !version.match(/-/)) {
-            version += '-dev'
+            version += 'D'
           }
           document.getElementById('version').innerText = version
         })
@@ -1510,5 +1510,6 @@
       el.classList.remove('hidden')
     })
   })
+  presetIdChange()
 
 })(typeof(window) !== 'undefined' ? window : null)
