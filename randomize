@@ -16,6 +16,13 @@ const relics = require('./src/relics')
 const util = require('./src/util')
 let version = require('./package').version
 
+// Suppress all deprecation warnings
+process.emitWarning = (warning, type) => {
+  if (type !== 'DeprecationWarning') {
+    console.warn(warning);
+  }
+};
+
 const optionsHelp = [
   'The options string may contain any of the following:',
   '  "p" for preset (`--help preset`)',
