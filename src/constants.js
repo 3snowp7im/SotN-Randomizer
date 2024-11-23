@@ -763,6 +763,256 @@
     '9': [ 0x82, 0x58 ],
   }
 
+  const shopItemsData = [
+    {
+      id: 1,
+      itemName: "Potion",
+      itemPriceH: 0x00000320, //normally 800
+      itemPriceD: 800,
+      priceAddress: 0x047a30a0
+    }, {
+      id: 2,
+      itemName: "High potion",
+      itemPriceH: 0x000007d0, //normally 2000
+      itemPriceD: 2000,
+      priceAddress: 0x047a30a8
+    }, {
+      id: 3,
+      itemName: "Elixir",
+      itemPriceH: 0x00001f40, //normally 8000
+      itemPriceD: 8000,
+      priceAddress: 0x047a30b0
+    }, {
+      id: 4,
+      itemName: "Manna prism",
+      itemPriceH: 0x00000fa0, //normally 4000
+      itemPriceD: 4000,
+      priceAddress: 0x047a30b8
+    }, {
+      id: 5,
+      itemName: "Antivenom",
+      itemPriceH: 0x000000c8, //normally 200
+      itemPriceD: 200,
+      priceAddress: 0x047a30c0
+    }, {
+      id: 6,
+      itemName: "Uncurse",
+      itemPriceH: 0x000000c8, //normally 200
+      itemPriceD: 200,
+      priceAddress: 0x047a30c8
+    }, {
+      id: 7,
+      itemName: "Hammer",
+      itemPriceH: 0x000000c8, //normally 200
+      itemPriceD: 200,
+      priceAddress: 0x047a30d0
+    }, {
+      id: 8,
+      itemName: "Magic Missile",
+      itemPriceH: 0x0000012c, //normally 300
+      itemPriceD: 300,
+      priceAddress: 0x047a30d8
+    }, {
+      id: 9,
+      itemName: "Bwaka knife",
+      itemPriceH: 0x00000190, //normally 400
+      itemPriceD: 400,
+      priceAddress: 0x047a30e0
+    }, {
+      id: 10,
+      itemName: "Boomerang",
+      itemPriceH: 0x000001f4, //normally 500
+      itemPriceD: 500,
+      priceAddress: 0x047a30e8
+    }, {
+      id: 11,
+      itemName: "Javelin",
+      itemPriceH: 0x00000320, //normally 800
+      itemPriceD: 800,
+      priceAddress: 0x047a30f0
+    }, {
+      id: 12,
+      itemName: "Fire boomerang",
+      itemPriceH: 0x000003e8, //normally 1000
+      itemPriceD: 1000,
+      priceAddress: 0x047a30f8
+    }, {
+      id: 13,
+      itemName: "Shuriken",
+      itemPriceH: 0x00000960, //normally 2400
+      itemPriceD: 2400,
+      priceAddress: 0x047a3100
+    }, {
+      id: 14,
+      itemName: "Cross shuriken",
+      itemPriceH: 0x00001388, //normally 5000
+      itemPriceD: 5000,
+      priceAddress: 0x047a3108
+    }, {
+      id: 15,
+      itemName: "Buffalo star",
+      itemPriceH: 0x00001f40, //normally 8000
+      itemPriceD: 8000,
+      priceAddress: 0x047a3110
+    }, {
+      id: 16,
+      itemName: "Flame star",
+      itemPriceH: 0x00003a98, //normally 15000
+      itemPriceD: 15000,
+      priceAddress: 0x047a3118
+    }, {
+      id: 17,
+      itemName: "Library card",
+      itemPriceH: 0x000001f4, //normally 500
+      itemPriceD: 500,
+      priceAddress: 0x047a3120
+    }, {
+      id: 18,
+      itemName: "Meal ticket",
+      itemPriceH: 0x000007d0, //normally 2000
+      itemPriceD: 2000,
+      priceAddress: 0x047a3128
+    }, {
+      id: 19,
+      itemName: "Saber",
+      itemPriceH: 0x000005dc, //normally 1500
+      itemPriceD: 1500,
+      priceAddress: 0x047a3130
+    }, {
+      id: 20,
+      itemName: "Mace",
+      itemPriceH: 0x000007d0, //normally 2000
+      itemPriceD: 2000,
+      priceAddress: 0x047a3138
+    }, {
+      id: 21,
+      itemName: "Damascus sword",
+      itemPriceH: 0x00000fa0, //normally 4000
+      itemPriceD: 4000,
+      priceAddress: 0x047a3140
+    }, {
+      id: 22,
+      itemName: "Firebrand",
+      itemPriceH: 0x00002710, //normally 10000
+      itemPriceD: 10000,
+      priceAddress: 0x047a3148
+    }, {
+      id: 23,
+      itemName: "Icebrand",
+      itemPriceH: 0x00002710, //normally 10000
+      itemPriceD: 10000,
+      priceAddress: 0x047a3150
+    }, {
+      id: 24,
+      itemName: "Thunderbrand",
+      itemPriceH: 0x00002710, //normally 10000
+      itemPriceD: 10000,
+      priceAddress: 0x047a3158
+    }, {
+      id: 25,
+      itemName: "Harper",
+      itemPriceH: 0x00002ee0, //normally 12000
+      itemPriceD: 12000,
+      priceAddress: 0x047a3160
+    }, {
+      id: 26,
+      itemName: "Leather shield",
+      itemPriceH: 0x00000190, //normally 400
+      itemPriceD: 400,
+      priceAddress: 0x047a3168
+    }, {
+      id: 27,
+      itemName: "Iron shield",
+      itemPriceH: 0x00000fbc, //normally 3980
+      itemPriceD: 3980,
+      priceAddress: 0x047a3170
+    }, {
+      id: 28,
+      itemName: "Velvet hat",
+      itemPriceH: 0x00000190, //normally 400
+      itemPriceD: 400,
+      priceAddress: 0x047a3178
+    }, {
+      id: 29,
+      itemName: "Leather hat",
+      itemPriceH: 0x000003e8, //normally 1000
+      itemPriceD: 1000,
+      priceAddress: 0x047a3180
+    }, {
+      id: 30,
+      itemName: "Circlet",
+      itemPriceH: 0x00000fa0, //normally 4000
+      itemPriceD: 4000,
+      priceAddress: 0x047a3188
+    }, {
+      id: 31,
+      itemName: "Silver crown",
+      itemPriceH: 0x00002ee0, //normally 12000
+      itemPriceD: 12000,
+      priceAddress: 0x047a3190
+    }, {
+      id: 32,
+      itemName: "Iron cuirass",
+      itemPriceH: 0x000005dc, //normally 1500
+      itemPriceD: 1500,
+      priceAddress: 0x047a3198
+    }, {
+      id: 33,
+      itemName: "Steel cuirass",
+      itemPriceH: 0x00000fa0, //normally 4000
+      itemPriceD: 4000,
+      priceAddress: 0x047a31a0
+    }, {
+      id: 34,
+      itemName: "Diamond plate",
+      itemPriceH: 0x00002ee0, //normally 12000
+      itemPriceD: 12000,
+      priceAddress: 0x047a31a8
+    }, {
+      id: 35,
+      itemName: "Reverse cloak",
+      itemPriceH: 0x000007d0, //normally 2000
+      itemPriceD: 2000,
+      priceAddress: 0x047a31b0
+    }, {
+      id: 36,
+      itemName: "Elven cloak",
+      itemPriceH: 0x00000bb8, //normally 3000
+      itemPriceD: 3000,
+      priceAddress: 0x047a31b8
+    }, {
+      id: 37,
+      itemName: "Joseph's cloak",
+      itemPriceH: 0x00007530, //normally 30000
+      itemPriceD: 30000,
+      priceAddress: 0x047a31c0
+    }, {
+      id: 38,
+      itemName: "Medal",
+      itemPriceH: 0x00000bb8, //normally 3000
+      itemPriceD: 3000,
+      priceAddress: 0x047a31c8
+    }, {
+      id: 39,
+      itemName: "Ring of Pales",
+      itemPriceH: 0x00000fa0, //normally 4000
+      itemPriceD: 4000,
+      priceAddress: 0x047a31d0
+    }, {
+      id: 40,
+      itemName: "Gauntlet",
+      itemPriceH: 0x00001f40, //normally 8000
+      itemPriceD: 8000,
+      priceAddress: 0x047a31d8
+    }, {
+      id: 41,
+      itemName: "Duplicator",
+      itemPriceH: 0x0007a120, //normally 500000
+      itemPriceD: 500000,
+      priceAddress: 0x047a31e0
+    }
+  ]
+
   const adjectivesNormal = [
     "Invincible",
     "Burning",
@@ -1603,6 +1853,7 @@
     WORKER_ACTION: WORKER_ACTION,
     faerieScrollForceAddresses: faerieScrollForceAddresses,
     characterMap: characterMap,
+    shopItemsData: shopItemsData,
     digest: digest,
     adjectivesNormal: adjectivesNormal,
     adjectivesHalloween: adjectivesHalloween,

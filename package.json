@@ -57,7 +57,9 @@
     "brawler",
     "first-castle",
     "luckysevens",
-    "bingo"
+    "bingo",
+    "sightseer",
+    "cursed-night"
   ],
   "engines": {
     "node": ">=15"
