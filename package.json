@@ -59,7 +59,9 @@
     "luckysevens",
     "bingo",
     "sightseer",
-    "cursed-night"
+    "cursed-night",
+    "spellbound",
+    "mobility"
   ],
   "engines": {
     "node": ">=15"

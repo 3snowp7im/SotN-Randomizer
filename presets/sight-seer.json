@@ -4,7 +4,7 @@
     "name": "Sight-Seer",
     "description": "A base preset for the Randomizer. Requires no speedrun or glitch knowledge for completion. Wanderer extension.",
     "author": "3snow_p7im, eldri7ch",
-    "weight": -5007
+    "weight": -5008
   },
   
   "colorrandoMode": true,

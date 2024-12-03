@@ -1,8 +1,8 @@
 [
   {
-    "name": "Sight-Seer",
-    "id": "sight-seer",
-    "description": "A base preset for the Randomizer. Requires no speedrun or glitch knowledge for completion. Wanderer extension.",
-    "author": "3snow_p7im, eldri7ch"
+    "name": "Spellbound",
+    "id": "spellbound",
+    "description": "Safe logic, spells are locked by Familiar Cards.",
+    "author": "Mottzilla and JupiterClimb"
   }
 ]
