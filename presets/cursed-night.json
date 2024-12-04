@@ -202,6 +202,18 @@
       "Holy glasses + Form of Mist + Power of Mist"
     ]
   }, {
+    "location": "Fearie Scroll",
+    "locks": [],
+    "block": ["Force of Echo"]
+  }, {
+    "location": "Spirit Orb",
+    "locks": [],
+    "block": ["Force of Echo"]
+  }, {
+    "location": "Soul of Wolf",
+    "locks": [],
+    "block": ["Force of Echo"]
+  }, {
     "location": "Power of Wolf",
     "comment": "Requires flight",
     "locks": [
@@ -216,11 +228,13 @@
       "Gravity Boots",
       "Soul of Bat",
       "Form of Mist + Power of Mist"
-    ]
+    ],
+    "block": ["Force of Echo"]
   }, {
     "location": "Form of Mist",
     "comment": "Requires at least Leap Stone",
-    "locks": []
+    "locks": [],
+    "block": ["Force of Echo"]
   }, {
     "location": "Power of Mist",
     "comment": "Requires flight",
@@ -228,7 +242,8 @@
       "Soul of Bat",
       "Gravity Boots",
       "Form of Mist + Power of Mist"
-    ]
+    ],
+    "block": ["Force of Echo"]
   }, {
     "location": "Gas Cloud",
     "comment": "In second castle",
@@ -237,9 +252,7 @@
       "Holy glasses + Gravity Boots",
       "Holy glasses + Form of Mist + Power of Mist"
     ],
-    "block": [
-      "Force of Echo"
-    ]
+    "block": ["Force of Echo"]
   }, {
     "location": "Gravity Boots",
     "comment": "Requires flight",
@@ -247,11 +260,13 @@
       "Soul of Bat",
       "Gravity Boots",
       "Form of Mist + Power of Mist"
-    ]
+    ],
+    "block": ["Force of Echo"]
   }, {
     "location": "Leap Stone",
     "comment": "Requires Jewel of Open or at least Leap Stone",
-    "locks": []
+    "locks": [],
+    "block": ["Force of Echo"]
   }, {
     "location": "Holy Symbol",
     "locks": [
@@ -262,7 +277,8 @@
     "comment": "Requires Jewel of Open",
     "locks": [
       "Jewel of Open"
-    ]
+    ],
+    "block": ["Force of Echo"]
   }, {
     "location": "Bat Card",
     "comment": "Requires at least Gravity Boots",
@@ -375,13 +391,15 @@
     "location": "Crystal cloak",
     "locks": [
       "Jewel of Open"
-    ]
+    ],
+    "block": ["Force of Echo"]
   }, {
     "location": "Mormegil",
     "comment": "Requires Jewel of Open + at least Leap Stone",
     "locks": [
       "Jewel of Open"
-    ]
+    ],
+    "block": ["Force of Echo"]
   }, {
     "location": "Dark Blade",
     "comment": "In second castle",
@@ -921,7 +939,8 @@
       "Soul of Bat",
       "Gravity Boots",
       "Form of Mist + Power of Mist"
-    ]
+    ],
+    "block": ["Force of Echo"]
   }, {
     "location": "Echo of Bat",
     "comment": "Requires flight + a transformation",
@@ -946,7 +965,8 @@
       "Soul of Bat",
       "Gravity Boots",
       "Form of Mist + Power of Mist"
-    ]
+    ],
+    "block": ["Force of Echo"]
   }, {
     "location": "Skill of Wolf",
     "comment": "Requires at least Gravity Boots",
@@ -958,7 +978,8 @@
   }, {
     "location": "Form of Mist",
     "comment": "Requires at least Leap Stone or a transformation",
-    "locks": []
+    "locks": [],
+    "block": ["Force of Echo"]
   }, {
     "location": "Power of Mist",
     "comment": "Requires flight",
@@ -966,7 +987,8 @@
       "Soul of Bat",
       "Gravity Boots",
       "Form of Mist + Power of Mist"
-    ]
+    ],
+    "block": ["Force of Echo"]
   }, {
     "location": "Gas Cloud",
     "comment": "In second castle",
@@ -994,7 +1016,8 @@
     "comment": "Requires Jewel of Open",
     "locks": [
       "Jewel of Open"
-    ]
+    ],
+    "block": ["Force of Echo"]
   }, {
     "location": "Bat Card",
     "comment": "Requires at least Gravity Boots",
@@ -1002,7 +1025,8 @@
       "Gravity Boots",
       "Soul of Bat",
       "Form of Mist + Power of Mist"
-    ]
+    ],
+    "block": ["Force of Echo"]
   }, {
     "location": "Ghost Card",
     "comment": "Requires flight",
@@ -1010,17 +1034,20 @@
       "Soul of Bat",
       "Gravity Boots",
       "Form of Mist + Power of Mist"
-    ]
+    ],
+    "block": ["Force of Echo"]
   }, {
     "location": "Faerie Card",
     "comment": "Requires at least Gravity Boots",
-    "locks": []
+    "locks": [],
+    "block": ["Force of Echo"]
   }, {
     "location": "Demon Card",
     "comment": "Requires Jewel of Open + at least Leap Stone",
     "locks": [
       "Jewel of Open"
-    ]
+    ],
+    "block": ["Force of Echo"]
   }, {
     "location": "Sword Card",
     "comment": "Requires flight",
@@ -1028,7 +1055,8 @@
       "Soul of Bat",
       "Gravity Boots",
       "Form of Mist + Power of Mist"
-    ]
+    ],
+    "block": ["Force of Echo"]
   }, {
     "location": "Heart of Vlad",
     "comment": "In second castle",
@@ -1109,13 +1137,15 @@
     "comment": "Requires Jewel of Open",
     "locks": [
       "Jewel of Open"
-    ]
+    ],
+    "block": ["Force of Echo"]
   }, {
     "location": "Mormegil",
     "comment": "Requires Jewel of Open + at least Leap Stone",
     "locks": [
       "Jewel of Open"
-    ]
+    ],
+    "block": ["Force of Echo"]
   }, {
     "location": "Dark Blade",
     "comment": "In second castle",
