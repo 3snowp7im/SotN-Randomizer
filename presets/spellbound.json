@@ -10,11 +10,12 @@
     "comment": "Bat Card = Wing Smash, Ghost Card = Summon Spirit, Faerie Card = Soul Steal, Demon Card = Hell Fire, Sword Card = Tetra Spirit, Nosedevil = Dark Metamorphosis",
     "inherits": "casual",
     "colorrandoMode": true,
-    "stats": false,
+    "stats": true,
     "turkeyMode": true,
     "music": false,
     "fastwarpMode": true,
     "magicmaxMode": true,
+    "surpriseMode": true,
 
     "complexityGoal": {
         "min": 9,
