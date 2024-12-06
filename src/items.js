@@ -3783,11 +3783,12 @@
       zones: [ ZONE.RNZ1 ],
       entities: [ 0x2b30, 0x32e4 ],
       candle: 0x50,
-    }, {
-      zones: [ ZONE.RTOP ],
-      entities: [ 0x1d70, 0x21b2 ],
-      candle: 0x30,
-    }, {
+    },// {
+      // zones: [ ZONE.RTOP ],
+      // entities: [ 0x1d70, 0x21b2 ],
+      // candle: 0x30,
+    // }, 
+    {
       addresses: [ 0x043c3644, 0x04491814, 0x0455cc94, 0x045e99ec, 0x0467758c, 0x048fb188, 0x049d3a58, 0x04aa1a74, 0x04b68b1c, 0x04c32920, 0x04cfbd60, 0x04da5768, 0x04e32804, 0x04ee3330, 0x04f860a4, 0x05050978, 0x050f8ea4, 0x051adeb8, 0x0526c754, 0x053f6498, 0x054b2940, 0x05573de4, 0x0560fc14, 0x056be958, 0x057519ac, 0x057e07ac, 0x05883f7c, 0x0590364c, 0x059bca38, 0x05a6eecc, 0x05af32d8, 0x0606f10c, 0x060fdd40, 0x061a77c4, 0x062478cc, 0x063061bc, 0x063ab014, 0x06471a3c, 0x065094f0, 0x065918ec, 0x06621d3c, 0x066b40c4, 0x06742edc, 0x067d0d38, 0x06862088, 0x0692c490, 0x069d2224, 0x06a61208, 0x047a3fd8 ],
       enemy: GLOBAL_DROP,
     }, {
@@ -3798,11 +3799,12 @@
     name: '$1',
     type: TYPE.GOLD,
     id: 2,
-    tiles: [{
-      zones: [ ZONE.CAT ],
-      entities: [ 0x2e0a, 0x36ea ],
-      candle: 0x10,
-    }, {
+    tiles: [// {
+      // zones: [ ZONE.CAT ],
+      // entities: [ 0x2e0a, 0x36ea ],
+      // candle: 0x10,
+    // }, 
+    {
       zones: [ ZONE.CAT ],
       entities: [ 0x30b2, 0x397e ],
       candle: 0x20,
@@ -4930,6 +4932,15 @@
       enemy: GLOBAL_DROP,
     }],
   }, {
+    name: '$700',
+    type: TYPE.GOLD,
+    id: 8,
+    tiles: [{
+      zones: [ ZONE.RTOP ],                  // Stolen from Heart; Reverse Keep
+      entities: [ 0x1d70, 0x21b2 ],          // Stolen from Heart; Reverse Keep
+      candle: 0x30,                          // Stolen from Heart; Reverse Keep
+    }]
+  }, {
     name: '$1000',
     type: TYPE.GOLD,
     id: 9,
@@ -4963,6 +4974,15 @@
       addresses: [ 0x0b859c ],
       enemy: 50,
     }],
+  }, {
+    name: '$5000',
+    type: TYPE.GOLD,
+    id: 11,
+    tiles: [{
+      zones: [ ZONE.CAT ],                  // Stolen from $1; Catacombs Room 6
+      entities: [ 0x2e0a, 0x36ea ],         // Stolen from $1; Catacombs Room 6
+      candle: 0x10,                         // Stolen from $1; Catacombs Room 6
+    }]
   }, {
     name: 'Dagger',
     type: TYPE.SUBWEAPON,
@@ -9300,11 +9320,6 @@
       index: 6,
       entities: [ 0x3698, 0x4518 ],
     }],
-  }, {
-    name: '$5000',
-    type: TYPE.GOLD,
-    id: 259,
-    blacklist: [ 0x0b6b3c, 0x0b6b3a ],
   }]
 
   const exports = items
