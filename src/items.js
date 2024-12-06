@@ -1414,15 +1414,17 @@
       zones: [ ZONE.TOP ],
       entities: [ 0x22be, 0x291e ],
       candle: 0x60,
-    }, {
-      zones: [ ZONE.TOP ],
-      entities: [ 0x22f0, 0x2860 ],
-      candle: 0x60,
-    }, {
-      zones: [ ZONE.TOP ],
-      entities: [ 0x2390, 0x284c ],
-      candle: 0x60,
-    }, {
+    }, 
+    //{                                        // Allocated to $700 bags - eldri7ch
+    //  zones: [ ZONE.TOP ],
+    //  entities: [ 0x22f0, 0x2860 ],
+    //  candle: 0x60,
+    //}, {
+    //  zones: [ ZONE.TOP ],
+    //  entities: [ 0x2390, 0x284c ],
+    //  candle: 0x60,
+    //}, 
+    {
       zones: [ ZONE.RARE ],
       entities: [ 0x2464, 0x2a36 ],
       candle: 0x10,
@@ -2818,15 +2820,17 @@
       zones: [ ZONE.RTOP ],
       entities: [ 0x1ca8, 0x1f14 ],
       candle: 0x60,
-    }, {
-      zones: [ ZONE.RTOP ],
-      entities: [ 0x1cb2, 0x1f0a ],
-      candle: 0x60,
-    }, {
-      zones: [ ZONE.RTOP ],
-      entities: [ 0x1cd0, 0x1f00 ],
-      candle: 0x60,
-    }, {
+    }, 
+    //{                                        // Allocated to $700 bags - eldri7ch
+    //  zones: [ ZONE.RTOP ],
+    //  entities: [ 0x1cb2, 0x1f0a ],
+    //  candle: 0x60,
+    //}, {
+    //  zones: [ ZONE.RTOP ],
+    //  entities: [ 0x1cd0, 0x1f00 ],
+    //  candle: 0x60,
+    //}, 
+    {
       addresses: [ 0x043c3612, 0x044917e2, 0x0455cc62, 0x045e99ba, 0x0467755a, 0x048fb156, 0x049d3a26, 0x04aa1a42, 0x04b68aea, 0x04c328ee, 0x04cfbd2e, 0x04da5736, 0x04e327d2, 0x04ee32fe, 0x04f86072, 0x05050946, 0x050f8e72, 0x051ade86, 0x0526c722, 0x053f6466, 0x054b290e, 0x05573db2, 0x0560fbe2, 0x056be926, 0x0575197a, 0x057e077a, 0x05883f4a, 0x0590361a, 0x059bca06, 0x05a6ee9a, 0x05af32a6, 0x0606f0da, 0x060fdd0e, 0x061a7792, 0x0624789a, 0x0630618a, 0x063aafe2, 0x06471a0a, 0x065094be, 0x065918ba, 0x06621d0a, 0x066b4092, 0x06742eaa, 0x067d0d06, 0x06862056, 0x0692c45e, 0x069d21f2, 0x06a611d6, 0x047a3e76 ],
       enemy: GLOBAL_DROP,
     }, {
@@ -3783,12 +3787,11 @@
       zones: [ ZONE.RNZ1 ],
       entities: [ 0x2b30, 0x32e4 ],
       candle: 0x50,
-    },// {
-      // zones: [ ZONE.RTOP ],
-      // entities: [ 0x1d70, 0x21b2 ],
-      // candle: 0x30,
-    // }, 
-    {
+    }, {
+      zones: [ ZONE.RTOP ],
+      entities: [ 0x1d70, 0x21b2 ],
+      candle: 0x30,
+    }, {
       addresses: [ 0x043c3644, 0x04491814, 0x0455cc94, 0x045e99ec, 0x0467758c, 0x048fb188, 0x049d3a58, 0x04aa1a74, 0x04b68b1c, 0x04c32920, 0x04cfbd60, 0x04da5768, 0x04e32804, 0x04ee3330, 0x04f860a4, 0x05050978, 0x050f8ea4, 0x051adeb8, 0x0526c754, 0x053f6498, 0x054b2940, 0x05573de4, 0x0560fc14, 0x056be958, 0x057519ac, 0x057e07ac, 0x05883f7c, 0x0590364c, 0x059bca38, 0x05a6eecc, 0x05af32d8, 0x0606f10c, 0x060fdd40, 0x061a77c4, 0x062478cc, 0x063061bc, 0x063ab014, 0x06471a3c, 0x065094f0, 0x065918ec, 0x06621d3c, 0x066b40c4, 0x06742edc, 0x067d0d38, 0x06862088, 0x0692c490, 0x069d2224, 0x06a61208, 0x047a3fd8 ],
       enemy: GLOBAL_DROP,
     }, {
@@ -3799,7 +3802,7 @@
     name: '$1',
     type: TYPE.GOLD,
     id: 2,
-    tiles: [// {
+    tiles: [// {                              // The $1 room by Granfaloon; Allocated to $5000 chest - eldri7ch
       // zones: [ ZONE.CAT ],
       // entities: [ 0x2e0a, 0x36ea ],
       // candle: 0x10,
@@ -4936,9 +4939,21 @@
     type: TYPE.GOLD,
     id: 8,
     tiles: [{
-      zones: [ ZONE.RTOP ],                  // Stolen from Heart; Reverse Keep
-      entities: [ 0x1d70, 0x21b2 ],          // Stolen from Heart; Reverse Keep
-      candle: 0x30,                          // Stolen from Heart; Reverse Keep
+      zones: [ ZONE.TOP ],                    // Stolen from Heart; Keep - eldri7ch
+      entities: [ 0x22f0, 0x2860 ],
+      candle: 0x60,
+    }, {
+      zones: [ ZONE.TOP ],                    // Stolen from Heart; Keep - eldri7ch
+      entities: [ 0x2390, 0x284c ],
+      candle: 0x60,
+    }, {
+      zones: [ ZONE.RTOP ],                   // Stolen from Heart; Reverse Keep - eldri7ch
+      entities: [ 0x1cb2, 0x1f0a ],
+      candle: 0x60,
+    }, {
+      zones: [ ZONE.RTOP ],                   // Stolen from Heart; Reverse Keep - eldri7ch
+      entities: [ 0x1cd0, 0x1f00 ],
+      candle: 0x60,
     }]
   }, {
     name: '$1000',
@@ -4979,9 +4994,9 @@
     type: TYPE.GOLD,
     id: 11,
     tiles: [{
-      zones: [ ZONE.CAT ],                  // Stolen from $1; Catacombs Room 6
-      entities: [ 0x2e0a, 0x36ea ],         // Stolen from $1; Catacombs Room 6
-      candle: 0x10,                         // Stolen from $1; Catacombs Room 6
+      zones: [ ZONE.CAT ],                  // Stolen from $1; Catacombs Room 6 ($1 by granfaloon) - eldri7ch
+      entities: [ 0x2e0a, 0x36ea ],
+      candle: 0x10,  
     }]
   }, {
     name: 'Dagger',
