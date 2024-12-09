@@ -1,13 +1,15 @@
 {
   "metadata": {
-    "id": "adventure",
-    "name": "Adventure",
-    "description": "Relics can appear in most equipment locations from the original game.",
-    "author": "3snow_p7im",
-    "weight": -4000
+    "id": "sight-seer",
+    "name": "Sight-Seer",
+    "description": "A base preset for the Randomizer. Requires no speedrun or glitch knowledge for completion. Wanderer extension.",
+    "author": "3snow_p7im, eldri7ch",
+    "weight": -5008
   },
-
-  "relicLocationsExtension": "equipment",
+  
+  "colorrandoMode": true,
+  "stats": false,
+  "relicLocationsExtension": "wanderer",
 
   "lockLocation": [{
     "location": "Soul of Bat",
@@ -621,7 +623,7 @@
     "comment": "Requires Holy glasses + Mist + flight",
     "locks": [
       "Holy glasses + Form of Mist + Soul of Bat",
-      "Holy glasses + Form of Mist + Gravity Boots + Leap Stone + Spike Breaker",
+      "Holy glasses + Form of Mist + Gravity Boots + Leap Stone",
       "Holy glasses + Form of Mist + Power of Mist"
     ]
   }, {
@@ -927,7 +929,7 @@
   }],
 
   "complexityGoal": {
-    "min": 9,
+    "min": 7,
     "goals": [
       "Holy glasses + Heart of Vlad + Tooth of Vlad + Rib of Vlad + Ring of Vlad + Eye of Vlad"
     ]

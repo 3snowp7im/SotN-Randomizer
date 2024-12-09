@@ -1414,15 +1414,17 @@
       zones: [ ZONE.TOP ],
       entities: [ 0x22be, 0x291e ],
       candle: 0x60,
-    }, {
-      zones: [ ZONE.TOP ],
-      entities: [ 0x22f0, 0x2860 ],
-      candle: 0x60,
-    }, {
-      zones: [ ZONE.TOP ],
-      entities: [ 0x2390, 0x284c ],
-      candle: 0x60,
-    }, {
+    }, 
+    //{                                        // Allocated to $700 bags - eldri7ch
+    //  zones: [ ZONE.TOP ],
+    //  entities: [ 0x22f0, 0x2860 ],
+    //  candle: 0x60,
+    //}, {
+    //  zones: [ ZONE.TOP ],
+    //  entities: [ 0x2390, 0x284c ],
+    //  candle: 0x60,
+    //}, 
+    {
       zones: [ ZONE.RARE ],
       entities: [ 0x2464, 0x2a36 ],
       candle: 0x10,
@@ -2818,15 +2820,17 @@
       zones: [ ZONE.RTOP ],
       entities: [ 0x1ca8, 0x1f14 ],
       candle: 0x60,
-    }, {
-      zones: [ ZONE.RTOP ],
-      entities: [ 0x1cb2, 0x1f0a ],
-      candle: 0x60,
-    }, {
-      zones: [ ZONE.RTOP ],
-      entities: [ 0x1cd0, 0x1f00 ],
-      candle: 0x60,
-    }, {
+    }, 
+    //{                                        // Allocated to $700 bags - eldri7ch
+    //  zones: [ ZONE.RTOP ],
+    //  entities: [ 0x1cb2, 0x1f0a ],
+    //  candle: 0x60,
+    //}, {
+    //  zones: [ ZONE.RTOP ],
+    //  entities: [ 0x1cd0, 0x1f00 ],
+    //  candle: 0x60,
+    //}, 
+    {
       addresses: [ 0x043c3612, 0x044917e2, 0x0455cc62, 0x045e99ba, 0x0467755a, 0x048fb156, 0x049d3a26, 0x04aa1a42, 0x04b68aea, 0x04c328ee, 0x04cfbd2e, 0x04da5736, 0x04e327d2, 0x04ee32fe, 0x04f86072, 0x05050946, 0x050f8e72, 0x051ade86, 0x0526c722, 0x053f6466, 0x054b290e, 0x05573db2, 0x0560fbe2, 0x056be926, 0x0575197a, 0x057e077a, 0x05883f4a, 0x0590361a, 0x059bca06, 0x05a6ee9a, 0x05af32a6, 0x0606f0da, 0x060fdd0e, 0x061a7792, 0x0624789a, 0x0630618a, 0x063aafe2, 0x06471a0a, 0x065094be, 0x065918ba, 0x06621d0a, 0x066b4092, 0x06742eaa, 0x067d0d06, 0x06862056, 0x0692c45e, 0x069d21f2, 0x06a611d6, 0x047a3e76 ],
       enemy: GLOBAL_DROP,
     }, {
@@ -3798,11 +3802,12 @@
     name: '$1',
     type: TYPE.GOLD,
     id: 2,
-    tiles: [{
-      zones: [ ZONE.CAT ],
-      entities: [ 0x2e0a, 0x36ea ],
-      candle: 0x10,
-    }, {
+    tiles: [// {                              // The $1 room by Granfaloon; Allocated to $5000 chest - eldri7ch
+      // zones: [ ZONE.CAT ],
+      // entities: [ 0x2e0a, 0x36ea ],
+      // candle: 0x10,
+    // }, 
+    {
       zones: [ ZONE.CAT ],
       entities: [ 0x30b2, 0x397e ],
       candle: 0x20,
@@ -4930,6 +4935,27 @@
       enemy: GLOBAL_DROP,
     }],
   }, {
+    name: '$700',
+    type: TYPE.GOLD,
+    id: 8,
+    tiles: [{
+      zones: [ ZONE.TOP ],                    // Stolen from Heart; Keep - eldri7ch
+      entities: [ 0x22f0, 0x2860 ],
+      candle: 0x60,
+    }, {
+      zones: [ ZONE.TOP ],                    // Stolen from Heart; Keep - eldri7ch
+      entities: [ 0x2390, 0x284c ],
+      candle: 0x60,
+    }, {
+      zones: [ ZONE.RTOP ],                   // Stolen from Heart; Reverse Keep - eldri7ch
+      entities: [ 0x1cb2, 0x1f0a ],
+      candle: 0x60,
+    }, {
+      zones: [ ZONE.RTOP ],                   // Stolen from Heart; Reverse Keep - eldri7ch
+      entities: [ 0x1cd0, 0x1f00 ],
+      candle: 0x60,
+    }]
+  }, {
     name: '$1000',
     type: TYPE.GOLD,
     id: 9,
@@ -4963,6 +4989,15 @@
       addresses: [ 0x0b859c ],
       enemy: 50,
     }],
+  }, {
+    name: '$5000',
+    type: TYPE.GOLD,
+    id: 11,
+    tiles: [{
+      zones: [ ZONE.CAT ],                  // Stolen from $1; Catacombs Room 6 ($1 by granfaloon) - eldri7ch
+      entities: [ 0x2e0a, 0x36ea ],
+      candle: 0x10,  
+    }]
   }, {
     name: 'Dagger',
     type: TYPE.SUBWEAPON,
@@ -9300,11 +9335,6 @@
       index: 6,
       entities: [ 0x3698, 0x4518 ],
     }],
-  }, {
-    name: '$5000',
-    type: TYPE.GOLD,
-    id: 259,
-    blacklist: [ 0x0b6b3c, 0x0b6b3a ],
   }]
 
   const exports = items

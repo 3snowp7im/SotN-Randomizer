@@ -18,6 +18,12 @@
     "relic": "Spirit Orb",
     "item": "Zircon"
   }],
+  "itemLocations": [{
+    "comment": "Remove the $400 drop in entrance",
+    "zone": "NO3",
+    "item": "$400",
+    "replacement": "Karma coin"
+  }],
   "placeRelic": [{
     "location": "Jewel of Open",
     "relic": [

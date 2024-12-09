@@ -540,14 +540,35 @@
     oldStr.substring(0,index) + newStr + oldStr.substring(index + newStr.length)
   }
 
-  function enemyNumStatRand(rng,statAmt) { // a function to return a new value for a stat based on the stat's original value
-    let randomFloat // set aside for floating decimal
-    let tempAmt // temp holding space for the number to be converted
-    let newAmt // this will ultimately be our output
-    randomFloat = ((Math.floor(rng() * 175) +25)/ 100) // select a random % between 25% and 200%
-    tempAmt = Math.round(randomFloat * statAmt) // set the temp to the new value for the stat
-    newAmt = numToHex(tempAmt,4) // convert the new stat amount to hex width 4 to avoid giving large HP enemies 15k+ HP
-    return newAmt // return the resulting hex for implementation
+  function enemyNumStatRand(rng,statAmt) {                                      // a function to return a new value for a stat based on the stat's original value
+    let randomFloat                                                             // set aside for floating decimal
+    let tempAmt                                                                 // temp holding space for the number to be converted
+    let newAmt                                                                  // this will ultimately be our output
+    randomFloat = ((Math.floor(rng() * 175) +25)/ 100)                          // select a random % between 25% and 200%
+    tempAmt = Math.round(randomFloat * statAmt)                                 // set the temp to the new value for the stat
+    newAmt = numToHex(tempAmt,4)                                                // convert the new stat amount to hex width 4 to avoid giving large HP enemies 15k+ HP
+    return newAmt                                                               // return the resulting hex for implementation
+  }
+
+  function itemPriceStatRand(rng,priceAmt) {                                    // a function to return a new value for a stat based on the stat's original value
+    let randomFloat                                                             // set aside for floating decimal
+    let tempAmt                                                                 // temp holding space for the number to be converted
+    let newAmt                                                                  // this will ultimately be our output
+    randomFloat = ((Math.floor(rng() * 100) +50)/ 100)                          // select a random % between 50% and 150%
+    tempAmt = Math.round(randomFloat * priceAmt)                                // set the temp to the new value for the price
+    newAmt = numToHex(tempAmt,8)                                                // convert the new stat amount to hex width 8 to match the current format
+    return newAmt                                                               // return the resulting hex for implementation
+  }
+
+  function shuffle(rng,array) {
+    for (let i = array.length - 1; i > 0; i--) {
+      // Generate a random index from 0 to i
+      const randomIndex = Math.floor(rng() * (i + 1));                          // random based on rng from seed
+  
+      // Swap the elements at i and randomIndex
+      [array[i], array[randomIndex]] = [array[randomIndex], array[i]];
+    }
+    return array;
   }
 
   function enemyResistTypeStatRand(rng) {
@@ -2522,11 +2543,16 @@ function hexValueToDamageString(hexValue) {
           randomize.push('S')
         }
         delete options.surpriseMode
-      } else if ('enemyStatRandoMode' in options) { // Hides relics behind the same sprite - eldrich
+      } else if ('enemyStatRandoMode' in options) { // randomize enemy stats - eldrich
         if (options.enemyStatRandoMode) {
           randomize.push('E')
         }
         delete options.enemyStatRandoMode
+      } else if ('shopPriceRandoMode' in options) { // randomize shop prices - eldrich
+        if (options.shopPriceRandoMode) {
+          randomize.push('sh')
+        }
+        delete options.shopPriceRandoMode
       } else if ('debugMode' in options) { // Debug mode - eldrich
         if (options.debugMode) {
           randomize.push('D')
@@ -3760,6 +3786,7 @@ function hexValueToDamageString(hexValue) {
     unlockedMode,
     surpriseMode,
     enemyStatRandoMode,
+    shopPriceRandoMode,
     debugMode,
     writes,
   ) {
@@ -3788,6 +3815,7 @@ function hexValueToDamageString(hexValue) {
     this.unlockedMode = unlockedMode
     this.surpriseMode = surpriseMode
     this.enemyStatRandoMode = enemyStatRandoMode
+    this.shopPriceRandoMode = shopPriceRandoMode
     this.debugMode = debugMode
     if (writes) {
       this.writes = writes
@@ -3930,6 +3958,8 @@ function hexValueToDamageString(hexValue) {
     this.surprise = false
     // enemyStatRando mode.
     this.enemyStatRando = false
+    // shopPriceRando mode.
+    this.shopPriceRando = false
     // Debug mode.
     this.debug = false
     // Arbitrary writes.
@@ -4239,6 +4269,9 @@ function hexValueToDamageString(hexValue) {
     }
     if ('enemyStatRandoMode' in json) {
       builder.enemyStatRandoMode(json.enemyStatRandoMode)
+    }
+    if ('shopPriceRandoMode' in json) {
+      builder.shopPriceRandoMode(json.shopPriceRandoMode)
     }
     if ('writes' in json) {
       let lastAddress = 0
@@ -4556,6 +4589,9 @@ function hexValueToDamageString(hexValue) {
     }
     if ('enemyStatRandoMode' in preset) {
       this.enemyStatRando = preset.enemyStatRandoMode
+    }
+    if ('shopPriceRandoMode' in preset) {
+      this.shopPriceRando = preset.shopPriceRandoMode
     }
     if ('writes' in preset) {
       this.writes = this.writes || []
@@ -5269,6 +5305,11 @@ function hexValueToDamageString(hexValue) {
     this.enemyStatRando = enabled
   }
 
+  // Enable Shop Price Rando - eldri7ch
+  PresetBuilder.prototype.shopPriceRandoMode = function shopPriceRandoMode(enabled) {
+    this.shopPriceRando = enabled
+  }
+
   // Write a character.
   PresetBuilder.prototype.writeChar = function writeChar(address, value) {
     if (value !== 'random' && value !== 'random1' && value !== 'random3' && value !== 'random10' && value !== 'random99') {
@@ -5577,6 +5618,7 @@ function hexValueToDamageString(hexValue) {
     const unlocked = self.unlocked
     const surprise = self.surprise
     const enemyStatRando = self.enemyStatRando
+    const shopPriceRando = self.shopPriceRando
     const debug = self.debug
     const writes = self.writes
     return new Preset(
@@ -5605,6 +5647,7 @@ function hexValueToDamageString(hexValue) {
       unlocked,
       surprise,
       enemyStatRando,
+      shopPriceRando,
       debug,
       writes,
     )
@@ -6216,6 +6259,30 @@ function hexValueToDamageString(hexValue) {
     return data
   }
 
+  function applyShopPriceRandoPatches(rng) {
+    const shopItemsData = constants.shopItemsData
+    const data = new checked()
+    // Patch the shop prices being randomized
+    let oldItemPrice
+    let newItemPrice
+    let itemShuffArray = []
+    
+    shopItemsData.forEach(function(item) {                                      // Randomize the price to be 50% - 150% of the original price
+      oldItemPrice = item.itemPriceD                                            // pull the base decimal value of the price
+      newItemPrice = itemPriceStatRand(rng,oldItemPrice)                        // randomize the price using a function and oputput into hex
+
+      itemShuffArray.push(newItemPrice)                                         // store the new price in a temp array
+    })
+
+    itemShuffArray = shuffle(rng,itemShuffArray)                                // Randomly shuffle the list of prices
+
+    shopItemsData.forEach(function(item) {                                      // cycle through the item list and pull the last shuffled price from the tmp array and write it.
+      data.writeWord(item.priceAddress,itemShuffArray.pop())
+    })
+
+    return data
+  }
+
   function randomizeRelics(
     version,
     applied,
@@ -6735,6 +6802,7 @@ function hexValueToDamageString(hexValue) {
     applyunlockedPatches: applyunlockedPatches,
     applysurprisePatches: applysurprisePatches,
     applyenemyStatRandoPatches: applyenemyStatRandoPatches,
+    applyShopPriceRandoPatches: applyShopPriceRandoPatches,
     applyMapColor: applyMapColor,
     randomizeRelics: randomizeRelics,
     randomizeItems: randomizeItems,

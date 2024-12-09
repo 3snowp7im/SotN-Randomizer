@@ -4,7 +4,7 @@
     "name": "Lucky Sevens",
     "description": "Start with 77 all stats and 77% chance for drops. Open shortcuts and some teleporters in the second castle. Enemies have a chance to drop relics.",
     "author": "eldri7ch",
-    "weight": -5007
+    "weight": 675
   },
 
   "stats": false,

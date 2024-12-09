@@ -4,7 +4,7 @@
         "name": "First Castle",
         "description": "All relics are available in the first castle. No need to stop anywhere in second castle!",
         "author": "SacredLucy & Mottzilla",
-        "weight": -5005
+        "weight": -1150
     },
     "inherits": "open",
     "stats": false,

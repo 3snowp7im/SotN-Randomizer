@@ -1,6 +1,6 @@
 {
   "name": "SotN-Randomizer",
-  "version": "3.16.0",
+  "version": "3.16.1",
   "description": "This is a romhacking tool to randomize some things about `Castlevania: Symphony of the Night`.",
   "dependencies": {
     "colors": "^1.4.0",
@@ -57,7 +57,11 @@
     "brawler",
     "first-castle",
     "luckysevens",
-    "bingo"
+    "bingo",
+    "sightseer",
+    "cursed-night",
+    "spellbound",
+    "mobility"
   ],
   "engines": {
     "node": ">=15"

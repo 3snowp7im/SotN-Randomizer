@@ -1295,6 +1295,7 @@
       return relic
     })
     // Replace relics with items.
+    // IF YOU ARE GETTING A WEIRD LETTER CODE AND IT RETURNS THIS SECTION, REPLACE YOUR ITEM NAMES WITH THE NAMES FROM ITEMS.JS - eldri7ch
     if (relicLocations.replaced) {
       Object.getOwnPropertyNames(relicLocations.replaced).forEach(
         function(ability, index) {

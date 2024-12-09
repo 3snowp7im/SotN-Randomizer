@@ -24,9 +24,9 @@
           <img height="16" width="16"
                src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/twitch.svg"></a>
 	      , eldri7ch
-        <a class="contact" href="https://twitter.com/eldri7ch">
+        <a class="contact" href="https://bsky.app/profile/eldri7ch.bsky.social">
           <img height="16" width="16"
-               src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/twitter.svg">
+               src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/bluesky.svg">
         </a>
         <a class="contact" href="https://twitch.tv/eldri7ch">
           <img height="16" width="16"
@@ -105,7 +105,7 @@
                       <span class="tooltip-indicator">?</span>
                       <span class="tooltip hidden">
                         <span>
-                          Lower complexities generate faster but may be easier
+                          Lower complexities generate faster but may also be faster
                           to beat.
                         </span>
                       </span>
@@ -202,8 +202,11 @@
                             <span class="tooltip hidden">
                               <span>
                                 Relics and progression items may appear in
-                                place of <i>limited</i> equipment tiles or in unique
-                                locations in either castle. 69 Check locations. <span style="color: red;">*May create incompletable seeds if generated from website.</span>
+                                place of <i>limited</i> equipment tiles or 
+                                in unique locations in either castle. 69 
+                                Check locations. <span style="color: red;">*May create 
+                                incompletable seeds if generated from 
+                                website.</span>
                               </span>
                             </span>
                           </span>
@@ -299,7 +302,8 @@
                     <span class="tooltip-indicator">?</span>
                     <span class="tooltip hidden">
                       <span>
-                        Randomize various color palettes. Ex: Cape colors, gravity boots trails, hydrostorm.
+                        Randomize various color palettes. Ex: Cape colors, 
+                        gravity boots trails, hydrostorm.
                       </span>
                     </span>
                   </span>
@@ -341,7 +345,8 @@
                     <span class="tooltip-indicator">?</span>
                     <span class="tooltip hidden">
                       <span>
-                        Reduces screen flashing from use items, adjusts some relics for better visibility and patches some softlocks.
+                        Reduces screen flashing from use items, adjusts some 
+                        relics for better visibility and patches some softlocks.
                       </span>
                     </span>
                   </span>
@@ -354,7 +359,8 @@
                     <span class="tooltip-indicator">?</span>
                     <span class="tooltip hidden">
                       <span>
-                        Remove screen freezes on level-up, relic and vessel acquisition.
+                        Remove screen freezes on level-up, relic and vessel 
+                        acquisition.
                       </span>
                     </span>
                   </span>
@@ -422,7 +428,8 @@
                     <span class="tooltip-indicator">?</span>
                     <span class="tooltip hidden">
                       <span>
-                        Removes the Prologue from being required to play. <span style="color: red;">(Will remove potential prologue rewards.)</span>
+                        Removes the Prologue from being required to play. 
+                        <span style="color: red;">(Will remove potential prologue rewards.)</span>
                       </span>
                     </span>
                   </span>
@@ -439,7 +446,9 @@
                     <span class="tooltip-indicator">?</span>
                     <span class="tooltip hidden">
                       <span>
-                        Opens all five shortcuts in first castle and one in second castle. <span style="color: red;">(Will break logic for most presets.)</span>
+                        Opens all five shortcuts in first castle and one in 
+                        second castle. <span style="color: red;">(Will break logic for most 
+                        presets.)</span>
                       </span>
                     </span>
                   </span>
@@ -452,7 +461,8 @@
                     <span class="tooltip-indicator">?</span>
                     <span class="tooltip hidden">
                       <span>
-                        Replaces the subweapons in the glass vats at Alchemy Lab and Black Marble Gallery with useless turkeys.
+                        Replaces the subweapons in the glass vats at Alchemy Lab 
+                        and Black Marble Gallery with useless turkeys.
                       </span>
                     </span>
                   </span>
@@ -465,7 +475,9 @@
                     <span class="tooltip-indicator">?</span>
                     <span class="tooltip hidden">
                       <span>
-                        All relics are hidden behind the same sprite and palette. The player cannot tell what the relic is until they collect it.
+                        All relics are hidden behind the same sprite and palette. 
+                        The player cannot tell what the relic is until they 
+                        collect it.
                       </span>
                     </span>
                   </span>
@@ -482,7 +494,9 @@
                     <span class="tooltip-indicator">?</span>
                     <span class="tooltip hidden">
                       <span>
-                        Enemy stats are randomized ranging from 25% to 200% of their original value and their attack and defense types are randomized to include random elements.
+                        Enemy stats are randomized ranging from 25% to 200% of 
+                        their original value and their attack and defense types 
+                        are randomized to include random elements.
                       </span>
                     </span>
                   </span>
@@ -492,7 +506,21 @@
                 <input id="item-locations" type="checkbox">
                 <label for="item-locations">Item locations</label>
               </div>
-              <div class="pure-u-1-2"></div>
+              <div class="pure-u-1-2">
+                <input id="shopPriceRando-mode" type="checkbox">
+                <label for="shopPriceRando-mode">Shop Price Randomizer Mode
+                  <span class="tooltip-wrapper">
+                    <span class="tooltip-indicator">?</span>
+                    <span class="tooltip hidden">
+                      <span>
+                        Shop prices are randomized ranging from 50% to 150% of 
+                        their original value and they are shuffled between each 
+                        other.
+                      </span>
+                    </span>
+                  </span>
+                </label>
+              </div>
               <div class="pure-u-12-24">
                 <input id="starting-equipment" type="checkbox" disabled>
                 <label for="starting-equipment">Starting equipment</label>
@@ -547,6 +575,22 @@
       </ul>
       <hr>
       <h2><a name="changelog">Changelog</a></h2>
+      <h3><time>December 9, 2024</time></h3>
+      <ul>
+        <li>Added Dog Life Preset.</li>
+        <li>Added Cursed Night Preset.</li>
+        <li>Added Glitchmaster Preset.</li>
+        <li>Added Sight-Seer Preset.</li>
+        <li>Added new Shop Price Randomizer option.</li>
+        <li>Added four $700 bags and one $5000 chest to candle randomization.</li>
+        <li>Incorporated Enemy Stat Randomizer into Chaos Lite.</li>
+        <li>Incorporated Shop Price Randomizer into Chaos Lite.</li>
+        <li>Removed guaranteed $400 drop from Rat Race.</li>
+        <li>Fixed an error in relic placement in Forge.</li>
+        <li>Fixed an error in logic in Speedrun.</li>
+        <li>Fixed an error in logic in Adventure.</li>
+        <li>Re-re-re-re fixed Glitch logic.</li>
+      </ul>
       <h3><time>October 14, 2024</time></h3>
       <ul>
         <li>Updated First Castle Preset with a new instant teleport to Dracula.</li>
@@ -670,20 +714,20 @@
       <ul>
         <li>Add Nimble preset.</li>
       </ul>
-      <h3><time>April 2, 2022</time></h3>
-      <ul>
-        <li>Add Third Castle preset.</li>
-      </ul>
-      <h3><time>February 24, 2022</time></h3>
-      <ul>
-        <li>Fix stat randomization for club weapons.</li>
-      </ul>
-      <h3><time>January 11, 2022</time></h3>
-      <ul>
-        <li>Add Guarded O.G. preset.</li>
-      </ul>
       <a id="show-older" href="#older">Show older changes</a>
       <div id="older" class="hidden">
+        <h3><time>April 2, 2022</time></h3>
+        <ul>
+          <li>Add Third Castle preset.</li>
+        </ul>
+        <h3><time>February 24, 2022</time></h3>
+        <ul>
+          <li>Fix stat randomization for club weapons.</li>
+        </ul>
+        <h3><time>January 11, 2022</time></h3>
+        <ul>
+          <li>Add Guarded O.G. preset.</li>
+        </ul>
         <h3><time>December 26, 2021</time></h3>
         <ul>
           <li>Add Spread relic locations extension.</li>
@@ -1062,6 +1106,12 @@
     <script src="build/presets/open.js"></script>
     <script src="build/presets/first-castle.js"></script>
     <script src="build/presets/luckysevens.js"></script>
+    <script src="build/presets/sight-seer.js"></script>
+    <script src="build/presets/cursed-night.js"></script>
+    <script src="build/presets/glitchmaster.js"></script>
+    <script src="build/presets/mobility.js"></script>
+    <script src="build/presets/spellbound.js"></script>
+    <script src="build/presets/dog-life.js"></script>
     <script src="build/presets/index.js"></script>
     <script src="src/worker.js"></script>
     <script src="src/browser.js"></script>
