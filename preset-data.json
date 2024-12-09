@@ -1,8 +1,8 @@
 [
   {
-    "name": "Spellbound",
-    "id": "spellbound",
-    "description": "Safe logic, spells are locked by Familiar Cards.",
-    "author": "Mottzilla and JupiterClimb"
+    "name": "Adventure",
+    "id": "adventure",
+    "description": "Relics can appear in most equipment locations from the original game.",
+    "author": "3snow_p7im"
   }
 ]

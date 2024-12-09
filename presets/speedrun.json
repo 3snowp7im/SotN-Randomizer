@@ -612,6 +612,14 @@
       "Leap Stone",
       "Thrust sword",
       "Gravity Boots"
+    ],
+    "escapeRequires": [
+      "Soul of Bat",
+      "Leap Stone",
+      "Gravity Boots",
+      "Thrust sword + Form of Mist",
+      "Form of Mist + Power of Mist",
+      "Thrust sword + Soul of wolf"
     ]
   }, {
     "location": "Alucart sword",
