@@ -188,14 +188,6 @@ fieldset {
     width: 100%;
 }
 
-#preset-author {
-    position: absolute;
-    bottom: 3px;
-    right: 5px;
-    font-size: small;
-    color: #999;
-}
-
 fieldset > div > div > label:first-child {
     margin-left: 2.6em;
 }
@@ -371,15 +363,6 @@ body.menu {
     width: 280px;
     padding: 20px;
     display: block;
-}
-
-.menu #preset-author {
-    position: absolute;
-    display: block;
-    width: 310px;
-    right: auto;
-    left: 0;
-    text-align: right;
 }
 
 .menu fieldset {
