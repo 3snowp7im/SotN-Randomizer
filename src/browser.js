@@ -146,39 +146,40 @@
   }
 
   function presetChange(event) {                                                    //Disables options if presets is checked.
-    localStorage.setItem('preset', elems.preset.checked)
-    if (elems.preset.checked) {
-      elems.presetSelect.classList.remove('hide')
-      elems.complexity.disabled = true
-      //elems.enemyDrops.disabled = true
-      //elems.startingEquipment.disabled = true
-      //elems.itemLocations.disabled = true
-      //elems.prologueRewards.disabled = true
-      elems.relicLocations.disabled = true
-      elems.relicLocationsSet.disabled = true
-      //elems.stats.disabled = true
-      //elems.music.disabled = true
-      //elems.turkeyMode.disabled = true
-      presetIdChange()
-      elems.options.classList.add('hide')
-    } else {
-      elems.presetSelect.classList.add('hide')
-      elems.complexity.disabled = false
-      //elems.enemyDrops.disabled = false
-      //elems.startingEquipment.disabled = false
-      //elems.itemLocations.disabled = false
-      //elems.prologueRewards.disabled = false
-      elems.relicLocations.disabled = false
-      elems.relicLocationsSet.disabled = !elems.relicLocations.checked
-      //elems.stats.disabled = false
-      //elems.music.disabled = false
-      //elems.turkeyMode.disabled = false
-      elems.options.classList.remove('hidden')
-      elems.options.classList.remove('hide')
-    }
-    if (event) {
-      elems.options.classList.add('animate')
-    }
+    // localStorage.setItem('preset', elems.preset.checked)
+    presetIdChange()
+
+    // if (elems.preset.checked) {
+    //   elems.presetSelect.classList.remove('hide')
+    //   elems.complexity.disabled = true
+    //   //elems.enemyDrops.disabled = true
+    //   //elems.startingEquipment.disabled = true
+    //   //elems.itemLocations.disabled = true
+    //   //elems.prologueRewards.disabled = true
+    //   elems.relicLocations.disabled = true
+    //   elems.relicLocationsSet.disabled = true
+    //   //elems.stats.disabled = true
+    //   //elems.music.disabled = true
+    //   //elems.turkeyMode.disabled = true
+    //   elems.options.classList.add('hide')
+    // } else {
+    //   elems.presetSelect.classList.add('hide')
+    //   elems.complexity.disabled = false
+    //   //elems.enemyDrops.disabled = false
+    //   //elems.startingEquipment.disabled = false
+    //   //elems.itemLocations.disabled = false
+    //   //elems.prologueRewards.disabled = false
+    //   elems.relicLocations.disabled = false
+    //   elems.relicLocationsSet.disabled = !elems.relicLocations.checked
+    //   //elems.stats.disabled = false
+    //   //elems.music.disabled = false
+    //   //elems.turkeyMode.disabled = false
+    //   elems.options.classList.remove('hidden')
+    //   elems.options.classList.remove('hide')
+    // }
+    // if (event) {
+    //   elems.options.classList.add('animate')
+    // }
   }
 
   function presetIdChange() {                                                     //auto checks modes and options that presets use
@@ -189,62 +190,62 @@
     elems.presetDescription.innerText = preset.description                        //
     elems.presetAuthor.innerText = 'by ' + preset.author                          //  
     localStorage.setItem('presetId', preset.id)                                   //  
-    if (elems.preset.checked) {                                                   //
-      const options = preset.options()                                            //
-      let complexity = 1                                                          //
-      Object.getOwnPropertyNames(options.relicLocations).forEach(                 //  
-        function(key) {                                                           //
-          if (/^[0-9]+(-[0-9]+)?/.test(key)) {                                    //  
-            complexity = key.split('-').shift()                                 
-          }
+    // if (elems.preset.checked) {                                                   //
+    // }
+    const options = preset.options()                                            //
+    let complexity = 1                                                          //
+    Object.getOwnPropertyNames(options.relicLocations).forEach(                 //  
+      function(key) {                                                           //
+        if (/^[0-9]+(-[0-9]+)?/.test(key)) {                                    //  
+          complexity = key.split('-').shift()                                 
         }
-      )
-      relicLocationsExtensionCache = options.relicLocations
-        && options.relicLocations.extension
-      adjustMaxComplexity()
-      elems.complexity.value = complexity
-      elems.enemyDrops.checked = !!options.enemyDrops
-      elems.enemyDrops.disabled = options.enemyDrops != null && typeof(options.enemyDrops) == 'object'
-      elems.startingEquipment.checked = !!options.startingEquipment
-      elems.startingEquipment.disabled = options.startingEquipment != null && typeof(options.startingEquipment) == 'object'
-      elems.itemLocations.checked = !!options.itemLocations
-      elems.itemLocations.disabled = options.itemLocations != null && typeof(options.itemLocations) == 'object'
-      elems.prologueRewards.checked = !!options.prologueRewards
-      elems.prologueRewards.disabled = options.prologueRewards != null && typeof(options.startingEquipment) == 'object'
-      elems.relicLocations.checked = !!options.relicLocations
-      elems.relicLocationsExtension.guarded.checked =
-        options.relicLocations
-        && options.relicLocations.extension === constants.EXTENSION.GUARDED
-      elems.relicLocationsExtension.spread.checked =
-        options.relicLocations
-        && options.relicLocations.extension === constants.EXTENSION.SPREAD
-      elems.relicLocationsExtension.equipment.checked =
-        options.relicLocations
-        && options.relicLocations.extension === constants.EXTENSION.EQUIPMENT
-      elems.relicLocationsExtension.tourist.checked =
-        options.relicLocations
-        && options.relicLocations.extension === constants.EXTENSION.TOURIST
-      elems.relicLocationsExtension.wanderer.checked =
-        options.relicLocations
-        && options.relicLocations.extension === constants.EXTENSION.WANDERER
-      elems.relicLocationsExtension.classic.checked =
-        options.relicLocations
-        && !options.relicLocations.extension
-      elems.stats.checked = !!options.stats
-      elems.music.checked = !!options.music
-      elems.turkeyMode.checked = !!options.turkeyMode
-      elems.magicmaxMode.checked = !!options.magicmaxMode
-      elems.colorrandoMode.checked = !!options.colorrandoMode
-      elems.antiFreezeMode.checked = !!options.antiFreezeMode
-      elems.mypurseMode.checked = !!options.mypurseMode
-      elems.iwsMode.checked = !!options.iwsMode
-      elems.fastwarpMode.checked = !!options.fastwarpMode
-      elems.noprologueMode.checked = !!options.noprologueMode
-      elems.unlockedMode.checked = !!options.unlockedMode
-      elems.surpriseMode.checked = !!options.surpriseMode
-      elems.enemyStatRandoMode.checked = !!options.enemyStatRandoMode
-      elems.shopPriceRandoMode.checked = !!options.shopPriceRandoMode
-    }
+      }
+    )
+    relicLocationsExtensionCache = options.relicLocations
+      && options.relicLocations.extension
+    adjustMaxComplexity()
+    elems.complexity.value = complexity
+    elems.enemyDrops.checked = !!options.enemyDrops
+    elems.enemyDrops.disabled = options.enemyDrops != null && typeof(options.enemyDrops) == 'object'
+    elems.startingEquipment.checked = !!options.startingEquipment
+    elems.startingEquipment.disabled = options.startingEquipment != null && typeof(options.startingEquipment) == 'object'
+    elems.itemLocations.checked = !!options.itemLocations
+    elems.itemLocations.disabled = options.itemLocations != null && typeof(options.itemLocations) == 'object'
+    elems.prologueRewards.checked = !!options.prologueRewards
+    elems.prologueRewards.disabled = options.prologueRewards != null && typeof(options.startingEquipment) == 'object'
+    elems.relicLocations.checked = !!options.relicLocations
+    elems.relicLocationsExtension.guarded.checked =
+      options.relicLocations
+      && options.relicLocations.extension === constants.EXTENSION.GUARDED
+    elems.relicLocationsExtension.spread.checked =
+      options.relicLocations
+      && options.relicLocations.extension === constants.EXTENSION.SPREAD
+    elems.relicLocationsExtension.equipment.checked =
+      options.relicLocations
+      && options.relicLocations.extension === constants.EXTENSION.EQUIPMENT
+    elems.relicLocationsExtension.tourist.checked =
+      options.relicLocations
+      && options.relicLocations.extension === constants.EXTENSION.TOURIST
+    elems.relicLocationsExtension.wanderer.checked =
+      options.relicLocations
+      && options.relicLocations.extension === constants.EXTENSION.WANDERER
+    elems.relicLocationsExtension.classic.checked =
+      options.relicLocations
+      && !options.relicLocations.extension
+    elems.stats.checked = !!options.stats
+    elems.music.checked = !!options.music
+    elems.turkeyMode.checked = !!options.turkeyMode
+    elems.magicmaxMode.checked = !!options.magicmaxMode
+    elems.colorrandoMode.checked = !!options.colorrandoMode
+    elems.antiFreezeMode.checked = !!options.antiFreezeMode
+    elems.mypurseMode.checked = !!options.mypurseMode
+    elems.iwsMode.checked = !!options.iwsMode
+    elems.fastwarpMode.checked = !!options.fastwarpMode
+    elems.noprologueMode.checked = !!options.noprologueMode
+    elems.unlockedMode.checked = !!options.unlockedMode
+    elems.surpriseMode.checked = !!options.surpriseMode
+    elems.enemyStatRandoMode.checked = !!options.enemyStatRandoMode
+    elems.shopPriceRandoMode.checked = !!options.shopPriceRandoMode
   }
 
   function complexityChange() {
@@ -509,7 +510,10 @@
   }
 
   function getFormRelicLocations() {
-    if (!elems.preset.checked && !elems.relicLocations.checked) {
+    // if (!elems.preset.checked && !elems.relicLocations.checked) {
+    //   return false
+    // }
+    if (!elems.relicLocations.checked) {
       return false
     }
     // Get safe relic locations.
@@ -566,48 +570,48 @@
   }
 
   function getFormOptions() {
-    if (elems.preset.checked) {
-      const options = {
-        preset: presets[elems.presetId.selectedIndex].id
-      }
-      if (elems.tournamentMode.checked) {
-        options.tournamentMode = true
-      }
-      if (elems.colorrandoMode.checked) {
-        options.colorrandoMode = true
-      }
-      if (elems.magicmaxMode.checked) {
-        options.magicmaxMode = true
-      }
-      if (elems.antiFreezeMode.checked) {
-        options.antiFreezeMode = true
-      }
-      if (elems.mypurseMode.checked) {
-        options.mypurseMode = true
-      }
-      if (elems.iwsMode.checked) {
-        options.iwsMode = true
-      }
-      if (elems.fastwarpMode.checked) {
-        options.fastwarpMode = true
-      }
-      if (elems.noprologueMode.checked) {
-        options.noprologueMode = true
-      }
-      if (elems.unlockedMode.checked) {
-        options.unlockedMode = true
-      }
-      if (elems.surpriseMode.checked) {
-        options.surpriseMode = true
-      }
-      if (elems.enemyStatRandoMode.checked) {
-        options.enemyStatRandoMode = true
-      }
-      if (elems.shopPriceRandoMode.checked) {
-        options.shopPriceRandoMode = true
-      }
-      return options
-    }
+    // if (elems.preset.checked) {
+    //   const options = {
+    //     preset: presets[elems.presetId.selectedIndex].id
+    //   }
+    //   if (elems.tournamentMode.checked) {
+    //     options.tournamentMode = true
+    //   }
+    //   if (elems.colorrandoMode.checked) {
+    //     options.colorrandoMode = true
+    //   }
+    //   if (elems.magicmaxMode.checked) {
+    //     options.magicmaxMode = true
+    //   }
+    //   if (elems.antiFreezeMode.checked) {
+    //     options.antiFreezeMode = true
+    //   }
+    //   if (elems.mypurseMode.checked) {
+    //     options.mypurseMode = true
+    //   }
+    //   if (elems.iwsMode.checked) {
+    //     options.iwsMode = true
+    //   }
+    //   if (elems.fastwarpMode.checked) {
+    //     options.fastwarpMode = true
+    //   }
+    //   if (elems.noprologueMode.checked) {
+    //     options.noprologueMode = true
+    //   }
+    //   if (elems.unlockedMode.checked) {
+    //     options.unlockedMode = true
+    //   }
+    //   if (elems.surpriseMode.checked) {
+    //     options.surpriseMode = true
+    //   }
+    //   if (elems.enemyStatRandoMode.checked) {
+    //     options.enemyStatRandoMode = true
+    //   }
+    //   if (elems.shopPriceRandoMode.checked) {
+    //     options.shopPriceRandoMode = true
+    //   }
+    //   return options
+    // }
     const options = {
       enemyDrops: elems.enemyDrops.checked,
       startingEquipment: elems.startingEquipment.checked,
@@ -702,13 +706,15 @@
 
   function submitListener(event) {
     // Get seed.
-    let selectedPreset = null
-    if(elems.preset.checked) {
-      selectedPreset = elems.presetId.childNodes[elems.presetId.selectedIndex].value
-      self.sotnRando.selectedPreset = selectedPreset
-    }else{
-      self.sotnRando.selectedPreset = null
-    }
+    // let selectedPreset = null
+    // if(elems.preset.checked) {
+    //   selectedPreset = elems.presetId.childNodes[elems.presetId.selectedIndex].value
+    //   self.sotnRando.selectedPreset = selectedPreset
+    // }else{
+    //   self.sotnRando.selectedPreset = null
+    // }
+    const selectedPreset = elems.presetId.childNodes[elems.presetId.selectedIndex].value;
+    self.sotnRando.selectedPreset = selectedPreset
 
     event.preventDefault()
     event.stopPropagation()
@@ -785,11 +791,14 @@
       const newNames = result.newNames
       check.apply(result.data)
       // Randomize relics.
-      let selectedPreset = null
-      if(elems.preset.checked) {
-        selectedPreset = elems.presetId.childNodes[elems.presetId.selectedIndex].value
-        util.selectedPreset = selectedPreset
-      }
+      // let selectedPreset = null
+      // if(elems.preset.checked) {
+      //   selectedPreset = elems.presetId.childNodes[elems.presetId.selectedIndex].value
+      //   util.selectedPreset = selectedPreset
+      // }
+      const selectedPreset = elems.presetId.childNodes[elems.presetId.selectedIndex].value;
+      util.selectedPreset = selectedPreset;
+
       return util.randomizeRelics(
         version,
         applied,
@@ -966,7 +975,7 @@
     event.stopPropagation()
     elems.seed.value = ''
     elems.seed.disabled = false
-    elems.preset.disabled = false
+    // elems.preset.disabled = false
     elems.presetId.disabled = false
     elems.enemyDrops.disabled = false
     elems.enemyDropsArg.value = ''
@@ -994,7 +1003,8 @@
     elems.shopPriceRandoMode.disabled = false
     elems.tournamentMode.disabled = false
     elems.clear.classList.add('hidden')
-    presetChange()
+    // presetChange()
+    presetIdChange();
   }
 
   let animationDone = true
@@ -1088,7 +1098,7 @@
     form: document.getElementById('form'),
     randomize: document.getElementById('randomize'),
     seed: document.getElementById('seed'),
-    preset: document.getElementById('preset'),
+    // preset: document.getElementById('preset'),
     presetSelect: document.getElementById('preset-select'),
     presetId: document.getElementById('preset-id'),
     presetDescription: document.getElementById('preset-description'),
@@ -1153,7 +1163,7 @@
   elems.file.addEventListener('change', fileChange)
   elems.form.addEventListener('submit', submitListener)
   elems.seed.addEventListener('change', seedChange)
-  elems.preset.addEventListener('change', presetChange)
+  // elems.preset.addEventListener('change', presetChange)
   elems.presetId.addEventListener('change', presetIdChange)
   elems.complexity.addEventListener('change', complexityChange)
   elems.enemyDrops.addEventListener('change', enemyDropsChange)
@@ -1279,7 +1289,7 @@
       elems.seed.disabled = true
     }
     if (options.preset) {
-      elems.preset.checked = true
+      // elems.preset.checked = true
       let index = 0
       for (let i = 0; i < presets.length; i++) {
         if (presets[i].id === options.preset) {
@@ -1292,10 +1302,11 @@
       }
       presetIdChange()
     } else {
-      elems.preset.checked = false
+      // elems.preset.checked = false
       elems.presetId.selectedIndex = 0
     }
-    presetChange()
+    // presetChange()
+    presetIdChange();
     if (options.tournamentMode) {
       elems.tournamentMode.checked = true
     } else {
@@ -1405,7 +1416,7 @@
     musicChange()
     elems.turkeyMode.checked = applied.turkeyMode
     turkeyModeChange()
-    elems.preset.disabled = true
+    // elems.preset.disabled = true
     elems.presetId.disabled = true
     elems.complexity.disabled = true
     elems.enemyDrops.disabled = true
@@ -1474,7 +1485,7 @@
       }
     }
     presetIdChange()
-    loadOption('preset', presetChange, true)
+    // loadOption('preset', presetChange, true)
   }
   let path = url.pathname
   if (path.match(/index\.html$/)) {
