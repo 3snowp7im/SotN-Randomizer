@@ -1013,6 +1013,244 @@
     }
   ]
 
+  const startRoomData = [                                                       // Data provided for starting room randomizer
+    {
+      id: 1,
+      comment: "Bottom of Forbidden Route",
+      stage: 0x00,                                                                 //Marble Gallery
+      room: 0,
+      xPos: 48,
+      yPos: 644,
+      xyWrite: 0x30008402,
+      roomStageWrite: 0x00410000
+    }, {
+      id: 2,
+      comment: "Top of Spirit Orb room",
+      stage: 0x00,                                                                 //Marble Gallery
+      room: 2,
+      xPos: 332,
+      yPos: 244,
+      xyWrite: 0x4C01F400,
+      roomStageWrite: 0x10410000
+    }, {
+      id: 3,
+      comment: "Same room but across from Telescope",
+      stage: 0x01,                                                                 //Outer Wall
+      room: 3,
+      xPos: 724,
+      yPos: 164,
+      xyWrite: 0xD402A400,
+      roomStageWrite: 0x18410100
+    }, {
+      id: 4,
+      comment: "Gladius room",
+      stage: 0x01,                                                                 //Outer Wall
+      room: 12,
+      xPos: 128,
+      yPos: 164,
+      xyWrite: 0x8000A400,
+      roomStageWrite: 0x60410100
+    }, {
+      id: 5,
+      comment: "Bookshelf room",
+      stage: 0x02,                                                                 //Long Library
+      room: 1,
+      xPos: 88,
+      yPos: 148,
+      xyWrite: 0x58009400,
+      roomStageWrite: 0x08410200
+    }, {
+      id: 6,
+      comment: "Faerie Card room",
+      stage: 0x02,                                                                 //Long Library
+      room: 7,
+      xPos: 208,
+      yPos: 148,
+      xyWrite: 0xD0009400,
+      roomStageWrite: 0x38410200
+    }, {
+      id: 7,
+      comment: "One-dollar room",
+      stage: 0x03,                                                                 //Catacombs
+      room: 5,
+      xPos: 100,
+      yPos: 164,
+      xyWrite: 0x6400A400,
+      roomStageWrite: 0x28410300
+    }, {
+      id: 8,
+      comment: "Elevator in Slime room",
+      stage: 0x03,                                                                 //Catacombs
+      room: 23,
+      xPos: 352,
+      yPos: 228,
+      xyWrite: 0x6001E400,
+      roomStageWrite: 0xB8410300
+    }, {
+      id: 9,
+      comment: "Top left of Spectral Sword room",
+      stage: 0x04,                                                                 //Olrox's Quarters
+      room: 2,
+      xPos: 48,
+      yPos: 132,
+      xyWrite: 0x30008400,
+      roomStageWrite: 0x10410400
+    }, {
+      id: 10,
+      comment: "Olrox Garnet room",
+      stage: 0x04,                                                                 //Olrox's Quarters
+      room: 10,
+      xPos: 128,
+      yPos: 164,
+      xyWrite: 0x8000A400,
+      roomStageWrite: 0x50410400
+    }, {
+      id: 11,
+      comment: "Room before Cerberus",
+      stage: 0x05,                                                                 //Abandoned Mine
+      room: 1,
+      xPos: 254,
+      yPos: 148,
+      xyWrite: 0xFE009400,
+      roomStageWrite: 0x08410500
+    }, {
+      id: 12,
+      comment: "Combat Knife room",
+      stage: 0x05,                                                                 //Abandoned Mine
+      room: 9,
+      xPos: 208,
+      yPos: 148,
+      xyWrite: 0xD0009400,
+      roomStageWrite: 0x48410500
+    }, {
+      id: 13,
+      comment: "Bottom of the Stairs",
+      stage: 0x06,                                                                 //Royal Chapel
+      room: 11,
+      xPos: 208,
+      yPos: 1700,
+      xyWrite: 0xD000A406,
+      roomStageWrite: 0x58410600
+    }, {
+      id: 14,
+      comment: "Top of the tower closest to Keep",
+      stage: 0x06,                                                                 //Royal Chapel
+      room: 17,
+      xPos: 510,
+      yPos: 228,
+      xyWrite: 0xFE01E400,
+      roomStageWrite: 0x88410600
+    }, {
+      id: 15,
+      comment: "Holy Mail ledge",
+      stage: 0x07,                                                                 //Castle Entrance
+      room: 3,
+      xPos: 110,
+      yPos: 72,
+      xyWrite: 0x6E004800,
+      roomStageWrite: 0x18410700
+    }, {
+      id: 16,
+      comment: "On the Teleporter shortcut switch",
+      stage: 0x07,                                                                 //Castle Entrance
+      room: 16,
+      xPos: 104,
+      yPos: 160,
+      xyWrite: 0x6800A000,
+      roomStageWrite: 0x80410700
+    }, {
+      id: 17,
+      comment: "Drawer room",
+      stage: 0x09,                                                                 //Underground Caverns
+      room: 4,
+      xPos: 224,
+      yPos: 148,
+      xyWrite: 0xE0009400,
+      roomStageWrite: 0x20410900
+    }, {
+      id: 18,
+      comment: "Merman Statue room",
+      stage: 0x09,                                                                 //Underground Caverns
+      room: 21,
+      xPos: 208,
+      yPos: 132,
+      xyWrite: 0xD0008400,
+      roomStageWrite: 0xA8410900
+    }, {
+      id: 19,
+      comment: "Blood cloak room",
+      stage: 0x0a,                                                                 //Colosseum
+      room: 10,
+      xPos: 54,
+      yPos: 164,
+      xyWrite: 0x3600A400,
+      roomStageWrite: 0x50410A00
+    }, {
+      id: 20,
+      comment: "Holy sword room",
+      stage: 0x0a,                                                                 //Colosseum
+      room: 0,
+      xPos: 96,
+      yPos: 180,
+      xyWrite: 0x6000B400,
+      roomStageWrite: 0x00410A00
+    }, {
+      id: 21,
+      comment: "Fachion room",
+      stage: 0x0b,                                                                 //Castle Keep
+      room: 5,
+      xPos: 100,
+      yPos: 164,
+      xyWrite: 0x6400A400,
+      roomStageWrite: 0x28410B00
+    }, {
+      id: 22,
+      comment: "Tyrfing room",
+      stage: 0x0b,                                                                 //Castle Keep
+      room: 8,
+      xPos: 156,
+      yPos: 164,
+      xyWrite: 0x9C00A400,
+      roomStageWrite: 0x40410B00
+    }, {
+      id: 23,
+      comment: "Cloth cape room",
+      stage: 0x0c,                                                                 //Alchemy Laboratory
+      room: 5,
+      xPos: 128,
+      yPos: 164,
+      xyWrite: 0x8000A400,
+      roomStageWrite: 0x28410C00
+    }, {
+      id: 24,
+      comment: "Skill of Wolf room",
+      stage: 0x0c,                                                                 //Alchemy Laboratory
+      room: 8,
+      xPos: 208,
+      yPos: 132,
+      xyWrite: 0xD0008400,
+      roomStageWrite: 0x40410C00
+    }, {
+      id: 25,
+      comment: "Middle of the maze room with pendulums",
+      stage: 0x0d,                                                                 //Clock Tower
+      room: 3,
+      xPos: 1090,
+      yPos: 84,
+      xyWrite: 0x42045400,
+      roomStageWrite: 0x18410D00
+    }, {
+      id: 26,
+      comment: "Fire of Bat ledge in large room",
+      stage: 0x0d,                                                                 //Clock Tower
+      room: 10,
+      xPos: 1456,
+      yPos: 132,
+      xyWrite: 0xB0058400,
+      roomStageWrite: 0x50410D00
+    } 
+  ]
+
   const adjectivesNormal = [
     "Invincible",
     "Burning",
@@ -1854,6 +2092,7 @@
     faerieScrollForceAddresses: faerieScrollForceAddresses,
     characterMap: characterMap,
     shopItemsData: shopItemsData,
+    startRoomData: startRoomData,
     digest: digest,
     adjectivesNormal: adjectivesNormal,
     adjectivesHalloween: adjectivesHalloween,

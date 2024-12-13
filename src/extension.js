@@ -181,39 +181,6 @@
     // Change Entity to Refer to Table.
     data.writeShort(0x4c34fae, index)
   }
-
-  function replaceReverseAlucartSwordWithRelic(data, blackMarbleVat, relic) {
-    // Regular zone patches.
-    const zone = constants.zones[constants.ZONE.RNO0]
-    // Change Entity Position.
-    // data.writeWord(0x4f8987a, 0x00a300a0)
-    // data.writeWord(0x4f8ab3a, 0x00a300a0)
-    // Replace entities.
-    blackMarbleVat.entity.entities.forEach(function(entity) {
-      let addr = util().romOffset(zone, entity + 0x04)
-      addr = data.writeShort(addr, 0x000b)
-      addr = data.writeShort(addr, 0x0010)
-      addr = data.writeShort(addr, relic.relicId)
-    })
-  }
-
-  function replaceReverseAlucartSwordWithItem(data, blackMarbleVat, item, index) {
-    // Regular zone patches.
-    const zone = constants.zones[constants.ZONE.RNO0]
-    // Change Entity Position.
-    // data.writeWord(0x4f8987a, 0x00a300a0)
-    // data.writeWord(0x4f8ab3a, 0x00a300a0)
-    // Replace entities.
-    blackMarbleVat.entity.entities.forEach(function(entity) {
-      let addr = util().romOffset(zone, entity + 0x04)
-      addr = data.writeShort(addr, 0x000c)
-      addr = data.writeShort(addr, 0x0010)
-      addr = data.writeShort(addr, item.relicId)
-    })
-    // Change Entity to Refer to Table.
-    data.writeShort(0x4f89883, index)
-    data.writeShort(0x4f8ab43, index)
-  }
   
   const locations = [{
     name: LOCATION.CRYSTAL_CLOAK,

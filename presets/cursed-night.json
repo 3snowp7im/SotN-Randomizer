@@ -4,7 +4,7 @@
     "name": "Cursed Night",
     "description": "A horrible night to have a curse.",
     "author": "Bob Sagget & Forat Negre",
-    "weight": -5004
+    "weight": -900
   },
 
   "inherits": "safe",
@@ -64,16 +64,6 @@
     "comment": "Force a Subweapon at Cube of Zoe",
     "location": "Cube of Zoe",
     "relic": ["Ax", "Bi", "Rs", "Vb", "Ag"]
-  }, {
-    "comment": "Force damage relic at Shop",
-    "location": "Jewel of Open",
-    "relic": [
-      "Soul of Bat",
-      "Fire of Bat",
-      "Soul of Wolf",
-      "Power of Wolf",
-      "Skill of Wolf"
-    ]
   }],
 
   "replaceRelic": [{
@@ -103,7 +93,6 @@
       "Sunstone",
       "Dagger",
       "Axe",
-      "Dagger",
       "Cross",
       "Holy Water",
       "Stopwatch",
@@ -123,7 +112,6 @@
       "Sunstone",
       "Dagger",
       "Axe",
-      "Dagger",
       "Cross",
       "Holy Water",
       "Stopwatch",
@@ -145,10 +133,7 @@
     "item": null
   }, {
     "slot": "Head",
-    "item": [
-      "Stone mask",
-      "Wizard hat"
-    ]
+    "item": "Wizard hat"
   }, {
     "slot": "Body",
     "item": "Brilliant mail"
@@ -157,10 +142,7 @@
     "item": "Blood cloak"
   }, {
     "slot": "Other",
-    "item": [
-      "Heart broach",
-      "Nauglamir"
-    ]
+    "item": "Nauglamir"
   }],
 
   "itemLocations": [{
@@ -168,6 +150,16 @@
     "zone": "NO1",
     "item": "Gladius",
     "replacement": "Goddess shield"
+  }, {
+    "comment": "Place Heart pendant at Faerie Card",
+    "zone": "LIB",
+    "item": "Potion",
+    "replacement": "Bloodstone"
+  }, {
+    "comment": "Place Heart Refresh at Faerie Card",
+    "zone": "LIB",
+    "item": "Antivenom",
+    "replacement": "Heart Refresh"
   }],
 
   "lockLocation": [{
@@ -206,6 +198,10 @@
     "locks": [],
     "block": ["Force of Echo"]
   }, {
+    "location": "Jewel of Open",
+    "locks": [],
+    "block": ["Force of Echo"]
+  }, {
     "location": "Spirit Orb",
     "locks": [],
     "block": ["Force of Echo"]
@@ -220,7 +216,8 @@
       "Soul of Bat",
       "Gravity Boots",
       "Form of Mist + Power of Mist"
-    ]
+    ],
+    "block": ["Force of Echo"]
   }, {
     "location": "Skill of Wolf",
     "comment": "Requires at least Gravity Boots",
@@ -286,7 +283,8 @@
       "Gravity Boots",
       "Soul of Bat",
       "Form of Mist + Power of Mist"
-    ]
+    ],
+    "block": ["Force of Echo"]
   }, {
     "location": "Ghost Card",
     "comment": "Requires flight",
@@ -294,7 +292,8 @@
       "Soul of Bat",
       "Gravity Boots",
       "Form of Mist + Power of Mist"
-    ]
+    ],
+    "block": ["Force of Echo"]
   }, {
     "location": "Faerie Card",
     "comment": "Requires at least Gravity Boots",
@@ -308,7 +307,8 @@
     "comment": "Requires Jewel of Open + at least Leap Stone",
     "locks": [
       "Jewel of Open"
-    ]
+    ],
+    "block": ["Force of Echo"]
   }, {
     "location": "Sword Card",
     "comment": "Requires flight",
@@ -316,7 +316,8 @@
       "Soul of Bat",
       "Gravity Boots",
       "Form of Mist + Power of Mist"
-    ]
+    ],
+    "block": ["Force of Echo"]
   }, {
     "location": "Heart of Vlad",
     "comment": "In second castle",
@@ -939,8 +940,7 @@
       "Soul of Bat",
       "Gravity Boots",
       "Form of Mist + Power of Mist"
-    ],
-    "block": ["Force of Echo"]
+    ]
   }, {
     "location": "Echo of Bat",
     "comment": "Requires flight + a transformation",
@@ -965,8 +965,7 @@
       "Soul of Bat",
       "Gravity Boots",
       "Form of Mist + Power of Mist"
-    ],
-    "block": ["Force of Echo"]
+    ]
   }, {
     "location": "Skill of Wolf",
     "comment": "Requires at least Gravity Boots",
@@ -978,8 +977,7 @@
   }, {
     "location": "Form of Mist",
     "comment": "Requires at least Leap Stone or a transformation",
-    "locks": [],
-    "block": ["Force of Echo"]
+    "locks": []
   }, {
     "location": "Power of Mist",
     "comment": "Requires flight",
@@ -987,8 +985,7 @@
       "Soul of Bat",
       "Gravity Boots",
       "Form of Mist + Power of Mist"
-    ],
-    "block": ["Force of Echo"]
+    ]
   }, {
     "location": "Gas Cloud",
     "comment": "In second castle",
@@ -1016,8 +1013,7 @@
     "comment": "Requires Jewel of Open",
     "locks": [
       "Jewel of Open"
-    ],
-    "block": ["Force of Echo"]
+    ]
   }, {
     "location": "Bat Card",
     "comment": "Requires at least Gravity Boots",
@@ -1025,8 +1021,7 @@
       "Gravity Boots",
       "Soul of Bat",
       "Form of Mist + Power of Mist"
-    ],
-    "block": ["Force of Echo"]
+    ]
   }, {
     "location": "Ghost Card",
     "comment": "Requires flight",
@@ -1034,20 +1029,17 @@
       "Soul of Bat",
       "Gravity Boots",
       "Form of Mist + Power of Mist"
-    ],
-    "block": ["Force of Echo"]
+    ]
   }, {
     "location": "Faerie Card",
     "comment": "Requires at least Gravity Boots",
-    "locks": [],
-    "block": ["Force of Echo"]
+    "locks": []
   }, {
     "location": "Demon Card",
     "comment": "Requires Jewel of Open + at least Leap Stone",
     "locks": [
       "Jewel of Open"
-    ],
-    "block": ["Force of Echo"]
+    ]
   }, {
     "location": "Sword Card",
     "comment": "Requires flight",
@@ -1055,8 +1047,7 @@
       "Soul of Bat",
       "Gravity Boots",
       "Form of Mist + Power of Mist"
-    ],
-    "block": ["Force of Echo"]
+    ]
   }, {
     "location": "Heart of Vlad",
     "comment": "In second castle",
@@ -1137,15 +1128,13 @@
     "comment": "Requires Jewel of Open",
     "locks": [
       "Jewel of Open"
-    ],
-    "block": ["Force of Echo"]
+    ]
   }, {
     "location": "Mormegil",
     "comment": "Requires Jewel of Open + at least Leap Stone",
     "locks": [
       "Jewel of Open"
-    ],
-    "block": ["Force of Echo"]
+    ]
   }, {
     "location": "Dark Blade",
     "comment": "In second castle",
@@ -1844,19 +1833,7 @@
     "value": "0x30420001"
   }, {
     "type": "word",
-    "value": "0x10400007"
-  }, {
-    "type": "word",
-    "value": "0x00000000"
-  }, {
-    "type": "word",
-    "value": "0x0C04DA40"
-  }, {
-    "type": "word",
-    "value": "0x00000000"
-  }, {
-    "type": "word",
-    "value": "0x14400003"
+    "value": "0x10400003"
   }, {
     "type": "word",
     "value": "0x00000000"
@@ -1924,7 +1901,7 @@
     "value": "0x00000000"
   }, {
     "type": "word",
-    "value": "0x0804D94C"
+    "value": "0x0804D948"
   }, {
     "type": "word",
     "value": "0x00000000"
@@ -2198,337 +2175,7 @@
     "value": "0x00000000"
   }, {
     "type": "word",
-    "value": "0x0804D94C"
-  }, {
-    "comment": "Subweapon Special System (Boss Room check function)",
-    "address": "0x158998",
-    "type": "word",
-    "value": "0x34020000"
-  }, {
-    "type": "word",
-    "value": "0x3C088009"
-  }, {
-    "type": "word",
-    "value": "0x950874A0"
-  }, {
-    "type": "word",
-    "value": "0x3C098013"
-  }, {
-    "type": "word",
-    "value": "0x8D2975BC"
-  }, {
-    "type": "word",
-    "value": "0x00000000"
-  }, {
-    "type": "word",
-    "value": "0x812A0000"
-  }, {
-    "comment": "Slogra & Gaibon",
-    "type": "word",
-    "value": "0x3405000C"
-  }, {
-    "type": "word",
-    "value": "0x14A80004"
-  }, {
-    "type": "word",
-    "value": "0x34060010"
-  }, {
-    "type": "word",
-    "value": "0x14CA0002"
-  }, {
-    "type": "word",
-    "value": "0x00000000"
-  }, {
-    "type": "word",
-    "value": "0x34020001"
-  }, {
-    "comment": "Minotaur & Werewolf",
-    "type": "word",
-    "value": "0x3405001C"
-  }, {
-    "type": "word",
-    "value": "0x14A80002"
-  }, {
-    "type": "word",
-    "value": "0x00000000"
-  }, {
-    "type": "word",
-    "value": "0x34020001"
-  }, {
-    "comment": "Olrox",
-    "type": "word",
-    "value": "0x3405001E"
-  }, {
-    "type": "word",
-    "value": "0x14A80002"
-  }, {
-    "type": "word",
-    "value": "0x00000000"
-  }, {
-    "type": "word",
-    "value": "0x34020001"
-  }, {
-    "comment": "Dop10",
-    "type": "word",
-    "value": "0x3405001A"
-  }, {
-    "type": "word",
-    "value": "0x14A80002"
-  }, {
-    "type": "word",
-    "value": "0x00000000"
-  }, {
-    "type": "word",
-    "value": "0x34020001"
-  }, {
-    "comment": "Karasuman",
-    "type": "word",
-    "value": "0x3405000D"
-  }, {
-    "type": "word",
-    "value": "0x14A80004"
-  }, {
-    "type": "word",
-    "value": "0x34060000"
-  }, {
-    "type": "word",
-    "value": "0x14CA0002"
-  }, {
-    "type": "word",
-    "value": "0x00000000"
-  }, {
-    "type": "word",
-    "value": "0x34020001"
-  }, {
-    "comment": "Hippogryph",
-    "type": "word",
-    "value": "0x34050019"
-  }, {
-    "type": "word",
-    "value": "0x14A80002"
-  }, {
-    "type": "word",
-    "value": "0x00000000"
-  }, {
-    "type": "word",
-    "value": "0x34020001"
-  }, {
-    "comment": "Succubus",
-    "type": "word",
-    "value": "0x34050012"
-  }, {
-    "type": "word",
-    "value": "0x14A80002"
-  }, {
-    "type": "word",
-    "value": "0x00000000"
-  }, {
-    "type": "word",
-    "value": "0x34020001"
-  }, {
-    "comment": "Scylla",
-    "type": "word",
-    "value": "0x3405001B"
-  }, {
-    "type": "word",
-    "value": "0x14A80002"
-  }, {
-    "type": "word",
-    "value": "0x00000000"
-  }, {
-    "type": "word",
-    "value": "0x34020001"
-  }, {
-    "comment": "Cerberus",
-    "type": "word",
-    "value": "0x34050016"
-  }, {
-    "type": "word",
-    "value": "0x14A80002"
-  }, {
-    "type": "word",
-    "value": "0x00000000"
-  }, {
-    "type": "word",
-    "value": "0x34020001"
-  }, {
-    "comment": "Granfalloon",
-    "type": "word",
-    "value": "0x3405001D"
-  }, {
-    "type": "word",
-    "value": "0x14A80002"
-  }, {
-    "type": "word",
-    "value": "0x00000000"
-  }, {
-    "type": "word",
-    "value": "0x34020001"
-  }, {
-    "comment": "Richter",
-    "type": "word",
-    "value": "0x34050018"
-  }, {
-    "type": "word",
-    "value": "0x14A80002"
-  }, {
-    "type": "word",
-    "value": "0x00000000"
-  }, {
-    "type": "word",
-    "value": "0x34020001"
-  }, {
-    "comment": "Darkwing bat",
-    "type": "word",
-    "value": "0x3405002D"
-  }, {
-    "type": "word",
-    "value": "0x14A80004"
-  }, {
-    "type": "word",
-    "value": "0x34060000"
-  }, {
-    "type": "word",
-    "value": "0x14CA0002"
-  }, {
-    "type": "word",
-    "value": "0x00000000"
-  }, {
-    "type": "word",
-    "value": "0x34020001"
-  }, {
-    "comment": "Creature",
-    "type": "word",
-    "value": "0x3405003A"
-  }, {
-    "type": "word",
-    "value": "0x14A80002"
-  }, {
-    "type": "word",
-    "value": "0x00000000"
-  }, {
-    "type": "word",
-    "value": "0x34020001"
-  }, {
-    "comment": "Dop40",
-    "type": "word",
-    "value": "0x34050039"
-  }, {
-    "type": "word",
-    "value": "0x14A80002"
-  }, {
-    "type": "word",
-    "value": "0x00000000"
-  }, {
-    "type": "word",
-    "value": "0x34020001"
-  }, {
-    "comment": "Death",
-    "type": "word",
-    "value": "0x3405003C"
-  }, {
-    "type": "word",
-    "value": "0x14A80002"
-  }, {
-    "type": "word",
-    "value": "0x00000000"
-  }, {
-    "type": "word",
-    "value": "0x34020001"
-  }, {
-    "comment": "Galamoth",
-    "type": "word",
-    "value": "0x34050036"
-  }, {
-    "type": "word",
-    "value": "0x14A80002"
-  }, {
-    "type": "word",
-    "value": "0x00000000"
-  }, {
-    "type": "word",
-    "value": "0x34020001"
-  }, {
-    "comment": "Medusa",
-    "type": "word",
-    "value": "0x3405003B"
-  }, {
-    "type": "word",
-    "value": "0x14A80002"
-  }, {
-    "type": "word",
-    "value": "0x00000000"
-  }, {
-    "type": "word",
-    "value": "0x34020001"
-  }, {
-    "comment": "Akmodan II",
-    "type": "word",
-    "value": "0x34050037"
-  }, {
-    "type": "word",
-    "value": "0x14A80002"
-  }, {
-    "type": "word",
-    "value": "0x00000000"
-  }, {
-    "type": "word",
-    "value": "0x34020001"
-  }, {
-    "comment": "Trio",
-    "type": "word",
-    "value": "0x3405003E"
-  }, {
-    "type": "word",
-    "value": "0x14A80002"
-  }, {
-    "type": "word",
-    "value": "0x00000000"
-  }, {
-    "type": "word",
-    "value": "0x34020001"
-  }, {
-    "comment": "Beezelbub",
-    "type": "word",
-    "value": "0x3405003D"
-  }, {
-    "type": "word",
-    "value": "0x14A80002"
-  }, {
-    "type": "word",
-    "value": "0x00000000"
-  }, {
-    "type": "word",
-    "value": "0x34020001"
-  }, {
-    "comment": "Shaft",
-    "type": "word",
-    "value": "0x34050028"
-  }, {
-    "type": "word",
-    "value": "0x14A80002"
-  }, {
-    "type": "word",
-    "value": "0x00000000"
-  }, {
-    "type": "word",
-    "value": "0x34020001"
-  }, {
-    "comment": "Dracula",
-    "type": "word",
-    "value": "0x34050038"
-  }, {
-    "type": "word",
-    "value": "0x14A80002"
-  }, {
-    "type": "word",
-    "value": "0x00000000"
-  }, {
-    "type": "word",
-    "value": "0x34020001"
-  }, {
-    "type": "word",
-    "value": "0x03E00008"
+    "value": "0x0804D948"
   }, {
     "comment": "Remove familiars",
     "address": "0x0B57A4",
@@ -2685,31 +2332,25 @@
     "comment": "Subweapon relics description",
     "address": "0x0F54FC",
     "type": "word",
-    "value": "0x62616E45"
+    "value": "0x67676F54"
   }, {
     "type": "word",
-    "value": "0x7720656C"
+    "value": "0x5320656C"
+  }, {
+    "type": "word",
+    "value": "0x57206275"
+  }, {
+    "type": "word",
+    "value": "0x6F706165"
+  }, {
+    "type": "word",
+    "value": "0x7720736E"
   }, {
     "type": "word",
     "value": "0x20687469"
   }, {
     "type": "word",
-    "value": "0x2051824C"
-  }, {
-    "type": "word",
-    "value": "0x7374756F"
-  }, {
-    "type": "word",
-    "value": "0x20656469"
-  }, {
-    "type": "word",
-    "value": "0x73736F62"
-  }, {
-    "type": "word",
-    "value": "0x6F6F7220"
-  }, {
-    "type": "word",
-    "value": "0x0020736D"
+    "value": "0x0051824C"
   }, {
     "type": "word",
     "value": "0x00000000"
@@ -2931,64 +2572,6 @@
   }, {
     "type": "word",
     "value": "0x00000000"
-  }, {
-    "comment": "New item: Ring of Athena - Name",
-    "address": "0x0B5020",
-    "type": "word",
-    "value": "0x800DECB4"
-  }, {
-    "type": "word",
-    "value": "0x800DEC94"
-  }, {
-    "address": "0x0F3C4C",
-    "type": "word",
-    "value": "0x474E4932"
-  }, {
-    "type": "word",
-    "value": "0x00464F00"
-  }, {
-    "type": "word",
-    "value": "0x45485421"
-  }, {
-    "type": "word",
-    "value": "0x00FF414E"
-  }, {
-    "comment": "New item: Ring of Athena - Description",
-    "address": "0x0F3C2C",
-    "type": "word",
-    "value": "0x72616542"
-  }, {
-    "type": "word",
-    "value": "0x65687420"
-  }, {
-    "type": "word",
-    "value": "0x776F7020"
-  }, {
-    "type": "word",
-    "value": "0x6F207265"
-  }, {
-    "type": "word",
-    "value": "0x69772066"
-  }, {
-    "type": "word",
-    "value": "0x6D6F6473"
-  }, {
-    "type": "word",
-    "value": "0x00000000"
-  }, {
-    "comment": "New item: Ring of Athena - Stats",
-    "address": "0x0B502A",
-    "type": "short",
-    "value": "0x0000"
-  }, {
-    "address": "0x0B502E",
-    "type": "char",
-    "value": "0x1E"
-  }, {
-    "comment": "New item: Ring of Athena - Icon data",
-    "address": "0x0B5038",
-    "type": "word",
-    "value": "0x008600E4"
   }, {
     "comment": "New item: Heart pendant - Name",
     "address": "0x0F41B0",
@@ -3445,8 +3028,12 @@
     "type": "word",
     "value": "0x03E00008"
   }, {
-    "comment": "New item: Warlock tunic - Name",
-    "address": "0x0F4BD4",
+    "comment": "New item: Warlock hat - Name",
+    "address": "0x0B49F0",
+    "type": "word",
+    "value": "0x800DF2C8"
+  }, {
+    "address": "0x0F4390",
     "type": "word",
     "value": "0x4C524137"
   }, {
@@ -3454,416 +3041,415 @@
     "value": "0x004B434F"
   }, {
     "type": "word",
-    "value": "0x494E5554"
+    "value": "0xFF544148"
   }, {
     "type": "word",
-    "value": "0x0000FF43"
+    "value": "0x00000000"
   }, {
-    "comment": "New item: Warlock tunic - Description",
-    "address": "0x0F4BC0",
+    "comment": "New item: Warlock hat - Description",
+    "address": "0x0F4378",
     "type": "word",
     "value": "0x72616548"
   }, {
     "type": "word",
-    "value": "0x62207374"
+    "value": "0x69207374"
   }, {
     "type": "word",
-    "value": "0x74736F6F"
+    "value": "0x6572636E"
   }, {
     "type": "word",
-    "value": "0x67616D20"
+    "value": "0x20657361"
   }, {
     "type": "word",
-    "value": "0x00006369"
+    "value": "0x6967616D"
   }, {
-    "comment": "New item: Warlock tunic - Stats",
-    "address": "0x0B430A",
+    "type": "word",
+    "value": "0x00000063"
+  }, {
+    "comment": "New item: Warlock hat - Stats (+20 INT)",
+    "address": "0x0B49FE",
+    "type": "char",
+    "value": "0x14"
+  }, {
+    "comment": "New item: Warlock hat - Icon data",
+    "address": "0x0B4A0A",
     "type": "short",
-    "value": "0x0008"
+    "value": "0x010E"
   }, {
-    "address": "0x0B430C",
-    "type": "word",
-    "value": "0x02050200"
-  }, {
-    "comment": "New item: Warlock tunic - Icon data",
-    "address": "0x0B4318",
-    "type": "word",
-    "value": "0x00C100D0"
-  }, {
-    "comment": "New item: Warlock tunic - Heart MP function [Callers]",
+    "comment": "New item: Warlock hat - Heart MP function [Callers]",
     "address": "0x44082B8",
     "type": "word",
-    "value": "0x0C04DC30"
+    "value": "0x0C04DC2A"
   }, {
     "type": "word",
     "value": "0x00000000"
   }, {
     "address": "0x44DBB24",
     "type": "word",
-    "value": "0x0C04DC30"
+    "value": "0x0C04DC2A"
   }, {
     "type": "word",
     "value": "0x00000000"
   }, {
     "address": "0x4574C40",
     "type": "word",
-    "value": "0x0C04DC30"
+    "value": "0x0C04DC2A"
   }, {
     "type": "word",
     "value": "0x00000000"
   }, {
     "address": "0x4610638",
     "type": "word",
-    "value": "0x0C04DC30"
+    "value": "0x0C04DC2A"
   }, {
     "type": "word",
     "value": "0x00000000"
   }, {
     "address": "0x46CBA6C",
     "type": "word",
-    "value": "0x0C04DC30"
+    "value": "0x0C04DC2A"
   }, {
     "type": "word",
     "value": "0x00000000"
   }, {
     "address": "0x47F21CC",
     "type": "word",
-    "value": "0x0C04DC30"
+    "value": "0x0C04DC2A"
   }, {
     "type": "word",
     "value": "0x00000000"
   }, {
     "address": "0x494D53C",
     "type": "word",
-    "value": "0x0C04DC30"
+    "value": "0x0C04DC2A"
   }, {
     "type": "word",
     "value": "0x00000000"
   }, {
     "address": "0x4A215F4",
     "type": "word",
-    "value": "0x0C04DC30"
+    "value": "0x0C04DC2A"
   }, {
     "type": "word",
     "value": "0x00000000"
   }, {
     "address": "0x4AE6718",
     "type": "word",
-    "value": "0x0C04DC30"
+    "value": "0x0C04DC2A"
   }, {
     "type": "word",
     "value": "0x00000000"
   }, {
     "address": "0x4BB6F60",
     "type": "word",
-    "value": "0x0C04DC30"
+    "value": "0x0C04DC2A"
   }, {
     "type": "word",
     "value": "0x00000000"
   }, {
     "address": "0x4C8B464",
     "type": "word",
-    "value": "0x0C04DC30"
+    "value": "0x0C04DC2A"
   }, {
     "type": "word",
     "value": "0x00000000"
   }, {
     "address": "0x4D3B124",
     "type": "word",
-    "value": "0x0C04DC30"
+    "value": "0x0C04DC2A"
   }, {
     "type": "word",
     "value": "0x00000000"
   }, {
     "address": "0x4DC89E8",
     "type": "word",
-    "value": "0x0C04DC30"
+    "value": "0x0C04DC2A"
   }, {
     "type": "word",
     "value": "0x00000000"
   }, {
     "address": "0x4E72CD0",
     "type": "word",
-    "value": "0x0C04DC30"
+    "value": "0x0C04DC2A"
   }, {
     "type": "word",
     "value": "0x00000000"
   }, {
     "address": "0x4F0F504",
     "type": "word",
-    "value": "0x0C04DC30"
+    "value": "0x0C04DC2A"
   }, {
     "type": "word",
     "value": "0x00000000"
   }, {
     "address": "0x4FC9588",
     "type": "word",
-    "value": "0x0C04DC30"
+    "value": "0x0C04DC2A"
   }, {
     "type": "word",
     "value": "0x00000000"
   }, {
     "address": "0x5083C40",
     "type": "word",
-    "value": "0x0C04DC30"
+    "value": "0x0C04DC2A"
   }, {
     "type": "word",
     "value": "0x00000000"
   }, {
     "address": "0x513BD44",
     "type": "word",
-    "value": "0x0C04DC30"
+    "value": "0x0C04DC2A"
   }, {
     "type": "word",
     "value": "0x00000000"
   }, {
     "address": "0x51ED724",
     "type": "word",
-    "value": "0x0C04DC30"
+    "value": "0x0C04DC2A"
   }, {
     "type": "word",
     "value": "0x00000000"
   }, {
     "address": "0x52C4FA8",
     "type": "word",
-    "value": "0x0C04DC30"
+    "value": "0x0C04DC2A"
   }, {
     "type": "word",
     "value": "0x00000000"
   }, {
     "address": "0x537D128",
     "type": "word",
-    "value": "0x0C04DC30"
+    "value": "0x0C04DC2A"
   }, {
     "type": "word",
     "value": "0x00000000"
   }, {
     "address": "0x543B4C0",
     "type": "word",
-    "value": "0x0C04DC30"
+    "value": "0x0C04DC2A"
   }, {
     "type": "word",
     "value": "0x00000000"
   }, {
     "address": "0x54F7E58",
     "type": "word",
-    "value": "0x0C04DC30"
+    "value": "0x0C04DC2A"
   }, {
     "type": "word",
     "value": "0x00000000"
   }, {
     "address": "0x55AAB08",
     "type": "word",
-    "value": "0x0C04DC30"
+    "value": "0x0C04DC2A"
   }, {
     "type": "word",
     "value": "0x00000000"
   }, {
     "address": "0x5647F94",
     "type": "word",
-    "value": "0x0C04DC30"
+    "value": "0x0C04DC2A"
   }, {
     "type": "word",
     "value": "0x00000000"
   }, {
     "address": "0x56E7FF0",
     "type": "word",
-    "value": "0x0C04DC30"
+    "value": "0x0C04DC2A"
   }, {
     "type": "word",
     "value": "0x00000000"
   }, {
     "address": "0x5782634",
     "type": "word",
-    "value": "0x0C04DC30"
+    "value": "0x0C04DC2A"
   }, {
     "type": "word",
     "value": "0x00000000"
   }, {
     "address": "0x580C4E8",
     "type": "word",
-    "value": "0x0C04DC30"
+    "value": "0x0C04DC2A"
   }, {
     "type": "word",
     "value": "0x00000000"
   }, {
     "address": "0x5891E8C",
     "type": "word",
-    "value": "0x0C04DC30"
+    "value": "0x0C04DC2A"
   }, {
     "type": "word",
     "value": "0x00000000"
   }, {
     "address": "0x593ADC8",
     "type": "word",
-    "value": "0x0C04DC30"
+    "value": "0x0C04DC2A"
   }, {
     "type": "word",
     "value": "0x00000000"
   }, {
     "address": "0x59F3FF4",
     "type": "word",
-    "value": "0x0C04DC30"
+    "value": "0x0C04DC2A"
   }, {
     "type": "word",
     "value": "0x00000000"
   }, {
     "address": "0x5A7F21C",
     "type": "word",
-    "value": "0x0C04DC30"
+    "value": "0x0C04DC2A"
   }, {
     "type": "word",
     "value": "0x00000000"
   }, {
     "address": "0x5B12044",
     "type": "word",
-    "value": "0x0C04DC30"
+    "value": "0x0C04DC2A"
   }, {
     "type": "word",
     "value": "0x00000000"
   }, {
     "address": "0x5FF42C0",
     "type": "word",
-    "value": "0x0C04DC30"
+    "value": "0x0C04DC2A"
   }, {
     "type": "word",
     "value": "0x00000000"
   }, {
     "address": "0x60A0760",
     "type": "word",
-    "value": "0x0C04DC30"
+    "value": "0x0C04DC2A"
   }, {
     "type": "word",
     "value": "0x00000000"
   }, {
     "address": "0x612F444",
     "type": "word",
-    "value": "0x0C04DC30"
+    "value": "0x0C04DC2A"
   }, {
     "type": "word",
     "value": "0x00000000"
   }, {
     "address": "0x61D78C8",
     "type": "word",
-    "value": "0x0C04DC30"
+    "value": "0x0C04DC2A"
   }, {
     "type": "word",
     "value": "0x00000000"
   }, {
     "address": "0x628AE00",
     "type": "word",
-    "value": "0x0C04DC30"
+    "value": "0x0C04DC2A"
   }, {
     "type": "word",
     "value": "0x00000000"
   }, {
     "address": "0x6336B08",
     "type": "word",
-    "value": "0x0C04DC30"
+    "value": "0x0C04DC2A"
   }, {
     "type": "word",
     "value": "0x00000000"
   }, {
     "address": "0x63DF7C8",
     "type": "word",
-    "value": "0x0C04DC30"
+    "value": "0x0C04DC2A"
   }, {
     "type": "word",
     "value": "0x00000000"
   }, {
     "address": "0x64939B8",
     "type": "word",
-    "value": "0x0C04DC30"
+    "value": "0x0C04DC2A"
   }, {
     "type": "word",
     "value": "0x00000000"
   }, {
     "address": "0x651CC94",
     "type": "word",
-    "value": "0x0C04DC30"
+    "value": "0x0C04DC2A"
   }, {
     "type": "word",
     "value": "0x00000000"
   }, {
     "address": "0x65AE2D8",
     "type": "word",
-    "value": "0x0C04DC30"
+    "value": "0x0C04DC2A"
   }, {
     "type": "word",
     "value": "0x00000000"
   }, {
     "address": "0x664CBD4",
     "type": "word",
-    "value": "0x0C04DC30"
+    "value": "0x0C04DC2A"
   }, {
     "type": "word",
     "value": "0x00000000"
   }, {
     "address": "0x66D244C",
     "type": "word",
-    "value": "0x0C04DC30"
+    "value": "0x0C04DC2A"
   }, {
     "type": "word",
     "value": "0x00000000"
   }, {
     "address": "0x675D6FC",
     "type": "word",
-    "value": "0x0C04DC30"
+    "value": "0x0C04DC2A"
   }, {
     "type": "word",
     "value": "0x00000000"
   }, {
     "address": "0x67F1F00",
     "type": "word",
-    "value": "0x0C04DC30"
+    "value": "0x0C04DC2A"
   }, {
     "type": "word",
     "value": "0x00000000"
   }, {
     "address": "0x68A4204",
     "type": "word",
-    "value": "0x0C04DC30"
+    "value": "0x0C04DC2A"
   }, {
     "type": "word",
     "value": "0x00000000"
   }, {
     "address": "0x695B8A0",
     "type": "word",
-    "value": "0x0C04DC30"
+    "value": "0x0C04DC2A"
   }, {
     "type": "word",
     "value": "0x00000000"
   }, {
     "address": "0x69EFE48",
     "type": "word",
-    "value": "0x0C04DC30"
+    "value": "0x0C04DC2A"
   }, {
     "type": "word",
     "value": "0x00000000"
   }, {
     "address": "0x6A823DC",
     "type": "word",
-    "value": "0x0C04DC30"
+    "value": "0x0C04DC2A"
   }, {
     "type": "word",
     "value": "0x00000000"
   }, {
-    "comment": "New item: Warlock tunic - Heart MP function",
-    "address": "0x159288",
+    "comment": "New item: Warlock hat - Heart MP function",
+    "address": "0x159270",
     "type": "word",
-    "value": "0x34140001"
+    "value": "0x3414002F"
   }, {
     "type": "word",
     "value": "0x3C088009"
   }, {
     "type": "word",
-    "value": "0x95137C0C"
+    "value": "0x95137C08"
   }, {
     "type": "word",
     "value": "0x00000000"
   }, {
     "type": "word",
-    "value": "0x16740005"
+    "value": "0x1674000B"
   }, {
     "type": "word",
     "value": "0x00000000"
@@ -3872,10 +3458,28 @@
     "value": "0x95137BB0"
   }, {
     "type": "word",
+    "value": "0x95147BB4"
+  }, {
+    "type": "word",
     "value": "0x00000000"
   }, {
     "type": "word",
     "value": "0x02629821"
+  }, {
+    "type": "word",
+    "value": "0x0274A023"
+  }, {
+    "type": "word",
+    "value": "0x06800003"
+  }, {
+    "type": "word",
+    "value": "0x00000000"
+  }, {
+    "type": "word",
+    "value": "0x95137BB4"
+  }, {
+    "type": "word",
+    "value": "0x00000000"
   }, {
     "type": "word",
     "value": "0xA5137BB0"
@@ -3933,15 +3537,15 @@
     "type": "word",
     "value": "0x0010000C"
   }, {
-    "comment": "New item: Eldritch shade - Ignore Curse function",
+    "comment": "New item: Eldritch shade & Heart Refresh - Ignore Curse function",
     "address": "0x12B5A0",
     "type": "word",
-    "value": "0x0804DC20"
+    "value": "0x0804DC1E"
   }, {
     "type": "word",
     "value": "0x00000000"
   }, {
-    "address": "0x159248",
+    "address": "0x159240",
     "type": "word",
     "value": "0x3C028007"
   }, {
@@ -3952,7 +3556,19 @@
     "value": "0x3413000B"
   }, {
     "type": "word",
+    "value": "0x3412008E"
+  }, {
+    "type": "word",
     "value": "0x14930002"
+  }, {
+    "type": "word",
+    "value": "0x00000000"
+  }, {
+    "type": "word",
+    "value": "0x34020000"
+  }, {
+    "type": "word",
+    "value": "0x14920002"
   }, {
     "type": "word",
     "value": "0x00000000"

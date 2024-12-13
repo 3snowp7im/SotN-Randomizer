@@ -752,7 +752,7 @@
     function restoreItems() {
       sotnRando.items = cloneItems(items)
     }
-    function randomize() {
+    function randomize() {                                                                        // This is the main function of the randomizer website
       const check = new util.checked(this.result)
       // Save handle to file data.
       const file = this.result

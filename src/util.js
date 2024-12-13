@@ -6283,6 +6283,46 @@ function hexValueToDamageString(hexValue) {
     return data
   }
 
+  function applyStartRoomRandoPatches(rng) {
+    const startRoomData = constants.startRoomData
+    const data = new checked()
+    // Patch the shop prices being randomized
+    let offset
+    let randRoomId
+    
+    randRoomId = Math.floor(rng() * Math.floor(25)) + 1                         // Select a starting room at random (Max25 + 1 = 26, the last room id)
+
+    offset = 0x4B6AB0C
+    offset += data.writeWord(offset,0x04)                                       // Setting up the CD room
+    offset += data.writeWord(offset,0x28)
+    offset += data.writeWord(offset,0x04)
+    offset += data.writeWord(offset,0x28)
+    offset += data.writeWord(offset,0x15)
+    offset += data.writeWord(offset,0x00)
+    offset += data.writeWord(offset,0x00)
+    offset += data.writeWord(offset,0x34)
+    offset += data.writeWord(offset,0x05)
+    offset += data.writeWord(offset,0x28)
+    offset += data.writeWord(offset,0x05)
+    offset += data.writeWord(offset,0x28)
+    offset += data.writeWord(offset,0x64)
+    offset += data.writeWord(offset,0xFF)
+    offset += data.writeWord(offset,0x00)
+    offset += data.writeWord(offset,0x00)
+
+    offset = 0x4B66A44
+    offset += data.writeWord(offset,0x04)
+    offset += data.writeWord(offset,0x4a)
+    offset += data.writeWord(offset,0x00)
+    offset += data.writeWord(offset,0x41)
+    offset += data.writeWord(offset,0x64)
+
+    offset = 0xae95c
+    
+
+    return data
+  }
+
   function randomizeRelics(
     version,
     applied,
