@@ -3,8 +3,19 @@
     "id": "grand-tour",
     "name": "Grand Tour",
     "description": "Soon to be discontinued after website rework. Base preset featuring 'tourist' relic extension.",
-    "author": "eldri7ch & Mottzilla",
-    "weight": 0
+    "author": [
+      "eldri7ch",
+      "MottZilla"
+    ],
+    "weight": 0,
+    "knowledgeCheck": "",
+    "extension": "",
+    "complexity": 7,
+    "timeFrame": "",
+    "moddedLevel": "",
+    "castleType": "",
+    "transformEarly": "",
+    "transformType": ""
   },
   "inherits": "casual",
   "relicLocationsExtension": "tourist",

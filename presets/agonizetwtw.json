@@ -3,8 +3,20 @@
     "id": "agonizetwtw",
     "name": "Agonize 2020",
     "description": "Simulates Agonize Preset from 2020. No stat randomization. Fixed locations for various relics to 'Maximize backtracking'.",
-    "author": "3snow_p7im, eldri7ch, Crazy4blades",
-    "weight": -3800
+    "author": [
+      "3snow_p7im", 
+      "eldri7ch", 
+      "Crazy4blades"
+    ],
+    "weight": -3800,
+    "knowledgeCheck": "",
+    "extension": "",
+    "complexity": 7,
+    "timeFrame": "",
+    "moddedLevel": "",
+    "castleType": "",
+    "transformEarly": "",
+    "transformType": ""
   },
 
   "preventLeaks": false,

@@ -1,16 +1,18 @@
 [
   {
-    "name": "Adventure",
-    "id": "adventure",
-    "description": "Relics can appear in most equipment locations from the original game.",
-    "author": "3snow_p7im",
-    "knowledgeCheck": "Vanilla",
-    "extension": "Tourist",
+    "name": "Nimble",
+    "id": "nimble",
+    "description": "Start with Soul of Bat, Leap Stone, Gravity Boots, Duplicator, Manna prism, and Buffalo star.",
+    "author": [
+      "3snow_p7im"
+    ],
+    "knowledgeCheck": "",
+    "extension": "",
     "complexity": 7,
-    "timeFrame": "Normal",
-    "moddedLevel": "Slightly",
-    "castleType": "Normal",
-    "transformEarly": "Yes",
-    "transformType": "Bat"
+    "timeFrame": "",
+    "moddedLevel": "",
+    "castleType": "",
+    "transformEarly": "",
+    "transformType": ""
   }
 ]

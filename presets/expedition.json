@@ -3,8 +3,19 @@
     "id": "expedition",
     "name": "Expedition",
     "description": "To be discontinued in the near future. Start with Soul of Bat, Leap Stone, Gravity Boots, Duplicator, Manna prism, and Buffalo star. 'Equipment' relic extension.",
-    "author": "eldri7ch and Mottzilla0",
-    "weight": -1250
+    "author": [
+      "eldri7ch",
+      "MottZilla"
+    ],
+    "weight": -1250,
+    "knowledgeCheck": "",
+    "extension": "",
+    "complexity": 7,
+    "timeFrame": "",
+    "moddedLevel": "",
+    "castleType": "",
+    "transformEarly": "",
+    "transformType": ""
   },
   "inherits": "nimble",
   "relicLocationsExtension": "equipment",

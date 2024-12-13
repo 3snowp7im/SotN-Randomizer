@@ -3,8 +3,20 @@
     "id": "beyond",
     "name": "Beyond",
     "description": "Similar to safe but with new items and a new relic. Spread relic extension.",
-    "author": "Forat Negre, Wecoc, eldri7ch",
-    "weight": -3250
+    "author": [
+      "Forat Negre", 
+      "Wecoc", 
+      "eldri7ch"
+    ],
+    "weight": -3250,
+    "knowledgeCheck": "",
+    "extension": "",
+    "complexity": 7,
+    "timeFrame": "",
+    "moddedLevel": "",
+    "castleType": "",
+    "transformEarly": "",
+    "transformType": ""
   },
   "inherits": "safe",
   "stats": false,

@@ -3,8 +3,18 @@
     "id": "warlock",
     "name": "Warlock",
     "description": "Start with high intelligence and Form of Mist. Reduced cost for mist and spells.",
-    "author": "3snow_p7im",
-    "weight": 3500
+    "author": [
+      "3snow_p7im"
+    ],
+    "weight": 3500,
+    "knowledgeCheck": "",
+    "extension": "",
+    "complexity": 7,
+    "timeFrame": "",
+    "moddedLevel": "",
+    "castleType": "",
+    "transformEarly": "",
+    "transformType": ""
   },
   "stats": false,
   "startingEquipment": [{

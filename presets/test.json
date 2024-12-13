@@ -3,8 +3,19 @@
     "id": "test",
     "name": "Test",
     "description": "A test preset for new features",
-    "author": "eldri7ch and MottZilla",
-    "weight": -900
+    "author": [
+      "eldri7ch",
+      "MottZilla"
+    ],
+    "weight": -900,
+    "knowledgeCheck": "",
+    "extension": "",
+    "complexity": 7,
+    "timeFrame": "",
+    "moddedLevel": "",
+    "castleType": "",
+    "transformEarly": "",
+    "transformType": ""
   },
   "relics": false,
   "items": false,

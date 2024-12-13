@@ -3,8 +3,20 @@
     "id": "casual",
     "name": "Casual",
     "description": "A base preset of the Randomizer. Uses 'guarded' logic and has low complexity.",
-    "author": "3snow_p7im, setz, and soba",
-    "weight": -2250
+    "author": [
+      "3snow_p7im", 
+      "setz", 
+      "soba"
+    ],
+    "weight": -2250,
+    "knowledgeCheck": "",
+    "extension": "",
+    "complexity": 7,
+    "timeFrame": "",
+    "moddedLevel": "",
+    "castleType": "",
+    "transformEarly": "",
+    "transformType": ""
   },
   "colorrandoMode": true,
   "lockLocation": [{

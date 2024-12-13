@@ -3,8 +3,18 @@
     "id": "scavenger",
     "name": "Scavenger",
     "description": "No enemy drops challenge mode.",
-    "author": "3snow_p7im",
-    "weight": 2250
+    "author": [
+      "3snow_p7im"
+    ],
+    "weight": 2250,
+    "knowledgeCheck": "",
+    "extension": "",
+    "complexity": 7,
+    "timeFrame": "",
+    "moddedLevel": "",
+    "castleType": "",
+    "transformEarly": "",
+    "transformType": ""
   },
   "inherits": "safe",
   "colorrandoMode": true,

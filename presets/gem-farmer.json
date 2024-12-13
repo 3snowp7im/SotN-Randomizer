@@ -3,8 +3,18 @@
     "id": "gem-farmer",
     "name": "Gem farmer",
     "description": "All progression must be purchased from the librarian. Released on April 1st, 2021.",
-    "author": "3snow_p7im",
-    "weight": -750
+    "author": [
+      "3snow_p7im"
+    ],
+    "weight": -750,
+    "knowledgeCheck": "",
+    "extension": "",
+    "complexity": 7,
+    "timeFrame": "",
+    "moddedLevel": "",
+    "castleType": "",
+    "transformEarly": "",
+    "transformType": ""
   },
   "stats": false,
   "preventLeaks": false,

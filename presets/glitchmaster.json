@@ -3,8 +3,22 @@
     "id": "glitchmaster",
     "name": "Glitchmaster",
     "description": "Completely lacks logic using Glitch as the base. Wanderer relic extension.",
-    "author": "romscout, DerDrach, eldri7ch, Mottzilla, Doozyzood",
-    "weight": -5006
+    "author": [
+      "romscout",
+      "DerDrach",
+      "eldri7ch",
+      "MottZilla",
+      "Doozyzood"
+    ],
+    "weight": -5006,
+    "knowledgeCheck": "",
+    "extension": "",
+    "complexity": 7,
+    "timeFrame": "",
+    "moddedLevel": "",
+    "castleType": "",
+    "transformEarly": "",
+    "transformType": ""
   },
   
   "relicLocationsExtension": "wanderer",

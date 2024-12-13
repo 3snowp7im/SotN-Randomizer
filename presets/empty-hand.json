@@ -3,8 +3,18 @@
     "id": "empty-hand",
     "name": "Empty hand",
     "description": "No equipment or items challenge mode. Released on April 1st, 2020.",
-    "author": "3snow_p7im",
-    "weight": -1500
+    "author": [
+      "3snow_p7im"
+    ],
+    "weight": -1500,
+    "knowledgeCheck": "",
+    "extension": "",
+    "complexity": 7,
+    "timeFrame": "",
+    "moddedLevel": "",
+    "castleType": "",
+    "transformEarly": "",
+    "transformType": ""
   },
   "inherits": "safe",
   "stats": false,

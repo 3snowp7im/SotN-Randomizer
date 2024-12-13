@@ -3,8 +3,19 @@
     "id": "cursed-night",
     "name": "Cursed Night",
     "description": "A horrible night to have a curse.",
-    "author": "Bob Sagget & Forat Negre",
-    "weight": -900
+    "author": [
+      "Bob Sagget",
+      "Forat Negre"
+    ],
+    "weight": -900,
+    "knowledgeCheck": "",
+    "extension": "",
+    "complexity": 7,
+    "timeFrame": "",
+    "moddedLevel": "",
+    "castleType": "",
+    "transformEarly": "",
+    "transformType": ""
   },
 
   "inherits": "safe",
