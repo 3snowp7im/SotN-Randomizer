@@ -1,3 +1,38 @@
+#seed-container,
+#preset-dropdown,
+#complexity-slider {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+#seed-container label,
+#preset-dropdown label,
+#complexity-slider label {
+  flex-basis: 20%;
+}
+
+#seed-container input,
+#preset-select select,
+#complexity-slider > #complexity-slider-details {
+  padding: 0.25rem 0.5rem;
+  width: 100%;
+}
+
+#complexity-slider-details {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+#complexity-slider-details input {
+  width: 100%;
+}
+
+#preset-select {
+  width: 100%;
+}
+
 #preset-details * {
   margin: 0;
   padding: 0;
@@ -18,4 +53,25 @@
 
 #preset-author {
   font-style: italic;
+}
+
+.relic-location {
+  padding: 0.25rem;
+  min-width: 140px;
+}
+
+@media screen and (min-width: 64em) {
+  #randomization-options {
+    display: flex;
+  }
+
+  #relic-locations-set {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  .relic-location {
+    flex: 0 50%;
+  }
 }

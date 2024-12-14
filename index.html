@@ -45,41 +45,41 @@
         <form id="form" class="pure-u-1">
           <fieldset id="output">
             <legend>Output</legend>
-            <div class="pure-u-2-24">
-              <input id="output-bin"
+            <div id="bin-ppf">
+              <div id="bin">
+                <input id="output-bin"
                      name="output"
                      type="radio"
                      value="bin">
-              <label for="output-bin">.bin</label>
-            </div>
-            <div class="pure-u-2-24">
-              <input id="output-ppf"
-                     name="output"
-                     type="radio"
-                     value="ppf">
-              <label for="output-ppf">.ppf</label>
+                <label for="output-bin">.bin</label>
+              </div>
+
+              <div id="ppf">
+                <input id="output-ppf"
+                  name="output"
+                  type="radio"
+                  value="ppf">
+                <label for="output-ppf">.ppf</label>
+              </div>
             </div>
             <div id="target" class="hidden">
               <label id="status" for="file"></label>
               <input id="file" type="file" accept=".bin,.iso">
             </div>
           </fieldset>
-          <div class="pure-u-1">
-            <fieldset>
+          <div id="randomization-options">
+            <fieldset class="pure-u-lg-1-2">
               <legend>Randomizations</legend>
-              <div class="pure-g">
-                <div class="pure-u-12-24">
-                  <label for="seed">Seed:</label>
-                </div>
-                <div class="pure-u-12-24">
-                  <input id="seed" type="text" placeholder="Optional">
-                </div>
-                <div class="pure-u-12-24">
-                  <input id="preset" type="checkbox">
-                  <label for="preset">Preset</label>
-                </div>
-                <div id="preset-select" class="pure-u-12-24">
-                  <select id="preset-id"></select>
+              <div id="seed-container">
+                <label for="seed">Seed:</label>
+                <input id="seed" type="text" placeholder="Optional">
+              </div>
+              <div id="preset-container">
+                <div id="preset-dropdown">
+                  <label for="preset"><input id="preset" type="checkbox"> Preset:</label>
+                  <div id="preset-select">
+                    <select id="preset-id"></select>
+                  </div>
                 </div>
                 
                 <section id="preset-details" class="pure-u-1">
@@ -87,172 +87,204 @@
                   <p id="preset-description"></p>
                   <h4>Preset author(s):</h4>
                   <p id="preset-author"></p>
+                  <p><br/></p>
+                  <fieldset>
+                    <legend>-Meta Data</legend>
+                    <div class="pure-g">
+                      <div class="pure-u-1-5">
+                        <h4>Knowledge Required:</h4>
+                        <p id="preset-knowledgeCheck"></p>
+                        <h4>Modification Level:</h4>
+                        <p id="preset-moddedLevel"></p>
+                      </div>
+                      <div class="pure-u-1-5">
+                        <h4>Relic Extension:</h4>
+                        <p id="preset-metaExtension"></p>
+                        <h4>Castle Type:</h4>
+                        <p id="preset-castleType"></p>
+                      </div>
+                      <div class="pure-u-1-5">
+                        <h4>Minimum Complexity:</h4>
+                        <p id="preset-metaComplexity"></p>
+                        <h4>Early Transformation:</h4>
+                        <p id="preset-transformEarly"></p>
+                      </div>
+                      <div class="pure-u-1-5">
+                        <h4>Item Stats Randomized:</h4>
+                        <p id="preset-itemStats"></p>
+                        <h4>Transformation Focus:</h4>
+                        <p id="preset-transformFocus"></p>
+                      </div>
+                      <div class="pure-u-1-5">
+                        <h4>Expected Completion Pace:</h4>
+                        <p id="preset-timeFrame"></p>
+                        <h4>Win Condition:</h4>
+                        <p id="preset-winCondition"></p>
+                      </div>
+                    </div>
+                  </fieldset>
+                  <p><br/></p>
                 </section>
   
                 <fieldset id="options">
-                  <div class="pure-g">
-                    <div class="pure-u-12-24">
-                      <label for="complexity">Complexity</label>
+                  <small>&#10071; Lower complexities generate faster but may also be faster to beat.</small>
+                  <div id="complexity-slider">
+                    <label for="complexity">Complexity</label>
+
+                    <div id="complexity-slider-details"> 
+                      <span id="complexityMinValue">1</span>
+                      <input id="complexity" type="range" min="1" list="complexityValues">
+                      <span id="complexityMaxValue"></span>
+
+                      <span id="complexityCurrentValue"></span>
+                      <datalist id="complexityValues">
+                        <option value="1" label="1"></option>
+                      </datalist>
                     </div>
-                    <div class="pure-u-12-24">
-                      <input id="complexity" type="number" min="1">
-                      <span class="tooltip-wrapper">
-                        <span class="tooltip-indicator">?</span>
-                        <span class="tooltip hidden">
-                          <span>
-                            Lower complexities generate faster but may also be faster
-                            to beat.
+                  </div>
+                  <fieldset id="relic-locations-set">
+                    <legend>
+                      <input id="relic-locations" type="checkbox">
+                      <label for="relic-locations">Relic locations</label>
+                    </legend>
+                    <div class="relic-location">
+                      <input id="extension-guarded"
+                             name="extension"
+                             type="radio"
+                             value="guarded">
+                      <label for="extension-guarded">
+                        Guarded
+                        <span class="tooltip-wrapper">
+                          <span class="tooltip-indicator">?</span>
+                          <span class="tooltip hidden">
+                            <span>
+                              Relics and progression items may appear in
+                              rooms guarded by bosses. 37 Check locations.
+                            </span>
                           </span>
                         </span>
-                      </span>
-                    </div>                       
-                    <div class="pure-u-12-24">
-                      <fieldset id="relic-locations-set">
-                        <legend>
-                          <input id="relic-locations" type="checkbox">
-                          <label for="relic-locations">Relic locations</label>
-                        </legend>
-                        <div>
-                          <input id="extension-guarded"
-                                 name="extension"
-                                 type="radio"
-                                 value="guarded">
-                          <label for="extension-guarded">
-                            Guarded
-                            <span class="tooltip-wrapper">
-                              <span class="tooltip-indicator">?</span>
-                              <span class="tooltip hidden">
-                                <span>
-                                  Relics and progression items may appear in
-                                  rooms guarded by bosses. 37 Check locations.
-                                </span>
-                              </span>
-                            </span>
-                          </label>
-                        </div>
-                        <div>
-                          <input id="extension-spread"
-                                 name="extension"
-                                 type="radio"
-                                 value="spread">
-                          <label for="extension-spread">
-                            Spread<span style="color: red;">*</span>
-                            <span class="tooltip-wrapper">
-                              <span class="tooltip-indicator">?</span>
-                              <span class="tooltip hidden">
-                                <span>
-                                  Add to guarded locations with more checks on
-                                  left side of second castle. 39 Check locations. <span style="color: red;">*May create incompletable seeds if generated from website.</span>
-                                </span>
-                              </span>
-                            </span>
-                          </label>
-                        </div>
-                        <div>
-                          <input id="extension-equipment"
-                                 name="extension"
-                                 type="radio"
-                                 value="equipment">
-                          <label for="extension-equipment">
-                            Equipment<span style="color: red;">*</span>
-                            <span class="tooltip-wrapper">
-                              <span class="tooltip-indicator">?</span>
-                              <span class="tooltip hidden">
-                                <span>
-                                  Relics and progression items may appear in
-                                  place of equipment tiles. 105 Check locations. <span style="color: red;">*May create incompletable seeds if generated from website.</span>
-                                </span>
-                              </span>
-                            </span>
-                          </label>
-                        </div>
-                        <div>
-                          <input id="extension-tourist"
-                                  name="extension"
-                                  type="radio"
-                                  value="tourist">
-                          <label for="extension-tourist">
-                            Tourist<span style="color: red;">*</span>
-                            <span class="tooltip-wrapper">
-                              <span class="tooltip-indicator">?</span>
-                              <span class="tooltip hidden">
-                                <span>
-                                  Relics and progression items may appear in
-                                  place of equipment tiles or in unique 
-                                  locations in either castle. 118 Check locations. <span style="color: red;">*May create incompletable seeds if generated from website.</span>
-                                </span>
-                              </span>
-                            </span>
-                          </label>
-                        </div>
-                        <div>
-                          <input id="extension-wanderer"
-                                  name="extension"
-                                  type="radio"
-                                  value="wanderer">
-                          <label for="extension-wanderer">
-                            Wanderer<span style="color: red;">*</span>
-                            <span class="tooltip-wrapper">
-                              <span class="tooltip-indicator">?</span>
-                              <span class="tooltip hidden">
-                                <span>
-                                  Relics and progression items may appear in
-                                  place of <i>limited</i> equipment tiles or 
-                                  in unique locations in either castle. 70 
-                                  Check locations. <span style="color: red;">*May create 
-                                  incompletable seeds if generated from 
-                                  website.</span>
-                                </span>
-                              </span>
-                            </span>
-                          </label>
-                        </div>
-                        <div>
-                          <input id="extension-classic"
-                                 name="extension"
-                                 type="radio"
-                                 value="classic">
-                          <label for="extension-classic">
-                            Classic
-                            <span class="tooltip-wrapper">
-                              <span class="tooltip-indicator">?</span>
-                              <span class="tooltip hidden">
-                                <span>
-                                  Relics and progression items will only be
-                                  randomized among the game's original relic
-                                  and progression item locations. 28 Check locations.
-                                </span>
-                              </span>
-                            </span>
-                          </label>
-                        </div>
-                      </fieldset>
+                      </label>
                     </div>
-                    <input id="enemy-drops-arg"
-                           type="text"
-                           disabled="disabled"
-                           style="display: none">
-                    <input id="starting-equipment-arg"
-                           type="text"
-                           disabled="disabled"
-                           style="display: none">
-                    <input id="item-locations-arg"
-                           type="text"
-                           disabled="disabled"
-                           style="display: none">
-                    <input id="prologue-rewards-arg"
-                           type="text"
-                           disabled="disabled"
-                           style="display: none">
-                    <input id="relic-locations-arg"
-                           type="text"
-                           disabled="disabled"
-                           style="display: none">
-                    <input id="writes"
-                           type="text"
-                           disabled="disabled"
-                           style="display: none">
-                  </div>
+                    <div class="relic-location">
+                      <input id="extension-guardedplus"
+                             name="extension"
+                             type="radio"
+                             value="guardedplus">
+                      <label for="extension-guardedplus">
+                        Guarded<i>Plus</i>
+                        <span class="tooltip-wrapper">
+                          <span class="tooltip-indicator">?</span>
+                          <span class="tooltip hidden">
+                            <span>
+                              Add to guarded locations with more checks on
+                              left side of second castle. 39 Check locations.
+                            </span>
+                          </span>
+                        </span>
+                      </label>
+                    </div>
+                    <div class="relic-location">
+                      <input id="extension-equipment"
+                             name="extension"
+                             type="radio"
+                             value="equipment">
+                      <label for="extension-equipment">
+                        Equipment
+                        <span class="tooltip-wrapper">
+                          <span class="tooltip-indicator">?</span>
+                          <span class="tooltip hidden">
+                            <span>
+                              Relics and progression items may appear in
+                              place of equipment tiles. 105 Check locations.
+                            </span>
+                          </span>
+                        </span>
+                      </label>
+                    </div>
+                    <div class="relic-location">
+                      <input id="extension-scenic"
+                              name="extension"
+                              type="radio"
+                              value="scenic">
+                      <label for="extension-scenic">
+                        Scenic
+                        <span class="tooltip-wrapper">
+                          <span class="tooltip-indicator">?</span>
+                          <span class="tooltip hidden">
+                            <span>
+                              Relics and progression items may appear in
+                              place of equipment tiles or in unique 
+                              locations in either castle. 118 Check locations.
+                            </span>
+                          </span>
+                        </span>
+                      </label>
+                    </div>
+                    <div class="relic-location">
+                      <input id="extension-extended"
+                              name="extension"
+                              type="radio"
+                              value="wanderer">
+                      <label for="extension-extended">
+                        Extended
+                        <span class="tooltip-wrapper">
+                          <span class="tooltip-indicator">?</span>
+                          <span class="tooltip hidden">
+                            <span>
+                              Relics and progression items may appear in
+                              place of <i>limited</i> equipment tiles or 
+                              in unique locations in either castle. 70 
+                              Check locations.
+                            </span>
+                          </span>
+                        </span>
+                      </label>
+                    </div>
+                    <div class="relic-location">
+                      <input id="extension-classic"
+                             name="extension"
+                             type="radio"
+                             value="classic">
+                      <label for="extension-classic">
+                        Classic
+                        <span class="tooltip-wrapper">
+                          <span class="tooltip-indicator">?</span>
+                          <span class="tooltip hidden">
+                            <span>
+                              Relics and progression items will only be
+                              randomized among the game's original relic
+                              and progression item locations. 28 Check locations.
+                            </span>
+                          </span>
+                        </span>
+                      </label>
+                    </div>
+                  </fieldset>
+
+                  <input id="enemy-drops-arg"
+                         type="text"
+                         disabled="disabled"
+                         style="display: none">
+                  <input id="starting-equipment-arg"
+                         type="text"
+                         disabled="disabled"
+                         style="display: none">
+                  <input id="item-locations-arg"
+                         type="text"
+                         disabled="disabled"
+                         style="display: none">
+                  <input id="prologue-rewards-arg"
+                         type="text"
+                         disabled="disabled"
+                         style="display: none">
+                  <input id="relic-locations-arg"
+                         type="text"
+                         disabled="disabled"
+                         style="display: none">
+                  <input id="writes"
+                         type="text"
+                         disabled="disabled"
+                         style="display: none">
                 </fieldset>
                 <div class="pure-u-1">                <input id="clear"
                          type="submit"
@@ -261,7 +293,7 @@
                 </div>
               </div>
             </fieldset>
-            <fieldset>
+            <fieldset class="pure-u-lg-1-2">
               <legend>Options</legend>
               <div class="pure-g">
                 <div class="pure-u-12-24">
@@ -292,7 +324,7 @@
                 </div>
                 <div class="pure-u-1-2">
                   <input id="colorrando-mode" type="checkbox">
-                  <label for="colorrando-mode">Color Rando mode
+                  <label for="colorrando-mode">Color Randomizer
                     <span class="tooltip-wrapper">
                       <span class="tooltip-indicator">?</span>
                       <span class="tooltip hidden">
@@ -306,7 +338,7 @@
                 </div>
                 <div class="pure-u-1-2">
                   <input id="tournament-mode" type="checkbox">
-                  <label for="tournament-mode">Tournament mode
+                  <label for="tournament-mode">Tournament Mode
                     <span class="tooltip-wrapper">
                       <span class="tooltip-indicator">?</span>
                       <span class="tooltip hidden">
@@ -322,7 +354,7 @@
                 </div>
                 <div class="pure-u-1-2">
                   <input id="magicmax-mode" type="checkbox">
-                  <label for="magicmax-mode">Magic Max mode
+                  <label for="magicmax-mode">Magic Vessels
                     <span class="tooltip-wrapper">
                       <span class="tooltip-indicator">?</span>
                       <span class="tooltip hidden">
@@ -335,7 +367,7 @@
                 </div>
                 <div class="pure-u-1-2">
                   <input id="accessibility-patches" type="checkbox">
-                  <label for="accessibility-patches">Apply accessibility patches
+                  <label for="accessibility-patches">Accessibility Patches
                     <span class="tooltip-wrapper">
                       <span class="tooltip-indicator">?</span>
                       <span class="tooltip hidden">
@@ -349,7 +381,7 @@
                 </div>
                 <div class="pure-u-1-2">
                   <input id="antifreeze-mode" type="checkbox">
-                  <label for="antifreeze-mode">Anti-Freeze mode
+                  <label for="antifreeze-mode">Anti-Freeze
                     <span class="tooltip-wrapper">
                       <span class="tooltip-indicator">?</span>
                       <span class="tooltip hidden">
@@ -363,11 +395,11 @@
                 </div>
                 <div class="pure-u-1-2">
                   <input id="show-spoilers" type="checkbox">
-                  <label for="show-spoilers">Show spoilers</label>
+                  <label for="show-spoilers">Show Spoilers</label>
                 </div>
                 <div class="pure-u-1-2">
                   <input id="mypurse-mode" type="checkbox">
-                  <label for="mypurse-mode">That's my purse! mode
+                  <label for="mypurse-mode">That's my purse!
                     <span class="tooltip-wrapper">
                       <span class="tooltip-indicator">?</span>
                       <span class="tooltip hidden">
@@ -380,11 +412,11 @@
                 </div>
                 <div class="pure-u-1-2">
                   <input id="show-relics" type="checkbox">
-                  <label for="show-relics">Show relic locations</label>
+                  <label for="show-relics">Show Relic Locations</label>
                 </div>
                 <div class="pure-u-1-2">
                   <input id="iws-mode" type="checkbox">
-                  <label for="iws-mode">Infinite Wing Smash mode
+                  <label for="iws-mode">Infinite Wing Smash
                     <span class="tooltip-wrapper">
                       <span class="tooltip-indicator">?</span>
                       <span class="tooltip hidden">
@@ -401,7 +433,7 @@
                 </div>
                 <div class="pure-u-1-2">
                   <input id="fastwarp-mode" type="checkbox">
-                  <label for="fastwarp-mode">Fast Warp mode
+                  <label for="fastwarp-mode">Fast Warps
                     <span class="tooltip-wrapper">
                       <span class="tooltip-indicator">?</span>
                       <span class="tooltip hidden">
@@ -412,13 +444,13 @@
                     </span>
                   </label>
                 </div>
-                <div class="pure-u-12-24">
-                      <input id="enemy-drops" type="checkbox">
-                      <label for="enemy-drops">Enemy drops</label>
-              </div>              
+                <div class="pure-u-1-2">
+                  <input id="enemy-drops" type="checkbox">
+                  <label for="enemy-drops">Enemy Drops</label>
+                </div>
                 <div class="pure-u-1-2">
                   <input id="noprologue-mode" type="checkbox">
-                  <label for="noprologue-mode">No Prologue mode
+                  <label for="noprologue-mode">Remove Prologue
                     <span class="tooltip-wrapper">
                       <span class="tooltip-indicator">?</span>
                       <span class="tooltip hidden">
@@ -430,13 +462,13 @@
                     </span>
                   </label>
                 </div>
-                <div class="pure-u-12-24">
+                <div class="pure-u-1-2">
                   <input id="stats" type="checkbox">
                   <label for="stats">Item stats</label>
                 </div>
                 <div class="pure-u-1-2">
                   <input id="unlocked-mode" type="checkbox">
-                  <label for="unlocked-mode">Unlocked mode
+                  <label for="unlocked-mode">Unlocked Mode
                     <span class="tooltip-wrapper">
                       <span class="tooltip-indicator">?</span>
                       <span class="tooltip hidden">
@@ -449,9 +481,9 @@
                     </span>
                   </label>
                 </div>
-                <div class="pure-u-12-24">
+                <div class="pure-u-1-2">
                   <input id="turkey-mode" type="checkbox">
-                  <label for="turkey-mode">Turkey mode
+                  <label for="turkey-mode">Turkey Mode
                     <span class="tooltip-wrapper">
                       <span class="tooltip-indicator">?</span>
                       <span class="tooltip hidden">
@@ -465,7 +497,7 @@
                 </div>
                 <div class="pure-u-1-2">
                   <input id="surprise-mode" type="checkbox">
-                  <label for="surprise-mode">Surprise mode
+                  <label for="surprise-mode">Relic Surprise!
                     <span class="tooltip-wrapper">
                       <span class="tooltip-indicator">?</span>
                       <span class="tooltip hidden">
@@ -478,13 +510,13 @@
                     </span>
                   </label>
                 </div>
-                <div class="pure-u-12-24">
+                <div class="pure-u-1-2">
                   <input id="music" type="checkbox">
-                  <label for="music">Music</label>
+                  <label for="music">Music Randomizer</label>
                 </div>
                 <div class="pure-u-1-2">
                   <input id="enemyStatRando-mode" type="checkbox">
-                  <label for="enemyStatRando-mode">Enemy Stat Randomizer mode
+                  <label for="enemyStatRando-mode">Enemy Stats
                     <span class="tooltip-wrapper">
                       <span class="tooltip-indicator">?</span>
                       <span class="tooltip hidden">
@@ -497,13 +529,13 @@
                     </span>
                   </label>
                 </div>
-                <div class="pure-u-12-24">
+                <div class="pure-u-1-2">
                   <input id="item-locations" type="checkbox">
                   <label for="item-locations">Item locations</label>
                 </div>
                 <div class="pure-u-1-2">
                   <input id="shopPriceRando-mode" type="checkbox">
-                  <label for="shopPriceRando-mode">Shop Price Randomizer Mode
+                  <label for="shopPriceRando-mode">Shop Prices
                     <span class="tooltip-wrapper">
                       <span class="tooltip-indicator">?</span>
                       <span class="tooltip hidden">
@@ -516,13 +548,13 @@
                     </span>
                   </label>
                 </div>
-                <div class="pure-u-12-24">
+                <div class="pure-u-1-2">
                   <input id="starting-equipment" type="checkbox" disabled>
-                  <label for="starting-equipment">Starting equipment</label>
+                  <label for="starting-equipment">Starting Equipment</label>
                 </div>
                 <div class="pure-u-1-2">
                   <input id="startRoomRando-mode" type="checkbox">
-                  <label for="startRoomRando-mode">Starting Room Randomizer Mode
+                  <label for="startRoomRando-mode">Starting Zone
                     <span class="tooltip-wrapper">
                       <span class="tooltip-indicator">?</span>
                       <span class="tooltip hidden">
@@ -535,9 +567,9 @@
                     </span>
                   </label>
                 </div>
-                <div class="pure-u-12-24">
+                <div class="pure-u-1-4">
                   <input id="prologue-rewards" type="checkbox">
-                  <label for="prologue-rewards">Prologue rewards</label>
+                  <label for="prologue-rewards">Prologue Rewards</label>
                 </div>
               </div>
             </fieldset>
@@ -589,8 +621,19 @@
           <li>Removed boss room limitations for Cursed Night preset.</li>
           <li>Added ability to use Heart Refresh for Cursed Night preset.</li>
           <li>Added new starting equipment for Cursed Night preset.</li>
+          <li>Added Starting Room Randomization to Chaos-Lite preset.</li>
+          <li>Added 7 random relics to starting pool for Lucky Sevens preset.</li>
+          <li>Removed prologue for Lucky Sevens preset.</li>
+          <li>Removed remaining Bat relics from Leg Day preset.</li>
+          <li>Renamed Speedrun preset to Sequence Breaker.</li>
+          <li>Renamed Forge preset to Any Percent.</li>
           <li>Updated preset descriptions.</li>
+          <li>Renamed Wanderer locations extension to Extended.</li>
+          <li>Renamed Spread locations extension to Guarded<i>Plus</i>.</li>
+          <li>Renamed Tourist locations extension to Scenic.</li>
+          <li>Updated many option names on the website to be more aesthetic or descriptive.</li>
           <li>Set ground work for website re-design.</li>
+          <li>Started website re-design.</li>
           <li>Corrected an error when trying to apply Shop Price Rando.</li>
           <li>Reticulated Glitch logic splines.</li>
         </ul>

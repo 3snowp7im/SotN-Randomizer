@@ -251,7 +251,12 @@
   }
 
   function complexityChange() {
-    localStorage.setItem('complexity', elems.complexity.value)
+    localStorage.setItem('complexity', elems.complexity.value);
+    elems.complexityCurrentValue.innerText = `(${elems.complexity.value})`;
+  }
+
+  function updateCurrentComplexityValue() {
+    elems.complexityCurrentValue.innerText = `(${elems.complexity.value})`;
   }
 
   function startingEquipmentChange() {
@@ -299,17 +304,30 @@
     }
   }
 
+  function generateComplexityDataListItems(maxValue) {
+    for(let i = 2; i <= maxValue; i++) {
+      const node = document.createElement('option');
+      node.value = i;
+      node.label = i;
+      elems.complexityDataList.append(node);
+    }
+  }
+
   function adjustMaxComplexity() {
     switch (relicLocationsExtensionCache) {
     case constants.EXTENSION.EQUIPMENT:
     case constants.EXTENSION.TOURIST:
       elems.complexity.max = 15
+      generateComplexityDataListItems(15);
+      elems.complexityMaxValue.innerText = 15;
       break
     case constants.EXTENSION.GUARDED:
     case constants.EXTENSION.SPREAD:
     case constants.EXTENSION.WANDERER:
     default:
-      elems.complexity.max = 11
+      elems.complexity.max = 11;
+      generateComplexityDataListItems(11);
+      elems.complexityMaxValue.innerText = 11;
       break
     }
     if (parseInt(elems.complexity.value) > parseInt(elems.complexity.max)) {
@@ -1112,6 +1130,9 @@
     presetAuthor: document.getElementById('preset-author'),
     options: document.getElementById('options'),
     complexity: document.getElementById('complexity'),
+    complexityCurrentValue: document.querySelector('#complexityCurrentValue'),
+    complexityDataList: document.querySelector('#complexityValues'),
+    complexityMaxValue: document.querySelector('#complexityMaxValue'),
     enemyDrops: document.getElementById('enemy-drops'),
     enemyDropsArg: document.getElementById('enemy-drops-arg'),
     startingEquipment: document.getElementById('starting-equipment'),
@@ -1176,6 +1197,7 @@
   elems.preset.addEventListener('change', presetChange)
   elems.presetId.addEventListener('change', presetIdChange)
   elems.complexity.addEventListener('change', complexityChange)
+  elems.complexity.addEventListener('input', updateCurrentComplexityValue);
   elems.enemyDrops.addEventListener('change', enemyDropsChange)
   elems.startingEquipment.addEventListener('change', startingEquipmentChange)
   elems.relicLocations.addEventListener('change', relicLocationsChange)
