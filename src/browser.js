@@ -149,6 +149,7 @@
     localStorage.setItem('preset', elems.preset.checked)
     if (elems.preset.checked) {
       elems.presetSelect.classList.remove('hide')
+      elems.presetDetails.classList.remove('hide')
       elems.complexity.disabled = true
       //elems.enemyDrops.disabled = true
       //elems.startingEquipment.disabled = true
@@ -163,6 +164,7 @@
       elems.options.classList.add('hide')
     } else {
       elems.presetSelect.classList.add('hide')
+      elems.presetDetails.classList.add('hide')
       elems.complexity.disabled = false
       //elems.enemyDrops.disabled = false
       //elems.startingEquipment.disabled = false
@@ -187,7 +189,7 @@
       return preset.id === id                                                     //
     }).pop()                                                                      //
     elems.presetDescription.innerText = preset.description                        //
-    elems.presetAuthor.innerText = 'by ' + preset.author                          //  
+    elems.presetAuthor.innerText = preset.author                          //  
     localStorage.setItem('presetId', preset.id)                                   //  
     if (elems.preset.checked) {                                                   //
       const options = preset.options()                                            //
@@ -1104,6 +1106,7 @@
     seed: document.getElementById('seed'),
     preset: document.getElementById('preset'),
     presetSelect: document.getElementById('preset-select'),
+    presetDetails: document.querySelector('#preset-details'),
     presetId: document.getElementById('preset-id'),
     presetDescription: document.getElementById('preset-description'),
     presetAuthor: document.getElementById('preset-author'),
@@ -1162,6 +1165,8 @@
     showOlder: document.getElementById('show-older'),
     older: document.getElementById('older'),
   }
+
+  console.log(elems.presetDetails)
   resetState()
   elems.output.ppf.addEventListener('change', outputChange)
   elems.output.bin.addEventListener('change', outputChange)

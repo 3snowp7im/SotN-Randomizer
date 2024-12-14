@@ -1,0 +1,21 @@
+#preset-details * {
+  margin: 0;
+  padding: 0;
+}
+
+#preset-details.hide {
+  display: none;
+}
+
+#preset-description,
+#preset-author {
+  text-indent: 1rem;
+}
+
+#preset-description {
+  margin-bottom: 0.5rem;
+}
+
+#preset-author {
+  font-style: italic;
+}

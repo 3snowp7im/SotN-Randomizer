@@ -9,6 +9,7 @@
     <link rel="stylesheet"
           href="https://d1azc1qln24ryf.cloudfront.net/114779/Socicon/style-cf.css?u8vidh">
     <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="static/css/randomizations.css">
   </head>
   <body>
     <div id="version"></div>
@@ -84,16 +85,15 @@
               </div>
               <div id="preset-select" class="pure-u-12-24">
                 <select id="preset-id"></select>
-                <span class="tooltip-wrapper">
-                  <span class="tooltip-indicator">?</span>
-                  <span class="tooltip hidden">
-                    <span>
-                      <span id="preset-description"></span>
-                      <span id="preset-author"></span>
-                    </span>
-                  </span>
-                </span>
               </div>
+              
+              <section id="preset-details" class="pure-u-1">
+                <h4>Preset description:</h4>
+                <p id="preset-description"></p>
+                <h4>Preset author(s):</h4>
+                <p id="preset-author"></p>
+              </section>
+
               <fieldset id="options">
                 <div class="pure-g">
                   <div class="pure-u-12-24">
