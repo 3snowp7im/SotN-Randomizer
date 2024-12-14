@@ -72,10 +72,7 @@ h3 time {
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-#target div {
-    text-align: center;
+    flex-wrap: wrap;
 }
 
 fieldset .pure-g .pure-u-12-24,
@@ -284,10 +281,6 @@ body.menu {
     overflow: hidden;
 }
 
-.menu #target-container > div {
-    margin: 0 .3em .2em .3em;
-}
-
 .menu #target {
     border-width: 10px;
     border-style: dashed;
@@ -307,10 +300,10 @@ body.menu {
     animation-fill-mode: forwards;
 }
 
-.menu #target > div {
+/* .menu #target > div {
     width: 30em;
     white-space: nowrap;
-}
+} */
 
 @keyframes expand-target {
     0% {
@@ -601,10 +594,6 @@ body.menu {
     overflow: hidden;
 }
 
-.light #target-container > div {
-    margin: 0 .3em .2em .3em;
-}
-
 .light #target {
     border-width: 10px;
     border-style: dashed;
@@ -628,10 +617,10 @@ body.menu {
     animation-fill-mode: forwards;
 }
 
-.light #target > div {
+/* .light #target > div {
     width: 30em;
     white-space: nowrap;
-}
+} */
 
 .light input[type="submit"] {
     color: #000;
@@ -749,10 +738,6 @@ body.menu {
     overflow: hidden;
 }
 
-.dark #target-container > div {
-    margin: 0 .3em .2em .3em;
-}
-
 .dark #target {
     border-width: 10px;
     border-style: dashed;
@@ -776,10 +761,10 @@ body.menu {
     animation-fill-mode: forwards;
 }
 
-.dark #target > div {
+/* .dark #target > div {
     width: 30em;
     white-space: nowrap;
-}
+} */
 
 .dark input[type="file"] {
     color: #fff;

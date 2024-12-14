@@ -42,7 +42,7 @@
               src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/twitch.svg"></a>
       </div>
       <form id="form" class="pure-u-1">
-        <fieldset id="output" class="pure-u-1">
+        <fieldset id="output">
           <legend>Output</legend>
           <div class="pure-u-2-24">
             <input id="output-bin"
@@ -58,15 +58,9 @@
                    value="ppf">
             <label for="output-ppf">.ppf</label>
           </div>
-          <div id="target-container" class="pure-u-1">
-            <div>
-              <div id="target" class="hidden">
-                <div>
-                  <span id="status"></span>
-                  <input id="file" type="file" accept=".bin,.iso">
-                </div>
-              </div>
-            </div>
+          <div id="target" class="hidden">
+            <label id="status" for="file"></label>
+            <input id="file" type="file" accept=".bin,.iso">
           </div>
         </fieldset>
         <div class="pure-u-1">
