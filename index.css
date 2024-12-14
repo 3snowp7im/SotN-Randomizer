@@ -1,15 +1,21 @@
+* {
+    box-sizing: border-box;
+}
 html, body {
     height: 100%;
-}
-
-#content {
-    padding: 0 15% 2em 15%;
 }
 
 #version {
     float: right;
     font-size: small;
     margin: 1em 1em 0 0;
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding: 0 2rem 2rem 2rem;
 }
 
 h1 {
