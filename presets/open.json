@@ -22,6 +22,7 @@
   
   "colorrandoMode": true,
   "unlockedMode": true,
+  "startRoomRandoMode": true,
 
   "lockLocation": [{
     "location": "Merman Statue",
