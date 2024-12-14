@@ -2553,6 +2553,11 @@ function hexValueToDamageString(hexValue) {
           randomize.push('sh')
         }
         delete options.shopPriceRandoMode
+      } else if ('startRoomRandoMode' in options) { // randomize starting room - eldrich
+        if (options.startRoomRandoMode) {
+          randomize.push('ori')
+        }
+        delete options.startRoomRandoMode
       } else if ('debugMode' in options) { // Debug mode - eldrich
         if (options.debugMode) {
           randomize.push('D')
@@ -3787,6 +3792,7 @@ function hexValueToDamageString(hexValue) {
     surpriseMode,
     enemyStatRandoMode,
     shopPriceRandoMode,
+    startRoomRandoMode,
     debugMode,
     writes,
   ) {
@@ -3816,6 +3822,7 @@ function hexValueToDamageString(hexValue) {
     this.surpriseMode = surpriseMode
     this.enemyStatRandoMode = enemyStatRandoMode
     this.shopPriceRandoMode = shopPriceRandoMode
+    this.startRoomRandoMode = startRoomRandoMode
     this.debugMode = debugMode
     if (writes) {
       this.writes = writes
@@ -3960,6 +3967,8 @@ function hexValueToDamageString(hexValue) {
     this.enemyStatRando = false
     // shopPriceRando mode.
     this.shopPriceRando = false
+    // startRoomRando mode.
+    this.startRoomRando = false
     // Debug mode.
     this.debug = false
     // Arbitrary writes.
@@ -4272,6 +4281,9 @@ function hexValueToDamageString(hexValue) {
     }
     if ('shopPriceRandoMode' in json) {
       builder.shopPriceRandoMode(json.shopPriceRandoMode)
+    }
+    if ('startRoomRandoMode' in json) {
+      builder.startRoomRandoMode(json.startRoomRandoMode)
     }
     if ('writes' in json) {
       let lastAddress = 0
@@ -4592,6 +4604,9 @@ function hexValueToDamageString(hexValue) {
     }
     if ('shopPriceRandoMode' in preset) {
       this.shopPriceRando = preset.shopPriceRandoMode
+    }
+    if ('startRoomRandoMode' in preset) {
+      this.startRoomRando = preset.startRoomRandoMode
     }
     if ('writes' in preset) {
       this.writes = this.writes || []
@@ -5310,6 +5325,11 @@ function hexValueToDamageString(hexValue) {
     this.shopPriceRando = enabled
   }
 
+  // Enable Starting Room Rando - eldri7ch
+  PresetBuilder.prototype.startRoomRandoMode = function startRoomRandoMode(enabled) {
+    this.startRoomRando = enabled
+  }
+
   // Write a character.
   PresetBuilder.prototype.writeChar = function writeChar(address, value) {
     if (value !== 'random' && value !== 'random1' && value !== 'random3' && value !== 'random10' && value !== 'random99') {
@@ -5619,6 +5639,7 @@ function hexValueToDamageString(hexValue) {
     const surprise = self.surprise
     const enemyStatRando = self.enemyStatRando
     const shopPriceRando = self.shopPriceRando
+    const startRoomRando = self.startRoomRando
     const debug = self.debug
     const writes = self.writes
     return new Preset(
@@ -5648,6 +5669,7 @@ function hexValueToDamageString(hexValue) {
       surprise,
       enemyStatRando,
       shopPriceRando,
+      startRoomRando,
       debug,
       writes,
     )
@@ -6288,37 +6310,83 @@ function hexValueToDamageString(hexValue) {
     const data = new checked()
     // Patch the shop prices being randomized
     let offset
+    let newWrite
     let randRoomId
     
     randRoomId = Math.floor(rng() * Math.floor(25)) + 1                         // Select a starting room at random (Max25 + 1 = 26, the last room id)
 
-    offset = 0x4B6AB0C
-    offset += data.writeWord(offset,0x04)                                       // Setting up the CD room
-    offset += data.writeWord(offset,0x28)
-    offset += data.writeWord(offset,0x04)
-    offset += data.writeWord(offset,0x28)
-    offset += data.writeWord(offset,0x15)
-    offset += data.writeWord(offset,0x00)
-    offset += data.writeWord(offset,0x00)
-    offset += data.writeWord(offset,0x34)
-    offset += data.writeWord(offset,0x05)
-    offset += data.writeWord(offset,0x28)
-    offset += data.writeWord(offset,0x05)
-    offset += data.writeWord(offset,0x28)
-    offset += data.writeWord(offset,0x64)
-    offset += data.writeWord(offset,0xFF)
-    offset += data.writeWord(offset,0x00)
-    offset += data.writeWord(offset,0x00)
+    offset = 0x4b6ab0c
+    offset = data.writeWord(offset,0x28042804)                                  // Setting up the CD room
+    offset = data.writeWord(offset,0x34000015)
+    offset = data.writeWord(offset,0x28052805)
+    data.writeWord(offset,0x0000ff64)
 
-    offset = 0x4B66A44
-    offset += data.writeWord(offset,0x04)
-    offset += data.writeWord(offset,0x4a)
-    offset += data.writeWord(offset,0x00)
-    offset += data.writeWord(offset,0x41)
-    offset += data.writeWord(offset,0x64)
+    offset = 0x4b66a44
+    offset = data.writeChar(offset,0x04)
+    offset = data.writeChar(offset,0x4a)
+    offset = data.writeChar(offset,0x00)
+    offset = data.writeChar(offset,0x41)
+    data.writeChar(offset,0x64)
 
-    offset = 0xae95c
-    
+    offset = 0xae95c                                                            // change the destination
+    newWrite = startRoomData[randRoomId].xyWrite                                // Write X,Y Position
+    offset = data.writeWord(offset,newWrite)
+
+    newWrite = startRoomData[randRoomId].roomWrite                              // Write Rooms Used
+    offset = data.writeWord(offset,newWrite)
+
+    newWrite = startRoomData[randRoomId].stageWrite                             // Write destination stage Used
+    offset = data.writeShort(offset,newWrite)
+
+    if(startRoomData[randRoomId].stageWrite === 0x03 | startRoomData[randRoomId].stageWrite === 0x05) {
+      offset = 0x45f55a2                                                        // Solve soft lock if player starts near Room 0 in Abandoned Mines
+      offset = data.writeChar(offset,0x42)
+      data.writeChar(offset,0x03)
+
+      offset = 0x45f52a2                                                        // Solve soft lock if player starts near Room 0 in Abandoned Mines
+      offset = data.writeChar(offset,0x42)
+      data.writeChar(offset,0x03)
+
+      offset = 0x45f5142                                                        // Solve soft lock if player starts near Room 0 in Abandoned Mines
+      offset = data.writeChar(offset,0x42)
+      data.writeChar(offset,0x03)
+
+      offset = 0x45f4eec                                                        // Solve soft lock if player starts near Room 0 in Abandoned Mines
+      offset = data.writeChar(offset,0x42)
+      data.writeChar(offset,0x03)
+
+      offset = 0x45f67bc                                                        // Solve soft lock if player starts near Room 3 in Abandoned Mines
+      offset = data.writeChar(offset,0x67)
+      offset = data.writeChar(offset,0x00)
+      offset = data.writeChar(offset,0x68)
+      data.writeChar(offset,0x00)
+
+      offset = 0x45f65dc                                                        // Solve soft lock if player starts near Room 3 in Abandoned Mines
+      data.writeChar(offset,0x23)
+      
+      offset = 0x45f655a                                                        // Solve soft lock if player starts near Room 3 in Abandoned Mines
+      offset = data.writeChar(offset,0x68)
+      data.writeChar(offset,0x00)
+
+      offset = 0x45f64dc                                                        // Solve soft lock if player starts near Room 3 in Abandoned Mines
+      offset = data.writeChar(offset,0x42)
+      data.writeChar(offset,0x03)
+
+      offset = 0x45f644e                                                        // Solve soft lock if player starts near Room 3 in Abandoned Mines
+      offset = data.writeChar(offset,0x67)
+      offset = data.writeChar(offset,0x00)
+      offset = data.writeChar(offset,0x68)
+      data.writeChar(offset,0x00)
+
+      offset = 0x45f6168                                                        // Solve soft lock if player starts near Room 3 in Abandoned Mines
+      offset = data.writeChar(offset,0xda)
+      data.writeChar(offset,0x01)
+
+      data.writeWord(0x45f8de2,0x03430342)                                      // Solve soft lock if player starts near Room 8 in Abandoned Mines
+      data.writeShort(0x45f8a92,0x0342)
+      data.writeShort(0x45f897c,0x0343)
+      data.writeWord(0x45f879a,0x03430342)
+    }
 
     return data
   }
@@ -6843,6 +6911,7 @@ function hexValueToDamageString(hexValue) {
     applysurprisePatches: applysurprisePatches,
     applyenemyStatRandoPatches: applyenemyStatRandoPatches,
     applyShopPriceRandoPatches: applyShopPriceRandoPatches,
+    applyStartRoomRandoPatches: applyStartRoomRandoPatches,
     applyMapColor: applyMapColor,
     randomizeRelics: randomizeRelics,
     randomizeItems: randomizeItems,

@@ -1013,7 +1013,7 @@
     }
   ]
 
-  const startRoomData = [                                                       // Data provided for starting room randomizer
+  const startRoomData = [                                                       // Data provided for starting room randomizer (Writes are used, other fields are reference)
     {
       id: 1,
       comment: "Bottom of Forbidden Route",
@@ -1021,8 +1021,9 @@
       room: 0,
       xPos: 48,
       yPos: 644,
-      xyWrite: 0x30008402,
-      roomStageWrite: 0x00410000
+      xyWrite: 0x02840030,
+      roomWrite: 0x00410000,
+      stageWrite: 0x0000
     }, {
       id: 2,
       comment: "Top of Spirit Orb room",
@@ -1030,8 +1031,9 @@
       room: 2,
       xPos: 332,
       yPos: 244,
-      xyWrite: 0x4C01F400,
-      roomStageWrite: 0x10410000
+      xyWrite: 0x00F4014C,
+      roomWrite: 0x00410010,
+      stageWrite: 0x0000
     }, {
       id: 3,
       comment: "Same room but across from Telescope",
@@ -1039,8 +1041,9 @@
       room: 3,
       xPos: 724,
       yPos: 164,
-      xyWrite: 0xD402A400,
-      roomStageWrite: 0x18410100
+      xyWrite: 0x00A402D4,
+      roomWrite: 0x00410018,
+      stageWrite: 0x0001
     }, {
       id: 4,
       comment: "Gladius room",
@@ -1048,8 +1051,9 @@
       room: 12,
       xPos: 128,
       yPos: 164,
-      xyWrite: 0x8000A400,
-      roomStageWrite: 0x60410100
+      xyWrite: 0x00A40080,
+      roomWrite: 0x00410060,
+      stageWrite: 0x0001
     }, {
       id: 5,
       comment: "Bookshelf room",
@@ -1057,8 +1061,9 @@
       room: 1,
       xPos: 88,
       yPos: 148,
-      xyWrite: 0x58009400,
-      roomStageWrite: 0x08410200
+      xyWrite: 0x00940058,
+      roomWrite: 0x00410008,
+      stageWrite: 0x0002
     }, {
       id: 6,
       comment: "Faerie Card room",
@@ -1066,8 +1071,9 @@
       room: 7,
       xPos: 208,
       yPos: 148,
-      xyWrite: 0xD0009400,
-      roomStageWrite: 0x38410200
+      xyWrite: 0x009400D0,
+      roomWrite: 0x00410038,
+      stageWrite: 0x0002
     }, {
       id: 7,
       comment: "One-dollar room",
@@ -1075,8 +1081,9 @@
       room: 5,
       xPos: 100,
       yPos: 164,
-      xyWrite: 0x6400A400,
-      roomStageWrite: 0x28410300
+      xyWrite: 0x00A40064,
+      roomWrite: 0x00410028,
+      stageWrite: 0x0003
     }, {
       id: 8,
       comment: "Elevator in Slime room",
@@ -1084,8 +1091,9 @@
       room: 23,
       xPos: 352,
       yPos: 228,
-      xyWrite: 0x6001E400,
-      roomStageWrite: 0xB8410300
+      xyWrite: 0x00E40160,
+      roomWrite: 0x004100B8,
+      stageWrite: 0x0003
     }, {
       id: 9,
       comment: "Top left of Spectral Sword room",
@@ -1093,8 +1101,9 @@
       room: 2,
       xPos: 48,
       yPos: 132,
-      xyWrite: 0x30008400,
-      roomStageWrite: 0x10410400
+      xyWrite: 0x00840030,
+      roomWrite: 0x00410010,
+      stageWrite: 0x0004
     }, {
       id: 10,
       comment: "Olrox Garnet room",
@@ -1102,8 +1111,9 @@
       room: 10,
       xPos: 128,
       yPos: 164,
-      xyWrite: 0x8000A400,
-      roomStageWrite: 0x50410400
+      xyWrite: 0x00A40080,
+      roomWrite: 0x00410050,
+      stageWrite: 0x0004
     }, {
       id: 11,
       comment: "Room before Cerberus",
@@ -1111,8 +1121,9 @@
       room: 1,
       xPos: 254,
       yPos: 148,
-      xyWrite: 0xFE009400,
-      roomStageWrite: 0x08410500
+      xyWrite: 0x009400FE,
+      roomWrite: 0x00410008,
+      stageWrite: 0x0005
     }, {
       id: 12,
       comment: "Combat Knife room",
@@ -1120,8 +1131,9 @@
       room: 9,
       xPos: 208,
       yPos: 148,
-      xyWrite: 0xD0009400,
-      roomStageWrite: 0x48410500
+      xyWrite: 0x009400D0,
+      roomWrite: 0x00410048,
+      stageWrite: 0x0005
     }, {
       id: 13,
       comment: "Bottom of the Stairs",
@@ -1129,8 +1141,9 @@
       room: 11,
       xPos: 208,
       yPos: 1700,
-      xyWrite: 0xD000A406,
-      roomStageWrite: 0x58410600
+      xyWrite: 0x06A400D0,
+      roomWrite: 0x00410058,
+      stageWrite: 0x0006
     }, {
       id: 14,
       comment: "Top of the tower closest to Keep",
@@ -1138,8 +1151,9 @@
       room: 17,
       xPos: 510,
       yPos: 228,
-      xyWrite: 0xFE01E400,
-      roomStageWrite: 0x88410600
+      xyWrite: 0x00E401FE,
+      roomWrite: 0x00410088,
+      stageWrite: 0x0006
     }, {
       id: 15,
       comment: "Holy Mail ledge",
@@ -1147,8 +1161,9 @@
       room: 3,
       xPos: 110,
       yPos: 72,
-      xyWrite: 0x6E004800,
-      roomStageWrite: 0x18410700
+      xyWrite: 0x0048006E,
+      roomWrite: 0x00410018,
+      stageWrite: 0x0007
     }, {
       id: 16,
       comment: "On the Teleporter shortcut switch",
@@ -1156,8 +1171,9 @@
       room: 16,
       xPos: 104,
       yPos: 160,
-      xyWrite: 0x6800A000,
-      roomStageWrite: 0x80410700
+      xyWrite: 0x00A00068,
+      roomWrite: 0x00410080,
+      stageWrite: 0x0007
     }, {
       id: 17,
       comment: "Drawer room",
@@ -1165,8 +1181,9 @@
       room: 4,
       xPos: 224,
       yPos: 148,
-      xyWrite: 0xE0009400,
-      roomStageWrite: 0x20410900
+      xyWrite: 0x009400E0,
+      roomWrite: 0x00410020,
+      stageWrite: 0x0009
     }, {
       id: 18,
       comment: "Merman Statue room",
@@ -1174,8 +1191,9 @@
       room: 21,
       xPos: 208,
       yPos: 132,
-      xyWrite: 0xD0008400,
-      roomStageWrite: 0xA8410900
+      xyWrite: 0x008400D0,
+      roomWrite: 0x004100A8,
+      stageWrite: 0x0009
     }, {
       id: 19,
       comment: "Blood cloak room",
@@ -1183,26 +1201,29 @@
       room: 10,
       xPos: 54,
       yPos: 164,
-      xyWrite: 0x3600A400,
-      roomStageWrite: 0x50410A00
+      xyWrite: 0x00A40036,
+      roomWrite: 0x00410050,
+      stageWrite: 0x000A
     }, {
       id: 20,
-      comment: "Holy sword room",
+      comment: "Opening shortcut",
       stage: 0x0a,                                                                 //Colosseum
       room: 0,
       xPos: 96,
       yPos: 180,
-      xyWrite: 0x6000B400,
-      roomStageWrite: 0x00410A00
+      xyWrite: 0x009C00A8,
+      roomWrite: 0x00410020,
+      stageWrite: 0x000A
     }, {
       id: 21,
-      comment: "Fachion room",
+      comment: "Falchion room",
       stage: 0x0b,                                                                 //Castle Keep
       room: 5,
       xPos: 100,
       yPos: 164,
-      xyWrite: 0x6400A400,
-      roomStageWrite: 0x28410B00
+      xyWrite: 0x00A40064,
+      roomWrite: 0x00410028,
+      stageWrite: 0x000B
     }, {
       id: 22,
       comment: "Tyrfing room",
@@ -1210,8 +1231,9 @@
       room: 8,
       xPos: 156,
       yPos: 164,
-      xyWrite: 0x9C00A400,
-      roomStageWrite: 0x40410B00
+      xyWrite: 0x00A4009C,
+      roomWrite: 0x00410040,
+      stageWrite: 0x000B
     }, {
       id: 23,
       comment: "Cloth cape room",
@@ -1219,8 +1241,9 @@
       room: 5,
       xPos: 128,
       yPos: 164,
-      xyWrite: 0x8000A400,
-      roomStageWrite: 0x28410C00
+      xyWrite: 0x00A40080,
+      roomWrite: 0x00410028,
+      stageWrite: 0x000C
     }, {
       id: 24,
       comment: "Skill of Wolf room",
@@ -1228,8 +1251,9 @@
       room: 8,
       xPos: 208,
       yPos: 132,
-      xyWrite: 0xD0008400,
-      roomStageWrite: 0x40410C00
+      xyWrite: 0x008400D0,
+      roomWrite: 0x00410040,
+      stageWrite: 0x000C
     }, {
       id: 25,
       comment: "Middle of the maze room with pendulums",
@@ -1237,8 +1261,9 @@
       room: 3,
       xPos: 1090,
       yPos: 84,
-      xyWrite: 0x42045400,
-      roomStageWrite: 0x18410D00
+      xyWrite: 0x00540442,
+      roomWrite: 0x00410018,
+      stageWrite: 0x000D
     }, {
       id: 26,
       comment: "Fire of Bat ledge in large room",
@@ -1246,8 +1271,9 @@
       room: 10,
       xPos: 1456,
       yPos: 132,
-      xyWrite: 0xB0058400,
-      roomStageWrite: 0x50410D00
+      xyWrite: 0x008405B0,
+      roomWrite: 0x00410050,
+      stageWrite: 0x000D
     } 
   ]
 

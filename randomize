@@ -622,6 +622,11 @@ const yargs = require('yargs')
     describe: 'Shop prices are randomized ranging from 50% to 150% of their original value and they are shuffled between each other.',
     type: 'boolean',
   })
+  .option('startRoomRando', {
+    alias: 'ori',
+    describe: 'Start in the entrance as usual but after the first Warg, you are teleported to a random zone to start the rest of your run.',
+    type: 'boolean',
+  })
   .option('debug', {
     alias: 'D',
     describe: 'Debug mode.',
@@ -1062,6 +1067,11 @@ if ('debug' in argv) {console.log('randomize | Set shopPriceRando')}
 if (argv.shopPriceRando) { // randomizes shop prices - eldrich
   options.shopPriceRandoMode = true
 }
+if ('debug' in argv) {console.log('randomize | Set startRoomRando')}
+// Enable Starting Room Rando mode if specified. - eldri7ch
+if (argv.startRoomRando) { // randomizes starting room - eldrich
+  options.startRoomRandoMode = true
+}
 if ('debug' in argv) {console.log('randomize | Set map colors')}
 // Map Color Features if specified. - eldri7ch
 if ('mapcolor' in argv && typeof(argv.mapcolor) !== 'undefined') {
@@ -1303,7 +1313,7 @@ if ('debug' in argv) {console.log('randomize | Start randomization')}
         }
         if ('debug' in argv) {console.log('randomize | function: randomize | Enemy Stat Randomizer Mode | ' + optFlag)}
         optFlag = false
-        if (options.enemyshopPriceRandoMode || applied.shopPriceRandoMode) { // Randomizes shop prices - eldrich
+        if (options.shopPriceRandoMode || applied.shopPriceRandoMode) { // Randomizes shop prices - eldrich
           // Apply shop price Rando mode patches. - eldri7ch
           optFlag = true
           rng = new require('seedrandom')(util.saltSeed(
@@ -1315,6 +1325,19 @@ if ('debug' in argv) {console.log('randomize | Start randomization')}
           check.apply(util.applyShopPriceRandoPatches(rng))
         }
         if ('debug' in argv) {console.log('randomize | function: randomize | Shop Price Randomizer Mode | ' + optFlag)}
+        optFlag = false
+        if (options.startRoomRandoMode || applied.startRoomRandoMode) { // Randomizes starting room - eldrich
+          // Apply starting room Rando mode patches. - eldri7ch
+          optFlag = true
+          rng = new require('seedrandom')(util.saltSeed(
+            version,
+            options,
+            seed,
+            0,
+          ))
+          check.apply(util.applyStartRoomRandoPatches(rng))
+        }
+        if ('debug' in argv) {console.log('randomize | function: randomize | Starting Room Randomizer Mode | ' + optFlag)}
         optFlag = false
         if ('mapcolor' in argv) { // Colors the map - eldrich
           // Apply map color patches. - eldri7ch
