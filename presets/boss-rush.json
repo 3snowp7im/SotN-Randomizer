@@ -3,8 +3,19 @@
     "id": "boss-rush",
     "name": "Boss Rush",
     "description": "Boss Rush Mode featuring safe rooms after every three bosses and low to medium powered equipment.",
-    "author": "Mottzilla and eldri7ch",
-    "weight": -2750
+    "author": [
+        "MottZilla", 
+        "eldri7ch"
+    ],
+    "weight": -2750,
+    "knowledgeCheck": "",
+    "extension": "",
+    "complexity": 7,
+    "timeFrame": "",
+    "moddedLevel": "",
+    "castleType": "",
+    "transformEarly": "",
+    "transformType": ""
   },
   
   "comment": "Build off the Adventure preset for relic location data",

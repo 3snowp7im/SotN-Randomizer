@@ -3,8 +3,18 @@
     "id": "adventure",
     "name": "Adventure",
     "description": "Relics can appear in most equipment locations from the original game.",
-    "author": "3snow_p7im",
-    "weight": -4000
+    "author": [
+      "3snow_p7im"
+    ],
+    "weight": -4000,
+    "knowledgeCheck": "Vanilla",
+    "extension": "Tourist",
+    "complexity": 7,
+    "timeFrame": "Normal",
+    "moddedLevel": "Slightly",
+    "castleType": "Normal",
+    "transformEarly": "Yes",
+    "transformType": "Bat"
   },
 
   "relicLocationsExtension": "equipment",

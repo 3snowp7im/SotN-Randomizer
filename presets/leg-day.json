@@ -3,8 +3,19 @@
     "id": "leg-day",
     "name": "Leg Day",
     "description": "Start with Leap Stone with infinite air jumps. Back dash lasts longer and grants invincibility.",
-    "author": "MT_Fun, MottZilla",
-    "weight": 500
+    "author": [
+      "MT_Fun",
+      "MottZilla"
+    ],
+    "weight": 500,
+    "knowledgeCheck": "",
+    "extension": "",
+    "complexity": 7,
+    "timeFrame": "",
+    "moddedLevel": "",
+    "castleType": "",
+    "transformEarly": "",
+    "transformType": ""
   },
   "stats": false,
   "replaceRelic": [{

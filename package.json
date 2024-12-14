@@ -4,7 +4,7 @@
   "description": "This is a romhacking tool to randomize some things about `Castlevania: Symphony of the Night`.",
   "dependencies": {
     "colors": "^1.4.0",
-    "hygen": "^6.0.4",
+    "hygen": "^6.2.11",
     "seedrandom": "^3.0.1",
     "yargs": "^17.3.0"
   },

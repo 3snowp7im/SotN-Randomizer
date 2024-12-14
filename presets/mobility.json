@@ -3,8 +3,21 @@
     "id": "mobility",
     "name": "Mobility",
     "description": "The ultimate movement preset.",
-    "author": "3snow_p7im, eldri7ch, Mottzilla, Wecoc",
-    "weight": -5007
+    "author": [
+      "3snow_p7im",
+      "eldri7ch",
+      "MottZilla",
+      "Wecoc"
+    ],
+    "weight": -5007,
+    "knowledgeCheck": "",
+    "extension": "",
+    "complexity": 7,
+    "timeFrame": "",
+    "moddedLevel": "",
+    "castleType": "",
+    "transformEarly": "",
+    "transformType": ""
   },
 
   "stats": false,

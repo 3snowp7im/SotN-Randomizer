@@ -3,8 +3,21 @@
     "id": "skinwalker",
     "name": "Skinwalker",
     "description": "Includes all changes from Aperture, rebalances transformations and guarantees early access to at least one transformation.",
-    "author": "Zako, eldri7ch, Mottzilla, Wecoc",
-    "weight": 2500
+    "author": [
+      "Zako",
+      "eldri7ch",
+      "MottZilla",
+      "Wecoc"
+    ],
+    "weight": 2500,
+    "knowledgeCheck": "",
+    "extension": "",
+    "complexity": 7,
+    "timeFrame": "",
+    "moddedLevel": "",
+    "castleType": "",
+    "transformEarly": "",
+    "transformType": ""
   },
   "stats": false,
   "colorrandoMode": true,

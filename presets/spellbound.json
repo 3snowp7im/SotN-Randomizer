@@ -3,8 +3,19 @@
         "id": "spellbound",
         "name": "Spellbound",
         "description": "Safe logic, spells are locked by Familiar Cards.",
-        "author": "Mottzilla and JupiterClimb",
-        "weight": -5009
+        "author": [
+            "MottZilla",
+            "JupiterClimb"
+        ],
+        "weight": -5009,
+        "knowledgeCheck": "",
+        "extension": "",
+        "complexity": 7,
+        "timeFrame": "",
+        "moddedLevel": "",
+        "castleType": "",
+        "transformEarly": "",
+        "transformType": ""
     },
 
     "comment": "Bat Card = Wing Smash, Ghost Card = Summon Spirit, Faerie Card = Soul Steal, Demon Card = Hell Fire, Sword Card = Tetra Spirit, Nosedevil = Dark Metamorphosis",

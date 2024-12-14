@@ -3,8 +3,20 @@
     "id": "safe",
     "name": "Safe",
     "description": "A base preset for the Randomizer. Requires no speedrun or glitch knowledge for completion.",
-    "author": "3snow_p7im, setz, and soba",
-    "weight": 1750
+    "author": [
+      "3snow_p7im",
+      "setz",
+      "soba"
+    ],
+    "weight": 1750,
+    "knowledgeCheck": "",
+    "extension": "",
+    "complexity": 7,
+    "timeFrame": "",
+    "moddedLevel": "",
+    "castleType": "",
+    "transformEarly": "",
+    "transformType": ""
   },
   "inherits": "casual",
   "colorrandoMode": true,

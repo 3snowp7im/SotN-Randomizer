@@ -3,8 +3,19 @@
     "id": "summoner",
     "name": "Summoner",
     "description": "Utilize Familiars and Summon Items to defeat your foes.",
-    "author": "eldri7ch and Mottzilla",
-    "weight": 3000
+    "author": [
+      "eldri7ch",
+      "MottZilla"
+    ],
+    "weight": 3000,
+    "knowledgeCheck": "",
+    "extension": "",
+    "complexity": 7,
+    "timeFrame": "",
+    "moddedLevel": "",
+    "castleType": "",
+    "transformEarly": "",
+    "transformType": ""
   },
   
   "inherits": "safe",

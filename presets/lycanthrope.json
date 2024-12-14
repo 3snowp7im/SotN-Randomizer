@@ -3,8 +3,18 @@
     "id": "lycanthrope",
     "name": "Lycanthrope",
     "description": "Start with all wolf relics. Mana consumption is greatly reduced when in wolf form.",
-    "author": "3snow_p7im",
-    "weight": 750
+    "author": [
+      "3snow_p7im"
+    ],
+    "weight": 750,
+    "knowledgeCheck": "",
+    "extension": "",
+    "complexity": 7,
+    "timeFrame": "",
+    "moddedLevel": "",
+    "castleType": "",
+    "transformEarly": "",
+    "transformType": ""
   },
   "stats": false,
   "startingEquipment": [{

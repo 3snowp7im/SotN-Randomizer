@@ -3,8 +3,21 @@
     "id": "glitch",
     "name": "Glitch Remastered",
     "description": "Requires extensive glitch knowledge, but avoids memory corruption and lengthy wolf rising. Tourist relic extension.",
-    "author": "romscout, DerDrach, eldri7ch, Mottzilla",
-    "weight": -500
+    "author": [
+      "romscout",
+      "DerDrach",
+      "eldri7ch", 
+      "MottZilla"
+    ],
+    "weight": -500,
+    "knowledgeCheck": "",
+    "extension": "",
+    "complexity": 7,
+    "timeFrame": "",
+    "moddedLevel": "",
+    "castleType": "",
+    "transformEarly": "",
+    "transformType": ""
   },
   
   "relicLocationsExtension": "tourist",
