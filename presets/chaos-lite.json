@@ -2,7 +2,7 @@
   "metadata": {
     "id": "chaos-lite",
     "name": "Chaos Lite",
-    "description": "Bounty Hunter and Aperture combined with the 'tourist' extension and additional random elements. Released on April 1st, 2024. App URL: https://github.com/MottZilla/BountyHunterTool",
+    "description": "Bounty Hunter and Aperture combined with the 'scenic' extension and additional random elements. Released on April 1st, 2024. App URL: https://github.com/MottZilla/BountyHunterTool",
     "author": [
       "3snow_p7im", 
       "eldri7ch",
@@ -853,7 +853,7 @@
     ]
   }],
 
-  "relicLocationsExtension": "tourist",
+  "relicLocationsExtension": "scenic",
 
   "startingEquipment": [{
     "slot": "Other",

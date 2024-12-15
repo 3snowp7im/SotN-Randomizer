@@ -1,10 +1,11 @@
 [
   {
-    "name": "Sequence Breaker",
-    "id": "sequence-breaker",
-    "description": "Requires knowledge of movement mechanics used to sequence break in the game such as transformation-enabled dive kicks and thrust sword techniques.",
+    "name": "Grand Tour",
+    "id": "grand-tour",
+    "description": "Soon to be discontinued after website rework. Base preset featuring 'scenic' relic extension.",
     "author": [
-      "3snow_p7im"
+      "eldri7ch",
+      "MottZilla"
     ],
     "knowledgeCheck": "",
     "extension": "",

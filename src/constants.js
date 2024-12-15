@@ -501,9 +501,9 @@
   const EXTENSION = {
     GUARDED:   'guarded',
     EQUIPMENT: 'equipment',
-    SPREAD:    'spread',
-    TOURIST:   'tourist',
-    WANDERER:  'wanderer',
+    GUARDEDPLUS:    'guardedplus',
+    SCENIC:   'scenic',
+    EXTENDED:  'extended',
   }
 
   const defaultExtension = EXTENSION.GUARDED

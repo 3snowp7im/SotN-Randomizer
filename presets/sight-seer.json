@@ -2,7 +2,7 @@
   "metadata": {
     "id": "sight-seer",
     "name": "Sight-Seer",
-    "description": "A base preset for the Randomizer. Requires no speedrun or glitch knowledge for completion. Wanderer extension.",
+    "description": "A base preset for the Randomizer. Requires no speedrun or glitch knowledge for completion. Extended extension.",
     "author": [
       "3snow_p7im",
       "eldri7ch"
@@ -20,7 +20,7 @@
   
   "colorrandoMode": true,
   "stats": false,
-  "relicLocationsExtension": "wanderer",
+  "relicLocationsExtension": "extended",
 
   "lockLocation": [{
     "location": "Soul of Bat",

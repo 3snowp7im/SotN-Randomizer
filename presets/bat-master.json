@@ -18,7 +18,7 @@
     "transformType": ""
   },
   "stats": false,
-  "relicLocationsExtension": "spread",
+  "relicLocationsExtension": "guardedplus",
   "lockLocation": [{
     "location": "Soul of Bat",
     "locks": [

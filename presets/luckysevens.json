@@ -22,6 +22,7 @@
   "fastwarpMode": true,
   "colorrandoMode": true,
   "unlockedMode": true,
+  "noprologueMode": true,
   "relicLocationExtension": "Guarded",
   
   "itemLocations": [{
@@ -1033,6 +1034,40 @@
     "type": "word",
     "value": "0xa0627bc4",
     "comment": "sb v0, 0x7bc4 (v1)"
+  },
+  
+  {
+    "type": "word",
+    "value": "0x34020003",
+    "comment": "ori v0, 0x0003"
+  }, {
+    "comment": "Enable random relic",
+    "type": "word",
+    "value": "randomRelic"
+  }, {
+    "comment": "Enable random relic",
+    "type": "word",
+    "value": "randomRelic"
+  }, {
+    "comment": "Enable random relic",
+    "type": "word",
+    "value": "randomRelic"
+  }, {
+    "comment": "Enable random relic",
+    "type": "word",
+    "value": "randomRelic"
+  }, {
+    "comment": "Enable random relic",
+    "type": "word",
+    "value": "randomRelic"
+  }, {
+    "comment": "Enable random relic",
+    "type": "word",
+    "value": "randomRelic"
+  }, {
+    "comment": "Enable random relic",
+    "type": "word",
+    "value": "randomRelic"
   }, 
   
   {

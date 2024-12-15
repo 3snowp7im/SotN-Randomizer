@@ -2,7 +2,7 @@
   "metadata": {
     "id": "lookingglass",
     "name": "Lookingglass",
-    "description": "Soon to be discontinued. Wanderer extension: Use a Magic Mirror (Replaces Holy Glasses) to move between first and second castles.",
+    "description": "Soon to be discontinued. Extended extension: Use a Magic Mirror (Replaces Holy Glasses) to move between first and second castles.",
     "author": [
       "eldri7ch",
       "MottZilla"
@@ -20,7 +20,7 @@
   
   "stats": false,
   "magicmaxMode": true,
-  "relicLocationsExtension": "wanderer",
+  "relicLocationsExtension": "extended",
 
   "alias": [{
     "comment": "Alias Holy Glasses as Mirror",

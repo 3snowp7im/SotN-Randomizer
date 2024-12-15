@@ -2,7 +2,7 @@
   "metadata": {
     "id": "grand-tour",
     "name": "Grand Tour",
-    "description": "Soon to be discontinued after website rework. Base preset featuring 'tourist' relic extension.",
+    "description": "Soon to be discontinued after website rework. Base preset featuring 'scenic' relic extension.",
     "author": [
       "eldri7ch",
       "MottZilla"
@@ -18,7 +18,7 @@
     "transformType": ""
   },
   "inherits": "casual",
-  "relicLocationsExtension": "tourist",
+  "relicLocationsExtension": "Scenic",
   "colorrandoMode": true,
   "music": false,
 

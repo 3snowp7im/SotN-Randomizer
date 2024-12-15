@@ -2,7 +2,7 @@
   "metadata": {
     "id": "beyond",
     "name": "Beyond",
-    "description": "Similar to safe but with new items and a new relic. Spread relic extension.",
+    "description": "Similar to safe but with new items and a new relic. GuardedPlus relic extension.",
     "author": [
       "Forat Negre", 
       "Wecoc", 
@@ -23,7 +23,7 @@
   "fastwarpMode": true,
   "mypurseMode": true,
   
-  "relicLocationsExtension": "spread",
+  "relicLocationsExtension": "guardedplus",
 
   "complexityGoal": {
     "min": 8,

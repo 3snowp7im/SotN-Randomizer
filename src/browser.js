@@ -217,18 +217,18 @@
       elems.relicLocationsExtension.guarded.checked =
         options.relicLocations
         && options.relicLocations.extension === constants.EXTENSION.GUARDED
-      elems.relicLocationsExtension.spread.checked =
+      elems.relicLocationsExtension.guardedplus.checked =
         options.relicLocations
-        && options.relicLocations.extension === constants.EXTENSION.SPREAD
+        && options.relicLocations.extension === constants.EXTENSION.GUARDEDPLUS
       elems.relicLocationsExtension.equipment.checked =
         options.relicLocations
         && options.relicLocations.extension === constants.EXTENSION.EQUIPMENT
-      elems.relicLocationsExtension.tourist.checked =
+      elems.relicLocationsExtension.scenic.checked =
         options.relicLocations
-        && options.relicLocations.extension === constants.EXTENSION.TOURIST
-      elems.relicLocationsExtension.wanderer.checked =
+        && options.relicLocations.extension === constants.EXTENSION.SCENIC
+      elems.relicLocationsExtension.extended.checked =
         options.relicLocations
-        && options.relicLocations.extension === constants.EXTENSION.WANDERER
+        && options.relicLocations.extension === constants.EXTENSION.EXTENDED
       elems.relicLocationsExtension.classic.checked =
         options.relicLocations
         && !options.relicLocations.extension
@@ -277,23 +277,23 @@
     if (!elems.relicLocations.checked) {
       elems.relicLocationsSet.disabled = true
       elems.relicLocationsExtension.guarded.checked = false
-      elems.relicLocationsExtension.spread.checked = false
+      elems.relicLocationsExtension.guardedplus.checked = false
       elems.relicLocationsExtension.equipment.checked = false
-      elems.relicLocationsExtension.tourist.checked = false
-      elems.relicLocationsExtension.wanderer.checked = false
+      elems.relicLocationsExtension.scenic.checked = false
+      elems.relicLocationsExtension.extended.checked = false
       elems.relicLocationsExtension.classic.checked = false
     } else {
       elems.relicLocationsSet.disabled = false
       elems.relicLocationsExtension.guarded.checked =
         relicLocationsExtensionCache === constants.EXTENSION.GUARDED
-      elems.relicLocationsExtension.spread.checked =
-        relicLocationsExtensionCache === constants.EXTENSION.SPREAD
+      elems.relicLocationsExtension.guardedplus.checked =
+        relicLocationsExtensionCache === constants.EXTENSION.GUARDEDPLUS
       elems.relicLocationsExtension.equipment.checked =
         relicLocationsExtensionCache === constants.EXTENSION.EQUIPMENT
-      elems.relicLocationsExtension.tourist.checked =
-        relicLocationsExtensionCache === constants.EXTENSION.TOURIST
-      elems.relicLocationsExtension.wanderer.checked =
-        relicLocationsExtensionCache === constants.EXTENSION.WANDERER
+      elems.relicLocationsExtension.scenic.checked =
+        relicLocationsExtensionCache === constants.EXTENSION.SCENIC
+      elems.relicLocationsExtension.extended.checked =
+        relicLocationsExtensionCache === constants.EXTENSION.EXTENDED
       elems.relicLocationsExtension.classic.checked =
         !relicLocationsExtensionCache
     }
@@ -302,12 +302,12 @@
   function adjustMaxComplexity() {
     switch (relicLocationsExtensionCache) {
     case constants.EXTENSION.EQUIPMENT:
-    case constants.EXTENSION.TOURIST:
+    case constants.EXTENSION.SCENIC:
       elems.complexity.max = 15
       break
     case constants.EXTENSION.GUARDED:
-    case constants.EXTENSION.SPREAD:
-    case constants.EXTENSION.WANDERER:
+    case constants.EXTENSION.GUARDEDPLUS:
+    case constants.EXTENSION.EXTENDED:
     default:
       elems.complexity.max = 11
       break
@@ -321,14 +321,14 @@
     let value
     if (elems.relicLocationsExtension.guarded.checked) {
       value = constants.EXTENSION.GUARDED
-    } else if (elems.relicLocationsExtension.spread.checked) {
-      value = constants.EXTENSION.SPREAD
+    } else if (elems.relicLocationsExtension.guardedplus.checked) {
+      value = constants.EXTENSION.GUARDEDPLUS
     } else if (elems.relicLocationsExtension.equipment.checked) {
       value = constants.EXTENSION.EQUIPMENT
-    } else if (elems.relicLocationsExtension.tourist.checked) {
-      value = constants.EXTENSION.TOURIST
-    } else if (elems.relicLocationsExtension.wanderer.checked) {
-      value = constants.EXTENSION.WANDERER
+    } else if (elems.relicLocationsExtension.scenic.checked) {
+      value = constants.EXTENSION.SCENIC
+    } else if (elems.relicLocationsExtension.extended.checked) {
+      value = constants.EXTENSION.EXTENDED
     } else{
       value = false
     }
@@ -525,28 +525,28 @@
       // Add extension from form.
       if (elems.relicLocationsExtension.guarded.checked) {
         relicLocations.extension = constants.EXTENSION.GUARDED
-      } else if (elems.relicLocationsExtension.spread.checked) {
-        relicLocations.extension = constants.EXTENSION.SPREAD
+      } else if (elems.relicLocationsExtension.guardedplus.checked) {
+        relicLocations.extension = constants.EXTENSION.GUARDEDPLUS
       } else if (elems.relicLocationsExtension.equipment.checked) {
         relicLocations.extension = constants.EXTENSION.EQUIPMENT
-      } else if (elems.relicLocationsExtension.tourist.checked) {
-        relicLocations.extension = constants.EXTENSION.TOURIST
-      } else if (elems.relicLocationsExtension.wanderer.checked) {
-        relicLocations.extension = constants.EXTENSION.WANDERER
+      } else if (elems.relicLocationsExtension.scenic.checked) {
+        relicLocations.extension = constants.EXTENSION.SCENIC
+      } else if (elems.relicLocationsExtension.extended.checked) {
+        relicLocations.extension = constants.EXTENSION.EXTENDED
       } else {
         delete relicLocations.extension
       }
       const extensions = []
       switch (relicLocations.extension) {
-      case constants.EXTENSION.WANDERER:
-        extensions.push(constants.EXTENSION.WANDERER)
+      case constants.EXTENSION.EXTENDED:
+        extensions.push(constants.EXTENSION.EXTENDED)
         break
-      case constants.EXTENSION.TOURIST:
-      extensions.push(constants.EXTENSION.TOURIST)
+      case constants.EXTENSION.SCENIC:
+      extensions.push(constants.EXTENSION.SCENIC)
       case constants.EXTENSION.EQUIPMENT:
         extensions.push(constants.EXTENSION.EQUIPMENT)
-      case constants.EXTENSION.SPREAD:
-        extensions.push(constants.EXTENSION.SPREAD)
+      case constants.EXTENSION.GUARDEDPLUS:
+        extensions.push(constants.EXTENSION.GUARDEDPLUS)
       case constants.EXTENSION.GUARDED:
         extensions.push(constants.EXTENSION.GUARDED)
       }
@@ -1120,10 +1120,10 @@
     relicLocations: document.getElementById('relic-locations'),
     relicLocationsExtension: {
       guarded: document.getElementById('extension-guarded'),
-      spread: document.getElementById('extension-spread'),
+      guardedplus: document.getElementById('extension-guardedplus'),
       equipment: document.getElementById('extension-equipment'),
-      tourist: document.getElementById('extension-tourist'),
-      wanderer: document.getElementById('extension-wanderer'),
+      scenic: document.getElementById('extension-scenic'),
+      extended: document.getElementById('extension-extended'),
       classic: document.getElementById('extension-classic'),
     },
     relicLocationsArg: document.getElementById('relic-locations-arg'),
@@ -1183,7 +1183,7 @@
     'change',
     relicLocationsExtensionChange,
   )
-  elems.relicLocationsExtension.spread.addEventListener(
+  elems.relicLocationsExtension.guardedplus.addEventListener(
     'change',
     relicLocationsExtensionChange,
   )
@@ -1191,11 +1191,11 @@
     'change',
     relicLocationsExtensionChange,
   )
-  elems.relicLocationsExtension.tourist.addEventListener(
+  elems.relicLocationsExtension.scenic.addEventListener(
     'change',
     relicLocationsExtensionChange,
   )
-  elems.relicLocationsExtension.wanderer.addEventListener(
+  elems.relicLocationsExtension.extended.addEventListener(
     'change',
     relicLocationsExtensionChange,
   )
@@ -1381,11 +1381,11 @@
       // serialized, without including the relic locations extension.
       const relicOptions = util.optionsFromString(util.optionsToString({
         relicLocations: Object.assign({}, applied.relicLocations, {
-          extension: constants.EXTENSION.TOURIST,
+          extension: constants.EXTENSION.SCENIC,
         }),
       }).replace(new RegExp(':?' + util.optionsToString({
         relicLocations: {
-          extension: constants.EXTENSION.TOURIST,
+          extension: constants.EXTENSION.SCENIC,
         },
       }).slice(2)), ''))
       // Restore original extension from URL.
@@ -1396,18 +1396,18 @@
       relicLocationsArg = util.optionsToString(relicOptions)
     }
     elems.relicLocationsArg.value = relicLocationsArg
-    elems.relicLocationsExtension.wanderer.checked =
+    elems.relicLocationsExtension.extended.checked =
       applied.relicLocations
-      && applied.relicLocations.extension === constants.EXTENSION.WANDERER
-    elems.relicLocationsExtension.tourist.checked =
+      && applied.relicLocations.extension === constants.EXTENSION.EXTENDED
+    elems.relicLocationsExtension.scenic.checked =
       applied.relicLocations
-      && applied.relicLocations.extension === constants.EXTENSION.TOURIST
+      && applied.relicLocations.extension === constants.EXTENSION.SCENIC
     elems.relicLocationsExtension.guarded.checked =
       applied.relicLocations
       && applied.relicLocations.extension === constants.EXTENSION.GUARDED
-    elems.relicLocationsExtension.spread.checked =
+    elems.relicLocationsExtension.guardedplus.checked =
       applied.relicLocations
-      && applied.relicLocations.extension === constants.EXTENSION.SPREAD
+      && applied.relicLocations.extension === constants.EXTENSION.GUARDEDPLUS
     elems.relicLocationsExtension.equipment.checked =
       applied.relicLocations
       && applied.relicLocations.extension === constants.EXTENSION.EQUIPMENT
@@ -1458,17 +1458,17 @@
       case constants.EXTENSION.GUARDED:
         elems.relicLocationsExtension.guarded.checked = true
         break
-      case constants.EXTENSION.SPREAD:
-        elems.relicLocationsExtension.spread.checked = true
+      case constants.EXTENSION.GUARDEDPLUS:
+        elems.relicLocationsExtension.guardedplus.checked = true
         break
       case constants.EXTENSION.EQUIPMENT:
         elems.relicLocationsExtension.equipment.checked = true
         break
-      case constants.EXTENSION.WANDERER:
-        elems.relicLocationsExtension.wanderer.checked = true
+      case constants.EXTENSION.EXTENDED:
+        elems.relicLocationsExtension.extended.checked = true
         break
-      case constants.EXTENSION.TOURIST:
-        elems.relicLocationsExtension.tourist.checked = true
+      case constants.EXTENSION.SCENIC:
+        elems.relicLocationsExtension.scenic.checked = true
         break
       default:
         elems.relicLocationsExtension.classic.checked = true

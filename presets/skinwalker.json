@@ -24,7 +24,7 @@
   "fastwarpMode": true,
   "mypurseMode": true,
   "unlockedMode": true,
-  "relicLocationsExtension": "wanderer",
+  "relicLocationsExtension": "extended",
   
   "startingEquipment": [{
     "slot": "Other",

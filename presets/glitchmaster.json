@@ -2,7 +2,7 @@
   "metadata": {
     "id": "glitchmaster",
     "name": "Glitchmaster",
-    "description": "Completely lacks logic using Glitch as the base. Wanderer relic extension.",
+    "description": "Completely lacks logic using Glitch as the base. Extended relic extension.",
     "author": [
       "romscout",
       "DerDrach",
@@ -21,7 +21,7 @@
     "transformType": ""
   },
   
-  "relicLocationsExtension": "wanderer",
+  "relicLocationsExtension": "extended",
   "stats": false,
   "thrustSwordAbility": true,
 

@@ -30,7 +30,7 @@
   "iwsMode": true,
   "enemyStatRandoMode": true,
   "shopPriceRandoMode": true,
-  "relicLocationsExtension": "wanderer",
+  "relicLocationsExtension": "extended",
 
   "alias": [{
     "comment": "Alias Mirror as Mirror",

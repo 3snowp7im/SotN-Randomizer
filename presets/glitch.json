@@ -2,7 +2,7 @@
   "metadata": {
     "id": "glitch",
     "name": "Glitch Remastered",
-    "description": "Requires extensive glitch knowledge, but avoids memory corruption and lengthy wolf rising. Tourist relic extension.",
+    "description": "Requires extensive glitch knowledge, but avoids memory corruption and lengthy wolf rising. Scenic relic extension.",
     "author": [
       "romscout",
       "DerDrach",
@@ -20,7 +20,7 @@
     "transformType": ""
   },
   
-  "relicLocationsExtension": "tourist",
+  "relicLocationsExtension": "scenic",
   "stats": false,
   "thrustSwordAbility": true,
 

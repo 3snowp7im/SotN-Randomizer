@@ -2,7 +2,7 @@
   "metadata": {
     "id": "magic-mirror",
     "name": "Magic Mirror",
-    "description": "Use a Magic Mirror (X + Triangle; Replaces Holy Glasses) to move between the castles. Spread extension.",
+    "description": "Use a Magic Mirror (X + Triangle; Replaces Holy Glasses) to move between the castles. GuardedPlus extension.",
     "author": [
       "eldri7ch",
       "MottZilla"
@@ -19,7 +19,7 @@
   },
   
   "stats": false,
-  "relicLocationsExtension": "spread",
+  "relicLocationsExtension": "guardedplus",
   "magicmaxMode": true,
 
   "alias": [{
