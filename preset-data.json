@@ -1,21 +1,19 @@
 [
   {
-    "name": "Any Percent",
-    "id": "any-percent",
-    "description": "Requires knowledge of movement mechanics and glitches used in Any% speedruns. Death skip intended but not necessary. Richter Skip and Relic Skip are required to beat the game.",
+    "name": "Warlock",
+    "id": "warlock",
+    "description": "Start with high intelligence and Form of Mist. Drastically reduced MP cost for spells. Mist is free.",
     "author": [
-      "3snow_p7im",
-      "Dr4gonBlitz",
-      "eldri7ch"
+      "3snow_p7im"
     ],
-    "knowledgeCheck": "Glitches",
+    "knowledgeCheck": "None",
     "extension": "Guarded",
     "complexity": 6,
     "timeFrame": "Normal",
     "moddedLevel": "Slightly",
     "castleType": "Normal",
-    "transformEarly": "No",
-    "transformFocus": "Wolf and Bat",
-    "winCondition": "Relic Skip"
+    "transformEarly": "Yes",
+    "transformFocus": "Mist",
+    "winCondition": "Normal"
   }
 ]
