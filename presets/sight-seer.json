@@ -2,20 +2,22 @@
   "metadata": {
     "id": "sight-seer",
     "name": "Sight-Seer",
-    "description": "A base preset for the Randomizer. Requires no speedrun or glitch knowledge for completion. Extended extension.",
+    "description": "A simple, no mess preset using the Extended relic locations.",
     "author": [
       "3snow_p7im",
       "eldri7ch"
     ],
     "weight": -5008,
-    "knowledgeCheck": "",
-    "extension": "",
+    "knowledgeCheck": "None",
+    "extension": "Extended",
     "complexity": 7,
-    "timeFrame": "",
-    "moddedLevel": "",
-    "castleType": "",
-    "transformEarly": "",
-    "transformType": ""
+    "itemStats": "Normal",
+    "timeFrame": "Slow",
+    "moddedLevel": "None",
+    "castleType": "Normal",
+    "transformEarly": "No",
+    "transformFocus": "None",
+    "winCondition": "Normal"
   },
   
   "colorrandoMode": true,

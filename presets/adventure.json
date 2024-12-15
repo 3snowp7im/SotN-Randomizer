@@ -2,7 +2,7 @@
   "metadata": {
     "id": "adventure",
     "name": "Adventure",
-    "description": "Relics can appear in most equipment locations from the original game.",
+    "description": "Meant for players who want to see more of the castle.",
     "author": [
       "3snow_p7im"
     ],
@@ -12,10 +12,11 @@
     "complexity": 7,
     "itemStats": "Randomized",
     "timeFrame": "Slow",
-    "moddedLevel": "Slightly",
+    "moddedLevel": "None",
     "castleType": "Normal",
-    "transformEarly": "Yes",
-    "transformType": "Bat"
+    "transformEarly": "No",
+    "transformFocus": "None",
+    "winCondition": "Normal"
   },
 
   "relicLocationsExtension": "equipment",

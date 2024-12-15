@@ -2,20 +2,22 @@
   "metadata": {
     "id": "bingo",
     "name": "Bingo",
-    "description": "Created for the 2024 Bingo Tournament",
+    "description": "Bot-only preset. Created for the 2024 Bingo Tournament. Does not randomize relics but randomizes items.",
     "author": [
       "Dr4gonBlitz", 
       "eldri7ch"
     ],
     "weight": -10000,
-    "knowledgeCheck": "",
-    "extension": "",
-    "complexity": 7,
-    "timeFrame": "",
-    "moddedLevel": "",
-    "castleType": "",
-    "transformEarly": "",
-    "transformType": ""
+    "knowledgeCheck": "Varies",
+    "extension": "Guarded",
+    "complexity": 1,
+    "itemStats": "Normal",
+    "timeFrame": "Slow",
+    "moddedLevel": "Slightly",
+    "castleType": "Normal",
+    "transformEarly": "No",
+    "transformFocus": "None",
+    "winCondition": "Meet Bingo Conditions"
   },
 
   "preventLeaks": false,

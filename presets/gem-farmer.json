@@ -2,19 +2,21 @@
   "metadata": {
     "id": "gem-farmer",
     "name": "Gem farmer",
-    "description": "All progression must be purchased from the librarian. Released on April 1st, 2021.",
+    "description": "April Fools Preset released on April 1st, 2021. All progression must be purchased from the librarian. ",
     "author": [
       "3snow_p7im"
     ],
     "weight": -750,
-    "knowledgeCheck": "",
-    "extension": "",
-    "complexity": 7,
-    "timeFrame": "",
-    "moddedLevel": "",
-    "castleType": "",
-    "transformEarly": "",
-    "transformType": ""
+    "knowledgeCheck": "April Fools",
+    "extension": "Guarded",
+    "complexity": 1,
+    "itemStats": "Normal",
+    "timeFrame": "Slow",
+    "moddedLevel": "Slightly",
+    "castleType": "Normal",
+    "transformEarly": "No",
+    "transformFocus": "None",
+    "winCondition": "April Fools"
   },
   "stats": false,
   "preventLeaks": false,

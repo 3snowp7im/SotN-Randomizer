@@ -2,7 +2,7 @@
   "metadata": {
     "id": "glitch",
     "name": "Glitch Remastered",
-    "description": "Requires extensive glitch knowledge, but avoids memory corruption and lengthy wolf rising. Scenic relic extension.",
+    "description": "A preset for people who love glitches in the game. Requires knowledge of most glitches and exploits to become proficient at solving these seeds. Avoids memory corruption and lengthy wolf rising.",
     "author": [
       "romscout",
       "DerDrach",
@@ -10,14 +10,16 @@
       "MottZilla"
     ],
     "weight": -500,
-    "knowledgeCheck": "",
-    "extension": "",
-    "complexity": 7,
-    "timeFrame": "",
-    "moddedLevel": "",
-    "castleType": "",
-    "transformEarly": "",
-    "transformType": ""
+    "knowledgeCheck": "Glitches",
+    "extension": "Scenic",
+    "complexity": 5,
+    "itemStats": "Normal",
+    "timeFrame": "Slow",
+    "moddedLevel": "Moderately",
+    "castleType": "Normal",
+    "transformEarly": "No",
+    "transformFocus": "None",
+    "winCondition": "Relic Skip"
   },
   
   "relicLocationsExtension": "scenic",

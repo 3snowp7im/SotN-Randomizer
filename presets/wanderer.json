@@ -1,4 +1,9 @@
+
+
 {
+  "comment": "This is only included so you may copy and paste this folder into your Tracker Presets folder and have full disclosure on your checks.",
+  "extends": "spread", 
+
   "customLocations": [{
     "location": "Confessional",
     "x": 65,

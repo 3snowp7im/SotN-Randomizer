@@ -2,7 +2,7 @@
   "metadata": {
     "id": "open",
     "name": "Open",
-    "description": "Opens several shortcuts and all teleporters.",
+    "description": "Start in a random location and opens all shortcuts and all teleporters.",
     "author": [
       "TalicZealot",
       "eldri7ch",
@@ -10,14 +10,16 @@
       "Wecoc"
     ],
     "weight": 1300,
-    "knowledgeCheck": "",
-    "extension": "",
-    "complexity": 7,
-    "timeFrame": "",
-    "moddedLevel": "",
-    "castleType": "",
-    "transformEarly": "",
-    "transformType": ""
+    "knowledgeCheck": "None",
+    "extension": "Guarded",
+    "complexity": 6,
+    "itemStats": "Randomized",
+    "timeFrame": "Normal",
+    "moddedLevel": "Slightly",
+    "castleType": "Normal",
+    "transformEarly": "No",
+    "transformFocus": "None",
+    "winCondition": "Normal"
   },
   
   "colorrandoMode": true,

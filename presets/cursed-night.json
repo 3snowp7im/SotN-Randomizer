@@ -2,20 +2,22 @@
   "metadata": {
     "id": "cursed-night",
     "name": "Cursed Night",
-    "description": "A horrible night to have a curse.",
+    "description": "Alucard is cursed at the start of the subweapon-focused preset. Utilize various Subweapons acquired through relics and cycled with L2. Coral circlet removes the curse.",
     "author": [
       "Bob Sagget",
       "Forat Negre"
     ],
     "weight": -900,
-    "knowledgeCheck": "",
-    "extension": "",
-    "complexity": 7,
-    "timeFrame": "",
-    "moddedLevel": "",
-    "castleType": "",
-    "transformEarly": "",
-    "transformType": ""
+    "knowledgeCheck": "None",
+    "extension": "Guarded",
+    "complexity": 6,
+    "itemStats": "Normal",
+    "timeFrame": "Normal",
+    "moddedLevel": "Heavily",
+    "castleType": "Normal",
+    "transformEarly": "No",
+    "transformFocus": "None",
+    "winCondition": "Normal"
   },
 
   "inherits": "safe",

@@ -2,19 +2,21 @@
   "metadata": {
     "id": "guarded-og",
     "name": "Guarded O.G.",
-    "description": "Simulates randomizer season 1, but adds additional guarded locations. No stat randomization. Gold ring, Silver ring, Holy glasses and Spike Breaker are in vanilla locations.",
+    "description": "The best preset for trying out the SOTN Randomizer. Utilizes our 'guarded' relic locations but Gold ring, Silver ring, Holy glasses and Spike Breaker are in vanilla locations.",
     "author": [
       "TalicZealot"
     ],
     "weight": 250,
-    "knowledgeCheck": "",
-    "extension": "",
-    "complexity": 7,
-    "timeFrame": "",
-    "moddedLevel": "",
-    "castleType": "",
-    "transformEarly": "",
-    "transformType": ""
+    "knowledgeCheck": "None",
+    "extension": "Guarded",
+    "complexity": 1,
+    "itemStats": "Normal",
+    "timeFrame": "Fast",
+    "moddedLevel": "None",
+    "castleType": "Normal",
+    "transformEarly": "No",
+    "transformFocus": "None",
+    "winCondition": "Normal"
   },
   "inherits": "casual",
   "preventLeaks": false,

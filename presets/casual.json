@@ -2,21 +2,23 @@
   "metadata": {
     "id": "casual",
     "name": "Casual",
-    "description": "A base preset of the Randomizer. Uses 'guarded' logic and has low complexity.",
+    "description": "A source preset for the Randomizer. Meant as a more relaxed experience compared to the 'Safe' preset. Requires no speedrun or glitch knowledge for completion.",
     "author": [
       "3snow_p7im", 
       "setz", 
       "soba"
     ],
     "weight": -2250,
-    "knowledgeCheck": "",
-    "extension": "",
-    "complexity": 7,
-    "timeFrame": "",
-    "moddedLevel": "",
-    "castleType": "",
-    "transformEarly": "",
-    "transformType": ""
+    "knowledgeCheck": "None",
+    "extension": "Guarded",
+    "complexity": 1,
+    "itemStats": "Randomized",
+    "timeFrame": "Normal",
+    "moddedLevel": "None",
+    "castleType": "Normal",
+    "transformEarly": "No",
+    "transformFocus": "None",
+    "winCondition": "Normal"
   },
   "colorrandoMode": true,
   "lockLocation": [{

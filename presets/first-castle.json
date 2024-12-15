@@ -1,25 +1,28 @@
 {
-    "metadata": {
-        "id": "first-castle",
-        "name": "First Castle",
-        "description": "All relics are available in the first castle. No need to stop anywhere in second castle!",
-        "author": [
-            "SacredLucy",
-            "MottZilla"
-        ],
-        "weight": -1150,
-        "knowledgeCheck": "",
-        "extension": "",
-        "complexity": 7,
-        "timeFrame": "",
-        "moddedLevel": "",
-        "castleType": "",
-        "transformEarly": "",
-        "transformType": ""
-    },
+"metadata": {
+    "id": "first-castle",
+    "name": "First Castle",
+    "description": "Shortcuts are unlocked in this preset which takes place entirely in the first castle. Alucard can also get 2 Library cards from the prologue if played right. Save Richter once you have all five Vlad Relics to teleport directly to Shaft / Dracula.",
+    "author": [
+        "SacredLucy",
+        "MottZilla"
+    ],
+    "weight": -1150,
+    "knowledgeCheck": "None",
+    "extension": "Guarded",
+    "complexity": 5,
+    "itemStats": "Normal",
+    "timeFrame": "Fast",
+    "moddedLevel": "Slightly",
+    "castleType": "Normal",
+    "transformEarly": "No",
+    "transformFocus": "None",
+    "winCondition": "Vlads and Save Richter"
+  },
     "inherits": "open",
     "stats": false,
     "unlockedMode": true,
+    "startRoomRandoMode": false,
     "prologueRewards": [
         {
             "comment": "No hearts left",

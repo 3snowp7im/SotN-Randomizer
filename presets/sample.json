@@ -10,11 +10,13 @@
     "knowledgeCheck": "",
     "extension": "",
     "complexity": 7,
+    "itemStats": "",
     "timeFrame": "",
     "moddedLevel": "",
     "castleType": "",
     "transformEarly": "",
-    "transformType": ""
+    "transformFocus": "",
+    "winCondition": ""
   },
 
   "comment": "Build off the Safe preset",

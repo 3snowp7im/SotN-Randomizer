@@ -2,19 +2,21 @@
   "metadata": {
     "id": "scavenger",
     "name": "Scavenger",
-    "description": "No enemy drops challenge mode.",
+    "description": "No enemy drops. Equipment must be found in item locations throughout the map.",
     "author": [
       "3snow_p7im"
     ],
     "weight": 2250,
-    "knowledgeCheck": "",
-    "extension": "",
-    "complexity": 7,
-    "timeFrame": "",
-    "moddedLevel": "",
-    "castleType": "",
-    "transformEarly": "",
-    "transformType": ""
+    "knowledgeCheck": "None",
+    "extension": "Guarded",
+    "complexity": 9,
+    "itemStats": "Randomized",
+    "timeFrame": "Slow",
+    "moddedLevel": "None",
+    "castleType": "Normal",
+    "transformEarly": "No",
+    "transformFocus": "None",
+    "winCondition": "Normal"
   },
   "inherits": "safe",
   "colorrandoMode": true,

@@ -2,19 +2,21 @@
   "metadata": {
     "id": "luckysevens",
     "name": "Lucky Sevens",
-    "description": "Start with 77 all stats and 77% chance for drops. Open shortcuts and some teleporters in the second castle. Enemies have a chance to drop relics.",
+    "description": "Start with 77 in all stats, 7 random relics, and 77% chance for uncommon and rare drops. Skips prolgue. Open all shortcuts and some teleporters in the second castle. Enemies have a small chance to drop relics.",
     "author": [
       "eldri7ch"
     ],
     "weight": 675,
-    "knowledgeCheck": "",
-    "extension": "",
+    "knowledgeCheck": "None",
+    "extension": "Guarded",
     "complexity": 7,
-    "timeFrame": "",
-    "moddedLevel": "",
-    "castleType": "",
-    "transformEarly": "",
-    "transformType": ""
+    "itemStats": "Normal",
+    "timeFrame": "Fast",
+    "moddedLevel": "Heavily",
+    "castleType": "Normal",
+    "transformEarly": "No",
+    "transformFocus": "None",
+    "winCondition": "Normal"
   },
 
   "stats": false,

@@ -2,20 +2,22 @@
   "metadata": {
     "id": "boss-rush",
     "name": "Boss Rush",
-    "description": "Boss Rush Mode featuring safe rooms after every three bosses and low to medium powered equipment.",
+    "description": "Boss Rush Mode featuring safe rooms after every three bosses and low to medium powered equipment. Intended as an 'Arcade Mode' featuring many easter eggs.",
     "author": [
         "MottZilla", 
         "eldri7ch"
     ],
     "weight": -2750,
-    "knowledgeCheck": "",
-    "extension": "",
-    "complexity": 7,
-    "timeFrame": "",
-    "moddedLevel": "",
-    "castleType": "",
-    "transformEarly": "",
-    "transformType": ""
+    "knowledgeCheck": "Boss Combat",
+    "extension": "None",
+    "complexity": 1,
+    "itemStats": "Normal",
+    "timeFrame": "Very Fast",
+    "moddedLevel": "Heavily",
+    "castleType": "Normal",
+    "transformEarly": "No",
+    "transformFocus": "None",
+    "winCondition": "Complete Boss Rush"
   },
   
   "comment": "Build off the Adventure preset for relic location data",

@@ -6,15 +6,17 @@
     "author": [
       "3snow_p7im"
     ],
-    "weight": 2750,
-    "knowledgeCheck": "",
-    "extension": "",
-    "complexity": 7,
-    "timeFrame": "",
-    "moddedLevel": "",
-    "castleType": "",
-    "transformEarly": "",
-    "transformType": ""
+    "weight": 2500,
+    "knowledgeCheck": "Sequence Breaks",
+    "extension": "Guarded",
+    "complexity": 8,
+    "itemStats": "Randomized",
+    "timeFrame": "Slow",
+    "moddedLevel": "None",
+    "castleType": "Normal",
+    "transformEarly": "No",
+    "transformFocus": "None",
+    "winCondition": "Normal"
   },
   "thrustSwordAbility": true,
   "colorrandoMode": true,

@@ -1,19 +1,21 @@
 [
   {
-    "name": "Grand Tour",
-    "id": "grand-tour",
-    "description": "Soon to be discontinued after website rework. Base preset featuring 'scenic' relic extension.",
+    "name": "Any Percent",
+    "id": "any-percent",
+    "description": "Requires knowledge of movement mechanics and glitches used in Any% speedruns. Death skip intended but not necessary. Richter Skip and Relic Skip are required to beat the game.",
     "author": [
-      "eldri7ch",
-      "MottZilla"
+      "3snow_p7im",
+      "Dr4gonBlitz",
+      "eldri7ch"
     ],
-    "knowledgeCheck": "",
-    "extension": "",
-    "complexity": 7,
-    "timeFrame": "",
-    "moddedLevel": "",
-    "castleType": "",
-    "transformEarly": "",
-    "transformType": ""
+    "knowledgeCheck": "Glitches",
+    "extension": "Guarded",
+    "complexity": 6,
+    "timeFrame": "Normal",
+    "moddedLevel": "Slightly",
+    "castleType": "Normal",
+    "transformEarly": "No",
+    "transformFocus": "Wolf and Bat",
+    "winCondition": "Relic Skip"
   }
 ]

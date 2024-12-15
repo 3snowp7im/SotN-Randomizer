@@ -11,11 +11,13 @@
     "knowledgeCheck": "",
     "extension": "",
     "complexity": 7,
+    "itemStats": "",
     "timeFrame": "",
     "moddedLevel": "",
     "castleType": "",
     "transformEarly": "",
-    "transformType": ""
+    "transformFocus": "",
+    "winCondition": ""
   },
   "relics": false,
   "items": false,

@@ -2,20 +2,22 @@
   "metadata": {
     "id": "summoner",
     "name": "Summoner",
-    "description": "Utilize Familiars and Summon Items to defeat your foes.",
+    "description": "Utilize Level 99 Familiars and Summon Items like Monster Vials and Sword of Dawn to defeat your foes. Many items have had their damage scaling fixed.",
     "author": [
       "eldri7ch",
       "MottZilla"
     ],
     "weight": 3000,
-    "knowledgeCheck": "",
-    "extension": "",
+    "knowledgeCheck": "None",
+    "extension": "Guarded",
     "complexity": 7,
-    "timeFrame": "",
-    "moddedLevel": "",
-    "castleType": "",
-    "transformEarly": "",
-    "transformType": ""
+    "itemStats": "Normal",
+    "timeFrame": "Normal",
+    "moddedLevel": "Slightly",
+    "castleType": "Normal",
+    "transformEarly": "No",
+    "transformFocus": "None",
+    "winCondition": "Normal"
   },
   
   "inherits": "safe",

@@ -2,21 +2,23 @@
   "metadata": {
     "id": "chaos-lite",
     "name": "Chaos Lite",
-    "description": "Bounty Hunter and Aperture combined with the 'scenic' extension and additional random elements. Released on April 1st, 2024. App URL: https://github.com/MottZilla/BountyHunterTool",
+    "description": "April Fools Preset Released on April 1st, 2024. A child of the original Chaos. Requires the Bounty Hunter Tool. App URL: https://github.com/MottZilla/BountyHunterTool",
     "author": [
       "3snow_p7im", 
       "eldri7ch",
       "MottZilla"
     ],
     "weight": 10000,
-    "knowledgeCheck": "",
-    "extension": "",
-    "complexity": 7,
-    "timeFrame": "",
-    "moddedLevel": "",
-    "castleType": "",
-    "transformEarly": "",
-    "transformType": ""
+    "knowledgeCheck": "April Fools",
+    "extension": "Scenic",
+    "complexity": 1,
+    "itemStats": "Randomized",
+    "timeFrame": "Slow",
+    "moddedLevel": "Heavily",
+    "castleType": "Modded",
+    "transformEarly": "Yes",
+    "transformFocus": "Bat",
+    "winCondition": "April Fools"
   },
   
   "colorrandoMode": true,

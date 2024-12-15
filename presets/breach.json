@@ -2,21 +2,23 @@
   "metadata": {
     "id": "breach",
     "name": "Breach",
-    "description": "Utilizes the Aperture model including Portal Spell and Map, but also gives the player all five Vlad Relics and the nimble movement loadout.",
+    "description": "Utilizes the Aperture model including Portal Spell and map changes, but also gives the player all five Vlad Relics along with the initial load out from the 'Nimble' preset. Speed your way to the Portal Spell and defat Dracula as fast as possible.",
     "author": [
       "eldri7ch", 
       "MottZilla", 
       "Wecoc"
     ],
     "weight": -2500,
-    "knowledgeCheck": "",
-    "extension": "",
-    "complexity": 7,
-    "timeFrame": "",
-    "moddedLevel": "",
-    "castleType": "",
-    "transformEarly": "",
-    "transformType": ""
+    "knowledgeCheck": "None",
+    "extension": "Guarded",
+    "complexity": 5,
+    "itemStats": "Normal",
+    "timeFrame": "Fast",
+    "moddedLevel": "Heavily",
+    "castleType": "Modded",
+    "transformEarly": "Yes",
+    "transformFocus": "Bat",
+    "winCondition": "Portal Spell"
   },
 
   "stats": false,

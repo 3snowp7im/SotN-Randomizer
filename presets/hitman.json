@@ -2,20 +2,22 @@
   "metadata": {
     "id": "hitman",
     "name": "Hitman",
-    "description": "Faster playing Bounty Hunter. Start with all Targets known. App URL: https://github.com/MottZilla/BountyHunterTool",
+    "description": "Bounty Hunter variant. Start with all five Familiar Cards so you know your targets. Requires the Bounty Hunter Tool. App URL: https://github.com/MottZilla/BountyHunterTool",
     "author": [
       "eldri7ch",
       "MottZilla"
     ],
     "weight": 10000,
-    "knowledgeCheck": "",
-    "extension": "",
-    "complexity": 7,
-    "timeFrame": "",
-    "moddedLevel": "",
-    "castleType": "",
-    "transformEarly": "",
-    "transformType": ""
+    "knowledgeCheck": "Enemy Locations",
+    "extension": "Guarded",
+    "complexity": 1,
+    "itemStats": "Normal",
+    "timeFrame": "Fast",
+    "moddedLevel": "Heavily",
+    "castleType": "Normal",
+    "transformEarly": "No",
+    "transformFocus": "None",
+    "winCondition": "Enemies Drop Vlads"
   },
   "inherits": "casual",
   "stats": false,
