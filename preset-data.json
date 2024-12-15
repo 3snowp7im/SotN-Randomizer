@@ -1,19 +1,19 @@
 [
   {
-    "name": "Warlock",
-    "id": "warlock",
-    "description": "Start with high intelligence and Form of Mist. Drastically reduced MP cost for spells. Mist is free.",
+    "name": "Nimble",
+    "id": "nimble",
+    "description": "A fast, complexity-focused preset. Start with Soul of Bat, Leap Stone, Gravity Boots, Duplicator, Manna prism, and Buffalo star.",
     "author": [
       "3snow_p7im"
     ],
     "knowledgeCheck": "None",
     "extension": "Guarded",
     "complexity": 6,
-    "timeFrame": "Normal",
-    "moddedLevel": "Slightly",
+    "timeFrame": "Fast",
+    "moddedLevel": "None",
     "castleType": "Normal",
     "transformEarly": "Yes",
-    "transformFocus": "Mist",
+    "transformFocus": "Bat",
     "winCondition": "Normal"
   }
 ]
