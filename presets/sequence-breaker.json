@@ -1,8 +1,8 @@
 {
   "metadata": {
-    "id": "speedrun",
-    "name": "Speedrun",
-    "description": "Requires knowledge of movement mechanics used in glitchless speedruns.",
+    "id": "sequence-breaker",
+    "name": "Sequence Breaker",
+    "description": "Requires knowledge of movement mechanics used to sequence break in the game such as transformation-enabled dive kicks and thrust sword techniques.",
     "author": [
       "3snow_p7im"
     ],

@@ -6313,7 +6313,13 @@ function hexValueToDamageString(hexValue) {
     let newWrite
     let randRoomId
     
-    randRoomId = Math.floor(rng() * Math.floor(25)) + 1                         // Select a starting room at random (Max25 + 1 = 26, the last room id)
+    randRoomId = Math.floor(rng() * Math.floor(startRoomData.length - 1))       // Select a starting room at random (Max43 - 1 = 42, the last room position in the table)
+
+    /*while(startRoomData[randRoomId].id === undefined | startRoomData[randRoomId].xyWrite === undefined
+      | startRoomData[randRoomId].roomWrite === undefined | startRoomData[randRoomId].stageWrite === undefined
+    ){
+      randRoomId = Math.floor(rng() * Math.floor(startRoomData.length - 1))     // re-roll undefined seeds
+    }*/
 
     offset = 0x4b6ab0c
     offset = data.writeWord(offset,0x28042804)                                  // Setting up the CD room
@@ -6328,15 +6334,23 @@ function hexValueToDamageString(hexValue) {
     offset = data.writeChar(offset,0x41)
     data.writeChar(offset,0x64)
 
+    console.log(randRoomId + ", " + startRoomData[randRoomId].id + startRoomData[randRoomId].comment)
+
     offset = 0xae95c                                                            // change the destination
     newWrite = startRoomData[randRoomId].xyWrite                                // Write X,Y Position
     offset = data.writeWord(offset,newWrite)
 
+    console.log(numToHex(newWrite,8))
+
     newWrite = startRoomData[randRoomId].roomWrite                              // Write Rooms Used
     offset = data.writeWord(offset,newWrite)
 
+    console.log(numToHex(newWrite,8))
+
     newWrite = startRoomData[randRoomId].stageWrite                             // Write destination stage Used
     offset = data.writeShort(offset,newWrite)
+
+    console.log(numToHex(newWrite,4))
 
     if(startRoomData[randRoomId].stageWrite === 0x03 | startRoomData[randRoomId].stageWrite === 0x05) {
       offset = 0x45f55a2                                                        // Solve soft lock if player starts near Room 0 in Abandoned Mines
