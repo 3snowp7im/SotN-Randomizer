@@ -1,19 +1,21 @@
 [
   {
-    "name": "Nimble",
-    "id": "nimble",
-    "description": "A fast, complexity-focused preset. Start with Soul of Bat, Leap Stone, Gravity Boots, Duplicator, Manna prism, and Buffalo star.",
+    "name": "Chaos Lite",
+    "id": "chaos-lite",
+    "description": "April Fools Preset Released on April 1st, 2024. A child of the original Chaos. Requires the Bounty Hunter Tool. App URL: https://github.com/MottZilla/BountyHunterTool",
     "author": [
-      "3snow_p7im"
+      "3snow_p7im",
+      "eldri7ch",
+      "MottZilla"
     ],
-    "knowledgeCheck": "None",
-    "extension": "Guarded",
-    "complexity": 6,
-    "timeFrame": "Fast",
-    "moddedLevel": "None",
-    "castleType": "Normal",
+    "knowledgeCheck": "April Fools",
+    "extension": "Scenic",
+    "complexity": 1,
+    "timeFrame": "Slow",
+    "moddedLevel": "Heavily",
+    "castleType": "Modded",
     "transformEarly": "Yes",
     "transformFocus": "Bat",
-    "winCondition": "Normal"
+    "winCondition": "April Fools"
   }
 ]
