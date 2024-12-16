@@ -24,7 +24,7 @@
     return preset.id === 'safe'
   }).pop()
 
-  function cloneItems(items) {                                                              //Saves previous selections
+  /*function cloneItems(items) {                                                              //Saves previous selections
     return items.map(function(item) {
       const clone = Object.assign({}, item)
       delete clone.tiles
@@ -33,9 +33,9 @@
       }
       return clone
     })
-  }
+  }*/
 
-  const items = cloneItems(sotnRando.items)
+  //const items = cloneItems(sotnRando.items)
 
   function workerCount() {
     const cores = navigator.hardwareConcurrency
@@ -92,7 +92,7 @@
   }
 
   function resetState() {
-    sotnRando.items = cloneItems(items)
+    //sotnRando.items = cloneItems(items)
     selectedFile = undefined
     resetTarget()
     elems.randomize.disabled = true
@@ -189,8 +189,11 @@
       return preset.id === id                                                     //
     }).pop()                                                                      //
     elems.presetDescription.innerText = preset.description                        //
-    elems.presetAuthor.innerText = preset.author                          //  
-    localStorage.setItem('presetId', preset.id)                                   //  
+    elems.presetAuthor.innerText = preset.author 
+    elems.presetKnowledgeCheck.innerText = preset.knowledgeCheck
+    elems.presetExtension.innerText = preset.extension
+    elems.presetComplexity.innerText = preset.complexity                         //  
+    localStorage.setItem('presetId', preset.id)  
     if (elems.preset.checked) {                                                   //
       const options = preset.options()                                            //
       let complexity = 1                                                          //
@@ -761,7 +764,7 @@
       elems.status.innerText = err.message
     }
     function restoreItems() {
-      sotnRando.items = cloneItems(items)
+      //sotnRando.items = cloneItems(items)
     }
     function randomize() {                                                                        // This is the main function of the randomizer website
       const check = new util.checked(this.result)
@@ -1110,6 +1113,9 @@
     presetId: document.getElementById('preset-id'),
     presetDescription: document.getElementById('preset-description'),
     presetAuthor: document.getElementById('preset-author'),
+    presetKnowledgeCheck: document.getElementById('preset-knowledgeCheck'),
+    presetExtension: document.getElementById('preset-extension'),
+    presetComplexity: document.getElementById('preset-complexity'),
     options: document.getElementById('options'),
     complexity: document.getElementById('complexity'),
     enemyDrops: document.getElementById('enemy-drops'),

@@ -8,7 +8,8 @@
 }
 
 #preset-description,
-#preset-author {
+#preset-author 
+#preset-knowledgeCheck {
   text-indent: 1rem;
 }
 
