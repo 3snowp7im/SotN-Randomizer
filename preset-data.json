@@ -1,19 +1,18 @@
 [
   {
-    "name": "Agonize 2020",
-    "id": "agonizetwtw",
-    "description": "Emulates Agonize Preset from 2020. Fixed locations for various relics to 'Maximize backtracking'.",
+    "name": "Hitman",
+    "id": "hitman",
+    "description": "Bounty Hunter variant. Start with all five Familiar Cards so you know your targets. Requires the Bounty Hunter Tool. App URL: https://github.com/MottZilla/BountyHunterTool",
     "author": [
-      "3snow_p7im",
       "eldri7ch",
-      "Crazy4blades"
+      "MottZilla"
     ],
-    "knowledgeCheck": "None",
-    "timeFrame": "Slow",
-    "moddedLevel": "None",
+    "knowledgeCheck": "Enemy Locations",
+    "timeFrame": "Fast",
+    "moddedLevel": "Heavily",
     "castleType": "Normal",
     "transformEarly": "No",
     "transformFocus": "None",
-    "winCondition": "Normal"
+    "winCondition": "Enemies Drop Vlads"
   }
 ]

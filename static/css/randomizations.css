@@ -8,12 +8,33 @@
 }
 
 #preset-description,
-#preset-author 
-#preset-knowledgeCheck {
+#preset-author,
+#preset-knowledgeCheck,
+#preset-moddedLevel,
+#preset-metaExtension,
+#preset-castleType,
+#preset-metaComplexity,
+#preset-transformEarly,
+#preset-itemStats,
+#preset-transformFocus,
+#preset-timeFrame,
+#preset-winCondition {
   text-indent: 1rem;
+  font-size: 14px;
 }
 
-#preset-description {
+#preset-description,
+#preset-author,
+#preset-knowledgeCheck,
+#preset-moddedLevel,
+#preset-metaExtension,
+#preset-castleType,
+#preset-metaComplexity,
+#preset-transformEarly,
+#preset-itemStats,
+#preset-transformFocus,
+#preset-timeFrame,
+#preset-winCondition {
   margin-bottom: 0.5rem;
 }
 
