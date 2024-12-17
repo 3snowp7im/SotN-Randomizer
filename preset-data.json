@@ -1,17 +1,21 @@
 [
   {
-    "name": "Warlock",
-    "id": "warlock",
-    "description": "Start with high intelligence and Form of Mist. Drastically reduced MP cost for spells. Mist is free.",
+    "name": "Chaos Lite",
+    "id": "chaos-lite",
+    "description": "April Fools Preset Released on April 1st, 2024. A child of the original Chaos. Requires the Bounty Hunter Tool. App URL: https://github.com/MottZilla/BountyHunterTool",
     "author": [
-      "3snow_p7im"
+      "3snow_p7im",
+      "eldri7ch",
+      "MottZilla"
     ],
-    "knowledgeCheck": "None",
-    "timeFrame": "Normal",
-    "moddedLevel": "Slightly",
-    "castleType": "Normal",
+    "knowledgeCheck": "April Fools",
+    "extension": "Scenic",
+    "complexity": 1,
+    "timeFrame": "Slow",
+    "moddedLevel": "Heavily",
+    "castleType": "Modded",
     "transformEarly": "Yes",
-    "transformFocus": "Mist",
-    "winCondition": "Normal"
+    "transformFocus": "Bat",
+    "winCondition": "April Fools"
   }
 ]
