@@ -10,7 +10,7 @@
     "weight": -1250,
     "knowledgeCheck": "None",
     "metaExtension": "Equipment",
-    "metaComplexity": 8,
+    "metaComplexity": "8",
     "itemStats": "Normal",
     "timeFrame": "Normal",
     "moddedLevel": "Slightly",

@@ -11,7 +11,7 @@
     "weight": -2250,
     "knowledgeCheck": "None",
     "metaExtension": "Guarded",
-    "metaComplexity": 1,
+    "metaComplexity": "1",
     "itemStats": "Randomized",
     "timeFrame": "Normal",
     "moddedLevel": "None",

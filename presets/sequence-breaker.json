@@ -9,7 +9,7 @@
     "weight": 2500,
     "knowledgeCheck": "Sequence Breaks",
     "metaExtension": "Guarded",
-    "metaComplexity": 8,
+    "metaComplexity": "8",
     "itemStats": "Randomized",
     "timeFrame": "Slow",
     "moddedLevel": "None",
