@@ -1,21 +1,19 @@
 [
   {
-    "name": "Chaos Lite",
-    "id": "chaos-lite",
-    "description": "April Fools Preset Released on April 1st, 2024. A child of the original Chaos. Requires the Bounty Hunter Tool. App URL: https://github.com/MottZilla/BountyHunterTool",
+    "name": "Agonize 2020",
+    "id": "agonizetwtw",
+    "description": "Emulates Agonize Preset from 2020. Fixed locations for various relics to 'Maximize backtracking'.",
     "author": [
       "3snow_p7im",
       "eldri7ch",
-      "MottZilla"
+      "Crazy4blades"
     ],
-    "knowledgeCheck": "April Fools",
-    "extension": "Scenic",
-    "complexity": 1,
+    "knowledgeCheck": "None",
     "timeFrame": "Slow",
-    "moddedLevel": "Heavily",
-    "castleType": "Modded",
-    "transformEarly": "Yes",
-    "transformFocus": "Bat",
-    "winCondition": "April Fools"
+    "moddedLevel": "None",
+    "castleType": "Normal",
+    "transformEarly": "No",
+    "transformFocus": "None",
+    "winCondition": "Normal"
   }
 ]
