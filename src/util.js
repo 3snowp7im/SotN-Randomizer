@@ -3770,6 +3770,16 @@ function hexValueToDamageString(hexValue) {
     name,
     description,
     author,
+    knowledgeCheck,
+    metaExtension,
+    metaComplexity,
+    itemStats,
+    timeFrame,
+    moddedLevel,
+    castleType,
+    transformEarly,
+    transformFocus,
+    winCondition,
     weight,
     hidden,
     override,
@@ -3801,6 +3811,16 @@ function hexValueToDamageString(hexValue) {
     this.description = description
     this.author = author
     this.weight = weight
+    this.knowledgeCheck = knowledgeCheck
+    this.metaExtension = metaExtension
+    this.metaComplexity = metaComplexity
+    this.itemStats = itemStats
+    this.timeFrame = timeFrame
+    this.moddedLevel = moddedLevel
+    this.castleType = castleType
+    this.transformEarly = transformEarly
+    this.transformFocus = transformFocus
+    this.winCondition = winCondition
     this.hidden = hidden
     this.override = override
     this.enemyDrops = enemyDrops
@@ -3904,6 +3924,16 @@ function hexValueToDamageString(hexValue) {
     delete options.description
     delete options.author
     delete options.weight
+    delete options.knowledgeCheck
+    delete options.metaExtension
+    delete options.metaComplexity
+    delete options.itemStats
+    delete options.timeFrame
+    delete options.moddedLevel
+    delete options.castleType
+    delete options.transformEarly
+    delete options.transformFocus
+    delete options.winCondition
     delete options.hidden
     delete options.override
     return clone(options)
@@ -5647,6 +5677,16 @@ function hexValueToDamageString(hexValue) {
       self.metadata.name,
       self.metadata.description,
       self.metadata.author,
+      self.metadata.knowledgeCheck,
+      self.metadata.metaExtension,
+      self.metadata.metaComplexity,
+      self.metadata.itemStats,
+      self.metadata.timeFrame,
+      self.metadata.moddedLevel,
+      self.metadata.castleType,
+      self.metadata.transformEarly,
+      self.metadata.transformFocus,
+      self.metadata.winCondition,
       self.metadata.weight || 0,
       self.metadata.hidden,
       self.metadata.override,

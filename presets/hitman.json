@@ -9,7 +9,7 @@
     ],
     "weight": 10000,
     "knowledgeCheck": "Enemy Locations",
-    "extension": "Guarded",
+    "metaExtension": "Guarded",
     "complexity": 1,
     "itemStats": "Normal",
     "timeFrame": "Fast",
