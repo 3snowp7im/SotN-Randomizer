@@ -10,7 +10,7 @@
     "weight": -10000,
     "knowledgeCheck": "Varies",
     "metaExtension": "Guarded",
-    "metaComplexity": 1,
+    "metaComplexity": "1",
     "itemStats": "Normal",
     "timeFrame": "Slow",
     "moddedLevel": "Slightly",

@@ -11,7 +11,7 @@
     "weight": -3000,
     "knowledgeCheck": "HP Awareness",
     "metaExtension": "Guarded",
-    "metaComplexity": 5,
+    "metaComplexity": "5",
     "itemStats": "Normal",
     "timeFrame": "Slow",
     "moddedLevel": "Moderately",

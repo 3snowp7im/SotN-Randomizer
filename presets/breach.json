@@ -11,7 +11,7 @@
     "weight": -2500,
     "knowledgeCheck": "None",
     "metaExtension": "Guarded",
-    "metaComplexity": 5,
+    "metaComplexity": "5",
     "itemStats": "Normal",
     "timeFrame": "Fast",
     "moddedLevel": "Heavily",

@@ -10,7 +10,7 @@
     "weight": 10000,
     "knowledgeCheck": "Enemy Locations",
     "metaExtension": "Guarded",
-    "metaComplexity": 5,
+    "metaComplexity": "5",
     "itemStats": "Normal",
     "timeFrame": "Normal",
     "moddedLevel": "Heavily",

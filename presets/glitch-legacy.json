@@ -9,7 +9,7 @@
     "weight": -500,
     "knowledgeCheck": "Glitches",
     "metaExtension": "Equipment",
-    "metaComplexity": 4,
+    "metaComplexity": "4",
     "itemStats": "Normal",
     "timeFrame": "Slow",
     "moddedLevel": "Slightly",
