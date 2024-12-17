@@ -191,8 +191,15 @@
     elems.presetDescription.innerText = preset.description                        //
     elems.presetAuthor.innerText = preset.author 
     elems.presetKnowledgeCheck.innerText = preset.knowledgeCheck
-    elems.presetExtension.innerText = preset.extension
-    elems.presetComplexity.innerText = preset.complexity                         //  
+    elems.presetExtension.innerText = preset.metaExtension
+    elems.presetComplexity.innerText = preset.metaComplexity
+    elems.presetItemStats.innerText = preset.itemStats  
+    elems.presetTimeFrame.innerText = preset.timeFrame
+    elems.presetModdedLevel.innerText = preset.moddedLevel
+    elems.presetCastleType.innerText = preset.castleType
+    elems.presetTransformEarly.innerText = preset.transformEarly
+    elems.presetTransformFocus.innerText = preset.transformFocus
+    elems.presetWinCondition.innerText = preset.winCondition                      //  
     localStorage.setItem('presetId', preset.id)  
     if (elems.preset.checked) {                                                   //
       const options = preset.options()                                            //
@@ -1114,8 +1121,15 @@
     presetDescription: document.getElementById('preset-description'),
     presetAuthor: document.getElementById('preset-author'),
     presetKnowledgeCheck: document.getElementById('preset-knowledgeCheck'),
-    presetExtension: document.getElementById('preset-extension'),
-    presetComplexity: document.getElementById('preset-complexity'),
+    presetExtension: document.getElementById('preset-metaExtension'),
+    presetComplexity: document.getElementById('preset-metaComplexity'),
+    presetItemStats: document.getElementById('preset-itemStats'),
+    presetTimeFrame: document.getElementById('preset-timeFrame'),
+    presetModdedLevel: document.getElementById('preset-moddedLevel'),
+    presetCastleType: document.getElementById('preset-castleType'),
+    presetTransformEarly: document.getElementById('preset-transformEarly'),
+    presetTransformFocus: document.getElementById('preset-transformFocus'),
+    presetWinCondition: document.getElementById('preset-winCondition'),
     options: document.getElementById('options'),
     complexity: document.getElementById('complexity'),
     enemyDrops: document.getElementById('enemy-drops'),
