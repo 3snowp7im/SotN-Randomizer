@@ -1,18 +1,17 @@
 [
   {
-    "name": "Hitman",
-    "id": "hitman",
-    "description": "Bounty Hunter variant. Start with all five Familiar Cards so you know your targets. Requires the Bounty Hunter Tool. App URL: https://github.com/MottZilla/BountyHunterTool",
+    "name": "Guarded O.G.",
+    "id": "guarded-og",
+    "description": "The best preset for trying out the SOTN Randomizer. Utilizes our 'guarded' relic locations but Gold ring, Silver ring, Holy glasses and Spike Breaker are in the same locations as the original game. You can find more details on the 'guarded' checks at https://symphonyrando.fun/locations",
     "author": [
-      "eldri7ch",
-      "MottZilla"
+      "TalicZealot"
     ],
-    "knowledgeCheck": "Enemy Locations",
+    "knowledgeCheck": "None",
     "timeFrame": "Fast",
-    "moddedLevel": "Heavily",
+    "moddedLevel": "None",
     "castleType": "Normal",
     "transformEarly": "No",
     "transformFocus": "None",
-    "winCondition": "Enemies Drop Vlads"
+    "winCondition": "Normal"
   }
 ]

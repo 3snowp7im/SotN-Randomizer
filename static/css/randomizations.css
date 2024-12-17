@@ -1,6 +1,6 @@
 #preset-details * {
   margin: 0;
-  padding: 0;
+  padding: 0.2;
 }
 
 #preset-details.hide {
