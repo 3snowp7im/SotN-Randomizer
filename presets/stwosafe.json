@@ -2,21 +2,23 @@
   "metadata": {
     "id": "stwosafe",
     "name": "Safe Season 2",
-    "description": "Emulates how safe felt in Season 2. Requires no speedrun or glitch knowledge for completion.",
+    "description": "A popular variant that emulates how Safe felt in Season 2. Requires no speedrun or glitch knowledge for completion.",
     "author": [
       "3snow_p7im",
       "setz",
       "soba"
     ],
     "weight": 2300,
-    "knowledgeCheck": "",
-    "extension": "",
-    "complexity": 7,
-    "timeFrame": "",
-    "moddedLevel": "",
-    "castleType": "",
-    "transformEarly": "",
-    "transformType": ""
+    "knowledgeCheck": "None",
+    "metaExtension": "Guarded",
+    "metaComplexity": "8",
+    "itemStats": "Normal",
+    "timeFrame": "Normal",
+    "moddedLevel": "None",
+    "castleType": "Normal",
+    "transformEarly": "No",
+    "transformFocus": "None",
+    "winCondition": "Normal"
   },
   "inherits": "casual",
   "stats": false,

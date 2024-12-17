@@ -13,7 +13,7 @@
   const PresetBuilder = util.PresetBuilder
 
   // Create PresetBuilder.
-  const builder = PresetBuilder.fromJSON({"metadata":{"id":"grand-tour","name":"Grand Tour","description":"Soon to be discontinued after website rework. Base preset featuring 'tourist' relic extension.","author":"eldri7ch & Mottzilla","weight":0},"inherits":"casual","relicLocationsExtension":"tourist","colorrandoMode":true,"music":false,"complexityGoal":{"min":8,"goals":["Holy glasses + Heart of Vlad + Tooth of Vlad + Rib of Vlad + Ring of Vlad + Eye of Vlad"]}})
+  const builder = PresetBuilder.fromJSON({"metadata":{"id":"grand-tour","name":"Grand Tour","description":"To be discontinued in the near future. Meant for players who want to see more unique locations of the castle.","author":["eldri7ch","MottZilla"],"weight":0,"knowledgeCheck":"None","metaExtension":"Scenic","metaComplexity":8,"itemStats":"Normal","timeFrame":"Slow","moddedLevel":"None","castleType":"Normal","transformEarly":"No","transformFocus":"None","winCondition":"Normal"},"inherits":"casual","relicLocationsExtension":"Scenic","colorrandoMode":true,"music":false,"complexityGoal":{"min":8,"goals":["Holy glasses + Heart of Vlad + Tooth of Vlad + Rib of Vlad + Ring of Vlad + Eye of Vlad"]}})
 
   // Export.
   const preset = builder.build()

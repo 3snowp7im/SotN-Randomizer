@@ -2,19 +2,21 @@
   "metadata": {
     "id": "luckysevens",
     "name": "Lucky Sevens",
-    "description": "Start with 77 all stats and 77% chance for drops. Open shortcuts and some teleporters in the second castle. Enemies have a chance to drop relics.",
+    "description": "Start with 77 in all stats, 7 random relics, and 77% chance for uncommon and rare drops. Skips prolgue. Open all shortcuts and some teleporters in the second castle. Enemies have a small chance to drop relics.",
     "author": [
       "eldri7ch"
     ],
     "weight": 675,
-    "knowledgeCheck": "",
-    "extension": "",
-    "complexity": 7,
-    "timeFrame": "",
-    "moddedLevel": "",
-    "castleType": "",
-    "transformEarly": "",
-    "transformType": ""
+    "knowledgeCheck": "None",
+    "metaExtension": "Guarded",
+    "metaComplexity": "7",
+    "itemStats": "Normal",
+    "timeFrame": "Fast",
+    "moddedLevel": "Heavily",
+    "castleType": "Normal",
+    "transformEarly": "No",
+    "transformFocus": "None",
+    "winCondition": "Normal"
   },
 
   "stats": false,
@@ -22,6 +24,7 @@
   "fastwarpMode": true,
   "colorrandoMode": true,
   "unlockedMode": true,
+  "noprologueMode": true,
   "relicLocationExtension": "Guarded",
   
   "itemLocations": [{
@@ -1033,6 +1036,40 @@
     "type": "word",
     "value": "0xa0627bc4",
     "comment": "sb v0, 0x7bc4 (v1)"
+  },
+  
+  {
+    "type": "word",
+    "value": "0x34020003",
+    "comment": "ori v0, 0x0003"
+  }, {
+    "comment": "Enable random relic",
+    "type": "word",
+    "value": "randomRelic"
+  }, {
+    "comment": "Enable random relic",
+    "type": "word",
+    "value": "randomRelic"
+  }, {
+    "comment": "Enable random relic",
+    "type": "word",
+    "value": "randomRelic"
+  }, {
+    "comment": "Enable random relic",
+    "type": "word",
+    "value": "randomRelic"
+  }, {
+    "comment": "Enable random relic",
+    "type": "word",
+    "value": "randomRelic"
+  }, {
+    "comment": "Enable random relic",
+    "type": "word",
+    "value": "randomRelic"
+  }, {
+    "comment": "Enable random relic",
+    "type": "word",
+    "value": "randomRelic"
   }, 
   
   {

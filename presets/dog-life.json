@@ -2,21 +2,23 @@
   "metadata": {
     "id": "dog-life",
     "name": "Dog life",
-    "description": "This preset forces you to play only in wolf form! Beware that it's a very technical preset. Safe locations, complexity 9.",
+    "description": "An extremely technical preset forcing Alucard to traverse the castle in wolf form. Many relics have their functions changed to assist wolf through this endeavor. A unique and challenging preset for expert wolf-lovers.",
     "author": [
       "Wecoc", 
       "Forat Negre",
       "eldri7ch"
     ],
     "weight": -5005,
-    "knowledgeCheck": "",
-    "extension": "",
-    "complexity": 7,
-    "timeFrame": "",
-    "moddedLevel": "",
-    "castleType": "",
-    "transformEarly": "",
-    "transformType": ""
+    "knowledgeCheck": "Modified Wolf Tech",
+    "metaExtension": "Guarded",
+    "metaComplexity": "9",
+    "itemStats": "Normal",
+    "timeFrame": "Slow",
+    "moddedLevel": "Heavily",
+    "castleType": "Modded",
+    "transformEarly": "Yes",
+    "transformFocus": "Wolf",
+    "winCondition": "Normal"
   },
 
   "inherits": "safe",

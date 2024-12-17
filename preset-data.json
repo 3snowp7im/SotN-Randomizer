@@ -1,21 +1,18 @@
 [
   {
-    "name": "Open",
-    "id": "open",
-    "description": "Opens several shortcuts and all teleporters.",
+    "name": "Hitman",
+    "id": "hitman",
+    "description": "Bounty Hunter variant. Start with all five Familiar Cards so you know your targets. Requires the Bounty Hunter Tool. App URL: https://github.com/MottZilla/BountyHunterTool",
     "author": [
-      "TalicZealot",
       "eldri7ch",
-      "MottZilla",
-      "Wecoc"
+      "MottZilla"
     ],
-    "knowledgeCheck": "",
-    "extension": "",
-    "complexity": 7,
-    "timeFrame": "",
-    "moddedLevel": "",
-    "castleType": "",
-    "transformEarly": "",
-    "transformType": ""
+    "knowledgeCheck": "Enemy Locations",
+    "timeFrame": "Fast",
+    "moddedLevel": "Heavily",
+    "castleType": "Normal",
+    "transformEarly": "No",
+    "transformFocus": "None",
+    "winCondition": "Enemies Drop Vlads"
   }
 ]

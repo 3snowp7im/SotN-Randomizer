@@ -2,20 +2,22 @@
   "metadata": {
     "id": "bountyhuntertc",
     "name": "Bounty Hunter TC",
-    "description": "Bounty Hunter variant. Vlad drop rates are higher, Hint Cards are required before the drop is unlocked. App URL: https://github.com/MottZilla/BountyHunterTool",
+    "description": "Bounty Hunter variant. Vlad drop rates are much higher, Familiar Cards are required before the drop is unlocked. Requires the Bounty Hunter Tool. App URL: https://github.com/MottZilla/BountyHunterTool",
     "author": [
       "eldri7ch",
       "MottZilla"
     ],
     "weight": 10000,
-    "knowledgeCheck": "",
-    "extension": "",
-    "complexity": 7,
-    "timeFrame": "",
-    "moddedLevel": "",
-    "castleType": "",
-    "transformEarly": "",
-    "transformType": ""
+    "knowledgeCheck": "Enemy Locations",
+    "metaExtension": "Guarded",
+    "metaComplexity": "6",
+    "itemStats": "Normal",
+    "timeFrame": "Normal",
+    "moddedLevel": "Heavily",
+    "castleType": "Normal",
+    "transformEarly": "No",
+    "transformFocus": "None",
+    "winCondition": "Enemies Drop Vlads"
   },
   "inherits": "casual",
   "stats": false,

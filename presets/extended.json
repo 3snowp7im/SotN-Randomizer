@@ -1,7 +1,9 @@
+
+
 {
   "comment": "This is only included so you may copy and paste this folder into your Tracker Presets folder and have full disclosure on your checks.",
-  "extends": "equipment",
-  
+  "extends": "guardedplus", 
+
   "customLocations": [{
     "location": "Confessional",
     "x": 65,
@@ -106,5 +108,43 @@
     "rooms": [
         {"address": "0x06C113", "values": ["0x10"]}
     ]
+  }, {
+    "location": "Basilard"
+  }, {
+    "location": "Goggles"
+  }, {
+    "location": "Gold plate"
+  }, {
+    "location": "Bekatowa"
+  }, {
+    "location": "Mystic pendant"
+  }, {
+    "location": "Jewel knuckles"
+  }, {
+    "location": "Alucart sword"
+  }, {
+    "location": "Nunchaku"
+  }, {
+    "location": "Ring of Ares"
+  }, {
+    "location": "Silver plate"
+  }, {
+    "location": "Platinum mail"
+  }, {
+    "location": "Beryl circlet"
+  }, {
+    "location": "Katana"
+  }, {
+    "location": "Twilight cloak"
+  }, {
+    "location": "Moon rod"
+  }, {
+    "location": "Luminus"
+  }, {
+    "location": "Reverse Caverns Opal"
+  }, {
+    "location": "Osafune katana"
+  }, {
+    "location": "Gram"
   }]
 }

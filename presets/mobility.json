@@ -2,7 +2,7 @@
   "metadata": {
     "id": "mobility",
     "name": "Mobility",
-    "description": "The ultimate movement preset.",
+    "description": "Start with all movement relics and all transformations with discounted MP costs. Significant map changes keep complexity slightly higher. Also adds many randomizations including Enemy Stats and Shop Prices.",
     "author": [
       "3snow_p7im",
       "eldri7ch",
@@ -10,14 +10,16 @@
       "Wecoc"
     ],
     "weight": -5007,
-    "knowledgeCheck": "",
-    "extension": "",
-    "complexity": 7,
-    "timeFrame": "",
-    "moddedLevel": "",
-    "castleType": "",
-    "transformEarly": "",
-    "transformType": ""
+    "knowledgeCheck": "None",
+    "metaExtension": "Extended",
+    "metaComplexity": "6",
+    "itemStats": "Normal",
+    "timeFrame": "Fast",
+    "moddedLevel": "Heavily",
+    "castleType": "Modded",
+    "transformEarly": "Yes",
+    "transformFocus": "All",
+    "winCondition": "Mirror For 2nd Castle"
   },
 
   "stats": false,
@@ -30,7 +32,7 @@
   "iwsMode": true,
   "enemyStatRandoMode": true,
   "shopPriceRandoMode": true,
-  "relicLocationsExtension": "wanderer",
+  "relicLocationsExtension": "extended",
 
   "alias": [{
     "comment": "Alias Mirror as Mirror",

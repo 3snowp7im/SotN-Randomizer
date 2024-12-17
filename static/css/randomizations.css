@@ -10,7 +10,7 @@
 #seed-container label,
 #preset-dropdown label,
 #complexity-slider label {
-  flex-basis: 20%;
+  flex-basis: 25%;
 }
 
 #seed-container input,
@@ -45,9 +45,12 @@
 #preset-description,
 #preset-author {
   text-indent: 1rem;
+  font-size: 14px;
 }
 
-#preset-description {
+#preset-description,
+#preset-author,
+#meta-data-group {
   margin-bottom: 0.5rem;
 }
 
@@ -74,4 +77,23 @@
   .relic-location {
     flex: 0 50%;
   }
+}
+
+#meta-data-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 0.5rem;
+}
+
+.meta-data {
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  gap: 0.25rem;
+}
+
+.meta-data p {
+  border-bottom: 1px solid;
+  font-size: 14px;
 }

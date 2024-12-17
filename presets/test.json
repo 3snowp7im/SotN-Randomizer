@@ -9,13 +9,15 @@
     ],
     "weight": -900,
     "knowledgeCheck": "",
-    "extension": "",
-    "complexity": 7,
+    "metaExtension": "",
+    "metaComplexity": "7",
+    "itemStats": "",
     "timeFrame": "",
     "moddedLevel": "",
     "castleType": "",
     "transformEarly": "",
-    "transformType": ""
+    "transformFocus": "",
+    "winCondition": ""
   },
   "relics": false,
   "items": false,
@@ -26,7 +28,7 @@
   "fastwarpMode": true,
   "noprologueMode": true,
   "unlockedMode": true,
-  "relicLocationsExtension": "wanderer",
+  "relicLocationsExtension": "extended",
 
   "lockLocation": [{
     "location": "Soul of Bat",

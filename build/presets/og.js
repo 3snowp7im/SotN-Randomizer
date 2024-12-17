@@ -13,7 +13,7 @@
   const PresetBuilder = util.PresetBuilder
 
   // Create PresetBuilder.
-  const builder = PresetBuilder.fromJSON({"metadata":{"id":"og","name":"O.G.","description":"Simulates randomizer season 1. No stat randomization. Gold ring, Silver ring, Holy glasses and Spike Breaker are in vanilla locations.","author":"3snow_p7im","weight":1250},"inherits":"casual","relicLocationsExtension":false,"preventLeaks":false,"stats":false,"music":false,"placeRelic":[{"location":"Silver ring","relic":"Silver ring"},{"location":"Gold ring","relic":"Gold ring"},{"location":"Holy glasses","relic":"Holy glasses"},{"location":"Spike Breaker","relic":"Spike Breaker"}]})
+  const builder = PresetBuilder.fromJSON({"metadata":{"id":"og","name":"O.G.","description":"The first Randomizer preset. Only randomizes relic locations and item locations.","author":["3snow_p7im"],"weight":1250,"knowledgeCheck":"None","metaExtension":"Classic","metaComplexity":1,"itemStats":"Normal","timeFrame":"Fast","moddedLevel":"None","castleType":"Normal","transformEarly":"No","transformFocus":"None","winCondition":"Normal"},"inherits":"casual","relicLocationsExtension":false,"preventLeaks":false,"stats":false,"music":false,"placeRelic":[{"location":"Silver ring","relic":"Silver ring"},{"location":"Gold ring","relic":"Gold ring"},{"location":"Holy glasses","relic":"Holy glasses"},{"location":"Spike Breaker","relic":"Spike Breaker"}]})
 
   // Export.
   const preset = builder.build()

@@ -290,12 +290,16 @@ const relicsHelp = [
   'progression in the vanilla game.',
   '',
   'There are three extension modes:',
-  '  guarded    Adds Crystal cloak, Mormegil, Dark Blade, and Ring of Arcana',
-  '             to the location pool. This is the default extension mode when',
-  '             when enabled without an argument.',
-  '  spread     Based on guarded, and adds Dragon helm, Shotel, and Staurolite',
-  '             to the location pool.',
-  '  equipment  Adds remaining equipment tiles to the location pool.',
+  '  guarded      Adds Crystal cloak, Mormegil, Dark Blade, and Ring of Arcana',
+  '               to the location pool. This is the default extension mode when',
+  '               when enabled without an argument.',
+  '  guardedplus  Based on guarded, and adds Forbidden Library Opal and Badelaire',
+  '               to the location pool.',
+  '  equipment    Adds remaining equipment tiles to the location pool.',
+  '  scenic       Adds many scenic locationss to the location pool.',
+  '  extended     a compromise between guardedPlus, equipment, and scenic creating',
+  '               creating a "unique locations" variant with a moderate number of',
+  '               checks.',
   '',
   'Extension format:',
   '  x:<mode>',
@@ -421,15 +425,15 @@ function presetMetaHelp(preset) {
   if (typeof(options.relicLocations) === 'object'
       && 'extension' in options.relicLocations) {
     switch (options.relicLocations.extension) {
-    case constants.EXTENSION.WANDERER:
-      extensions.push(constants.EXTENSION.WANDERER)
+    case constants.EXTENSION.EXTENDED:
+      extensions.push(constants.EXTENSION.EXTENDED)
       break
-    case constants.EXTENSION.TOURIST:
-      extensions.push(constants.EXTENSION.TOURIST)  
+    case constants.EXTENSION.SCENIC:
+      extensions.push(constants.EXTENSION.SCENIC)  
     case constants.EXTENSION.EQUIPMENT:
       extensions.push(constants.EXTENSION.EQUIPMENT)
-    case constants.EXTENSION.SPREAD:
-      extensions.push(constants.EXTENSION.SPREAD)
+    case constants.EXTENSION.GUARDEDPLUS:
+      extensions.push(constants.EXTENSION.GUARDEDPLUS)
     case constants.EXTENSION.GUARDED:
       extensions.push(constants.EXTENSION.GUARDED)
     }

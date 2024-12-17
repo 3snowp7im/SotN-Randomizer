@@ -8,13 +8,15 @@
     ],
     "weight": 0,
     "knowledgeCheck": "",
-    "extension": "",
-    "complexity": 7,
+    "metaExtension": "",
+    "metaComplexity": "7",
+    "itemStats": "",
     "timeFrame": "",
     "moddedLevel": "",
     "castleType": "",
     "transformEarly": "",
-    "transformType": ""
+    "transformFocus": "",
+    "winCondition": ""
   },
 
   "comment": "Build off the Safe preset",

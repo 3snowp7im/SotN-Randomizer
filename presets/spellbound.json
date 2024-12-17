@@ -1,22 +1,24 @@
 {
-    "metadata": {
-        "id": "spellbound",
-        "name": "Spellbound",
-        "description": "Safe logic, spells are locked by Familiar Cards.",
-        "author": [
-            "MottZilla",
-            "JupiterClimb"
-        ],
-        "weight": -5009,
-        "knowledgeCheck": "",
-        "extension": "",
-        "complexity": 7,
-        "timeFrame": "",
-        "moddedLevel": "",
-        "castleType": "",
-        "transformEarly": "",
-        "transformType": ""
-    },
+  "metadata": {
+    "id": "spellbound",
+    "name": "Spellbound",
+    "description": "A high-complexity preset which locks spells behind familiar cards. Intended to emphasize better non-magical combat in the early game. Relics unkown until collected.",
+    "author": [
+        "MottZilla",
+        "JupiterClimb"
+    ],
+    "weight": -5009,
+    "knowledgeCheck": "No-Spell Combat",
+    "metaExtension": "Guarded",
+    "metaComplexity": "9",
+    "itemStats": "Randomized",
+    "timeFrame": "Normal",
+    "moddedLevel": "Moderately",
+    "castleType": "Normal",
+    "transformEarly": "No",
+    "transformFocus": "None",
+    "winCondition": "Normal"
+  },
 
     "comment": "Bat Card = Wing Smash, Ghost Card = Summon Spirit, Faerie Card = Soul Steal, Demon Card = Hell Fire, Sword Card = Tetra Spirit, Nosedevil = Dark Metamorphosis",
     "inherits": "casual",

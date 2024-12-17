@@ -2,19 +2,21 @@
   "metadata": {
     "id": "nimble",
     "name": "Nimble",
-    "description": "Start with Soul of Bat, Leap Stone, Gravity Boots, Duplicator, Manna prism, and Buffalo star.",
+    "description": "A fast, complexity-focused preset. Start with Soul of Bat, Leap Stone, Gravity Boots, Duplicator, Manna prism, and Buffalo star.",
     "author": [
       "3snow_p7im"
     ],
     "weight": 1000,
-    "knowledgeCheck": "",
-    "extension": "",
-    "complexity": 7,
-    "timeFrame": "",
-    "moddedLevel": "",
-    "castleType": "",
-    "transformEarly": "",
-    "transformType": ""
+    "knowledgeCheck": "None",
+    "metaExtension": "Guarded",
+    "metaComplexity": "6",
+    "itemStats": "Normal",
+    "timeFrame": "Fast",
+    "moddedLevel": "None",
+    "castleType": "Normal",
+    "transformEarly": "Yes",
+    "transformFocus": "Bat",
+    "winCondition": "Normal"
   },
   "stats": false,
   "startingEquipment": [{

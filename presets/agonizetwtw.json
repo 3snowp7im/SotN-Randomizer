@@ -2,21 +2,23 @@
   "metadata": {
     "id": "agonizetwtw",
     "name": "Agonize 2020",
-    "description": "Simulates Agonize Preset from 2020. No stat randomization. Fixed locations for various relics to 'Maximize backtracking'.",
+    "description": "Emulates Agonize Preset from 2020. Fixed locations for various relics to 'Maximize backtracking'.",
     "author": [
       "3snow_p7im", 
       "eldri7ch", 
       "Crazy4blades"
     ],
     "weight": -3800,
-    "knowledgeCheck": "",
-    "extension": "",
-    "complexity": 7,
-    "timeFrame": "",
-    "moddedLevel": "",
-    "castleType": "",
-    "transformEarly": "",
-    "transformType": ""
+    "knowledgeCheck": "None",
+    "metaExtension": "Guarded",
+    "metaComplexity": "1",
+    "itemStats": "Normal",
+    "timeFrame": "Slow",
+    "moddedLevel": "None",
+    "castleType": "Normal",
+    "transformEarly": "No",
+    "transformFocus": "None",
+    "winCondition": "Normal"
   },
 
   "preventLeaks": false,

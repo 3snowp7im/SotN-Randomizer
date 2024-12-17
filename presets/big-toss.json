@@ -2,21 +2,23 @@
   "metadata": {
     "id": "big-toss",
     "name": "Big Toss",
-    "description": "Bat and fast Wolf are removed, and any amount of damage causes a 'big toss', launching Alucard across the screen.",
+    "description": "Bat and Wolf relics beyond Soul are removed, and any amount of damage causes a 'big toss', launching Alucard across the screen. New movement intended with the Toadstool food item.",
     "author": [
       "Wecoc", 
       "eldri7ch", 
       "MottZilla"
     ],
     "weight": -3000,
-    "knowledgeCheck": "",
-    "extension": "",
-    "complexity": 7,
-    "timeFrame": "",
-    "moddedLevel": "",
-    "castleType": "",
-    "transformEarly": "",
-    "transformType": ""
+    "knowledgeCheck": "HP Awareness",
+    "metaExtension": "Guarded",
+    "metaComplexity": "5",
+    "itemStats": "Normal",
+    "timeFrame": "Slow",
+    "moddedLevel": "Moderately",
+    "castleType": "Normal",
+    "transformEarly": "No",
+    "transformFocus": "Mist",
+    "winCondition": "Normal"
   },
 
   "stats": false,
