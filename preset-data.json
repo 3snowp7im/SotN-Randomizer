@@ -1,17 +1,17 @@
 [
   {
-    "name": "Guarded O.G.",
-    "id": "guarded-og",
-    "description": "The best preset for trying out the SOTN Randomizer. Utilizes our 'guarded' relic locations but Gold ring, Silver ring, Holy glasses and Spike Breaker are in the same locations as the original game. You can find more details on the 'guarded' checks at https://symphonyrando.fun/locations",
+    "name": "Warlock",
+    "id": "warlock",
+    "description": "Start with high intelligence and Form of Mist. Drastically reduced MP cost for spells. Mist is free.",
     "author": [
-      "TalicZealot"
+      "3snow_p7im"
     ],
     "knowledgeCheck": "None",
-    "timeFrame": "Fast",
-    "moddedLevel": "None",
+    "timeFrame": "Normal",
+    "moddedLevel": "Slightly",
     "castleType": "Normal",
-    "transformEarly": "No",
-    "transformFocus": "None",
+    "transformEarly": "Yes",
+    "transformFocus": "Mist",
     "winCondition": "Normal"
   }
 ]

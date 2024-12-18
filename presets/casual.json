@@ -8,7 +8,7 @@
       "setz", 
       "soba"
     ],
-    "weight": -2250,
+    "weight": 1100,
     "knowledgeCheck": "None",
     "metaExtension": "Guarded",
     "metaComplexity": "1",

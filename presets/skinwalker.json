@@ -2,14 +2,14 @@
   "metadata": {
     "id": "skinwalker",
     "name": "Skinwalker",
-    "description": "To be discontinued in the near future. Includes all changes from Aperture, discounts MP costs on transformations and guarantees early access to at least one transformation.",
+    "description": "To be discontinued in the near future. Includes all changes from Aperture, discounts MP costs on transformations and guarantees early access to at least one transformation before leaving first castle.",
     "author": [
       "Zako",
       "eldri7ch",
       "MottZilla",
       "Wecoc"
     ],
-    "weight": 2750,
+    "weight": 3200,
     "knowledgeCheck": "None",
     "metaExtension": "Extended",
     "metaComplexity": "8",
