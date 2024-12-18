@@ -734,7 +734,7 @@ if ('help' in argv) {
     '',
     'When using the `$0` utility, you can use the `--preset` shorthand to',
     'specify a preset:',
-    '  $0 -p speedrun  # Use speedrun preset',
+    '  $0 -p adventure  # Use adventure preset',
     '',
     'Preset options may be overridden by specifying an options string:',
     '  $0 -p adventure --opt d:*:Peanuts-  # Adventure with only Peanut drops',
