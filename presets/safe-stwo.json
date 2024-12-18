@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "id": "stwosafe",
+    "id": "safe-stwo",
     "name": "Safe Season 2",
     "description": "A popular variant that emulates how Safe felt in Season 2. Requires no speedrun or glitch knowledge for completion.",
     "author": [
@@ -8,7 +8,7 @@
       "setz",
       "soba"
     ],
-    "weight": 3300,
+    "weight": 2950,
     "knowledgeCheck": "None",
     "metaExtension": "Guarded",
     "metaComplexity": "8",

@@ -1,17 +1,19 @@
 [
   {
-    "name": "Warlock",
-    "id": "warlock",
-    "description": "Start with high intelligence and Form of Mist. Drastically reduced MP cost for spells. Mist is free.",
+    "name": "Agonize 2020",
+    "id": "agonize-twtw",
+    "description": "Emulates Agonize Preset from 2020. Fixed locations for various relics to 'Maximize backtracking'.  Soul of Wolf, Soul of Bat, Form of Mist and Jewel of Open are guaranteed to be in first castle.",
     "author": [
-      "3snow_p7im"
+      "3snow_p7im",
+      "eldri7ch",
+      "Crazy4blades"
     ],
     "knowledgeCheck": "None",
-    "timeFrame": "Normal",
-    "moddedLevel": "Slightly",
+    "timeFrame": "Slow",
+    "moddedLevel": "None",
     "castleType": "Normal",
-    "transformEarly": "Yes",
-    "transformFocus": "Mist",
+    "transformEarly": "No",
+    "transformFocus": "None",
     "winCondition": "Normal"
   }
 ]
