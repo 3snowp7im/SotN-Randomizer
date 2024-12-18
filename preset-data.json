@@ -1,19 +1,17 @@
 [
   {
-    "name": "Agonize 2020",
-    "id": "agonize-twtw",
-    "description": "Emulates Agonize Preset from 2020. Fixed locations for various relics to 'Maximize backtracking'.  Soul of Wolf, Soul of Bat, Form of Mist and Jewel of Open are guaranteed to be in first castle.",
+    "name": "Rat race",
+    "id": "rat-race",
+    "description": "April Fools Preset released on April 1st, 2023. Just trying to make a buck.",
     "author": [
-      "3snow_p7im",
-      "eldri7ch",
-      "Crazy4blades"
+      "3snow_p7im"
     ],
-    "knowledgeCheck": "None",
-    "timeFrame": "Slow",
-    "moddedLevel": "None",
+    "knowledgeCheck": "April Fools",
+    "timeFrame": "Normal",
+    "moddedLevel": "Slightly",
     "castleType": "Normal",
     "transformEarly": "No",
     "transformFocus": "None",
-    "winCondition": "Normal"
+    "winCondition": "April Fools"
   }
 ]
