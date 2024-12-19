@@ -1,15 +1,41 @@
-html, body {
-    height: 100%;
+* {
+    box-sizing: border-box;
 }
 
-#content {
-    padding: 0 15% 2em 15%;
+.bla {
+    flex: 0 32%;
+  height: 100px;
+  margin-bottom: 2%; /* (100-32*3)/2 */
+}
+html, body {
+    height: 100%;
 }
 
 #version {
     float: right;
     font-size: small;
     margin: 1em 1em 0 0;
+}
+
+#bin,
+#ppf {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25rem;
+}
+
+#bin-ppf {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
+}
+main {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding: 0 2rem 2rem 2rem;
 }
 
 h1 {
@@ -185,34 +211,12 @@ fieldset {
     width: 100%;
 }
 
-fieldset > div > div > label:first-child {
-    margin-left: 2.6em;
-}
-
 fieldset > div > fieldset > div > div > label:first-child {
     margin-left: 1.8em;
 }
 
-fieldset > div > div > input {
-    margin-left: 1.45em;
-}
-
-fieldset > div > fieldset > div > div > input {
-    margin-left: .7em;
-}
-
 div > div + fieldset {
     margin-top: .5em;
-}
-
-#seed {
-    width: 15ex;
-}
-
-select,
-input[type="text"],
-input[type="number"] {
-    margin-left: 2em;
 }
 
 input[type="number"] {
@@ -479,10 +483,6 @@ body.menu {
         max-height: 0;
         border-width: 0;
     }
-}
-
-.menu #options > div {
-    width: ex;
 }
 
 .menu #options.animate.hide {
