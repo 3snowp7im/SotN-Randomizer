@@ -2,13 +2,13 @@
   "metadata": {
     "id": "any-percent",
     "name": "Any Percent",
-    "description": "Requires knowledge of movement mechanics and glitches used in Any% speedruns. Death skip intended but not necessary. Richter Skip and Relic Skip are required to beat the game.",
+    "description": "Requires knowledge of movement mechanics and glitches used in Any% speedruns. Death skip intended but not necessary. Richter Skip and Relic Skip are required to beat the game.  Soul of Wolf and Soul of Bat are guaranteed to be in first castle.",
     "author": [
       "3snow_p7im",
       "Dr4gonBlitz",
       "eldri7ch"
     ],
-    "weight": -3775,
+    "weight": 300,
     "knowledgeCheck": "Glitches",
     "metaExtension": "Guarded",
     "metaComplexity": "6",

@@ -2,12 +2,12 @@
   "metadata": {
     "id": "bat-master",
     "name": "Bat-Master",
-    "description": "Soul of Bat moves faster and can open doors. All Bat abilities and upgrades are greatly enhanced. Hold Triangle to move bat at original speed.  Bat Familiar levels faster.",
+    "description": "Soul of Bat moves faster and can open doors. Soul of Bat is guaranteed within the first castle. All Bat abilities and upgrades are greatly enhanced. Hold Triangle to move bat at original speed.  Bat Familiar levels faster.",
     "author": [
       "MT_Fun", 
       "MottZilla"
     ],
-    "weight": -3500,
+    "weight": 500,
     "knowledgeCheck": "None",
     "metaExtension": "GuardedPlus",
     "metaComplexity": "1",

@@ -2,11 +2,11 @@
   "metadata": {
     "id": "guarded-og",
     "name": "Guarded O.G.",
-    "description": "The best preset for trying out the SOTN Randomizer. Utilizes our 'guarded' relic locations but Gold ring, Silver ring, Holy glasses and Spike Breaker are in vanilla locations.",
+    "description": "The best preset for trying out the SOTN Randomizer. Utilizes our 'guarded' relic locations but Gold ring, Silver ring, Holy glasses and Spike Breaker are in the same locations as the original game.  Soul of Bat, Form of Mist and Jewel of Open are guaranteed to be in first castle. You can find more details on the 'guarded' checks at https://symphonyrando.fun/locations",
     "author": [
       "TalicZealot"
     ],
-    "weight": 250,
+    "weight": 1900,
     "knowledgeCheck": "None",
     "metaExtension": "Guarded",
     "metaComplexity": "1",

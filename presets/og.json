@@ -2,11 +2,11 @@
   "metadata": {
     "id": "og",
     "name": "O.G.",
-    "description": "The first Randomizer preset. Only randomizes relic locations and item locations.",
+    "description": "The first Randomizer preset. Only randomizes relic locations and item locations. Soul of Bat, Form of Mist and Jewel of Open are guaranteed to be in first castle.",
     "author": [
       "3snow_p7im"
     ],
-    "weight": 1250,
+    "weight": 2600,
     "knowledgeCheck": "None",
     "metaExtension": "Classic",
     "metaComplexity": "1",

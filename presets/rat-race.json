@@ -6,7 +6,7 @@
     "author": [
       "3snow_p7im"
     ],
-    "weight": 1500,
+    "weight": 2800,
     "knowledgeCheck": "April Fools",
     "metaExtension": "Guarded",
     "metaComplexity": "9",
@@ -29,12 +29,6 @@
   "replaceRelic": [{
     "relic": "Spirit Orb",
     "item": "Zircon"
-  }],
-  "itemLocations": [{
-    "comment": "Remove the $400 drop in entrance",
-    "zone": "NO3",
-    "item": "$400",
-    "replacement": "Karma coin"
   }],
   "placeRelic": [{
     "location": "Jewel of Open",
@@ -196,5 +190,14 @@
     "type":    "char",
     "address": "0x047dbe84",
     "value":   "0x08"
+  }, {
+    "comment": "Remove the $400 drop in entrance",
+    "type":    "char",
+    "address": "0x053f8ec4",
+    "value":   "0x00"
+  }, {
+    "type":    "char",
+    "address": "0x053f973a",
+    "value":   "0x00"
   }]
 }

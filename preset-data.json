@@ -1,18 +1,17 @@
 [
   {
-    "name": "Hitman",
-    "id": "hitman",
-    "description": "Bounty Hunter variant. Start with all five Familiar Cards so you know your targets. Requires the Bounty Hunter Tool. App URL: https://github.com/MottZilla/BountyHunterTool",
+    "name": "Rat race",
+    "id": "rat-race",
+    "description": "April Fools Preset released on April 1st, 2023. Just trying to make a buck.",
     "author": [
-      "eldri7ch",
-      "MottZilla"
+      "3snow_p7im"
     ],
-    "knowledgeCheck": "Enemy Locations",
-    "timeFrame": "Fast",
-    "moddedLevel": "Heavily",
+    "knowledgeCheck": "April Fools",
+    "timeFrame": "Normal",
+    "moddedLevel": "Slightly",
     "castleType": "Normal",
     "transformEarly": "No",
     "transformFocus": "None",
-    "winCondition": "Enemies Drop Vlads"
+    "winCondition": "April Fools"
   }
 ]
