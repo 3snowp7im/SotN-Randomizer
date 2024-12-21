@@ -362,6 +362,7 @@
     }
     relicLocationsExtensionCache = value
     adjustMaxComplexity()
+    complexityChange();
     localStorage.setItem('relicLocationsExtension', value)
   }
 
@@ -1207,7 +1208,6 @@
     older: document.getElementById('older'),
   }
 
-  console.log(elems.presetDetails)
   resetState()
   elems.output.ppf.addEventListener('change', outputChange)
   elems.output.bin.addEventListener('change', outputChange)
