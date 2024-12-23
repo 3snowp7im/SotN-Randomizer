@@ -699,12 +699,6 @@
     "location": "Knight shield",
     "comment": "Requires at least Leap Stone",
     "locks": [
-      "Soul of Bat",
-      "Soul of Wolf",
-      "Form of Mist",
-      "Leap Stone",
-      "Thrust sword",
-      "Gravity Boots"
     ]
   }, {
     "location": "Holy sword",
