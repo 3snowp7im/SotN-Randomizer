@@ -20,7 +20,7 @@
     "winCondition": "Normal"
   },
 
-  "relicLocationExtension": "Guarded",
+  "relicLocationsExtension": "guarded",
   "stats": false,
   "colorrandoMode": true,
   "mypurseMode": true,
