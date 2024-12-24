@@ -46,6 +46,14 @@
     "comment": "Requires Mist",
     "locks": [
       "Form of Mist"
+    ],
+    "escapeRequires": [
+      "Soul of Bat",
+      "Leap Stone",
+      "Gravity Boots",
+      "Thrust sword + Form of Mist",
+      "Form of Mist + Power of Mist",
+      "Thrust sword + Soul of Wolf"
     ]
   }, {
     "location": "Fire of Bat",
@@ -631,7 +639,9 @@
       "Soul of Bat",
       "Leap Stone",
       "Gravity Boots",
-      "Form of Mist"
+      "Thrust sword + Form of Mist",
+      "Form of Mist + Power of Mist",
+      "Thrust sword + Soul of Wolf"
     ]
   }, {
     "location": "Alucart sword",
