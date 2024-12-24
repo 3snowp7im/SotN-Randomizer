@@ -46,6 +46,14 @@
     "comment": "Requires Mist",
     "locks": [
       "Form of Mist"
+    ],
+    "escapeRequires": [
+      "Soul of Bat",
+      "Leap Stone",
+      "Gravity Boots",
+      "Thrust sword + Form of Mist",
+      "Form of Mist + Power of Mist",
+      "Thrust sword + Soul of Wolf"
     ]
   }, {
     "location": "Fire of Bat",
@@ -189,7 +197,8 @@
     "locks": [
       "Jewel of Open + Leap Stone",
       "Jewel of Open + Soul of Bat",
-      "Jewel of Open + Soul of Wolf",
+      "Jewel of Open + Soul of Wolf + Power of Wolf",
+      "Jewel of Open + Gravity Boots + Soul of Wolf",
       "Jewel of Open + Gravity Boots + Form of Mist",
       "Jewel of Open + Gravity Boots + Thrust sword",
       "Jewel of Open + Form of Mist + Power of Mist"
@@ -294,14 +303,18 @@
       "Jewel of Open + Gravity Boots + Thrust sword",
       "Jewel of Open + Form of Mist + Power of Mist",
       "Jewel of Open + Soul of Wolf + Skill of Wolf",
-      "Jewel of Open + Soul of Wolf + Leap Stone"
+      "Jewel of Open + Soul of Wolf + Leap Stone",
+      "Jewel of Open + Form of Mist + Leap Stone",
+      "Jewel of Open + Soul of Wolf + Thrust sword",
+      "Jewel of Open + Form of Mist + Thrust sword"
     ]
   }, {
     "location": "Silver ring",
     "comment": "Requires Jewel of Open + Form of Mist + Soul of Bat",
     "locks": [
       "Jewel of Open + Form of Mist + Soul of Bat",
-      "Jewel of Open + Form of Mist + Power of Mist"
+      "Jewel of Open + Form of Mist + Power of Mist",
+      "Jewel of Open + Form of Mist + Spike Breaker"
     ]
   }, {
     "location": "Holy glasses",
@@ -401,7 +414,6 @@
     "locks": [
       "Jewel of Open + Leap Stone",
       "Jewel of Open + Soul of Bat",
-      "Jewel of Open + Soul of Wolf + Power of Wolf",
       "Jewel of Open + Gravity Boots + Soul of Wolf",
       "Jewel of Open + Gravity Boots + Form of Mist",
       "Jewel of Open + Gravity Boots + Thrust sword",
@@ -485,11 +497,8 @@
     "locks": [
       "Jewel of Open + Leap Stone",
       "Jewel of Open + Soul of Bat",
-      "Jewel of Open + Soul of Wolf",
       "Jewel of Open + Merman Statue",
-      "Jewel of Open + Gravity Boots + Soul of Wolf",
-      "Jewel of Open + Gravity Boots + Form of Mist",
-      "Jewel of Open + Gravity Boots + Thrust sword",
+      "Jewel of Open + Gravity Boots",
       "Jewel of Open + Form of Mist + Power of Mist"
     ]
   }, {
@@ -523,9 +532,9 @@
       "Leap Stone",
       "Soul of Bat",
       "Form of Mist + Power of Mist",
-      "Jewel of Open + Gravity Boots + Soul of Wolf",
-      "Jewel of Open + Gravity Boots + Form of Mist",
-      "Jewel of Open + Gravity Boots + Thrust sword"
+      "Soul of Wolf",
+      "Gravity Boots + Form of Mist",
+      "Gravity Boots + Thrust sword"
     ]
   }, {
     "location": "Jewel sword",
@@ -581,7 +590,8 @@
     "locks": [
       "Soul of Bat",
       "Gravity Boots",
-      "Form of Mist + Power of Mist"
+      "Form of Mist + Power of Mist",
+      "Soul of Wolf + Power of Wolf"
     ]
   }, {
     "location": "Falchion",
@@ -703,12 +713,6 @@
     "location": "Knight shield",
     "comment": "Requires at least Leap Stone",
     "locks": [
-      "Soul of Bat",
-      "Soul of Wolf",
-      "Form of Mist",
-      "Leap Stone",
-      "Thrust sword",
-      "Gravity Boots"
     ]
   }, {
     "location": "Holy sword",
