@@ -14,7 +14,10 @@
     "castleType": "Normal",
     "transformEarly": "No",
     "transformFocus": "None",
-    "winCondition": "Normal"
+    "winCondition": "Normal",
+    "metaExtension": "Guarded",
+    "metaComplexity": "1",
+    "itemStats": "Randomized"
   },
   {
     "name": "Safe",
@@ -31,7 +34,10 @@
     "castleType": "Normal",
     "transformEarly": "No",
     "transformFocus": "None",
-    "winCondition": "Normal"
+    "winCondition": "Normal",
+    "metaExtension": "Guarded",
+    "metaComplexity": "9",
+    "itemStats": "Randomized"
   },
   {
     "name": "Adventure",
@@ -46,7 +52,10 @@
     "castleType": "Normal",
     "transformEarly": "No",
     "transformFocus": "None",
-    "winCondition": "Normal"
+    "winCondition": "Normal",
+    "metaExtension": "Equipment",
+    "metaComplexity": 9,
+    "itemStats": "Randomized"
   },
   {
     "name": "O.G.",
@@ -61,7 +70,10 @@
     "castleType": "Normal",
     "transformEarly": "No",
     "transformFocus": "None",
-    "winCondition": "Normal"
+    "winCondition": "Normal",
+    "metaExtension": "Classic",
+    "metaComplexity": "1",
+    "itemStats": "Normal"
   },
   {
     "name": "Guarded O.G.",
@@ -76,7 +88,10 @@
     "castleType": "Normal",
     "transformEarly": "No",
     "transformFocus": "None",
-    "winCondition": "Normal"
+    "winCondition": "Normal",
+    "metaExtension": "Guarded",
+    "metaComplexity": "1",
+    "itemStats": "Normal"
   },
   {
     "name": "Sequence Breaker",
@@ -91,7 +106,10 @@
     "castleType": "Normal",
     "transformEarly": "No",
     "transformFocus": "None",
-    "winCondition": "Normal"
+    "winCondition": "Normal",
+    "metaExtension": "Guarded",
+    "metaComplexity": "8",
+    "itemStats": "Randomized"
   },
   {
     "name": "Lycanthrope",
@@ -106,7 +124,10 @@
     "castleType": "Normal",
     "transformEarly": "Yes",
     "transformFocus": "Wolf",
-    "winCondition": "Normal"
+    "winCondition": "Normal",
+    "metaExtension": "Guarded",
+    "metaComplexity": "8",
+    "itemStats": "Normal"
   },
   {
     "name": "Warlock",
@@ -121,7 +142,10 @@
     "castleType": "Normal",
     "transformEarly": "Yes",
     "transformFocus": "Mist",
-    "winCondition": "Normal"
+    "winCondition": "Normal",
+    "metaExtension": "Guarded",
+    "metaComplexity": "6",
+    "itemStats": "Normal"
   },
   {
     "name": "Nimble",
@@ -136,7 +160,10 @@
     "castleType": "Normal",
     "transformEarly": "Yes",
     "transformFocus": "Bat",
-    "winCondition": "Normal"
+    "winCondition": "Normal",
+    "metaExtension": "Guarded",
+    "metaComplexity": "6",
+    "itemStats": "Normal"
   },
   {
     "name": "Expedition",
@@ -152,7 +179,10 @@
     "castleType": "Normal",
     "transformEarly": "Yes",
     "transformFocus": "Bat",
-    "winCondition": "Normal"
+    "winCondition": "Normal",
+    "metaExtension": "Equipment",
+    "metaComplexity": "8",
+    "itemStats": "Normal"
   },
   {
     "name": "Bat-Master",
@@ -168,7 +198,10 @@
     "castleType": "Normal",
     "transformEarly": "Yes",
     "transformFocus": "Bat",
-    "winCondition": "Normal"
+    "winCondition": "Normal",
+    "metaExtension": "GuardedPlus",
+    "metaComplexity": "1",
+    "itemStats": "Normal"
   },
   {
     "name": "Glitch Remastered",
@@ -186,7 +219,10 @@
     "castleType": "Normal",
     "transformEarly": "No",
     "transformFocus": "None",
-    "winCondition": "Relic Skip"
+    "winCondition": "Relic Skip",
+    "metaExtension": "Scenic",
+    "metaComplexity": "5",
+    "itemStats": "Normal"
   },
   {
     "name": "Scavenger",
@@ -201,7 +237,10 @@
     "castleType": "Normal",
     "transformEarly": "No",
     "transformFocus": "None",
-    "winCondition": "Normal"
+    "winCondition": "Normal",
+    "metaExtension": "Guarded",
+    "metaComplexity": "9",
+    "itemStats": "Randomized"
   },
   {
     "name": "Empty hand",
@@ -216,7 +255,10 @@
     "castleType": "Normal",
     "transformEarly": "No",
     "transformFocus": "None",
-    "winCondition": "April Fools"
+    "winCondition": "April Fools",
+    "metaExtension": "Guarded",
+    "metaComplexity": "9",
+    "itemStats": "Randomized"
   },
   {
     "name": "Gem farmer",
@@ -231,7 +273,10 @@
     "castleType": "Normal",
     "transformEarly": "No",
     "transformFocus": "None",
-    "winCondition": "April Fools"
+    "winCondition": "April Fools",
+    "metaExtension": "Guarded",
+    "metaComplexity": "1",
+    "itemStats": "Normal"
   },
   {
     "name": "Third castle",
@@ -246,7 +291,10 @@
     "castleType": "Normal",
     "transformEarly": "No",
     "transformFocus": "None",
-    "winCondition": "April Fools"
+    "winCondition": "April Fools",
+    "metaExtension": "Guarded",
+    "metaComplexity": "9",
+    "itemStats": "Randomized"
   },
   {
     "name": "Rat race",
@@ -261,7 +309,10 @@
     "castleType": "Normal",
     "transformEarly": "No",
     "transformFocus": "None",
-    "winCondition": "April Fools"
+    "winCondition": "April Fools",
+    "metaExtension": "Guarded",
+    "metaComplexity": "9",
+    "itemStats": "Normal"
   },
   {
     "name": "Magic Mirror",
@@ -277,7 +328,10 @@
     "castleType": "Modded",
     "transformEarly": "No",
     "transformFocus": "None",
-    "winCondition": "Mirror For 2nd Castle"
+    "winCondition": "Mirror For 2nd Castle",
+    "metaExtension": "GuardedPlus",
+    "metaComplexity": "6",
+    "itemStats": "Normal"
   },
   {
     "name": "Leg Day",
@@ -293,7 +347,10 @@
     "castleType": "Normal",
     "transformEarly": "No",
     "transformFocus": "None",
-    "winCondition": "Normal"
+    "winCondition": "Normal",
+    "metaExtension": "Guarded",
+    "metaComplexity": "7",
+    "itemStats": "Normal"
   },
   {
     "name": "Boss Rush",
@@ -309,7 +366,10 @@
     "castleType": "Normal",
     "transformEarly": "No",
     "transformFocus": "None",
-    "winCondition": "Complete Boss Rush"
+    "winCondition": "Complete Boss Rush",
+    "metaExtension": "None",
+    "metaComplexity": "1",
+    "itemStats": "Normal"
   },
   {
     "name": "Aperture",
@@ -326,7 +386,10 @@
     "castleType": "Modded",
     "transformEarly": "No",
     "transformFocus": "None",
-    "winCondition": "Vlads and Portal Spell"
+    "winCondition": "Vlads and Portal Spell",
+    "metaExtension": "Guarded",
+    "metaComplexity": "8",
+    "itemStats": "Randomized"
   },
   {
     "name": "Big Toss",
@@ -343,7 +406,10 @@
     "castleType": "Normal",
     "transformEarly": "No",
     "transformFocus": "Mist",
-    "winCondition": "Normal"
+    "winCondition": "Normal",
+    "metaExtension": "Guarded",
+    "metaComplexity": "5",
+    "itemStats": "Normal"
   },
   {
     "name": "Bounty Hunter",
@@ -359,7 +425,10 @@
     "castleType": "Normal",
     "transformEarly": "No",
     "transformFocus": "None",
-    "winCondition": "Enemies Drop Vlads"
+    "winCondition": "Enemies Drop Vlads",
+    "metaExtension": "Guarded",
+    "metaComplexity": "5",
+    "itemStats": "Normal"
   },
   {
     "name": "Bounty Hunter TC",
@@ -375,7 +444,10 @@
     "castleType": "Normal",
     "transformEarly": "No",
     "transformFocus": "None",
-    "winCondition": "Enemies Drop Vlads"
+    "winCondition": "Enemies Drop Vlads",
+    "metaExtension": "Guarded",
+    "metaComplexity": "6",
+    "itemStats": "Normal"
   },
   {
     "name": "Hitman",
@@ -391,7 +463,10 @@
     "castleType": "Normal",
     "transformEarly": "No",
     "transformFocus": "None",
-    "winCondition": "Enemies Drop Vlads"
+    "winCondition": "Enemies Drop Vlads",
+    "metaExtension": "Guarded",
+    "metaComplexity": "1",
+    "itemStats": "Normal"
   },
   {
     "name": "Chaos Lite",
@@ -408,7 +483,10 @@
     "castleType": "Modded",
     "transformEarly": "Yes",
     "transformFocus": "Bat",
-    "winCondition": "April Fools"
+    "winCondition": "April Fools",
+    "metaExtension": "Scenic",
+    "metaComplexity": "1",
+    "itemStats": "Randomized"
   },
   {
     "name": "Beyond",
@@ -425,7 +503,10 @@
     "castleType": "Normal",
     "transformEarly": "No",
     "transformFocus": "None",
-    "winCondition": "Normal"
+    "winCondition": "Normal",
+    "metaExtension": "GuardedPlus",
+    "metaComplexity": "8",
+    "itemStats": "Normal"
   },
   {
     "name": "Breach",
@@ -442,7 +523,10 @@
     "castleType": "Modded",
     "transformEarly": "Yes",
     "transformFocus": "Bat",
-    "winCondition": "Portal Spell"
+    "winCondition": "Portal Spell",
+    "metaExtension": "Guarded",
+    "metaComplexity": "5",
+    "itemStats": "Normal"
   },
   {
     "name": "Grand Tour",
@@ -458,7 +542,10 @@
     "castleType": "Normal",
     "transformEarly": "No",
     "transformFocus": "None",
-    "winCondition": "Normal"
+    "winCondition": "Normal",
+    "metaExtension": "Scenic",
+    "metaComplexity": "8",
+    "itemStats": "Normal"
   },
   {
     "name": "Crash Course",
@@ -474,7 +561,10 @@
     "castleType": "Normal",
     "transformEarly": "Yes",
     "transformFocus": "Bat",
-    "winCondition": "Normal"
+    "winCondition": "Normal",
+    "metaExtension": "Scenic",
+    "metaComplexity": "7",
+    "itemStats": "Normal"
   },
   {
     "name": "Any Percent",
@@ -491,7 +581,10 @@
     "castleType": "Normal",
     "transformEarly": "No",
     "transformFocus": "Wolf and Bat",
-    "winCondition": "Relic Skip"
+    "winCondition": "Relic Skip",
+    "metaExtension": "Guarded",
+    "metaComplexity": "6",
+    "itemStats": "Normal"
   },
   {
     "name": "Lookingglass",
@@ -507,7 +600,10 @@
     "castleType": "Modded",
     "transformEarly": "No",
     "transformFocus": "None",
-    "winCondition": "Mirror For 2nd Castle"
+    "winCondition": "Mirror For 2nd Castle",
+    "metaExtension": "Extended",
+    "metaComplexity": "6",
+    "itemStats": "Normal"
   },
   {
     "name": "Skinwalker",
@@ -525,7 +621,10 @@
     "castleType": "Modded",
     "transformEarly": "No",
     "transformFocus": "All",
-    "winCondition": "Normal"
+    "winCondition": "Normal",
+    "metaExtension": "Extended",
+    "metaComplexity": "8",
+    "itemStats": "Normal"
   },
   {
     "name": "Summoner",
@@ -541,7 +640,10 @@
     "castleType": "Normal",
     "transformEarly": "No",
     "transformFocus": "None",
-    "winCondition": "Normal"
+    "winCondition": "Normal",
+    "metaExtension": "Guarded",
+    "metaComplexity": "7",
+    "itemStats": "Normal"
   },
   {
     "name": "Agonize 2020",
@@ -558,7 +660,10 @@
     "castleType": "Normal",
     "transformEarly": "No",
     "transformFocus": "None",
-    "winCondition": "Normal"
+    "winCondition": "Normal",
+    "metaExtension": "Guarded",
+    "metaComplexity": "1",
+    "itemStats": "Normal"
   },
   {
     "name": "Safe Season 2",
@@ -575,7 +680,10 @@
     "castleType": "Normal",
     "transformEarly": "No",
     "transformFocus": "None",
-    "winCondition": "Normal"
+    "winCondition": "Normal",
+    "metaExtension": "Guarded",
+    "metaComplexity": "8",
+    "itemStats": "Normal"
   },
   {
     "name": "Open",
@@ -593,7 +701,10 @@
     "castleType": "Normal",
     "transformEarly": "No",
     "transformFocus": "None",
-    "winCondition": "Normal"
+    "winCondition": "Normal",
+    "metaExtension": "Guarded",
+    "metaComplexity": "6",
+    "itemStats": "Randomized"
   },
   {
     "name": "Brawler",
@@ -609,7 +720,10 @@
     "castleType": "Normal",
     "transformEarly": "No",
     "transformFocus": "Wolf",
-    "winCondition": "Normal"
+    "winCondition": "Normal",
+    "metaExtension": "Guarded",
+    "metaComplexity": "7",
+    "itemStats": "Normal"
   },
   {
     "name": "First Castle",
@@ -625,7 +739,10 @@
     "castleType": "Normal",
     "transformEarly": "No",
     "transformFocus": "None",
-    "winCondition": "Vlads and Save Richter"
+    "winCondition": "Vlads and Save Richter",
+    "metaExtension": "Guarded",
+    "metaComplexity": "5",
+    "itemStats": "Normal"
   },
   {
     "name": "Lucky Sevens",
@@ -640,7 +757,10 @@
     "castleType": "Normal",
     "transformEarly": "No",
     "transformFocus": "None",
-    "winCondition": "Normal"
+    "winCondition": "Normal",
+    "metaExtension": "Guarded",
+    "metaComplexity": "7",
+    "itemStats": "Normal"
   },
   {
     "name": "Bingo",
@@ -656,7 +776,10 @@
     "castleType": "Normal",
     "transformEarly": "No",
     "transformFocus": "None",
-    "winCondition": "Meet Bingo Conditions"
+    "winCondition": "Meet Bingo Conditions",
+    "metaExtension": "Guarded",
+    "metaComplexity": "1",
+    "itemStats": "Normal"
   },
   {
     "name": "Sight-Seer",
@@ -672,7 +795,10 @@
     "castleType": "Normal",
     "transformEarly": "No",
     "transformFocus": "None",
-    "winCondition": "Normal"
+    "winCondition": "Normal",
+    "metaExtension": "Extended",
+    "metaComplexity": "7",
+    "itemStats": "Normal"
   },
   {
     "name": "Cursed Night",
@@ -688,7 +814,10 @@
     "castleType": "Normal",
     "transformEarly": "No",
     "transformFocus": "None",
-    "winCondition": "Normal"
+    "winCondition": "Normal",
+    "metaExtension": "Guarded",
+    "metaComplexity": "6",
+    "itemStats": "Normal"
   },
   {
     "name": "Spellbound",
@@ -704,7 +833,10 @@
     "castleType": "Normal",
     "transformEarly": "No",
     "transformFocus": "None",
-    "winCondition": "Normal"
+    "winCondition": "Normal",
+    "metaExtension": "Guarded",
+    "metaComplexity": "9",
+    "itemStats": "Randomized"
   },
   {
     "name": "Mobility",
@@ -722,6 +854,9 @@
     "castleType": "Modded",
     "transformEarly": "Yes",
     "transformFocus": "All",
-    "winCondition": "Mirror For 2nd Castle"
+    "winCondition": "Mirror For 2nd Castle",
+    "metaExtension": "Extended",
+    "metaComplexity": "6",
+    "itemStats": "Normal"
   }
 ]
