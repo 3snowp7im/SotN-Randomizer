@@ -22,11 +22,12 @@
 
   "inherits": "casual",
   "colorrandoMode": true,
-  "stats": false,
+  "stats": true,
   "turkeyMode": true,
   "music": false,
   "fastwarpMode": true,
   "magicmaxMode": true,
+  "surpriseMode": true,
 
   "complexityGoal": {
     "min": 9,
