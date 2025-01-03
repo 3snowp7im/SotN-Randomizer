@@ -6208,18 +6208,37 @@ function hexValueToDamageString(hexValue) {
 
       newAtk = enemyNumStatRand(rng,statAtk)                                    // Randomly adjust by 25%-200%
       data.writeWord(enemy.atkOffset,newAtk)                                    // Write the Atk
+      if(enemy.index === 379) {                                                 // special condition for Dracula
+        statAtk = 70                                                            // Hand attack = 70
+        newAtk = enemyNumStatRand(rng,statAtk)                                  // Randomize Hand attack
+        data.writeWord(0x0b9c0e,newAtk)                                         // Assign the new attack value
+      }
 
       newDef = enemyNumStatRand(rng,statDef)                                    // Randomly adjust by 25%-200%
       data.writeWord(enemy.defOffset,newDef)                                    // Write the Def
+      if(enemy.index === 379) {                                                 // special condition for Dracula
+        statDef = 20                                                            // Hand defense = 20
+        newDef = enemyNumStatRand(rng,statDef)                                  // Randomize Hand defense
+        data.writeWord(0x0b9c12,newDef)                                         // Assign the new defense value
+      }
 
       newAtkType = enemyAtkTypeStatRand(rng)                                    // Select a random attack type
       data.writeWord(enemy.atkTypeOffset,newAtkType)                            // Write the attack type
+      if(enemy.index === 379) {                                                 // special condition for Dracula
+        data.writeWord(0x0b9c10,newAtkType)                                     // Assign the new attack type
+      }
 
       newWeakType = enemyWeakTypeStatRand(rng)                                  // Select a random weakness type
       data.writeWord(enemy.weakOffset,newWeakType)                              // Write the weakness type
+      if(enemy.index === 379) {                                                 // special condition for Dracula
+        data.writeWord(0x0b9c16,newWeakType)                                    // Assign the new weakness type
+      }
 
       newResistType = enemyResistTypeStatRand(rng)                              // Select a random resist type
       data.writeWord(enemy.resistOffset,newResistType)                          // Write the resist type
+      if(enemy.index === 379) {                                                 // special condition for Dracula
+        data.writeWord(0x0b9c18,newResistType)                                  // Assign the new resist type
+      }
 
       switch (newResistType) {                                                  // create a new code for disclosure card based on weakness value
         case 0:
@@ -6230,22 +6249,28 @@ function hexValueToDamageString(hexValue) {
           newResistDisclosure = '0f'
       }
 
-      let resIndex = Math.floor(rng() * 100)                                      // select a random number between 0, 1 to choose which we use between guard, absorb
+      let resIndex = Math.floor(rng() * 100)                                    // select a random number between 0, 1 to choose which we use between guard, absorb
       resIndex = isEven(resIndex)
       switch (resIndex) {                                                       // start selection and execution process based on teh random selection
         case false: 
           offset = enemy.guardOffset                                            // Goto guard
           newImmuneType = enemyResistTypeStatRand(rng)                          // Select a random guard type
           data.writeWord(offset,newImmuneType)                                  // Write the guard type
+          if(enemy.index === 379) {                                             // special condition for Dracula
+            data.writeWord(0x0b9c1a,newImmuneType)                              // Assign the new guard type
+          }
           break
         case true:
           offset = enemy.absorbOffset                                           // Goto absorb
           newImmuneType = enemyResistTypeStatRand(rng)                          // Select a random absorb type
           data.writeWord(offset,newImmuneType)                                  // Write the absorb type
+          if(enemy.index === 379) {                                             // special condition for Dracula
+            data.writeWord(0x0b9c1c,newImmuneType)                              // Assign the new absorb type
+          }
           break
       }
 
-      disclosureCard = 'f0'                                                   // start the Disclosure with the attack elements by indicating a sword.
+      disclosureCard = 'f0'                                                     // start the Disclosure with the attack elements by indicating a sword.
       newDisclosure = hexValueToDamageString(newAtkType)                        // store the values from hex being converted
       if (newDisclosure.startsWith('05')) {                                     // if the attack type is a 16% hit or cut, use %dam indicator
         replaceTextAtIndex(newDisclosure,'00',0)
@@ -6284,7 +6309,7 @@ function hexValueToDamageString(hexValue) {
       while (disclosureCard.length < 24) {                                      // add zeroes to space out different names from before
         disclosureCard += '00'
       }
-      offset = enemy.newNameText                                                // pull enemy name locatrion in BIN
+      offset = enemy.newNameText                                                // pull enemy name location in BIN
       for (let i = 0; i < disclosureCard.length; i += 2) {                      // write 1 byte at a time
         const twoChars = '0x' + disclosureCard.slice(i, i + 2)
         offset = data.writeChar(offset,twoChars)

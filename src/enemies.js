@@ -3256,7 +3256,7 @@
       index: 356,
       name: "Death",
       nameOffset: 0x0b9848,
-      newNameReference: 0x800e0644,
+      newNameReference: 0x800e0cfb,
       newNameText: 0x0f596c,
       hpOffset: 0x0b984c,
       hpValue: 888,
@@ -3273,7 +3273,7 @@
       index: 361,
       name: "Death",
       nameOffset: 0x0b9910,
-      newNameReference: 0x800e0cfb,
+      newNameReference: 0x800e0644,
       newNameText: 0x0f596c,
       hpOffset: 0x0b9914,
       hpValue: 1200,
@@ -3362,15 +3362,15 @@
       newNameText: 0x0f5930,
       hpOffset: 0x0b9be4,
       hpValue: 10000,
-      atkOffset: 0x0b9be6,
+      atkOffset: 0x0b9be6, // also B9C0E 0x46; 70
       atkValue: 39,
-      atkTypeOffset: 0x0b9be8,
-      defOffset: 0x0b9bea,
+      atkTypeOffset: 0x0b9be8, //also B9C10 2100
+      defOffset: 0x0b9bea, // also B9C12 0x14; 20
       defValue: 18,
-      weakOffset: 0x0b9bee,
-      resistOffset: 0x0b9bf0,
-      guardOffset: 0x0b9bf2,
-      absorbOffset: 0x0b9bf4
+      weakOffset: 0x0b9bee, // also B9C16
+      resistOffset: 0x0b9bf0, // also B9C18
+      guardOffset: 0x0b9bf2, // also B9C1A
+      absorbOffset: 0x0b9bf4 // also B9C1C
     }, {
       index: 386,
       name: "Minotaur",
