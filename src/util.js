@@ -6005,7 +6005,30 @@ function hexValueToDamageString(hexValue) {
   function applynoprologuePatches() {
     const data = new checked()
     // Patch prologue removal; specifically setting the first room to enter as NO3 instead of ST0 - eldri7ch
-    data.writeChar(0x04392b1c, 0x41)	// Patch from Chaos-Lite / MottZilla
+    let offset
+
+    data.writeChar(0x04392b1c, 0x41)	              // Patch from Chaos-Lite / MottZilla
+
+    offset = 0x00119b98                             // hook address to reset time attack
+    offset = data.writeWord(offset,0x0803fef0)      // place hook in relic reset
+    offset = data.writeWord(offset,0x00000000)
+
+    offset = 0x001199b8                             // start code in richter (no use in no-prologue)
+    offset = data.writeWord(offset,0xa0600000)      // reset the time attack to allow bosses to spawn
+    offset = data.writeWord(offset,0x2610ffff)
+    offset = data.writeWord(offset,0x0601fffd)
+    offset = data.writeWord(offset,0x2463ffff)
+    offset = data.writeWord(offset,0x00000000)
+    offset = data.writeWord(offset,0x3c038003)
+    offset = data.writeWord(offset,0x3463ca28)
+    offset = data.writeWord(offset,0x3410001b)
+    offset = data.writeWord(offset,0xac600000)
+    offset = data.writeWord(offset,0x2610ffff)
+    offset = data.writeWord(offset,0x0601fffd)
+    offset = data.writeWord(offset,0x24630004)
+    offset = data.writeWord(offset,0x0803ff6c)
+    offset = data.writeWord(offset,0x00000000)
+
     return data
   }
 
