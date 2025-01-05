@@ -2512,6 +2512,11 @@
     "type": "word",
     "address": "0x47A3098",
     "value": "0x0007a120"
+  }, {
+      "comment": "Keep Softlock Prevention",
+      "address": "0x5642528",
+      "type": "word",
+      "value": "0x00000000"
   }],
 
   "complexityGoal": {
