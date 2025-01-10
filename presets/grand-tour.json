@@ -20,7 +20,7 @@
     "winCondition": "Normal"
   },
   "inherits": "casual",
-  "relicLocationsExtension": "Scenic",
+  "relicLocationsExtension": "scenic",
   "colorrandoMode": true,
   "music": false,
 

@@ -1105,7 +1105,7 @@
   }, {
     "comment": "Call Defeat Bosses Function",
     "type": "word",
-    "value": "0x0c033728"
+    "value": "0x0c0318e6"
   }, {
     "type": "word",
     "value": "0x34040000",
@@ -7366,9 +7366,9 @@
   }
 
   , {
-    "comment": "Defeat All Bosses Function 1",
+    "comment": "Auto-Defeat Bosses 1",
     "type": "word",
-    "address": "0xe03d8",
+    "address": "0xD7900",
     "value": "0x34070001"
   }, {
     "type": "word",
