@@ -61,7 +61,9 @@
     "sight-seer",
     "cursed-night",
     "spellbound",
-    "mobility"
+    "mobility",
+    "glitchmaster",
+    "dog-life"
   ],
   "engines": {
     "node": ">=15"

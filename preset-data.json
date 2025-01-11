@@ -858,5 +858,47 @@
     "metaExtension": "Extended",
     "metaComplexity": "6",
     "itemStats": "Normal"
+  },
+  {
+    "name": "Glitchmaster",
+    "id": "glitchmaster",
+    "description": "A preset for experts in glitches and exploits. There is literally no logic applied to relic distribution and the seed may soft-lock. Save often.",
+    "author": [
+      "romscout",
+      "DerDrach",
+      "eldri7ch",
+      "MottZilla",
+      "Doozyzood"
+    ],
+    "knowledgeCheck": "Glitches",
+    "timeFrame": "Slow",
+    "moddedLevel": "Moderately",
+    "castleType": "Normal",
+    "transformEarly": "No",
+    "transformFocus": "None",
+    "winCondition": "Relic Skip",
+    "metaExtension": "Extended",
+    "metaComplexity": "1",
+    "itemStats": "Normal"
+  },
+  {
+    "name": "Dog life",
+    "id": "dog-life",
+    "description": "An extremely technical preset forcing Alucard to traverse the castle in wolf form. Many relics have their functions changed to assist wolf through this endeavor. A unique and challenging preset for expert wolf-lovers.",
+    "author": [
+      "Wecoc",
+      "Forat Negre",
+      "eldri7ch"
+    ],
+    "knowledgeCheck": "Modified Wolf Tech",
+    "extension": "Guarded",
+    "complexity": 9,
+    "timeFrame": "Slow",
+    "moddedLevel": "Heavily",
+    "castleType": "Modded",
+    "transformEarly": "Yes",
+    "transformFocus": "Wolf",
+    "winCondition": "Normal",
+    "itemStats": "Normal"
   }
 ]
