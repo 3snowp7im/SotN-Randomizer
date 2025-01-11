@@ -891,14 +891,14 @@
       "eldri7ch"
     ],
     "knowledgeCheck": "Modified Wolf Tech",
-    "extension": "Guarded",
-    "complexity": 9,
     "timeFrame": "Slow",
     "moddedLevel": "Heavily",
     "castleType": "Modded",
     "transformEarly": "Yes",
     "transformFocus": "Wolf",
     "winCondition": "Normal",
+    "metaExtension": "Guarded",
+    "metaComplexity": 9,
     "itemStats": "Normal"
   }
 ]
