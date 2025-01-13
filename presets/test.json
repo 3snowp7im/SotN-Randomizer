@@ -3,8 +3,21 @@
     "id": "test",
     "name": "Test",
     "description": "A test preset for new features",
-    "author": "eldri7ch and MottZilla",
-    "weight": -900
+    "author": [
+      "eldri7ch",
+      "MottZilla"
+    ],
+    "weight": -2000,
+    "knowledgeCheck": "",
+    "metaExtension": "",
+    "metaComplexity": "7",
+    "itemStats": "",
+    "timeFrame": "",
+    "moddedLevel": "",
+    "castleType": "",
+    "transformEarly": "",
+    "transformFocus": "",
+    "winCondition": ""
   },
   "relics": false,
   "items": false,
@@ -15,7 +28,7 @@
   "fastwarpMode": true,
   "noprologueMode": true,
   "unlockedMode": true,
-  "relicLocationsExtension": "wanderer",
+  "relicLocationsExtension": "extended",
 
   "lockLocation": [{
     "location": "Soul of Bat",

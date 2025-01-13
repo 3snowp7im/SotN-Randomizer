@@ -2,14 +2,36 @@
   "metadata": {
     "id": "leg-day",
     "name": "Leg Day",
-    "description": "Start with Leap Stone with infinite air jumps. Back dash lasts longer and grants invincibility.",
-    "author": "MT_Fun, MottZilla",
-    "weight": 500
+    "description": "A technical preset where you start with Leap Stone with infinite air jumps. Back dash lasts longer and grants invincibility. Many transformation and movement relics are removed to emphasize new techniques.",
+    "author": [
+      "MT_Fun",
+      "MottZilla"
+    ],
+    "weight": 2000,
+    "knowledgeCheck": "None",
+    "metaExtension": "Guarded",
+    "metaComplexity": "7",
+    "itemStats": "Normal",
+    "timeFrame": "Normal",
+    "moddedLevel": "Moderately",
+    "castleType": "Normal",
+    "transformEarly": "No",
+    "transformFocus": "None",
+    "winCondition": "Normal"
   },
   "stats": false,
   "replaceRelic": [{
     "relic": "Soul of Bat",
     "item": "Str. potion"
+  }, {
+    "relic": "Fire of Bat",
+    "item": "Str. potion"
+  }, {
+    "relic": "Echo of Bat",
+    "item": "Str. potion"
+  }, {
+    "relic": "Force of Echo",
+    "item": "Fury plate"
   }, {
     "relic": "Power of Mist",
     "item": "King's stone"

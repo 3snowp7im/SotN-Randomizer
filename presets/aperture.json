@@ -2,9 +2,23 @@
   "metadata": {
     "id": "aperture",
     "name": "Aperture",
-    "description": "Opens several shortcuts and all teleporters but hides the end of the game behind a Portal Spell (Faerie Scroll)",
-    "author": "eldri7ch, Mottzilla, Wecoc",
-    "weight": -3750
+    "description": "Opens several shortcuts and all teleporters but changes the layout of many rooms in the castle to maintain complexity. Shaft and Dracula are hidden behind the Portal Spell (Replaces Faerie Scroll) which must be collected after acquiring all five Vlad Relics.",
+    "author": [
+      "eldri7ch",
+      "MottZilla", 
+      "Wecoc"
+    ],
+    "weight": 400,
+    "knowledgeCheck": "None",
+    "metaExtension": "Guarded",
+    "metaComplexity": "8",
+    "itemStats": "Randomized",
+    "timeFrame": "Normal",
+    "moddedLevel": "Heavily",
+    "castleType": "Modded",
+    "transformEarly": "No",
+    "transformFocus": "None",
+    "winCondition": "Vlads and Portal Spell"
   },
   
   "colorrandoMode": true,
@@ -5657,7 +5671,7 @@
     "locks": [
       "Leap Stone + Spike Breaker",
       "Gravity Boots + Spike Breaker",
-      "form of Mist + Power of Mist",
+      "Form of Mist + Power of Mist",
       "Soul of Bat"
     ],
     "comment": "Access must also give at least Gravity Boots",

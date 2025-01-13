@@ -1,8 +1,904 @@
 [
   {
+    "name": "Casual",
+    "id": "casual",
+    "description": "A source preset for the Randomizer. Meant as a more relaxed experience compared to the 'Safe' preset. Requires no speedrun or glitch knowledge for completion.",
+    "author": [
+      "3snow_p7im",
+      "setz",
+      "soba"
+    ],
+    "knowledgeCheck": "None",
+    "timeFrame": "Normal",
+    "moddedLevel": "None",
+    "castleType": "Normal",
+    "transformEarly": "No",
+    "transformFocus": "None",
+    "winCondition": "Normal",
+    "metaExtension": "Guarded",
+    "metaComplexity": "1",
+    "itemStats": "Randomized"
+  },
+  {
+    "name": "Safe",
+    "id": "safe",
+    "description": "A source preset for the Randomizer. Meant to mimic the complexity of the original game by having nine layers of complexity. Requires no speedrun or glitch knowledge for completion.",
+    "author": [
+      "3snow_p7im",
+      "setz",
+      "soba"
+    ],
+    "knowledgeCheck": "None",
+    "timeFrame": "Normal",
+    "moddedLevel": "None",
+    "castleType": "Normal",
+    "transformEarly": "No",
+    "transformFocus": "None",
+    "winCondition": "Normal",
+    "metaExtension": "Guarded",
+    "metaComplexity": "9",
+    "itemStats": "Randomized"
+  },
+  {
     "name": "Adventure",
     "id": "adventure",
-    "description": "Relics can appear in most equipment locations from the original game.",
-    "author": "3snow_p7im"
+    "description": "Meant for players who want to see more of the castle.",
+    "author": [
+      "3snow_p7im"
+    ],
+    "knowledgeCheck": "None",
+    "timeFrame": "Slow",
+    "moddedLevel": "None",
+    "castleType": "Normal",
+    "transformEarly": "No",
+    "transformFocus": "None",
+    "winCondition": "Normal",
+    "metaExtension": "Equipment",
+    "metaComplexity": 9,
+    "itemStats": "Randomized"
+  },
+  {
+    "name": "O.G.",
+    "id": "og",
+    "description": "The first Randomizer preset. Only randomizes relic locations and item locations. Soul of Bat, Form of Mist and Jewel of Open are guaranteed to be in first castle.",
+    "author": [
+      "3snow_p7im"
+    ],
+    "knowledgeCheck": "None",
+    "timeFrame": "Fast",
+    "moddedLevel": "None",
+    "castleType": "Normal",
+    "transformEarly": "No",
+    "transformFocus": "None",
+    "winCondition": "Normal",
+    "metaExtension": "Classic",
+    "metaComplexity": "1",
+    "itemStats": "Normal"
+  },
+  {
+    "name": "Guarded O.G.",
+    "id": "guarded-og",
+    "description": "The best preset for trying out the SOTN Randomizer. Utilizes our 'guarded' relic locations but Gold ring, Silver ring, Holy glasses and Spike Breaker are in the same locations as the original game.  Soul of Bat, Form of Mist and Jewel of Open are guaranteed to be in first castle. You can find more details on the 'guarded' checks at https://symphonyrando.fun/locations",
+    "author": [
+      "TalicZealot"
+    ],
+    "knowledgeCheck": "None",
+    "timeFrame": "Fast",
+    "moddedLevel": "None",
+    "castleType": "Normal",
+    "transformEarly": "No",
+    "transformFocus": "None",
+    "winCondition": "Normal",
+    "metaExtension": "Guarded",
+    "metaComplexity": "1",
+    "itemStats": "Normal"
+  },
+  {
+    "name": "Sequence Breaker",
+    "id": "sequence-breaker",
+    "description": "Requires knowledge of movement mechanics used to sequence break in the game such as transformation-enabled dive kicks and thrust sword techniques.",
+    "author": [
+      "3snow_p7im"
+    ],
+    "knowledgeCheck": "Sequence Breaks",
+    "timeFrame": "Slow",
+    "moddedLevel": "None",
+    "castleType": "Normal",
+    "transformEarly": "No",
+    "transformFocus": "None",
+    "winCondition": "Normal",
+    "metaExtension": "Guarded",
+    "metaComplexity": "8",
+    "itemStats": "Randomized"
+  },
+  {
+    "name": "Lycanthrope",
+    "id": "lycanthrope",
+    "description": "Start with all wolf relics. MP consumption is greatly reduced when in wolf form. Death skip is intended with a long wolf run.",
+    "author": [
+      "3snow_p7im"
+    ],
+    "knowledgeCheck": "None",
+    "timeFrame": "Fast",
+    "moddedLevel": "Slightly",
+    "castleType": "Normal",
+    "transformEarly": "Yes",
+    "transformFocus": "Wolf",
+    "winCondition": "Normal",
+    "metaExtension": "Guarded",
+    "metaComplexity": "8",
+    "itemStats": "Normal"
+  },
+  {
+    "name": "Warlock",
+    "id": "warlock",
+    "description": "Start with high intelligence and Form of Mist. Drastically reduced MP cost for spells. Mist is free.",
+    "author": [
+      "3snow_p7im"
+    ],
+    "knowledgeCheck": "None",
+    "timeFrame": "Normal",
+    "moddedLevel": "Slightly",
+    "castleType": "Normal",
+    "transformEarly": "Yes",
+    "transformFocus": "Mist",
+    "winCondition": "Normal",
+    "metaExtension": "Guarded",
+    "metaComplexity": "6",
+    "itemStats": "Normal"
+  },
+  {
+    "name": "Nimble",
+    "id": "nimble",
+    "description": "A fast, complexity-focused preset. Start with Soul of Bat, Leap Stone, Gravity Boots, Duplicator, Manna prism, and Buffalo star.",
+    "author": [
+      "3snow_p7im"
+    ],
+    "knowledgeCheck": "None",
+    "timeFrame": "Fast",
+    "moddedLevel": "None",
+    "castleType": "Normal",
+    "transformEarly": "Yes",
+    "transformFocus": "Bat",
+    "winCondition": "Normal",
+    "metaExtension": "Guarded",
+    "metaComplexity": "6",
+    "itemStats": "Normal"
+  },
+  {
+    "name": "Expedition",
+    "id": "expedition",
+    "description": "To be discontinued in the near future. Start with the initial load out from the 'Nimble' preset but with the Equipment relic extension. Reverse Library Cards are enabled with Down + Input to activate. Stopwatches are guaranteed under the statues with Cube of Zoe.",
+    "author": [
+      "eldri7ch",
+      "MottZilla"
+    ],
+    "knowledgeCheck": "None",
+    "timeFrame": "Normal",
+    "moddedLevel": "Slightly",
+    "castleType": "Normal",
+    "transformEarly": "Yes",
+    "transformFocus": "Bat",
+    "winCondition": "Normal",
+    "metaExtension": "Equipment",
+    "metaComplexity": "8",
+    "itemStats": "Normal"
+  },
+  {
+    "name": "Bat-Master",
+    "id": "bat-master",
+    "description": "Soul of Bat moves faster and can open doors. Soul of Bat is guaranteed within the first castle. All Bat abilities and upgrades are greatly enhanced. Hold Triangle to move bat at original speed.  Bat Familiar levels faster.",
+    "author": [
+      "MT_Fun",
+      "MottZilla"
+    ],
+    "knowledgeCheck": "None",
+    "timeFrame": "Fast",
+    "moddedLevel": "Moderately",
+    "castleType": "Normal",
+    "transformEarly": "Yes",
+    "transformFocus": "Bat",
+    "winCondition": "Normal",
+    "metaExtension": "GuardedPlus",
+    "metaComplexity": "1",
+    "itemStats": "Normal"
+  },
+  {
+    "name": "Glitch Remastered",
+    "id": "glitch",
+    "description": "A preset for people who love glitches in the game. Requires knowledge of most glitches and exploits to become proficient at solving these seeds. Avoids memory corruption and lengthy wolf rising.",
+    "author": [
+      "romscout",
+      "DerDrach",
+      "eldri7ch",
+      "MottZilla"
+    ],
+    "knowledgeCheck": "Glitches",
+    "timeFrame": "Slow",
+    "moddedLevel": "Moderately",
+    "castleType": "Normal",
+    "transformEarly": "No",
+    "transformFocus": "None",
+    "winCondition": "Relic Skip",
+    "metaExtension": "Scenic",
+    "metaComplexity": "5",
+    "itemStats": "Normal"
+  },
+  {
+    "name": "Scavenger",
+    "id": "scavenger",
+    "description": "No enemy drops. Equipment must be found in item locations throughout the map.",
+    "author": [
+      "3snow_p7im"
+    ],
+    "knowledgeCheck": "None",
+    "timeFrame": "Slow",
+    "moddedLevel": "None",
+    "castleType": "Normal",
+    "transformEarly": "No",
+    "transformFocus": "None",
+    "winCondition": "Normal",
+    "metaExtension": "Guarded",
+    "metaComplexity": "9",
+    "itemStats": "Randomized"
+  },
+  {
+    "name": "Empty hand",
+    "id": "empty-hand",
+    "description": "April Fools Preset released on April 1st, 2020. No equipment or items challenge mode.",
+    "author": [
+      "3snow_p7im"
+    ],
+    "knowledgeCheck": "April Fools",
+    "timeFrame": "Slow",
+    "moddedLevel": "None",
+    "castleType": "Normal",
+    "transformEarly": "No",
+    "transformFocus": "None",
+    "winCondition": "April Fools",
+    "metaExtension": "Guarded",
+    "metaComplexity": "9",
+    "itemStats": "Randomized"
+  },
+  {
+    "name": "Gem farmer",
+    "id": "gem-farmer",
+    "description": "April Fools Preset released on April 1st, 2021. All progression must be purchased from the librarian. ",
+    "author": [
+      "3snow_p7im"
+    ],
+    "knowledgeCheck": "April Fools",
+    "timeFrame": "Slow",
+    "moddedLevel": "Slightly",
+    "castleType": "Normal",
+    "transformEarly": "No",
+    "transformFocus": "None",
+    "winCondition": "April Fools",
+    "metaExtension": "Guarded",
+    "metaComplexity": "1",
+    "itemStats": "Normal"
+  },
+  {
+    "name": "Third castle",
+    "id": "third-castle",
+    "description": "April Fools Preset released on April 1st, 2022. Randomizes tileset data producing intense pixel gore.",
+    "author": [
+      "3snow_p7im"
+    ],
+    "knowledgeCheck": "April Fools",
+    "timeFrame": "Normal",
+    "moddedLevel": "Slightly",
+    "castleType": "Normal",
+    "transformEarly": "No",
+    "transformFocus": "None",
+    "winCondition": "April Fools",
+    "metaExtension": "Guarded",
+    "metaComplexity": "9",
+    "itemStats": "Randomized"
+  },
+  {
+    "name": "Rat race",
+    "id": "rat-race",
+    "description": "April Fools Preset released on April 1st, 2023. Just trying to make a buck.",
+    "author": [
+      "3snow_p7im"
+    ],
+    "knowledgeCheck": "April Fools",
+    "timeFrame": "Normal",
+    "moddedLevel": "Slightly",
+    "castleType": "Normal",
+    "transformEarly": "No",
+    "transformFocus": "None",
+    "winCondition": "April Fools",
+    "metaExtension": "Guarded",
+    "metaComplexity": "9",
+    "itemStats": "Normal"
+  },
+  {
+    "name": "Magic Mirror",
+    "id": "magic-mirror",
+    "description": "Use a Magic Mirror (X + Triangle; Replaces Holy Glasses) to move between the castles. Significant map changes to add new complexity. Warp room in entrance goes to Outer Wall at the start.",
+    "author": [
+      "eldri7ch",
+      "MottZilla"
+    ],
+    "knowledgeCheck": "None",
+    "timeFrame": "Fast",
+    "moddedLevel": "Heavily",
+    "castleType": "Modded",
+    "transformEarly": "No",
+    "transformFocus": "None",
+    "winCondition": "Mirror For 2nd Castle",
+    "metaExtension": "GuardedPlus",
+    "metaComplexity": "6",
+    "itemStats": "Normal"
+  },
+  {
+    "name": "Leg Day",
+    "id": "leg-day",
+    "description": "A technical preset where you start with Leap Stone with infinite air jumps. Back dash lasts longer and grants invincibility. Many transformation and movement relics are removed to emphasize new techniques.",
+    "author": [
+      "MT_Fun",
+      "MottZilla"
+    ],
+    "knowledgeCheck": "None",
+    "timeFrame": "Normal",
+    "moddedLevel": "Moderately",
+    "castleType": "Normal",
+    "transformEarly": "No",
+    "transformFocus": "None",
+    "winCondition": "Normal",
+    "metaExtension": "Guarded",
+    "metaComplexity": "7",
+    "itemStats": "Normal"
+  },
+  {
+    "name": "Boss Rush",
+    "id": "boss-rush",
+    "description": "Boss Rush Mode featuring safe rooms after every three bosses and low to medium powered equipment. Intended as an 'Arcade Mode' featuring many easter eggs.",
+    "author": [
+      "MottZilla",
+      "eldri7ch"
+    ],
+    "knowledgeCheck": "Boss Combat",
+    "timeFrame": "Very Fast",
+    "moddedLevel": "Heavily",
+    "castleType": "Normal",
+    "transformEarly": "No",
+    "transformFocus": "None",
+    "winCondition": "Complete Boss Rush",
+    "metaExtension": "None",
+    "metaComplexity": "1",
+    "itemStats": "Normal"
+  },
+  {
+    "name": "Aperture",
+    "id": "aperture",
+    "description": "Opens several shortcuts and all teleporters but changes the layout of many rooms in the castle to maintain complexity. Shaft and Dracula are hidden behind the Portal Spell (Replaces Faerie Scroll) which must be collected after acquiring all five Vlad Relics.",
+    "author": [
+      "eldri7ch",
+      "MottZilla",
+      "Wecoc"
+    ],
+    "knowledgeCheck": "None",
+    "timeFrame": "Normal",
+    "moddedLevel": "Heavily",
+    "castleType": "Modded",
+    "transformEarly": "No",
+    "transformFocus": "None",
+    "winCondition": "Vlads and Portal Spell",
+    "metaExtension": "Guarded",
+    "metaComplexity": "8",
+    "itemStats": "Randomized"
+  },
+  {
+    "name": "Big Toss",
+    "id": "big-toss",
+    "description": "Bat and Wolf relics beyond Soul are removed, and any amount of damage causes a 'big toss', launching Alucard across the screen. New movement intended with the Toadstool food item.",
+    "author": [
+      "Wecoc",
+      "eldri7ch",
+      "MottZilla"
+    ],
+    "knowledgeCheck": "HP Awareness",
+    "timeFrame": "Slow",
+    "moddedLevel": "Moderately",
+    "castleType": "Normal",
+    "transformEarly": "No",
+    "transformFocus": "Mist",
+    "winCondition": "Normal",
+    "metaExtension": "Guarded",
+    "metaComplexity": "5",
+    "itemStats": "Normal"
+  },
+  {
+    "name": "Bounty Hunter",
+    "id": "bountyhunter",
+    "description": "The Vlad Relics are dropped by 5 random enemies throughout the castle and the player must collect familiar cards to find out which enemies have the relics. Relic placement requires the Bounty Hunter Tool. App URL: https://github.com/MottZilla/BountyHunterTool",
+    "author": [
+      "eldri7ch",
+      "MottZilla"
+    ],
+    "knowledgeCheck": "Enemy Locations",
+    "timeFrame": "Normal",
+    "moddedLevel": "Heavily",
+    "castleType": "Normal",
+    "transformEarly": "No",
+    "transformFocus": "None",
+    "winCondition": "Enemies Drop Vlads",
+    "metaExtension": "Guarded",
+    "metaComplexity": "5",
+    "itemStats": "Normal"
+  },
+  {
+    "name": "Bounty Hunter TC",
+    "id": "bountyhuntertc",
+    "description": "Bounty Hunter variant. Vlad drop rates are much higher, Familiar Cards are required before the drop is unlocked. Requires the Bounty Hunter Tool. App URL: https://github.com/MottZilla/BountyHunterTool",
+    "author": [
+      "eldri7ch",
+      "MottZilla"
+    ],
+    "knowledgeCheck": "Enemy Locations",
+    "timeFrame": "Normal",
+    "moddedLevel": "Heavily",
+    "castleType": "Normal",
+    "transformEarly": "No",
+    "transformFocus": "None",
+    "winCondition": "Enemies Drop Vlads",
+    "metaExtension": "Guarded",
+    "metaComplexity": "6",
+    "itemStats": "Normal"
+  },
+  {
+    "name": "Hitman",
+    "id": "hitman",
+    "description": "Bounty Hunter variant. Start with all five Familiar Cards so you know your targets. Requires the Bounty Hunter Tool. App URL: https://github.com/MottZilla/BountyHunterTool",
+    "author": [
+      "eldri7ch",
+      "MottZilla"
+    ],
+    "knowledgeCheck": "Enemy Locations",
+    "timeFrame": "Fast",
+    "moddedLevel": "Heavily",
+    "castleType": "Normal",
+    "transformEarly": "No",
+    "transformFocus": "None",
+    "winCondition": "Enemies Drop Vlads",
+    "metaExtension": "Guarded",
+    "metaComplexity": "1",
+    "itemStats": "Normal"
+  },
+  {
+    "name": "Chaos Lite",
+    "id": "chaos-lite",
+    "description": "April Fools Preset Released on April 1st, 2024. A child of the original Chaos. Requires the Bounty Hunter Tool. App URL: https://github.com/MottZilla/BountyHunterTool",
+    "author": [
+      "3snow_p7im",
+      "eldri7ch",
+      "MottZilla"
+    ],
+    "knowledgeCheck": "April Fools",
+    "timeFrame": "Slow",
+    "moddedLevel": "Heavily",
+    "castleType": "Modded",
+    "transformEarly": "Yes",
+    "transformFocus": "Bat",
+    "winCondition": "April Fools",
+    "metaExtension": "Scenic",
+    "metaComplexity": "1",
+    "itemStats": "Randomized"
+  },
+  {
+    "name": "Beyond",
+    "id": "beyond",
+    "description": "Replaces many items with new ones and adds the Castle Key (Replaces Faerie Scroll) which unlocks the Warp Rooms.",
+    "author": [
+      "Forat Negre",
+      "Wecoc",
+      "eldri7ch"
+    ],
+    "knowledgeCheck": "None",
+    "timeFrame": "Normal",
+    "moddedLevel": "Heavily",
+    "castleType": "Normal",
+    "transformEarly": "No",
+    "transformFocus": "None",
+    "winCondition": "Normal",
+    "metaExtension": "GuardedPlus",
+    "metaComplexity": "8",
+    "itemStats": "Normal"
+  },
+  {
+    "name": "Breach",
+    "id": "breach",
+    "description": "Utilizes the Aperture model including Portal Spell and map changes, but also gives the player all five Vlad Relics along with the initial load out from the 'Nimble' preset. Speed your way to the Portal Spell and defat Dracula as fast as possible.",
+    "author": [
+      "eldri7ch",
+      "MottZilla",
+      "Wecoc"
+    ],
+    "knowledgeCheck": "None",
+    "timeFrame": "Fast",
+    "moddedLevel": "Heavily",
+    "castleType": "Modded",
+    "transformEarly": "Yes",
+    "transformFocus": "Bat",
+    "winCondition": "Portal Spell",
+    "metaExtension": "Guarded",
+    "metaComplexity": "5",
+    "itemStats": "Normal"
+  },
+  {
+    "name": "Grand Tour",
+    "id": "grand-tour",
+    "description": "To be discontinued in the near future. Meant for players who want to see more unique locations of the castle.",
+    "author": [
+      "eldri7ch",
+      "MottZilla"
+    ],
+    "knowledgeCheck": "None",
+    "timeFrame": "Slow",
+    "moddedLevel": "None",
+    "castleType": "Normal",
+    "transformEarly": "No",
+    "transformFocus": "None",
+    "winCondition": "Normal",
+    "metaExtension": "Scenic",
+    "metaComplexity": "8",
+    "itemStats": "Normal"
+  },
+  {
+    "name": "Crash Course",
+    "id": "crash-course",
+    "description": "Start with the initial load out from the 'Nimble' preset but with the Scenic relic extension. Reverse Library Cards are enabled with Down + Input to activate. Stopwatches are guaranteed under the statues with Cube of Zoe. ",
+    "author": [
+      "eldri7ch",
+      "MottZilla"
+    ],
+    "knowledgeCheck": "None",
+    "timeFrame": "Normal",
+    "moddedLevel": "Slightly",
+    "castleType": "Normal",
+    "transformEarly": "Yes",
+    "transformFocus": "Bat",
+    "winCondition": "Normal",
+    "metaExtension": "Scenic",
+    "metaComplexity": "7",
+    "itemStats": "Normal"
+  },
+  {
+    "name": "Any Percent",
+    "id": "any-percent",
+    "description": "Requires knowledge of movement mechanics and glitches used in Any% speedruns. Death skip intended but not necessary. Richter Skip and Relic Skip are required to beat the game.  Soul of Wolf and Soul of Bat are guaranteed to be in first castle.",
+    "author": [
+      "3snow_p7im",
+      "Dr4gonBlitz",
+      "eldri7ch"
+    ],
+    "knowledgeCheck": "Glitches",
+    "timeFrame": "Normal",
+    "moddedLevel": "Slightly",
+    "castleType": "Normal",
+    "transformEarly": "No",
+    "transformFocus": "Wolf and Bat",
+    "winCondition": "Relic Skip",
+    "metaExtension": "Guarded",
+    "metaComplexity": "6",
+    "itemStats": "Normal"
+  },
+  {
+    "name": "Lookingglass",
+    "id": "lookingglass",
+    "description": "To be discontinued in the near future. Use a Magic Mirror (X + Triangle; Replaces Holy Glasses) to move between the castles. Significant map changes to add new complexity. Warp room in entrance goes to Outer Wall at the start.",
+    "author": [
+      "eldri7ch",
+      "MottZilla"
+    ],
+    "knowledgeCheck": "None",
+    "timeFrame": "Normal",
+    "moddedLevel": "Heavily",
+    "castleType": "Modded",
+    "transformEarly": "No",
+    "transformFocus": "None",
+    "winCondition": "Mirror For 2nd Castle",
+    "metaExtension": "Extended",
+    "metaComplexity": "6",
+    "itemStats": "Normal"
+  },
+  {
+    "name": "Skinwalker",
+    "id": "skinwalker",
+    "description": "To be discontinued in the near future. Includes all changes from Aperture, discounts MP costs on transformations and guarantees early access to at least one transformation before leaving first castle.",
+    "author": [
+      "Zako",
+      "eldri7ch",
+      "MottZilla",
+      "Wecoc"
+    ],
+    "knowledgeCheck": "None",
+    "timeFrame": "Normal",
+    "moddedLevel": "Heavily",
+    "castleType": "Modded",
+    "transformEarly": "No",
+    "transformFocus": "All",
+    "winCondition": "Normal",
+    "metaExtension": "Extended",
+    "metaComplexity": "8",
+    "itemStats": "Normal"
+  },
+  {
+    "name": "Summoner",
+    "id": "summoner",
+    "description": "Utilize Level 99 Familiars and Summon Items like Monster Vials and Sword of Dawn to defeat your foes. Many items have had their damage scaling fixed.",
+    "author": [
+      "eldri7ch",
+      "MottZilla"
+    ],
+    "knowledgeCheck": "None",
+    "timeFrame": "Normal",
+    "moddedLevel": "Slightly",
+    "castleType": "Normal",
+    "transformEarly": "No",
+    "transformFocus": "None",
+    "winCondition": "Normal",
+    "metaExtension": "Guarded",
+    "metaComplexity": "7",
+    "itemStats": "Normal"
+  },
+  {
+    "name": "Agonize 2020",
+    "id": "agonize-twtw",
+    "description": "Emulates Agonize Preset from 2020. Fixed locations for various relics to 'Maximize backtracking'.  Soul of Wolf, Soul of Bat, Form of Mist and Jewel of Open are guaranteed to be in first castle.",
+    "author": [
+      "3snow_p7im",
+      "eldri7ch",
+      "Crazy4blades"
+    ],
+    "knowledgeCheck": "None",
+    "timeFrame": "Slow",
+    "moddedLevel": "None",
+    "castleType": "Normal",
+    "transformEarly": "No",
+    "transformFocus": "None",
+    "winCondition": "Normal",
+    "metaExtension": "Guarded",
+    "metaComplexity": "1",
+    "itemStats": "Normal"
+  },
+  {
+    "name": "Safe Season 2",
+    "id": "safe-stwo",
+    "description": "A popular variant that emulates how Safe felt in Season 2. Requires no speedrun or glitch knowledge for completion.",
+    "author": [
+      "3snow_p7im",
+      "setz",
+      "soba"
+    ],
+    "knowledgeCheck": "None",
+    "timeFrame": "Normal",
+    "moddedLevel": "None",
+    "castleType": "Normal",
+    "transformEarly": "No",
+    "transformFocus": "None",
+    "winCondition": "Normal",
+    "metaExtension": "Guarded",
+    "metaComplexity": "8",
+    "itemStats": "Normal"
+  },
+  {
+    "name": "Open",
+    "id": "open",
+    "description": "Start in a random location and opens all shortcuts and all teleporters.",
+    "author": [
+      "TalicZealot",
+      "eldri7ch",
+      "MottZilla",
+      "Wecoc"
+    ],
+    "knowledgeCheck": "None",
+    "timeFrame": "Normal",
+    "moddedLevel": "Slightly",
+    "castleType": "Normal",
+    "transformEarly": "No",
+    "transformFocus": "None",
+    "winCondition": "Normal",
+    "metaExtension": "Guarded",
+    "metaComplexity": "6",
+    "itemStats": "Randomized"
+  },
+  {
+    "name": "Brawler",
+    "id": "brawler",
+    "description": "A challenge preset to get more accustomed to the Fist type weapons, most spells are removed as are almost all swords.",
+    "author": [
+      "Crazy4blades",
+      "Mottzilla"
+    ],
+    "knowledgeCheck": "Fist Combat",
+    "timeFrame": "Normal",
+    "moddedLevel": "Slightly",
+    "castleType": "Normal",
+    "transformEarly": "No",
+    "transformFocus": "Wolf",
+    "winCondition": "Normal",
+    "metaExtension": "Guarded",
+    "metaComplexity": "7",
+    "itemStats": "Normal"
+  },
+  {
+    "name": "First Castle",
+    "id": "first-castle",
+    "description": "Shortcuts are unlocked in this preset which takes place entirely in the first castle. Alucard can also get 2 Library cards from the prologue if played right. Save Richter once you have all five Vlad Relics to teleport directly to Shaft / Dracula.",
+    "author": [
+      "SacredLucy",
+      "MottZilla"
+    ],
+    "knowledgeCheck": "None",
+    "timeFrame": "Fast",
+    "moddedLevel": "Slightly",
+    "castleType": "Normal",
+    "transformEarly": "No",
+    "transformFocus": "None",
+    "winCondition": "Vlads and Save Richter",
+    "metaExtension": "Guarded",
+    "metaComplexity": "5",
+    "itemStats": "Normal"
+  },
+  {
+    "name": "Lucky Sevens",
+    "id": "lucky-sevens",
+    "description": "Start with 77 in all stats, 7 random relics, and 77% chance for uncommon and rare drops. Skips prolgue. Open all shortcuts and some teleporters in the second castle. Enemies have a small chance to drop relics.",
+    "author": [
+      "eldri7ch"
+    ],
+    "knowledgeCheck": "None",
+    "timeFrame": "Fast",
+    "moddedLevel": "Heavily",
+    "castleType": "Normal",
+    "transformEarly": "No",
+    "transformFocus": "None",
+    "winCondition": "Normal",
+    "metaExtension": "Guarded",
+    "metaComplexity": "7",
+    "itemStats": "Normal"
+  },
+  {
+    "name": "Bingo",
+    "id": "bingo",
+    "description": "Bot-only preset. Created for the 2024 Bingo Tournament. Does not randomize relics but randomizes items.",
+    "author": [
+      "Dr4gonBlitz",
+      "eldri7ch"
+    ],
+    "knowledgeCheck": "Varies",
+    "timeFrame": "Slow",
+    "moddedLevel": "Slightly",
+    "castleType": "Normal",
+    "transformEarly": "No",
+    "transformFocus": "None",
+    "winCondition": "Meet Bingo Conditions",
+    "metaExtension": "Guarded",
+    "metaComplexity": "1",
+    "itemStats": "Normal"
+  },
+  {
+    "name": "Sight-Seer",
+    "id": "sight-seer",
+    "description": "A simple, no mess preset using the Extended relic locations.",
+    "author": [
+      "3snow_p7im",
+      "eldri7ch"
+    ],
+    "knowledgeCheck": "None",
+    "timeFrame": "Slow",
+    "moddedLevel": "None",
+    "castleType": "Normal",
+    "transformEarly": "No",
+    "transformFocus": "None",
+    "winCondition": "Normal",
+    "metaExtension": "Extended",
+    "metaComplexity": "7",
+    "itemStats": "Normal"
+  },
+  {
+    "name": "Cursed Night",
+    "id": "cursed-night",
+    "description": "Alucard is cursed at the start of the subweapon-focused preset. Utilize various Subweapons acquired through relics and cycled with L2. Coral circlet removes the curse.",
+    "author": [
+      "Bob Sagget",
+      "Forat Negre"
+    ],
+    "knowledgeCheck": "None",
+    "timeFrame": "Normal",
+    "moddedLevel": "Heavily",
+    "castleType": "Normal",
+    "transformEarly": "No",
+    "transformFocus": "None",
+    "winCondition": "Normal",
+    "metaExtension": "Guarded",
+    "metaComplexity": "6",
+    "itemStats": "Normal"
+  },
+  {
+    "name": "Spellbound",
+    "id": "spellbound",
+    "description": "A high-complexity preset which locks spells behind familiar cards. Intended to emphasize better non-magical combat in the early game. Relics unkown until collected.",
+    "author": [
+      "MottZilla",
+      "JupiterClimb"
+    ],
+    "knowledgeCheck": "No-Spell Combat",
+    "timeFrame": "Normal",
+    "moddedLevel": "Moderately",
+    "castleType": "Normal",
+    "transformEarly": "No",
+    "transformFocus": "None",
+    "winCondition": "Normal",
+    "metaExtension": "Guarded",
+    "metaComplexity": "9",
+    "itemStats": "Randomized"
+  },
+  {
+    "name": "Mobility",
+    "id": "mobility",
+    "description": "Start with all movement relics and all transformations with discounted MP costs. Significant map changes keep complexity slightly higher. Also adds many randomizations including Enemy Stats and Shop Prices.",
+    "author": [
+      "3snow_p7im",
+      "eldri7ch",
+      "MottZilla",
+      "Wecoc"
+    ],
+    "knowledgeCheck": "None",
+    "timeFrame": "Fast",
+    "moddedLevel": "Heavily",
+    "castleType": "Modded",
+    "transformEarly": "Yes",
+    "transformFocus": "All",
+    "winCondition": "Mirror For 2nd Castle",
+    "metaExtension": "Extended",
+    "metaComplexity": "6",
+    "itemStats": "Normal"
+  },
+  {
+    "name": "Glitchmaster",
+    "id": "glitchmaster",
+    "description": "A preset for experts in glitches and exploits. There is literally no logic applied to relic distribution and the seed may soft-lock. Save often.",
+    "author": [
+      "romscout",
+      "DerDrach",
+      "eldri7ch",
+      "MottZilla",
+      "Doozyzood"
+    ],
+    "knowledgeCheck": "Glitches",
+    "timeFrame": "Slow",
+    "moddedLevel": "Moderately",
+    "castleType": "Normal",
+    "transformEarly": "No",
+    "transformFocus": "None",
+    "winCondition": "Relic Skip",
+    "metaExtension": "Extended",
+    "metaComplexity": "1",
+    "itemStats": "Normal"
+  },
+  {
+    "name": "Dog life",
+    "id": "dog-life",
+    "description": "An extremely technical preset forcing Alucard to traverse the castle in wolf form. Many relics have their functions changed to assist wolf through this endeavor. A unique and challenging preset for expert wolf-lovers.",
+    "author": [
+      "Wecoc",
+      "Forat Negre",
+      "eldri7ch"
+    ],
+    "knowledgeCheck": "Modified Wolf Tech",
+    "timeFrame": "Slow",
+    "moddedLevel": "Heavily",
+    "castleType": "Modded",
+    "transformEarly": "Yes",
+    "transformFocus": "Wolf",
+    "winCondition": "Normal",
+    "metaExtension": "Guarded",
+    "metaComplexity": 9,
+    "itemStats": "Normal"
   }
 ]

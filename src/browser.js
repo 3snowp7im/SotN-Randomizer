@@ -24,7 +24,7 @@
     return preset.id === 'safe'
   }).pop()
 
-  function cloneItems(items) {                                                              //Saves previous selections
+  /*function cloneItems(items) {                                                              //Saves previous selections
     return items.map(function(item) {
       const clone = Object.assign({}, item)
       delete clone.tiles
@@ -33,9 +33,9 @@
       }
       return clone
     })
-  }
+  }*/
 
-  const items = cloneItems(sotnRando.items)
+  //const items = cloneItems(sotnRando.items)
 
   function workerCount() {
     const cores = navigator.hardwareConcurrency
@@ -92,7 +92,7 @@
   }
 
   function resetState() {
-    sotnRando.items = cloneItems(items)
+    //sotnRando.items = cloneItems(items)
     selectedFile = undefined
     resetTarget()
     elems.randomize.disabled = true
@@ -149,6 +149,7 @@
     localStorage.setItem('preset', elems.preset.checked)
     if (elems.preset.checked) {
       elems.presetSelect.classList.remove('hide')
+      elems.presetDetails.classList.remove('hide')
       elems.complexity.disabled = true
       //elems.enemyDrops.disabled = true
       //elems.startingEquipment.disabled = true
@@ -163,6 +164,7 @@
       elems.options.classList.add('hide')
     } else {
       elems.presetSelect.classList.add('hide')
+      elems.presetDetails.classList.add('hide')
       elems.complexity.disabled = false
       //elems.enemyDrops.disabled = false
       //elems.startingEquipment.disabled = false
@@ -187,8 +189,18 @@
       return preset.id === id                                                     //
     }).pop()                                                                      //
     elems.presetDescription.innerText = preset.description                        //
-    elems.presetAuthor.innerText = 'by ' + preset.author                          //  
-    localStorage.setItem('presetId', preset.id)                                   //  
+    elems.presetAuthor.innerText = preset.author 
+    elems.presetKnowledgeCheck.innerText = preset.knowledgeCheck
+    elems.presetExtension.innerText = preset.metaExtension
+    elems.presetComplexity.innerText = preset.metaComplexity
+    elems.presetItemStats.innerText = preset.itemStats  
+    elems.presetTimeFrame.innerText = preset.timeFrame
+    elems.presetModdedLevel.innerText = preset.moddedLevel
+    elems.presetCastleType.innerText = preset.castleType
+    elems.presetTransformEarly.innerText = preset.transformEarly
+    elems.presetTransformFocus.innerText = preset.transformFocus
+    elems.presetWinCondition.innerText = preset.winCondition                      //  
+    localStorage.setItem('presetId', preset.id)  
     if (elems.preset.checked) {                                                   //
       const options = preset.options()                                            //
       let complexity = 1                                                          //
@@ -215,18 +227,18 @@
       elems.relicLocationsExtension.guarded.checked =
         options.relicLocations
         && options.relicLocations.extension === constants.EXTENSION.GUARDED
-      elems.relicLocationsExtension.spread.checked =
+      elems.relicLocationsExtension.guardedplus.checked =
         options.relicLocations
-        && options.relicLocations.extension === constants.EXTENSION.SPREAD
+        && options.relicLocations.extension === constants.EXTENSION.GUARDEDPLUS
       elems.relicLocationsExtension.equipment.checked =
         options.relicLocations
         && options.relicLocations.extension === constants.EXTENSION.EQUIPMENT
-      elems.relicLocationsExtension.tourist.checked =
+      elems.relicLocationsExtension.scenic.checked =
         options.relicLocations
-        && options.relicLocations.extension === constants.EXTENSION.TOURIST
-      elems.relicLocationsExtension.wanderer.checked =
+        && options.relicLocations.extension === constants.EXTENSION.SCENIC
+      elems.relicLocationsExtension.extended.checked =
         options.relicLocations
-        && options.relicLocations.extension === constants.EXTENSION.WANDERER
+        && options.relicLocations.extension === constants.EXTENSION.EXTENDED
       elems.relicLocationsExtension.classic.checked =
         options.relicLocations
         && !options.relicLocations.extension
@@ -244,11 +256,17 @@
       elems.surpriseMode.checked = !!options.surpriseMode
       elems.enemyStatRandoMode.checked = !!options.enemyStatRandoMode
       elems.shopPriceRandoMode.checked = !!options.shopPriceRandoMode
+      elems.startRoomRandoMode.checked = !!options.startRoomRandoMode
     }
   }
 
   function complexityChange() {
-    localStorage.setItem('complexity', elems.complexity.value)
+    localStorage.setItem('complexity', elems.complexity.value);
+    elems.complexityCurrentValue.innerText = `(${elems.complexity.value})`;
+  }
+
+  function updateCurrentComplexityValue() {
+    elems.complexityCurrentValue.innerText = `(${elems.complexity.value})`;
   }
 
   function startingEquipmentChange() {
@@ -274,39 +292,52 @@
     if (!elems.relicLocations.checked) {
       elems.relicLocationsSet.disabled = true
       elems.relicLocationsExtension.guarded.checked = false
-      elems.relicLocationsExtension.spread.checked = false
+      elems.relicLocationsExtension.guardedplus.checked = false
       elems.relicLocationsExtension.equipment.checked = false
-      elems.relicLocationsExtension.tourist.checked = false
-      elems.relicLocationsExtension.wanderer.checked = false
+      elems.relicLocationsExtension.scenic.checked = false
+      elems.relicLocationsExtension.extended.checked = false
       elems.relicLocationsExtension.classic.checked = false
     } else {
       elems.relicLocationsSet.disabled = false
       elems.relicLocationsExtension.guarded.checked =
         relicLocationsExtensionCache === constants.EXTENSION.GUARDED
-      elems.relicLocationsExtension.spread.checked =
-        relicLocationsExtensionCache === constants.EXTENSION.SPREAD
+      elems.relicLocationsExtension.guardedplus.checked =
+        relicLocationsExtensionCache === constants.EXTENSION.GUARDEDPLUS
       elems.relicLocationsExtension.equipment.checked =
         relicLocationsExtensionCache === constants.EXTENSION.EQUIPMENT
-      elems.relicLocationsExtension.tourist.checked =
-        relicLocationsExtensionCache === constants.EXTENSION.TOURIST
-      elems.relicLocationsExtension.wanderer.checked =
-        relicLocationsExtensionCache === constants.EXTENSION.WANDERER
+      elems.relicLocationsExtension.scenic.checked =
+        relicLocationsExtensionCache === constants.EXTENSION.SCENIC
+      elems.relicLocationsExtension.extended.checked =
+        relicLocationsExtensionCache === constants.EXTENSION.EXTENDED
       elems.relicLocationsExtension.classic.checked =
         !relicLocationsExtensionCache
+    }
+  }
+
+  function generateComplexityDataListItems(maxValue) {
+    for(let i = 2; i <= maxValue; i++) {
+      const node = document.createElement('option');
+      node.value = i;
+      node.label = i;
+      elems.complexityDataList.append(node);
     }
   }
 
   function adjustMaxComplexity() {
     switch (relicLocationsExtensionCache) {
     case constants.EXTENSION.EQUIPMENT:
-    case constants.EXTENSION.TOURIST:
+    case constants.EXTENSION.SCENIC:
       elems.complexity.max = 15
+      generateComplexityDataListItems(15);
+      elems.complexityMaxValue.innerText = 15;
       break
     case constants.EXTENSION.GUARDED:
-    case constants.EXTENSION.SPREAD:
-    case constants.EXTENSION.WANDERER:
+    case constants.EXTENSION.GUARDEDPLUS:
+    case constants.EXTENSION.EXTENDED:
     default:
-      elems.complexity.max = 11
+      elems.complexity.max = 11;
+      generateComplexityDataListItems(11);
+      elems.complexityMaxValue.innerText = 11;
       break
     }
     if (parseInt(elems.complexity.value) > parseInt(elems.complexity.max)) {
@@ -318,19 +349,20 @@
     let value
     if (elems.relicLocationsExtension.guarded.checked) {
       value = constants.EXTENSION.GUARDED
-    } else if (elems.relicLocationsExtension.spread.checked) {
-      value = constants.EXTENSION.SPREAD
+    } else if (elems.relicLocationsExtension.guardedplus.checked) {
+      value = constants.EXTENSION.GUARDEDPLUS
     } else if (elems.relicLocationsExtension.equipment.checked) {
       value = constants.EXTENSION.EQUIPMENT
-    } else if (elems.relicLocationsExtension.tourist.checked) {
-      value = constants.EXTENSION.TOURIST
-    } else if (elems.relicLocationsExtension.wanderer.checked) {
-      value = constants.EXTENSION.WANDERER
+    } else if (elems.relicLocationsExtension.scenic.checked) {
+      value = constants.EXTENSION.SCENIC
+    } else if (elems.relicLocationsExtension.extended.checked) {
+      value = constants.EXTENSION.EXTENDED
     } else{
       value = false
     }
     relicLocationsExtensionCache = value
     adjustMaxComplexity()
+    complexityChange();
     localStorage.setItem('relicLocationsExtension', value)
   }
 
@@ -428,6 +460,10 @@
     localStorage.setItem('shopPriceRandoMode', elems.shopPriceRandoMode.checked)
   }
 
+  function startRoomRandoModeChange() {
+    localStorage.setItem('startRoomRandoMode', elems.startRoomRandoMode.checked)
+  }
+
   function accessibilityPatchesChange() {
     localStorage.setItem('accessibilityPatches', elems.accessibilityPatches.checked)
   }
@@ -518,28 +554,28 @@
       // Add extension from form.
       if (elems.relicLocationsExtension.guarded.checked) {
         relicLocations.extension = constants.EXTENSION.GUARDED
-      } else if (elems.relicLocationsExtension.spread.checked) {
-        relicLocations.extension = constants.EXTENSION.SPREAD
+      } else if (elems.relicLocationsExtension.guardedplus.checked) {
+        relicLocations.extension = constants.EXTENSION.GUARDEDPLUS
       } else if (elems.relicLocationsExtension.equipment.checked) {
         relicLocations.extension = constants.EXTENSION.EQUIPMENT
-      } else if (elems.relicLocationsExtension.tourist.checked) {
-        relicLocations.extension = constants.EXTENSION.TOURIST
-      } else if (elems.relicLocationsExtension.wanderer.checked) {
-        relicLocations.extension = constants.EXTENSION.WANDERER
+      } else if (elems.relicLocationsExtension.scenic.checked) {
+        relicLocations.extension = constants.EXTENSION.SCENIC
+      } else if (elems.relicLocationsExtension.extended.checked) {
+        relicLocations.extension = constants.EXTENSION.EXTENDED
       } else {
         delete relicLocations.extension
       }
       const extensions = []
       switch (relicLocations.extension) {
-      case constants.EXTENSION.WANDERER:
-        extensions.push(constants.EXTENSION.WANDERER)
+      case constants.EXTENSION.EXTENDED:
+        extensions.push(constants.EXTENSION.EXTENDED)
         break
-      case constants.EXTENSION.TOURIST:
-      extensions.push(constants.EXTENSION.TOURIST)
+      case constants.EXTENSION.SCENIC:
+      extensions.push(constants.EXTENSION.SCENIC)
       case constants.EXTENSION.EQUIPMENT:
         extensions.push(constants.EXTENSION.EQUIPMENT)
-      case constants.EXTENSION.SPREAD:
-        extensions.push(constants.EXTENSION.SPREAD)
+      case constants.EXTENSION.GUARDEDPLUS:
+        extensions.push(constants.EXTENSION.GUARDEDPLUS)
       case constants.EXTENSION.GUARDED:
         extensions.push(constants.EXTENSION.GUARDED)
       }
@@ -606,6 +642,9 @@
       if (elems.shopPriceRandoMode.checked) {
         options.shopPriceRandoMode = true
       }
+      if (elems.startRoomRandoMode.checked) {
+        options.startRoomRandoMode = true
+      }
       return options
     }
     const options = {
@@ -630,6 +669,7 @@
       surpriseMode: elems.surpriseMode.checked,
       enemyStatRandoMode: elems.enemyStatRandoMode.checked,
       shopPriceRandoMode: elems.shopPriceRandoMode.checked,
+      startRoomRandoMode: elems.startRoomRandoMode.checked,
     }
     if (elems.enemyDropsArg.value) {
       options.enemyDrops = util.optionsFromString(
@@ -750,9 +790,9 @@
       elems.status.innerText = err.message
     }
     function restoreItems() {
-      sotnRando.items = cloneItems(items)
+      //sotnRando.items = cloneItems(items)
     }
-    function randomize() {
+    function randomize() {                                                                        // This is the main function of the randomizer website
       const check = new util.checked(this.result)
       // Save handle to file data.
       const file = this.result
@@ -879,6 +919,10 @@
         if (options.shopPriceRandoMode || applied.shopPriceRandoMode) {
           check.apply(util.applyShopPriceRandoPatches(rng))
         }
+        // Apply starting room rando patches.
+        if (options.startRoomRandoMode || applied.startRoomRandoMode) {
+          check.apply(util.applyStartRoomRandoPatches(rng))
+        }
         // Apply writes.
         check.apply(util.applyWrites(rng, applied))
         util.setSeedText(
@@ -992,6 +1036,7 @@
     elems.surpriseMode.disabled = false
     elems.enemyStatRandoMode.disabled = false
     elems.shopPriceRandoMode.disabled = false
+    elems.startRoomRandoMode.disabled = false
     elems.tournamentMode.disabled = false
     elems.clear.classList.add('hidden')
     presetChange()
@@ -1090,11 +1135,25 @@
     seed: document.getElementById('seed'),
     preset: document.getElementById('preset'),
     presetSelect: document.getElementById('preset-select'),
+    presetDetails: document.querySelector('#preset-details'),
     presetId: document.getElementById('preset-id'),
     presetDescription: document.getElementById('preset-description'),
     presetAuthor: document.getElementById('preset-author'),
+    presetKnowledgeCheck: document.getElementById('preset-knowledgeCheck'),
+    presetExtension: document.getElementById('preset-metaExtension'),
+    presetComplexity: document.getElementById('preset-metaComplexity'),
+    presetItemStats: document.getElementById('preset-itemStats'),
+    presetTimeFrame: document.getElementById('preset-timeFrame'),
+    presetModdedLevel: document.getElementById('preset-moddedLevel'),
+    presetCastleType: document.getElementById('preset-castleType'),
+    presetTransformEarly: document.getElementById('preset-transformEarly'),
+    presetTransformFocus: document.getElementById('preset-transformFocus'),
+    presetWinCondition: document.getElementById('preset-winCondition'),
     options: document.getElementById('options'),
     complexity: document.getElementById('complexity'),
+    complexityCurrentValue: document.querySelector('#complexityCurrentValue'),
+    complexityDataList: document.querySelector('#complexityValues'),
+    complexityMaxValue: document.querySelector('#complexityMaxValue'),
     enemyDrops: document.getElementById('enemy-drops'),
     enemyDropsArg: document.getElementById('enemy-drops-arg'),
     startingEquipment: document.getElementById('starting-equipment'),
@@ -1103,10 +1162,10 @@
     relicLocations: document.getElementById('relic-locations'),
     relicLocationsExtension: {
       guarded: document.getElementById('extension-guarded'),
-      spread: document.getElementById('extension-spread'),
+      guardedplus: document.getElementById('extension-guardedplus'),
       equipment: document.getElementById('extension-equipment'),
-      tourist: document.getElementById('extension-tourist'),
-      wanderer: document.getElementById('extension-wanderer'),
+      scenic: document.getElementById('extension-scenic'),
+      extended: document.getElementById('extension-extended'),
       classic: document.getElementById('extension-classic'),
     },
     relicLocationsArg: document.getElementById('relic-locations-arg'),
@@ -1133,6 +1192,7 @@
     surpriseMode: document.getElementById('surprise-mode'),
     enemyStatRandoMode: document.getElementById('enemyStatRando-mode'),
     shopPriceRandoMode: document.getElementById('shopPriceRando-mode'),
+    startRoomRandoMode: document.getElementById('startRoomRando-mode'),
     accessibilityPatches: document.getElementById('accessibility-patches'),
     showSpoilers: document.getElementById('show-spoilers'),
     showRelics: document.getElementById('show-relics'),
@@ -1147,6 +1207,7 @@
     showOlder: document.getElementById('show-older'),
     older: document.getElementById('older'),
   }
+
   resetState()
   elems.output.ppf.addEventListener('change', outputChange)
   elems.output.bin.addEventListener('change', outputChange)
@@ -1156,6 +1217,7 @@
   elems.preset.addEventListener('change', presetChange)
   elems.presetId.addEventListener('change', presetIdChange)
   elems.complexity.addEventListener('change', complexityChange)
+  elems.complexity.addEventListener('input', updateCurrentComplexityValue);
   elems.enemyDrops.addEventListener('change', enemyDropsChange)
   elems.startingEquipment.addEventListener('change', startingEquipmentChange)
   elems.relicLocations.addEventListener('change', relicLocationsChange)
@@ -1163,7 +1225,7 @@
     'change',
     relicLocationsExtensionChange,
   )
-  elems.relicLocationsExtension.spread.addEventListener(
+  elems.relicLocationsExtension.guardedplus.addEventListener(
     'change',
     relicLocationsExtensionChange,
   )
@@ -1171,11 +1233,11 @@
     'change',
     relicLocationsExtensionChange,
   )
-  elems.relicLocationsExtension.tourist.addEventListener(
+  elems.relicLocationsExtension.scenic.addEventListener(
     'change',
     relicLocationsExtensionChange,
   )
-  elems.relicLocationsExtension.wanderer.addEventListener(
+  elems.relicLocationsExtension.extended.addEventListener(
     'change',
     relicLocationsExtensionChange,
   )
@@ -1203,6 +1265,7 @@
   elems.surpriseMode.addEventListener('change', surpriseModeChange)
   elems.enemyStatRandoMode.addEventListener('change', enemyStatRandoModeChange)
   elems.shopPriceRandoMode.addEventListener('change', shopPriceRandoModeChange)
+  elems.startRoomRandoMode.addEventListener('change', startRoomRandoModeChange)
   elems.accessibilityPatches.addEventListener('change', accessibilityPatchesChange)
   elems.showSpoilers.addEventListener('change', spoilersChange)
   elems.showRelics.addEventListener('change', showRelicsChange)
@@ -1360,11 +1423,11 @@
       // serialized, without including the relic locations extension.
       const relicOptions = util.optionsFromString(util.optionsToString({
         relicLocations: Object.assign({}, applied.relicLocations, {
-          extension: constants.EXTENSION.TOURIST,
+          extension: constants.EXTENSION.SCENIC,
         }),
       }).replace(new RegExp(':?' + util.optionsToString({
         relicLocations: {
-          extension: constants.EXTENSION.TOURIST,
+          extension: constants.EXTENSION.SCENIC,
         },
       }).slice(2)), ''))
       // Restore original extension from URL.
@@ -1375,18 +1438,18 @@
       relicLocationsArg = util.optionsToString(relicOptions)
     }
     elems.relicLocationsArg.value = relicLocationsArg
-    elems.relicLocationsExtension.wanderer.checked =
+    elems.relicLocationsExtension.extended.checked =
       applied.relicLocations
-      && applied.relicLocations.extension === constants.EXTENSION.WANDERER
-    elems.relicLocationsExtension.tourist.checked =
+      && applied.relicLocations.extension === constants.EXTENSION.EXTENDED
+    elems.relicLocationsExtension.scenic.checked =
       applied.relicLocations
-      && applied.relicLocations.extension === constants.EXTENSION.TOURIST
+      && applied.relicLocations.extension === constants.EXTENSION.SCENIC
     elems.relicLocationsExtension.guarded.checked =
       applied.relicLocations
       && applied.relicLocations.extension === constants.EXTENSION.GUARDED
-    elems.relicLocationsExtension.spread.checked =
+    elems.relicLocationsExtension.guardedplus.checked =
       applied.relicLocations
-      && applied.relicLocations.extension === constants.EXTENSION.SPREAD
+      && applied.relicLocations.extension === constants.EXTENSION.GUARDEDPLUS
     elems.relicLocationsExtension.equipment.checked =
       applied.relicLocations
       && applied.relicLocations.extension === constants.EXTENSION.EQUIPMENT
@@ -1437,17 +1500,17 @@
       case constants.EXTENSION.GUARDED:
         elems.relicLocationsExtension.guarded.checked = true
         break
-      case constants.EXTENSION.SPREAD:
-        elems.relicLocationsExtension.spread.checked = true
+      case constants.EXTENSION.GUARDEDPLUS:
+        elems.relicLocationsExtension.guardedplus.checked = true
         break
       case constants.EXTENSION.EQUIPMENT:
         elems.relicLocationsExtension.equipment.checked = true
         break
-      case constants.EXTENSION.WANDERER:
-        elems.relicLocationsExtension.wanderer.checked = true
+      case constants.EXTENSION.EXTENDED:
+        elems.relicLocationsExtension.extended.checked = true
         break
-      case constants.EXTENSION.TOURIST:
-        elems.relicLocationsExtension.tourist.checked = true
+      case constants.EXTENSION.SCENIC:
+        elems.relicLocationsExtension.scenic.checked = true
         break
       default:
         elems.relicLocationsExtension.classic.checked = true
@@ -1519,6 +1582,7 @@
   loadOption('surpriseMode', surpriseModeChange, false)
   loadOption('enemyStatRandoMode', enemyStatRandoModeChange, false)
   loadOption('shopPriceRandoMode', shopPriceRandoModeChange, false)
+  loadOption('startRoomRandoMode', startRoomRandoModeChange, false)
   loadOption('accessibilityPatches', accessibilityPatchesChange, true)
   loadOption('showSpoilers', spoilersChange, true)
   setTimeout(function() {

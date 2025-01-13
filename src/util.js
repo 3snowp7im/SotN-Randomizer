@@ -2553,6 +2553,11 @@ function hexValueToDamageString(hexValue) {
           randomize.push('sh')
         }
         delete options.shopPriceRandoMode
+      } else if ('startRoomRandoMode' in options) { // randomize starting room - eldrich
+        if (options.startRoomRandoMode) {
+          randomize.push('ori')
+        }
+        delete options.startRoomRandoMode
       } else if ('debugMode' in options) { // Debug mode - eldrich
         if (options.debugMode) {
           randomize.push('D')
@@ -2879,17 +2884,17 @@ function hexValueToDamageString(hexValue) {
             locations.filter(function(location) {
               const extensions = []
               switch (options.relicLocations.extension) {
-              case constants.EXTENSION.WANDERER: // This is a smaller distribution than Equipment but includes all tourist checks + Spread + some Equipment - eldri7ch
-                  extensions.push(constants.EXTENSION.WANDERER)
-                  extensions.push(constants.EXTENSION.SPREAD)
+              case constants.EXTENSION.EXTENDED: // This is a smaller distribution than Equipment but includes all Scenic checks + GuardedPlus + some Equipment - eldri7ch
+                  extensions.push(constants.EXTENSION.EXTENDED)
+                  extensions.push(constants.EXTENSION.GUARDEDPLUS)
                   extensions.push(constants.EXTENSION.GUARDED) 
                   break 
-              case constants.EXTENSION.TOURIST:
-                extensions.push(constants.EXTENSION.TOURIST)
+              case constants.EXTENSION.SCENIC:
+                extensions.push(constants.EXTENSION.SCENIC)
               case constants.EXTENSION.EQUIPMENT:
                 extensions.push(constants.EXTENSION.EQUIPMENT)
-	      case constants.EXTENSION.SPREAD:
-                extensions.push(constants.EXTENSION.SPREAD)
+	      case constants.EXTENSION.GUARDEDPLUS:
+                extensions.push(constants.EXTENSION.GUARDEDPLUS)
               case constants.EXTENSION.GUARDED:
                 extensions.push(constants.EXTENSION.GUARDED)
                 break
@@ -3765,6 +3770,16 @@ function hexValueToDamageString(hexValue) {
     name,
     description,
     author,
+    knowledgeCheck,
+    metaExtension,
+    metaComplexity,
+    itemStats,
+    timeFrame,
+    moddedLevel,
+    castleType,
+    transformEarly,
+    transformFocus,
+    winCondition,
     weight,
     hidden,
     override,
@@ -3787,6 +3802,7 @@ function hexValueToDamageString(hexValue) {
     surpriseMode,
     enemyStatRandoMode,
     shopPriceRandoMode,
+    startRoomRandoMode,
     debugMode,
     writes,
   ) {
@@ -3795,6 +3811,16 @@ function hexValueToDamageString(hexValue) {
     this.description = description
     this.author = author
     this.weight = weight
+    this.knowledgeCheck = knowledgeCheck
+    this.metaExtension = metaExtension
+    this.metaComplexity = metaComplexity
+    this.itemStats = itemStats
+    this.timeFrame = timeFrame
+    this.moddedLevel = moddedLevel
+    this.castleType = castleType
+    this.transformEarly = transformEarly
+    this.transformFocus = transformFocus
+    this.winCondition = winCondition
     this.hidden = hidden
     this.override = override
     this.enemyDrops = enemyDrops
@@ -3816,6 +3842,7 @@ function hexValueToDamageString(hexValue) {
     this.surpriseMode = surpriseMode
     this.enemyStatRandoMode = enemyStatRandoMode
     this.shopPriceRandoMode = shopPriceRandoMode
+    this.startRoomRandoMode = startRoomRandoMode
     this.debugMode = debugMode
     if (writes) {
       this.writes = writes
@@ -3897,6 +3924,16 @@ function hexValueToDamageString(hexValue) {
     delete options.description
     delete options.author
     delete options.weight
+    delete options.knowledgeCheck
+    delete options.metaExtension
+    delete options.metaComplexity
+    delete options.itemStats
+    delete options.timeFrame
+    delete options.moddedLevel
+    delete options.castleType
+    delete options.transformEarly
+    delete options.transformFocus
+    delete options.winCondition
     delete options.hidden
     delete options.override
     return clone(options)
@@ -3960,6 +3997,8 @@ function hexValueToDamageString(hexValue) {
     this.enemyStatRando = false
     // shopPriceRando mode.
     this.shopPriceRando = false
+    // startRoomRando mode.
+    this.startRoomRando = false
     // Debug mode.
     this.debug = false
     // Arbitrary writes.
@@ -4272,6 +4311,9 @@ function hexValueToDamageString(hexValue) {
     }
     if ('shopPriceRandoMode' in json) {
       builder.shopPriceRandoMode(json.shopPriceRandoMode)
+    }
+    if ('startRoomRandoMode' in json) {
+      builder.startRoomRandoMode(json.startRoomRandoMode)
     }
     if ('writes' in json) {
       let lastAddress = 0
@@ -4592,6 +4634,9 @@ function hexValueToDamageString(hexValue) {
     }
     if ('shopPriceRandoMode' in preset) {
       this.shopPriceRando = preset.shopPriceRandoMode
+    }
+    if ('startRoomRandoMode' in preset) {
+      this.startRoomRando = preset.startRoomRandoMode
     }
     if ('writes' in preset) {
       this.writes = this.writes || []
@@ -5310,6 +5355,11 @@ function hexValueToDamageString(hexValue) {
     this.shopPriceRando = enabled
   }
 
+  // Enable Starting Room Rando - eldri7ch
+  PresetBuilder.prototype.startRoomRandoMode = function startRoomRandoMode(enabled) {
+    this.startRoomRando = enabled
+  }
+
   // Write a character.
   PresetBuilder.prototype.writeChar = function writeChar(address, value) {
     if (value !== 'random' && value !== 'random1' && value !== 'random3' && value !== 'random10' && value !== 'random99') {
@@ -5619,6 +5669,7 @@ function hexValueToDamageString(hexValue) {
     const surprise = self.surprise
     const enemyStatRando = self.enemyStatRando
     const shopPriceRando = self.shopPriceRando
+    const startRoomRando = self.startRoomRando
     const debug = self.debug
     const writes = self.writes
     return new Preset(
@@ -5626,6 +5677,16 @@ function hexValueToDamageString(hexValue) {
       self.metadata.name,
       self.metadata.description,
       self.metadata.author,
+      self.metadata.knowledgeCheck,
+      self.metadata.metaExtension,
+      self.metadata.metaComplexity,
+      self.metadata.itemStats,
+      self.metadata.timeFrame,
+      self.metadata.moddedLevel,
+      self.metadata.castleType,
+      self.metadata.transformEarly,
+      self.metadata.transformFocus,
+      self.metadata.winCondition,
       self.metadata.weight || 0,
       self.metadata.hidden,
       self.metadata.override,
@@ -5648,6 +5709,7 @@ function hexValueToDamageString(hexValue) {
       surprise,
       enemyStatRando,
       shopPriceRando,
+      startRoomRando,
       debug,
       writes,
     )
@@ -5943,7 +6005,30 @@ function hexValueToDamageString(hexValue) {
   function applynoprologuePatches() {
     const data = new checked()
     // Patch prologue removal; specifically setting the first room to enter as NO3 instead of ST0 - eldri7ch
-    data.writeChar(0x04392b1c, 0x41)	// Patch from Chaos-Lite / MottZilla
+    let offset
+
+    data.writeChar(0x04392b1c, 0x41)	              // Patch from Chaos-Lite / MottZilla
+
+    offset = 0x00119b98                             // hook address to reset time attack
+    offset = data.writeWord(offset,0x0803fef0)      // place hook in relic reset
+    offset = data.writeWord(offset,0x00000000)
+
+    offset = 0x001199b8                             // start code in richter (no use in no-prologue)
+    offset = data.writeWord(offset,0xa0600000)      // reset the time attack to allow bosses to spawn
+    offset = data.writeWord(offset,0x2610ffff)
+    offset = data.writeWord(offset,0x0601fffd)
+    offset = data.writeWord(offset,0x2463ffff)
+    offset = data.writeWord(offset,0x00000000)
+    offset = data.writeWord(offset,0x3c038003)
+    offset = data.writeWord(offset,0x3463ca28)
+    offset = data.writeWord(offset,0x3410001b)
+    offset = data.writeWord(offset,0xac600000)
+    offset = data.writeWord(offset,0x2610ffff)
+    offset = data.writeWord(offset,0x0601fffd)
+    offset = data.writeWord(offset,0x24630004)
+    offset = data.writeWord(offset,0x0803ff6c)
+    offset = data.writeWord(offset,0x00000000)
+
     return data
   }
 
@@ -6146,18 +6231,37 @@ function hexValueToDamageString(hexValue) {
 
       newAtk = enemyNumStatRand(rng,statAtk)                                    // Randomly adjust by 25%-200%
       data.writeWord(enemy.atkOffset,newAtk)                                    // Write the Atk
+      if(enemy.index === 379) {                                                 // special condition for Dracula
+        statAtk = 70                                                            // Hand attack = 70
+        newAtk = enemyNumStatRand(rng,statAtk)                                  // Randomize Hand attack
+        data.writeWord(0x0b9c0e,newAtk)                                         // Assign the new attack value
+      }
 
       newDef = enemyNumStatRand(rng,statDef)                                    // Randomly adjust by 25%-200%
       data.writeWord(enemy.defOffset,newDef)                                    // Write the Def
+      if(enemy.index === 379) {                                                 // special condition for Dracula
+        statDef = 20                                                            // Hand defense = 20
+        newDef = enemyNumStatRand(rng,statDef)                                  // Randomize Hand defense
+        data.writeWord(0x0b9c12,newDef)                                         // Assign the new defense value
+      }
 
       newAtkType = enemyAtkTypeStatRand(rng)                                    // Select a random attack type
       data.writeWord(enemy.atkTypeOffset,newAtkType)                            // Write the attack type
+      if(enemy.index === 379) {                                                 // special condition for Dracula
+        data.writeWord(0x0b9c10,newAtkType)                                     // Assign the new attack type
+      }
 
       newWeakType = enemyWeakTypeStatRand(rng)                                  // Select a random weakness type
       data.writeWord(enemy.weakOffset,newWeakType)                              // Write the weakness type
+      if(enemy.index === 379) {                                                 // special condition for Dracula
+        data.writeWord(0x0b9c16,newWeakType)                                    // Assign the new weakness type
+      }
 
       newResistType = enemyResistTypeStatRand(rng)                              // Select a random resist type
       data.writeWord(enemy.resistOffset,newResistType)                          // Write the resist type
+      if(enemy.index === 379) {                                                 // special condition for Dracula
+        data.writeWord(0x0b9c18,newResistType)                                  // Assign the new resist type
+      }
 
       switch (newResistType) {                                                  // create a new code for disclosure card based on weakness value
         case 0:
@@ -6168,22 +6272,28 @@ function hexValueToDamageString(hexValue) {
           newResistDisclosure = '0f'
       }
 
-      let resIndex = Math.floor(rng() * 100)                                      // select a random number between 0, 1 to choose which we use between guard, absorb
+      let resIndex = Math.floor(rng() * 100)                                    // select a random number between 0, 1 to choose which we use between guard, absorb
       resIndex = isEven(resIndex)
       switch (resIndex) {                                                       // start selection and execution process based on teh random selection
         case false: 
           offset = enemy.guardOffset                                            // Goto guard
           newImmuneType = enemyResistTypeStatRand(rng)                          // Select a random guard type
           data.writeWord(offset,newImmuneType)                                  // Write the guard type
+          if(enemy.index === 379) {                                             // special condition for Dracula
+            data.writeWord(0x0b9c1a,newImmuneType)                              // Assign the new guard type
+          }
           break
         case true:
           offset = enemy.absorbOffset                                           // Goto absorb
           newImmuneType = enemyResistTypeStatRand(rng)                          // Select a random absorb type
           data.writeWord(offset,newImmuneType)                                  // Write the absorb type
+          if(enemy.index === 379) {                                             // special condition for Dracula
+            data.writeWord(0x0b9c1c,newImmuneType)                              // Assign the new absorb type
+          }
           break
       }
 
-      disclosureCard = 'f0'                                                   // start the Disclosure with the attack elements by indicating a sword.
+      disclosureCard = 'f0'                                                     // start the Disclosure with the attack elements by indicating a sword.
       newDisclosure = hexValueToDamageString(newAtkType)                        // store the values from hex being converted
       if (newDisclosure.startsWith('05')) {                                     // if the attack type is a 16% hit or cut, use %dam indicator
         replaceTextAtIndex(newDisclosure,'00',0)
@@ -6222,7 +6332,7 @@ function hexValueToDamageString(hexValue) {
       while (disclosureCard.length < 24) {                                      // add zeroes to space out different names from before
         disclosureCard += '00'
       }
-      offset = enemy.newNameText                                                // pull enemy name locatrion in BIN
+      offset = enemy.newNameText                                                // pull enemy name location in BIN
       for (let i = 0; i < disclosureCard.length; i += 2) {                      // write 1 byte at a time
         const twoChars = '0x' + disclosureCard.slice(i, i + 2)
         offset = data.writeChar(offset,twoChars)
@@ -6279,6 +6389,106 @@ function hexValueToDamageString(hexValue) {
     shopItemsData.forEach(function(item) {                                      // cycle through the item list and pull the last shuffled price from the tmp array and write it.
       data.writeWord(item.priceAddress,itemShuffArray.pop())
     })
+
+    return data
+  }
+
+  function applyStartRoomRandoPatches(rng) {
+    const startRoomData = constants.startRoomData
+    const data = new checked()
+    // Patch the shop prices being randomized
+    let offset
+    let newWrite
+    let randRoomId
+    
+    randRoomId = Math.floor(rng() * Math.floor(startRoomData.length - 1))       // Select a starting room at random (Max43 - 1 = 42, the last room position in the table)
+
+    /*while(startRoomData[randRoomId].id === undefined | startRoomData[randRoomId].xyWrite === undefined
+      | startRoomData[randRoomId].roomWrite === undefined | startRoomData[randRoomId].stageWrite === undefined
+    ){
+      randRoomId = Math.floor(rng() * Math.floor(startRoomData.length - 1))     // re-roll undefined seeds
+    }*/
+
+    offset = 0x4b6ab0c
+    offset = data.writeWord(offset,0x28042804)                                  // Setting up the CD room
+    offset = data.writeWord(offset,0x34000015)
+    offset = data.writeWord(offset,0x28052805)
+    data.writeWord(offset,0x0000ff64)
+
+    offset = 0x4b66a44
+    offset = data.writeChar(offset,0x04)
+    offset = data.writeChar(offset,0x4a)
+    offset = data.writeChar(offset,0x00)
+    offset = data.writeChar(offset,0x41)
+    data.writeChar(offset,0x64)
+
+    console.log(randRoomId + ", " + startRoomData[randRoomId].id + startRoomData[randRoomId].comment)
+
+    offset = 0xae95c                                                            // change the destination
+    newWrite = startRoomData[randRoomId].xyWrite                                // Write X,Y Position
+    offset = data.writeWord(offset,newWrite)
+
+    console.log(numToHex(newWrite,8))
+
+    newWrite = startRoomData[randRoomId].roomWrite                              // Write Rooms Used
+    offset = data.writeWord(offset,newWrite)
+
+    console.log(numToHex(newWrite,8))
+
+    newWrite = startRoomData[randRoomId].stageWrite                             // Write destination stage Used
+    offset = data.writeShort(offset,newWrite)
+
+    console.log(numToHex(newWrite,4))
+
+    if(startRoomData[randRoomId].stageWrite === 0x03 | startRoomData[randRoomId].stageWrite === 0x05) {
+      offset = 0x45f55a2                                                        // Solve soft lock if player starts near Room 0 in Abandoned Mines
+      offset = data.writeChar(offset,0x42)
+      data.writeChar(offset,0x03)
+
+      offset = 0x45f52a2                                                        // Solve soft lock if player starts near Room 0 in Abandoned Mines
+      offset = data.writeChar(offset,0x42)
+      data.writeChar(offset,0x03)
+
+      offset = 0x45f5142                                                        // Solve soft lock if player starts near Room 0 in Abandoned Mines
+      offset = data.writeChar(offset,0x42)
+      data.writeChar(offset,0x03)
+
+      offset = 0x45f4eec                                                        // Solve soft lock if player starts near Room 0 in Abandoned Mines
+      offset = data.writeChar(offset,0x42)
+      data.writeChar(offset,0x03)
+
+      offset = 0x45f67bc                                                        // Solve soft lock if player starts near Room 3 in Abandoned Mines
+      offset = data.writeChar(offset,0x67)
+      offset = data.writeChar(offset,0x00)
+      offset = data.writeChar(offset,0x68)
+      data.writeChar(offset,0x00)
+
+      offset = 0x45f65dc                                                        // Solve soft lock if player starts near Room 3 in Abandoned Mines
+      data.writeChar(offset,0x23)
+      
+      offset = 0x45f655a                                                        // Solve soft lock if player starts near Room 3 in Abandoned Mines
+      offset = data.writeChar(offset,0x68)
+      data.writeChar(offset,0x00)
+
+      offset = 0x45f64dc                                                        // Solve soft lock if player starts near Room 3 in Abandoned Mines
+      offset = data.writeChar(offset,0x42)
+      data.writeChar(offset,0x03)
+
+      offset = 0x45f644e                                                        // Solve soft lock if player starts near Room 3 in Abandoned Mines
+      offset = data.writeChar(offset,0x67)
+      offset = data.writeChar(offset,0x00)
+      offset = data.writeChar(offset,0x68)
+      data.writeChar(offset,0x00)
+
+      offset = 0x45f6168                                                        // Solve soft lock if player starts near Room 3 in Abandoned Mines
+      offset = data.writeChar(offset,0xda)
+      data.writeChar(offset,0x01)
+
+      data.writeWord(0x45f8de2,0x03430342)                                      // Solve soft lock if player starts near Room 8 in Abandoned Mines
+      data.writeShort(0x45f8a92,0x0342)
+      data.writeShort(0x45f897c,0x0343)
+      data.writeWord(0x45f879a,0x03430342)
+    }
 
     return data
   }
@@ -6803,6 +7013,7 @@ function hexValueToDamageString(hexValue) {
     applysurprisePatches: applysurprisePatches,
     applyenemyStatRandoPatches: applyenemyStatRandoPatches,
     applyShopPriceRandoPatches: applyShopPriceRandoPatches,
+    applyStartRoomRandoPatches: applyStartRoomRandoPatches,
     applyMapColor: applyMapColor,
     randomizeRelics: randomizeRelics,
     randomizeItems: randomizeItems,

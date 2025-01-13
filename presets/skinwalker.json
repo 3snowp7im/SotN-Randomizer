@@ -2,16 +2,31 @@
   "metadata": {
     "id": "skinwalker",
     "name": "Skinwalker",
-    "description": "Includes all changes from Aperture, rebalances transformations and guarantees early access to at least one transformation.",
-    "author": "Zako, eldri7ch, Mottzilla, Wecoc",
-    "weight": 2500
+    "description": "To be discontinued in the near future. Includes all changes from Aperture, discounts MP costs on transformations and guarantees early access to at least one transformation before leaving first castle.",
+    "author": [
+      "Zako",
+      "eldri7ch",
+      "MottZilla",
+      "Wecoc"
+    ],
+    "weight": 3200,
+    "knowledgeCheck": "None",
+    "metaExtension": "Extended",
+    "metaComplexity": "8",
+    "itemStats": "Normal",
+    "timeFrame": "Normal",
+    "moddedLevel": "Heavily",
+    "castleType": "Modded",
+    "transformEarly": "No",
+    "transformFocus": "All",
+    "winCondition": "Normal"
   },
   "stats": false,
   "colorrandoMode": true,
   "fastwarpMode": true,
   "mypurseMode": true,
   "unlockedMode": true,
-  "relicLocationsExtension": "wanderer",
+  "relicLocationsExtension": "extended",
   
   "startingEquipment": [{
     "slot": "Other",

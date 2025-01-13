@@ -2,9 +2,23 @@
   "metadata": {
     "id": "chaos-lite",
     "name": "Chaos Lite",
-    "description": "Bounty Hunter and Aperture combined with the 'tourist' extension and additional random elements. Released on April 1st, 2024. App URL: https://github.com/MottZilla/BountyHunterTool",
-    "author": "3snow_p7im, eldri7ch and MottZilla0",
-    "weight": 10000
+    "description": "April Fools Preset Released on April 1st, 2024. A child of the original Chaos. Requires the Bounty Hunter Tool. App URL: https://github.com/MottZilla/BountyHunterTool",
+    "author": [
+      "3snow_p7im", 
+      "eldri7ch",
+      "MottZilla"
+    ],
+    "weight": 7200,
+    "knowledgeCheck": "April Fools",
+    "metaExtension": "Scenic",
+    "metaComplexity": "1",
+    "itemStats": "Randomized",
+    "timeFrame": "Slow",
+    "moddedLevel": "Heavily",
+    "castleType": "Modded",
+    "transformEarly": "Yes",
+    "transformFocus": "Bat",
+    "winCondition": "April Fools"
   },
   
   "colorrandoMode": true,
@@ -13,6 +27,7 @@
   "fastwarpMode": true,
   "mypurseMode": true,
   "unlockedMode": true,
+  "startRoomRandoMode": true,
   
 
   "itemLocations": [{
@@ -841,7 +856,7 @@
     ]
   }],
 
-  "relicLocationsExtension": "tourist",
+  "relicLocationsExtension": "scenic",
 
   "startingEquipment": [{
     "slot": "Other",
@@ -1090,7 +1105,7 @@
   }, {
     "comment": "Call Defeat Bosses Function",
     "type": "word",
-    "value": "0x0c033728"
+    "value": "0x0c0318e6"
   }, {
     "type": "word",
     "value": "0x34040000",
@@ -7351,9 +7366,9 @@
   }
 
   , {
-    "comment": "Defeat All Bosses Function 1",
+    "comment": "Auto-Defeat Bosses 1",
     "type": "word",
-    "address": "0xe03d8",
+    "address": "0xD7900",
     "value": "0x34070001"
   }, {
     "type": "word",

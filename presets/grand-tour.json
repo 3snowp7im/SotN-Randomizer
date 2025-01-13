@@ -2,12 +2,25 @@
   "metadata": {
     "id": "grand-tour",
     "name": "Grand Tour",
-    "description": "Soon to be discontinued after website rework. Base preset featuring 'tourist' relic extension.",
-    "author": "eldri7ch & Mottzilla",
-    "weight": 0
+    "description": "To be discontinued in the near future. Meant for players who want to see more unique locations of the castle.",
+    "author": [
+      "eldri7ch",
+      "MottZilla"
+    ],
+    "weight": 1800,
+    "knowledgeCheck": "None",
+    "metaExtension": "Scenic",
+    "metaComplexity": "8",
+    "itemStats": "Normal",
+    "timeFrame": "Slow",
+    "moddedLevel": "None",
+    "castleType": "Normal",
+    "transformEarly": "No",
+    "transformFocus": "None",
+    "winCondition": "Normal"
   },
   "inherits": "casual",
-  "relicLocationsExtension": "tourist",
+  "relicLocationsExtension": "scenic",
   "colorrandoMode": true,
   "music": false,
 

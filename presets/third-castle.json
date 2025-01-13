@@ -2,9 +2,21 @@
   "metadata": {
     "id": "third-castle",
     "name": "Third castle",
-    "description": "Randomizes tileset data producing intense pixel gore. Released on April 1st, 2022.",
-    "author": "3snow_p7im",
-    "weight": 3250
+    "description": "April Fools Preset released on April 1st, 2022. Randomizes tileset data producing intense pixel gore.",
+    "author": [
+      "3snow_p7im"
+    ],
+    "weight": 3500,
+    "knowledgeCheck": "April Fools",
+    "metaExtension": "Guarded",
+    "metaComplexity": "9",
+    "itemStats": "Randomized",
+    "timeFrame": "Normal",
+    "moddedLevel": "Slightly",
+    "castleType": "Normal",
+    "transformEarly": "No",
+    "transformFocus": "None",
+    "winCondition": "April Fools"
   },
   "inherits": "safe",
   "colorrandoMode": true,

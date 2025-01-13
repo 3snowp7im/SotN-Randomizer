@@ -2,9 +2,21 @@
   "metadata": {
     "id": "lycanthrope",
     "name": "Lycanthrope",
-    "description": "Start with all wolf relics. Mana consumption is greatly reduced when in wolf form.",
-    "author": "3snow_p7im",
-    "weight": 750
+    "description": "Start with all wolf relics. MP consumption is greatly reduced when in wolf form. Death skip is intended with a long wolf run.",
+    "author": [
+      "3snow_p7im"
+    ],
+    "weight": 2300,
+    "knowledgeCheck": "None",
+    "metaExtension": "Guarded",
+    "metaComplexity": "8",
+    "itemStats": "Normal",
+    "timeFrame": "Fast",
+    "moddedLevel": "Slightly",
+    "castleType": "Normal",
+    "transformEarly": "Yes",
+    "transformFocus": "Wolf",
+    "winCondition": "Normal"
   },
   "stats": false,
   "startingEquipment": [{

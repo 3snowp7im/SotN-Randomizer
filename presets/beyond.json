@@ -2,16 +2,30 @@
   "metadata": {
     "id": "beyond",
     "name": "Beyond",
-    "description": "Similar to safe but with new items and a new relic. Spread relic extension.",
-    "author": "Forat Negre, Wecoc, eldri7ch",
-    "weight": -3250
+    "description": "Replaces many items with new ones and adds the Castle Key (Replaces Faerie Scroll) which unlocks the Warp Rooms.",
+    "author": [
+      "Forat Negre", 
+      "Wecoc", 
+      "eldri7ch"
+    ],
+    "weight": 600,
+    "knowledgeCheck": "None",
+    "metaExtension": "GuardedPlus",
+    "metaComplexity": "8",
+    "itemStats": "Normal",
+    "timeFrame": "Normal",
+    "moddedLevel": "Heavily",
+    "castleType": "Normal",
+    "transformEarly": "No",
+    "transformFocus": "None",
+    "winCondition": "Normal"
   },
   "inherits": "safe",
   "stats": false,
   "fastwarpMode": true,
   "mypurseMode": true,
   
-  "relicLocationsExtension": "spread",
+  "relicLocationsExtension": "guardedplus",
 
   "complexityGoal": {
     "min": 8,

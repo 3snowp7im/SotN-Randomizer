@@ -2,13 +2,26 @@
   "metadata": {
     "id": "magic-mirror",
     "name": "Magic Mirror",
-    "description": "Use a Magic Mirror (X + Triangle; Replaces Holy Glasses) to move between the castles. Spread extension.",
-    "author": "eldri7ch, Mottzilla",
-    "weight": 800
+    "description": "Use a Magic Mirror (X + Triangle; Replaces Holy Glasses) to move between the castles. Significant map changes to add new complexity. Warp room in entrance goes to Outer Wall at the start.",
+    "author": [
+      "eldri7ch",
+      "MottZilla"
+    ],
+    "weight": 2400,
+    "knowledgeCheck": "None",
+    "metaExtension": "GuardedPlus",
+    "metaComplexity": "6",
+    "itemStats": "Normal",
+    "timeFrame": "Fast",
+    "moddedLevel": "Heavily",
+    "castleType": "Modded",
+    "transformEarly": "No",
+    "transformFocus": "None",
+    "winCondition": "Mirror For 2nd Castle"
   },
   
   "stats": false,
-  "relicLocationsExtension": "spread",
+  "relicLocationsExtension": "guardedplus",
   "magicmaxMode": true,
 
   "alias": [{

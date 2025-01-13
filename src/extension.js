@@ -181,39 +181,6 @@
     // Change Entity to Refer to Table.
     data.writeShort(0x4c34fae, index)
   }
-
-  function replaceReverseAlucartSwordWithRelic(data, blackMarbleVat, relic) {
-    // Regular zone patches.
-    const zone = constants.zones[constants.ZONE.RNO0]
-    // Change Entity Position.
-    // data.writeWord(0x4f8987a, 0x00a300a0)
-    // data.writeWord(0x4f8ab3a, 0x00a300a0)
-    // Replace entities.
-    blackMarbleVat.entity.entities.forEach(function(entity) {
-      let addr = util().romOffset(zone, entity + 0x04)
-      addr = data.writeShort(addr, 0x000b)
-      addr = data.writeShort(addr, 0x0010)
-      addr = data.writeShort(addr, relic.relicId)
-    })
-  }
-
-  function replaceReverseAlucartSwordWithItem(data, blackMarbleVat, item, index) {
-    // Regular zone patches.
-    const zone = constants.zones[constants.ZONE.RNO0]
-    // Change Entity Position.
-    // data.writeWord(0x4f8987a, 0x00a300a0)
-    // data.writeWord(0x4f8ab3a, 0x00a300a0)
-    // Replace entities.
-    blackMarbleVat.entity.entities.forEach(function(entity) {
-      let addr = util().romOffset(zone, entity + 0x04)
-      addr = data.writeShort(addr, 0x000c)
-      addr = data.writeShort(addr, 0x0010)
-      addr = data.writeShort(addr, item.relicId)
-    })
-    // Change Entity to Refer to Table.
-    data.writeShort(0x4f89883, index)
-    data.writeShort(0x4f8ab43, index)
-  }
   
   const locations = [{
     name: LOCATION.CRYSTAL_CLOAK,
@@ -679,7 +646,7 @@
     },
   }, {
     name: LOCATION.BADELAIRE,
-    extension: EXTENSION.SPREAD,
+    extension: EXTENSION.GUARDEDPLUS,
     itemId: 125,
     tileIndex: 0,
     asRelic: {
@@ -687,7 +654,7 @@
     },
   }, {
     name: LOCATION.FORBIDDEN_LIBRARY_OPAL,
-    extension: EXTENSION.SPREAD,
+    extension: EXTENSION.GUARDEDPLUS,
     itemId: 237,
     tileIndex: 0,
     asRelic: {
@@ -794,7 +761,7 @@
     },
   }, {
     name: LOCATION.CONFESSIONAL,
-    extension: EXTENSION.TOURIST,
+    extension: EXTENSION.SCENIC,
     entity: {
       zones: [ ZONE.DAI ],
       entities: [ 0x27f2, 0x3184 ],
@@ -803,7 +770,7 @@
     replaceWithItem: replaceConfessionalWithItem
   }, {
     name: LOCATION.TELESCOPE,
-    extension: EXTENSION.TOURIST,
+    extension: EXTENSION.SCENIC,
     entity: {
       zones: [ ZONE.NO1 ],
       entities: [ 0x3904, 0x4108 ],
@@ -812,7 +779,7 @@
     replaceWithItem: replaceTelescopeWithItem
   }, {
     name: LOCATION.COLOSSEUM_GREEN_TEA,
-    extension: EXTENSION.TOURIST,
+    extension: EXTENSION.SCENIC,
     itemId: 58,
     tileIndex: 0,
     asRelic: {
@@ -820,7 +787,7 @@
     },
   }, {
     name: LOCATION.CLOCK_TOWER_CLOAKED_KNIGHT,
-    extension: EXTENSION.TOURIST,
+    extension: EXTENSION.SCENIC,
     entity: {
       zones: [ ZONE.NZ1 ],
       entities: [ 0x2444, 0x2e50 ],
@@ -829,7 +796,7 @@
     replaceWithItem: replaceCloakedKnightWithItem
   }, {
     name: LOCATION.WATERFALL_CAVE,
-    extension: EXTENSION.TOURIST,
+    extension: EXTENSION.SCENIC,
     entity: {
       zones: [ ZONE.NO4 ],
       entities: [ 0x3f6e, 0x5000 ],
@@ -838,7 +805,7 @@
     replaceWithItem: replaceWaterfallVesselWithItem
   }, {
     name: LOCATION.FLOATING_CATACOMBS_ELIXIR,
-    extension: EXTENSION.TOURIST,
+    extension: EXTENSION.SCENIC,
     itemId: 161,
     tileIndex: 2,
     asRelic: {
@@ -846,7 +813,7 @@
     },
   }, {
     name: LOCATION.REVERSE_ENTRANCE_ANTIVENOM,
-    extension: EXTENSION.TOURIST,
+    extension: EXTENSION.SCENIC,
     itemId: 144,
     tileIndex: 3,
     asRelic: {
@@ -854,7 +821,7 @@
     },
   }, {
     name: LOCATION.REVERSE_FORBIDDEN_ROUTE,
-    extension: EXTENSION.TOURIST,
+    extension: EXTENSION.SCENIC,
     itemId: 166,
     tileIndex: 5,
     asRelic: {
@@ -862,7 +829,7 @@
     },
   }, {
     name: LOCATION.CAVE_LIFE_APPLE,
-    extension: EXTENSION.TOURIST,
+    extension: EXTENSION.SCENIC,
     itemId: 146,
     tileIndex: 3,
     asRelic: {
@@ -870,7 +837,7 @@
     },
   }, {
     name: LOCATION.REVERSE_COLOSSEUM_ZIRCON,
-    extension: EXTENSION.TOURIST,
+    extension: EXTENSION.SCENIC,
     itemId: 232,
     tileIndex: 8,
     asRelic: {
@@ -878,12 +845,12 @@
     },
   }, {
     name: LOCATION.REVERSE_ALUCART_SWORD,
-    extension: EXTENSION.TOURIST,
+    extension: EXTENSION.SCENIC,
     itemId: 157,
     tileIndex: 1,
   }, {
     name: LOCATION.BLACK_MARBLE_MEAL_TICKET,
-    extension: EXTENSION.TOURIST,
+    extension: EXTENSION.SCENIC,
     itemId: 70,
     tileIndex: 4,
     asRelic: {
@@ -892,7 +859,7 @@
     },
   }, {
     name: LOCATION.REVERSE_KEEP_HIGH_POTION,
-    extension: EXTENSION.TOURIST,
+    extension: EXTENSION.SCENIC,
     itemId: 160,
     tileIndex: 0,
     asRelic: {
@@ -900,7 +867,7 @@
     },
   }, {
     name: LOCATION.CONFESSIONAL,
-    extension: EXTENSION.WANDERER,
+    extension: EXTENSION.EXTENDED,
     entity: {
       zones: [ ZONE.DAI ],
       entities: [ 0x27f2, 0x3184 ],
@@ -909,7 +876,7 @@
     replaceWithItem: replaceConfessionalWithItem
   }, {
     name: LOCATION.TELESCOPE,
-    extension: EXTENSION.WANDERER,
+    extension: EXTENSION.EXTENDED,
     entity: {
       zones: [ ZONE.NO1 ],
       entities: [ 0x3904, 0x4108 ],
@@ -918,7 +885,7 @@
     replaceWithItem: replaceTelescopeWithItem
   }, {
     name: LOCATION.COLOSSEUM_GREEN_TEA,
-    extension: EXTENSION.WANDERER,
+    extension: EXTENSION.EXTENDED,
     itemId: 58,
     tileIndex: 0,
     asRelic: {
@@ -926,7 +893,7 @@
     },
   }, {
     name: LOCATION.CLOCK_TOWER_CLOAKED_KNIGHT,
-    extension: EXTENSION.WANDERER,
+    extension: EXTENSION.EXTENDED,
     entity: {
       zones: [ ZONE.NZ1 ],
       entities: [ 0x2444, 0x2e50 ],
@@ -935,7 +902,7 @@
     replaceWithItem: replaceCloakedKnightWithItem
   }, {
     name: LOCATION.WATERFALL_CAVE,
-    extension: EXTENSION.WANDERER,
+    extension: EXTENSION.EXTENDED,
     entity: {
       zones: [ ZONE.NO4 ],
       entities: [ 0x3f6e, 0x5000 ],
@@ -944,7 +911,7 @@
     replaceWithItem: replaceWaterfallVesselWithItem
   }, {
     name: LOCATION.FLOATING_CATACOMBS_ELIXIR,
-    extension: EXTENSION.WANDERER,
+    extension: EXTENSION.EXTENDED,
     itemId: 161,
     tileIndex: 2,
     asRelic: {
@@ -952,7 +919,7 @@
     },
   }, {
     name: LOCATION.REVERSE_ENTRANCE_ANTIVENOM,
-    extension: EXTENSION.WANDERER,
+    extension: EXTENSION.EXTENDED,
     itemId: 144,
     tileIndex: 3,
     asRelic: {
@@ -960,7 +927,7 @@
     },
   }, {
     name: LOCATION.REVERSE_FORBIDDEN_ROUTE,
-    extension: EXTENSION.WANDERER,
+    extension: EXTENSION.EXTENDED,
     itemId: 166,
     tileIndex: 5,
     asRelic: {
@@ -968,7 +935,7 @@
     },
   }, {
     name: LOCATION.CAVE_LIFE_APPLE,
-    extension: EXTENSION.WANDERER,
+    extension: EXTENSION.EXTENDED,
     itemId: 146,
     tileIndex: 3,
     asRelic: {
@@ -976,7 +943,7 @@
     },
   }, {
     name: LOCATION.REVERSE_COLOSSEUM_ZIRCON,
-    extension: EXTENSION.WANDERER,
+    extension: EXTENSION.EXTENDED,
     itemId: 232,
     tileIndex: 8,
     asRelic: {
@@ -984,12 +951,12 @@
     },
   }, {
     name: LOCATION.REVERSE_ALUCART_SWORD,
-    extension: EXTENSION.WANDERER,
+    extension: EXTENSION.EXTENDED,
     itemId: 157,
     tileIndex: 1,
   }, {
     name: LOCATION.BLACK_MARBLE_MEAL_TICKET,
-    extension: EXTENSION.WANDERER,
+    extension: EXTENSION.EXTENDED,
     itemId: 70,
     tileIndex: 4,
     asRelic: {
@@ -998,7 +965,7 @@
     },
   }, {
     name: LOCATION.REVERSE_KEEP_HIGH_POTION,
-    extension: EXTENSION.WANDERER,
+    extension: EXTENSION.EXTENDED,
     itemId: 160,
     tileIndex: 0,
     asRelic: {
@@ -1006,7 +973,7 @@
     },
   }, {
     name: LOCATION.BASILARD,
-    extension: EXTENSION.WANDERER,
+    extension: EXTENSION.EXTENDED,
     itemId: 18,
     tileIndex: 0,
     asRelic: {
@@ -1014,7 +981,7 @@
     },
   }, {
     name: LOCATION.GOGGLES,
-    extension: EXTENSION.WANDERER,
+    extension: EXTENSION.EXTENDED,
     itemId: 201,
     tileIndex: 0,
     asRelic: {
@@ -1022,7 +989,7 @@
     },
   }, {
     name: LOCATION.GOLD_PLATE,
-    extension: EXTENSION.WANDERER,
+    extension: EXTENSION.EXTENDED,
     itemId: 176,
     tileIndex: 0,
     asRelic: {
@@ -1030,7 +997,7 @@
     },
   }, {
     name: LOCATION.BEKATOWA,
-    extension: EXTENSION.WANDERER,
+    extension: EXTENSION.EXTENDED,
     itemId: 92,
     tileIndex: 0,
     asRelic: {
@@ -1038,12 +1005,12 @@
     },
   }, {
     name: LOCATION.MYSTIC_PENDANT,
-    extension: EXTENSION.WANDERER,
+    extension: EXTENSION.EXTENDED,
     itemId: 245,
     tileIndex: 0,
   }, {
     name: LOCATION.JEWEL_KNUCKLES,
-    extension: EXTENSION.WANDERER,
+    extension: EXTENSION.EXTENDED,
     itemId: 97,
     tileIndex: 0,
     asRelic: {
@@ -1051,7 +1018,7 @@
     },
   }, {
     name: LOCATION.ALUCART_SWORD,
-    extension: EXTENSION.WANDERER,
+    extension: EXTENSION.EXTENDED,
     itemId: 168,
     tileIndex: 0,
     asRelic: {
@@ -1059,7 +1026,7 @@
     },
   }, {
     name: LOCATION.NUNCHAKU,
-    extension: EXTENSION.WANDERER,
+    extension: EXTENSION.EXTENDED,
     itemId: 21,
     tileIndex: 0,
     asRelic: {
@@ -1067,7 +1034,7 @@
     },
   }, {
     name: LOCATION.RING_OF_ARES,
-    extension: EXTENSION.WANDERER,
+    extension: EXTENSION.EXTENDED,
     itemId: 240,
     tileIndex: 0,
     asRelic: {
@@ -1075,7 +1042,7 @@
     },
   }, {
     name: LOCATION.BERYL_CIRCLET,
-    extension: EXTENSION.WANDERER,
+    extension: EXTENSION.EXTENDED,
     itemId: 211,
     tileIndex: 0,
     asRelic: {
@@ -1083,7 +1050,7 @@
     },
   }, {
     name: LOCATION.KATANA,
-    extension: EXTENSION.WANDERER,
+    extension: EXTENSION.EXTENDED,
     itemId: 100,
     tileIndex: 0,
     asRelic: {
@@ -1092,7 +1059,7 @@
     },
   }, {
     name: LOCATION.TWILIGHT_CLOAK,
-    extension: EXTENSION.WANDERER,
+    extension: EXTENSION.EXTENDED,
     itemId: 225,
     tileIndex: 0,
     asRelic: {
@@ -1100,7 +1067,7 @@
     },
   }, {
     name: LOCATION.PLATINUM_MAIL,
-    extension: EXTENSION.WANDERER,
+    extension: EXTENSION.EXTENDED,
     itemId: 177,
     tileIndex: 0,
     asRelic: {
@@ -1108,7 +1075,7 @@
     },
   }, {
     name: LOCATION.MOON_ROD,
-    extension: EXTENSION.WANDERER,
+    extension: EXTENSION.EXTENDED,
     itemId: 132,
     tileIndex: 0,
     asRelic: {
@@ -1116,12 +1083,12 @@
     },
   }, {
     name: LOCATION.LUMINUS,
-    extension: EXTENSION.WANDERER,
+    extension: EXTENSION.EXTENDED,
     itemId: 105,
     tileIndex: 0,
   }, {
     name: LOCATION.REVERSE_CAVERNS_OPAL,
-    extension: EXTENSION.WANDERER,
+    extension: EXTENSION.EXTENDED,
     itemId: 237,
     tileIndex: 1,
     asRelic: {
@@ -1129,7 +1096,7 @@
     },
   }, {
     name: LOCATION.OSAFUNE_KATANA,
-    extension: EXTENSION.WANDERER,
+    extension: EXTENSION.EXTENDED,
     itemId: 139,
     tileIndex: 0,
     asRelic: {
@@ -1138,7 +1105,7 @@
     },
   }, {
     name: LOCATION.GRAM,
-    extension: EXTENSION.WANDERER,
+    extension: EXTENSION.EXTENDED,
     itemId: 108,
     tileIndex: 0,
     asRelic: {

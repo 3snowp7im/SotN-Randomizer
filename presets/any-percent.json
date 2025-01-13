@@ -1,10 +1,24 @@
 {
   "metadata": {
-    "id": "forge",
-    "name": "Forge",
-    "description": "Requires knowledge of movement mechanics used in Any% speedruns. Death skip intended but not necessary.",
-    "author": "3snow_p7im, Dr4gonBlitz, and eldri7ch",
-    "weight": -1000
+    "id": "any-percent",
+    "name": "Any Percent",
+    "description": "Requires knowledge of movement mechanics and glitches used in Any% speedruns. Death skip intended but not necessary. Richter Skip and Relic Skip are required to beat the game.  Soul of Wolf and Soul of Bat are guaranteed to be in first castle.",
+    "author": [
+      "3snow_p7im",
+      "Dr4gonBlitz",
+      "eldri7ch"
+    ],
+    "weight": 300,
+    "knowledgeCheck": "Glitches",
+    "metaExtension": "Guarded",
+    "metaComplexity": "6",
+    "itemStats": "Normal",
+    "timeFrame": "Normal",
+    "moddedLevel": "Slightly",
+    "castleType": "Normal",
+    "transformEarly": "No",
+    "transformFocus": "Wolf and Bat",
+    "winCondition": "Relic Skip"
   },
   
   "colorrandoMode": true,
@@ -2498,6 +2512,11 @@
     "type": "word",
     "address": "0x47A3098",
     "value": "0x0007a120"
+  }, {
+      "comment": "Keep Softlock Prevention",
+      "address": "0x5642528",
+      "type": "word",
+      "value": "0x00000000"
   }],
 
   "complexityGoal": {

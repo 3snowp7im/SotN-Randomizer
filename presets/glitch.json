@@ -2,12 +2,27 @@
   "metadata": {
     "id": "glitch",
     "name": "Glitch Remastered",
-    "description": "Requires extensive glitch knowledge, but avoids memory corruption and lengthy wolf rising. Tourist relic extension.",
-    "author": "romscout, DerDrach, eldri7ch, Mottzilla",
-    "weight": -500
+    "description": "A preset for people who love glitches in the game. Requires knowledge of most glitches and exploits to become proficient at solving these seeds. Avoids memory corruption and lengthy wolf rising.",
+    "author": [
+      "romscout",
+      "DerDrach",
+      "eldri7ch", 
+      "MottZilla"
+    ],
+    "weight": 1700,
+    "knowledgeCheck": "Glitches",
+    "metaExtension": "Scenic",
+    "metaComplexity": "5",
+    "itemStats": "Normal",
+    "timeFrame": "Slow",
+    "moddedLevel": "Moderately",
+    "castleType": "Normal",
+    "transformEarly": "No",
+    "transformFocus": "None",
+    "winCondition": "Relic Skip"
   },
   
-  "relicLocationsExtension": "tourist",
+  "relicLocationsExtension": "scenic",
   "stats": false,
   "thrustSwordAbility": true,
 
@@ -1816,9 +1831,9 @@
   }, 
 
   {
-    "comment": "Glitch Scrawl 1",
+    "comment": "Glitch Blurb",
     "type": "word",
-    "address": "0x5342210",
+    "address": "0x05342210",
     "value": "0x6C6C6548"
   }, {
     "type": "word",
@@ -2146,594 +2161,586 @@
     "value": "0x656C6C61"
   }, {
     "type": "word",
-    "value": "0x54080164"
+    "value": "0x53080164"
   }, {
     "type": "word",
-    "value": "0x6972756F"
+    "value": "0x696E6563"
   }, {
     "type": "word",
-    "value": "0x202C7473"
+    "value": "0x76202C63"
   }, {
     "type": "word",
-    "value": "0x69726176"
+    "value": "0x6F697261"
   }, {
     "type": "word",
-    "value": "0x2073756F"
-  }, {
-    "type": "word",
-    "value": "0x74696C67"
-  }, {
-    "type": "word",
-    "value": "0x73656863"
-  }, {
-    "type": "word",
-    "value": "0x646E6120"
-  }, {
-    "type": "word",
-    "value": "0x6F6D0801"
-  }, {
-    "type": "word",
-    "value": "0x6E726564"
-  }, {
-    "type": "word",
-    "value": "0x766F6D20"
-  }, {
-    "type": "word",
-    "value": "0x6E656D65"
-  }, {
-    "type": "word",
-    "value": "0x72662074"
-  }, {
-    "type": "word",
-    "value": "0x74206D6F"
-  }, {
-    "type": "word",
-    "value": "0x57206568"
-  }, {
-    "type": "word",
-    "value": "0x6F6C7261"
-  }, {
-    "type": "word",
-    "value": "0x08016B63"
-  }, {
-    "type": "word",
-    "value": "0x20646E61"
-  }, {
-    "type": "word",
-    "value": "0x6163794C"
-  }, {
-    "type": "word",
-    "value": "0x7270206E"
-  }, {
-    "type": "word",
-    "value": "0x74657365"
-  }, {
-    "type": "word",
-    "value": "0x59202E73"
-  }, {
-    "type": "word",
-    "value": "0x7720756F"
-  }, {
-    "type": "word",
-    "value": "0x206C6C69"
-  }, {
-    "type": "word",
-    "value": "0x6F736C61"
-  }, {
-    "type": "word",
-    "value": "0x65620801"
-  }, {
-    "type": "word",
-    "value": "0x73617420"
-  }, {
-    "type": "word",
-    "value": "0x2064656B"
-  }, {
-    "type": "word",
-    "value": "0x66206F74"
-  }, {
-    "type": "word",
-    "value": "0x6F6C6C6F"
-  }, {
-    "type": "word",
-    "value": "0x61522077"
-  }, {
-    "type": "word",
-    "value": "0x6D6F646E"
-  }, {
-    "type": "word",
-    "value": "0x72657A69"
-  }, {
-    "type": "word",
-    "value": "0x6F6C0801"
-  }, {
-    "type": "word",
-    "value": "0x20636967"
-  }, {
-    "type": "word",
-    "value": "0x20646E61"
-  }, {
-    "type": "word",
-    "value": "0x706D6F63"
-  }, {
-    "type": "word",
-    "value": "0x6978656C"
-  }, {
-    "type": "word",
-    "value": "0x202C7974"
-  }, {
-    "type": "word",
-    "value": "0x6579616C"
-  }, {
-    "type": "word",
-    "value": "0x79622072"
-  }, {
-    "type": "word",
-    "value": "0x616C0801"
-  }, {
-    "type": "word",
-    "value": "0x2C726579"
-  }, {
-    "type": "word",
-    "value": "0x646E6120"
-  }, {
-    "type": "word",
-    "value": "0x646E7520"
-  }, {
-    "type": "word",
-    "value": "0x74737265"
-  }, {
-    "type": "word",
-    "value": "0x20646E61"
-  }, {
-    "type": "word",
-    "value": "0x20656874"
-  }, {
-    "type": "word",
-    "value": "0x6E61756E"
-  }, {
-    "type": "word",
-    "value": "0x08016563"
-  }, {
-    "type": "word",
-    "value": "0x7220666F"
-  }, {
-    "type": "word",
-    "value": "0x6F646E61"
-  }, {
-    "type": "word",
-    "value": "0x617A696D"
-  }, {
-    "type": "word",
-    "value": "0x6E6F6974"
-  }, {
-    "type": "word",
-    "value": "0x20666F20"
-  }, {
-    "type": "word",
-    "value": "0x676F7270"
-  }, {
-    "type": "word",
-    "value": "0x73736572"
-  }, {
-    "type": "word",
-    "value": "0x016E6F69"
-  }, {
-    "type": "word",
-    "value": "0x6C657208"
-  }, {
-    "type": "word",
-    "value": "0x2E736369"
-  }, {
-    "type": "word",
-    "value": "0x64644120"
-  }, {
-    "type": "word",
-    "value": "0x6F697469"
-  }, {
-    "type": "word",
-    "value": "0x6C6C616E"
-  }, {
-    "type": "word",
-    "value": "0x79202C79"
-  }, {
-    "type": "word",
-    "value": "0x6820756F"
-  }, {
-    "type": "word",
-    "value": "0x01657661"
-  }, {
-    "type": "word",
-    "value": "0x666E6908"
-  }, {
-    "type": "word",
-    "value": "0x74696E69"
-  }, {
-    "type": "word",
-    "value": "0x73752065"
-  }, {
-    "type": "word",
-    "value": "0x666F2065"
-  }, {
-    "type": "word",
-    "value": "0x65727020"
-  }, {
-    "type": "word",
-    "value": "0x2D746573"
-  }, {
-    "type": "word",
-    "value": "0x75716572"
-  }, {
-    "type": "word",
-    "value": "0x64657269"
-  }, {
-    "type": "word",
-    "value": "0x74690801"
-  }, {
-    "type": "word",
-    "value": "0x2E736D65"
-  }, {
-    "type": "word",
-    "value": "0x756F5920"
-  }, {
-    "type": "word",
-    "value": "0x736C6120"
-  }, {
-    "type": "word",
-    "value": "0x6168206F"
-  }, {
-    "type": "word",
-    "value": "0x61206576"
-  }, {
-    "type": "word",
-    "value": "0x65726620"
-  }, {
-    "type": "word",
-    "value": "0x78412065"
-  }, {
-    "type": "word",
-    "value": "0x4C080165"
-  }, {
-    "type": "word",
-    "value": "0x2064726F"
-  }, {
-    "type": "word",
-    "value": "0x6F6D7261"
-  }, {
-    "type": "word",
-    "value": "0x6F662072"
-  }, {
-    "type": "word",
-    "value": "0x6F732072"
-  }, {
-    "type": "word",
-    "value": "0x6C207466"
-  }, {
-    "type": "word",
-    "value": "0x736B636F"
-  }, {
-    "type": "word",
-    "value": "0x6854202E"
-  }, 
-
-  {
-    "comment": "Glitch Scrawl 2",
-    "type": "word",
-    "address": "0x534252C",
-    "value": "0x01657265"
-  }, {
-    "type": "word",
-    "value": "0x65726108"
-  }, {
-    "type": "word",
-    "value": "0x736C6120"
-  }, {
-    "type": "word",
-    "value": "0x6F73206F"
-  }, {
-    "type": "word",
-    "value": "0x4C20656D"
-  }, {
-    "type": "word",
-    "value": "0x20656669"
-  }, {
-    "type": "word",
-    "value": "0x6C707061"
-  }, {
-    "type": "word",
-    "value": "0x66207365"
-  }, {
-    "type": "word",
-    "value": "0x0801726F"
-  }, {
-    "type": "word",
-    "value": "0x6568746F"
-  }, {
-    "type": "word",
-    "value": "0x756F2072"
-  }, {
-    "type": "word",
-    "value": "0x666F2D74"
-  }, {
-    "type": "word",
-    "value": "0x676F6C2D"
-  }, {
-    "type": "word",
-    "value": "0x67206369"
+    "value": "0x67207375"
   }, {
     "type": "word",
     "value": "0x6374696C"
   }, {
     "type": "word",
-    "value": "0x2E736568"
+    "value": "0x20736568"
   }, {
     "type": "word",
-    "value": "0x6C410801"
+    "value": "0x01646E61"
   }, {
     "type": "word",
-    "value": "0x202C6F73"
+    "value": "0x646F6D08"
   }, {
     "type": "word",
-    "value": "0x6C6C6F63"
+    "value": "0x206E7265"
   }, {
     "type": "word",
-    "value": "0x69746365"
+    "value": "0x65766F6D"
   }, {
     "type": "word",
-    "value": "0x6720676E"
+    "value": "0x746E656D"
   }, {
     "type": "word",
-    "value": "0x74616572"
+    "value": "0x6F726620"
   }, {
     "type": "word",
-    "value": "0x74207265"
+    "value": "0x6874206D"
   }, {
     "type": "word",
-    "value": "0x206E6168"
+    "value": "0x61572065"
   }, {
     "type": "word",
-    "value": "0x08013034"
+    "value": "0x636F6C72"
   }, {
     "type": "word",
-    "value": "0x72616568"
+    "value": "0x6108016B"
   }, {
     "type": "word",
-    "value": "0x69207374"
+    "value": "0x4C20646E"
   }, {
     "type": "word",
-    "value": "0x6874206E"
+    "value": "0x6E616379"
   }, {
     "type": "word",
-    "value": "0x72702065"
+    "value": "0x65727020"
   }, {
     "type": "word",
-    "value": "0x676F6C6F"
+    "value": "0x73746573"
   }, {
     "type": "word",
-    "value": "0x77206575"
+    "value": "0x6F59202E"
   }, {
     "type": "word",
-    "value": "0x76207361"
+    "value": "0x69772075"
   }, {
     "type": "word",
-    "value": "0x01797265"
+    "value": "0x61206C6C"
   }, {
     "type": "word",
-    "value": "0x706D6908"
+    "value": "0x016F736C"
   }, {
     "type": "word",
-    "value": "0x6174726F"
-  },
-
-  {
-    "comment": "Glitch Scrawl 3",
-    "type": "word",
-    "address": "0x53426E8",
-    "value": "0x202C746E"
-  }, {
-    "type": "word",
-    "value": "0x69206F73"
-  }, {
-    "type": "word",
-    "value": "0x6F792066"
-  }, {
-    "type": "word",
-    "value": "0x69642075"
-  }, {
-    "type": "word",
-    "value": "0x74276E64"
-  }, {
-    "type": "word",
-    "value": "0x016F6420"
-  }, {
-    "type": "word",
-    "value": "0x69687408"
-  }, {
-    "type": "word",
-    "value": "0x79202C73"
-  }, {
-    "type": "word",
-    "value": "0x7320756F"
-  }, {
-    "type": "word",
-    "value": "0x6C756F68"
-  }, {
-    "type": "word",
-    "value": "0x65722064"
-  }, {
-    "type": "word",
-    "value": "0x72617473"
-  }, {
-    "type": "word",
-    "value": "0x65622074"
-  }, {
-    "type": "word",
-    "value": "0x73756163"
-  }, {
-    "type": "word",
-    "value": "0x79080165"
-  }, {
-    "type": "word",
-    "value": "0x6D20756F"
-  }, {
-    "type": "word",
-    "value": "0x6E207961"
-  }, {
-    "type": "word",
-    "value": "0x20646565"
-  }, {
-    "type": "word",
-    "value": "0x74616874"
-  }, {
-    "type": "word",
-    "value": "0x77657220"
-  }, {
-    "type": "word",
-    "value": "0x2E647261"
-  }, {
-    "type": "word",
-    "value": "0x6F470802"
-  }, {
-    "type": "word",
-    "value": "0x6C20646F"
-  }, {
-    "type": "word",
-    "value": "0x206B6375"
-  }, {
-    "type": "word",
-    "value": "0x2C646E61"
-  }, {
-    "type": "word",
-    "value": "0x736F6D20"
-  }, {
-    "type": "word",
-    "value": "0x6D692074"
-  }, {
-    "type": "word",
-    "value": "0x74726F70"
-  }, {
-    "type": "word",
-    "value": "0x20746E61"
+    "value": "0x20656208"
   }, {
     "type": "word",
-    "value": "0x0801666F"
+    "value": "0x6B736174"
   }, {
     "type": "word",
-    "value": "0x2C6C6C61"
+    "value": "0x74206465"
   }, {
     "type": "word",
-    "value": "0x656C7020"
+    "value": "0x6F66206F"
   }, {
     "type": "word",
-    "value": "0x20657361"
+    "value": "0x776F6C6C"
   }, {
     "type": "word",
-    "value": "0x65766168"
+    "value": "0x6E615220"
   }, {
     "type": "word",
-    "value": "0x6E756620"
+    "value": "0x696D6F64"
   }, {
     "type": "word",
-    "value": "0x5408022E"
+    "value": "0x0172657A"
   }, {
     "type": "word",
-    "value": "0x6B6E6168"
+    "value": "0x676F6C08"
   }, {
     "type": "word",
-    "value": "0x08022C73"
+    "value": "0x61206369"
   }, {
     "type": "word",
-    "value": "0x44726544"
+    "value": "0x6320646E"
   }, {
     "type": "word",
-    "value": "0x68636172"
+    "value": "0x6C706D6F"
   }, {
     "type": "word",
-    "value": "0x6F52202C"
+    "value": "0x74697865"
   }, {
     "type": "word",
-    "value": "0x6F63736D"
+    "value": "0x6C202C79"
   }, {
     "type": "word",
-    "value": "0x202C7475"
+    "value": "0x72657961"
   }, {
     "type": "word",
-    "value": "0x72646C65"
+    "value": "0x01796220"
   }, {
     "type": "word",
-    "value": "0x68633769"
+    "value": "0x79616C08"
   }, {
     "type": "word",
-    "value": "0x6108012C"
+    "value": "0x202C7265"
   }, {
     "type": "word",
-    "value": "0x4D20646E"
+    "value": "0x20646E61"
   }, {
     "type": "word",
-    "value": "0x5A74746F"
+    "value": "0x65646E75"
   }, {
     "type": "word",
-    "value": "0x616C6C69"
+    "value": "0x61747372"
   }, {
     "type": "word",
-    "value": "0x6F590802"
+    "value": "0x7420646E"
   }, {
     "type": "word",
-    "value": "0x61632075"
+    "value": "0x6E206568"
   }, {
     "type": "word",
-    "value": "0x6B73206E"
+    "value": "0x636E6175"
   }, {
     "type": "word",
-    "value": "0x74207069"
+    "value": "0x6F080165"
   }, {
     "type": "word",
-    "value": "0x20736968"
+    "value": "0x61722066"
   }, {
     "type": "word",
-    "value": "0x74206E69"
+    "value": "0x6D6F646E"
   }, {
     "type": "word",
-    "value": "0x66206568"
+    "value": "0x74617A69"
   }, {
     "type": "word",
-    "value": "0x72757475"
+    "value": "0x206E6F69"
   }, {
     "type": "word",
-    "value": "0x62080165"
+    "value": "0x7020666F"
   }, {
     "type": "word",
-    "value": "0x72702079"
+    "value": "0x72676F72"
   }, {
     "type": "word",
     "value": "0x69737365"
   }, {
     "type": "word",
-    "value": "0x4C20676E"
+    "value": "0x08016E6F"
   }, {
     "type": "word",
-    "value": "0x6E612032"
+    "value": "0x696C6572"
   }, {
     "type": "word",
-    "value": "0x65532064"
+    "value": "0x202E7363"
   }, {
     "type": "word",
-    "value": "0x7463656C"
+    "value": "0x69646441"
   }, {
     "type": "word",
-    "value": "0x20746120"
+    "value": "0x6E6F6974"
   }, {
     "type": "word",
-    "value": "0x01656874"
+    "value": "0x796C6C61"
   }, {
     "type": "word",
-    "value": "0x6D617308"
+    "value": "0x6F79202C"
   }, {
     "type": "word",
-    "value": "0x69742065"
+    "value": "0x61682075"
   }, {
     "type": "word",
-    "value": "0x202E656D"
+    "value": "0x08016576"
+  }, {
+    "type": "word",
+    "value": "0x69666E69"
+  }, {
+    "type": "word",
+    "value": "0x6574696E"
+  }, {
+    "type": "word",
+    "value": "0x65737520"
+  }, {
+    "type": "word",
+    "value": "0x20666F20"
+  }, {
+    "type": "word",
+    "value": "0x73657270"
+  }, {
+    "type": "word",
+    "value": "0x722D7465"
+  }, {
+    "type": "word",
+    "value": "0x69757165"
+  }, {
+    "type": "word",
+    "value": "0x01646572"
+  }, {
+    "type": "word",
+    "value": "0x65746908"
+  }, {
+    "type": "word",
+    "value": "0x202E736D"
+  }, {
+    "type": "word",
+    "value": "0x20756F59"
+  }, {
+    "type": "word",
+    "value": "0x6F736C61"
+  }, {
+    "type": "word",
+    "value": "0x76616820"
+  }, {
+    "type": "word",
+    "value": "0x20612065"
+  }, {
+    "type": "word",
+    "value": "0x65657266"
+  }, {
+    "type": "word",
+    "value": "0x65784120"
+  }, {
+    "type": "word",
+    "value": "0x6F4C0801"
+  }, {
+    "type": "word",
+    "value": "0x61206472"
+  }, {
+    "type": "word",
+    "value": "0x726F6D72"
+  }, {
+    "type": "word",
+    "value": "0x726F6620"
+  }, {
+    "type": "word",
+    "value": "0x666F7320"
+  }, {
+    "type": "word",
+    "value": "0x6F6C2074"
+  }, {
+    "type": "word",
+    "value": "0x2E736B63"
+  }, {
+    "type": "word",
+    "value": "0x65685420"
+  }, {
+    "type": "word",
+    "value": "0x08016572"
+  }, {
+    "type": "word",
+    "value": "0x20657261"
+  }, {
+    "type": "word",
+    "value": "0x6F736C61"
+  }, {
+    "type": "word",
+    "value": "0x6D6F7320"
+  }, {
+    "type": "word",
+    "value": "0x694C2065"
+  }, {
+    "type": "word",
+    "value": "0x61206566"
+  }, {
+    "type": "word",
+    "value": "0x656C7070"
+  }, {
+    "type": "word",
+    "value": "0x6F662073"
+  }, {
+    "type": "word",
+    "value": "0x6F080172"
+  }, {
+    "type": "word",
+    "value": "0x72656874"
+  }, {
+    "type": "word",
+    "value": "0x74756F20"
+  }, {
+    "type": "word",
+    "value": "0x2D666F2D"
+  }, {
+    "type": "word",
+    "value": "0x69676F6C"
+  }, {
+    "type": "word",
+    "value": "0x6C672063"
+  }, {
+    "type": "word",
+    "value": "0x68637469"
+  }, {
+    "type": "word",
+    "value": "0x012E7365"
+  }, {
+    "type": "word",
+    "value": "0x736C4108"
+  }, {
+    "type": "word",
+    "value": "0x63202C6F"
+  }, {
+    "type": "word",
+    "value": "0x656C6C6F"
+  }, {
+    "type": "word",
+    "value": "0x6E697463"
+  }, {
+    "type": "word",
+    "value": "0x72672067"
+  }, {
+    "type": "word",
+    "value": "0x65746165"
+  }, {
+    "type": "word",
+    "value": "0x68742072"
+  }, {
+    "type": "word",
+    "value": "0x34206E61"
+  }, {
+    "type": "word",
+    "value": "0x68080130"
+  }, {
+    "type": "word",
+    "value": "0x74726165"
+  }, {
+    "type": "word",
+    "value": "0x6E692073"
+  }, {
+    "type": "word",
+    "value": "0x65687420"
+  }, {
+    "type": "word",
+    "value": "0x6F727020"
+  }, {
+    "type": "word",
+    "value": "0x75676F6C"
+  }, {
+    "type": "word",
+    "value": "0x61772065"
+  }, {
+    "type": "word",
+    "value": "0x65762073"
+  }, {
+    "type": "word",
+    "value": "0x08017972"
+  }, {
+    "type": "word",
+    "value": "0x6F706D69"
+  }, {
+    "type": "word",
+    "value": "0x6E617472"
+  }, {
+    "type": "word",
+    "value": "0x73202C74"
+  }, {
+    "type": "word",
+    "value": "0x6669206F"
+  }, {
+    "type": "word",
+    "value": "0x756F7920"
+  }, {
+    "type": "word",
+    "value": "0x64696420"
+  }, {
+    "type": "word",
+    "value": "0x2074276E"
+  }, {
+    "type": "word",
+    "value": "0x08016F64"
+  }, {
+    "type": "word",
+    "value": "0x73696874"
+  }, {
+    "type": "word",
+    "value": "0x6F79202C"
+  }, {
+    "type": "word",
+    "value": "0x68732075"
+  }, {
+    "type": "word",
+    "value": "0x646C756F"
+  }, {
+    "type": "word",
+    "value": "0x73657220"
+  }, {
+    "type": "word",
+    "value": "0x74726174"
+  }, {
+    "type": "word",
+    "value": "0x63656220"
+  }, {
+    "type": "word",
+    "value": "0x65737561"
+  }, {
+    "type": "word",
+    "value": "0x6F790801"
+  }, {
+    "type": "word",
+    "value": "0x616D2075"
+  }, {
+    "type": "word",
+    "value": "0x656E2079"
+  }, {
+    "type": "word",
+    "value": "0x74206465"
+  }, {
+    "type": "word",
+    "value": "0x20746168"
+  }, {
+    "type": "word",
+    "value": "0x61776572"
+  }, {
+    "type": "word",
+    "value": "0x022E6472"
+  }, {
+    "type": "word",
+    "value": "0x6F6F4708"
+  }, {
+    "type": "word",
+    "value": "0x756C2064"
+  }, {
+    "type": "word",
+    "value": "0x61206B63"
+  }, {
+    "type": "word",
+    "value": "0x202C646E"
+  }, {
+    "type": "word",
+    "value": "0x74736F6D"
+  }, {
+    "type": "word",
+    "value": "0x706D6920"
+  }, {
+    "type": "word",
+    "value": "0x6174726F"
+  }, {
+    "type": "word",
+    "value": "0x6F20746E"
+  }, {
+    "type": "word",
+    "value": "0x61080166"
+  }, {
+    "type": "word",
+    "value": "0x202C6C6C"
+  }, {
+    "type": "word",
+    "value": "0x61656C70"
+  }, {
+    "type": "word",
+    "value": "0x68206573"
+  }, {
+    "type": "word",
+    "value": "0x20657661"
+  }, {
+    "type": "word",
+    "value": "0x2E6E7566"
+  }, {
+    "type": "word",
+    "value": "0x68540802"
+  }, {
+    "type": "word",
+    "value": "0x736B6E61"
+  }, {
+    "type": "word",
+    "value": "0x4408022C"
+  }, {
+    "type": "word",
+    "value": "0x72447265"
+  }, {
+    "type": "word",
+    "value": "0x2C686361"
+  }, {
+    "type": "word",
+    "value": "0x6D6F5220"
+  }, {
+    "type": "word",
+    "value": "0x756F6373"
+  }, {
+    "type": "word",
+    "value": "0x65202C74"
+  }, {
+    "type": "word",
+    "value": "0x6972646C"
+  }, {
+    "type": "word",
+    "value": "0x2C686337"
+  }, {
+    "type": "word",
+    "value": "0x6E610801"
+  }, {
+    "type": "word",
+    "value": "0x6F4D2064"
+  }, {
+    "type": "word",
+    "value": "0x695A7474"
+  }, {
+    "type": "word",
+    "value": "0x02616C6C"
+  }, {
+    "type": "word",
+    "value": "0x756F5908"
+  }, {
+    "type": "word",
+    "value": "0x6E616320"
+  }, {
+    "type": "word",
+    "value": "0x696B7320"
+  }, {
+    "type": "word",
+    "value": "0x68742070"
+  }, {
+    "type": "word",
+    "value": "0x69207369"
+  }, {
+    "type": "word",
+    "value": "0x6874206E"
+  }, {
+    "type": "word",
+    "value": "0x75662065"
+  }, {
+    "type": "word",
+    "value": "0x65727574"
+  }, {
+    "type": "word",
+    "value": "0x79620801"
+  }, {
+    "type": "word",
+    "value": "0x65727020"
+  }, {
+    "type": "word",
+    "value": "0x6E697373"
+  }, {
+    "type": "word",
+    "value": "0x324C2067"
+  }, {
+    "type": "word",
+    "value": "0x646E6120"
+  }, {
+    "type": "word",
+    "value": "0x6C655320"
+  }, {
+    "type": "word",
+    "value": "0x20746365"
+  }, {
+    "type": "word",
+    "value": "0x74207461"
+  }, {
+    "type": "word",
+    "value": "0x08016568"
+  }, {
+    "type": "word",
+    "value": "0x656D6173"
+  }, {
+    "type": "word",
+    "value": "0x6D697420"
+  }, {
+    "type": "word",
+    "value": "0x20202E65"
   }, {
     "type": "word",
     "value": "0x20202020"
@@ -2742,7 +2749,7 @@
     "value": "0x20202020"
   }, {
     "type": "word",
-    "value": "0x20"
+    "value": "0x20202020"
   },
   
   {

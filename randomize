@@ -290,12 +290,16 @@ const relicsHelp = [
   'progression in the vanilla game.',
   '',
   'There are three extension modes:',
-  '  guarded    Adds Crystal cloak, Mormegil, Dark Blade, and Ring of Arcana',
-  '             to the location pool. This is the default extension mode when',
-  '             when enabled without an argument.',
-  '  spread     Based on guarded, and adds Dragon helm, Shotel, and Staurolite',
-  '             to the location pool.',
-  '  equipment  Adds remaining equipment tiles to the location pool.',
+  '  guarded      Adds Crystal cloak, Mormegil, Dark Blade, and Ring of Arcana',
+  '               to the location pool. This is the default extension mode when',
+  '               when enabled without an argument.',
+  '  guardedplus  Based on guarded, and adds Forbidden Library Opal and Badelaire',
+  '               to the location pool.',
+  '  equipment    Adds remaining equipment tiles to the location pool.',
+  '  scenic       Adds many scenic locationss to the location pool.',
+  '  extended     a compromise between guardedPlus, equipment, and scenic creating',
+  '               creating a "unique locations" variant with a moderate number of',
+  '               checks.',
   '',
   'Extension format:',
   '  x:<mode>',
@@ -421,15 +425,15 @@ function presetMetaHelp(preset) {
   if (typeof(options.relicLocations) === 'object'
       && 'extension' in options.relicLocations) {
     switch (options.relicLocations.extension) {
-    case constants.EXTENSION.WANDERER:
-      extensions.push(constants.EXTENSION.WANDERER)
+    case constants.EXTENSION.EXTENDED:
+      extensions.push(constants.EXTENSION.EXTENDED)
       break
-    case constants.EXTENSION.TOURIST:
-      extensions.push(constants.EXTENSION.TOURIST)  
+    case constants.EXTENSION.SCENIC:
+      extensions.push(constants.EXTENSION.SCENIC)  
     case constants.EXTENSION.EQUIPMENT:
       extensions.push(constants.EXTENSION.EQUIPMENT)
-    case constants.EXTENSION.SPREAD:
-      extensions.push(constants.EXTENSION.SPREAD)
+    case constants.EXTENSION.GUARDEDPLUS:
+      extensions.push(constants.EXTENSION.GUARDEDPLUS)
     case constants.EXTENSION.GUARDED:
       extensions.push(constants.EXTENSION.GUARDED)
     }
@@ -622,6 +626,11 @@ const yargs = require('yargs')
     describe: 'Shop prices are randomized ranging from 50% to 150% of their original value and they are shuffled between each other.',
     type: 'boolean',
   })
+  .option('startRoomRando', {
+    alias: 'ori',
+    describe: 'Start in the entrance as usual but after the first Warg, you are teleported to a random zone to start the rest of your run.',
+    type: 'boolean',
+  })
   .option('debug', {
     alias: 'D',
     describe: 'Debug mode.',
@@ -725,7 +734,7 @@ if ('help' in argv) {
     '',
     'When using the `$0` utility, you can use the `--preset` shorthand to',
     'specify a preset:',
-    '  $0 -p speedrun  # Use speedrun preset',
+    '  $0 -p adventure  # Use adventure preset',
     '',
     'Preset options may be overridden by specifying an options string:',
     '  $0 -p adventure --opt d:*:Peanuts-  # Adventure with only Peanut drops',
@@ -1062,6 +1071,11 @@ if ('debug' in argv) {console.log('randomize | Set shopPriceRando')}
 if (argv.shopPriceRando) { // randomizes shop prices - eldrich
   options.shopPriceRandoMode = true
 }
+if ('debug' in argv) {console.log('randomize | Set startRoomRando')}
+// Enable Starting Room Rando mode if specified. - eldri7ch
+if (argv.startRoomRando) { // randomizes starting room - eldrich
+  options.startRoomRandoMode = true
+}
 if ('debug' in argv) {console.log('randomize | Set map colors')}
 // Map Color Features if specified. - eldri7ch
 if ('mapcolor' in argv && typeof(argv.mapcolor) !== 'undefined') {
@@ -1303,7 +1317,7 @@ if ('debug' in argv) {console.log('randomize | Start randomization')}
         }
         if ('debug' in argv) {console.log('randomize | function: randomize | Enemy Stat Randomizer Mode | ' + optFlag)}
         optFlag = false
-        if (options.enemyshopPriceRandoMode || applied.shopPriceRandoMode) { // Randomizes shop prices - eldrich
+        if (options.shopPriceRandoMode || applied.shopPriceRandoMode) { // Randomizes shop prices - eldrich
           // Apply shop price Rando mode patches. - eldri7ch
           optFlag = true
           rng = new require('seedrandom')(util.saltSeed(
@@ -1315,6 +1329,19 @@ if ('debug' in argv) {console.log('randomize | Start randomization')}
           check.apply(util.applyShopPriceRandoPatches(rng))
         }
         if ('debug' in argv) {console.log('randomize | function: randomize | Shop Price Randomizer Mode | ' + optFlag)}
+        optFlag = false
+        if (options.startRoomRandoMode || applied.startRoomRandoMode) { // Randomizes starting room - eldrich
+          // Apply starting room Rando mode patches. - eldri7ch
+          optFlag = true
+          rng = new require('seedrandom')(util.saltSeed(
+            version,
+            options,
+            seed,
+            0,
+          ))
+          check.apply(util.applyStartRoomRandoPatches(rng))
+        }
+        if ('debug' in argv) {console.log('randomize | function: randomize | Starting Room Randomizer Mode | ' + optFlag)}
         optFlag = false
         if ('mapcolor' in argv) { // Colors the map - eldrich
           // Apply map color patches. - eldri7ch

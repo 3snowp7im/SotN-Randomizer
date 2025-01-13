@@ -2,14 +2,27 @@
   "metadata": {
     "id": "lookingglass",
     "name": "Lookingglass",
-    "description": "Soon to be discontinued. Wanderer extension: Use a Magic Mirror (Replaces Holy Glasses) to move between first and second castles.",
-    "author": "eldri7ch, Mottzilla",
-    "weight": 600
+    "description": "To be discontinued in the near future. Use a Magic Mirror (X + Triangle; Replaces Holy Glasses) to move between the castles. Significant map changes to add new complexity. Warp room in entrance goes to Outer Wall at the start.",
+    "author": [
+      "eldri7ch",
+      "MottZilla"
+    ],
+    "weight": 2100,
+    "knowledgeCheck": "None",
+    "metaExtension": "Extended",
+    "metaComplexity": "6",
+    "itemStats": "Normal",
+    "timeFrame": "Normal",
+    "moddedLevel": "Heavily",
+    "castleType": "Modded",
+    "transformEarly": "No",
+    "transformFocus": "None",
+    "winCondition": "Mirror For 2nd Castle"
   },
   
   "stats": false,
   "magicmaxMode": true,
-  "relicLocationsExtension": "wanderer",
+  "relicLocationsExtension": "extended",
 
   "alias": [{
     "comment": "Alias Holy Glasses as Mirror",

@@ -2,12 +2,25 @@
   "metadata": {
     "id": "brawler",
     "name": "Brawler",
-    "description": "Intended as a challenge preset to get more accustomed to the Fist type weapons, most spells are removed.",
-    "author": "Crazy4blades, Mottzilla", 
-    "weight": -2600
+    "description": "A challenge preset to get more accustomed to the Fist type weapons, most spells are removed as are almost all swords.",
+    "author": [
+      "Crazy4blades", 
+      "Mottzilla"
+    ], 
+    "weight": 900,
+    "knowledgeCheck": "Fist Combat",
+    "metaExtension": "Guarded",
+    "metaComplexity": "7",
+    "itemStats": "Normal",
+    "timeFrame": "Normal",
+    "moddedLevel": "Slightly",
+    "castleType": "Normal",
+    "transformEarly": "No",
+    "transformFocus": "Wolf",
+    "winCondition": "Normal"
   },
 
-  "relicLocationExtension": "Guarded",
+  "relicLocationsExtension": "guarded",
   "stats": false,
   "colorrandoMode": true,
   "mypurseMode": true,

@@ -3,8 +3,20 @@
     "id": "sample",
     "name": "Sample",
     "description": "A sample preset for demonstrative purposes.",
-    "author": "3snow_p7im",
-    "weight": 0
+    "author": [
+      "3snow_p7im"
+    ],
+    "weight": 0,
+    "knowledgeCheck": "",
+    "metaExtension": "",
+    "metaComplexity": "7",
+    "itemStats": "",
+    "timeFrame": "",
+    "moddedLevel": "",
+    "castleType": "",
+    "transformEarly": "",
+    "transformFocus": "",
+    "winCondition": ""
   },
 
   "comment": "Build off the Safe preset",
