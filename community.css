@@ -1,0 +1,21 @@
+html {
+    font-family: sans-serif;
+}
+
+h1 {
+    font-weight: bold;
+}
+
+.table-dark th, .table-dark td {
+    color: #f8f9fa;
+}
+
+.form-select-sm {
+    background-color: #212529;
+    color: white;
+    border-color: #343a40;
+}
+
+.form-select-sm:focus {
+    box-shadow: 0 0 0 0.2rem rgba(108, 117, 125, 0.5);
+}
