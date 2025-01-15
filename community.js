@@ -5,10 +5,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const tableTimeElo = document.getElementById("tableTimeElo");
     const seedColumn = document.getElementById("seedColumn");
 
+    const apiUrl = "https://sotnrandoapi.duckdns.org";
+
     // Fetch Presets
     const fetchPresets = async () => {
         try {
-            const response = await fetch("http://35.208.162.255:8080/ranked/presets");
+            const response = await fetch(`${apiUrl}/ranked/presets`);
             const data = await response.json();
             const presets = data.presets; // Access the 'presets' key
 
@@ -34,7 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const mode = modeSelector.value;
         const preset = presetSelector.value;
 
-        const endpoint = mode === "elo" ? `http://35.208.162.255:8080/leaderboards/elo/${preset}` : `http://35.208.162.255:8080/leaderboards/time/${preset}`;
+        const endpoint = mode === "elo" ? `${apiUrl}/leaderboards/elo/${preset}` : `${apiUrl}/leaderboards/time/${preset}`;
         try {
             const response = await fetch(endpoint);
             const data = await response.json();
