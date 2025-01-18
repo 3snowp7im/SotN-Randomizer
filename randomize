@@ -601,6 +601,11 @@ const yargs = require('yargs')
     describe: 'Quickens warp animation when using teleporters.',
     type: 'boolean',
   })
+  .option('itemnamerando', {
+    alias: 'in',
+    describe: 'Randomize item names when doing item stat rando.',
+    type: 'boolean',
+  })
   .option('noprologue', {
     alias: 'R',
     describe: 'Quickens warp animation when using teleporters.',
@@ -1045,6 +1050,11 @@ if ('debug' in argv) {console.log('randomize | Set fast warp')}
 // Enable fast warp mode if specified. - eldri7ch
 if (argv.fastwarp) { // quickens teleporter warp animation - eldrich
   options.fastwarpMode = true
+}
+if ('debug' in argv) {console.log('randomize | Set Item Name Rando')}
+// Enable itemname rando mode if specified. - MottZilla
+if (argv.itemnamerando) { // Randomize Item names if randomizing item stats - MottZilla
+  options.itemnamerandoMode = true
 }
 if ('debug' in argv) {console.log('randomize | Set no prologue')}
 // Enable no prologue mode if specified. - eldri7ch
