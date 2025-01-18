@@ -2528,6 +2528,11 @@ function hexValueToDamageString(hexValue) {
           randomize.push('9')
         }
         delete options.fastwarpMode
+      } else if ('itemnamerandoMode' in options) { // randomize item names with item stat rando - MottZilla
+        if (options.itemnamerandoMode) {
+          randomize.push('in')
+        }
+        delete options.itemnamerandoMode
       } else if ('noprologueMode' in options) { // Removes prologue - eldrich
         if (options.noprologueMode) {
           randomize.push('R')
@@ -3797,6 +3802,7 @@ function hexValueToDamageString(hexValue) {
     mypurseMode,
     iwsMode,
     fastwarpMode,
+    itemnamerandoMode,
     noprologueMode,
     unlockedMode,
     surpriseMode,
@@ -3837,6 +3843,7 @@ function hexValueToDamageString(hexValue) {
     this.mypurseMode = mypurseMode
     this.iwsMode = iwsMode
     this.fastwarpMode = fastwarpMode
+    this.itemnamerandoMode = itemnamerandoMode
     this.noprologueMode = noprologueMode
     this.unlockedMode = unlockedMode
     this.surpriseMode = surpriseMode
@@ -3987,6 +3994,8 @@ function hexValueToDamageString(hexValue) {
     this.iws = false
     // Fast Warp mode.
     this.fastwarp = false
+    // Item Name Rando mode.
+    this.itemnamerando = false
     // No Prologue mode.
     this.noprologue = false
     // Unlocked mode.
@@ -4296,6 +4305,9 @@ function hexValueToDamageString(hexValue) {
     }
     if ('fastwarpMode' in json) {
       builder.fastwarpMode(json.fastwarpMode)
+    }
+    if ('itemnamerandoMode' in json) {
+      builder.itemnamerandoMode(json.itemnamerandoMode)
     }
     if ('noprologueMode' in json) {
       builder.noprologueMode(json.noprologueMode)
@@ -4619,6 +4631,9 @@ function hexValueToDamageString(hexValue) {
     }
     if ('fastwarpMode' in preset) {
       this.fastwarp = preset.fastwarpMode
+    }
+    if ('itemnamerandoMode' in preset) {
+      this.itemnamerando = preset.itemnamerandoMode
     }
     if ('noprologueMode' in preset) {
       this.noprologue = preset.noprologueMode
@@ -5330,6 +5345,11 @@ function hexValueToDamageString(hexValue) {
     this.fastwarp = enabled
   }
 
+  // Enable Item Name Rando - MottZilla
+  PresetBuilder.prototype.itemnamerandoMode = function itemnamerandoMode(enabled) {
+    this.itemnamerando = enabled
+  }
+
   // Enable Prologue Skip - eldri7ch
   PresetBuilder.prototype.noprologueMode = function noprologueMode(enabled) {
     this.noprologue = enabled
@@ -5664,6 +5684,7 @@ function hexValueToDamageString(hexValue) {
     const mypurse = self.mypurse
     const iws = self.iws
     const fastwarp = self.fastwarp
+    const itemnamerando = self.itemnamerando
     const noprologue = self.noprologue
     const unlocked = self.unlocked
     const surprise = self.surprise
@@ -5704,6 +5725,7 @@ function hexValueToDamageString(hexValue) {
       mypurse,
       iws,
       fastwarp,
+      itemnamerando,
       noprologue,
       unlocked,
       surprise,
