@@ -251,6 +251,7 @@
       elems.mypurseMode.checked = !!options.mypurseMode
       elems.iwsMode.checked = !!options.iwsMode
       elems.fastwarpMode.checked = !!options.fastwarpMode
+      elems.itemnamerandoMode.checked = !!options.itemnamerandoMode
       elems.noprologueMode.checked = !!options.noprologueMode
       elems.unlockedMode.checked = !!options.unlockedMode
       elems.surpriseMode.checked = !!options.surpriseMode
@@ -440,6 +441,10 @@
     localStorage.setItem('fastwarpMode', elems.fastwarpMode.checked)
   }
 
+  function itemnamerandoModeChange() {
+    localStorage.setItem('itemnamerandoMode', elems.itemnamerandoMode.checked)
+  }
+
   function noprologueModeChange() {
     localStorage.setItem('noprologueMode', elems.noprologueMode.checked)
   }
@@ -627,6 +632,9 @@
       if (elems.fastwarpMode.checked) {
         options.fastwarpMode = true
       }
+      if (elems.itemnamerandoMode.checked) {
+        options.itemnamerandoMode = true
+      }
       if (elems.noprologueMode.checked) {
         options.noprologueMode = true
       }
@@ -664,6 +672,7 @@
       mypurseMode: elems.mypurseMode.checked,
       iwsMode: elems.iwsMode.checked,
       fastwarpMode: elems.fastwarpMode.checked,
+      itemnamerandoMode: elems.itemnamerandoMode.checked,
       noprologueMode: elems.noprologueMode.checked,
       unlockedMode: elems.unlockedMode.checked,
       surpriseMode: elems.surpriseMode.checked,
@@ -1031,6 +1040,7 @@
     elems.mypurseMode.disabled = false
     elems.iwsMode.disabled = false
     elems.fastwarpMode.disabled = false
+    elems.itemnamerandoMode.disabled = false
     elems.noprologueMode.disabled = false
     elems.unlockedMode.disabled = false
     elems.surpriseMode.disabled = false
@@ -1187,6 +1197,7 @@
     mypurseMode: document.getElementById('mypurse-mode'),
     iwsMode: document.getElementById('iws-mode'),
     fastwarpMode: document.getElementById('fastwarp-mode'),
+    itemnamerandoMode: document.getElementById('itemnamerando-mode'),
     noprologueMode: document.getElementById('noprologue-mode'),
     unlockedMode: document.getElementById('unlocked-mode'),
     surpriseMode: document.getElementById('surprise-mode'),
@@ -1260,6 +1271,7 @@
   elems.mypurseMode.addEventListener('change', mypurseModeChange)
   elems.iwsMode.addEventListener('change', iwsModeChange)
   elems.fastwarpMode.addEventListener('change', fastwarpModeChange)
+  elems.itemnamerandoMode.addEventListener('change', itemnamerandoModeChange)
   elems.noprologueMode.addEventListener('change', noprologueModeChange)
   elems.unlockedMode.addEventListener('change', unlockedModeChange)
   elems.surpriseMode.addEventListener('change', surpriseModeChange)
@@ -1577,6 +1589,7 @@
   loadOption('mypurseMode', mypurseModeChange, false)
   loadOption('iwsMode', iwsModeChange, false)
   loadOption('fastwarpMode', fastwarpModeChange, false)
+  loadOption('itemnamerandoMode', itemnamerandoModeChange, false)
   loadOption('noprologueMode', noprologueModeChange, false)
   loadOption('unlockedMode', unlockedModeChange, false)
   loadOption('surpriseMode', surpriseModeChange, false)
