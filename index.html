@@ -502,20 +502,6 @@
                   </label>
                 </div>
                 <div class="pure-u-1-2">
-                  <input id="turkey-mode" type="checkbox">
-                  <label for="turkey-mode">Turkey Mode
-                    <span class="tooltip-wrapper">
-                      <span class="tooltip-indicator">?</span>
-                      <span class="tooltip hidden">
-                        <span>
-                          Replaces the subweapons in the glass vats at Alchemy Lab 
-                          and Black Marble Gallery with useless turkeys.
-                        </span>
-                      </span>
-                    </span>
-                  </label>
-                </div>
-                <div class="pure-u-1-2">
                   <input id="surprise-mode" type="checkbox">
                   <label for="surprise-mode">Relic Surprise!
                     <span class="tooltip-wrapper">
@@ -531,8 +517,18 @@
                   </label>
                 </div>
                 <div class="pure-u-1-2">
-                  <input id="music" type="checkbox">
-                  <label for="music">Music Randomizer</label>
+                  <input id="turkey-mode" type="checkbox">
+                  <label for="turkey-mode">Turkey Mode
+                    <span class="tooltip-wrapper">
+                      <span class="tooltip-indicator">?</span>
+                      <span class="tooltip hidden">
+                        <span>
+                          Replaces the subweapons in the glass vats at Alchemy Lab 
+                          and Black Marble Gallery with useless turkeys.
+                        </span>
+                      </span>
+                    </span>
+                  </label>
                 </div>
                 <div class="pure-u-1-2">
                   <input id="enemyStatRando-mode" type="checkbox">
@@ -550,8 +546,8 @@
                   </label>
                 </div>
                 <div class="pure-u-1-2">
-                  <input id="item-locations" type="checkbox">
-                  <label for="item-locations">Item locations</label>
+                  <input id="music" type="checkbox">
+                  <label for="music">Music Randomizer</label>
                 </div>
                 <div class="pure-u-1-2">
                   <input id="shopPriceRando-mode" type="checkbox">
@@ -569,8 +565,8 @@
                   </label>
                 </div>
                 <div class="pure-u-1-2">
-                  <input id="starting-equipment" type="checkbox" disabled>
-                  <label for="starting-equipment">Starting Equipment</label>
+                  <input id="item-locations" type="checkbox">
+                  <label for="item-locations">Item locations</label>
                 </div>
                 <div class="pure-u-1-2">
                   <input id="startRoomRando-mode" type="checkbox">
@@ -586,6 +582,12 @@
                       </span>
                     </span>
                   </label>
+                </div>
+                <div class="pure-u-1-2">
+                  <input id="starting-equipment" type="checkbox" disabled>
+                  <label for="starting-equipment">Starting Equipment</label>
+                </div>
+                <div class="pure-u-1-2">
                 </div>
                 <div class="pure-u-1-4">
                   <input id="prologue-rewards" type="checkbox">
@@ -638,49 +640,58 @@
         </ul>
         <hr>
         <h2><a name="changelog">Changelog</a></h2>
-        <h3><time>January 13, 2025</time></h3>
+        <h3><time>February 10, 2025</time></h3>
         <ul>
           <h4>Preset Changes</h4>
-          <li>Updated preset descriptions.</li>
-          <li>Removed boss room limitations for Cursed Night preset.</li>
-          <li>Added ability to use Heart Refresh for Cursed Night.</li>
-          <li>Added new starting equipment for Cursed Night.</li>
-          <li>Removed Coral Circlet from the Shop in Cursed Night.</li>
-          <li>Added Starting Room Randomization to Chaos-Lite preset.</li>
-          <li>Added Starting Room Randomization to Open preset.</li>
-          <li>Added 7 random relics to starting pool for Lucky Sevens preset.</li>
-          <li>Removed prologue for Lucky Sevens.</li>
-          <li>Removed remaining Bat relics from Leg Day preset.</li>
-          <li>Removed Karma Coin from the $400 candle in Rat Race and replaced with Heart.</li>
-          <li>Removed Unlocked Mode from Lucky Sevens.</li>
-          <li>Renamed Speedrun preset to Sequence Breaker.</li>
-          <li>Renamed Forge preset to Any Percent.</li>
-          <li>Corrected errors which prevented Rat Race and Sequence Breaker presets from appearing on the website.</li>
-          <li>Flight of wolf re-worked in Dog Life preset.</li>
-          <li>Removed squeak from big toss in Dog Life.</li>
-          <li>Removed multiple soft-locks in logic for Dog Life.</li>
-          <li>Tile / terrain updates for Dog Life for ease of movement.</li>
-          <li>Removed Enemy Stat Randomizer from Mobility preset.</li>
-          <li>Updated Glitchmaster preset scrawl.</li>
-          <li>Updated Glitch preset scrawl.</li>
-          <li>Reticulated Glitch logic splines.</li>
-          <h4>Extension Changes</h4>
-          <li>Renamed Wanderer locations extension to Extended.</li>
-          <li>Renamed Spread locations extension to Guarded<i>Plus</i>.</li>
-          <li>Renamed Tourist locations extension to Scenic.</li>
+          <li>eldri7ch used Bugfix against Glitch! It's not very effective...</li>
           <h4>Options Changes</h4>
-          <li>Added new Starting Zone randomizer allowing Alucard to start in different zones.</li>
-          <li>Corrected an error when trying to apply Shop Price Rando.</li>
-          <li>Corrected an error when assigning randomization display for Death.</li>
-          <li>Corrected an error when assigning randomization of attributes to Dracula.</li>
-          <li>Corrected an error when improperly clearing time attack in No Prologue Mode.</li>
-          <h4>Website Changes</h4>
-          <li>Set ground work for and started started website re-design.</li>
-          <li>Updated many option names on the website to be more aesthetic or descriptive.</li>
-          <li>Updated website to have the Meta Data information used for categorization and filtration (not implemented yet).</li>
+          <li>Separated out Item Name Randomization from Item Stat Randomizer.</li>
+          <h4>Accessibility / Quality of Life Changes</h4>
+          <li>Removed game freeze caused by using too many wing smashes through Rock Knights in Reverce Caverns</li>
         </ul>
         <a id="show-older" href="#older">Show older changes</a>
         <div id="older" class="hidden">
+          <h3><time>January 13, 2025</time></h3>
+          <ul>
+            <h4>Preset Changes</h4>
+            <li>Updated preset descriptions.</li>
+            <li>Removed boss room limitations for Cursed Night preset.</li>
+            <li>Added ability to use Heart Refresh for Cursed Night.</li>
+            <li>Added new starting equipment for Cursed Night.</li>
+            <li>Removed Coral Circlet from the Shop in Cursed Night.</li>
+            <li>Added Starting Room Randomization to Chaos-Lite preset.</li>
+            <li>Added Starting Room Randomization to Open preset.</li>
+            <li>Added 7 random relics to starting pool for Lucky Sevens preset.</li>
+            <li>Removed prologue for Lucky Sevens.</li>
+            <li>Removed remaining Bat relics from Leg Day preset.</li>
+            <li>Removed Karma Coin from the $400 candle in Rat Race and replaced with Heart.</li>
+            <li>Removed Unlocked Mode from Lucky Sevens.</li>
+            <li>Renamed Speedrun preset to Sequence Breaker.</li>
+            <li>Renamed Forge preset to Any Percent.</li>
+            <li>Corrected errors which prevented Rat Race and Sequence Breaker presets from appearing on the website.</li>
+            <li>Flight of wolf re-worked in Dog Life preset.</li>
+            <li>Removed squeak from big toss in Dog Life.</li>
+            <li>Removed multiple soft-locks in logic for Dog Life.</li>
+            <li>Tile / terrain updates for Dog Life for ease of movement.</li>
+            <li>Removed Enemy Stat Randomizer from Mobility preset.</li>
+            <li>Updated Glitchmaster preset scrawl.</li>
+            <li>Updated Glitch preset scrawl.</li>
+            <li>Reticulated Glitch logic splines.</li>
+            <h4>Extension Changes</h4>
+            <li>Renamed Wanderer locations extension to Extended.</li>
+            <li>Renamed Spread locations extension to Guarded<i>Plus</i>.</li>
+            <li>Renamed Tourist locations extension to Scenic.</li>
+            <h4>Options Changes</h4>
+            <li>Added new Starting Zone randomizer allowing Alucard to start in different zones.</li>
+            <li>Corrected an error when trying to apply Shop Price Rando.</li>
+            <li>Corrected an error when assigning randomization display for Death.</li>
+            <li>Corrected an error when assigning randomization of attributes to Dracula.</li>
+            <li>Corrected an error when improperly clearing time attack in No Prologue Mode.</li>
+            <h4>Website Changes</h4>
+            <li>Set ground work for and started started website re-design.</li>
+            <li>Updated many option names on the website to be more aesthetic or descriptive.</li>
+            <li>Updated website to have the Meta Data information used for categorization and filtration (not implemented yet).</li>
+          </ul>
           <h3><time>December 9, 2024</time></h3>
           <ul>
             <li>Added Dog Life Preset.</li>

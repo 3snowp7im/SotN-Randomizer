@@ -368,6 +368,12 @@
   }
 
   function statsChange() {
+    if (elems.stats.checked) {
+      elems.itemnamerandoMode.disabled = false
+    } else {
+      elems.itemnamerandoMode.checked = false
+      elems.itemnamerandoMode.disabled = true
+    }
     localStorage.setItem('stats', elems.stats.checked)
   }
 
@@ -1040,7 +1046,6 @@
     elems.mypurseMode.disabled = false
     elems.iwsMode.disabled = false
     elems.fastwarpMode.disabled = false
-    elems.itemnamerandoMode.disabled = false
     elems.noprologueMode.disabled = false
     elems.unlockedMode.disabled = false
     elems.surpriseMode.disabled = false
