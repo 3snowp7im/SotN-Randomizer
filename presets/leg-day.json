@@ -1962,5 +1962,10 @@
     "address": "0x507E8E0",
     "value": "0x0C03A11C",
     "comment": "Rev Outer Wall Door Fix"
+  }, {
+    "type": "char",
+    "address": "0x47D8FFC",
+    "value": "0x28",
+    "comment": "Shop Softlock Fix, for if you leave shop, menu, then backdash immediately"
   }]
 }
