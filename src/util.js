@@ -2563,6 +2563,11 @@ function hexValueToDamageString(hexValue) {
           randomize.push('ori')
         }
         delete options.startRoomRandoMode
+      } else if ('startRoomRando2ndMode' in options) { // randomize starting room 2nd castle - MottZilla
+        if (options.startRoomRando2ndMode) {
+          randomize.push('ori2')
+        }
+        delete options.startRoomRando2ndMode
       } else if ('debugMode' in options) { // Debug mode - eldrich
         if (options.debugMode) {
           randomize.push('D')
@@ -3809,6 +3814,7 @@ function hexValueToDamageString(hexValue) {
     enemyStatRandoMode,
     shopPriceRandoMode,
     startRoomRandoMode,
+    startRoomRando2ndMode,
     debugMode,
     writes,
   ) {
@@ -3850,6 +3856,7 @@ function hexValueToDamageString(hexValue) {
     this.enemyStatRandoMode = enemyStatRandoMode
     this.shopPriceRandoMode = shopPriceRandoMode
     this.startRoomRandoMode = startRoomRandoMode
+    this.startRoomRando2ndMode = startRoomRando2ndMode
     this.debugMode = debugMode
     if (writes) {
       this.writes = writes
@@ -4008,6 +4015,8 @@ function hexValueToDamageString(hexValue) {
     this.shopPriceRando = false
     // startRoomRando mode.
     this.startRoomRando = false
+    // startRoomRando2nd mode.
+    this.startRoomRando2nd = false
     // Debug mode.
     this.debug = false
     // Arbitrary writes.
@@ -4326,6 +4335,9 @@ function hexValueToDamageString(hexValue) {
     }
     if ('startRoomRandoMode' in json) {
       builder.startRoomRandoMode(json.startRoomRandoMode)
+    }
+    if ('startRoomRando2ndMode' in json) {
+      builder.startRoomRando2ndMode(json.startRoomRando2ndMode)
     }
     if ('writes' in json) {
       let lastAddress = 0
@@ -4652,6 +4664,9 @@ function hexValueToDamageString(hexValue) {
     }
     if ('startRoomRandoMode' in preset) {
       this.startRoomRando = preset.startRoomRandoMode
+    }
+    if ('startRoomRando2ndMode' in preset) {
+      this.startRoomRando2nd = preset.startRoomRando2ndMode
     }
     if ('writes' in preset) {
       this.writes = this.writes || []
@@ -5380,6 +5395,11 @@ function hexValueToDamageString(hexValue) {
     this.startRoomRando = enabled
   }
 
+  // Enable Starting Room Rando 2nd - MottZilla
+  PresetBuilder.prototype.startRoomRando2ndMode = function startRoomRando2ndMode(enabled) {
+    this.startRoomRando2nd = enabled
+  }
+
   // Write a character.
   PresetBuilder.prototype.writeChar = function writeChar(address, value) {
     if (value !== 'random' && value !== 'random1' && value !== 'random3' && value !== 'random10' && value !== 'random99') {
@@ -5691,6 +5711,7 @@ function hexValueToDamageString(hexValue) {
     const enemyStatRando = self.enemyStatRando
     const shopPriceRando = self.shopPriceRando
     const startRoomRando = self.startRoomRando
+    const startRoomRando2nd = self.startRoomRando2nd
     const debug = self.debug
     const writes = self.writes
     return new Preset(
@@ -5732,6 +5753,7 @@ function hexValueToDamageString(hexValue) {
       enemyStatRando,
       shopPriceRando,
       startRoomRando,
+      startRoomRando2nd,
       debug,
       writes,
     )
@@ -6415,7 +6437,7 @@ function hexValueToDamageString(hexValue) {
     return data
   }
 
-  function applyStartRoomRandoPatches(rng) {
+  function applyStartRoomRandoPatches(rng,options) {
     const startRoomData = constants.startRoomData
     const data = new checked()
     // Patch the shop prices being randomized
@@ -6423,13 +6445,91 @@ function hexValueToDamageString(hexValue) {
     let newWrite
     let randRoomId
     
-    randRoomId = Math.floor(rng() * Math.floor(startRoomData.length - 1))       // Select a starting room at random (Max43 - 1 = 42, the last room position in the table)
+    randRoomId = Math.floor(rng() * Math.floor(startRoomData.length))       // Select a starting room at random
 
+    // Debug Messages
+    if(options.startRoomRandoMode){
+      console.log("Starting Room Rando 1st Castle on!")
+    }
+
+    if(options.startRoomRando2ndMode){
+      console.log("Starting Room Rando 2nd Castle on!")
+    }
+
+    console.log("Last Room in Data is: id = " + startRoomData[Math.floor(0.999 * (startRoomData.length))].id + " : " + startRoomData[Math.floor(0.999 * (startRoomData.length))].comment)
+    // End of Debug Messages
+    
+    if(options.startRoomRandoMode && (options.startRoomRando2ndMode == undefined || options.startRoomRando2ndMode == false))        // 1st Castle Only
+    {
+      while(startRoomData[randRoomId].stage & 0x20)
+      {
+        randRoomId = Math.floor(rng() * Math.floor(startRoomData.length))   // Re-roll if Room is 2nd Castle but we did not choose to include it.
+      }
+    }
+
+    if(options.startRoomRando2ndMode && (options.startRoomRandoMode == undefined || options.startRoomRandoMode == false))        // 2nd Castle Only
+    {
+      while( (startRoomData[randRoomId].stage & 0x20) == 0)
+      {
+        randRoomId = Math.floor(rng() * Math.floor(startRoomData.length))   // Re-roll if Room is 1st Castle but we did not choose to include it.
+      }
+    }
+    
+    // Old debug code
     /*while(startRoomData[randRoomId].id === undefined | startRoomData[randRoomId].xyWrite === undefined
       | startRoomData[randRoomId].roomWrite === undefined | startRoomData[randRoomId].stageWrite === undefined
     ){
       randRoomId = Math.floor(rng() * Math.floor(startRoomData.length - 1))     // re-roll undefined seeds
     }*/
+
+    // 2nd Castle Use Gravity Boots & Leap Stone until leaving patch by: MottZilla
+    // Basic operation:
+    // Hooks check for relic when using gravity boots/leap stone so we can add another condition
+    // If Zone == 2nd Castle and Two specific Map tiles have not been visited, behave as though we have the relic.
+    // The two map tiles are the Keep Teleporter and the Library Card destination tile.
+    if(options.startRoomRando2ndMode)
+    {
+      offset = 0xF0230                            // Code Block
+      offset = data.writeWord(offset,0x3C028009)
+      offset = data.writeWord(offset,0x8C4274A0)
+      offset = data.writeWord(offset,0x00000000)
+      offset = data.writeWord(offset,0x30420020)
+      offset = data.writeWord(offset,0x1040000E)
+      offset = data.writeWord(offset,0x00000000)
+      offset = data.writeWord(offset,0x3C028007)
+      offset = data.writeWord(offset,0x9042BBFB)
+      offset = data.writeWord(offset,0x00000000)
+      offset = data.writeWord(offset,0x14400009)
+      offset = data.writeWord(offset,0x00000000)
+      offset = data.writeWord(offset,0x3C028007)
+      offset = data.writeWord(offset,0x9042BCC0)
+      offset = data.writeWord(offset,0x00000000)
+      offset = data.writeWord(offset,0x14400004)
+      offset = data.writeWord(offset,0x00000000)
+      offset = data.writeWord(offset,0x34020001)
+      offset = data.writeWord(offset,0x03E00008)
+      offset = data.writeWord(offset,0x00000000)
+      offset = data.writeWord(offset,0x0803F8EA)
+      offset = data.writeWord(offset,0x00000000)
+  
+      // Hooks
+      offset = 0x12C7B0
+      data.writeShort(offset,0x6E6E)
+      offset = 0x12CB00
+      data.writeShort(offset,0x6E6E)
+      // Disable Richter Cutscene
+      offset = 0x5641220
+      offset = data.writeWord(offset,0x34020001)
+      offset = data.writeWord(offset,0x00000000)
+
+      // Patch Zone with Hatch Entity (required for 2nd to work)
+      offset = 0x4BA934C
+      offset = data.writeWord(offset,0x34040020)  // mov r4,20h
+      offset = data.writeWord(offset,0x3C058009)  // mov r5,80090000h
+      offset = data.writeWord(offset,0xACA474A0)  // mov [r5+74a0h],r4
+      offset = data.writeWord(offset,0x0806E92B)  // jmp 801BA4ACh
+      offset = data.writeWord(offset,0x00000000)  // nop
+    }
 
     offset = 0x4b6ab0c
     offset = data.writeWord(offset,0x28042804)                                  // Setting up the CD room
@@ -6444,23 +6544,23 @@ function hexValueToDamageString(hexValue) {
     offset = data.writeChar(offset,0x41)
     data.writeChar(offset,0x64)
 
-    console.log(randRoomId + ", " + startRoomData[randRoomId].id + startRoomData[randRoomId].comment)
+    console.log("randRoomId = " + randRoomId + ", Room id = " + startRoomData[randRoomId].id + " Desc:" + startRoomData[randRoomId].comment)
 
     offset = 0xae95c                                                            // change the destination
     newWrite = startRoomData[randRoomId].xyWrite                                // Write X,Y Position
     offset = data.writeWord(offset,newWrite)
 
-    console.log(numToHex(newWrite,8))
+    //console.log(numToHex(newWrite,8))
 
     newWrite = startRoomData[randRoomId].roomWrite                              // Write Rooms Used
     offset = data.writeWord(offset,newWrite)
 
-    console.log(numToHex(newWrite,8))
+    //console.log(numToHex(newWrite,8))
 
     newWrite = startRoomData[randRoomId].stageWrite                             // Write destination stage Used
     offset = data.writeShort(offset,newWrite)
 
-    console.log(numToHex(newWrite,4))
+    //console.log(numToHex(newWrite,4))
 
     if(startRoomData[randRoomId].stageWrite === 0x03 | startRoomData[randRoomId].stageWrite === 0x05) {
       offset = 0x45f55a2                                                        // Solve soft lock if player starts near Room 0 in Abandoned Mines

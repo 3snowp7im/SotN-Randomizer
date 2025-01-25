@@ -258,6 +258,7 @@
       elems.enemyStatRandoMode.checked = !!options.enemyStatRandoMode
       elems.shopPriceRandoMode.checked = !!options.shopPriceRandoMode
       elems.startRoomRandoMode.checked = !!options.startRoomRandoMode
+      elems.startRoomRando2ndMode.checked = !!options.startRoomRando2ndMode
     }
   }
 
@@ -469,6 +470,10 @@
     localStorage.setItem('startRoomRandoMode', elems.startRoomRandoMode.checked)
   }
 
+  function startRoomRando2ndModeChange() {
+    localStorage.setItem('startRoomRando2ndMode', elems.startRoomRando2ndMode.checked)
+  }
+
   function accessibilityPatchesChange() {
     localStorage.setItem('accessibilityPatches', elems.accessibilityPatches.checked)
   }
@@ -653,6 +658,9 @@
       if (elems.startRoomRandoMode.checked) {
         options.startRoomRandoMode = true
       }
+      if (elems.startRoomRando2ndMode.checked) {
+        options.startRoomRando2ndMode = true
+      }
       return options
     }
     const options = {
@@ -679,6 +687,7 @@
       enemyStatRandoMode: elems.enemyStatRandoMode.checked,
       shopPriceRandoMode: elems.shopPriceRandoMode.checked,
       startRoomRandoMode: elems.startRoomRandoMode.checked,
+      startRoomRando2ndMode: elems.startRoomRando2ndMode.checked,
     }
     if (elems.enemyDropsArg.value) {
       options.enemyDrops = util.optionsFromString(
@@ -929,8 +938,8 @@
           check.apply(util.applyShopPriceRandoPatches(rng))
         }
         // Apply starting room rando patches.
-        if (options.startRoomRandoMode || applied.startRoomRandoMode) {
-          check.apply(util.applyStartRoomRandoPatches(rng))
+        if (options.startRoomRandoMode || applied.startRoomRandoMode || options.startRoomRando2ndMode || applied.startRoomRando2ndMode) {
+          check.apply(util.applyStartRoomRandoPatches(rng,options))
         }
         // Apply writes.
         check.apply(util.applyWrites(rng, applied))
@@ -1047,6 +1056,7 @@
     elems.enemyStatRandoMode.disabled = false
     elems.shopPriceRandoMode.disabled = false
     elems.startRoomRandoMode.disabled = false
+    elems.startRoomRando2ndMode.disabled = false
     elems.tournamentMode.disabled = false
     elems.clear.classList.add('hidden')
     presetChange()
@@ -1204,6 +1214,7 @@
     enemyStatRandoMode: document.getElementById('enemyStatRando-mode'),
     shopPriceRandoMode: document.getElementById('shopPriceRando-mode'),
     startRoomRandoMode: document.getElementById('startRoomRando-mode'),
+    startRoomRando2ndMode: document.getElementById('startRoomRando2nd-mode'),
     accessibilityPatches: document.getElementById('accessibility-patches'),
     showSpoilers: document.getElementById('show-spoilers'),
     showRelics: document.getElementById('show-relics'),
@@ -1278,6 +1289,7 @@
   elems.enemyStatRandoMode.addEventListener('change', enemyStatRandoModeChange)
   elems.shopPriceRandoMode.addEventListener('change', shopPriceRandoModeChange)
   elems.startRoomRandoMode.addEventListener('change', startRoomRandoModeChange)
+  elems.startRoomRando2ndMode.addEventListener('change', startRoomRando2ndModeChange)
   elems.accessibilityPatches.addEventListener('change', accessibilityPatchesChange)
   elems.showSpoilers.addEventListener('change', spoilersChange)
   elems.showRelics.addEventListener('change', showRelicsChange)
@@ -1596,6 +1608,7 @@
   loadOption('enemyStatRandoMode', enemyStatRandoModeChange, false)
   loadOption('shopPriceRandoMode', shopPriceRandoModeChange, false)
   loadOption('startRoomRandoMode', startRoomRandoModeChange, false)
+  loadOption('startRoomRando2ndMode', startRoomRando2ndModeChange, false)
   loadOption('accessibilityPatches', accessibilityPatchesChange, true)
   loadOption('showSpoilers', spoilersChange, true)
   setTimeout(function() {
