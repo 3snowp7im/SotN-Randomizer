@@ -636,6 +636,11 @@ const yargs = require('yargs')
     describe: 'Start in the entrance as usual but after the first Warg, you are teleported to a random zone to start the rest of your run.',
     type: 'boolean',
   })
+  .option('startRoomRando2nd', {
+    alias: 'ori2',
+    describe: 'Start in the entrance as usual but after the first Warg, you are teleported to a random zone to start the rest of your run.',
+    type: 'boolean',
+  })
   .option('debug', {
     alias: 'D',
     describe: 'Debug mode.',
@@ -1086,6 +1091,11 @@ if ('debug' in argv) {console.log('randomize | Set startRoomRando')}
 if (argv.startRoomRando) { // randomizes starting room - eldrich
   options.startRoomRandoMode = true
 }
+if ('debug' in argv) {console.log('randomize | Set startRoomRando2nd')}
+// Enable Starting Room Rando 2nd Castle mode if specified. - eldri7ch
+if (argv.startRoomRando2nd) { // randomizes starting room - eldrich
+  options.startRoomRando2ndMode = true
+}
 if ('debug' in argv) {console.log('randomize | Set map colors')}
 // Map Color Features if specified. - eldri7ch
 if ('mapcolor' in argv && typeof(argv.mapcolor) !== 'undefined') {
@@ -1340,7 +1350,7 @@ if ('debug' in argv) {console.log('randomize | Start randomization')}
         }
         if ('debug' in argv) {console.log('randomize | function: randomize | Shop Price Randomizer Mode | ' + optFlag)}
         optFlag = false
-        if (options.startRoomRandoMode || applied.startRoomRandoMode) { // Randomizes starting room - eldrich
+        if (options.startRoomRandoMode || applied.startRoomRandoMode || options.startRoomRando2ndMode || applied.startRoomRando2ndMode) { // Randomizes starting room - eldrich & MottZilla
           // Apply starting room Rando mode patches. - eldri7ch
           optFlag = true
           rng = new require('seedrandom')(util.saltSeed(
@@ -1349,7 +1359,7 @@ if ('debug' in argv) {console.log('randomize | Start randomization')}
             seed,
             0,
           ))
-          check.apply(util.applyStartRoomRandoPatches(rng))
+          check.apply(util.applyStartRoomRandoPatches(rng,options))
         }
         if ('debug' in argv) {console.log('randomize | function: randomize | Starting Room Randomizer Mode | ' + optFlag)}
         optFlag = false

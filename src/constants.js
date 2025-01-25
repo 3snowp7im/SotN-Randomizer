@@ -1456,7 +1456,37 @@
       xyWrite: 0x013400d8,
       roomWrite: 0x00410050,
       stageWrite: 0x000d
-    } 
+    }, {
+      id: 45,                                 // IMPORTANT CASTLE 2 NOTES: stage number must be correct, but stageWrite should mask off bit 0x20.
+      comment: "Castle 2 Alucart (test)",
+      stage: 0x20,                                                                 // Black Marble Gallery
+      room: 0xE,
+      xPos: 128,
+      yPos: 128,
+      xyWrite: 0x00800080,
+      roomWrite: 0x00410070,
+      stageWrite: 0x0000    // Castle 2 Stage Numbers should mask off the 0x20 bit.
+    }, {
+      id: 46,
+      comment: "Castle 2 outer wall (test)",
+      stage: 0x21,                                                                 // outer wall
+      room: 1,
+      xPos: 128,
+      yPos: 128,
+      xyWrite: 0x00800080,
+      roomWrite: 0x00410008,
+      stageWrite: 0x0001
+    }, {
+      id: 47,
+      comment: "Castle 2 library (test)",
+      stage: 0x22,                                                                 // library
+      room: 1,
+      xPos: 128,
+      yPos: 128,
+      xyWrite: 0x00800080,
+      roomWrite: 0x00410008,
+      stageWrite: 0x0002
+    }
   ]
 
   const adjectivesNormal = [
