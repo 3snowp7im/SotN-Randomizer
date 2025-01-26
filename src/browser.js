@@ -207,19 +207,25 @@
     } else {
       elems.antiFreezeMode.disabled = false
     }
-    if (preset.id == "boss-rush") {                                                                 // Remove starting room rando and unlocked mode if the preset is Boss Rush - eldri7ch
-      elems.startRoomRandoMode.checked = false
+    if (preset.id == "dog-life" || preset.id == "magic-mirror" || preset.id == "mobility" || preset.id == "looking-glass" || preset.id == "boss-rush" || preset.id == "beyond") {                                                                  // Remove 2nd castle Starting room Rando if the preset is Dog-Life. - crazy4blades
       elems.startRoomRando2ndMode.checked = false
-      elems.startRoomRandoMode.disabled = true
       elems.startRoomRando2ndMode.disabled = true
+    } else {
+      elems.startRoomRando2ndMode.disabled = false
+    }
+    if (preset.id == "boss-rush" || preset.id == "beyond") {                                                                 // Remove starting room rando and unlocked mode if the preset is Boss Rush - eldri7ch
+      elems.startRoomRandoMode.checked = false
+      elems.startRoomRandoMode.disabled = true
+    } else {
+      elems.startRoomRandoMode.disabled = false
+    }
+    if (preset.id == "boss-rush") {
       elems.unlockedMode.checked = false
       elems.unlockedMode.disabled = true
     } else {
-      elems.startRoomRandoMode.disabled = false
-      elems.startRoomRando2ndMode.disabled = false
       elems.unlockedMode.disabled = false
     }
-    if (elems.preset.checked) {
+        if (elems.preset.checked) {
       const options = preset.options()
       let complexity = 1
       Object.getOwnPropertyNames(options.relicLocations).forEach(  
