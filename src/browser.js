@@ -207,17 +207,29 @@
     } else {
       elems.antiFreezeMode.disabled = false
     }
-    if (preset.id == "boss-rush") {                                                                 // Remove starting room rando and unlocked mode if the preset is Boss Rush - eldri7ch
+    if (preset.id == "dog-life" || preset.id == "magic-mirror" || preset.id == "mobility" || preset.id == "lookingglass" || preset.id == "boss-rush" || preset.id == "beyond") {                                                                  // Remove 2nd castle Starting room Rando if the preset is Dog-Life. - crazy4blades
+      elems.startRoomRando2ndMode.checked = false                                                   // Remove 2nd castle starting room rando for listed presets. - crazy4blades
+      elems.startRoomRando2ndMode.disabled = true                                                   // Dog Life, Magic Mirror, Mobility, Looking Glass, Boss Rush and Beyond
+    } else {
+      elems.startRoomRando2ndMode.disabled = false
+    }
+    if (preset.id == "boss-rush" || preset.id == "beyond") {                                        // Remove starting room rando if the preset is Boss Rush or Beyond- eldri7ch
       elems.startRoomRandoMode.checked = false
-      elems.startRoomRando2ndMode.checked = false
       elems.startRoomRandoMode.disabled = true
-      elems.startRoomRando2ndMode.disabled = true
+    } else {
+      elems.startRoomRandoMode.disabled = false
+    }
+    if (preset.id == "boss-rush") {                                                                 // Remove unlocked mode if the the preset is Boss Rush. - crazy4blades
       elems.unlockedMode.checked = false
       elems.unlockedMode.disabled = true
     } else {
-      elems.startRoomRandoMode.disabled = false
-      elems.startRoomRando2ndMode.disabled = false
       elems.unlockedMode.disabled = false
+    }
+    if (preset.id == "big-toss") {                                                                  // Remove ESR from Big Toss because that may cause conflicts with how damage is handled. - eldri7ch
+      elems.enemyStatRandoMode.checked = false
+      elems.enemyStatRandoMode.disabled = true
+    } else {
+      elems.enemyStatRandoMode.disabled = false
     }
     if (elems.preset.checked) {
       const options = preset.options()

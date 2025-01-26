@@ -1589,12 +1589,23 @@
     // get a recolored wing smash outline and will instead get an ugly rectangle, since all the pixels
     // that are supposed to be transparent won't be. These CLUTS were identified by python script as having
     // a non-transparent index 0. If we get one of them, we will re-roll the palette.
-    const bad_cluts = [11, 12, 58, 59, 60, 61, 62, 63, 69, 70, 71, 73, 74, 75, 76, 77, 78, 79, 81, 82, 83, 84, 85, 86, 87]
+
+    // Dev note: The bad palettes were not "removed" by that Python script. This has been revised to use a 
+    // combination of the two methods. -eldri7ch
+    const good_cluts = [0, 1, 3, 4, 5, 6, 7, 9, 13, 28, 40, 80, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 
+      99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 118, 129, 130, 131, 132, 133, 134,
+       135, 136, 151, 152, 154, 156, 160, 163, 168, 174, 241, 242, 243, 245, 249, 254]
     var newPalette
-    do {
-      newPalette = Math.floor(rng() * 0x100)
-    } while (bad_cluts.includes(newPalette))
-    data.writeChar(0x13CAA0, newPalette)
+    var newOutline
+    
+    newPalette = Math.floor(rng() * 0x100)
+    newOutline = Math.floor(rng() * 0x10000)
+
+    if (good_cluts.includes(newPalette)) {
+      data.writeChar(0x13caa0, newPalette)    // define new palette if it's a good palette
+    } else {
+      data.writeShort(0xef990, newOutline)    // otherwise use a new color for the outline
+    }
   }
   
   function randomizeItems(rng, items, newNames, options) {
