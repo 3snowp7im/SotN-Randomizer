@@ -183,12 +183,12 @@
     }
   }
 
-  function presetIdChange() {                                                     //auto checks modes and options that presets use
-    const id = elems.presetId.childNodes[elems.presetId.selectedIndex].value      //
-    const preset = presets.filter(function(preset) {                              // 
-      return preset.id === id                                                     //
-    }).pop()                                                                      //
-    elems.presetDescription.innerText = preset.description                        //
+  function presetIdChange() {                                                                       // auto checks modes and options that presets use
+    const id = elems.presetId.childNodes[elems.presetId.selectedIndex].value
+    const preset = presets.filter(function(preset) {
+      return preset.id === id
+    }).pop()
+    elems.presetDescription.innerText = preset.description                                          // setting metadata exposition for the user - eldri7ch
     elems.presetAuthor.innerText = preset.author 
     elems.presetKnowledgeCheck.innerText = preset.knowledgeCheck
     elems.presetExtension.innerText = preset.metaExtension
@@ -199,14 +199,32 @@
     elems.presetCastleType.innerText = preset.castleType
     elems.presetTransformEarly.innerText = preset.transformEarly
     elems.presetTransformFocus.innerText = preset.transformFocus
-    elems.presetWinCondition.innerText = preset.winCondition                      //  
-    localStorage.setItem('presetId', preset.id)  
-    if (elems.preset.checked) {                                                   //
-      const options = preset.options()                                            //
-      let complexity = 1                                                          //
-      Object.getOwnPropertyNames(options.relicLocations).forEach(                 //  
-        function(key) {                                                           //
-          if (/^[0-9]+(-[0-9]+)?/.test(key)) {                                    //  
+    elems.presetWinCondition.innerText = preset.winCondition
+    localStorage.setItem('presetId', preset.id) 
+    if (preset.id == "glitch" || preset.id == "glitchmaster" || preset.id == "any-percent") {       // Remove anti-freeze mode if the preset is a Glitch preset. - eldri7ch
+      elems.antiFreezeMode.checked = false
+      elems.antiFreezeMode.disabled = true
+    } else {
+      elems.antiFreezeMode.disabled = false
+    }
+    if (preset.id == "boss-rush") {                                                                 // Remove starting room rando and unlocked mode if the preset is Boss Rush - eldri7ch
+      elems.startRoomRandoMode.checked = false
+      elems.startRoomRando2ndMode.checked = false
+      elems.startRoomRandoMode.disabled = true
+      elems.startRoomRando2ndMode.disabled = true
+      elems.unlockedMode.checked = false
+      elems.unlockedMode.disabled = true
+    } else {
+      elems.startRoomRandoMode.disabled = false
+      elems.startRoomRando2ndMode.disabled = false
+      elems.unlockedMode.disabled = false
+    }
+    if (elems.preset.checked) {
+      const options = preset.options()
+      let complexity = 1
+      Object.getOwnPropertyNames(options.relicLocations).forEach(  
+        function(key) {
+          if (/^[0-9]+(-[0-9]+)?/.test(key)) {  
             complexity = key.split('-').shift()                                 
           }
         }
