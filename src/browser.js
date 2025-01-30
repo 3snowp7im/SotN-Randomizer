@@ -19,6 +19,7 @@
   let downloadReady
   let selectedFile
   let version
+  let mapColorLock
 
   const safe = presets.filter(function(preset) {
     return preset.id === 'safe'
@@ -429,6 +430,11 @@
     }
   }
 
+  function mapColorChange() {
+    localStorage.setItem('mapColor', elems.mapColor.value)
+    mapColorLock = elems.mapColor.value
+  }
+
   function appendSeedChange() {
     localStorage.setItem('appendSeed', elems.appendSeed.checked)
   }
@@ -696,6 +702,41 @@
       }
       if (elems.startRoomRando2ndMode.checked) {
         options.startRoomRando2ndMode = true
+      }
+      if (elems.mapColor != 'normal') {
+        switch (elems.mapColor.value){
+          case 'normal':
+            break
+          case 'blue':
+            mapColorTheme = 'u'
+            break
+          case 'green':
+            mapColorTheme = 'g'
+            break
+          case 'red':
+            mapColorTheme = 'r'
+            break
+          case 'brown':
+            mapColorTheme = 'n'
+            break
+          case 'purple':
+            mapColorTheme = 'p'
+            break
+          case 'grey':
+            mapColorTheme = 'y'
+            break
+          case 'pink':
+            mapColorTheme = 'k'
+            break
+          case 'black':
+            mapColorTheme = 'b'
+            break
+          case 'invis':
+            mapColorTheme = 'i'
+            break
+          default:
+            break
+        }
       }
       return options
     }
@@ -977,6 +1018,51 @@
         if (options.startRoomRandoMode || applied.startRoomRandoMode || options.startRoomRando2ndMode || applied.startRoomRando2ndMode) {
           check.apply(util.applyStartRoomRandoPatches(rng,options))
         }
+        // Apply map color patches.
+        if (mapColorLock != 'normal') {
+          switch (mapColorLock){
+            case 'normal':
+              break
+            case 'blue':
+              mapcol = 'u'
+              check.apply(util.applyMapColor(mapcol))
+              break
+            case 'green':
+              mapcol = 'g'
+              check.apply(util.applyMapColor(mapcol))
+              break
+            case 'red':
+              mapcol = 'r'
+              check.apply(util.applyMapColor(mapcol))
+              break
+            case 'brown':
+              mapcol = 'n'
+              check.apply(util.applyMapColor(mapcol))
+              break
+            case 'purple':
+              mapcol = 'p'
+              check.apply(util.applyMapColor(mapcol))
+              break
+            case 'grey':
+              mapcol = 'y'
+              check.apply(util.applyMapColor(mapcol))
+              break
+            case 'pink':
+              mapcol = 'k'
+              check.apply(util.applyMapColor(mapcol))
+              break
+            case 'black':
+              mapcol = 'b'
+              check.apply(util.applyMapColor(mapcol))
+              break
+            case 'invis':
+              mapcol = 'i'
+              check.apply(util.applyMapColor(mapcol))
+              break
+            default:
+              break
+          }
+        }
         // Apply writes.
         check.apply(util.applyWrites(rng, applied))
         util.setSeedText(
@@ -1234,6 +1320,7 @@
     turkeyMode: document.getElementById('turkey-mode'),
     clear: document.getElementById('clear'),
     theme: document.getElementById('theme'),
+    mapColor: document.getElementById('mapColor'),
     appendSeed: document.getElementById('append-seed'),
     tournamentMode: document.getElementById('tournament-mode'),
     colorrandoMode: document.getElementById('colorrando-mode'),
@@ -1309,6 +1396,7 @@
   elems.turkeyMode.addEventListener('change', turkeyModeChange)
   elems.clear.addEventListener('click', clearHandler)
   elems.theme.addEventListener('change', themeChange)
+  elems.mapColor.addEventListener('change', mapColorChange)
   elems.appendSeed.addEventListener('change', appendSeedChange)
   elems.tournamentMode.addEventListener('change', tournamentModeChange)
   elems.colorrandoMode.addEventListener('change', colorrandoModeChange)
@@ -1626,6 +1714,7 @@
   }
   outputChange()
   loadOption('theme', themeChange, 'menu')
+  loadOption('mapColor', mapColorChange, 'menu')
   loadOption('appendSeed', appendSeedChange, true)
   loadOption('showSolutions', showSolutionsChange, false)
   loadOption('showRelics', showRelicsChange, false)
