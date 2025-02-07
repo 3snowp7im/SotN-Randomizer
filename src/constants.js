@@ -1597,16 +1597,6 @@
       stageWrite: 0x0006
     }, {
       id: 59,
-      comment: "Anti-Chapel (Tower)",
-      stage: 0x26,
-      room: 14,
-      xPos: 552,
-      yPos: 256,
-      xyWrite: 0x01000228,
-      roomWrite: 0x00410070,
-      stageWrite: 0x0006
-    }, {
-      id: 60,
       comment: "Reverse Entrance (Gate)",
       stage: 0x27,
       room: 0,
@@ -1616,7 +1606,7 @@
       roomWrite: 0x00410000,
       stageWrite: 0x0007
     }, {
-      id: 61,
+      id: 60,
       comment: "Reverse Entrance (Caverns Shortcut)",
       stage: 0x27,
       room: 10,
@@ -1626,7 +1616,7 @@
       roomWrite: 0x00410050,
       stageWrite: 0x0007
     }, {
-      id: 62,
+      id: 61,
       comment: "Reverse Entrance (Talisman)",
       stage: 0x27,
       room: 17,
@@ -1636,7 +1626,7 @@
       roomWrite: 0x00410088,
       stageWrite: 0x0007
     }, {
-      id: 63,
+      id: 62,
       comment: "Reverce Caverns (Peanuts)",
       stage: 0x29,
       room: 37,
@@ -1646,7 +1636,7 @@
       roomWrite: 0x00410128,
       stageWrite: 0x0009
     }, {
-      id: 64,
+      id: 63,
       comment: "Reverce Caverns (Imp Room)",
       stage: 0x29,
       room: 4,
@@ -1656,7 +1646,7 @@
       roomWrite: 0x00410020,
       stageWrite: 0x0009
     }, {
-      id: 65,
+      id: 64,
       comment: "Reverce Caverns (Garnet)",
       stage: 0x29,
       room: 17,
@@ -1666,7 +1656,7 @@
       roomWrite: 0x00410088,
       stageWrite: 0x0009
     }, {
-      id: 66,
+      id: 65,
       comment: "Reverse Colosseum (Gram)",
       stage: 0x2a,
       room: 10,
@@ -1676,7 +1666,7 @@
       roomWrite: 0x00410050,
       stageWrite: 0x000a
     }, {
-      id: 67,
+      id: 66,
       comment: "Reverse Colosseum (Zircon)",
       stage: 0x2a,
       room: 12,
@@ -1686,7 +1676,7 @@
       roomWrite: 0x00410060,
       stageWrite: 0x000a
     }, {
-      id: 68,
+      id: 67,
       comment: "Reverse Keep (High Potion)",
       stage: 0x2b,
       room: 3,
@@ -1696,7 +1686,7 @@
       roomWrite: 0x00410018,
       stageWrite: 0x000b
     }, {
-      id: 69,
+      id: 68,
       comment: "Reverse Keep (Lightning Mail)",
       stage: 0x2b,
       room: 8,
@@ -1706,7 +1696,7 @@
       roomWrite: 0x00410040,
       stageWrite: 0x000b
     }, {
-      id: 70,
+      id: 69,
       comment: "Necromancy Laboratory (Reverse Skill of Wolf)",
       stage: 0x2c,
       room: 8,
@@ -1716,7 +1706,7 @@
       roomWrite: 0x00410040,
       stageWrite: 0x000c
     }, {
-      id: 71,
+      id: 70,
       comment: "Necromancy Laboratory (Goddess Shield)",
       stage: 0x2c,
       room: 6,
@@ -1726,7 +1716,7 @@
       roomWrite: 0x00410030,
       stageWrite: 0x000c
     }, {
-      id: 72,
+      id: 71,
       comment: "Necromancy Laboratory (Jewel Door Hall)",
       stage: 0x2c,
       room: 2,
@@ -1736,7 +1726,7 @@
       roomWrite: 0x00410010,
       stageWrite: 0x000c
     }, {
-      id: 73,
+      id: 72,
       comment: "Reverse Clock Tower (Dragon Helm)",
       stage: 0x2d,
       room: 12,
@@ -1746,7 +1736,7 @@
       roomWrite: 0x00410060,
       stageWrite: 0x000d
     }, {
-      id: 74,
+      id: 73,
       comment: "Reverse Clock Tower (Maze Room)",
       stage: 0x2d,
       room: 3,
