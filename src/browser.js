@@ -202,31 +202,32 @@
     elems.presetTransformFocus.innerText = preset.transformFocus
     elems.presetWinCondition.innerText = preset.winCondition
     localStorage.setItem('presetId', preset.id) 
-    if (preset.id == "glitch" || preset.id == "glitchmaster" || preset.id == "any-percent") {       // Remove anti-freeze mode if the preset is a Glitch preset. - eldri7ch
+    if (["glitch" , "glitchmaster" , "any-percent"].includes(preset.id)) {                          // Remove anti-freeze mode if the preset is a Glitch preset. - eldri7ch
       elems.antiFreezeMode.checked = false
       elems.antiFreezeMode.disabled = true
     } else {
       elems.antiFreezeMode.disabled = false
     }
-    if (preset.id == "dog-life" || preset.id == "magic-mirror" || preset.id == "mobility" || preset.id == "lookingglass" || preset.id == "boss-rush" || preset.id == "beyond") {                                                                  // Remove 2nd castle Starting room Rando if the preset is Dog-Life. - crazy4blades
+    if (["dog-life" , "magic-mirror" , "mobility" , "lookingglass", "boss-rush", "beyond"].includes(preset.id)) { 
       elems.startRoomRando2ndMode.checked = false                                                   // Remove 2nd castle starting room rando for listed presets. - crazy4blades
       elems.startRoomRando2ndMode.disabled = true                                                   // Dog Life, Magic Mirror, Mobility, Looking Glass, Boss Rush and Beyond
     } else {
       elems.startRoomRando2ndMode.disabled = false
     }
-    if (preset.id == "boss-rush" || preset.id == "beyond") {                                        // Remove starting room rando if the preset is Boss Rush or Beyond- eldri7ch
+
+    if (["boss-rush", "beyond"].includes(preset.id)) {
       elems.startRoomRandoMode.checked = false
       elems.startRoomRandoMode.disabled = true
     } else {
       elems.startRoomRandoMode.disabled = false
     }
-    if (preset.id == "boss-rush") {                                                                 // Remove unlocked mode if the the preset is Boss Rush. - crazy4blades
+    if (["boss-rush"].includes(preset.id)) { 
       elems.unlockedMode.checked = false
       elems.unlockedMode.disabled = true
     } else {
       elems.unlockedMode.disabled = false
     }
-    if (preset.id == "big-toss") {                                                                  // Remove ESR from Big Toss because that may cause conflicts with how damage is handled. - eldri7ch
+    if (["big-toss"].includes(preset.id)) {
       elems.enemyStatRandoMode.checked = false
       elems.enemyStatRandoMode.disabled = true
     } else {
