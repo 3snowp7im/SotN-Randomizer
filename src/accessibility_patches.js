@@ -116,6 +116,11 @@
     data.writeShort(0x52BD56C,0xD6E0)  // Change Allocation Range
   }
 
+  // Prevent Negative Luck Critical Hit from crashing/hanging the game. - MottZilla
+  function patchLuckCriticalCrash(data) {
+    data.writeWord(0x119090,0x00000000)
+  }
+
   function applyAccessibilityPatches() {
     const data = new util.checked()
     patchPowerOfSireFlashing(data)
@@ -130,6 +135,7 @@
     patchClockRoom(data)
     patchClearGame(data)
     patchRockKnightRoom(data)
+    patchLuckCriticalCrash(data)
     return data
   }
 

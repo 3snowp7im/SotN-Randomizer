@@ -6448,15 +6448,15 @@ function hexValueToDamageString(hexValue) {
     randRoomId = Math.floor(rng() * Math.floor(startRoomData.length))       // Select a starting room at random
 
     // Debug Messages
-    if(options.startRoomRandoMode){
-      console.log("Starting Room Rando 1st Castle on!")
-    }
+    // if(options.startRoomRandoMode){
+    //   console.log("Starting Room Rando 1st Castle on!")
+    // }
 
-    if(options.startRoomRando2ndMode){
-      console.log("Starting Room Rando 2nd Castle on!")
-    }
+    // if(options.startRoomRando2ndMode){
+    //   console.log("Starting Room Rando 2nd Castle on!")
+    // }
 
-    console.log("Last Room in Data is: id = " + startRoomData[Math.floor(0.999 * (startRoomData.length))].id + " : " + startRoomData[Math.floor(0.999 * (startRoomData.length))].comment)
+    // console.log("Last Room in Data is: id = " + startRoomData[Math.floor(0.999 * (startRoomData.length))].id + " : " + startRoomData[Math.floor(0.999 * (startRoomData.length))].comment)
     // End of Debug Messages
     
     if(options.startRoomRandoMode && (options.startRoomRando2ndMode == undefined || options.startRoomRando2ndMode == false))        // 1st Castle Only
