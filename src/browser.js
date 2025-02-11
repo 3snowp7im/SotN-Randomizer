@@ -19,6 +19,7 @@
   let downloadReady
   let selectedFile
   let version
+  let mapColorLock
 
   const safe = presets.filter(function(preset) {
     return preset.id === 'safe'
@@ -183,12 +184,12 @@
     }
   }
 
-  function presetIdChange() {                                                     //auto checks modes and options that presets use
-    const id = elems.presetId.childNodes[elems.presetId.selectedIndex].value      //
-    const preset = presets.filter(function(preset) {                              // 
-      return preset.id === id                                                     //
-    }).pop()                                                                      //
-    elems.presetDescription.innerText = preset.description                        //
+  function presetIdChange() {                                                                       // auto checks modes and options that presets use
+    const id = elems.presetId.childNodes[elems.presetId.selectedIndex].value
+    const preset = presets.filter(function(preset) {
+      return preset.id === id
+    }).pop()
+    elems.presetDescription.innerText = preset.description                                          // setting metadata exposition for the user - eldri7ch
     elems.presetAuthor.innerText = preset.author 
     elems.presetKnowledgeCheck.innerText = preset.knowledgeCheck
     elems.presetExtension.innerText = preset.metaExtension
@@ -199,14 +200,45 @@
     elems.presetCastleType.innerText = preset.castleType
     elems.presetTransformEarly.innerText = preset.transformEarly
     elems.presetTransformFocus.innerText = preset.transformFocus
-    elems.presetWinCondition.innerText = preset.winCondition                      //  
-    localStorage.setItem('presetId', preset.id)  
-    if (elems.preset.checked) {                                                   //
-      const options = preset.options()                                            //
-      let complexity = 1                                                          //
-      Object.getOwnPropertyNames(options.relicLocations).forEach(                 //  
-        function(key) {                                                           //
-          if (/^[0-9]+(-[0-9]+)?/.test(key)) {                                    //  
+    elems.presetWinCondition.innerText = preset.winCondition
+    localStorage.setItem('presetId', preset.id) 
+    if (["glitch" , "glitchmaster" , "any-percent"].includes(preset.id)) {                          // Remove anti-freeze mode if the preset is a Glitch preset. - eldri7ch
+      elems.antiFreezeMode.checked = false
+      elems.antiFreezeMode.disabled = true
+    } else {
+      elems.antiFreezeMode.disabled = false
+    }
+    if (["dog-life" , "magic-mirror" , "mobility" , "lookingglass", "boss-rush", "beyond"].includes(preset.id)) { 
+      elems.startRoomRando2ndMode.checked = false                                                   // Remove 2nd castle starting room rando for listed presets. - crazy4blades
+      elems.startRoomRando2ndMode.disabled = true                                                   // Dog Life, Magic Mirror, Mobility, Looking Glass, Boss Rush and Beyond
+    } else {
+      elems.startRoomRando2ndMode.disabled = false
+    }
+
+    if (["boss-rush", "beyond"].includes(preset.id)) {
+      elems.startRoomRandoMode.checked = false
+      elems.startRoomRandoMode.disabled = true
+    } else {
+      elems.startRoomRandoMode.disabled = false
+    }
+    if (["boss-rush"].includes(preset.id)) { 
+      elems.unlockedMode.checked = false
+      elems.unlockedMode.disabled = true
+    } else {
+      elems.unlockedMode.disabled = false
+    }
+    if (["big-toss"].includes(preset.id)) {
+      elems.enemyStatRandoMode.checked = false
+      elems.enemyStatRandoMode.disabled = true
+    } else {
+      elems.enemyStatRandoMode.disabled = false
+    }
+    if (elems.preset.checked) {
+      const options = preset.options()
+      let complexity = 1
+      Object.getOwnPropertyNames(options.relicLocations).forEach(  
+        function(key) {
+          if (/^[0-9]+(-[0-9]+)?/.test(key)) {  
             complexity = key.split('-').shift()                                 
           }
         }
@@ -251,12 +283,14 @@
       elems.mypurseMode.checked = !!options.mypurseMode
       elems.iwsMode.checked = !!options.iwsMode
       elems.fastwarpMode.checked = !!options.fastwarpMode
+      elems.itemnamerandoMode.checked = !!options.itemnamerandoMode
       elems.noprologueMode.checked = !!options.noprologueMode
       elems.unlockedMode.checked = !!options.unlockedMode
       elems.surpriseMode.checked = !!options.surpriseMode
       elems.enemyStatRandoMode.checked = !!options.enemyStatRandoMode
       elems.shopPriceRandoMode.checked = !!options.shopPriceRandoMode
       elems.startRoomRandoMode.checked = !!options.startRoomRandoMode
+      elems.startRoomRando2ndMode.checked = !!options.startRoomRando2ndMode
     }
   }
 
@@ -367,6 +401,12 @@
   }
 
   function statsChange() {
+    if (elems.stats.checked) {
+      elems.itemnamerandoMode.disabled = false
+    } else {
+      elems.itemnamerandoMode.checked = false
+      elems.itemnamerandoMode.disabled = true
+    }
     localStorage.setItem('stats', elems.stats.checked)
   }
 
@@ -389,6 +429,11 @@
         }
       })
     }
+  }
+
+  function mapColorChange() {
+    localStorage.setItem('mapColor', elems.mapColor.value)
+    mapColorLock = elems.mapColor.value
   }
 
   function appendSeedChange() {
@@ -440,6 +485,10 @@
     localStorage.setItem('fastwarpMode', elems.fastwarpMode.checked)
   }
 
+  function itemnamerandoModeChange() {
+    localStorage.setItem('itemnamerandoMode', elems.itemnamerandoMode.checked)
+  }
+
   function noprologueModeChange() {
     localStorage.setItem('noprologueMode', elems.noprologueMode.checked)
   }
@@ -462,6 +511,10 @@
 
   function startRoomRandoModeChange() {
     localStorage.setItem('startRoomRandoMode', elems.startRoomRandoMode.checked)
+  }
+
+  function startRoomRando2ndModeChange() {
+    localStorage.setItem('startRoomRando2ndMode', elems.startRoomRando2ndMode.checked)
   }
 
   function accessibilityPatchesChange() {
@@ -627,6 +680,9 @@
       if (elems.fastwarpMode.checked) {
         options.fastwarpMode = true
       }
+      if (elems.itemnamerandoMode.checked) {
+        options.itemnamerandoMode = true
+      }
       if (elems.noprologueMode.checked) {
         options.noprologueMode = true
       }
@@ -644,6 +700,44 @@
       }
       if (elems.startRoomRandoMode.checked) {
         options.startRoomRandoMode = true
+      }
+      if (elems.startRoomRando2ndMode.checked) {
+        options.startRoomRando2ndMode = true
+      }
+      if (elems.mapColor != 'normal') {
+        switch (elems.mapColor.value){
+          case 'normal':
+            break
+          case 'blue':
+            mapColorTheme = 'u'
+            break
+          case 'green':
+            mapColorTheme = 'g'
+            break
+          case 'red':
+            mapColorTheme = 'r'
+            break
+          case 'brown':
+            mapColorTheme = 'n'
+            break
+          case 'purple':
+            mapColorTheme = 'p'
+            break
+          case 'grey':
+            mapColorTheme = 'y'
+            break
+          case 'pink':
+            mapColorTheme = 'k'
+            break
+          case 'black':
+            mapColorTheme = 'b'
+            break
+          case 'invis':
+            mapColorTheme = 'i'
+            break
+          default:
+            break
+        }
       }
       return options
     }
@@ -664,12 +758,14 @@
       mypurseMode: elems.mypurseMode.checked,
       iwsMode: elems.iwsMode.checked,
       fastwarpMode: elems.fastwarpMode.checked,
+      itemnamerandoMode: elems.itemnamerandoMode.checked,
       noprologueMode: elems.noprologueMode.checked,
       unlockedMode: elems.unlockedMode.checked,
       surpriseMode: elems.surpriseMode.checked,
       enemyStatRandoMode: elems.enemyStatRandoMode.checked,
       shopPriceRandoMode: elems.shopPriceRandoMode.checked,
       startRoomRandoMode: elems.startRoomRandoMode.checked,
+      startRoomRando2ndMode: elems.startRoomRando2ndMode.checked,
     }
     if (elems.enemyDropsArg.value) {
       options.enemyDrops = util.optionsFromString(
@@ -920,8 +1016,53 @@
           check.apply(util.applyShopPriceRandoPatches(rng))
         }
         // Apply starting room rando patches.
-        if (options.startRoomRandoMode || applied.startRoomRandoMode) {
-          check.apply(util.applyStartRoomRandoPatches(rng))
+        if (options.startRoomRandoMode || applied.startRoomRandoMode || options.startRoomRando2ndMode || applied.startRoomRando2ndMode) {
+          check.apply(util.applyStartRoomRandoPatches(rng,options))
+        }
+        // Apply map color patches.
+        if (mapColorLock != 'normal') {
+          switch (mapColorLock){
+            case 'normal':
+              break
+            case 'blue':
+              mapcol = 'u'
+              check.apply(util.applyMapColor(mapcol))
+              break
+            case 'green':
+              mapcol = 'g'
+              check.apply(util.applyMapColor(mapcol))
+              break
+            case 'red':
+              mapcol = 'r'
+              check.apply(util.applyMapColor(mapcol))
+              break
+            case 'brown':
+              mapcol = 'n'
+              check.apply(util.applyMapColor(mapcol))
+              break
+            case 'purple':
+              mapcol = 'p'
+              check.apply(util.applyMapColor(mapcol))
+              break
+            case 'grey':
+              mapcol = 'y'
+              check.apply(util.applyMapColor(mapcol))
+              break
+            case 'pink':
+              mapcol = 'k'
+              check.apply(util.applyMapColor(mapcol))
+              break
+            case 'black':
+              mapcol = 'b'
+              check.apply(util.applyMapColor(mapcol))
+              break
+            case 'invis':
+              mapcol = 'i'
+              check.apply(util.applyMapColor(mapcol))
+              break
+            default:
+              break
+          }
         }
         // Apply writes.
         check.apply(util.applyWrites(rng, applied))
@@ -1037,6 +1178,7 @@
     elems.enemyStatRandoMode.disabled = false
     elems.shopPriceRandoMode.disabled = false
     elems.startRoomRandoMode.disabled = false
+    elems.startRoomRando2ndMode.disabled = false
     elems.tournamentMode.disabled = false
     elems.clear.classList.add('hidden')
     presetChange()
@@ -1179,6 +1321,7 @@
     turkeyMode: document.getElementById('turkey-mode'),
     clear: document.getElementById('clear'),
     theme: document.getElementById('theme'),
+    mapColor: document.getElementById('mapColor'),
     appendSeed: document.getElementById('append-seed'),
     tournamentMode: document.getElementById('tournament-mode'),
     colorrandoMode: document.getElementById('colorrando-mode'),
@@ -1187,12 +1330,14 @@
     mypurseMode: document.getElementById('mypurse-mode'),
     iwsMode: document.getElementById('iws-mode'),
     fastwarpMode: document.getElementById('fastwarp-mode'),
+    itemnamerandoMode: document.getElementById('itemnamerando-mode'),
     noprologueMode: document.getElementById('noprologue-mode'),
     unlockedMode: document.getElementById('unlocked-mode'),
     surpriseMode: document.getElementById('surprise-mode'),
     enemyStatRandoMode: document.getElementById('enemyStatRando-mode'),
     shopPriceRandoMode: document.getElementById('shopPriceRando-mode'),
     startRoomRandoMode: document.getElementById('startRoomRando-mode'),
+    startRoomRando2ndMode: document.getElementById('startRoomRando2nd-mode'),
     accessibilityPatches: document.getElementById('accessibility-patches'),
     showSpoilers: document.getElementById('show-spoilers'),
     showRelics: document.getElementById('show-relics'),
@@ -1252,6 +1397,7 @@
   elems.turkeyMode.addEventListener('change', turkeyModeChange)
   elems.clear.addEventListener('click', clearHandler)
   elems.theme.addEventListener('change', themeChange)
+  elems.mapColor.addEventListener('change', mapColorChange)
   elems.appendSeed.addEventListener('change', appendSeedChange)
   elems.tournamentMode.addEventListener('change', tournamentModeChange)
   elems.colorrandoMode.addEventListener('change', colorrandoModeChange)
@@ -1260,12 +1406,14 @@
   elems.mypurseMode.addEventListener('change', mypurseModeChange)
   elems.iwsMode.addEventListener('change', iwsModeChange)
   elems.fastwarpMode.addEventListener('change', fastwarpModeChange)
+  elems.itemnamerandoMode.addEventListener('change', itemnamerandoModeChange)
   elems.noprologueMode.addEventListener('change', noprologueModeChange)
   elems.unlockedMode.addEventListener('change', unlockedModeChange)
   elems.surpriseMode.addEventListener('change', surpriseModeChange)
   elems.enemyStatRandoMode.addEventListener('change', enemyStatRandoModeChange)
   elems.shopPriceRandoMode.addEventListener('change', shopPriceRandoModeChange)
   elems.startRoomRandoMode.addEventListener('change', startRoomRandoModeChange)
+  elems.startRoomRando2ndMode.addEventListener('change', startRoomRando2ndModeChange)
   elems.accessibilityPatches.addEventListener('change', accessibilityPatchesChange)
   elems.showSpoilers.addEventListener('change', spoilersChange)
   elems.showRelics.addEventListener('change', showRelicsChange)
@@ -1567,6 +1715,7 @@
   }
   outputChange()
   loadOption('theme', themeChange, 'menu')
+  loadOption('mapColor', mapColorChange, 'menu')
   loadOption('appendSeed', appendSeedChange, true)
   loadOption('showSolutions', showSolutionsChange, false)
   loadOption('showRelics', showRelicsChange, false)
@@ -1577,12 +1726,14 @@
   loadOption('mypurseMode', mypurseModeChange, false)
   loadOption('iwsMode', iwsModeChange, false)
   loadOption('fastwarpMode', fastwarpModeChange, false)
+  loadOption('itemnamerandoMode', itemnamerandoModeChange, false)
   loadOption('noprologueMode', noprologueModeChange, false)
   loadOption('unlockedMode', unlockedModeChange, false)
   loadOption('surpriseMode', surpriseModeChange, false)
   loadOption('enemyStatRandoMode', enemyStatRandoModeChange, false)
   loadOption('shopPriceRandoMode', shopPriceRandoModeChange, false)
   loadOption('startRoomRandoMode', startRoomRandoModeChange, false)
+  loadOption('startRoomRando2ndMode', startRoomRando2ndModeChange, false)
   loadOption('accessibilityPatches', accessibilityPatchesChange, true)
   loadOption('showSpoilers', spoilersChange, true)
   setTimeout(function() {

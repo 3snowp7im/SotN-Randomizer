@@ -35,7 +35,7 @@
     })
   }
 
-  function shuffleHandStats(rng, data, newNames, stats, handType) {
+  function shuffleHandStats(rng, data, newNames, stats, handType, options) {
     // Randomize names.
     let items
     items = stats.filter(function(item) {
@@ -84,7 +84,10 @@
         name: item.name,
       })
       let addr = util.romOffset(constants.exe, items[index].offset + 0x00)
-      addr = data.writeWord(addr, item.nameAddress)
+      if(options.itemnamerandoMode == true)
+      {
+        addr = data.writeWord(addr, item.nameAddress)
+      }
     })
     if (handType != 'SHIELD') {
       // Randomize stats.
@@ -139,7 +142,7 @@
     }), 'palette', 0x2e, data.writeShort)
   }
 
-  function shuffleEquipmentStats(rng, data, newNames, stats) {
+  function shuffleEquipmentStats(rng, data, newNames, stats, options) {
     // Randomize names.
     function randomizeNames(items) {
       shuffled(rng, items).forEach(function(item, index) {
@@ -148,7 +151,10 @@
           name: item.name,
         })
         let addr = util.romOffset(constants.exe, items[index].offset + 0x00)
-        addr = data.writeWord(addr, item.nameAddress)
+        if(options.itemnamerandoMode == true)
+        {
+            addr = data.writeWord(addr, item.nameAddress)
+        }
       })
     }
     randomizeNames(stats.filter(function(item) {
@@ -394,7 +400,7 @@
           const items = stats.hand.filter(function(item) {
             return item.handType === constants.HAND_TYPE[handType]
           })
-          shuffleHandStats(rng, data, newNames, items, handType)
+          shuffleHandStats(rng, data, newNames, items, handType, options)
         }
       )
       // Randomize attack, defense, and stunFrames of all weapons.
@@ -425,7 +431,7 @@
           const items = stats.equipment.filter(function(item) {
             return item.type === constants.TYPE[type]
           })
-          shuffleEquipmentStats(rng, data, newNames, items)
+          shuffleEquipmentStats(rng, data, newNames, items, options)
         }
       )
     }

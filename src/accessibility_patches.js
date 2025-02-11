@@ -49,24 +49,24 @@
     data.writeWord(0x00136580, 0x03e00008)
   }
 
-  // Prevents player going out of bounds and getting stuck.
+  // Prevents player going out of bounds and getting stuck. - MottZilla
   function patchClockTowerPuzzleGate(data) {
     data.writeChar(0x05574dee, 0x80)
     data.writeChar(0x055a110c, 0xe0)
   }
 
-  // Prevents uncommon chance of Olrox's exploding death animation taking 18 minutes to complete.
+  // Prevents uncommon chance of Olrox's exploding death animation taking 18 minutes to complete. - MottZilla
   function patchOlroxDeath(data) {
     data.writeChar(0x05fe6914, 0x80)
   }
 
-  // Fixes Scylla boss doors to unlock properly even if you go really fast.
+  // Fixes Scylla boss doors to unlock properly even if you go really fast. - MottZilla
   function patchScyllaDoor(data) {
     data.writeChar(0x061ce8ec, 0xce)
     data.writeWord(0x061cb734, 0x304200fe)
   }
 
-  // Fix for crash when entering the fight with transformations. Ex: Bat wing smashing in from right side.
+  // Fix for crash when entering the fight with transformations. Ex: Bat wing smashing in from right side. - MottZilla
   function patchMinotaurWerewolf(data) {
     let offset = 0x0613a640
     data.writeWord(0x061294dc, 0x0806d732)
@@ -96,7 +96,7 @@
     offset = data.writeWord(offset, 0x08069bc3)
   }
   
-  // Fix softlock when using gold & silver ring. Prevents getting stuck in the middle walking endlessly.
+  // Fix softlock when using gold & silver ring. Prevents getting stuck in the middle walking endlessly. - MottZilla
   function patchClockRoom(data) {
     let offset = 0x492df64
     offset = data.writeWord(offset, 0xa0202ee8)
@@ -109,6 +109,16 @@
   // Always have Clear Game Status. - MottZilla
   function patchClearGame(data) {
     data.writeChar(0x4397122,0x22)
+  }
+
+  // Prevent Rock Knight crash in Reverse Caverns when entering from the right side and going left with spirit orb enabled. - MottZilla
+  function patchRockKnightRoom(data) {
+    data.writeShort(0x52BD56C,0xD6E0)  // Change Allocation Range
+  }
+
+  // Prevent Negative Luck Critical Hit from crashing/hanging the game. - MottZilla
+  function patchLuckCriticalCrash(data) {
+    data.writeWord(0x119090,0x00000000)
   }
 
   function applyAccessibilityPatches() {
@@ -124,6 +134,8 @@
     patchMinotaurWerewolf(data)
     patchClockRoom(data)
     patchClearGame(data)
+    patchRockKnightRoom(data)
+    patchLuckCriticalCrash(data)
     return data
   }
 

@@ -1456,7 +1456,296 @@
       xyWrite: 0x013400d8,
       roomWrite: 0x00410050,
       stageWrite: 0x000d
-    } 
+    }, {
+      id: 45,                                                                      // IMPORTANT CASTLE 2 NOTES: stage number must be correct, but stageWrite should mask off bit 0x20.
+      comment: "Black Marble Gallery (Reverse Forbidden)",
+      stage: 0x20,
+      room: 0,
+      xPos: 144,
+      yPos: 540,
+      xyWrite: 0x021c0090,
+      roomWrite: 0x00410000,
+      stageWrite: 0x0000                                                           // Castle 2 Stage Numbers should mask off the 0x20 bit.
+    }, {
+      id: 46,
+      comment: "Black Marble Gallery (Reverse Alucart)",
+      stage: 0x20,
+      room: 14,
+      xPos: 232,
+      yPos: 128,
+      xyWrite: 0x008000e8,
+      roomWrite: 0x00410070,
+      stageWrite: 0x0000
+    }, {
+      id: 47,
+      comment: "Black Marble Gallery (Reverse Library Card)",
+      stage: 0x20,
+      room: 24,
+      xPos: 80,
+      yPos: 128,
+      xyWrite: 0x00800050,
+      roomWrite: 0x004100c0,
+      stageWrite: 0x0000
+    }, {
+      id: 48,
+      comment: "Reverse Outer Wall (Save Room)",
+      stage: 0x21,
+      room: 1,
+      xPos: 232,
+      yPos: 128,
+      xyWrite: 0x008000e8,
+      roomWrite: 0x00410008,
+      stageWrite: 0x0001
+    }, {
+      id: 49,
+      comment: "Reverse Outer Wall (Telescope)",
+      stage: 0x21,
+      room: 3,
+      xPos: 537,
+      yPos: 128,
+      xyWrite: 0x00800219,
+      roomWrite: 0x00410018,
+      stageWrite: 0x0001
+    }, {
+      id: 50,
+      comment: "Forbidden Library (Book Case)",
+      stage: 0x22,
+      room: 1,
+      xPos: 32,
+      yPos: 128,
+      xyWrite: 0x00800020,
+      roomWrite: 0x00410008,
+      stageWrite: 0x0002
+    }, {
+      id: 51,
+      comment: "Forbidden Library (Shop)",
+      stage: 0x22,
+      room: 5,
+      xPos: 32,
+      yPos: 128,
+      xyWrite: 0x00800020,
+      roomWrite: 0x00410028,
+      stageWrite: 0x0002
+    }, {
+      id: 52,
+      comment: "Floating Catacombs (Galamoth)",
+      stage: 0x23,
+      room: 1,
+      xPos: 24,
+      yPos: 128,
+      xyWrite: 0x00800018,
+      roomWrite: 0x00410008,
+      stageWrite: 0x0003
+    }, {
+      id: 53,
+      comment: "Floating Catacombs (Save Room)",
+      stage: 0x23,
+      room: 13,
+      xPos: 246,
+      yPos: 128,
+      xyWrite: 0x008000f6,
+      roomWrite: 0x00410068,
+      stageWrite: 0x0003
+    }, {
+      id: 54,
+      comment: "Deathwing's Lair (Entrance)",
+      stage: 0x24,
+      room: 1,
+      xPos: 128,
+      yPos: 128,
+      xyWrite: 0x00800080,
+      roomWrite: 0x00410008,
+      stageWrite: 0x0004
+    }, {
+      id: 55,
+      comment: "Deathwing's Lair (Alucard Mail)",
+      stage: 0x24,
+      room: 10,
+      xPos: 32,
+      yPos: 128,
+      xyWrite: 0x00800020,
+      roomWrite: 0x00410050,
+      stageWrite: 0x0004
+    }, {
+      id: 56,
+      comment: "Deathwing's Lair (Heart Refresh)",
+      stage: 0x24,
+      room: 14,
+      xPos: 256,
+      yPos: 128,
+      xyWrite: 0x00800100,
+      roomWrite: 0x00410070,
+      stageWrite: 0x0004
+    }, {
+      id: 57,
+      comment: "Cave (Alucard Sword)",
+      stage: 0x25,
+      room: 11,
+      xPos: 56,
+      yPos: 128,
+      xyWrite: 0x00800038,
+      roomWrite: 0x00410058,
+      stageWrite: 0x0005
+    }, {
+      id: 58,comment: "Anti-Chapel (Confessional)",
+      stage: 0x26,
+      room: 7,
+      xPos: 204,
+      yPos: 128,
+      xyWrite: 0x008000cc,
+      roomWrite: 0x00410038,
+      stageWrite: 0x0006
+    }, {
+      id: 59,
+      comment: "Reverse Entrance (Gate)",
+      stage: 0x27,
+      room: 0,
+      xPos: 125,
+      yPos: 512,
+      xyWrite: 0x0100007d,
+      roomWrite: 0x00410000,
+      stageWrite: 0x0007
+    }, {
+      id: 60,
+      comment: "Reverse Entrance (Caverns Shortcut)",
+      stage: 0x27,
+      room: 10,
+      xPos: 32,
+      yPos: 128,
+      xyWrite: 0x00800020,
+      roomWrite: 0x00410050,
+      stageWrite: 0x0007
+    }, {
+      id: 61,
+      comment: "Reverse Entrance (Talisman)",
+      stage: 0x27,
+      room: 17,
+      xPos: 32,
+      yPos: 128,
+      xyWrite: 0x00800020,
+      roomWrite: 0x00410088,
+      stageWrite: 0x0007
+    }, {
+      id: 62,
+      comment: "Reverce Caverns (Peanuts)",
+      stage: 0x29,
+      room: 37,
+      xPos: 18,
+      yPos: 128,
+      xyWrite: 0x00800012,
+      roomWrite: 0x00410128,
+      stageWrite: 0x0009
+    }, {
+      id: 63,
+      comment: "Reverce Caverns (Imp Room)",
+      stage: 0x29,
+      room: 4,
+      xPos: 224,
+      yPos: 128,
+      xyWrite: 0x008000e0,
+      roomWrite: 0x00410020,
+      stageWrite: 0x0009
+    }, {
+      id: 64,
+      comment: "Reverce Caverns (Garnet)",
+      stage: 0x29,
+      room: 17,
+      xPos: 228,
+      yPos: 128,
+      xyWrite: 0x008000e4,
+      roomWrite: 0x00410088,
+      stageWrite: 0x0009
+    }, {
+      id: 65,
+      comment: "Reverse Colosseum (Gram)",
+      stage: 0x2a,
+      room: 10,
+      xPos: 228,
+      yPos: 128,
+      xyWrite: 0x008000e4,
+      roomWrite: 0x00410050,
+      stageWrite: 0x000a
+    }, {
+      id: 66,
+      comment: "Reverse Colosseum (Zircon)",
+      stage: 0x2a,
+      room: 12,
+      xPos: 488,
+      yPos: 128,
+      xyWrite: 0x008001e8,
+      roomWrite: 0x00410060,
+      stageWrite: 0x000a
+    }, {
+      id: 67,
+      comment: "Reverse Keep (High Potion)",
+      stage: 0x2b,
+      room: 3,
+      xPos: 32,
+      yPos: 256,
+      xyWrite: 0x01000020,
+      roomWrite: 0x00410018,
+      stageWrite: 0x000b
+    }, {
+      id: 68,
+      comment: "Reverse Keep (Lightning Mail)",
+      stage: 0x2b,
+      room: 8,
+      xPos: 16,
+      yPos: 128,
+      xyWrite: 0x00800010,
+      roomWrite: 0x00410040,
+      stageWrite: 0x000b
+    }, {
+      id: 69,
+      comment: "Necromancy Laboratory (Reverse Skill of Wolf)",
+      stage: 0x2c,
+      room: 8,
+      xPos: 16,
+      yPos: 128,
+      xyWrite: 0x00800010,
+      roomWrite: 0x00410040,
+      stageWrite: 0x000c
+    }, {
+      id: 70,
+      comment: "Necromancy Laboratory (Goddess Shield)",
+      stage: 0x2c,
+      room: 6,
+      xPos: 248,
+      yPos: 128,
+      xyWrite: 0x008000f8,
+      roomWrite: 0x00410030,
+      stageWrite: 0x000c
+    }, {
+      id: 71,
+      comment: "Necromancy Laboratory (Jewel Door Hall)",
+      stage: 0x2c,
+      room: 2,
+      xPos: 504,
+      yPos: 128,
+      xyWrite: 0x008001f8,
+      roomWrite: 0x00410010,
+      stageWrite: 0x000c
+    }, {
+      id: 72,
+      comment: "Reverse Clock Tower (Dragon Helm)",
+      stage: 0x2d,
+      room: 12,
+      xPos: 32,
+      yPos: 128,
+      xyWrite: 0x00800020,
+      roomWrite: 0x00410060,
+      stageWrite: 0x000d
+    }, {
+      id: 73,
+      comment: "Reverse Clock Tower (Maze Room)",
+      stage: 0x2d,
+      room: 3,
+      xPos: 1728,
+      yPos: 128,
+      xyWrite: 0x008006c0,
+      roomWrite: 0x00410018,
+      stageWrite: 0x000d
+    }
   ]
 
   const adjectivesNormal = [

@@ -601,6 +601,11 @@ const yargs = require('yargs')
     describe: 'Quickens warp animation when using teleporters.',
     type: 'boolean',
   })
+  .option('itemnamerando', {
+    alias: 'in',
+    describe: 'Randomize item names when doing item stat rando.',
+    type: 'boolean',
+  })
   .option('noprologue', {
     alias: 'R',
     describe: 'Quickens warp animation when using teleporters.',
@@ -628,6 +633,11 @@ const yargs = require('yargs')
   })
   .option('startRoomRando', {
     alias: 'ori',
+    describe: 'Start in the entrance as usual but after the first Warg, you are teleported to a random zone to start the rest of your run.',
+    type: 'boolean',
+  })
+  .option('startRoomRando2nd', {
+    alias: 'ori2',
     describe: 'Start in the entrance as usual but after the first Warg, you are teleported to a random zone to start the rest of your run.',
     type: 'boolean',
   })
@@ -1046,6 +1056,11 @@ if ('debug' in argv) {console.log('randomize | Set fast warp')}
 if (argv.fastwarp) { // quickens teleporter warp animation - eldrich
   options.fastwarpMode = true
 }
+if ('debug' in argv) {console.log('randomize | Set Item Name Rando')}
+// Enable itemname rando mode if specified. - MottZilla
+if (argv.itemnamerando) { // Randomize Item names if randomizing item stats - MottZilla
+  options.itemnamerandoMode = true
+}
 if ('debug' in argv) {console.log('randomize | Set no prologue')}
 // Enable no prologue mode if specified. - eldri7ch
 if (argv.noprologue) { // Removes prologue - eldrich
@@ -1075,6 +1090,11 @@ if ('debug' in argv) {console.log('randomize | Set startRoomRando')}
 // Enable Starting Room Rando mode if specified. - eldri7ch
 if (argv.startRoomRando) { // randomizes starting room - eldrich
   options.startRoomRandoMode = true
+}
+if ('debug' in argv) {console.log('randomize | Set startRoomRando2nd')}
+// Enable Starting Room Rando 2nd Castle mode if specified. - eldri7ch
+if (argv.startRoomRando2nd) { // randomizes starting room - eldrich
+  options.startRoomRando2ndMode = true
 }
 if ('debug' in argv) {console.log('randomize | Set map colors')}
 // Map Color Features if specified. - eldri7ch
@@ -1330,7 +1350,7 @@ if ('debug' in argv) {console.log('randomize | Start randomization')}
         }
         if ('debug' in argv) {console.log('randomize | function: randomize | Shop Price Randomizer Mode | ' + optFlag)}
         optFlag = false
-        if (options.startRoomRandoMode || applied.startRoomRandoMode) { // Randomizes starting room - eldrich
+        if (options.startRoomRandoMode || applied.startRoomRandoMode || options.startRoomRando2ndMode || applied.startRoomRando2ndMode) { // Randomizes starting room - eldrich & MottZilla
           // Apply starting room Rando mode patches. - eldri7ch
           optFlag = true
           rng = new require('seedrandom')(util.saltSeed(
@@ -1339,7 +1359,7 @@ if ('debug' in argv) {console.log('randomize | Start randomization')}
             seed,
             0,
           ))
-          check.apply(util.applyStartRoomRandoPatches(rng))
+          check.apply(util.applyStartRoomRandoPatches(rng,options))
         }
         if ('debug' in argv) {console.log('randomize | function: randomize | Starting Room Randomizer Mode | ' + optFlag)}
         optFlag = false

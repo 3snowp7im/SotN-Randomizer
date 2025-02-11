@@ -354,6 +354,7 @@
       zones: [ ZONE.LIB ],
       entities: [ 0x3826, 0x3f06 ],
     },
+    invAddress: 0x7964,
   }, {
     name: 'Fire of Bat',
     ability: RELIC.FIRE_OF_BAT,
@@ -365,6 +366,7 @@
     asItem: {
       y: 0x00c9,
     },
+    invAddress: 0x7965,
   }, {
     name: 'Echo of Bat',
     ability: RELIC.ECHO_OF_BAT,
@@ -376,6 +378,7 @@
     asItem: {
       y: 0x009d,
     },
+    invAddress: 0x7966,
   }, {
     name: 'Force of Echo',
     ability: RELIC.FORCE_OF_ECHO,
@@ -387,6 +390,7 @@
     asItem: {
       y: 0x00b9,
     },
+    invAddress: 0x7967,
   }, {
     name: 'Soul of Wolf',
     ability: RELIC.SOUL_OF_WOLF,
@@ -398,6 +402,7 @@
     asItem: {
       y: 0x0331,
     },
+    invAddress: 0x7968,
   }, {
     name: 'Power of Wolf',
     ability: RELIC.POWER_OF_WOLF,
@@ -409,6 +414,7 @@
     asItem: {
       y: 0x00c8,
     },
+    invAddress: 0x7969,
   }, {
     name: 'Skill of Wolf',
     ability: RELIC.SKILL_OF_WOLF,
@@ -426,6 +432,7 @@
       x: 0x007e,
       y: 0x00b9,
     },
+    invAddress: 0x796a,
   }, {
     name: 'Form of Mist',
     ability: RELIC.FORM_OF_MIST,
@@ -437,6 +444,7 @@
     asItem: {
       y: 0x0099,
     },
+    invAddress: 0x796b,
   }, {
     name: 'Power of Mist',
     ability: RELIC.POWER_OF_MIST,
@@ -448,6 +456,7 @@
     asItem: {
       y: 0x04c8,
     },
+    invAddress: 0x796c,
   }, {
     name: 'Gas Cloud',
     ability: RELIC.GAS_CLOUD,
@@ -460,6 +469,7 @@
       x: 0x0016,
       y: 0x00b1,
     },
+    invAddress: 0x796d,
   }, {
     name: 'Cube of Zoe',
     ability: RELIC.CUBE_OF_ZOE,
@@ -471,6 +481,7 @@
     asItem: {
       y: 0x007b,
     },
+    invAddress: 0x796e,
   }, {
     name: 'Spirit Orb',
     ability: RELIC.SPIRIT_ORB,
@@ -482,6 +493,7 @@
     asItem: {
       x: 0x0043,
     },
+    invAddress: 0x796f,
   }, {
     name: 'Gravity Boots',
     ability: RELIC.GRAVITY_BOOTS,
@@ -493,6 +505,7 @@
     asItem: {
       y: 0x00b9,
     },
+    invAddress: 0x7970,
   }, {
     name: 'Leap Stone',
     ability: RELIC.LEAP_STONE,
@@ -504,6 +517,7 @@
     asItem: {
       y: 0x0729,
     },
+    invAddress: 0x7971,
   }, {
     name: 'Holy Symbol',
     ability: RELIC.HOLY_SYMBOL,
@@ -515,6 +529,7 @@
     asItem: {
       y: 0x00b9,
     },
+    invAddress: 0x7972,
   }, {
     name: 'Faerie Scroll',
     ability: RELIC.FAERIE_SCROLL,
@@ -526,6 +541,7 @@
     asItem: {
       y: 0x00b9,
     },
+    invAddress: 0x7973,
   }, {
     name: 'Jewel of Open',
     ability: RELIC.JEWEL_OF_OPEN,
@@ -543,6 +559,7 @@
     replaceWithRelic: replaceShopRelicWithRelic,
     replaceWithItem: replaceShopRelicWithItem,
     consumesItem: false,
+    invAddress: 0x7974,
   }, {
     name: 'Merman Statue',
     ability: RELIC.MERMAN_STATUE,
@@ -554,6 +571,7 @@
     asItem: {
       y: 0x00b9,
     },
+    invAddress: 0x7975,
   }, {
     name: 'Bat Card',
     ability: RELIC.BAT_CARD,
@@ -571,6 +589,7 @@
       x: 0x007e,
       y: 0x00b9,
     },
+    invAddress: 0x7976,
   }, {
     name: 'Ghost Card',
     ability: RELIC.GHOST_CARD,
@@ -582,6 +601,7 @@
     asItem: {
       y: 0x02a8,
     },
+    invAddress: 0x7977,
   }, {
     name: 'Faerie Card',
     ability: RELIC.FAERIE_CARD,
@@ -593,6 +613,7 @@
     asItem: {
       y: 0x00b9,
     },
+    invAddress: 0x7978,
   }, {
     name: 'Demon Card',
     ability: RELIC.DEMON_CARD,
@@ -604,6 +625,7 @@
     asItem: {
       y: 0x00b8,
     },
+    invAddress: 0x7979,
   }, {
     name: 'Sword Card',
     ability: RELIC.SWORD_CARD,
@@ -615,16 +637,19 @@
     asItem: {
       y: 0x009c,
     },
+    invAddress: 0x797a,
   }, {
     name: 'Sprite Card',
     ability: RELIC.SPRITE_CARD,
     relicId: 23,
     extension: EXTENSION.GUARDED,
+    invAddress: 0x797b,
   }, {
     name: 'Nosedevil Card',
     ability: RELIC.NOSEDEVIL_CARD,
     relicId: 24,
     extension: EXTENSION.GUARDED,
+    invAddress: 0x797c,
   }, {
     name: 'Heart of Vlad',
     ability: RELIC.HEART_OF_VLAD,
@@ -651,6 +676,7 @@
     asItem: {
       y: 0x00c9,
     },
+    invAddress: 0x797d,
   }, {
     name: 'Tooth of Vlad',
     ability: RELIC.TOOTH_OF_VLAD,
@@ -677,6 +703,7 @@
     asItem: {
       y: 0x00b9,
     },
+    invAddress: 0x797e,
   }, {
     name: 'Rib of Vlad',
     ability: RELIC.RIB_OF_VLAD,
@@ -703,6 +730,7 @@
     asItem: {
       y: 0x01b9,
     },
+    invAddress: 0x797f,
   }, {
     name: 'Ring of Vlad',
     ability: RELIC.RING_OF_VLAD,
@@ -732,6 +760,7 @@
     asItem: {
       y: 0x00c9,
     },
+    invAddress: 0x7980,
   }, {
     name: 'Eye of Vlad',
     ability: RELIC.EYE_OF_VLAD,
@@ -758,6 +787,7 @@
     asItem: {
       y: 0x0079,
     },
+    invAddress: 0x7981,
   }, {
     name: 'Spike Breaker',
     ability: RELIC.SPIKE_BREAKER,
