@@ -2356,8 +2356,10 @@ function hexValueToDamageString(hexValue) {
               case 'r3': length = 1
               case 'r10': length = 1
               case 'r99': length = 1
+              case 'rhc': length = 1
               case 'rs': length = 2
               case 'rw': length = 4
+              case 'rr': length = 4
               case 'rl': length = 8
               default:
                 throw new Error('Invalid value: ' + value)
@@ -2996,7 +2998,8 @@ function hexValueToDamageString(hexValue) {
           let opt = 'w'
           options.writes.forEach(function(write) {
             opt += ':' + numToHex(write.address) + ':'
-            let value
+            let valueCheck
+            valueCheck = String(write.value)
             switch (write.type) {
             case 'char':
               if (write.value === 'random') {
@@ -3009,6 +3012,8 @@ function hexValueToDamageString(hexValue) {
                 opt += 'r10'
               } else if (write.value === 'random99') {
                 opt += 'r99'
+              } else if (valueCheck.includes('randomHexChar')) {
+                opt += 'rhc'
               } else {
                 opt += numToHex(write.value, 2)
               }
@@ -3016,6 +3021,8 @@ function hexValueToDamageString(hexValue) {
             case 'short':
               if (write.value === 'random') {
                 opt += 'rs'
+              } else if (write.value === 'randomRelic') {
+                opt += 'rr'
               } else {
                 opt += numToHex(write.value, 4)
               }
@@ -3023,8 +3030,6 @@ function hexValueToDamageString(hexValue) {
             case 'word':
               if (write.value === 'random') {
                 opt += 'rw'
-              } else if (write.value === 'randomRelic') {
-                opt += 'rr'
               } else {
                 opt += numToHex(write.value, 8)
               }
@@ -5402,7 +5407,9 @@ function hexValueToDamageString(hexValue) {
 
   // Write a character.
   PresetBuilder.prototype.writeChar = function writeChar(address, value) {
-    if (value !== 'random' && value !== 'random1' && value !== 'random3' && value !== 'random10' && value !== 'random99') {
+    let valueCheck
+    valueCheck = String(value)
+    if (value !== 'random' && value !== 'random1' && value !== 'random3' && value !== 'random10' && value !== 'random99' && !valueCheck.includes('randomHexChar')) {
       value = parseInt(value)
     }
     this.writes = this.writes || []
@@ -5420,7 +5427,7 @@ function hexValueToDamageString(hexValue) {
 
   // Write a short.
   PresetBuilder.prototype.writeShort = function writeShort(address, value) {
-    if (value !== 'random') {
+    if (value !== 'random' && value !== 'randomRelic') {
       value = parseInt(value)
     }
     this.writes = this.writes || []
@@ -5438,7 +5445,7 @@ function hexValueToDamageString(hexValue) {
 
   // Write a word.
   PresetBuilder.prototype.writeWord = function writeWord(address, value) {
-    if (value !== 'random' && value !== 'randomRelic') {
+    if (value !== 'random') {
       value = parseInt(value)
     }
     this.writes = this.writes || []
@@ -6440,7 +6447,7 @@ function hexValueToDamageString(hexValue) {
   function applyStartRoomRandoPatches(rng,options) {
     const startRoomData = constants.startRoomData
     const data = new checked()
-    // Patch the shop prices being randomized
+    // Patch the starting room being randomized
     let offset
     let newWrite
     let randRoomId
@@ -6732,12 +6739,24 @@ function hexValueToDamageString(hexValue) {
 
   function applyWrites(rng, options) {
     const data = new checked()
+    const relicsForShuffle = relics                                                 // pull the entirety of the relics list from relics.js for reference
+    let relicShuffleArray = []
+    let hexCharShuffleArray = []
+    let hexArrayShuffFlag = 0
+    relicsForShuffle.forEach(function(relic) {                                      // build the list of relic addresses
+      if (relic.relicId < 30) {                                                     // import all of the actual relic menu addresses into the array for shuffling
+        relicShuffleArray.push(numToHex(relic.invAddress))
+      }
+    })
+    relicShuffleArray = shuffle(rng,relicShuffleArray)                              // Shuffle that list
     if (options.writes) {
       options.writes.forEach(function(write) {
         let value
+        let valueCheck
         switch (write.type) {
         case 'char':
           value = write.value
+          valueCheck = String(write.value)
           if (value === 'random') {
             value = Math.floor(rng() * 0x100)
           }
@@ -6765,12 +6784,33 @@ function hexValueToDamageString(hexValue) {
             randomInt = Math.floor(rng() * 98) + 1
             value = numToHex(randomInt)
           }
+          else if (valueCheck.includes('randomHexChar')) {
+            // randomizes a shuffled array of digits between two hex values - eldri7ch
+            if (hexArrayShuffFlag == 0) {                                                                   // Check if the list has been shuffled already
+              let formatArray = ['<','>','-']                                                               // establish the characters required for this to be a complete command
+              if (formatArray.every(char => value.includes(char))) {                                        // check that every character required exists
+                let start = Number(value.substring(14, 18))                                                 // pull the starting hex address for the array
+                let finish = Number(value.substring(19, 23))                                                // pull the ending address for the array
+                hexArrayShuffFlag = 1                                                                       // set the flag to never re-randomize these
+                hexCharShuffleArray = Array.from({length: finish - start + 1}, (_, a) => a + start)         // build the array from the starting and ending addresses
+                hexCharShuffleArray = shuffle(rng,hexCharShuffleArray)                                      // Shuffle the hex array
+                }
+            }
+            let itemNum = hexCharShuffleArray.pop()                                                         // must pop the number into a variable for numToHex to work
+            value = numToHex(itemNum)                                                                       // actively assign the value to be written
+          }
           data.writeChar(write.address, value)
           break
         case 'short':
           value = write.value
           if (value === 'random') {
             value = Math.floor(rng() * 0x10000)
+          } 
+          else if (value === 'randomRelic') {
+            // "2690808163" translates to the address before the relic hex is added - eldri7ch
+            // let relicHex
+            // relicHex = Math.floor(rng() * 29) + 2690808164
+            value = relicShuffleArray.pop()
           }
           data.writeShort(write.address, value)
           break
@@ -6778,12 +6818,6 @@ function hexValueToDamageString(hexValue) {
           value = write.value
           if (value === 'random') {
             value = Math.floor(rng() * 0x100000000)
-          }
-          else if (value === 'randomRelic') {
-            // "2690808163" translates to the address before the relic hex is added - eldri7ch
-            let relicHex
-            relicHex = Math.floor(rng() * 29) + 2690808164
-            value = numToHex(relicHex)
           }
           data.writeWord(write.address, value)
           break

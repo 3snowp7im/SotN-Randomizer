@@ -63,7 +63,10 @@
     "spellbound",
     "mobility",
     "glitchmaster",
-    "dog-life"
+    "dog-life",
+    "battle-mage",
+    "timeline",
+    "chimera"
   ],
   "engines": {
     "node": ">=15"

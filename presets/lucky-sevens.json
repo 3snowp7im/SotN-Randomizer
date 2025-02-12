@@ -1043,32 +1043,60 @@
     "comment": "ori v0, 0x0003"
   }, {
     "comment": "Enable random relic",
-    "type": "word",
+    "type": "short",
     "value": "randomRelic"
   }, {
     "comment": "Enable random relic",
-    "type": "word",
+    "type": "short",
+    "value": "0xa062"
+  }, {
+    "comment": "Enable random relic",
+    "type": "short",
     "value": "randomRelic"
   }, {
     "comment": "Enable random relic",
-    "type": "word",
+    "type": "short",
+    "value": "0xa062"
+  }, {
+    "comment": "Enable random relic",
+    "type": "short",
     "value": "randomRelic"
   }, {
     "comment": "Enable random relic",
-    "type": "word",
+    "type": "short",
+    "value": "0xa062"
+  }, {
+    "comment": "Enable random relic",
+    "type": "short",
     "value": "randomRelic"
   }, {
     "comment": "Enable random relic",
-    "type": "word",
+    "type": "short",
+    "value": "0xa062"
+  }, {
+    "comment": "Enable random relic",
+    "type": "short",
     "value": "randomRelic"
   }, {
     "comment": "Enable random relic",
-    "type": "word",
+    "type": "short",
+    "value": "0xa062"
+  }, {
+    "comment": "Enable random relic",
+    "type": "short",
     "value": "randomRelic"
   }, {
     "comment": "Enable random relic",
-    "type": "word",
+    "type": "short",
+    "value": "0xa062"
+  }, {
+    "comment": "Enable random relic",
+    "type": "short",
     "value": "randomRelic"
+  }, {
+    "comment": "Enable random relic",
+    "type": "short",
+    "value": "0xa062"
   }, 
   
   {
