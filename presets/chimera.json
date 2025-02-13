@@ -4,7 +4,17 @@
         "name": "Chimera",
         "description": "Safe logic, Wolf enhanced, Mist MP cost zeroed, Gas Cloud grants Warlock Magic. Thrust Sword at start for OoL Flight with Grav. Double Tap Dash (God Speed Shoes)",
         "author": "MottZilla",
-        "weight": -5000
+        "weight": -5001,
+        "knowledgeCheck": "None",
+        "metaExtension": "Guarded",
+        "metaComplexity": "8",
+        "itemStats": "Normal",
+        "timeFrame": "Normal",
+        "moddedLevel": "Slightly",
+        "castleType": "Normal",
+        "transformEarly": "No",
+        "transformFocus": "No",
+        "winCondition": "Normal"
     },
 
     "comment": "Prototype for testing",
