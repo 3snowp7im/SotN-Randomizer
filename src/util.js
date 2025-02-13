@@ -6487,7 +6487,7 @@ function hexValueToDamageString(hexValue) {
     // Hooks check for relic when using gravity boots/leap stone so we can add another condition
     // If Zone == 2nd Castle and Two specific Map tiles have not been visited, behave as though we have the relic.
     // The two map tiles are the Keep Teleporter and the Library Card destination tile.
-    if(options.startRoomRando2ndMode)
+    if((startRoomData[randRoomId].stage & 0x20) == 0x20)
     {
       offset = 0xF0230                            // Code Block
       offset = data.writeWord(offset,0x3C028009)
