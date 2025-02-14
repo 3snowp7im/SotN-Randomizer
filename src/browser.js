@@ -208,7 +208,7 @@
     } else {
       elems.antiFreezeMode.disabled = false
     }
-    if (["dog-life" , "magic-mirror" , "mobility" , "lookingglass", "boss-rush", "beyond"].includes(preset.id)) { 
+    if (["dog-life" , "magic-mirror" , "mobility" , "lookingglass", "boss-rush", "beyond", "first-castle"].includes(preset.id)) { 
       elems.startRoomRando2ndMode.checked = false                                                   // Remove 2nd castle starting room rando for listed presets. - crazy4blades
       elems.startRoomRando2ndMode.disabled = true                                                   // Dog Life, Magic Mirror, Mobility, Looking Glass, Boss Rush and Beyond
     } else {

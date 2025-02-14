@@ -6,7 +6,7 @@
         "author": [
           "MottZilla"
         ],
-        "weight": -5000,
+        "weight": -2750,
         "knowledgeCheck": "None",
         "metaExtension": "Guarded",
         "metaComplexity": "8",
@@ -3064,6 +3064,181 @@
             "type": "word",
             "address": "0xFA244",
             "value": "0x0C03A07F"
+        },
+
+        {
+            "comment": "Relic Orbs Always Appear ARE",
+            "type": "word",
+            "address": "0x4409CD0",
+            "value": "0x34020000"
+        },
+        {
+            "comment": "Relic Orbs Always Appear CAT",
+            "type": "word",
+            "address": "0x44DD53C",
+            "value": "0x34020000"
+        },
+        {
+            "comment": "Relic Orbs Always Appear CEN",
+            "type": "word",
+            "address": "0x4576528",
+            "value": "0x34020000"
+        },
+        {
+            "comment": "Relic Orbs Always Appear CHI",
+            "type": "word",
+            "address": "0x4611F20",
+            "value": "0x34020000"
+        },
+        {
+            "comment": "Relic Orbs Always Appear DAI",
+            "type": "word",
+            "address": "0x46CD484",
+            "value": "0x34020000"
+        },
+        {
+            "comment": "Relic Orbs Always Appear LIB",
+            "type": "word",
+            "address": "0x47F3AB4",
+            "value": "0x34020000"
+        },
+        {
+            "comment": "Relic Orbs Always Appear NO0",
+            "type": "word",
+            "address": "0x494EF54",
+            "value": "0x34020000"
+        },
+        {
+            "comment": "Relic Orbs Always Appear NO1",
+            "type": "word",
+            "address": "0x4A22EDC",
+            "value": "0x34020000"
+        },
+        {
+            "comment": "Relic Orbs Always Appear NO2",
+            "type": "word",
+            "address": "0x4AE8130",
+            "value": "0x34020000"
+        },
+        {
+            "comment": "Relic Orbs Always Appear NO3",
+            "type": "word",
+            "address": "0x4BB8978",
+            "value": "0x34020000"
+        },
+        {
+            "comment": "Relic Orbs Always Appear NO4",
+            "type": "word",
+            "address": "0x4C8CD4C",
+            "value": "0x34020000"
+        },
+        {
+            "comment": "Relic Orbs Always Appear NP3",
+            "type": "word",
+            "address": "0x543CED8",
+            "value": "0x34020000"
+        },
+        {
+            "comment": "Relic Orbs Always Appear NZ0",
+            "type": "word",
+            "address": "0x54F9870",
+            "value": "0x34020000"
+        },
+        {
+            "comment": "Relic Orbs Always Appear NZ1",
+            "type": "word",
+            "address": "0x55AC520",
+            "value": "0x34020000"
+        },
+        {
+            "comment": "Relic Orbs Always Appear RARE",
+            "type": "word",
+            "address": "0x578404C",
+            "value": "0x34020000"
+        },
+        {
+            "comment": "Relic Orbs Always Appear RCAT",
+            "type": "word",
+            "address": "0x4D3CB3C",
+            "value": "0x34020000"
+        },
+        {
+            "comment": "Relic Orbs Always Appear RCHI",
+            "type": "word",
+            "address": "0x4DCA400",
+            "value": "0x34020000"
+        },
+        {
+            "comment": "Relic Orbs Always Appear RDAI",
+            "type": "word",
+            "address": "0x4E745B8",
+            "value": "0x34020000"
+        },
+        {
+            "comment": "Relic Orbs Always Appear RNO1",
+            "type": "word",
+            "address": "0x5085658",
+            "value": "0x34020000"
+        },
+        {
+            "comment": "Relic Orbs Always Appear RNO2",
+            "type": "word",
+            "address": "0x513D75C",
+            "value": "0x34020000"
+        },
+        {
+            "comment": "Relic Orbs Always Appear RNO4",
+            "type": "word",
+            "address": "0x52C69C0",
+            "value": "0x34020000"
+        },
+        {
+            "comment": "Relic Orbs Always Appear RNZ0",
+            "type": "word",
+            "address": "0x593C7E0",
+            "value": "0x34020000"
+        },
+        {
+            "comment": "Relic Orbs Always Appear RNZ1",
+            "type": "word",
+            "address": "0x59F5A0C",
+            "value": "0x34020000"
+        },
+        {
+            "comment": "Relic Orbs Always Appear TOP",
+            "type": "word",
+            "address": "0x564987C",
+            "value": "0x34020000"
+        },
+        {
+            "comment": "Relic Orbs Always Appear RBO7",
+            "type": "word",
+            "address": "0x69F1860",
+            "value": "0x34020000"
+        },
+        {
+            "comment": "Relic Orbs Always Appear RBO4",
+            "type": "word",
+            "address": "0x67F37E8",
+            "value": "0x34020000"
+        },
+        {
+            "comment": "Relic Orbs Always Appear RBO3",
+            "type": "word",
+            "address": "0x675F114",
+            "value": "0x34020000"
+        },
+        {
+            "comment": "Relic Orbs Always Appear RBO2",
+            "type": "word",
+            "address": "0x664E5EC",
+            "value": "0x34020000"
+        },
+        {
+            "comment": "Relic Orbs Always Appear RBO0",
+            "type": "word",
+            "address": "0x64953D0",
+            "value": "0x34020000"
         },
 
         {
