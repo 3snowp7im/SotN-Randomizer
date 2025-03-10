@@ -53,6 +53,26 @@
       "Jewel of Open",
       "Merman Statue"
     ]
+  }, {
+    "comment": "Locations impossible to reach are always empty",
+    "location": "Jewel sword",
+    "relic": null
+  }, {
+    "comment": "Locations impossible to reach are always empty",
+    "location": "Alucart sword",
+    "relic": null
+  }, {
+    "comment": "Locations impossible to reach are always empty",
+    "location": "Reverse Alucart Sword",
+    "relic": null
+  }, {
+    "comment": "Locations impossible to reach are always empty",
+    "location": "Beryl circlet",
+    "relic": null
+  }, {
+    "comment": "Locations impossible to reach are always empty",
+    "location": "Reverse Keep High Potion",
+    "relic": null
   }],
 
   "replaceRelic": [{
@@ -60,6 +80,12 @@
     "item": "Duplicator"
   }, {
     "relic": "Power of Mist",
+    "item": "Manna prism"
+  }, {
+    "relic": "Sprite Card",
+    "item": "Elixir"
+  }, {
+    "relic": "Nosedevil Card",
     "item": "Manna prism"
   }],
 
@@ -449,6 +475,10 @@
     "comment": "Requires nothing",
     "locks": []
   }, {
+    "location": "Jewel of Open",
+    "comment": "Requires nothing",
+    "locks": []
+  }, {
     "location": "Faerie Card",
     "comment": "Requires Power of Wolf to make the jump",
     "locks": [
@@ -490,19 +520,8 @@
     ]
   }, {
     "location": "Ghost Card",
-    "comment": "Requires both Boost and Flight, logic relics are blocked except Vlads",
-    "locks": ["Power of Wolf + Skill of Wolf + Boost of Wolf + Flight of Wolf"],
-    "block": [
-      "Gold ring",
-      "Silver ring",
-      "Holy glasses",
-      "Spike Breaker",
-      "Smell of Wolf",
-      "Fire of Wolf",
-      "Gear Strap",
-      "Jewel of Open",
-      "Merman Statue"
-    ]
+    "comment": "Requires both Boost and Flight",
+    "locks": ["Skill of Wolf + Boost of Wolf + Flight of Wolf"]
   }, {
     "location": "Power of Wolf",
     "comment": "Smell is required, so items must be blocked",
@@ -517,7 +536,7 @@
     ]
   }, {
     "location": "Silver ring",
-    "comment": "Mist gate is removed",
+    "comment": "Mist gate is removed, but still requires everything else",
     "locks": ["Spike Breaker + Jewel of Open"]
   }, {
     "location": "Gold ring",
@@ -633,10 +652,12 @@
     ]
   }, {
     "location": "Heart of Vlad",
-    "comment": "Medusa: Right side requires Boost + Leap Stone + Gravity Boots, bait is blocked",
+    "comment": "Medusa: Requires Boost + high jump, bait is blocked",
     "locks": [
-      "Holy glasses + Skill of Wolf + Boost of Wolf + Leap Stone + Gravity Boots"
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Leap Stone",
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Gravity Boots"
     ],
+    "comment": "Note that on top of that, right side would always need Flight",
     "block": [
       "Flight of Wolf",
       "Gold ring",
@@ -650,9 +671,10 @@
     ]
   }, {
     "location": "Rib of Vlad",
-    "comment": "Akmodan: Right side requires Boost + Leap Stone + Gravity Boots, bait is blocked",
+    "comment": "Akmodan: Requires Boost + high jump, bait is blocked",
     "locks": [
-      "Holy glasses + Skill of Wolf + Boost of Wolf + Leap Stone + Gravity Boots"
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Leap Stone",
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Gravity Boots"
     ],
     "block": [
       "Flight of Wolf",
@@ -715,7 +737,25 @@
     ]
   }, {
     "location": "Trio",
-    "comment": "Right side requires Boost + Leap Stone + Gravity Boots, bait is blocked",
+    "comment": "Requires Boost + high jump, bait is blocked",
+    "locks": [
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Leap Stone",
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Gravity Boots"
+    ],
+    "block": [
+      "Flight of Wolf",
+      "Gold ring",
+      "Silver ring",
+      "Spike Breaker",
+      "Smell of Wolf",
+      "Fire of Wolf",
+      "Gear Strap",
+      "Jewel of Open",
+      "Merman Statue"
+    ]
+  }, {
+    "location": "Ring of Arcana",
+    "comment": "Requires Boost + Leap Stone + Gravity Boots, bait is blocked",
     "locks": [
       "Holy glasses + Skill of Wolf + Boost of Wolf + Leap Stone + Gravity Boots"
     ],
@@ -731,10 +771,370 @@
       "Merman Statue"
     ]
   }, {
-    "location": "Ring of Arcana",
-    "comment": "Right side requires Boost + Leap Stone + Gravity Boots, bait is blocked",
+    "location": "Holy mail",
+    "comment": "Requires Leap stone or Gravity boots",
     "locks": [
-      "Holy glasses + Skill of Wolf + Boost of Wolf + Leap Stone + Gravity Boots"
+      "Leap Stone",
+      "Gravity Boots"
+    ]
+  }, {
+    "location": "Jewel sword",
+    "comment": "Impossible to reach",
+    "locks": ["Holy glasses + Heart of Vlad + Tooth of Vlad + Rib of Vlad + Ring of Vlad + Eye of Vlad"]
+  }, {
+    "location": "Basilard",
+    "comment": "Requires nothing",
+    "locks": []
+  }, {
+    "location": "Cloth cape",
+    "comment": "Requires nothing",
+    "locks": []
+  }, {
+    "location": "Sunglasses",
+    "comment": "Requires nothing",
+    "locks": []
+  }, {
+    "location": "Alucart sword",
+    "comment": "Impossible to reach",
+    "locks": ["Holy glasses + Heart of Vlad + Tooth of Vlad + Rib of Vlad + Ring of Vlad + Eye of Vlad"]
+  }, {
+    "location": "Broadsword",
+    "comment": "Leap Stone or Gravity Boots on the clock statue",
+    "locks": [
+      "Leap Stone",
+      "Gravity Boots"
+    ]
+  }, {
+    "location": "Estoc",
+    "comment": "The shaft to Olrox requires Boost and a big jump",
+    "locks": [
+      "Leap Stone + Skill of Wolf + Boost of Wolf",
+      "Gravity Boots + Skill of Wolf + Boost of Wolf"
+    ]
+  }, {
+    "location": "Blood cloak",
+    "comment": "Leap Stone or Gravity Boots on the clock statue",
+    "locks": [
+      "Leap Stone",
+      "Gravity Boots"
+    ]
+  }, {
+    "location": "Colosseum Green tea",
+    "comment": "Leap Stone or Gravity Boots on the clock statue",
+    "locks": [
+      "Leap Stone",
+      "Gravity Boots"
+    ]
+  }, {
+    "location": "Shield rod",
+    "comment": "Leap Stone or Gravity Boots on the clock statue",
+    "locks": [
+      "Leap Stone",
+      "Gravity Boots"
+    ]
+  }, {
+    "location": "Knight shield",
+    "comment": "Can be accessed from Chapel",
+    "locks": [
+      "Power of Wolf",
+      "Skill of Wolf",
+      "Leap Stone",
+      "Gravity Boots",
+      "Jewel of Open"
+    ]
+  }, {
+    "location": "Holy sword",
+    "comment": "Requires Gravity boots and Boost",
+    "locks": [
+      "Gravity Boots + Skill of Wolf + Boost of Wolf"
+    ]
+  }, {
+    "location": "Goggles",
+    "comment": "Requires Leap Stone to make the jump",
+    "locks": ["Leap Stone"]
+  }, {
+    "location": "Morningstar",
+    "comment": "Requires Leap Stone or Gravity Boots to make the jump",
+    "locks": [
+      "Leap Stone",
+      "Gravity Boots"
+    ]
+  }, {
+    "location": "Ankh of Life",
+    "comment": "Can be accessed with at least Power of Wolf or Leap Stone + Grav Boots",
+    "locks": [
+      "Power of Wolf",
+      "Skill of Wolf",
+      "Leap Stone + Gravity Boots"
+    ]
+  }, {
+    "location": "Mystic pendant",
+    "comment": "Can be accessed with at least Power of Wolf or Leap Stone + Grav Boots",
+    "locks": [
+      "Power of Wolf",
+      "Skill of Wolf",
+      "Leap Stone + Gravity Boots"
+    ]
+  }, {
+    "location": "Silver plate",
+    "comment": "Requires Chapel access, many options",
+    "locks": [
+      "Power of Wolf",
+      "Skill of Wolf",
+      "Leap Stone",
+      "Gravity Boots",
+      "Jewel of Open"
+    ]
+  }, {
+    "location": "Cutlass",
+    "comment": "Requires Chapel access, many options",
+    "locks": [
+      "Power of Wolf",
+      "Skill of Wolf",
+      "Leap Stone",
+      "Gravity Boots",
+      "Jewel of Open"
+    ]
+  }, {
+    "location": "Confessional",
+    "comment": "Requires Chapel access, many options",
+    "locks": [
+      "Power of Wolf",
+      "Skill of Wolf",
+      "Leap Stone",
+      "Gravity Boots",
+      "Jewel of Open"
+    ]
+  }, {
+    "location": "Falchion",
+    "comment": "Requires Gravity boots, Leap Stone or Boost",
+    "locks": [
+      "Skill of Wolf + Boost of Wolf",
+      "Leap Stone",
+      "Gravity Boots"
+    ]
+  }, {
+    "location": "Platinum mail",
+    "comment": "Can be accessed with Power of Wolf or Skill of Wolf",
+    "locks": [
+      "Power of Wolf",
+      "Skill of Wolf"
+    ]
+  }, {
+    "location": "Gold plate",
+    "comment": "Clock puzzle, can be accessed in various ways",
+    "locks": [
+      "Power of Wolf",
+      "Skill of Wolf",
+      "Leap Stone",
+      "Gravity Boots"
+    ]
+  }, {
+    "location": "Clock Tower Cloaked knight",
+    "comment": "Same as Gold plate",
+    "locks": [
+      "Power of Wolf",
+      "Skill of Wolf",
+      "Leap Stone",
+      "Gravity Boots"
+    ]
+  }, {
+    "location": "Gladius",
+    "comment": "Requires nothing",
+    "locks": []
+  }, {
+    "location": "Jewel knuckles",
+    "comment": "Mist gate is removed, requires nothing",
+    "locks": []
+  }, {
+    "location": "Bronze cuirass",
+    "comment": "Requires nothing",
+    "locks": []
+  }, {
+    "location": "Holy rod",
+    "comment": "Assumes you have at least double jump and Power to get to Soul of Bat",
+    "locks": [
+      "Power of Wolf + Leap Stone",
+      "Gravity Boots"
+    ]
+  }, {
+    "location": "Library Onyx",
+    "comment": "Same as Soul of Bat",
+    "locks": [
+      "Power of Wolf",
+      "Gravity Boots"
+    ]
+  }, {
+    "location": "Bekatowa",
+    "comment": "Requires Gravity Boots and Leap Stone to reach the pillar",
+    "locks": [
+      "Gravity Boots + Leap Stone"
+    ]
+  }, {
+    "location": "Olrox Garnet",
+    "comment": "Requires big jump and Boost on the shaft, and Boost and Flight for the garnet",
+    "locks": [
+      "Leap Stone + Skill of Wolf + Boost of Wolf + Flight of Wolf",
+      "Gravity Boots + Skill of Wolf + Boost of Wolf + Flight of Wolf"
+    ]
+  }, {
+    "location": "Bandanna",
+    "comment": "Can be accessed with only Jewel of Open",
+    "locks": ["Jewel of Open"]
+  }, {
+    "location": "Nunchaku",
+    "comment": "Smell may be required, so items must be blocked",
+    "locks": [
+      "Jewel of Open + Holy Symbol",
+      "Jewel of Open + Smell of Wolf"
+    ],
+    "block": [
+      "Gold ring",
+      "Silver ring",
+      "Holy glasses",
+      "Spike Breaker",
+      "Form of Mist",
+      "Power of Mist"
+    ]
+  }, {
+    "location": "Secret boots",
+    "comment": "Smell is required, so items must be blocked",
+    "locks": [
+      "Jewel of Open + Smell of Wolf"
+    ],
+    "block": [
+      "Gold ring",
+      "Silver ring",
+      "Holy glasses",
+      "Spike Breaker",
+      "Form of Mist",
+      "Power of Mist"
+    ]
+  }, {
+    "location": "Knuckle duster",
+    "comment": "Can't smell it underwater, so any non-item relic is blocked",
+    "locks": [
+      "Jewel of Open + Holy Symbol + Gear Strap",
+      "Jewel of Open + Holy Symbol + Power of Wolf + Fire of Wolf",
+      "Jewel of Open + Holy Symbol + Skill of Wolf + Fire of Wolf"
+    ],
+    "block": [
+      "Flight of Wolf",
+      "Fire of Wolf",
+      "Boost of Wolf",
+      "Gear Strap",
+      "Power of Wolf",
+      "Skill of Wolf",
+      "Smell of Wolf",
+      "Cube of Zoe",
+      "Spirit Orb",
+      "Gravity Boots",
+      "Leap Stone",
+      "Holy Symbol",
+      "Faerie Scroll",
+      "Jewel of Open",
+      "Merman Statue",
+      "Bat Card",
+      "Ghost Card",
+      "Faerie Card",
+      "Demon Card",
+      "Sword Card",
+      "Heart of Vlad",
+      "Tooth of Vlad",
+      "Rib of Vlad",
+      "Ring of Vlad",
+      "Eye of Vlad"
+    ]
+  }, {
+    "location": "Caverns Onyx",
+    "comment": "Smell may be required, so items must be blocked",
+    "locks": [
+      "Jewel of Open + Holy Symbol + Gear Strap",
+      "Jewel of Open + Holy Symbol + Power of Wolf + Fire of Wolf",
+      "Jewel of Open + Holy Symbol + Skill of Wolf + Fire of Wolf",
+      "Jewel of Open + Smell of Wolf + Gear Strap",
+      "Jewel of Open + Smell of Wolf + Power of Wolf + Fire of Wolf",
+      "Jewel of Open + Smell of Wolf + Skill of Wolf + Fire of Wolf"
+    ],
+    "block": [
+      "Gold ring",
+      "Silver ring",
+      "Holy glasses",
+      "Spike Breaker",
+      "Form of Mist",
+      "Power of Mist"
+    ]
+  }, {
+    "location": "Waterfall Cave",
+    "comment": "Can be accessed with only Jewel of Open",
+    "locks": ["Jewel of Open"]
+  }, {
+    "location": "Ring of Ares",
+    "comment": "The jump to the bridge switch requires Power of Wolf",
+    "locks": ["Jewel of Open + Power of Wolf + Demon Card"]
+  }, {
+    "location": "Combat knife",
+    "comment": "The catacombs require at least Leap Stone to exit",
+    "locks": ["Jewel of Open + Power of Wolf"],
+    "escapeRequires": [
+      "Leap Stone",
+      "Gravity Boots"
+    ]
+  }, {
+    "location": "Bloodstone",
+    "comment": "The catacombs require at least Leap Stone to exit",
+    "locks": ["Jewel of Open + Power of Wolf"],
+    "escapeRequires": [
+      "Leap Stone",
+      "Gravity Boots"
+    ]
+  }, {
+    "location": "Icebrand",
+    "comment": "Requires Power for bridge break and at least Leap Stone for the jump",
+    "locks": [
+      "Jewel of Open + Power of Wolf + Leap Stone",
+      "Jewel of Open + Power of Wolf + Gravity Boots"
+    ]
+  }, {
+    "location": "Walk armor",
+    "comment": "The catacombs require at least Leap Stone to exit",
+    "locks": ["Jewel of Open + Power of Wolf"],
+    "escapeRequires": [
+      "Leap Stone",
+      "Gravity Boots"
+    ]
+  }, {
+    "location": "Royal cloak",
+    "comment": "Can be accessed with Power of Wolf or Skill of Wolf",
+    "locks": [
+      "Holy glasses + Power of Wolf",
+      "Holy glasses + Skill of Wolf"
+    ]
+  }, {
+    "location": "Bastard sword",
+    "comment": "Can be accessed with Power of Wolf or Skill of Wolf",
+    "locks": [
+      "Holy glasses + Power of Wolf",
+      "Holy glasses + Skill of Wolf"
+    ]
+  }, {
+    "location": "Reverse Keep High Potion",
+    "comment": "Impossible to reach",
+    "locks": ["Holy glasses + Heart of Vlad + Tooth of Vlad + Rib of Vlad + Ring of Vlad + Eye of Vlad"]
+  }, {
+    "location": "Sword of Dawn",
+    "comment": "Requires Leap Stone or Flight to make the jump",
+    "locks": [
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Leap Stone",
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Flight of Wolf"
+    ]
+  }, {
+    "location": "Lightning mail",
+    "comment": "Requires Boost + high jump or Flight, bait is blocked",
+    "locks": [
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Leap Stone",
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Gravity Boots",
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Flight of Wolf"
     ],
     "block": [
       "Flight of Wolf",
@@ -746,6 +1146,1224 @@
       "Gear Strap",
       "Jewel of Open",
       "Merman Statue"
+    ]
+  }, {
+    "location": "Talwar",
+    "comment": "Requires Boost + high jump, bait is blocked",
+    "locks": [
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Leap Stone",
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Gravity Boots"
+    ],
+    "block": [
+      "Flight of Wolf",
+      "Gold ring",
+      "Silver ring",
+      "Spike Breaker",
+      "Smell of Wolf",
+      "Fire of Wolf",
+      "Gear Strap",
+      "Jewel of Open",
+      "Merman Statue"
+    ]
+  }, {
+    "location": "Twilight cloak",
+    "comment": "Mist gate is removed but requires everything else, bait is blocked",
+    "locks": [
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Leap Stone + Spike Breaker",
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Gravity Boots + Spike Breaker"
+    ],
+    "block": [
+      "Flight of Wolf",
+      "Gold ring",
+      "Silver ring",
+      "Spike Breaker",
+      "Smell of Wolf",
+      "Fire of Wolf",
+      "Gear Strap",
+      "Jewel of Open",
+      "Merman Statue"
+    ]
+  }, {
+    "location": "Alucard mail",
+    "comment": "Requires Boost + high jump, bait is blocked",
+    "locks": [
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Leap Stone",
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Gravity Boots"
+    ],
+    "block": [
+      "Flight of Wolf",
+      "Gold ring",
+      "Silver ring",
+      "Spike Breaker",
+      "Smell of Wolf",
+      "Fire of Wolf",
+      "Gear Strap",
+      "Jewel of Open",
+      "Merman Statue"
+    ]
+  }, {
+    "location": "Sword of Hador",
+    "comment": "Requires Boost + high jump, bait is blocked",
+    "locks": [
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Leap Stone",
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Gravity Boots"
+    ],
+    "block": [
+      "Flight of Wolf",
+      "Gold ring",
+      "Silver ring",
+      "Spike Breaker",
+      "Smell of Wolf",
+      "Fire of Wolf",
+      "Gear Strap",
+      "Jewel of Open",
+      "Merman Statue"
+    ]
+  }, {
+    "location": "Fury plate",
+    "comment": "Requires something to break the floor, bait is blocked",
+    "locks": [
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Leap Stone + Gear Strap",
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Leap Stone + Fire of Wolf",
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Gravity Boots + Gear Strap",
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Gravity Boots + Fire of Wolf"
+    ],
+    "block": [
+      "Flight of Wolf",
+      "Gold ring",
+      "Silver ring",
+      "Spike Breaker",
+      "Smell of Wolf",
+      "Fire of Wolf",
+      "Gear Strap",
+      "Jewel of Open",
+      "Merman Statue"
+    ]
+  }, {
+    "location": "Reverse Colosseum Zircon",
+    "comment": "Requires Boost + high jump, bait is blocked",
+    "locks": [
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Leap Stone",
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Gravity Boots"
+    ],
+    "block": [
+      "Flight of Wolf",
+      "Gold ring",
+      "Silver ring",
+      "Spike Breaker",
+      "Smell of Wolf",
+      "Fire of Wolf",
+      "Gear Strap",
+      "Jewel of Open",
+      "Merman Statue"
+    ]
+  }, {
+    "location": "Gram",
+    "comment": "Requires Boost + Flight + high jump, bait is blocked",
+    "locks": [
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Leap Stone",
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Gravity Boots"
+    ],
+    "block": [
+      "Flight of Wolf",
+      "Gold ring",
+      "Silver ring",
+      "Spike Breaker",
+      "Smell of Wolf",
+      "Fire of Wolf",
+      "Gear Strap",
+      "Jewel of Open",
+      "Merman Statue"
+    ]
+  }, {
+    "location": "Moon rod",
+    "comment": "Requires Boost + at least Leap Stone, bait is blocked",
+    "locks": [
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Leap Stone",
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Gravity Boots"
+    ],
+    "block": [
+      "Gold ring",
+      "Silver ring",
+      "Spike Breaker",
+      "Smell of Wolf",
+      "Fire of Wolf",
+      "Gear Strap",
+      "Jewel of Open",
+      "Merman Statue"
+    ]
+  }, {
+    "location": "Sunstone",
+    "comment": "Reverse clock puzzle. Requires Boost + at least Leap Stone, bait is blocked",
+    "locks": [
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Leap Stone",
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Gravity Boots"
+    ],
+    "block": [
+      "Gold ring",
+      "Silver ring",
+      "Spike Breaker",
+      "Smell of Wolf",
+      "Fire of Wolf",
+      "Gear Strap",
+      "Jewel of Open",
+      "Merman Statue"
+    ]
+  }, {
+    "location": "Luminus",
+    "comment": "Needs Flight, bait is blocked",
+    "locks": [
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Flight of Wolf + Leap Stone",
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Flight of Wolf + Gravity Boots"
+    ],
+    "block": [
+      "Gold ring",
+      "Silver ring",
+      "Spike Breaker",
+      "Smell of Wolf",
+      "Fire of Wolf",
+      "Gear Strap",
+      "Jewel of Open",
+      "Merman Statue"
+    ]
+  }, {
+    "location": "Dragon helm",
+    "comment": "Requires Boost + at least Leap Stone, bait is blocked",
+    "locks": [
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Leap Stone",
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Gravity Boots"
+    ],
+    "block": [
+      "Gold ring",
+      "Silver ring",
+      "Spike Breaker",
+      "Smell of Wolf",
+      "Fire of Wolf",
+      "Gear Strap",
+      "Jewel of Open",
+      "Merman Statue"
+    ]
+  }, {
+    "location": "Forbidden Library Opal",
+    "comment": "Requires Boost + at least Leap Stone, bait is blocked",
+    "locks": [
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Leap Stone",
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Gravity Boots"
+    ],
+    "block": [
+      "Gold ring",
+      "Silver ring",
+      "Spike Breaker",
+      "Smell of Wolf",
+      "Fire of Wolf",
+      "Gear Strap",
+      "Jewel of Open",
+      "Merman Statue"
+    ]
+  }, {
+    "location": "Badelaire",
+    "comment": "Requires Boost + at least Leap Stone, bait is blocked",
+    "locks": [
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Leap Stone",
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Gravity Boots"
+    ],
+    "block": [
+      "Gold ring",
+      "Silver ring",
+      "Spike Breaker",
+      "Smell of Wolf",
+      "Fire of Wolf",
+      "Gear Strap",
+      "Jewel of Open",
+      "Merman Statue"
+    ]
+  }, {
+    "location": "Staurolite",
+    "comment": "Mist gate is removed. Requires Boost + at least Leap Stone, bait is blocked",
+    "locks": [
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Leap Stone",
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Gravity Boots"
+    ],
+    "block": [
+      "Gold ring",
+      "Silver ring",
+      "Spike Breaker",
+      "Smell of Wolf",
+      "Fire of Wolf",
+      "Gear Strap",
+      "Jewel of Open",
+      "Merman Statue"
+    ]
+  }, {
+    "location": "Shotel",
+    "comment": "Mist gate is removed. Requires Boost + at least Leap Stone, bait is blocked",
+    "locks": [
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Leap Stone",
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Gravity Boots"
+    ],
+    "block": [
+      "Gold ring",
+      "Silver ring",
+      "Spike Breaker",
+      "Smell of Wolf",
+      "Fire of Wolf",
+      "Gear Strap",
+      "Jewel of Open",
+      "Merman Statue"
+    ]
+  }, {
+    "location": "Black Marble Meal Ticket",
+    "comment": "Requires JoO, Boost + at least Leap Stone, bait is blocked",
+    "locks": [
+      "Holy glasses + Jewel of Open + Skill of Wolf + Boost of Wolf + Leap Stone",
+      "Holy glasses + Jewel of Open + Skill of Wolf + Boost of Wolf + Gravity Boots"
+    ],
+    "block": [
+      "Gold ring",
+      "Silver ring",
+      "Spike Breaker",
+      "Smell of Wolf",
+      "Fire of Wolf",
+      "Gear Strap",
+      "Jewel of Open",
+      "Merman Statue"
+    ]
+  }, {
+    "location": "Reverse Alucart Sword",
+    "comment": "Impossible to reach",
+    "locks": ["Holy glasses + Heart of Vlad + Tooth of Vlad + Rib of Vlad + Ring of Vlad + Eye of Vlad"]
+  }, {
+    "location": "Katana",
+    "comment": "Requires Boost + at least Leap Stone, bait is blocked",
+    "locks": [
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Leap Stone",
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Gravity Boots"
+    ],
+    "block": [
+      "Gold ring",
+      "Silver ring",
+      "Spike Breaker",
+      "Smell of Wolf",
+      "Fire of Wolf",
+      "Gear Strap",
+      "Jewel of Open",
+      "Merman Statue"
+    ]
+  }, {
+    "location": "Goddess shield",
+    "comment": "Requires Boost + at least Leap Stone, bait is blocked",
+    "locks": [
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Leap Stone",
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Gravity Boots"
+    ],
+    "block": [
+      "Gold ring",
+      "Silver ring",
+      "Spike Breaker",
+      "Smell of Wolf",
+      "Fire of Wolf",
+      "Gear Strap",
+      "Jewel of Open",
+      "Merman Statue"
+    ]
+  }, {
+    "location": "Talisman",
+    "comment": "Requires Boost + at least Leap Stone, bait is blocked",
+    "locks": [
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Leap Stone",
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Gravity Boots"
+    ],
+    "block": [
+      "Gold ring",
+      "Silver ring",
+      "Spike Breaker",
+      "Smell of Wolf",
+      "Fire of Wolf",
+      "Gear Strap",
+      "Jewel of Open",
+      "Merman Statue"
+    ]
+  }, {
+    "location": "Reverse Forbidden Route",
+    "comment": "Requires Boost + at least Leap Stone, bait is blocked",
+    "locks": [
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Leap Stone",
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Gravity Boots"
+    ],
+    "block": [
+      "Gold ring",
+      "Silver ring",
+      "Spike Breaker",
+      "Smell of Wolf",
+      "Fire of Wolf",
+      "Gear Strap",
+      "Jewel of Open",
+      "Merman Statue"
+    ]
+  }, {
+    "location": "Beryl circlet",
+    "comment": "Impossible to reach",
+    "locks": ["Holy glasses + Heart of Vlad + Tooth of Vlad + Rib of Vlad + Ring of Vlad + Eye of Vlad"]
+  }, {
+    "location": "Reverse Entrance Antivenom",
+    "comment": "Requires Boost + at least Leap Stone, bait is blocked",
+    "locks": [
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Leap Stone",
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Gravity Boots"
+    ],
+    "block": [
+      "Gold ring",
+      "Silver ring",
+      "Spike Breaker",
+      "Smell of Wolf",
+      "Fire of Wolf",
+      "Gear Strap",
+      "Jewel of Open",
+      "Merman Statue"
+    ]
+  }, {
+    "location": "Alucard shield",
+    "comment": "Caverns requires Boost, Leap Stone and Gravity Boots, bait is blocked",
+    "locks": [
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Leap Stone + Gravity Boots"
+    ],
+    "block": [
+      "Gold ring",
+      "Silver ring",
+      "Spike Breaker",
+      "Smell of Wolf",
+      "Fire of Wolf",
+      "Gear Strap",
+      "Jewel of Open",
+      "Merman Statue"
+    ]
+  }, {
+    "location": "Osafune katana",
+    "comment": "Caverns requires Boost, Leap Stone and Gravity Boots, bait is blocked",
+    "locks": [
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Leap Stone + Gravity Boots"
+    ],
+    "block": [
+      "Gold ring",
+      "Silver ring",
+      "Spike Breaker",
+      "Smell of Wolf",
+      "Fire of Wolf",
+      "Gear Strap",
+      "Jewel of Open",
+      "Merman Statue"
+    ]
+  }, {
+    "location": "Reverse Caverns Garnet",
+    "comment": "Caverns requires Boost, Leap Stone and Gravity Boots, bait is blocked",
+    "locks": [
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Leap Stone + Gravity Boots"
+    ],
+    "block": [
+      "Gold ring",
+      "Silver ring",
+      "Spike Breaker",
+      "Smell of Wolf",
+      "Fire of Wolf",
+      "Gear Strap",
+      "Jewel of Open",
+      "Merman Statue"
+    ]
+  }, {
+    "location": "Reverse Caverns Opal",
+    "comment": "Caverns requires Boost, Leap Stone and Gravity Boots, bait is blocked",
+    "locks": [
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Leap Stone + Gravity Boots"
+    ],
+    "block": [
+      "Gold ring",
+      "Silver ring",
+      "Spike Breaker",
+      "Smell of Wolf",
+      "Fire of Wolf",
+      "Gear Strap",
+      "Jewel of Open",
+      "Merman Statue"
+    ]
+  }, {
+    "location": "Reverse Caverns Diamond",
+    "comment": "Caverns requires Boost, Leap Stone and Gravity Boots, bait is blocked",
+    "locks": [
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Leap Stone + Gravity Boots"
+    ],
+    "block": [
+      "Gold ring",
+      "Silver ring",
+      "Spike Breaker",
+      "Smell of Wolf",
+      "Fire of Wolf",
+      "Gear Strap",
+      "Jewel of Open",
+      "Merman Statue"
+    ]
+  }, {
+    "location": "Cave Life apple",
+    "comment": "Caverns requires Boost + Leap Stone + Gravity Boots, bait is blocked",
+    "locks": [
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Leap Stone + Gravity Boots + Demon Card"
+    ],
+    "block": [
+      "Gold ring",
+      "Silver ring",
+      "Spike Breaker",
+      "Smell of Wolf",
+      "Fire of Wolf",
+      "Gear Strap",
+      "Jewel of Open",
+      "Merman Statue"
+    ]
+  }, {
+    "location": "Alucard sword",
+    "comment": "Caverns requires Boost, Leap Stone and Gravity Boots, bait is blocked",
+    "locks": [
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Leap Stone + Gravity Boots"
+    ],
+    "block": [
+      "Gold ring",
+      "Silver ring",
+      "Spike Breaker",
+      "Smell of Wolf",
+      "Fire of Wolf",
+      "Gear Strap",
+      "Jewel of Open",
+      "Merman Statue"
+    ]
+  }, {
+    "location": "Floating Catacombs Elixir",
+    "comment": "Caverns requirements and Spike Breaker, bait is blocked",
+    "locks": [
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Leap Stone + Gravity Boots + Spike Breaker"
+    ],
+    "block": [
+      "Gold ring",
+      "Silver ring",
+      "Spike Breaker",
+      "Smell of Wolf",
+      "Fire of Wolf",
+      "Gear Strap",
+      "Jewel of Open",
+      "Merman Statue"
+    ]
+  }, {
+    "location": "Necklace of J",
+    "comment": "Caverns requires Boost, Leap Stone and Gravity Boots, bait is blocked",
+    "locks": [
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Leap Stone + Gravity Boots"
+    ],
+    "block": [
+      "Gold ring",
+      "Silver ring",
+      "Spike Breaker",
+      "Smell of Wolf",
+      "Fire of Wolf",
+      "Gear Strap",
+      "Jewel of Open",
+      "Merman Statue"
+    ]
+  }, {
+    "location": "Floating Catacombs Diamond",
+    "comment": "Caverns requires Boost, Leap Stone and Gravity Boots, bait is blocked",
+    "locks": [
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Leap Stone + Gravity Boots"
+    ],
+    "block": [
+      "Gold ring",
+      "Silver ring",
+      "Spike Breaker",
+      "Smell of Wolf",
+      "Fire of Wolf",
+      "Gear Strap",
+      "Jewel of Open",
+      "Merman Statue"
+    ]
+  }],
+
+  "lockLocationAllowed": [{
+    "location": "Cube of Zoe",
+    "comment": "Same as in logic",
+    "locks": []
+  }, {
+    "location": "Skill of Wolf",
+    "comment": "Same as in logic",
+    "locks": [
+      "Skill of Wolf + Boost of Wolf",
+      "Leap Stone + Gravity Boots"
+    ]
+  }, {
+    "location": "Bat Card",
+    "comment": "Same as in logic",
+    "locks": [
+      "Leap Stone + Gravity Boots + Skill of Wolf + Boost of Wolf",
+      "Skill of Wolf + Flight of Wolf"
+    ]
+  }, {
+    "location": "Spirit Orb",
+    "comment": "Same as in logic",
+    "locks": []
+  }, {
+    "location": "Gravity Boots",
+    "comment": "It's possible to reach with a precise boost from the bottom once the floor is open",
+    "locks": [
+      "Gravity Boots + Skill of Wolf + Boost of Wolf",
+      "Gold ring + Silver ring + Skill of Wolf + Boost of Wolf"
+    ]
+  }, {
+    "location": "Form of Mist",
+    "comment": "Same as in logic",
+    "locks": [
+      "Leap Stone",
+      "Gravity Boots"
+    ]
+  }, {
+    "location": "Holy glasses",
+    "comment": "Same as in logic",
+    "locks": ["Gold ring + Silver ring"],
+    "escapeRequires": ["Skill of Wolf + Boost of Wolf"]
+  }, {
+    "location": "Form of Wolf",
+    "comment": "Same as in logic",
+    "locks": ["Smell of Wolf"]
+  }, {
+    "location": "Faerie Scroll",
+    "comment": "Same as in logic",
+    "locks": []
+  }, {
+    "location": "Jewel of Open",
+    "comment": "Same as in logic",
+    "locks": []
+  }, {
+    "location": "Faerie Card",
+    "comment": "Can reach with damage boost",
+    "locks": []
+  }, {
+    "location": "Soul of Bat",
+    "comment": "Can reach with damage boost",
+    "locks": []
+  }, {
+    "location": "Fire of Bat",
+    "comment": "It's possible to get there by bouncing on the skulls",
+    "locks": []
+  }, {
+    "location": "Leap Stone",
+    "comment": "Clock tower can be traversed with no relics",
+    "locks": []
+  }, {
+    "location": "Power of Mist",
+    "comment": "It's possible to get there by bouncing on the flea riders",
+    "locks": []
+  }, {
+    "location": "Ghost Card",
+    "comment": "Same as in logic",
+    "locks": ["Skill of Wolf + Boost of Wolf + Flight of Wolf"]
+  }, {
+    "location": "Power of Wolf",
+    "comment": "It's possible to get inside with Boost + Flight + Leap Stone",
+    "locks": [
+      "Skill of Wolf + Boost of Wolf + Smell of Wolf",
+      "Skill of Wolf + Boost of Wolf + Flight of Wolf + Leap Stone"
+    ]
+  }, {
+    "location": "Silver ring",
+    "comment": "Spike Breaker skip",
+    "locks": ["Jewel of Open"]
+  }, {
+    "location": "Gold ring",
+    "comment": "Same as in logic",
+    "locks": ["Jewel of Open + Skill of Wolf"]
+  }, {
+    "location": "Crystal cloak",
+    "comment": "Same as in logic",
+    "locks": ["Jewel of Open"]
+  }, {
+    "location": "Holy Symbol",
+    "comment": "Same as in logic",
+    "locks": [
+      "Jewel of Open + Merman Statue + Gear Strap",
+      "Jewel of Open + Merman Statue + Power of Wolf + Fire of Wolf",
+      "Jewel of Open + Merman Statue + Skill of Wolf + Fire of Wolf"
+    ]
+  }, {
+    "location": "Merman Statue",
+    "comment": "Same as in logic",
+    "locks": ["Jewel of Open"]
+  }, {
+    "location": "Echo of Bat",
+    "comment": "Same as in logic",
+    "locks": [
+      "Leap Stone + Skill of Wolf + Boost of Wolf",
+      "Gravity Boots + Skill of Wolf + Boost of Wolf"
+    ]
+  }, {
+    "location": "Sword Card",
+    "comment": "Same as in logic",
+    "locks": [
+      "Leap Stone + Skill of Wolf + Boost of Wolf",
+      "Gravity Boots + Skill of Wolf + Boost of Wolf"
+    ]
+  }, {
+    "location": "Demon Card",
+    "comment": "Caverns bridge skip",
+    "locks": ["Jewel of Open"]
+  }, {
+    "location": "Spike Breaker",
+    "comment": "Caverns bridge skip, Spike Breaker skip",
+    "locks": ["Jewel of Open"],
+    "escapeRequires": [
+      "Gravity Boots",
+      "Leap Stone + Skill of Wolf + Boost of Wolf"
+    ]
+  }, {
+    "location": "Mormegil",
+    "comment": "Caverns bridge skip",
+    "locks": ["Jewel of Open"],
+    "escapeRequires": [
+      "Leap Stone",
+      "Gravity Boots"
+    ]
+  }, {
+    "location": "Ring of Vlad",
+    "comment": "Darkwing bat: Same as in logic",
+    "locks": [
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Leap Stone",
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Gravity Boots"
+    ]
+  }, {
+    "location": "Tooth of Vlad",
+    "comment": "Creature: Same as in logic",
+    "locks": [
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Leap Stone",
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Gravity Boots"
+    ]
+  }, {
+    "location": "Eye of Vlad",
+    "comment": "Death: Same as in logic",
+    "locks": [
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Leap Stone + Gravity Boots"
+    ]
+  }, {
+    "location": "Heart of Vlad",
+    "comment": "Medusa: Same as in logic",
+    "locks": [
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Leap Stone",
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Gravity Boots"
+    ]
+  }, {
+    "location": "Rib of Vlad",
+    "comment": "Akmodan: Same as in logic",
+    "locks": [
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Leap Stone",
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Gravity Boots"
+    ]
+  }, {
+    "location": "Force of Echo",
+    "comment": "Same as in logic",
+    "locks": [
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Leap Stone + Gravity Boots"
+    ]
+  }, {
+    "location": "Dark Blade",
+    "comment": "Same as in logic",
+    "locks": [
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Leap Stone + Gravity Boots"
+    ]
+  }, {
+    "location": "Gas Cloud",
+    "comment": "Same as in logic",
+    "locks": [
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Leap Stone + Gravity Boots"
+    ]
+  }, {
+    "location": "Trio",
+    "comment": "Same as in logic",
+    "locks": [
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Leap Stone",
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Gravity Boots"
+    ]
+  }, {
+    "location": "Ring of Arcana",
+    "comment": "Same as in logic",
+    "locks": [
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Leap Stone + Gravity Boots"
+    ]
+  }, {
+    "location": "Holy mail",
+    "comment": "It's possible to get there by bouncing on the bats",
+    "locks": []
+  }, {
+    "location": "Jewel sword",
+    "comment": "Impossible to reach",
+    "locks": ["Holy glasses + Heart of Vlad + Tooth of Vlad + Rib of Vlad + Ring of Vlad + Eye of Vlad"]
+  }, {
+    "location": "Basilard",
+    "comment": "Same as in logic",
+    "locks": []
+  }, {
+    "location": "Cloth cape",
+    "comment": "Same as in logic",
+    "locks": []
+  }, {
+    "location": "Sunglasses",
+    "comment": "Same as in logic",
+    "locks": []
+  }, {
+    "location": "Alucart sword",
+    "comment": "Impossible to reach",
+    "locks": ["Holy glasses + Heart of Vlad + Tooth of Vlad + Rib of Vlad + Ring of Vlad + Eye of Vlad"]
+  }, {
+    "location": "Broadsword",
+    "comment": "Same as in logic",
+    "locks": [
+      "Leap Stone",
+      "Gravity Boots"
+    ]
+  }, {
+    "location": "Estoc",
+    "comment": "Same as in logic",
+    "locks": [
+      "Leap Stone + Skill of Wolf + Boost of Wolf",
+      "Gravity Boots + Skill of Wolf + Boost of Wolf"
+    ]
+  }, {
+    "location": "Blood cloak",
+    "comment": "Same as in logic",
+    "locks": [
+      "Leap Stone",
+      "Gravity Boots"
+    ]
+  }, {
+    "location": "Colosseum Green tea",
+    "comment": "Same as in logic",
+    "locks": [
+      "Leap Stone",
+      "Gravity Boots"
+    ]
+  }, {
+    "location": "Shield rod",
+    "comment": "Same as in logic",
+    "locks": [
+      "Leap Stone",
+      "Gravity Boots"
+    ]
+  }, {
+    "location": "Knight shield",
+    "comment": "Clock tower can be traversed with no relics",
+    "locks": []
+  }, {
+    "location": "Holy sword",
+    "comment": "Same as in logic",
+    "locks": [
+      "Gravity Boots + Skill of Wolf + Boost of Wolf"
+    ]
+  }, {
+    "location": "Goggles",
+    "comment": "Same as in logic",
+    "locks": ["Leap Stone"]
+  }, {
+    "location": "Morningstar",
+    "comment": "Same as in logic",
+    "locks": [
+      "Leap Stone",
+      "Gravity Boots"
+    ]
+  }, {
+    "location": "Ankh of Life",
+    "comment": "Can be reached with no relics from Clock tower and a big toss against the spiked ball",
+    "locks": []
+  }, {
+    "location": "Mystic pendant",
+    "comment": "Can be reached with no relics from Clock tower and a big toss against the spiked ball",
+    "locks": []
+  }, {
+    "location": "Silver plate",
+    "comment": "Clock tower can be traversed with no relics",
+    "locks": []
+  }, {
+    "location": "Cutlass",
+    "comment": "Clock tower can be traversed with no relics",
+    "locks": []
+  }, {
+    "location": "Confessional",
+    "comment": "Clock tower can be traversed with no relics",
+    "locks": []
+  }, {
+    "location": "Falchion",
+    "comment": "Same as in logic",
+    "locks": [
+      "Skill of Wolf + Boost of Wolf",
+      "Leap Stone",
+      "Gravity Boots"
+    ]
+  }, {
+    "location": "Platinum mail",
+    "comment": "Same as in logic",
+    "locks": [
+      "Power of Wolf",
+      "Skill of Wolf"
+    ]
+  }, {
+    "location": "Gold plate",
+    "comment": "Clock tower can be traversed with no relics",
+    "locks": []
+  }, {
+    "location": "Clock Tower Cloaked knight",
+    "comment": "Clock tower can be traversed with no relics",
+    "locks": []
+  }, {
+    "location": "Gladius",
+    "comment": "Same as in logic",
+    "locks": []
+  }, {
+    "location": "Jewel knuckles",
+    "comment": "Same as in logic",
+    "locks": []
+  }, {
+    "location": "Bronze cuirass",
+    "comment": "Same as in logic",
+    "locks": []
+  }, {
+    "location": "Holy rod",
+    "comment": "Can technically be reached with damage boost on flea armors",
+    "locks": []
+  }, {
+    "location": "Library Onyx",
+    "comment": "Can be reached with damage boost",
+    "locks": []
+  }, {
+    "location": "Bekatowa",
+    "comment": "Can be reached with damage boost on skulls",
+    "locks": []
+  }, {
+    "location": "Olrox Garnet",
+    "comment": "Same as in logic",
+    "locks": [
+      "Leap Stone + Skill of Wolf + Boost of Wolf + Flight of Wolf",
+      "Gravity Boots + Skill of Wolf + Boost of Wolf + Flight of Wolf"
+    ]
+  }, {
+    "location": "Bandanna",
+    "comment": "Same as in logic",
+    "locks": ["Jewel of Open"]
+  }, {
+    "location": "Nunchaku",
+    "comment": "Same as in logic",
+    "locks": [
+      "Jewel of Open + Holy Symbol",
+      "Jewel of Open + Smell of Wolf"
+    ]
+  }, {
+    "location": "Secret boots",
+    "comment": "It's possible to reach by climbing the waterfall",
+    "locks": ["Jewel of Open"]
+  }, {
+    "location": "Knuckle duster",
+    "comment": "Same as in logic",
+    "locks": [
+      "Jewel of Open + Holy Symbol + Gear Strap",
+      "Jewel of Open + Holy Symbol + Power of Wolf + Fire of Wolf",
+      "Jewel of Open + Holy Symbol + Skill of Wolf + Fire of Wolf"
+    ]
+  }, {
+    "location": "Caverns Onyx",
+    "comment": "Can be reached without Holy Symbol or Smell of Wolf by jumping on the water",
+    "locks": [
+      "Jewel of Open + Gear Strap",
+      "Jewel of Open + Power of Wolf + Fire of Wolf",
+      "Jewel of Open + Skill of Wolf + Fire of Wolf"
+    ]
+  }, {
+    "location": "Waterfall Cave",
+    "comment": "Can be accessed with only Jewel of Open",
+    "locks": ["Jewel of Open"]
+  }, {
+    "location": "Ring of Ares",
+    "comment": "Caverns bridge skip",
+    "locks": ["Jewel of Open + Demon Card"]
+  }, {
+    "location": "Combat knife",
+    "comment": "Caverns bridge skip",
+    "locks": ["Jewel of Open"],
+    "escapeRequires": [
+      "Leap Stone",
+      "Gravity Boots"
+    ]
+  }, {
+    "location": "Bloodstone",
+    "comment": "Caverns bridge skip",
+    "locks": ["Jewel of Open"],
+    "escapeRequires": [
+      "Leap Stone",
+      "Gravity Boots"
+    ]
+  }, {
+    "location": "Icebrand",
+    "comment": "Caverns bridge skip, and it's also possible with Boost and damage boost",
+    "locks": [
+      "Jewel of Open + Leap Stone",
+      "Jewel of Open + Gravity Boots",
+      "Jewel of Open + Skill of Wolf + Boost of Wolf"
+    ]
+  }, {
+    "location": "Walk armor",
+    "comment": "Caverns bridge skip",
+    "locks": ["Jewel of Open"],
+    "escapeRequires": [
+      "Leap Stone",
+      "Gravity Boots"
+    ]
+  }, {
+    "location": "Royal cloak",
+    "comment": "Same as in logic",
+    "locks": [
+      "Holy glasses + Power of Wolf",
+      "Holy glasses + Skill of Wolf"
+    ]
+  }, {
+    "location": "Bastard sword",
+    "comment": "Same as in logic",
+    "locks": [
+      "Holy glasses + Power of Wolf",
+      "Holy glasses + Skill of Wolf"
+    ]
+  }, {
+    "location": "Reverse Keep High Potion",
+    "comment": "Impossible to reach",
+    "locks": ["Holy glasses + Heart of Vlad + Tooth of Vlad + Rib of Vlad + Ring of Vlad + Eye of Vlad"]
+  }, {
+    "location": "Sword of Dawn",
+    "comment": "Same as in logic",
+    "locks": [
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Leap Stone",
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Flight of Wolf"
+    ]
+  }, {
+    "location": "Lightning mail",
+    "comment": "Same as in logic",
+    "locks": [
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Leap Stone",
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Gravity Boots",
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Flight of Wolf"
+    ]
+  }, {
+    "location": "Talwar",
+    "comment": "Same as in logic",
+    "locks": [
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Leap Stone",
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Gravity Boots"
+    ]
+  }, {
+    "location": "Twilight cloak",
+    "comment": "Spike Breaker skip",
+    "locks": [
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Leap Stone",
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Gravity Boots"
+    ]
+  }, {
+    "location": "Alucard mail",
+    "comment": "Same as in logic",
+    "locks": [
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Leap Stone",
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Gravity Boots"
+    ]
+  }, {
+    "location": "Sword of Hador",
+    "comment": "Same as in logic",
+    "locks": [
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Leap Stone",
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Gravity Boots"
+    ]
+  }, {
+    "location": "Fury plate",
+    "comment": "Same as in logic",
+    "locks": [
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Leap Stone + Gear Strap",
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Leap Stone + Fire of Wolf",
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Gravity Boots + Gear Strap",
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Gravity Boots + Fire of Wolf"
+    ]
+  }, {
+    "location": "Reverse Colosseum Zircon",
+    "comment": "Same as in logic",
+    "locks": [
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Leap Stone",
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Gravity Boots"
+    ]
+  }, {
+    "location": "Gram",
+    "comment": "Same as in logic",
+    "locks": [
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Leap Stone",
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Gravity Boots"
+    ]
+  }, {
+    "location": "Moon rod",
+    "comment": "Same as in logic",
+    "locks": [
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Leap Stone",
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Gravity Boots"
+    ]
+  }, {
+    "location": "Sunstone",
+    "comment": "Same as in logic",
+    "locks": [
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Leap Stone",
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Gravity Boots"
+    ]
+  }, {
+    "location": "Luminus",
+    "comment": "Same as in logic",
+    "locks": [
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Flight of Wolf + Leap Stone",
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Flight of Wolf + Gravity Boots"
+    ]
+  }, {
+    "location": "Dragon helm",
+    "comment": "Same as in logic",
+    "locks": [
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Leap Stone",
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Gravity Boots"
+    ]
+  }, {
+    "location": "Forbidden Library Opal",
+    "comment": "Same as in logic",
+    "locks": [
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Leap Stone",
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Gravity Boots"
+    ]
+  }, {
+    "location": "Badelaire",
+    "comment": "Same as in logic",
+    "locks": [
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Leap Stone",
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Gravity Boots"
+    ]
+  }, {
+    "location": "Staurolite",
+    "comment": "Same as in logic",
+    "locks": [
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Leap Stone",
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Gravity Boots"
+    ]
+  }, {
+    "location": "Shotel",
+    "comment": "Same as in logic",
+    "locks": [
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Leap Stone",
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Gravity Boots"
+    ]
+  }, {
+    "location": "Black Marble Meal Ticket",
+    "comment": "Same as in logic",
+    "locks": [
+      "Holy glasses + Jewel of Open + Skill of Wolf + Boost of Wolf + Leap Stone",
+      "Holy glasses + Jewel of Open + Skill of Wolf + Boost of Wolf + Gravity Boots"
+    ]
+  }, {
+    "location": "Reverse Alucart Sword",
+    "comment": "Impossible to reach",
+    "locks": ["Holy glasses + Heart of Vlad + Tooth of Vlad + Rib of Vlad + Ring of Vlad + Eye of Vlad"]
+  }, {
+    "location": "Katana",
+    "comment": "Same as in logic",
+    "locks": [
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Leap Stone",
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Gravity Boots"
+    ]
+  }, {
+    "location": "Goddess shield",
+    "comment": "Same as in logic",
+    "locks": [
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Leap Stone",
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Gravity Boots"
+    ]
+  }, {
+    "location": "Talisman",
+    "comment": "Same as in logic",
+    "locks": [
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Leap Stone",
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Gravity Boots"
+    ]
+  }, {
+    "location": "Reverse Forbidden Route",
+    "comment": "Same as in logic",
+    "locks": [
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Leap Stone",
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Gravity Boots"
+    ]
+  }, {
+    "location": "Beryl circlet",
+    "comment": "Impossible to reach",
+    "locks": ["Holy glasses + Heart of Vlad + Tooth of Vlad + Rib of Vlad + Ring of Vlad + Eye of Vlad"]
+  }, {
+    "location": "Reverse Entrance Antivenom",
+    "comment": "Same as in logic",
+    "locks": [
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Leap Stone",
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Gravity Boots"
+    ]
+  }, {
+    "location": "Alucard shield",
+    "comment": "Same as in logic",
+    "locks": [
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Leap Stone + Gravity Boots"
+    ]
+  }, {
+    "location": "Osafune katana",
+    "comment": "Same as in logic",
+    "locks": [
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Leap Stone + Gravity Boots"
+    ]
+  }, {
+    "location": "Reverse Caverns Garnet",
+    "comment": "Same as in logic",
+    "locks": [
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Leap Stone + Gravity Boots"
+    ]
+  }, {
+    "location": "Reverse Caverns Opal",
+    "comment": "Same as in logic",
+    "locks": [
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Leap Stone + Gravity Boots"
+    ]
+  }, {
+    "location": "Reverse Caverns Diamond",
+    "comment": "Same as in logic",
+    "locks": [
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Leap Stone + Gravity Boots"
+    ]
+  }, {
+    "location": "Cave Life apple",
+    "comment": "Same as in logic",
+    "locks": [
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Leap Stone + Gravity Boots + Demon Card"
+    ]
+  }, {
+    "location": "Alucard sword",
+    "comment": "Same as in logic",
+    "locks": [
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Leap Stone + Gravity Boots"
+    ]
+  }, {
+    "location": "Floating Catacombs Elixir",
+    "comment": "Spike Breaker skip",
+    "locks": [
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Leap Stone + Gravity Boots"
+    ]
+  }, {
+    "location": "Necklace of J",
+    "comment": "Same as in logic",
+    "locks": [
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Leap Stone + Gravity Boots"
+    ]
+  }, {
+    "location": "Floating Catacombs Diamond",
+    "comment": "Same as in logic",
+    "locks": [
+      "Holy glasses + Skill of Wolf + Boost of Wolf + Leap Stone + Gravity Boots"
     ]
   }],
 
@@ -2507,6 +4125,18 @@
   }, {
     "address": "0x158CD8",
     "type": "word",
+    "value": "0x0C03F8EA"
+  }, {
+    "type": "word",
+    "value": "0x34040000"
+  }, {
+    "type": "word",
+    "value": "0x10400007"
+  }, {
+    "type": "word",
+    "value": "0x00000000"
+  }, {
+    "type": "word",
     "value": "0x34020001"
   }, {
     "type": "word",
@@ -3321,6 +4951,15 @@
     "type": "short",
     "value": "0x0101"
   }, {
+    "comment": "Allow wolf to push the caverns box",
+    "address": "0x4C7EF78",
+    "type": "word",
+    "value": "0x00000000"
+  }, {
+    "address": "0x4C7EFFC",
+    "type": "word",
+    "value": "0x00000000"
+  }, {
     "comment": "Remove Outer wall elevator lever",
     "address": "0x4A13D2C",
     "type": "word",
@@ -3370,6 +5009,41 @@
     "address": "0x5B0BE40",
     "type": "word",
     "value": "0x34040007"
+  }, {
+    "comment": "Succubus fight changes",
+    "address": "0x5B07F34",
+    "type": "word",
+    "value": "0x00000000"
+  }, {
+    "address": "0x5B07E28",
+    "type": "word",
+    "value": "0x08064B74"
+  }, {
+    "address": "0x5B08304",
+    "type": "word",
+    "value": "0x0C044F5F"
+  }, {
+    "type": "word",
+    "value": "0x34040030"
+  }, {
+    "type": "word",
+    "value": "0x08064C64"
+  }, {
+    "type": "word",
+    "value": "0x00000000"
+  }, {
+    "address": "0x5B07A10",
+    "type": "char",
+    "value": "0x98"
+  }, {
+    "address": "0x5B07A40",
+    "type": "char",
+    "value": "0x98"
+  }, {
+    "comment": "Karasuman remove stunlock",
+    "address": "0x55A3570",
+    "type": "word",
+    "value": "0x34020000"
   }, {
     "comment": "Shaft cutscene bugfix",
     "address": "0x56E16B4",
@@ -3481,6 +5155,14 @@
     "address": "0x47C3D80",
     "type": "word",
     "value": "0x0082008D"
+  }, {
+    "comment": "Extra platform near to Cerberus to prevent softlock",
+    "address": "0x45F5594",
+    "type": "word",
+    "value": "0x01210131"
+  }, {
+    "type": "word",
+    "value": "0x012E011F"
   }, {
     "comment": "Castle Keep Door map tiles",
     "address": "0x562E2B4",
@@ -4075,6 +5757,57 @@
     "type": "word",
     "value": "0x02F502C3"
   }, {
+    "comment": "Block Reverse Keep High Potion check",
+    "address": "0x57F6AD4",
+    "type": "word",
+    "value": "0x04230424"
+  }, {
+    "type": "word",
+    "value": "0x04210422"
+  }, {
+    "type": "short",
+    "value": "0x0596"
+  }, {
+    "address": "0x57F6B14",
+    "type": "word",
+    "value": "0x04270428"
+  }, {
+    "type": "word",
+    "value": "0x04250426"
+  }, {
+    "type": "short",
+    "value": "0x0586"
+  }, {
+    "address": "0x57F6B54",
+    "type": "word",
+    "value": "0x04570458"
+  }, {
+    "type": "word",
+    "value": "0x04550456"
+  }, {
+    "type": "short",
+    "value": "0x058C"
+  }, {
+    "address": "0x57F6B94",
+    "type": "word",
+    "value": "0x04270428"
+  }, {
+    "type": "word",
+    "value": "0x04250426"
+  }, {
+    "type": "short",
+    "value": "0x0586"
+  }, {
+    "address": "0x57F6BD4",
+    "type": "word",
+    "value": "0x04570458"
+  }, {
+    "type": "word",
+    "value": "0x04550456"
+  }, {
+    "type": "short",
+    "value": "0x058C"
+  }, {
     "comment": "Darkwing Bat wind attack bugfix",
     "address": "0x1265D0",
     "type": "word",
@@ -4385,6 +6118,242 @@
     "address": "0x4E5049C",
     "type": "word",
     "value": "0x02A502A5"
+  }, {
+    "comment": "Reverse Entrance Merman Room A",
+    "address": "0x51C5554",
+    "type": "word",
+    "value": "0x02480248"
+  }, {
+    "type": "short",
+    "value": "0x02CA"
+  }, {
+    "address": "0x51C55B4",
+    "type": "word",
+    "value": "0x0000024C"
+  }, {
+    "type": "word",
+    "value": "0x00000000"
+  }, {
+    "type": "word",
+    "value": "0x00000000"
+  }, {
+    "address": "0x51C5616",
+    "type": "word",
+    "value": "0x00000000"
+  }, {
+    "type": "short",
+    "value": "0x0000"
+  }, {
+    "address": "0x51C5676",
+    "type": "word",
+    "value": "0x00000000"
+  }, {
+    "address": "0x51C56D6",
+    "type": "short",
+    "value": "0x0000"
+  }, {
+    "address": "0x51C62E6",
+    "type": "word",
+    "value": "0x035A035A"
+  }, {
+    "type": "word",
+    "value": "0x035A035A"
+  }, {
+    "type": "short",
+    "value": "0x035A"
+  }, {
+    "comment": "Reverse Entrance Merman Room B",
+    "address": "0x51C55A6",
+    "type": "word",
+    "value": "0x024A024B"
+  }, {
+    "type": "short",
+    "value": "0x0248"
+  }, {
+    "address": "0x51C5600",
+    "type": "word",
+    "value": "0x00000000"
+  }, {
+    "type": "word",
+    "value": "0x00000000"
+  }, {
+    "type": "word",
+    "value": "0x024C0000"
+  }, {
+    "address": "0x51C5664",
+    "type": "word",
+    "value": "0x00000000"
+  }, {
+    "type": "short",
+    "value": "0x0000"
+  }, {
+    "address": "0x51C56C6",
+    "type": "word",
+    "value": "0x00000000"
+  }, {
+    "address": "0x51C5728",
+    "type": "short",
+    "value": "0x0000"
+  }, {
+    "address": "0x51C6330",
+    "type": "word",
+    "value": "0x035A035A"
+  }, {
+    "type": "word",
+    "value": "0x035A035A"
+  }, {
+    "type": "short",
+    "value": "0x035A"
+  }, {
+    "comment": "Jewel Knuckles room [Tiles]",
+    "address": "0x49ED56C",
+    "type": "short",
+    "value": "0x01DA"
+  }, {
+    "address": "0x49ED5CC",
+    "type": "short",
+    "value": "0x01DE"
+  }, {
+    "address": "0x49ED62C",
+    "type": "short",
+    "value": "0x01E9"
+  }, {
+    "address": "0x49ED68C",
+    "type": "short",
+    "value": "0x01ED"
+  }, {
+    "comment": "Jewel Knuckles room [Caller]",
+    "address": "0x4A0E248",
+    "type": "word",
+    "value": "0x0804DB30"
+  }, {
+    "type": "word",
+    "value": "0x00000000"
+  }, {
+    "comment": "Jewel Knuckles room [Function]",
+    "address": "0x158D58",
+    "type": "word",
+    "value": "0x3C148008"
+  }, {
+    "type": "word",
+    "value": "0x2694CD54"
+  }, {
+    "type": "word",
+    "value": "0x16140003"
+  }, {
+    "type": "word",
+    "value": "0x00000000"
+  }, {
+    "type": "word",
+    "value": "0x0806D395"
+  }, {
+    "type": "word",
+    "value": "0x00000000"
+  }, {
+    "type": "word",
+    "value": "0x00031080"
+  }, {
+    "type": "word",
+    "value": "0x00431021"
+  }, {
+    "type": "word",
+    "value": "0x0806D33A"
+  }, {
+    "comment": "Shotel room [Tiles]",
+    "address": "0x50609B2",
+    "type": "short",
+    "value": "0x01ED"
+  }, {
+    "address": "0x5060A12",
+    "type": "short",
+    "value": "0x01E9"
+  }, {
+    "address": "0x5060A72",
+    "type": "short",
+    "value": "0x01DE"
+  }, {
+    "address": "0x5060AD2",
+    "type": "short",
+    "value": "0x01DA"
+  }, {
+    "comment": "Shotel room [Caller]",
+    "address": "0x507ACAC",
+    "type": "word",
+    "value": "0x0804DB3C"
+  }, {
+    "type": "word",
+    "value": "0x00000000"
+  }, {
+    "comment": "Shotel room [Function]",
+    "address": "0x158D88",
+    "type": "word",
+    "value": "0x3C148008"
+  }, {
+    "type": "word",
+    "value": "0x2694CD54"
+  }, {
+    "type": "word",
+    "value": "0x16140003"
+  }, {
+    "type": "word",
+    "value": "0x00000000"
+  }, {
+    "type": "word",
+    "value": "0x080697E9"
+  }, {
+    "type": "word",
+    "value": "0x00000000"
+  }, {
+    "type": "word",
+    "value": "0x00031080"
+  }, {
+    "type": "word",
+    "value": "0x00431021"
+  }, {
+    "type": "word",
+    "value": "0x08069793"
+  }, {
+    "comment": "Staurolite remove mist gate",
+    "address": "0x4EEF1EE",
+    "type": "short",
+    "value": "0x028A"
+  }, {
+    "address": "0x4EEF28E",
+    "type": "short",
+    "value": "0x0334"
+  }, {
+    "address": "0x4EEF32E",
+    "type": "short",
+    "value": "0x0336"
+  }, {
+    "address": "0x4EEF3CE",
+    "type": "short",
+    "value": "0x0334"
+  }, {
+    "address": "0x4EEF59E",
+    "type": "short",
+    "value": "0x0339"
+  }, {
+    "address": "0x4EEF63E",
+    "type": "short",
+    "value": "0x029A"
+  }, {
+    "comment": "Twilight cloak remove mist gate",
+    "address": "0x4E3E0E6",
+    "type": "short",
+    "value": "0x0000"
+  }, {
+    "address": "0x4E3E186",
+    "type": "short",
+    "value": "0x0000"
+  }, {
+    "address": "0x4E3E226",
+    "type": "short",
+    "value": "0x0000"
+  }, {
+    "address": "0x4E3E2C6",
+    "type": "short",
+    "value": "0x0000"
   }, {
     "comment": "Reverse Alchemy Lab Door map tiles",
     "address": "0x591C0B8",

@@ -400,7 +400,7 @@
       "eldri7ch",
       "MottZilla"
     ],
-    "knowledgeCheck": "HP Awareness",
+    "knowledgeCheck": "Damage Knockback",
     "timeFrame": "Slow",
     "moddedLevel": "Moderately",
     "castleType": "Normal",
@@ -899,6 +899,59 @@
     "winCondition": "Normal",
     "metaExtension": "Guarded",
     "metaComplexity": 9,
+    "itemStats": "Normal"
+  },
+  {
+    "name": "Battle Mage",
+    "id": "battle-mage",
+    "description": "MP will not regenerate naturally but Alucard can regain MP through use of a sword or the Mystic Pendant. Focuses on adding new spells and new enchantments to the game with new commands. The sword can be enchanted with ← → ↑ and Attack. More information on additional spells on SymphonyRando.FUN",
+    "author": [
+      "MottZilla",
+      "eldri7ch"
+    ],
+    "knowledgeCheck": "Enemy Stat Randomizer",
+    "timeFrame": "Normal",
+    "moddedLevel": "Heavily",
+    "castleType": "Normal",
+    "transformEarly": "No",
+    "transformFocus": "None",
+    "winCondition": "Normal",
+    "metaExtension": "GuardedPlus",
+    "metaComplexity": "8",
+    "itemStats": "Normal"
+  },
+  {
+    "name": "Timeline",
+    "id": "timeline",
+    "description": "Random relics are given at regular intervals through the course of the seed.",
+    "author": [
+      "MottZilla"
+    ],
+    "knowledgeCheck": "None",
+    "timeFrame": "Normal",
+    "moddedLevel": "Slightly",
+    "castleType": "Normal",
+    "transformEarly": "No",
+    "transformFocus": "No",
+    "winCondition": "Normal",
+    "metaExtension": "Guarded",
+    "metaComplexity": "8",
+    "itemStats": "Normal"
+  },
+  {
+    "name": "Chimera",
+    "id": "chimera",
+    "description": "Safe logic, Wolf enhanced, Mist MP cost zeroed, Gas Cloud grants Warlock Magic. Thrust Sword at start for OoL Flight with Grav. Double Tap Dash (God Speed Shoes)",
+    "author": "MottZilla",
+    "knowledgeCheck": "None",
+    "timeFrame": "Normal",
+    "moddedLevel": "Slightly",
+    "castleType": "Normal",
+    "transformEarly": "No",
+    "transformFocus": "No",
+    "winCondition": "Normal",
+    "metaExtension": "Guarded",
+    "metaComplexity": "8",
     "itemStats": "Normal"
   }
 ]

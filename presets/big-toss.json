@@ -9,7 +9,7 @@
       "MottZilla"
     ],
     "weight": 700,
-    "knowledgeCheck": "HP Awareness",
+    "knowledgeCheck": "Damage Knockback",
     "metaExtension": "Guarded",
     "metaComplexity": "5",
     "itemStats": "Normal",
@@ -40,8 +40,8 @@
   }],
 
   "startingEquipment": [{
-    "slot": "Other",
-    "item": "Duplicator"
+    "slot": "Body",
+    "item": "God's Garb"
   }],
 
   "replaceRelic": [{
@@ -55,7 +55,7 @@
     "item": "Toadstool"
   }, {
     "relic": "Force of Echo",
-    "item": "God's Garb"
+    "item": "Antivenom"
   }, {
     "relic": "Power of Wolf",
     "item": "Library card"
@@ -2102,5 +2102,15 @@
     "type": "word",
     "value": "0xa4490000",
     "comment": "end of Turning on Spike Room Lights code block"
+  }, {
+    "comment": "Toadstool no longer is consumable",
+    "type": "char",
+    "address": "0x00B1975",
+    "value": "0x00"
+  }, {
+    "comment": "High potion no longer is consumable",
+    "type": "char",
+    "address": "0x00B3635",
+    "value": "0x00"
   }]
 }
