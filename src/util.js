@@ -4681,8 +4681,8 @@ function hexValueToDamageString(hexValue) {
 
   PresetBuilder.prototype.enemyDrops =
     function enemyDrops(enemyName, level, commonDropName, rareDropName) {
-      if (typeof(enemy) === 'boolean') {
-        this.drops = enemy
+      if (typeof(enemyName) === 'boolean') {
+        this.drops = enemyName
       } else {
         enemyName = getEnemyAlias.call(this, enemyName)
         commonDropName = getItemAlias.call(this, commonDropName)
