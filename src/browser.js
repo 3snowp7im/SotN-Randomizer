@@ -20,6 +20,7 @@
   let selectedFile
   let version
   let mapColorLock
+  let isAprilFools
 
   const safe = presets.filter(function(preset) {
     return preset.id === 'safe'
@@ -848,6 +849,10 @@
   function submitListener(event) {
     // Get seed.
     let selectedPreset = null
+    if(isAprilFools){
+      elems.presetId.value = "april-fools";
+      presetIdChange();
+    }
     if(elems.preset.checked) {
       selectedPreset = elems.presetId.childNodes[elems.presetId.selectedIndex].value
       self.sotnRando.selectedPreset = selectedPreset
@@ -1436,6 +1441,10 @@
   elems.showSolutions.addEventListener('change', showSolutionsChange)
   elems.copy.addEventListener('click', copyHandler)
   elems.showOlder.addEventListener('click', showOlderHandler)
+  // Set April Fools flag
+  const month = new Date().getMonth() + 1;
+  const day = new Date().getDate();
+  isAprilFools = month === 4 && day === 1;
   // Load presets
   sortedPresets = presets
   sortedPresets.sort(function(a, b) {
@@ -1456,12 +1465,15 @@
       }
     }
     return weight
-  })
+  });
+
   sortedPresets.forEach(function(preset) {
     if (!preset.hidden) {
+      if(preset.id === "april-fools" && !isAprilFools) return;
       const option = document.createElement('option')
       option.value = preset.id
       option.innerText = preset.name
+      if(preset.id === "april-fools") option.innerText = "April Fools";
       elems.presetId.appendChild(option)
     }
   })
