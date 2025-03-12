@@ -2112,5 +2112,10 @@
     "type": "char",
     "address": "0x00B3635",
     "value": "0x00"
+  }, {
+    "comment": "Outer wall elevator can be used when poisoned",
+    "address": "0x4A1751C",
+    "type": "word",
+    "value": "0x00000000"
   }]
 }

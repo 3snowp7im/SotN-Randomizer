@@ -291,6 +291,7 @@
       elems.shopPriceRandoMode.checked = !!options.shopPriceRandoMode
       elems.startRoomRandoMode.checked = !!options.startRoomRandoMode
       elems.startRoomRando2ndMode.checked = !!options.startRoomRando2ndMode
+      elems.dominoMode.checked = !!options.dominoMode
     }
   }
 
@@ -517,6 +518,10 @@
     localStorage.setItem('startRoomRando2ndMode', elems.startRoomRando2ndMode.checked)
   }
 
+  function dominoModeChange() {
+    localStorage.setItem('dominoMode', elems.dominoMode.checked)
+  }
+
   function accessibilityPatchesChange() {
     localStorage.setItem('accessibilityPatches', elems.accessibilityPatches.checked)
   }
@@ -704,6 +709,9 @@
       if (elems.startRoomRando2ndMode.checked) {
         options.startRoomRando2ndMode = true
       }
+      if (elems.dominoMode.checked) {
+        options.dominoMode = true
+      }
       if (elems.mapColor != 'normal') {
         switch (elems.mapColor.value){
           case 'normal':
@@ -766,6 +774,7 @@
       shopPriceRandoMode: elems.shopPriceRandoMode.checked,
       startRoomRandoMode: elems.startRoomRandoMode.checked,
       startRoomRando2ndMode: elems.startRoomRando2ndMode.checked,
+      dominoMode: elems.dominoMode.checked,
     }
     if (elems.enemyDropsArg.value) {
       options.enemyDrops = util.optionsFromString(
@@ -1019,6 +1028,10 @@
         if (options.startRoomRandoMode || applied.startRoomRandoMode || options.startRoomRando2ndMode || applied.startRoomRando2ndMode) {
           check.apply(util.applyStartRoomRandoPatches(rng,options))
         }
+        // Apply guaranteed drop patches.
+        if (options.dominoMode || applied.dominoMode) {
+          check.apply(util.applyDominoPatches(rng))
+        }
         // Apply map color patches.
         if (mapColorLock != 'normal') {
           switch (mapColorLock){
@@ -1179,6 +1192,7 @@
     elems.shopPriceRandoMode.disabled = false
     elems.startRoomRandoMode.disabled = false
     elems.startRoomRando2ndMode.disabled = false
+    elems.dominoMode.disabled = false
     elems.tournamentMode.disabled = false
     elems.clear.classList.add('hidden')
     presetChange()
@@ -1338,6 +1352,7 @@
     shopPriceRandoMode: document.getElementById('shopPriceRando-mode'),
     startRoomRandoMode: document.getElementById('startRoomRando-mode'),
     startRoomRando2ndMode: document.getElementById('startRoomRando2nd-mode'),
+    dominoMode: document.getElementById('domino-mode'),
     accessibilityPatches: document.getElementById('accessibility-patches'),
     showSpoilers: document.getElementById('show-spoilers'),
     showRelics: document.getElementById('show-relics'),
@@ -1414,6 +1429,7 @@
   elems.shopPriceRandoMode.addEventListener('change', shopPriceRandoModeChange)
   elems.startRoomRandoMode.addEventListener('change', startRoomRandoModeChange)
   elems.startRoomRando2ndMode.addEventListener('change', startRoomRando2ndModeChange)
+  elems.dominoMode.addEventListener('change', dominoModeChange)
   elems.accessibilityPatches.addEventListener('change', accessibilityPatchesChange)
   elems.showSpoilers.addEventListener('change', spoilersChange)
   elems.showRelics.addEventListener('change', showRelicsChange)
@@ -1734,6 +1750,7 @@
   loadOption('shopPriceRandoMode', shopPriceRandoModeChange, false)
   loadOption('startRoomRandoMode', startRoomRandoModeChange, false)
   loadOption('startRoomRando2ndMode', startRoomRando2ndModeChange, false)
+  loadOption('dominoMode', dominoModeChange, false)
   loadOption('accessibilityPatches', accessibilityPatchesChange, true)
   loadOption('showSpoilers', spoilersChange, true)
   setTimeout(function() {

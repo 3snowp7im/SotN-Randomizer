@@ -2570,6 +2570,11 @@ function hexValueToDamageString(hexValue) {
           randomize.push('ori2')
         }
         delete options.startRoomRando2ndMode
+      } else if ('dominoMode' in options) { // guaranteed drops - eldrich
+        if (options.dominoMode) {
+          randomize.push('gd')
+        }
+        delete options.dominoMode
       } else if ('debugMode' in options) { // Debug mode - eldrich
         if (options.debugMode) {
           randomize.push('D')
@@ -3820,6 +3825,7 @@ function hexValueToDamageString(hexValue) {
     shopPriceRandoMode,
     startRoomRandoMode,
     startRoomRando2ndMode,
+    dominoMode,
     debugMode,
     writes,
   ) {
@@ -3862,6 +3868,7 @@ function hexValueToDamageString(hexValue) {
     this.shopPriceRandoMode = shopPriceRandoMode
     this.startRoomRandoMode = startRoomRandoMode
     this.startRoomRando2ndMode = startRoomRando2ndMode
+    this.dominoMode = dominoMode
     this.debugMode = debugMode
     if (writes) {
       this.writes = writes
@@ -4022,6 +4029,8 @@ function hexValueToDamageString(hexValue) {
     this.startRoomRando = false
     // startRoomRando2nd mode.
     this.startRoomRando2nd = false
+    // guaranteed drops mode.
+    this.domino = false
     // Debug mode.
     this.debug = false
     // Arbitrary writes.
@@ -4343,6 +4352,9 @@ function hexValueToDamageString(hexValue) {
     }
     if ('startRoomRando2ndMode' in json) {
       builder.startRoomRando2ndMode(json.startRoomRando2ndMode)
+    }
+    if ('dominoMode' in json) {
+      builder.dominoMode(json.dominoMode)
     }
     if ('writes' in json) {
       let lastAddress = 0
@@ -4672,6 +4684,9 @@ function hexValueToDamageString(hexValue) {
     }
     if ('startRoomRando2ndMode' in preset) {
       this.startRoomRando2nd = preset.startRoomRando2ndMode
+    }
+    if ('dominoMode' in preset) {
+      this.domino = preset.dominoMode
     }
     if ('writes' in preset) {
       this.writes = this.writes || []
@@ -5405,6 +5420,11 @@ function hexValueToDamageString(hexValue) {
     this.startRoomRando2nd = enabled
   }
 
+  // Enable Guaranteed Drops - eldri7ch
+  PresetBuilder.prototype.dominoMode = function dominoMode(enabled) {
+    this.domino = enabled
+  }
+
   // Write a character.
   PresetBuilder.prototype.writeChar = function writeChar(address, value) {
     let valueCheck
@@ -5719,6 +5739,7 @@ function hexValueToDamageString(hexValue) {
     const shopPriceRando = self.shopPriceRando
     const startRoomRando = self.startRoomRando
     const startRoomRando2nd = self.startRoomRando2nd
+    const domino = self.domino
     const debug = self.debug
     const writes = self.writes
     return new Preset(
@@ -5761,6 +5782,7 @@ function hexValueToDamageString(hexValue) {
       shopPriceRando,
       startRoomRando,
       startRoomRando2nd,
+      domino,
       debug,
       writes,
     )
@@ -6622,6 +6644,215 @@ function hexValueToDamageString(hexValue) {
     return data
   }
 
+  function applyDominoPatches() {
+    const data = new checked()
+    const nopLine = 0x00000000
+    const alwaysDrop = 0x1800000D
+    let offset
+    
+    // Patch drops to always be items
+    offset = 0x440413C    // Colosseum
+    data.writeWord(offset, nopLine)       // Removes failures
+    offset += 0x1c 
+    data.writeWord(offset, nopLine)       // Removes second roll failures
+    offset += 0x10
+    data.writeWord(offset, alwaysDrop)    // Forces an item drop
+    
+    offset = 0x44D514C    // Catacombs
+    data.writeWord(offset, nopLine)
+    offset += 0x1c 
+    data.writeWord(offset, nopLine)
+    offset += 0x10
+    data.writeWord(offset, alwaysDrop)
+    
+    offset = 0x460C4BC    // Abandoned Mine
+    data.writeWord(offset, nopLine)
+    offset += 0x1c 
+    data.writeWord(offset, nopLine)
+    offset += 0x10
+    data.writeWord(offset, alwaysDrop)
+    
+    offset = 0x46C78F0    // Royal Chapel
+    data.writeWord(offset, nopLine)
+    offset += 0x1c 
+    data.writeWord(offset, nopLine)
+    offset += 0x10
+    data.writeWord(offset, alwaysDrop)
+    
+    offset = 0x47EB5D8    // Long Library
+    data.writeWord(offset, nopLine)
+    offset += 0x1c 
+    data.writeWord(offset, nopLine)
+    offset += 0x10
+    data.writeWord(offset, alwaysDrop)
+    
+    offset = 0x4948630    // Marble Gallery
+    data.writeWord(offset, nopLine)
+    offset += 0x1c 
+    data.writeWord(offset, nopLine)
+    offset += 0x10
+    data.writeWord(offset, alwaysDrop)
+    
+    offset = 0x4A1E258    // Outer Wall
+    data.writeWord(offset, nopLine)
+    offset += 0x1c 
+    data.writeWord(offset, nopLine)
+    offset += 0x10
+    data.writeWord(offset, alwaysDrop)
+    
+    offset = 0x4AE259C    // Olrox's Quarters
+    data.writeWord(offset, nopLine)
+    offset += 0x1c 
+    data.writeWord(offset, nopLine)
+    offset += 0x10
+    data.writeWord(offset, alwaysDrop)
+    
+    offset = 0x4BB2DE4    // Entrance (2nd)
+    data.writeWord(offset, nopLine)
+    offset += 0x1c 
+    data.writeWord(offset, nopLine)
+    offset += 0x10
+    data.writeWord(offset, alwaysDrop)
+    
+    offset = 0x4C871B8    // Underground Caverns
+    data.writeWord(offset, nopLine)
+    offset += 0x1c 
+    data.writeWord(offset, nopLine)
+    offset += 0x10
+    data.writeWord(offset, alwaysDrop)
+    
+    offset = 0x4D36FA8    // Floating Catacombs
+    data.writeWord(offset, nopLine)
+    offset += 0x1c 
+    data.writeWord(offset, nopLine)
+    offset += 0x10
+    data.writeWord(offset, alwaysDrop)
+    
+    offset = 0x4DC486C    // Cave
+    data.writeWord(offset, nopLine)
+    offset += 0x1c 
+    data.writeWord(offset, nopLine)
+    offset += 0x10
+    data.writeWord(offset, alwaysDrop)
+    
+    offset = 0x4E6EA24    // Anti-Chapel
+    data.writeWord(offset, nopLine)
+    offset += 0x1c 
+    data.writeWord(offset, nopLine)
+    offset += 0x10
+    data.writeWord(offset, alwaysDrop)
+    
+    offset = 0x4F0B388    // Forbidden Library
+    data.writeWord(offset, nopLine)
+    offset += 0x1c 
+    data.writeWord(offset, nopLine)
+    offset += 0x10
+    data.writeWord(offset, alwaysDrop)
+    
+    offset = 0x4FC540C    // Black Marble Gallery
+    data.writeWord(offset, nopLine)
+    offset += 0x1c 
+    data.writeWord(offset, nopLine)
+    offset += 0x10
+    data.writeWord(offset, alwaysDrop)
+    
+    offset = 0x50808A4    // Reverse Outer Wall
+    data.writeWord(offset, nopLine)
+    offset += 0x1c 
+    data.writeWord(offset, nopLine)
+    offset += 0x10
+    data.writeWord(offset, alwaysDrop)
+    
+    offset = 0x5137BC8    // Death Wing's Lair
+    data.writeWord(offset, nopLine)
+    offset += 0x1c 
+    data.writeWord(offset, nopLine)
+    offset += 0x10
+    data.writeWord(offset, alwaysDrop)
+    
+    offset = 0x51E95A8    // Reverse Entrance
+    data.writeWord(offset, nopLine)
+    offset += 0x1c 
+    data.writeWord(offset, nopLine)
+    offset += 0x10
+    data.writeWord(offset, alwaysDrop)
+    
+    offset = 0x52C0E2C    // Reverse Caverns
+    data.writeWord(offset, nopLine)
+    offset += 0x1c 
+    data.writeWord(offset, nopLine)
+    offset += 0x10
+    data.writeWord(offset, alwaysDrop)
+    
+    offset = 0x5437344    // Entrance (1st)
+    data.writeWord(offset, nopLine)
+    offset += 0x1c 
+    data.writeWord(offset, nopLine)
+    offset += 0x10
+    data.writeWord(offset, alwaysDrop)
+    
+    offset = 0x54F3CDC    // Alchemy Laboratory
+    data.writeWord(offset, nopLine)
+    offset += 0x1c 
+    data.writeWord(offset, nopLine)
+    offset += 0x10
+    data.writeWord(offset, alwaysDrop)
+    
+    offset = 0x55A6968    // Clock Tower
+    data.writeWord(offset, nopLine)
+    offset += 0x1c 
+    data.writeWord(offset, nopLine)
+    offset += 0x10
+    data.writeWord(offset, alwaysDrop)
+    
+    offset = 0x5643CE8    // Castle Keep
+    data.writeWord(offset, nopLine)
+    offset += 0x1c 
+    data.writeWord(offset, nopLine)
+    offset += 0x10
+    data.writeWord(offset, alwaysDrop)
+    
+    offset = 0x577E4B8    // Reverse Colosseum
+    data.writeWord(offset, nopLine)
+    offset += 0x1c 
+    data.writeWord(offset, nopLine)
+    offset += 0x10
+    data.writeWord(offset, alwaysDrop)
+    
+    offset = 0x580836C    // Reverse Keep
+    data.writeWord(offset, nopLine)
+    offset += 0x1c 
+    data.writeWord(offset, nopLine)
+    offset += 0x10
+    data.writeWord(offset, alwaysDrop)
+    
+    offset = 0x5936C4C    // Necromancy Laboratory
+    data.writeWord(offset, nopLine)
+    offset += 0x1c 
+    data.writeWord(offset, nopLine)
+    offset += 0x10
+    data.writeWord(offset, alwaysDrop)
+    
+    offset = 0x59EFE78    // Reverse Clock Tower
+    data.writeWord(offset, nopLine)
+    offset += 0x1c 
+    data.writeWord(offset, nopLine)
+    offset += 0x10
+    data.writeWord(offset, alwaysDrop)
+
+    // Guarantee that it's an uncommon drop, rare if Arcana is equipped. - Forat Negre
+    offset = 0x119188
+    offset = data.writeWord(offset, 0x34060020)
+    offset = data.writeWord(offset, 0x14400002)
+    offset = data.writeWord(offset, 0x00000000)
+    offset = data.writeWord(offset, 0x34060040)
+    offset = data.writeWord(offset, 0x00C01021)
+    offset = data.writeWord(offset, 0x0803FD7A)
+    offset = data.writeWord(offset, 0x00000000)
+
+    return data
+  }
+
   function randomizeRelics(
     version,
     applied,
@@ -7170,6 +7401,7 @@ function hexValueToDamageString(hexValue) {
     applyenemyStatRandoPatches: applyenemyStatRandoPatches,
     applyShopPriceRandoPatches: applyShopPriceRandoPatches,
     applyStartRoomRandoPatches: applyStartRoomRandoPatches,
+    applyDominoPatches: applyDominoPatches,
     applyMapColor: applyMapColor,
     randomizeRelics: randomizeRelics,
     randomizeItems: randomizeItems,
