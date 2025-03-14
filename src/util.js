@@ -2575,6 +2575,11 @@ function hexValueToDamageString(hexValue) {
           randomize.push('gd')
         }
         delete options.dominoMode
+      } else if ('rlbcMode' in options) { // reverse library cards - eldrich
+        if (options.rlbcMode) {
+          randomize.push('rl')
+        }
+        delete options.rlbcMode
       } else if ('debugMode' in options) { // Debug mode - eldrich
         if (options.debugMode) {
           randomize.push('D')
@@ -3826,6 +3831,7 @@ function hexValueToDamageString(hexValue) {
     startRoomRandoMode,
     startRoomRando2ndMode,
     dominoMode,
+    rlbcMode,
     debugMode,
     writes,
   ) {
@@ -3869,6 +3875,7 @@ function hexValueToDamageString(hexValue) {
     this.startRoomRandoMode = startRoomRandoMode
     this.startRoomRando2ndMode = startRoomRando2ndMode
     this.dominoMode = dominoMode
+    this.rlbcMode = rlbcMode
     this.debugMode = debugMode
     if (writes) {
       this.writes = writes
@@ -4031,6 +4038,8 @@ function hexValueToDamageString(hexValue) {
     this.startRoomRando2nd = false
     // guaranteed drops mode.
     this.domino = false
+    // reverse library cards mode.
+    this.rlbc = false
     // Debug mode.
     this.debug = false
     // Arbitrary writes.
@@ -4355,6 +4364,9 @@ function hexValueToDamageString(hexValue) {
     }
     if ('dominoMode' in json) {
       builder.dominoMode(json.dominoMode)
+    }
+    if ('rlbcMode' in json) {
+      builder.rlbcMode(json.rlbcMode)
     }
     if ('writes' in json) {
       let lastAddress = 0
@@ -4687,6 +4699,9 @@ function hexValueToDamageString(hexValue) {
     }
     if ('dominoMode' in preset) {
       this.domino = preset.dominoMode
+    }
+    if ('rlbcMode' in preset) {
+      this.rlbc = preset.rlbcMode
     }
     if ('writes' in preset) {
       this.writes = this.writes || []
@@ -5425,6 +5440,11 @@ function hexValueToDamageString(hexValue) {
     this.domino = enabled
   }
 
+  // Enable Reverse Library Cards - eldri7ch
+  PresetBuilder.prototype.rlbcMode = function rlbcMode(enabled) {
+    this.rlbc = enabled
+  }
+
   // Write a character.
   PresetBuilder.prototype.writeChar = function writeChar(address, value) {
     let valueCheck
@@ -5740,6 +5760,7 @@ function hexValueToDamageString(hexValue) {
     const startRoomRando = self.startRoomRando
     const startRoomRando2nd = self.startRoomRando2nd
     const domino = self.domino
+    const rlbc = self.rlbc
     const debug = self.debug
     const writes = self.writes
     return new Preset(
@@ -5783,6 +5804,7 @@ function hexValueToDamageString(hexValue) {
       startRoomRando,
       startRoomRando2nd,
       domino,
+      rlbc,
       debug,
       writes,
     )
@@ -5806,6 +5828,97 @@ function hexValueToDamageString(hexValue) {
       url: url,
       selectedPreset: selectedPreset
     })
+  }
+
+  function randoFuncMaster() {                        // A master function and table series to handle randomizer options that require additional code
+    const data = new checked()                        // randomizer options that require additional code. 0x3711A68 is loaded from CD by separate code
+    let offset
+    
+    offset = 0xF96D8
+    offset = data.writeWord(offset, 0x0c038ba6)       // call the sector load
+    data.writeWord(offset, 0x00000000)
+
+    offset = 0xF87B0                                  // Sector Load Function
+    offset = data.writeWord(offset, 0x3C01800A)
+    offset = data.writeWord(offset, 0xAC208850)
+    offset = data.writeWord(offset, 0x27BDFFE0)
+    offset = data.writeWord(offset, 0x3C020026)
+    offset = data.writeWord(offset, 0x34422905)
+    offset = data.writeWord(offset, 0x34040002)
+    offset = data.writeWord(offset, 0x27A50010)
+    offset = data.writeWord(offset, 0x34060000)
+    offset = data.writeWord(offset, 0xAFBF0018)
+    offset = data.writeWord(offset, 0x0C006578)
+    offset = data.writeWord(offset, 0xAFA20010)
+    offset = data.writeWord(offset, 0x3404000E)
+    offset = data.writeWord(offset, 0x3C058009)
+    offset = data.writeWord(offset, 0x34A588B0)
+    offset = data.writeWord(offset, 0x0C007020)
+    offset = data.writeWord(offset, 0x34060080)
+    offset = data.writeWord(offset, 0x34040000)
+    offset = data.writeWord(offset, 0x0C007062)
+    offset = data.writeWord(offset, 0x34050000)
+    offset = data.writeWord(offset, 0x34020000)
+    offset = data.writeWord(offset, 0x8FBF0018)
+    offset = data.writeWord(offset, 0x27BD0020)
+    offset = data.writeWord(offset, 0x03E00008)
+    offset = data.writeWord(offset, 0x00000000)
+
+    offset = 0x3711A68                                // Start the master function with jump tables
+    offset = data.writeWord(offset, 0x00000000)
+    offset = data.writeWord(offset, 0x00000000)
+    offset = data.writeWord(offset, 0x08026231)
+    offset = data.writeWord(offset, 0x00000000)
+    offset = data.writeWord(offset, 0x08026243)
+    offset = data.writeWord(offset, 0x00000000)
+    offset = data.writeWord(offset, 0x27BDFFE0)
+    offset = data.writeWord(offset, 0xAFBF0010)
+    offset = data.writeWord(offset, 0x0C03C182)
+    offset = data.writeWord(offset, 0x00000000)
+    offset = data.writeWord(offset, 0x3C048009)
+    offset = data.writeWord(offset, 0x348488B0)
+    offset = data.writeWord(offset, 0x8C860000)
+    offset = data.writeWord(offset, 0x3C058000)
+    offset = data.writeWord(offset, 0x34A50000)
+    offset = data.writeWord(offset, 0x00C53024)
+    offset = data.writeWord(offset, 0x10C00003)
+    offset = data.writeWord(offset, 0x00000000)
+    offset = data.writeWord(offset, 0x0C02625D)
+    offset = data.writeWord(offset, 0x00000000)
+    offset = data.writeWord(offset, 0x8FBF000A)
+    offset = data.writeWord(offset, 0x27BD0020)
+    offset = data.writeWord(offset, 0x03E00008)
+    offset = data.writeWord(offset, 0x00000000)
+    offset = data.writeWord(offset, 0x3C028004)
+    offset = data.writeWord(offset, 0x9045925D)
+    offset = data.writeWord(offset, 0x00000000)
+    offset = data.writeWord(offset, 0x38A500FF)
+    offset = data.writeWord(offset, 0x30A50040)
+    offset = data.writeWord(offset, 0x10A00008)
+    offset = data.writeWord(offset, 0x3C028007)
+    offset = data.writeWord(offset, 0x9042BBFB)
+    offset = data.writeWord(offset, 0x00000000)
+    offset = data.writeWord(offset, 0x10400004)
+    offset = data.writeWord(offset, 0x34180022)
+    offset = data.writeWord(offset, 0x341988BE)
+    offset = data.writeWord(offset, 0x18000003)
+    offset = data.writeWord(offset, 0x00000000)
+    offset = data.writeWord(offset, 0x34180002)
+    offset = data.writeWord(offset, 0x34197C0E)
+    offset = data.writeWord(offset, 0x3C02800F)
+    offset = data.writeWord(offset, 0xA0581724)
+    offset = data.writeWord(offset, 0x3B180020)
+    offset = data.writeWord(offset, 0xA05832A4)
+    offset = data.writeWord(offset, 0x00000000)
+    offset = data.writeWord(offset, 0x3C02800A)
+    offset = data.writeWord(offset, 0xA4593C98)
+    offset = data.writeWord(offset, 0x34040000)
+    offset = data.writeWord(offset, 0x0804390B)
+    offset = data.writeWord(offset, 0x00000000)
+    offset = data.writeWord(offset, 0x03E00008)
+    offset = data.writeWord(offset, 0x00000000)
+
+    return data
   }
 
   function applyTournamentModePatches() {
@@ -6801,6 +6914,17 @@ function hexValueToDamageString(hexValue) {
     return data
   }
 
+  function applyRLBCPatches() {
+    const data = new checked()
+    let offset
+    
+    // Patch the reverse library card function
+    offset = 0x12B534                                 // Hook to our new LBC function
+    data.writeWord(offset, 0x0C02622F)                // No "nop" instr needed as it's already a call
+    
+    return data
+  }
+
   function randomizeRelics(
     version,
     applied,
@@ -7338,6 +7462,7 @@ function hexValueToDamageString(hexValue) {
     Preset: Preset,
     PresetBuilder: PresetBuilder,
     applyTournamentModePatches: applyTournamentModePatches,
+    randoFuncMaster: randoFuncMaster,
     applyMagicMaxPatches: applyMagicMaxPatches,
     applyAntiFreezePatches: applyAntiFreezePatches,
     applyMyPursePatches: applyMyPursePatches,
@@ -7350,6 +7475,7 @@ function hexValueToDamageString(hexValue) {
     applyShopPriceRandoPatches: applyShopPriceRandoPatches,
     applyStartRoomRandoPatches: applyStartRoomRandoPatches,
     applyDominoPatches: applyDominoPatches,
+    applyRLBCPatches: applyRLBCPatches,
     applyMapColor: applyMapColor,
     randomizeRelics: randomizeRelics,
     randomizeItems: randomizeItems,

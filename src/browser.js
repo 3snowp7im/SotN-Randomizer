@@ -293,6 +293,7 @@
       elems.startRoomRandoMode.checked = !!options.startRoomRandoMode
       elems.startRoomRando2ndMode.checked = !!options.startRoomRando2ndMode
       elems.dominoMode.checked = !!options.dominoMode
+      elems.rlbcMode.checked = !!options.rlbcMode
     }
   }
 
@@ -523,6 +524,10 @@
     localStorage.setItem('dominoMode', elems.dominoMode.checked)
   }
 
+  function rlbcModeChange() {
+    localStorage.setItem('rlbcMode', elems.rlbcMode.checked)
+  }
+
   function accessibilityPatchesChange() {
     localStorage.setItem('accessibilityPatches', elems.accessibilityPatches.checked)
   }
@@ -713,6 +718,9 @@
       if (elems.dominoMode.checked) {
         options.dominoMode = true
       }
+      if (elems.rlbcMode.checked) {
+        options.rlbcMode = true
+      }
       if (elems.mapColor != 'normal') {
         switch (elems.mapColor.value){
           case 'normal':
@@ -776,6 +784,7 @@
       startRoomRandoMode: elems.startRoomRandoMode.checked,
       startRoomRando2ndMode: elems.startRoomRando2ndMode.checked,
       dominoMode: elems.dominoMode.checked,
+      rlbcMode: elems.rlbcMode.checked,
     }
     if (elems.enemyDropsArg.value) {
       options.enemyDrops = util.optionsFromString(
@@ -985,6 +994,8 @@
           3,
         ))
         check.apply(randomizeMusic(rng, applied))
+        // Initiate the write options function master
+        check.apply(util.randoFuncMaster())
         // Apply tournament mode patches.
         if (options.tournamentMode) {
           check.apply(util.applyTournamentModePatches())
@@ -1036,6 +1047,10 @@
         // Apply guaranteed drop patches.
         if (options.dominoMode || applied.dominoMode) {
           check.apply(util.applyDominoPatches(rng))
+        }
+        // Apply reverse library card patches.
+        if (options.rlbcMode || applied.rlbcMode) {
+          check.apply(util.applyRLBCPatches(rng))
         }
         // Apply map color patches.
         if (mapColorLock != 'normal') {
@@ -1198,6 +1213,7 @@
     elems.startRoomRandoMode.disabled = false
     elems.startRoomRando2ndMode.disabled = false
     elems.dominoMode.disabled = false
+    elems.rlbcMode.disabled = false
     elems.tournamentMode.disabled = false
     elems.clear.classList.add('hidden')
     presetChange()
@@ -1358,6 +1374,7 @@
     startRoomRandoMode: document.getElementById('startRoomRando-mode'),
     startRoomRando2ndMode: document.getElementById('startRoomRando2nd-mode'),
     dominoMode: document.getElementById('domino-mode'),
+    rlbcMode: document.getElementById('rlbc-mode'),
     accessibilityPatches: document.getElementById('accessibility-patches'),
     showSpoilers: document.getElementById('show-spoilers'),
     showRelics: document.getElementById('show-relics'),
@@ -1435,6 +1452,7 @@
   elems.startRoomRandoMode.addEventListener('change', startRoomRandoModeChange)
   elems.startRoomRando2ndMode.addEventListener('change', startRoomRando2ndModeChange)
   elems.dominoMode.addEventListener('change', dominoModeChange)
+  elems.rlbcMode.addEventListener('change', rlbcModeChange)
   elems.accessibilityPatches.addEventListener('change', accessibilityPatchesChange)
   elems.showSpoilers.addEventListener('change', spoilersChange)
   elems.showRelics.addEventListener('change', showRelicsChange)
@@ -1763,6 +1781,7 @@
   loadOption('startRoomRandoMode', startRoomRandoModeChange, false)
   loadOption('startRoomRando2ndMode', startRoomRando2ndModeChange, false)
   loadOption('dominoMode', dominoModeChange, false)
+  loadOption('rlbcMode', rlbcModeChange, false)
   loadOption('accessibilityPatches', accessibilityPatchesChange, true)
   loadOption('showSpoilers', spoilersChange, true)
   setTimeout(function() {

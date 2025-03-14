@@ -1480,6 +1480,7 @@
     data.writeShort(outerAddress + 0x02, outerColor2)
   }
 
+  //disabled for now, conflicts with preset preloaders - eldri7ch
   function randomizeJosephsCloak(data, rng) {
     const colors = [
       Math.floor(rng() * 32),
@@ -1539,7 +1540,7 @@
     // Blood Cloak.
     capeColor(data, 0x0afb9c, 0x0afba0, {rng: rng})
     // Joseph's Cloak.
-    randomizeJosephsCloak(data, rng)
+    // randomizeJosephsCloak(data, rng)
     // Twilight Cloak.
     capeColor(data, 0x0afa44, 0x0afbac, {rng: rng})
     // DOP10 Cloak. - MottZilla

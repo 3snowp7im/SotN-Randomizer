@@ -646,6 +646,11 @@ const yargs = require('yargs')
     describe: 'Guarantees drops from every enemy that has one. Ring of Arcana makes them drop their rare item instead of the uncommon.',
     type: 'boolean',
   })
+  .option('rlbc', {
+    alias: 'rl',
+    describe: 'Guarantees drops from every enemy that has one. Ring of Arcana makes them drop their rare item instead of the uncommon.',
+    type: 'boolean',
+  })
   .option('debug', {
     alias: 'D',
     describe: 'Debug mode.',
@@ -1106,6 +1111,11 @@ if ('debug' in argv) {console.log('randomize | Set guaranteed drops')}
 if (argv.domino) { // guarantees drops - eldrich
   options.dominoMode = true
 }
+if ('debug' in argv) {console.log('randomize | Set Reverse Library Cards')}
+// Enable reverse library card mode if specified. - eldri7ch
+if (argv.rlbc) { // reverse library cards - eldrich
+  options.rlbcMode = true
+}
 if ('debug' in argv) {console.log('randomize | Set map colors')}
 // Map Color Features if specified. - eldri7ch
 if ('mapcolor' in argv && typeof(argv.mapcolor) !== 'undefined') {
@@ -1269,6 +1279,8 @@ if ('debug' in argv) {console.log('randomize | Start randomization')}
           3,
         ))
         check.apply(randomizeMusic(rng, applied))
+        if ('debug' in argv) {console.log('randomize | function: randomize | Apply options / writes function master')}
+        check.apply(util.randoFuncMaster())
         if ('debug' in argv) {console.log('randomize | function: randomize | Apply patches from options')}
         optFlag = false
         if (options.tournamentMode) {
@@ -1379,6 +1391,13 @@ if ('debug' in argv) {console.log('randomize | Start randomization')}
           check.apply(util.applyDominoPatches())
         }
         if ('debug' in argv) {console.log('randomize | function: randomize | Guaranteed Drops Mode | ' + optFlag)}
+        optFlag = false
+        if (options.rlbcMode || applied.rlbcMode) { // reverse library cards - eldrich
+          // Apply reverse library card patches. - eldri7ch
+          optFlag = true
+          check.apply(util.applyRLBCPatches())
+        }
+        if ('debug' in argv) {console.log('randomize | function: randomize | Reverse Library Card Mode | ' + optFlag)}
         optFlag = false
         if ('mapcolor' in argv) { // Colors the map - eldrich
           // Apply map color patches. - eldri7ch
