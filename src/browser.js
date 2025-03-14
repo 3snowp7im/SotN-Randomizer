@@ -26,7 +26,7 @@
     return preset.id === 'safe'
   }).pop()
 
-  /*function cloneItems(items) {                                                              //Saves previous selections
+  function cloneItems(items) {                                                              //Saves previous selections
     return items.map(function(item) {
       const clone = Object.assign({}, item)
       delete clone.tiles
@@ -35,9 +35,9 @@
       }
       return clone
     })
-  }*/
+  }
 
-  //const items = cloneItems(sotnRando.items)
+  const items = cloneItems(sotnRando.items)
 
   function workerCount() {
     const cores = navigator.hardwareConcurrency
@@ -94,7 +94,7 @@
   }
 
   function resetState() {
-    //sotnRando.items = cloneItems(items)
+    sotnRando.items = cloneItems(items)
     selectedFile = undefined
     resetTarget()
     elems.randomize.disabled = true
@@ -293,6 +293,7 @@
       elems.startRoomRandoMode.checked = !!options.startRoomRandoMode
       elems.startRoomRando2ndMode.checked = !!options.startRoomRando2ndMode
       elems.dominoMode.checked = !!options.dominoMode
+      elems.rlbcMode.checked = !!options.rlbcMode
       elems.alucardPaletteMode.checked = !!options.alucardPaletteMode
     }
   }
@@ -524,6 +525,10 @@
     localStorage.setItem('dominoMode', elems.dominoMode.checked)
   }
 
+  function rlbcModeChange() {
+    localStorage.setItem('rlbcMode', elems.rlbcMode.checked)
+  }
+
   function alucardPaletteModeChange() {
     localStorage.setItem('alucardPaletteMode', elems.alucardPaletteMode.checked)
   }
@@ -718,6 +723,9 @@
       if (elems.dominoMode.checked) {
         options.dominoMode = true
       }
+      if (elems.rlbcMode.checked) {
+        options.rlbcMode = true
+      }
       if (elems.alucardPaletteMode.checked) {
         options.alucardPaletteMode = true
       }
@@ -784,6 +792,7 @@
       startRoomRandoMode: elems.startRoomRandoMode.checked,
       startRoomRando2ndMode: elems.startRoomRando2ndMode.checked,
       dominoMode: elems.dominoMode.checked,
+      rlbcMode: elems.rlbcMode.checked,
       alucardPaletteMode: elems.alucardPaletteMode.checked,
     }
     if (elems.enemyDropsArg.value) {
@@ -909,7 +918,7 @@
       elems.status.innerText = err.message
     }
     function restoreItems() {
-      //sotnRando.items = cloneItems(items)
+      sotnRando.items = cloneItems(items)
     }
     function randomize() {                                                                        // This is the main function of the randomizer website
       const check = new util.checked(this.result)
@@ -994,6 +1003,8 @@
           3,
         ))
         check.apply(randomizeMusic(rng, applied))
+        // Initiate the write options function master
+        check.apply(util.randoFuncMaster())
         // Apply tournament mode patches.
         if (options.tournamentMode) {
           check.apply(util.applyTournamentModePatches())
@@ -1046,7 +1057,11 @@
         if (options.dominoMode || applied.dominoMode) {
           check.apply(util.applyDominoPatches(rng))
         }
-        // Apply Alucard Palette randomizer.
+        // Apply reverse library card patches.
+        if (options.rlbcMode || applied.rlbcMode) {
+          check.apply(util.applyRLBCPatches(rng))
+        }
+        // Alucard Pelette Rando patches.
         if (options.alucardPaletteMode || applied.alucardPaletteMode) {
           check.apply(util.applyAlucardPalettePatches(rng))
         }
@@ -1211,6 +1226,7 @@
     elems.startRoomRandoMode.disabled = false
     elems.startRoomRando2ndMode.disabled = false
     elems.dominoMode.disabled = false
+    elems.rlbcMode.disabled = false
     elems.alucardPaletteMode.disabled = false
     elems.tournamentMode.disabled = false
     elems.clear.classList.add('hidden')
@@ -1372,6 +1388,7 @@
     startRoomRandoMode: document.getElementById('startRoomRando-mode'),
     startRoomRando2ndMode: document.getElementById('startRoomRando2nd-mode'),
     dominoMode: document.getElementById('domino-mode'),
+    rlbcMode: document.getElementById('rlbc-mode'),
     alucardPaletteMode: document.getElementById('alucardPalette-mode'),
     accessibilityPatches: document.getElementById('accessibility-patches'),
     showSpoilers: document.getElementById('show-spoilers'),
@@ -1450,6 +1467,7 @@
   elems.startRoomRandoMode.addEventListener('change', startRoomRandoModeChange)
   elems.startRoomRando2ndMode.addEventListener('change', startRoomRando2ndModeChange)
   elems.dominoMode.addEventListener('change', dominoModeChange)
+  elems.rlbcMode.addEventListener('change', rlbcModeChange)
   elems.alucardPaletteMode.addEventListener('change', alucardPaletteModeChange)
   elems.accessibilityPatches.addEventListener('change', accessibilityPatchesChange)
   elems.showSpoilers.addEventListener('change', spoilersChange)
@@ -1779,7 +1797,8 @@
   loadOption('startRoomRandoMode', startRoomRandoModeChange, false)
   loadOption('startRoomRando2ndMode', startRoomRando2ndModeChange, false)
   loadOption('dominoMode', dominoModeChange, false)
-  loadOption('alucardPaletteMode',alucardPaletteModeChange, false)
+  loadOption('rlbcMode', rlbcModeChange, false)
+  loadOption('alucardPaletteMode', alucardPaletteModeChange, false)
   loadOption('accessibilityPatches', accessibilityPatchesChange, true)
   loadOption('showSpoilers', spoilersChange, true)
   setTimeout(function() {
