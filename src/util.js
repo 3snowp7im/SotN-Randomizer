@@ -2580,6 +2580,11 @@ function hexValueToDamageString(hexValue) {
           randomize.push('rl')
         }
         delete options.rlbcMode
+      } else if ('alucardPaletteMode' in options) { // alucard palette rando - CRAZY4BLADES
+        if (options.alucardPaletteMode) {
+          randomize.push('ap')
+        }
+        delete options.alucardPaletteMode
       } else if ('debugMode' in options) { // Debug mode - eldrich
         if (options.debugMode) {
           randomize.push('D')
@@ -3832,6 +3837,7 @@ function hexValueToDamageString(hexValue) {
     startRoomRando2ndMode,
     dominoMode,
     rlbcMode,
+    alucardPaletteMode,
     debugMode,
     writes,
   ) {
@@ -3876,6 +3882,7 @@ function hexValueToDamageString(hexValue) {
     this.startRoomRando2ndMode = startRoomRando2ndMode
     this.dominoMode = dominoMode
     this.rlbcMode = rlbcMode
+    this.alucardPaletteMode = alucardPaletteMode
     this.debugMode = debugMode
     if (writes) {
       this.writes = writes
@@ -4040,6 +4047,8 @@ function hexValueToDamageString(hexValue) {
     this.domino = false
     // reverse library cards mode.
     this.rlbc = false
+    // Alucard Palette Rando mode.
+    this.alucardPalette = false
     // Debug mode.
     this.debug = false
     // Arbitrary writes.
@@ -4367,6 +4376,9 @@ function hexValueToDamageString(hexValue) {
     }
     if ('rlbcMode' in json) {
       builder.rlbcMode(json.rlbcMode)
+    }
+    if ('alucardPaletteMode' in json) {
+      builder.alucardPaletteMode(json.alucardPaletteMode)
     }
     if ('writes' in json) {
       let lastAddress = 0
@@ -4702,6 +4714,9 @@ function hexValueToDamageString(hexValue) {
     }
     if ('rlbcMode' in preset) {
       this.rlbc = preset.rlbcMode
+    }
+    if ('alucardPaletteMode' in preset) {
+      this.alucardPalette = preset.alucardPaletteMode
     }
     if ('writes' in preset) {
       this.writes = this.writes || []
@@ -5445,6 +5460,11 @@ function hexValueToDamageString(hexValue) {
     this.rlbc = enabled
   }
 
+  // Enable Alucard Palette Rando - eldri7ch
+  PresetBuilder.prototype.alucardPaletteMode = function alucardPaletteMode(enabled) {
+    this.alucardPalette = enabled
+  }
+
   // Write a character.
   PresetBuilder.prototype.writeChar = function writeChar(address, value) {
     let valueCheck
@@ -5761,6 +5781,7 @@ function hexValueToDamageString(hexValue) {
     const startRoomRando2nd = self.startRoomRando2nd
     const domino = self.domino
     const rlbc = self.rlbc
+    const alucardPalette = self.alucardPalette
     const debug = self.debug
     const writes = self.writes
     return new Preset(
@@ -5805,6 +5826,7 @@ function hexValueToDamageString(hexValue) {
       startRoomRando2nd,
       domino,
       rlbc,
+      alucardPalette,
       debug,
       writes,
     )
@@ -6903,10 +6925,10 @@ function hexValueToDamageString(hexValue) {
 
     // Guarantee that it's an uncommon drop, rare if Arcana is equipped. - Forat Negre
     offset = 0x119188
-    offset = data.writeWord(offset, 0x34060020)
+    offset = data.writeWord(offset, 0x34060040)
     offset = data.writeWord(offset, 0x14400002)
     offset = data.writeWord(offset, 0x00000000)
-    offset = data.writeWord(offset, 0x34060040)
+    offset = data.writeWord(offset, 0x34060020)
     offset = data.writeWord(offset, 0x00C01021)
     offset = data.writeWord(offset, 0x0803FD7A)
     offset = data.writeWord(offset, 0x00000000)
@@ -6921,6 +6943,49 @@ function hexValueToDamageString(hexValue) {
     // Patch the reverse library card function
     offset = 0x12B534                                 // Hook to our new LBC function
     data.writeWord(offset, 0x0C02622F)                // No "nop" instr needed as it's already a call
+    
+    return data
+  }
+
+  function applyAlucardPalettePatches(rng){                  //Alucard Palette Randomizer - CRAZY4BLADES, palettes by eldri7ch
+    const data = new checked()
+    let colorAlucardSet = Math.floor(rng() * 7)
+    let colorAlucardLiner = Math.floor(rng() * 5)
+    const palettesAlucard1 = [
+      [0x0828,0x0830,0x0833,0x0836,0x083C],                   //Bloody Tears
+      [0xB800,0xCC00,0xD400,0xED00,0xED00],                   //Blue Danube
+      [0x8480,0x84C0,0x84E2,0x8906,0x8D6A],                   //Swamp Thing
+      [0xa94a,0xc210,0xdad6,0xef7b,0xffff],                   //White Knight
+      [0x9803,0xB005,0xBC07,0xD00A,0xE40C],                   //Royal Purple
+      [0xA8EB,0xC191,0xDE37,0xEE7C,0xFA9F],                   //Pink Passion
+      [0x8842,0x8C63,0x94A5,0x94A5,0x9CE7]                    //Shadow Prince
+    ]
+    const palettesAlucard2 = [
+      0x0824,0x1C00,0x8060,0x9084,0x8c01,0x9886,0x8421
+    ]
+    const palettesAlucardLiner = [
+      [0x8068,0x88AA,0x8CEE,0x9553],                          //Bronze Trim
+      [0xA927,0xC1CB,0xD26F,0xE6F3],                          //Silver Trim
+      [0x84AB,0x8D2F,0x91D6,0x929B],                          //Gold trim
+      [0x8C63,0x94A5,0xA94A,0xBDEF],                          //Onyx Trim
+      [0x90C3,0xA167,0xB62B,0xCAEF]                           //Jade Trim
+    ]
+    if (colorAlucardSet > 6) {
+      colorAlucardSet = 0;
+    }
+    if (colorAlucardLiner > 4) {
+      colorAlucardLiner = 0;
+    }
+    offset = 0xEF952
+    for (let i = 0; i < 5; i++) {
+      offset = data.writeShort(offset,palettesAlucard1[colorAlucardSet][i])
+    }
+    offset = 0xEF93E
+    offset = data.writeShort(offset,palettesAlucard2[colorAlucardSet])
+    offset = 0xEF940
+    for (let i = 0; i < 4; i++) {
+      offset = data.writeShort(offset,palettesAlucardLiner[colorAlucardLiner][i])
+    }
     
     return data
   }
@@ -7476,6 +7541,7 @@ function hexValueToDamageString(hexValue) {
     applyStartRoomRandoPatches: applyStartRoomRandoPatches,
     applyDominoPatches: applyDominoPatches,
     applyRLBCPatches: applyRLBCPatches,
+    applyAlucardPalettePatches: applyAlucardPalettePatches,
     applyMapColor: applyMapColor,
     randomizeRelics: randomizeRelics,
     randomizeItems: randomizeItems,

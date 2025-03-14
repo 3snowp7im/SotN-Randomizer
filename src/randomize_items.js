@@ -1608,6 +1608,38 @@
       data.writeShort(0xef990, newOutline)    // otherwise use a new color for the outline
     }
   }
+
+  function randomizeRichterColor(data, rng){
+    let colorR = Math.floor(rng() * 4)
+    let offset = 0
+    const palettesRichter = [
+      [0x0000,0x8000,0xb185,0xc210,0xd294,0xf39c,0xfd80,0xb000,0x80ac,0x9556,0xb21c,0xc29c,0xd33c,0x8194,0xfc00,0x801f], //blue
+      [0x0000,0x8000,0xb185,0xc210,0xd294,0xf39c,0xaa80,0x8080,0x80ac,0x9556,0xb21c,0xc29c,0xd33c,0x8194,0x8180,0xfc1f], //green
+      [0x0000,0x8000,0xa906,0xbd8d,0xdab6,0xffff,0x801e,0x8009,0x80cd,0x9956,0xbe7f,0xcedf,0xdb7f,0x81f2,0x8013,0x83e0], //red
+      [0x0000,0x8000,0xa906,0xbd8d,0xdab6,0xffff,0xa4e9,0x9402,0x80cd,0x9956,0xbe7f,0xcedf,0xdb7f,0x81f2,0x94a2,0xff80]  //black
+    ];
+    if(colorR > 3){
+      colorR = 0;
+    }
+    offset = 0x38BED78
+    for (let i = 0; i < 16; i++) {
+      offset = data.writeShort(offset,palettesRichter[colorR][i])
+    }
+    offset = 0x38BEED8
+    for (let i = 0; i < 16; i++) {
+      offset = data.writeShort(offset,palettesRichter[colorR][i])
+    }
+    for (let i = 0; i < 16; i++) {
+      offset = data.writeShort(offset,palettesRichter[colorR][i])
+    }
+    for (let i = 0; i < 16; i++) {
+      offset = data.writeShort(offset,palettesRichter[colorR][i])
+    }
+    for (let i = 0; i < 16; i++) {
+      offset = data.writeShort(offset,palettesRichter[colorR][i])
+    }
+  }
+
   
   function randomizeItems(rng, items, newNames, options) {
     const data = new util.checked()
@@ -1736,6 +1768,7 @@
           randomizeGravBootColors(data,rng)
           randomizeHydroStormColor(data, rng)
           randomizeWingSmashColor(data,rng)
+          randomizeRichterColor(data,rng)
 
         }
         // Write items to ROM.

@@ -294,6 +294,7 @@
       elems.startRoomRando2ndMode.checked = !!options.startRoomRando2ndMode
       elems.dominoMode.checked = !!options.dominoMode
       elems.rlbcMode.checked = !!options.rlbcMode
+      elems.alucardPaletteMode.checked = !!options.alucardPaletteMode
     }
   }
 
@@ -528,6 +529,10 @@
     localStorage.setItem('rlbcMode', elems.rlbcMode.checked)
   }
 
+  function alucardPaletteModeChange() {
+    localStorage.setItem('alucardPaletteMode', elems.alucardPaletteMode.checked)
+  }
+
   function accessibilityPatchesChange() {
     localStorage.setItem('accessibilityPatches', elems.accessibilityPatches.checked)
   }
@@ -721,6 +726,9 @@
       if (elems.rlbcMode.checked) {
         options.rlbcMode = true
       }
+      if (elems.alucardPaletteMode.checked) {
+        options.alucardPaletteMode = true
+      }
       if (elems.mapColor != 'normal') {
         switch (elems.mapColor.value){
           case 'normal':
@@ -785,6 +793,7 @@
       startRoomRando2ndMode: elems.startRoomRando2ndMode.checked,
       dominoMode: elems.dominoMode.checked,
       rlbcMode: elems.rlbcMode.checked,
+      alucardPaletteMode: elems.alucardPaletteMode.checked,
     }
     if (elems.enemyDropsArg.value) {
       options.enemyDrops = util.optionsFromString(
@@ -1052,6 +1061,10 @@
         if (options.rlbcMode || applied.rlbcMode) {
           check.apply(util.applyRLBCPatches(rng))
         }
+        // Alucard Pelette Rando patches.
+        if (options.alucardPaletteMode || applied.alucardPaletteMode) {
+          check.apply(util.applyAlucardPalettePatches(rng))
+        }
         // Apply map color patches.
         if (mapColorLock != 'normal') {
           switch (mapColorLock){
@@ -1214,6 +1227,7 @@
     elems.startRoomRando2ndMode.disabled = false
     elems.dominoMode.disabled = false
     elems.rlbcMode.disabled = false
+    elems.alucardPaletteMode.disabled = false
     elems.tournamentMode.disabled = false
     elems.clear.classList.add('hidden')
     presetChange()
@@ -1375,6 +1389,7 @@
     startRoomRando2ndMode: document.getElementById('startRoomRando2nd-mode'),
     dominoMode: document.getElementById('domino-mode'),
     rlbcMode: document.getElementById('rlbc-mode'),
+    alucardPaletteMode: document.getElementById('alucardPalette-mode'),
     accessibilityPatches: document.getElementById('accessibility-patches'),
     showSpoilers: document.getElementById('show-spoilers'),
     showRelics: document.getElementById('show-relics'),
@@ -1453,6 +1468,7 @@
   elems.startRoomRando2ndMode.addEventListener('change', startRoomRando2ndModeChange)
   elems.dominoMode.addEventListener('change', dominoModeChange)
   elems.rlbcMode.addEventListener('change', rlbcModeChange)
+  elems.alucardPaletteMode.addEventListener('change', alucardPaletteModeChange)
   elems.accessibilityPatches.addEventListener('change', accessibilityPatchesChange)
   elems.showSpoilers.addEventListener('change', spoilersChange)
   elems.showRelics.addEventListener('change', showRelicsChange)
@@ -1782,6 +1798,7 @@
   loadOption('startRoomRando2ndMode', startRoomRando2ndModeChange, false)
   loadOption('dominoMode', dominoModeChange, false)
   loadOption('rlbcMode', rlbcModeChange, false)
+  loadOption('alucardPaletteMode', alucardPaletteModeChange, false)
   loadOption('accessibilityPatches', accessibilityPatchesChange, true)
   loadOption('showSpoilers', spoilersChange, true)
   setTimeout(function() {

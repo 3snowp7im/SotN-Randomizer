@@ -651,6 +651,11 @@ const yargs = require('yargs')
     describe: 'Guarantees drops from every enemy that has one. Ring of Arcana makes them drop their rare item instead of the uncommon.',
     type: 'boolean',
   })
+  .option('alucardPalette', {
+    alias: 'ap',
+    describe: 'Randomizes Alucard\'s Palette amongst pre-set colors.',
+    type: 'boolean',
+  })
   .option('debug', {
     alias: 'D',
     describe: 'Debug mode.',
@@ -1106,15 +1111,20 @@ if ('debug' in argv) {console.log('randomize | Set startRoomRando2nd')}
 if (argv.startRoomRando2nd) { // randomizes starting room - eldrich
   options.startRoomRando2ndMode = true
 }
-if ('debug' in argv) {console.log('randomize | Set guaranteed drops')}
+if ('debug' in argv) {console.log('randomize | Set domino')}
 // Enable guaranteed drops mode if specified. - eldri7ch
 if (argv.domino) { // guarantees drops - eldrich
   options.dominoMode = true
 }
-if ('debug' in argv) {console.log('randomize | Set Reverse Library Cards')}
+if ('debug' in argv) {console.log('randomize | Set rlbc')}
 // Enable reverse library card mode if specified. - eldri7ch
 if (argv.rlbc) { // reverse library cards - eldrich
   options.rlbcMode = true
+}
+if ('debug' in argv) {console.log('randomize | Set alucardPaletteRando')}
+// Enable Alucard palette randomizer mode if specified. - CRAZY4BLADES
+if (argv.alucardPalette) { // Alucard palette randomizer - CRAZY4BLADES
+  options.alucardPaletteMode = true
 }
 if ('debug' in argv) {console.log('randomize | Set map colors')}
 // Map Color Features if specified. - eldri7ch
@@ -1398,6 +1408,19 @@ if ('debug' in argv) {console.log('randomize | Start randomization')}
           check.apply(util.applyRLBCPatches())
         }
         if ('debug' in argv) {console.log('randomize | function: randomize | Reverse Library Card Mode | ' + optFlag)}
+        optFlag = false
+        if (options.alucardPaletteMode || applied.alucardPaletteMode) { // Alucard Palette Rando - CRAZY4BLADES
+          // Apply Alucard Palette Rando patches. - CRAZY4BLADES
+          optFlag = true
+          rng = new require('seedrandom')(util.saltSeed(
+            version,
+            options,
+            seed,
+            0,
+          ))
+          check.apply(util.applyAlucardPalettePatches(rng))
+        }
+        if ('debug' in argv) {console.log('randomize | function: randomize | Alucard Palette Randomizer Mode | ' + optFlag)}
         optFlag = false
         if ('mapcolor' in argv) { // Colors the map - eldrich
           // Apply map color patches. - eldri7ch
