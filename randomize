@@ -641,6 +641,11 @@ const yargs = require('yargs')
     describe: 'Start in the entrance as usual but after the first Warg, you are teleported to a random zone to start the rest of your run.',
     type: 'boolean',
   })
+  .option('domino', {
+    alias: 'gd',
+    describe: 'Guarantees drops from every enemy that has one. Ring of Arcana makes them drop their rare item instead of the uncommon.',
+    type: 'boolean',
+  })
   .option('debug', {
     alias: 'D',
     describe: 'Debug mode.',
@@ -1096,6 +1101,11 @@ if ('debug' in argv) {console.log('randomize | Set startRoomRando2nd')}
 if (argv.startRoomRando2nd) { // randomizes starting room - eldrich
   options.startRoomRando2ndMode = true
 }
+if ('debug' in argv) {console.log('randomize | Set guaranteed drops')}
+// Enable guaranteed drops mode if specified. - eldri7ch
+if (argv.domino) { // guarantees drops - eldrich
+  options.dominoMode = true
+}
 if ('debug' in argv) {console.log('randomize | Set map colors')}
 // Map Color Features if specified. - eldri7ch
 if ('mapcolor' in argv && typeof(argv.mapcolor) !== 'undefined') {
@@ -1362,6 +1372,13 @@ if ('debug' in argv) {console.log('randomize | Start randomization')}
           check.apply(util.applyStartRoomRandoPatches(rng,options))
         }
         if ('debug' in argv) {console.log('randomize | function: randomize | Starting Room Randomizer Mode | ' + optFlag)}
+        optFlag = false
+        if (options.dominoMode || applied.dominoMode) { // Guarantees drops - eldrich
+          // Apply guaranteed drops patches. - eldri7ch
+          optFlag = true
+          check.apply(util.applyDominoPatches())
+        }
+        if ('debug' in argv) {console.log('randomize | function: randomize | Guaranteed Drops Mode | ' + optFlag)}
         optFlag = false
         if ('mapcolor' in argv) { // Colors the map - eldrich
           // Apply map color patches. - eldri7ch

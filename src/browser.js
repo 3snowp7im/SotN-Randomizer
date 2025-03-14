@@ -20,6 +20,7 @@
   let selectedFile
   let version
   let mapColorLock
+  let isAprilFools
 
   const safe = presets.filter(function(preset) {
     return preset.id === 'safe'
@@ -291,6 +292,7 @@
       elems.shopPriceRandoMode.checked = !!options.shopPriceRandoMode
       elems.startRoomRandoMode.checked = !!options.startRoomRandoMode
       elems.startRoomRando2ndMode.checked = !!options.startRoomRando2ndMode
+      elems.dominoMode.checked = !!options.dominoMode
     }
   }
 
@@ -517,6 +519,10 @@
     localStorage.setItem('startRoomRando2ndMode', elems.startRoomRando2ndMode.checked)
   }
 
+  function dominoModeChange() {
+    localStorage.setItem('dominoMode', elems.dominoMode.checked)
+  }
+
   function accessibilityPatchesChange() {
     localStorage.setItem('accessibilityPatches', elems.accessibilityPatches.checked)
   }
@@ -704,6 +710,9 @@
       if (elems.startRoomRando2ndMode.checked) {
         options.startRoomRando2ndMode = true
       }
+      if (elems.dominoMode.checked) {
+        options.dominoMode = true
+      }
       if (elems.mapColor != 'normal') {
         switch (elems.mapColor.value){
           case 'normal':
@@ -766,6 +775,7 @@
       shopPriceRandoMode: elems.shopPriceRandoMode.checked,
       startRoomRandoMode: elems.startRoomRandoMode.checked,
       startRoomRando2ndMode: elems.startRoomRando2ndMode.checked,
+      dominoMode: elems.dominoMode.checked,
     }
     if (elems.enemyDropsArg.value) {
       options.enemyDrops = util.optionsFromString(
@@ -839,6 +849,10 @@
   function submitListener(event) {
     // Get seed.
     let selectedPreset = null
+    if(isAprilFools){
+      elems.presetId.value = "april-fools";
+      presetIdChange();
+    }
     if(elems.preset.checked) {
       selectedPreset = elems.presetId.childNodes[elems.presetId.selectedIndex].value
       self.sotnRando.selectedPreset = selectedPreset
@@ -1019,6 +1033,10 @@
         if (options.startRoomRandoMode || applied.startRoomRandoMode || options.startRoomRando2ndMode || applied.startRoomRando2ndMode) {
           check.apply(util.applyStartRoomRandoPatches(rng,options))
         }
+        // Apply guaranteed drop patches.
+        if (options.dominoMode || applied.dominoMode) {
+          check.apply(util.applyDominoPatches(rng))
+        }
         // Apply map color patches.
         if (mapColorLock != 'normal') {
           switch (mapColorLock){
@@ -1179,6 +1197,7 @@
     elems.shopPriceRandoMode.disabled = false
     elems.startRoomRandoMode.disabled = false
     elems.startRoomRando2ndMode.disabled = false
+    elems.dominoMode.disabled = false
     elems.tournamentMode.disabled = false
     elems.clear.classList.add('hidden')
     presetChange()
@@ -1338,6 +1357,7 @@
     shopPriceRandoMode: document.getElementById('shopPriceRando-mode'),
     startRoomRandoMode: document.getElementById('startRoomRando-mode'),
     startRoomRando2ndMode: document.getElementById('startRoomRando2nd-mode'),
+    dominoMode: document.getElementById('domino-mode'),
     accessibilityPatches: document.getElementById('accessibility-patches'),
     showSpoilers: document.getElementById('show-spoilers'),
     showRelics: document.getElementById('show-relics'),
@@ -1414,12 +1434,17 @@
   elems.shopPriceRandoMode.addEventListener('change', shopPriceRandoModeChange)
   elems.startRoomRandoMode.addEventListener('change', startRoomRandoModeChange)
   elems.startRoomRando2ndMode.addEventListener('change', startRoomRando2ndModeChange)
+  elems.dominoMode.addEventListener('change', dominoModeChange)
   elems.accessibilityPatches.addEventListener('change', accessibilityPatchesChange)
   elems.showSpoilers.addEventListener('change', spoilersChange)
   elems.showRelics.addEventListener('change', showRelicsChange)
   elems.showSolutions.addEventListener('change', showSolutionsChange)
   elems.copy.addEventListener('click', copyHandler)
   elems.showOlder.addEventListener('click', showOlderHandler)
+  // Set April Fools flag
+  const month = new Date().getMonth() + 1;
+  const day = new Date().getDate();
+  isAprilFools = month === 4 && day === 1;
   // Load presets
   sortedPresets = presets
   sortedPresets.sort(function(a, b) {
@@ -1440,12 +1465,15 @@
       }
     }
     return weight
-  })
+  });
+
   sortedPresets.forEach(function(preset) {
     if (!preset.hidden) {
+      if(preset.id === "april-fools" && !isAprilFools) return;
       const option = document.createElement('option')
       option.value = preset.id
       option.innerText = preset.name
+      if(preset.id === "april-fools") option.innerText = "April Fools";
       elems.presetId.appendChild(option)
     }
   })
@@ -1734,6 +1762,7 @@
   loadOption('shopPriceRandoMode', shopPriceRandoModeChange, false)
   loadOption('startRoomRandoMode', startRoomRandoModeChange, false)
   loadOption('startRoomRando2ndMode', startRoomRando2ndModeChange, false)
+  loadOption('dominoMode', dominoModeChange, false)
   loadOption('accessibilityPatches', accessibilityPatchesChange, true)
   loadOption('showSpoilers', spoilersChange, true)
   setTimeout(function() {

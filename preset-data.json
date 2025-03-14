@@ -955,5 +955,24 @@
     "metaExtension": "Guarded",
     "metaComplexity": "8",
     "itemStats": "Normal"
+  },
+  {
+    "name": "Alphabet Soup",
+    "id": "april-fools",
+    "description": "April Fools Preset Released on April 1st, 2025.",
+    "author": [
+      "eldri7ch",
+      "MottZilla"
+    ],
+    "knowledgeCheck": "April Fools",
+    "timeFrame": "Normal",
+    "moddedLevel": "None",
+    "castleType": "Normal",
+    "transformEarly": "No",
+    "transformFocus": "None",
+    "winCondition": "April Fools",
+    "metaExtension": "Classic",
+    "metaComplexity": "9",
+    "itemStats": "Normal"
   }
 ]
