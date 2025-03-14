@@ -1763,11 +1763,11 @@
         // Color Palette Rando mode.
         if (options.colorrandoMode) {
           randomizeCapeColors(data, rng)
-          randomizeGravBootColors(data,rng)
+          randomizeGravBootColors(data, rng)
           randomizeHydroStormColor(data, rng)
-          randomizeWingSmashColor(data,rng)
-          randomizeRichterColor(data,rng)
-
+          randomizeWingSmashColor(data, rng)
+          randomizeRichterColor(data, rng)
+          randomizeAlucardColor(data, rng)
         }
         // Write items to ROM.
         if (options.itemLocations

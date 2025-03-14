@@ -646,6 +646,11 @@ const yargs = require('yargs')
     describe: 'Guarantees drops from every enemy that has one. Ring of Arcana makes them drop their rare item instead of the uncommon.',
     type: 'boolean',
   })
+  .option('alucardPalette', {
+    alias: 'ap',
+    describe: 'Applies a randomized palette for Alucard using preset palettes.',
+    type: 'boolean',
+  })
   .option('debug', {
     alias: 'D',
     describe: 'Debug mode.',
@@ -1106,6 +1111,11 @@ if ('debug' in argv) {console.log('randomize | Set guaranteed drops')}
 if (argv.domino) { // guarantees drops - eldrich
   options.dominoMode = true
 }
+if ('debug' in argv) {console.log('randomize | Alucard palette Randomizer')}
+// Enable guaranteed drops mode if specified. - eldri7ch
+if (argv.alucardPalette) { // Alucard palette Randomizer - CRAZY4BLADES
+  options.alucardPaletteMode = true
+}
 if ('debug' in argv) {console.log('randomize | Set map colors')}
 // Map Color Features if specified. - eldri7ch
 if ('mapcolor' in argv && typeof(argv.mapcolor) !== 'undefined') {
@@ -1377,6 +1387,11 @@ if ('debug' in argv) {console.log('randomize | Start randomization')}
           // Apply guaranteed drops patches. - eldri7ch
           optFlag = true
           check.apply(util.applyDominoPatches())
+        }
+        if (options.alucardPaletteMode || applied.alucardPaletteMode) { // Alucard Palette Randomizer - CRAZY4BLADES
+          // Apply Alucard palette randomizer. - CRAZY4BLADES
+          optFlag = true
+          check.apply(util.applyAlucardPalettePatches())
         }
         if ('debug' in argv) {console.log('randomize | function: randomize | Guaranteed Drops Mode | ' + optFlag)}
         optFlag = false
