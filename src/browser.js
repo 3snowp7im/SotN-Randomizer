@@ -26,7 +26,7 @@
     return preset.id === 'safe'
   }).pop()
 
-  /*function cloneItems(items) {                                                              //Saves previous selections
+  function cloneItems(items) {                                                              //Saves previous selections
     return items.map(function(item) {
       const clone = Object.assign({}, item)
       delete clone.tiles
@@ -35,9 +35,9 @@
       }
       return clone
     })
-  }*/
+  }
 
-  //const items = cloneItems(sotnRando.items)
+  const items = cloneItems(sotnRando.items)
 
   function workerCount() {
     const cores = navigator.hardwareConcurrency
@@ -94,7 +94,7 @@
   }
 
   function resetState() {
-    //sotnRando.items = cloneItems(items)
+    sotnRando.items = cloneItems(items)
     selectedFile = undefined
     resetTarget()
     elems.randomize.disabled = true
@@ -909,7 +909,7 @@
       elems.status.innerText = err.message
     }
     function restoreItems() {
-      //sotnRando.items = cloneItems(items)
+      sotnRando.items = cloneItems(items)
     }
     function randomize() {                                                                        // This is the main function of the randomizer website
       const check = new util.checked(this.result)
