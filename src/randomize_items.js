@@ -1767,7 +1767,6 @@
           randomizeHydroStormColor(data, rng)
           randomizeWingSmashColor(data, rng)
           randomizeRichterColor(data, rng)
-          randomizeAlucardColor(data, rng)
         }
         // Write items to ROM.
         if (options.itemLocations
