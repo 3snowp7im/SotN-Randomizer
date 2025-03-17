@@ -1549,6 +1549,27 @@
     capeColor(data, 0x6894054, 0x6894058, {rng: rng})
   }
 
+  function randomizeDraculaCape(data, rng){
+    const draculaCapePaletteCount = 6
+    let colorDC = Math.floor(rng() * draculaCapePaletteCount)
+    offset = 0
+    const palettesDraculaCape = [
+      [0x2000, 0x4400, 0x7000],  //blue
+      [0x0100, 0x0220, 0x0380],  //green
+      [0x8008, 0x8011, 0x801C],  //default red
+      [0x2008, 0x4411, 0x701C],  //Pink
+      [0x0108, 0x0231, 0x039C],  //Yellow
+      [0x2108, 0x4210, 0x6318]   //Gray
+    ]
+    offset = 0x535D4EA
+    if(colorDC >= draculaCapePaletteCount){
+      colorDC = 0;
+    }
+    for (let i = 0; i < 3; i++) {
+      offset = data.writeShort(offset,palettesDraculaCape[colorDC][i])
+    }
+  }
+
   function randomizeHydroStormColor(data, rng){
     const color1 = Math.floor(rng() * 0x100)
     const color2 = Math.floor(rng() * 0x100)
@@ -1642,6 +1663,49 @@
     }
   }
 
+  function randomizeMariaColor(data, rng){
+    const MariaPaletteCount = 5
+    let colorM = Math.floor(rng() * MariaPaletteCount)
+    let offset = 0
+    const palettesMaria = [
+      [0x0000,0x84C9,0x8d53,0xa1f9,0xb6fc,0x302f,0x312f,0xfd76,0x9218,0x931f,0x9463,0x9ce7,0xb148,0xca2e,0xe2f6,0xef7b], //Purple
+      [0x0000,0x84C9,0x8d53,0xa1f9,0xb6fc,0xc8c7,0xc9c7,0xb12a,0x9218,0x931f,0x9463,0x9ce7,0xb148,0xca2e,0xe2f6,0xef7b], //Richter Blue
+      [0x0000,0x84C9,0x8d53,0xa1f9,0xb6fc,0xbdbc,0xbebc,0xa61f,0x9218,0x931f,0x9463,0x9ce7,0xb148,0xca2e,0xe2f6,0xef7b], //Light Pink
+      [0x0000,0x84C9,0x8d53,0xa1f9,0xb6fc,0x7e80,0x7380,0x762a,0x9218,0x931f,0x9463,0x9ce7,0xb148,0xca2e,0xe2f6,0xef7b], //Light Blue
+      [0x0000,0x84C9,0x8d53,0xa1f9,0xb6fc,0x8180,0x8280,0xab2a,0x9218,0x931f,0x9463,0x9ce7,0xb148,0xca2e,0xe2f6,0xef7b], //Default
+    ];
+    if(colorM >= MariaPaletteCount){
+      colorM = 0;
+    }
+    offset = 0x436BA7C                                                                                                  //Richter's main palette.
+    for (let i = 0; i < 16; i++) {
+      offset = data.writeShort(offset,palettesMaria[colorM][i])
+    }
+    offset = 0x45638F4                                                                                                  //Richter's alternate palettes when using item crash.
+    for (let i = 0; i < 16; i++) {
+      offset = data.writeShort(offset,palettesMaria[colorM][i])
+    }
+    offset = 0x4690EE4                                                                                                   //Richter's palette for ending cutscene.
+    for (let i = 0; i < 16; i++) {
+      offset = data.writeShort(offset,palettesMaria[colorM][i])
+    }
+    offset = 0x54CA704                                                                                                   //Richter's palette for saving Richter cutscene.
+    for (let i = 0; i < 16; i++) {
+      offset = data.writeShort(offset,palettesMaria[colorM][i])
+    }
+    offset = 0x562220C                                                                                                   //Richter's palette for his Boss Fight.
+    for (let i = 0; i < 16; i++) {
+      offset = data.writeShort(offset,palettesMaria[colorM][i])
+    }
+    offset = 0x631620C                                                                                                  //Richter's alternate paletts when using item crashes during Boss Fight.
+    for (let i = 0; i < 16; i++) {
+      offset = data.writeShort(offset,palettesMaria[colorM][i])
+    }
+    offset = 0x650E768 
+    for (let i = 0; i < 16; i++) {
+      offset = data.writeShort(offset,palettesMaria[colorM][i])
+    }
+  }
   
   function randomizeItems(rng, items, newNames, options) {
     const data = new util.checked()
@@ -1771,7 +1835,8 @@
           randomizeHydroStormColor(data, rng)
           randomizeWingSmashColor(data,rng)
           randomizeRichterColor(data,rng)
-
+          randomizeDraculaCape(data,rng)
+          randomizeMariaColor(data,rng)
         }
         // Write items to ROM.
         if (options.itemLocations
