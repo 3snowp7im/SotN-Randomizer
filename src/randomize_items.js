@@ -1634,6 +1634,9 @@
     const RichterPaletteCount = 5
     let colorR = Math.floor(rng() * RichterPaletteCount)
     let offset = 0
+    const RichterOffset = [         //Offsets for the pause UI during Prologue.
+      0x38BE9EA,0x38BEA0A,0x38BEA2A,0x38BEA4A,0x38BEA6A,0x38BEAAA,0x38BEACA,0x38BEAEA,0x38BEB0A,0x38BEB2A,0x38BEB4A,0x38BEB6A
+    ]
     const palettesRichter = [
       [0x0000,0x8000,0xb185,0xc210,0xd294,0xf39c,0xfd80,0xb000,0x80ac,0x9556,0xb21c,0xc29c,0xd33c,0x8194,0xfc00,0x801f], //blue
       [0x0000,0x8000,0xb185,0xc210,0xd294,0xf39c,0xaa80,0x8080,0x80ac,0x9556,0xb21c,0xc29c,0xd33c,0x8194,0x8180,0xfc1f], //green
@@ -1690,6 +1693,14 @@
     offset = data.writeShort(offset,palettesRichter[colorR][14])
     offset = data.writeShort(offset,palettesRichter[colorR][7])
     offset = data.writeShort(offset,palettesRichter[colorR][6])
+    offset = 0x38BE9EA                                                                                                   //Richter's pause UI. 
+    for (let i = 0; i < 12; i++) {
+      offset = data.writeShort(RichterOffset[i],palettesRichter[colorR][14])
+    }
+    offset = 0x38BEA1A                                                                                                   //Richter's Health Bar. 
+    offset = data.writeShort(offset,palettesRichter[colorR][6])
+    offset = data.writeShort(offset,palettesRichter[colorR][14])
+    offset = data.writeShort(offset,palettesRichter[colorR][7])
     
   }
 
