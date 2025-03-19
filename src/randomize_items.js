@@ -1634,6 +1634,9 @@
     const RichterPaletteCount = 5
     let colorR = Math.floor(rng() * RichterPaletteCount)
     let offset = 0
+    const RichterOffset = [         //Offsets for the pause UI during Prologue.
+      0x38BE9EA,0x38BEA0A,0x38BEA2A,0x38BEA4A,0x38BEA6A,0x38BEAAA,0x38BEACA,0x38BEAEA,0x38BEB0A,0x38BEB2A,0x38BEB4A,0x38BEB6A
+    ]
     const palettesRichter = [
       [0x0000,0x8000,0xb185,0xc210,0xd294,0xf39c,0xfd80,0xb000,0x80ac,0x9556,0xb21c,0xc29c,0xd33c,0x8194,0xfc00,0x801f], //blue
       [0x0000,0x8000,0xb185,0xc210,0xd294,0xf39c,0xaa80,0x8080,0x80ac,0x9556,0xb21c,0xc29c,0xd33c,0x8194,0x8180,0xfc1f], //green
@@ -1686,10 +1689,23 @@
     for (let i = 0; i < 16; i++) {
       offset = data.writeShort(offset,palettesRichter[colorR][i])
     }
+    offset = 0x6113772                                                                                                   //Richter's Colosseum cutscene. 
+    offset = data.writeShort(offset,palettesRichter[colorR][14])
+    offset = data.writeShort(offset,palettesRichter[colorR][7])
+    offset = data.writeShort(offset,palettesRichter[colorR][6])
+    offset = 0x38BE9EA                                                                                                   //Richter's pause UI. 
+    for (let i = 0; i < 12; i++) {
+      offset = data.writeShort(RichterOffset[i],palettesRichter[colorR][14])
+    }
+    offset = 0x38BEA1A                                                                                                   //Richter's Health Bar. 
+    offset = data.writeShort(offset,palettesRichter[colorR][6])
+    offset = data.writeShort(offset,palettesRichter[colorR][14])
+    offset = data.writeShort(offset,palettesRichter[colorR][7])
+    
   }
 
   function randomizeMariaColor(data, rng){
-    const MariaPaletteCount = 5
+    const MariaPaletteCount = 6
     let colorM = Math.floor(rng() * MariaPaletteCount)
     let offset = 0
     const palettesMaria = [
@@ -1698,35 +1714,36 @@
       [0x0000,0x84C9,0x8d53,0xa1f9,0xb6fc,0xbdbc,0xbebc,0xa61f,0x9218,0x931f,0x9463,0x9ce7,0xb148,0xca2e,0xe2f6,0xef7b], //Light Pink
       [0x0000,0x84C9,0x8d53,0xa1f9,0xb6fc,0x7e80,0x7380,0x762a,0x9218,0x931f,0x9463,0x9ce7,0xb148,0xca2e,0xe2f6,0xef7b], //Light Blue
       [0x0000,0x84C9,0x8d53,0xa1f9,0xb6fc,0x8180,0x8280,0xab2a,0x9218,0x931f,0x9463,0x9ce7,0xb148,0xca2e,0xe2f6,0xef7b], //Default
+      [0x0000,0x84C9,0x8d53,0xa1f9,0xb6fc,0x98c6,0xa94a,0xbdef,0x9218,0x931f,0x9463,0x9ce7,0xb148,0xca2e,0xe2f6,0xef7b], //Dark Gray
     ];
     if(colorM >= MariaPaletteCount){
       colorM = 0;
     }
-    offset = 0x436BA7C
+    offset = 0x436BA7C                                                                                                   //Ending Cutscene
     for (let i = 0; i < 16; i++) {
       offset = data.writeShort(offset,palettesMaria[colorM][i])
     }
-    offset = 0x45638F4
+    offset = 0x45638F4                                                                                                   //Holy Glasses Cutscene
     for (let i = 0; i < 16; i++) {
       offset = data.writeShort(offset,palettesMaria[colorM][i])
     }
-    offset = 0x4690EE4 
+    offset = 0x4690EE4                                                                                                   //Silver Ring Cutscene
     for (let i = 0; i < 16; i++) {
       offset = data.writeShort(offset,palettesMaria[colorM][i])
     }
-    offset = 0x54CA704
+    offset = 0x54CA704                                                                                                   //Alchemy Labs Cutscene
     for (let i = 0; i < 16; i++) {
       offset = data.writeShort(offset,palettesMaria[colorM][i])
     }
-    offset = 0x562220C
+    offset = 0x562220C                                                                                                   //Save Richter Cutscene
     for (let i = 0; i < 16; i++) {
       offset = data.writeShort(offset,palettesMaria[colorM][i])
     }
-    offset = 0x631620C
+    offset = 0x631620C                                                                                                   //Hippogriff Cutscene
     for (let i = 0; i < 16; i++) {
       offset = data.writeShort(offset,palettesMaria[colorM][i])
     }
-    offset = 0x650E768 
+    offset = 0x650E768                                                                                                   //Clock Room Cutscene
     for (let i = 0; i < 16; i++) {
       offset = data.writeShort(offset,palettesMaria[colorM][i])
     }
