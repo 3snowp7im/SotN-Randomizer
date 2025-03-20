@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const mode = modeSelector.value;
         const preset = presetSelector.value;
 
-        const endpoint = mode === "elo" ? `${apiUrl}/leaderboards/elo/${preset}` : `${apiUrl}/leaderboards/time/${preset}`;
+        const endpoint = mode === "elo" ? `${apiUrl}/leaderboards/elo/${preset}?player_limit=20` : `${apiUrl}/leaderboards/time/${preset}?player_limit=20`;
         try {
             const response = await fetch(endpoint);
             const data = await response.json();
@@ -44,10 +44,10 @@ document.addEventListener("DOMContentLoaded", () => {
             // Adjust table columns
             if (mode === "elo") {
                 tableTimeElo.textContent = "Elo";
-                seedColumn.classList.add("d-none");
+                seedColumn.textContent = "Matches"
             } else {
                 tableTimeElo.textContent = "Time";
-                seedColumn.classList.remove("d-none");
+                seedColumn.textContent = "Seed"
             }
 
             // Populate the table
@@ -57,12 +57,14 @@ document.addEventListener("DOMContentLoaded", () => {
                     player.seed_url = "#";
                 }
                 const seedData = mode === "time" ? `<td><a href="${player.seed_url}" class="text-decoration-none text-info">${player.seed_name}</a></td>` : '';
+                const playedData = mode === "elo" ? `<td>${player.matches - 1}</td>` : '';
                 return `
                     <tr>
                         <td>${player.rank}</td>
                         <td>${player.username}</td>
                         <td>${mode === "elo" ? player.elo : player.time}</td>
                         ${seedData}
+                        ${playedData}
                     </tr>
                 `;
             }).join('');
