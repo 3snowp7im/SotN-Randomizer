@@ -10,6 +10,7 @@
   const randomizeMusic = sotnRando.randomizeMusic
   const applyAccessibilityPatches = sotnRando.applyAccessibilityPatches
   const relics = sotnRando.relics
+  const apiUrl = "https://sotnrandoapi.duckdns.org";
 
   let info
   let currSeed
@@ -35,6 +36,26 @@
       }
       return clone
     })
+  }
+
+  async function doApiRequest(reqPath, method, body){
+    let data = null;
+    try {
+      const response = await fetch(`${apiUrl}${reqPath}`, {
+        method: method,
+        headers: {
+          "Content-Type": "application/json" // Specify that you're sending JSON data
+        },
+        body: JSON.stringify(body)
+      });
+      if (!response.ok) {
+        console.log(`Error reaching path ${path}.`)
+      }
+      data = await response.json();
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+    return data;
   }
 
   const items = cloneItems(sotnRando.items)
@@ -186,7 +207,9 @@
   }
 
   function presetIdChange() {                                                                       // auto checks modes and options that presets use
-    const id = elems.presetId.childNodes[elems.presetId.selectedIndex].value
+    let idx = elems.presetId.selectedIndex;
+    if(idx < 0) idx = 0;
+    const id = elems.presetId.childNodes[idx].value
     const preset = presets.filter(function(preset) {
       return preset.id === id
     }).pop()
@@ -1142,6 +1165,28 @@
       }).then(function(result) {
         const duration = new Date().getTime() - start
         console.log('Seed generation took ' + (duration / 1000) + 's')
+        if(selectedPreset !== null){
+          doApiRequest("/data/presets", "POST", {
+            "preset": selectedPreset,
+            "generation_time": duration,
+            "app": isDev ? "dev-web" : "web",
+            "settings": {
+              "tournament": elems.tournamentMode.checked,
+              "color_rando": elems.colorrandoMode.checked,
+              "magic_max": elems.magicmaxMode.checked,
+              "anti_freeze": elems.antiFreezeMode.checked,
+              "purse_mode": elems.mypurseMode.checked,
+              "infinite_wing_smash": elems.iwsMode.checked,
+              "fast_warp": elems.fastwarpMode.checked,
+              "no_prologue": elems.noprologueMode.checked,
+              "unlocked": elems.unlockedMode.checked,
+              "surprise": elems.surpriseMode.checked,
+              "enemy_stat": elems.enemyStatRandoMode.checked,
+              "relic_extension": null
+            }
+          })
+        }
+
         showSpoilers()
         const url = URL.createObjectURL(new Blob([result.file], {
           type: 'application/octet-binary',
