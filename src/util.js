@@ -6923,15 +6923,21 @@ function hexValueToDamageString(hexValue) {
     offset += 0x2c
     data.writeWord(offset, alwaysDrop)
 
-    // Guarantee that it's an uncommon drop, rare if Arcana is equipped. - Forat Negre
-    offset = 0x119188
-    offset = data.writeWord(offset, 0x34060040)
-    offset = data.writeWord(offset, 0x14400002)
-    offset = data.writeWord(offset, 0x00000000)
-    offset = data.writeWord(offset, 0x34060020)
-    offset = data.writeWord(offset, 0x00C01021)
-    offset = data.writeWord(offset, 0x0803FD7A)
-    offset = data.writeWord(offset, 0x00000000)
+    // Alternate between Rare and Uncommon Drops based on Kill Count - MottZilla
+    offset = 0x119188 				// PSX MainRam 800FF4C0h
+    offset = data.writeWord(offset, 0x3C068009) // mov r6,80090000h
+    offset = data.writeWord(offset, 0x34C67BF4) // or r6,7BF4h
+    offset = data.writeWord(offset, 0x8CC20000) // mov r2,[r6]
+    offset = data.writeWord(offset, 0x00000000) // nop
+    offset = data.writeWord(offset, 0x30420001) // and r2,1h
+    offset = data.writeWord(offset, 0x14400004) // jnz r2,800FF4E8h
+    offset = data.writeWord(offset, 0x00000000) // nop
+    offset = data.writeWord(offset, 0x34020020) // mov r2,20h
+    offset = data.writeWord(offset, 0x0803FD7A) // jmp 800FF5E8h
+    offset = data.writeWord(offset, 0x00000000) // nop
+    offset = data.writeWord(offset, 0x34020040) // mov r2,40h
+    offset = data.writeWord(offset, 0x0803FD7A) // jmp 800FF5E8h
+    offset = data.writeWord(offset, 0x00000000) // nop
 
     return data
   }
