@@ -820,3 +820,56 @@ body.menu {
     animation: show-options .5s;
 }
 
+
+/* Navbar Styles */
+.navbar {
+    background-color: black;
+    overflow: hidden;
+    display: flex;
+    padding: 10px 20px;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+    padding: 12px 16px;
+    display: block;
+}
+
+.navbar a:hover {
+    background-color: #444;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    padding-left: 10%;
+}
+
+.nav-item {
+    position: relative;
+}
+
+/* Dropdown Menu */
+.dropdown-content {
+    display: none;
+    position: fixed; /* Instead of absolute */
+    background-color: black;
+    min-width: 150px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+    z-index: 1000; /* Ensures it's above everything */
+}
+
+
+.dropdown-content a {
+    padding: 10px;
+    width: 100%;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
