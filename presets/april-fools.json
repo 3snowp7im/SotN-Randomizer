@@ -238,5 +238,84 @@
     "type": "word",
     "address": "0x4FCF814",
     "value": "0x08074FBC"
-  }]
+  }, {
+    "comment": "Elevator Action Hook",
+    "address": "0x4FC3904",
+    "type": "word",
+    "value": "0x080681A8"
+  }, {
+    "type": "word",
+    "value": "0x00000000"
+  }, {
+    "comment": "Elevator Action",
+    "address": "0x4FA9CC8",
+    "type": "word",
+    "value": "0x27BDFFE8"
+  }, {
+    "type": "word",
+    "value": "0xAFB00010"
+  }, {
+    "type": "word",
+    "value": "0xAFA40008"
+  }, {
+    "type": "word",
+    "value": "0xAFA5000C"
+  }, {
+    "type": "word",
+    "value": "0x3C048008"
+  }, {
+    "type": "word",
+    "value": "0x9484CB26"
+  }, {
+    "type": "word",
+    "value": "0x34050047"
+  }, {
+    "type": "word",
+    "value": "0x1485000B"
+  }, {
+    "type": "word",
+    "value": "0x00000000"
+  }, {
+    "type": "word",
+    "value": "0x3C048004"
+  }, {
+    "type": "word",
+    "value": "0x9085BED0"
+  }, {
+    "type": "word",
+    "value": "0x00000000"
+  }, {
+    "type": "word",
+    "value": "0x30A50001"
+  }, {
+    "type": "word",
+    "value": "0x14A00005"
+  }, {
+    "type": "word",
+    "value": "0x00000000"
+  }, {
+    "type": "word",
+    "value": "0x3C048007"
+  }, {
+    "type": "word",
+    "value": "0x34050010"
+  }, {
+    "type": "word",
+    "value": "0xA4853404"
+  }, {
+    "type": "word",
+    "value": "0x00000000"
+  }, {
+    "type": "word",
+    "value": "0x8FA40008"
+  }, {
+    "type": "word",
+    "value": "0x8FA5000C"
+  }, {
+    "type": "word",
+    "value": "0x0806DB5D"
+  }, {
+    "type": "word",
+    "value": "0x00000000"
+}]
 }

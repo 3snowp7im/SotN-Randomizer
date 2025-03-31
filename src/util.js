@@ -2575,6 +2575,16 @@ function hexValueToDamageString(hexValue) {
           randomize.push('gd')
         }
         delete options.dominoMode
+      } else if ('rlbcMode' in options) { // reverse library cards - eldrich
+        if (options.rlbcMode) {
+          randomize.push('rl')
+        }
+        delete options.rlbcMode
+      } else if ('alucardPaletteMode' in options) { // alucard palette rando - CRAZY4BLADES
+        if (options.alucardPaletteMode) {
+          randomize.push('ap')
+        }
+        delete options.alucardPaletteMode
       } else if ('debugMode' in options) { // Debug mode - eldrich
         if (options.debugMode) {
           randomize.push('D')
@@ -3826,6 +3836,8 @@ function hexValueToDamageString(hexValue) {
     startRoomRandoMode,
     startRoomRando2ndMode,
     dominoMode,
+    rlbcMode,
+    alucardPaletteMode,
     debugMode,
     writes,
   ) {
@@ -3869,6 +3881,8 @@ function hexValueToDamageString(hexValue) {
     this.startRoomRandoMode = startRoomRandoMode
     this.startRoomRando2ndMode = startRoomRando2ndMode
     this.dominoMode = dominoMode
+    this.rlbcMode = rlbcMode
+    this.alucardPaletteMode = alucardPaletteMode
     this.debugMode = debugMode
     if (writes) {
       this.writes = writes
@@ -4031,6 +4045,10 @@ function hexValueToDamageString(hexValue) {
     this.startRoomRando2nd = false
     // guaranteed drops mode.
     this.domino = false
+    // reverse library cards mode.
+    this.rlbc = false
+    // Alucard Palette Rando mode.
+    this.alucardPalette = false
     // Debug mode.
     this.debug = false
     // Arbitrary writes.
@@ -4355,6 +4373,12 @@ function hexValueToDamageString(hexValue) {
     }
     if ('dominoMode' in json) {
       builder.dominoMode(json.dominoMode)
+    }
+    if ('rlbcMode' in json) {
+      builder.rlbcMode(json.rlbcMode)
+    }
+    if ('alucardPaletteMode' in json) {
+      builder.alucardPaletteMode(json.alucardPaletteMode)
     }
     if ('writes' in json) {
       let lastAddress = 0
@@ -4687,6 +4711,12 @@ function hexValueToDamageString(hexValue) {
     }
     if ('dominoMode' in preset) {
       this.domino = preset.dominoMode
+    }
+    if ('rlbcMode' in preset) {
+      this.rlbc = preset.rlbcMode
+    }
+    if ('alucardPaletteMode' in preset) {
+      this.alucardPalette = preset.alucardPaletteMode
     }
     if ('writes' in preset) {
       this.writes = this.writes || []
@@ -5425,6 +5455,16 @@ function hexValueToDamageString(hexValue) {
     this.domino = enabled
   }
 
+  // Enable Reverse Library Cards - eldri7ch
+  PresetBuilder.prototype.rlbcMode = function rlbcMode(enabled) {
+    this.rlbc = enabled
+  }
+
+  // Enable Alucard Palette Rando - eldri7ch
+  PresetBuilder.prototype.alucardPaletteMode = function alucardPaletteMode(enabled) {
+    this.alucardPalette = enabled
+  }
+
   // Write a character.
   PresetBuilder.prototype.writeChar = function writeChar(address, value) {
     let valueCheck
@@ -5740,6 +5780,8 @@ function hexValueToDamageString(hexValue) {
     const startRoomRando = self.startRoomRando
     const startRoomRando2nd = self.startRoomRando2nd
     const domino = self.domino
+    const rlbc = self.rlbc
+    const alucardPalette = self.alucardPalette
     const debug = self.debug
     const writes = self.writes
     return new Preset(
@@ -5783,6 +5825,8 @@ function hexValueToDamageString(hexValue) {
       startRoomRando,
       startRoomRando2nd,
       domino,
+      rlbc,
+      alucardPalette,
       debug,
       writes,
     )
@@ -5806,6 +5850,97 @@ function hexValueToDamageString(hexValue) {
       url: url,
       selectedPreset: selectedPreset
     })
+  }
+
+  function randoFuncMaster() {                        // A master function and table series to handle randomizer options that require additional code
+    const data = new checked()                        // randomizer options that require additional code. 0x3711A68 is loaded from CD by separate code
+    let offset
+    
+    offset = 0xF96D8
+    offset = data.writeWord(offset, 0x0c038ba6)       // call the sector load
+    data.writeWord(offset, 0x00000000)
+
+    offset = 0xF87B0                                  // Sector Load Function
+    offset = data.writeWord(offset, 0x3C01800A)
+    offset = data.writeWord(offset, 0xAC208850)
+    offset = data.writeWord(offset, 0x27BDFFE0)
+    offset = data.writeWord(offset, 0x3C020026)
+    offset = data.writeWord(offset, 0x34422905)
+    offset = data.writeWord(offset, 0x34040002)
+    offset = data.writeWord(offset, 0x27A50010)
+    offset = data.writeWord(offset, 0x34060000)
+    offset = data.writeWord(offset, 0xAFBF0018)
+    offset = data.writeWord(offset, 0x0C006578)
+    offset = data.writeWord(offset, 0xAFA20010)
+    offset = data.writeWord(offset, 0x3404000E)
+    offset = data.writeWord(offset, 0x3C058009)
+    offset = data.writeWord(offset, 0x34A588B0)
+    offset = data.writeWord(offset, 0x0C007020)
+    offset = data.writeWord(offset, 0x34060080)
+    offset = data.writeWord(offset, 0x34040000)
+    offset = data.writeWord(offset, 0x0C007062)
+    offset = data.writeWord(offset, 0x34050000)
+    offset = data.writeWord(offset, 0x34020000)
+    offset = data.writeWord(offset, 0x8FBF0018)
+    offset = data.writeWord(offset, 0x27BD0020)
+    offset = data.writeWord(offset, 0x03E00008)
+    offset = data.writeWord(offset, 0x00000000)
+
+    offset = 0x3711A68                                // Start the master function with jump tables
+    offset = data.writeWord(offset, 0x00000000)
+    offset = data.writeWord(offset, 0x00000000)
+    offset = data.writeWord(offset, 0x08026231)
+    offset = data.writeWord(offset, 0x00000000)
+    offset = data.writeWord(offset, 0x08026243)
+    offset = data.writeWord(offset, 0x00000000)
+    offset = data.writeWord(offset, 0x27BDFFE0)
+    offset = data.writeWord(offset, 0xAFBF0010)
+    offset = data.writeWord(offset, 0x0C03C182)
+    offset = data.writeWord(offset, 0x00000000)
+    offset = data.writeWord(offset, 0x3C048009)
+    offset = data.writeWord(offset, 0x348488B0)
+    offset = data.writeWord(offset, 0x8C860000)
+    offset = data.writeWord(offset, 0x3C058000)
+    offset = data.writeWord(offset, 0x34A50000)
+    offset = data.writeWord(offset, 0x00C53024)
+    offset = data.writeWord(offset, 0x10C00003)
+    offset = data.writeWord(offset, 0x00000000)
+    offset = data.writeWord(offset, 0x0C02625D)
+    offset = data.writeWord(offset, 0x00000000)
+    offset = data.writeWord(offset, 0x8FBF000A)
+    offset = data.writeWord(offset, 0x27BD0020)
+    offset = data.writeWord(offset, 0x03E00008)
+    offset = data.writeWord(offset, 0x00000000)
+    offset = data.writeWord(offset, 0x3C028004)
+    offset = data.writeWord(offset, 0x9045925D)
+    offset = data.writeWord(offset, 0x00000000)
+    offset = data.writeWord(offset, 0x38A500FF)
+    offset = data.writeWord(offset, 0x30A50040)
+    offset = data.writeWord(offset, 0x10A00008)
+    offset = data.writeWord(offset, 0x3C028007)
+    offset = data.writeWord(offset, 0x9042BBFB)
+    offset = data.writeWord(offset, 0x00000000)
+    offset = data.writeWord(offset, 0x10400004)
+    offset = data.writeWord(offset, 0x34180022)
+    offset = data.writeWord(offset, 0x341988BE)
+    offset = data.writeWord(offset, 0x18000003)
+    offset = data.writeWord(offset, 0x00000000)
+    offset = data.writeWord(offset, 0x34180002)
+    offset = data.writeWord(offset, 0x34197C0E)
+    offset = data.writeWord(offset, 0x3C02800F)
+    offset = data.writeWord(offset, 0xA0581724)
+    offset = data.writeWord(offset, 0x3B180020)
+    offset = data.writeWord(offset, 0xA05832A4)
+    offset = data.writeWord(offset, 0x00000000)
+    offset = data.writeWord(offset, 0x3C02800A)
+    offset = data.writeWord(offset, 0xA4593C98)
+    offset = data.writeWord(offset, 0x34040000)
+    offset = data.writeWord(offset, 0x0804390B)
+    offset = data.writeWord(offset, 0x00000000)
+    offset = data.writeWord(offset, 0x03E00008)
+    offset = data.writeWord(offset, 0x00000000)
+
+    return data
   }
 
   function applyTournamentModePatches() {
@@ -6788,16 +6923,76 @@ function hexValueToDamageString(hexValue) {
     offset += 0x2c
     data.writeWord(offset, alwaysDrop)
 
-    // Guarantee that it's an uncommon drop, rare if Arcana is equipped. - Forat Negre
-    offset = 0x119188
-    offset = data.writeWord(offset, 0x34060020)
-    offset = data.writeWord(offset, 0x14400002)
-    offset = data.writeWord(offset, 0x00000000)
-    offset = data.writeWord(offset, 0x34060040)
-    offset = data.writeWord(offset, 0x00C01021)
-    offset = data.writeWord(offset, 0x0803FD7A)
-    offset = data.writeWord(offset, 0x00000000)
+    // Alternate between Rare and Uncommon Drops based on Kill Count - MottZilla
+    offset = 0x119188 				// PSX MainRam 800FF4C0h
+    offset = data.writeWord(offset, 0x3C068009) // mov r6,80090000h
+    offset = data.writeWord(offset, 0x34C67BF4) // or r6,7BF4h
+    offset = data.writeWord(offset, 0x8CC20000) // mov r2,[r6]
+    offset = data.writeWord(offset, 0x00000000) // nop
+    offset = data.writeWord(offset, 0x30420001) // and r2,1h
+    offset = data.writeWord(offset, 0x14400004) // jnz r2,800FF4E8h
+    offset = data.writeWord(offset, 0x00000000) // nop
+    offset = data.writeWord(offset, 0x34020020) // mov r2,20h
+    offset = data.writeWord(offset, 0x0803FD7A) // jmp 800FF5E8h
+    offset = data.writeWord(offset, 0x00000000) // nop
+    offset = data.writeWord(offset, 0x34020040) // mov r2,40h
+    offset = data.writeWord(offset, 0x0803FD7A) // jmp 800FF5E8h
+    offset = data.writeWord(offset, 0x00000000) // nop
 
+    return data
+  }
+
+  function applyRLBCPatches() {
+    const data = new checked()
+    let offset
+    
+    // Patch the reverse library card function
+    offset = 0x12B534                                 // Hook to our new LBC function
+    data.writeWord(offset, 0x0C02622F)                // No "nop" instr needed as it's already a call
+    
+    return data
+  }
+
+  function applyAlucardPalettePatches(rng){                  //Alucard Palette Randomizer - CRAZY4BLADES, palettes by eldri7ch
+    const data = new checked()
+    let colorAlucardSet = Math.floor(rng() * 7)
+    let colorAlucardLiner = Math.floor(rng() * 5)
+    const palettesAlucard1 = [
+      [0x0828,0x0830,0x0833,0x0836,0x083C],                   //Bloody Tears
+      [0xB800,0xCC00,0xD400,0xED00,0xED00],                   //Blue Danube
+      [0x8480,0x84C0,0x84E2,0x8906,0x8D6A],                   //Swamp Thing
+      [0xa94a,0xc210,0xdad6,0xef7b,0xffff],                   //White Knight
+      [0x9803,0xB005,0xBC07,0xD00A,0xE40C],                   //Royal Purple
+      [0xA8EB,0xC191,0xDE37,0xEE7C,0xFA9F],                   //Pink Passion
+      [0x8842,0x8C63,0x94A5,0x94A5,0x9CE7]                    //Shadow Prince
+    ]
+    const palettesAlucard2 = [
+      0x0824,0x1C00,0x8060,0x9084,0x8c01,0x9886,0x8421
+    ]
+    const palettesAlucardLiner = [
+      [0x8068,0x88AA,0x8CEE,0x9553],                          //Bronze Trim
+      [0xA927,0xC1CB,0xD26F,0xE6F3],                          //Silver Trim
+      [0x84AB,0x8D2F,0x91D6,0x929B],                          //Gold trim
+      [0x8C63,0x94A5,0xA94A,0xBDEF],                          //Onyx Trim
+      [0x90C3,0xA167,0xB62B,0xCAEF]                           //Jade Trim
+    ]
+    if (colorAlucardSet > 6) {
+      colorAlucardSet = 0;
+    }
+    if (colorAlucardLiner > 4) {
+      colorAlucardLiner = 0;
+    }
+    offset = 0xEF952
+    for (let i = 0; i < 5; i++) {
+      offset = data.writeShort(offset,palettesAlucard1[colorAlucardSet][i])
+    }
+    offset = 0xEF93E
+    offset = data.writeShort(offset,palettesAlucard2[colorAlucardSet])
+    offset = 0xEF940
+    for (let i = 0; i < 4; i++) {
+      offset = data.writeShort(offset,palettesAlucardLiner[colorAlucardLiner][i])
+    }
+    
     return data
   }
 
@@ -7338,6 +7533,7 @@ function hexValueToDamageString(hexValue) {
     Preset: Preset,
     PresetBuilder: PresetBuilder,
     applyTournamentModePatches: applyTournamentModePatches,
+    randoFuncMaster: randoFuncMaster,
     applyMagicMaxPatches: applyMagicMaxPatches,
     applyAntiFreezePatches: applyAntiFreezePatches,
     applyMyPursePatches: applyMyPursePatches,
@@ -7350,6 +7546,8 @@ function hexValueToDamageString(hexValue) {
     applyShopPriceRandoPatches: applyShopPriceRandoPatches,
     applyStartRoomRandoPatches: applyStartRoomRandoPatches,
     applyDominoPatches: applyDominoPatches,
+    applyRLBCPatches: applyRLBCPatches,
+    applyAlucardPalettePatches: applyAlucardPalettePatches,
     applyMapColor: applyMapColor,
     randomizeRelics: randomizeRelics,
     randomizeItems: randomizeItems,

@@ -1480,6 +1480,7 @@
     data.writeShort(outerAddress + 0x02, outerColor2)
   }
 
+  //disabled for now, conflicts with preset preloaders - eldri7ch
   function randomizeJosephsCloak(data, rng) {
     const colors = [
       Math.floor(rng() * 32),
@@ -1539,13 +1540,34 @@
     // Blood Cloak.
     capeColor(data, 0x0afb9c, 0x0afba0, {rng: rng})
     // Joseph's Cloak.
-    randomizeJosephsCloak(data, rng)
+    // randomizeJosephsCloak(data, rng)
     // Twilight Cloak.
     capeColor(data, 0x0afa44, 0x0afbac, {rng: rng})
     // DOP10 Cloak. - MottZilla
     capeColor(data, 0x627984c, 0x6279850, {rng: rng})
     // DOP40 Cloak. - MottZilla
     capeColor(data, 0x6894054, 0x6894058, {rng: rng})
+  }
+
+  function randomizeDraculaCape(data, rng){
+    const draculaCapePaletteCount = 6
+    let colorDC = Math.floor(rng() * draculaCapePaletteCount)
+    offset = 0
+    const palettesDraculaCape = [
+      [0x2000, 0x4400, 0x7000],  //blue
+      [0x0100, 0x0220, 0x0380],  //green
+      [0x8008, 0x8011, 0x801C],  //default red
+      [0x2008, 0x4411, 0x701C],  //Pink
+      [0x0108, 0x0231, 0x039C],  //Yellow
+      [0x2108, 0x4210, 0x6318]   //Gray
+    ]
+    offset = 0x535D4EA
+    if(colorDC >= draculaCapePaletteCount){
+      colorDC = 0;
+    }
+    for (let i = 0; i < 3; i++) {
+      offset = data.writeShort(offset,palettesDraculaCape[colorDC][i])
+    }
   }
 
   function randomizeHydroStormColor(data, rng){
@@ -1605,6 +1627,125 @@
       data.writeChar(0x13caa0, newPalette)    // define new palette if it's a good palette
     } else {
       data.writeShort(0xef990, newOutline)    // otherwise use a new color for the outline
+    }
+  }
+
+  function randomizeRichterColor(data, rng){
+    const RichterPaletteCount = 5
+    let colorR = Math.floor(rng() * RichterPaletteCount)
+    let offset = 0
+    const RichterOffset = [         //Offsets for the pause UI during Prologue.
+      0x38BE9EA,0x38BEA0A,0x38BEA2A,0x38BEA4A,0x38BEA6A,0x38BEAAA,0x38BEACA,0x38BEAEA,0x38BEB0A,0x38BEB2A,0x38BEB4A,0x38BEB6A
+    ]
+    const palettesRichter = [
+      [0x0000,0x8000,0xb185,0xc210,0xd294,0xf39c,0xfd80,0xb000,0x80ac,0x9556,0xb21c,0xc29c,0xd33c,0x8194,0xfc00,0x801f], //blue
+      [0x0000,0x8000,0xb185,0xc210,0xd294,0xf39c,0xaa80,0x8080,0x80ac,0x9556,0xb21c,0xc29c,0xd33c,0x8194,0x8180,0xfc1f], //green
+      [0x0000,0x8000,0xa906,0xbd8d,0xdab6,0xffff,0x801e,0x8009,0x80cd,0x9956,0xbe7f,0xcedf,0xdb7f,0x81f2,0x8013,0x83e0], //red
+      [0x0000,0x8000,0xa906,0xbd8d,0xdab6,0xffff,0xa4e9,0x9402,0x80cd,0x9956,0xbe7f,0xcedf,0xdb7f,0x81f2,0x94a2,0xff80],  //black
+      [0x0000,0x8000,0xB185,0xC210,0xD294,0xF39C,0xFD97,0xB007,0xB04C,0x9556,0xB21C,0xC29C,0xD33C,0x8194,0xFC10,0x801F]  // purple (MottZilla)
+    ];
+    if(colorR >= RichterPaletteCount){
+      colorR = 0;
+    }
+    offset = 0x38BED78                                                                                                   //Richter's main palette.
+    for (let i = 0; i < 16; i++) {
+      offset = data.writeShort(offset,palettesRichter[colorR][i])
+    }
+    offset = 0x38BEED8                                                                                                   //Richter's alternate palettes when using item crash.
+    for (let i = 0; i < 16; i++) {
+      offset = data.writeShort(offset,palettesRichter[colorR][i])
+    }
+    for (let i = 0; i < 16; i++) {
+      offset = data.writeShort(offset,palettesRichter[colorR][i])
+    }
+    for (let i = 0; i < 16; i++) {
+      offset = data.writeShort(offset,palettesRichter[colorR][i])
+    }
+    for (let i = 0; i < 16; i++) {
+      offset = data.writeShort(offset,palettesRichter[colorR][i])
+    }
+    offset = 0x436BA9C                                                                                                   //Richter's palette for ending cutscene.
+    for (let i = 0; i < 16; i++) {
+      offset = data.writeShort(offset,palettesRichter[colorR][i])
+    }
+    offset = 0x562266C                                                                                                   //Richter's palette for saving Richter cutscene.
+    for (let i = 0; i < 16; i++) {
+      offset = data.writeShort(offset,palettesRichter[colorR][i])
+    }
+    offset = 0x63CD658                                                                                                   //Richter's palette for his Boss Fight.
+    for (let i = 0; i < 16; i++) {
+      offset = data.writeShort(offset,palettesRichter[colorR][i])
+    }
+    offset = 0x63CD7B8                                                                                                   //Richter's alternate paletts when using item crashes during Boss Fight. 
+    for (let i = 0; i < 16; i++) {
+      offset = data.writeShort(offset,palettesRichter[colorR][i])
+    }
+    for (let i = 0; i < 16; i++) {
+      offset = data.writeShort(offset,palettesRichter[colorR][i])
+    }
+    for (let i = 0; i < 16; i++) {
+      offset = data.writeShort(offset,palettesRichter[colorR][i])
+    }
+    for (let i = 0; i < 16; i++) {
+      offset = data.writeShort(offset,palettesRichter[colorR][i])
+    }
+    offset = 0x6113772                                                                                                   //Richter's Colosseum cutscene. 
+    offset = data.writeShort(offset,palettesRichter[colorR][14])
+    offset = data.writeShort(offset,palettesRichter[colorR][7])
+    offset = data.writeShort(offset,palettesRichter[colorR][6])
+    offset = 0x38BE9EA                                                                                                   //Richter's pause UI. 
+    for (let i = 0; i < 12; i++) {
+      offset = data.writeShort(RichterOffset[i],palettesRichter[colorR][14])
+    }
+    offset = 0x38BEA1A                                                                                                   //Richter's Health Bar. 
+    offset = data.writeShort(offset,palettesRichter[colorR][6])
+    offset = data.writeShort(offset,palettesRichter[colorR][14])
+    offset = data.writeShort(offset,palettesRichter[colorR][7])
+    
+  }
+
+  function randomizeMariaColor(data, rng){
+    const MariaPaletteCount = 6
+    let colorM = Math.floor(rng() * MariaPaletteCount)
+    let offset = 0
+    const palettesMaria = [
+      [0x0000,0x84C9,0x8d53,0xa1f9,0xb6fc,0x302f,0x312f,0xfd76,0x9218,0x931f,0x9463,0x9ce7,0xb148,0xca2e,0xe2f6,0xef7b], //Purple
+      [0x0000,0x84C9,0x8d53,0xa1f9,0xb6fc,0xc8c7,0xc9c7,0xb12a,0x9218,0x931f,0x9463,0x9ce7,0xb148,0xca2e,0xe2f6,0xef7b], //Richter Blue
+      [0x0000,0x84C9,0x8d53,0xa1f9,0xb6fc,0xbdbc,0xbebc,0xa61f,0x9218,0x931f,0x9463,0x9ce7,0xb148,0xca2e,0xe2f6,0xef7b], //Light Pink
+      [0x0000,0x84C9,0x8d53,0xa1f9,0xb6fc,0x7e80,0x7380,0x762a,0x9218,0x931f,0x9463,0x9ce7,0xb148,0xca2e,0xe2f6,0xef7b], //Light Blue
+      [0x0000,0x84C9,0x8d53,0xa1f9,0xb6fc,0x8180,0x8280,0xab2a,0x9218,0x931f,0x9463,0x9ce7,0xb148,0xca2e,0xe2f6,0xef7b], //Default
+      [0x0000,0x84C9,0x8d53,0xa1f9,0xb6fc,0x98c6,0xa94a,0xbdef,0x9218,0x931f,0x9463,0x9ce7,0xb148,0xca2e,0xe2f6,0xef7b], //Dark Gray
+    ];
+    if(colorM >= MariaPaletteCount){
+      colorM = 0;
+    }
+    offset = 0x436BA7C                                                                                                   //Ending Cutscene
+    for (let i = 0; i < 16; i++) {
+      offset = data.writeShort(offset,palettesMaria[colorM][i])
+    }
+    offset = 0x45638F4                                                                                                   //Holy Glasses Cutscene
+    for (let i = 0; i < 16; i++) {
+      offset = data.writeShort(offset,palettesMaria[colorM][i])
+    }
+    offset = 0x4690EE4                                                                                                   //Silver Ring Cutscene
+    for (let i = 0; i < 16; i++) {
+      offset = data.writeShort(offset,palettesMaria[colorM][i])
+    }
+    offset = 0x54CA704                                                                                                   //Alchemy Labs Cutscene
+    for (let i = 0; i < 16; i++) {
+      offset = data.writeShort(offset,palettesMaria[colorM][i])
+    }
+    offset = 0x562220C                                                                                                   //Save Richter Cutscene
+    for (let i = 0; i < 16; i++) {
+      offset = data.writeShort(offset,palettesMaria[colorM][i])
+    }
+    offset = 0x631620C                                                                                                   //Hippogriff Cutscene
+    for (let i = 0; i < 16; i++) {
+      offset = data.writeShort(offset,palettesMaria[colorM][i])
+    }
+    offset = 0x650E768                                                                                                   //Clock Room Cutscene
+    for (let i = 0; i < 16; i++) {
+      offset = data.writeShort(offset,palettesMaria[colorM][i])
     }
   }
   
@@ -1735,7 +1876,9 @@
           randomizeGravBootColors(data,rng)
           randomizeHydroStormColor(data, rng)
           randomizeWingSmashColor(data,rng)
-
+          randomizeRichterColor(data,rng)
+          randomizeDraculaCape(data,rng)
+          randomizeMariaColor(data,rng)
         }
         // Write items to ROM.
         if (options.itemLocations
