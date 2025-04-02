@@ -1227,7 +1227,21 @@
         ))
         check.apply(randomizeMusic(rng, applied))
         // Initiate the write options function master
-        check.apply(util.randoFuncMaster())
+        let optWrite = 0x00000000                   // This variable lets the ASM used in the Master Function know if it needs to run certain code or sets flags for the tracker to use
+        if (elems.newGoals.value !== "default") {   // Sets flag for the tracker to know which goals to use
+          switch(elems.newGoals.value) {
+            case "allBoss":                         // all bosses flag
+              optWrite = optWrite + 0x01
+              break
+            case "allRelic":                        // all relics flag
+              optWrite = optWrite + 0x02
+              break
+            case "abrsr":                           //  all bosses and relics flag
+              optWrite = optWrite + 0x03
+              break
+          }
+        }
+        check.apply(util.randoFuncMaster(optWrite))
         // Apply tournament mode patches.
         if (options.tournamentMode) {
           check.apply(util.applyTournamentModePatches())

@@ -5855,7 +5855,7 @@ function hexValueToDamageString(hexValue) {
     })
   }
 
-  function randoFuncMaster() {                        // A master function and table series to handle randomizer options that require additional code
+  function randoFuncMaster(optWrite) {                        // A master function and table series to handle randomizer options that require additional code
     const data = new checked()                        // randomizer options that require additional code. 0x3711A68 is loaded from CD by separate code
     let offset
     
@@ -5890,7 +5890,8 @@ function hexValueToDamageString(hexValue) {
     offset = data.writeWord(offset, 0x00000000)
 
     offset = 0x3711A68                                // Start the master function with jump tables
-    offset = data.writeWord(offset, 0x00000000)
+
+    offset = data.writeWord(offset, optWrite)         // optionWrite is a bit indicator of all options marked for reading later by ASM or tracker
     offset = data.writeWord(offset, 0x00000000)
     offset = data.writeWord(offset, 0x08026231)
     offset = data.writeWord(offset, 0x00000000)
@@ -6733,6 +6734,7 @@ function hexValueToDamageString(hexValue) {
     // End of Debug Messages
     
     if(options.startRoomRandoMode && (options.startRoomRando2ndMode == undefined || options.startRoomRando2ndMode == false))        // 1st Castle Only
+
     {
       while(startRoomData[randRoomId].stage & 0x20)
       {
