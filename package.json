@@ -67,7 +67,8 @@
     "battle-mage",
     "timeline",
     "chimera",
-    "april-fools"
+    "april-fools",
+    "vanilla"
   ],
   "engines": {
     "node": ">=15"

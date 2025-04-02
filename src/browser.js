@@ -1847,7 +1847,7 @@
   if (isDev) {
     document.body.classList.add('dev')
     document.getElementById('dev-border').classList.add('dev')
-    document.content([
+    document.writeln([
       '<div id="warning">WARNING: This is the development version of the',
       'randomizer. Do not use this unless you know what you\'re doing.',
       'Bugs and softlocks are to be expected.<br>',
