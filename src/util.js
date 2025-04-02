@@ -6200,12 +6200,12 @@ function hexValueToDamageString(hexValue) {
 
   function applyNewGoals(nGoal) {	// Research and function by MottZilla & eldri7ch.
     const data = new checked()
-    const jmpAddr = 0x04fcf814 // define address to hook
-    const funcAddress = 0x04fe4f68 //define address for richter maps
+    const jmpAddr = 0x04fcf814                                                  // define address to hook
+    const funcAddress = 0x04fe4f68                                              // define address for functions (inside Black Marble Gallery Overlay)
     let offset
-    // Patch new goals - eldri7ch
+                                                                                // Patch new goals - eldri7ch
     switch (nGoal) {
-    case 'b': // All Bosses
+    case 'b':                                                                   // All Bosses
       offset = jmpAddr
       data.writeWord(offset, 0x08074fbc)
 
@@ -6224,8 +6224,11 @@ function hexValueToDamageString(hexValue) {
       offset = data.writeWord(offset, 0x00000000)
       offset = data.writeWord(offset, 0x080705E4)
       offset = data.writeWord(offset, 0x00000000)
+
+      offset = 0x04fcf7f3                                                       // Remove need for Vlads
+      data.writeChar(offset, 0x34)
       break
-    case 'r': // All Relics
+    case 'r':                                                                   // All Relics
       offset = jmpAddr
       data.writeWord(offset, 0x08074fbc)
 
@@ -6255,7 +6258,7 @@ function hexValueToDamageString(hexValue) {
       offset = data.writeWord(offset, 0x080705E4)
       offset = data.writeWord(offset, 0x00000000)
       break
-    case 'a': // All Bosses & Relics (ABRSR)
+    case 'a':                                                                   // All Bosses & Relics (ABRSR)
       offset = jmpAddr
       data.writeWord(offset, 0x08074fbc)
 
@@ -6296,6 +6299,8 @@ function hexValueToDamageString(hexValue) {
       offset = data.writeWord(offset, 0x00000000)
       break
     }
+
+
     return data
   }
 
