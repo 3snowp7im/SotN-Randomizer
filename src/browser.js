@@ -209,6 +209,85 @@
 
   function presetIdChange() {                                                                       // auto checks modes and options that presets use
     let idx = elems.presetId.selectedIndex;
+    let bossCompatible = [
+      "casual",
+      "safe",
+      "adventure",
+      "og",
+      "guarded-og",
+      "sequence-breaker",
+      "lycanthrope",
+      "warlock",
+      "nimble",
+      "expedition",
+      "bat-master",
+      "glitch",
+      "scavenger",
+      "empty-hand",
+      "third-castle",
+      "magic-mirror",
+      "leg-day",
+      "big-toss",
+      "grand-tour",
+      "crash-course",
+      "any-percent",
+      "lookingglass",
+      "skinwalker",
+      "summoner",
+      "safe-stwo",
+      "open",
+      "brawler",
+      "lucky-sevens",
+      "sight-seer",
+      "cursed-night",
+      "spellbound",
+      "mobility",
+      "glitchmaster",
+      "dog-life",
+      "battle-mage",
+      "timeline",
+      "chimera",
+      "vanilla"
+    ]
+    let relicCompatible = [
+      "casual",
+      "safe",
+      "adventure",
+      "og",
+      "guarded-og",
+      "sequence-breaker",
+      "lycanthrope",
+      "warlock",
+      "nimble",
+      "expedition",
+      "bat-master",
+      "scavenger",
+      "empty-hand",
+      "gem-farmer",
+      "third-castle",
+      "rat-race",
+      "magic-mirror",
+      "bountyhunter",
+      "bountyhuntertc",
+      "hitman",
+      "beyond",
+      "grand-tour",
+      "crash-course",
+      "lookingglass",
+      "skinwalker",
+      "summoner",
+      "agonize-twtw",
+      "safe-stwo",
+      "open",
+      "lucky-sevens",
+      "sight-seer",
+      "cursed-night",
+      "spellbound",
+      "mobility",
+      "timeline",
+      "chimera",
+      "vanilla"
+    ]    
     if(idx < 0) idx = 0;
     const id = elems.presetId.childNodes[idx].value
     const preset = presets.filter(function(preset) {
@@ -227,7 +306,7 @@
     elems.presetTransformFocus.innerText = preset.transformFocus
     elems.presetWinCondition.innerText = preset.winCondition
     localStorage.setItem('presetId', preset.id) 
-    if (["glitch" , "glitchmaster" , "any-percent"].includes(preset.id)) {                          // Remove anti-freeze mode if the preset is a Glitch preset. - eldri7ch
+    if (["glitch" , "glitchmaster" , "any-percent"].includes(preset.id)) {                          // Remove anti-freeze mode for incompatible presets. - eldri7ch
       elems.antiFreezeMode.checked = false
       elems.antiFreezeMode.disabled = true
     } else {
@@ -240,23 +319,35 @@
       elems.startRoomRando2ndMode.disabled = false
     }
 
-    if (["boss-rush", "beyond"].includes(preset.id)) {
+    if (["boss-rush", "beyond"].includes(preset.id)) {                                              // Remove start room rando mode for incompatible presets. - eldri7ch
       elems.startRoomRandoMode.checked = false
       elems.startRoomRandoMode.disabled = true
     } else {
       elems.startRoomRandoMode.disabled = false
     }
-    if (["boss-rush"].includes(preset.id)) { 
+    if (["boss-rush"].includes(preset.id)) {                                                        // Remove unlocked mode for incompatible presets. - eldri7ch
       elems.unlockedMode.checked = false
       elems.unlockedMode.disabled = true
     } else {
       elems.unlockedMode.disabled = false
     }
-    if (["big-toss"].includes(preset.id)) {
+    if (["big-toss"].includes(preset.id)) {                                                         // Remove ESR mode for incompatible presets. - eldri7ch
       elems.enemyStatRandoMode.checked = false
       elems.enemyStatRandoMode.disabled = true
     } else {
       elems.enemyStatRandoMode.disabled = false
+    }
+    if (["boss-rush", "first-castle"].includes(preset.id)) {                                        // Remove rlbc mode for incompatible presets. - eldri7ch
+      elems.rlbcMode.checked = false
+      elems.rlbcMode.disabled = true
+    } else {
+      elems.rlbcMode.disabled = false
+    }
+    if (!bossCompatible.includes(preset.id) && ["allBoss","abrsr"].includes(elems.newGoals.value)) {
+      elems.newGoals.value = "default"                                                              // Remove all boss mode for incompatible presets. - eldri7ch
+    }
+    if (!relicCompatible.includes(preset.id) && ["allRelic","abrsr"].includes(elems.newGoals.value)) {
+      elems.newGoals.value = "default"                                                              // Remove all relic mode for incompatible presets. - eldri7ch
     }
     if (elems.preset.checked) {
       const options = preset.options()
@@ -465,8 +556,94 @@
   }
 
   function newGoalsChange() {
-    localStorage.setItem('newGoals', elems.newGoals.value)
-    newGoalsLock = elems.newGoals.value
+    let bossCompatible = [
+      "casual",
+      "safe",
+      "adventure",
+      "og",
+      "guarded-og",
+      "sequence-breaker",
+      "lycanthrope",
+      "warlock",
+      "nimble",
+      "expedition",
+      "bat-master",
+      "glitch",
+      "scavenger",
+      "empty-hand",
+      "third-castle",
+      "magic-mirror",
+      "leg-day",
+      "big-toss",
+      "grand-tour",
+      "crash-course",
+      "any-percent",
+      "lookingglass",
+      "skinwalker",
+      "summoner",
+      "safe-stwo",
+      "open",
+      "brawler",
+      "lucky-sevens",
+      "sight-seer",
+      "cursed-night",
+      "spellbound",
+      "mobility",
+      "glitchmaster",
+      "dog-life",
+      "battle-mage",
+      "timeline",
+      "chimera",
+      "vanilla"
+    ]
+    let relicCompatible = [
+      "casual",
+      "safe",
+      "adventure",
+      "og",
+      "guarded-og",
+      "sequence-breaker",
+      "lycanthrope",
+      "warlock",
+      "nimble",
+      "expedition",
+      "bat-master",
+      "scavenger",
+      "empty-hand",
+      "gem-farmer",
+      "third-castle",
+      "rat-race",
+      "magic-mirror",
+      "bountyhunter",
+      "bountyhuntertc",
+      "hitman",
+      "beyond",
+      "grand-tour",
+      "crash-course",
+      "lookingglass",
+      "skinwalker",
+      "summoner",
+      "agonize-twtw",
+      "safe-stwo",
+      "open",
+      "lucky-sevens",
+      "sight-seer",
+      "cursed-night",
+      "spellbound",
+      "mobility",
+      "timeline",
+      "chimera",
+      "vanilla"
+    ]
+    console.log(elems.newGoals.value + ' ' + elems.presetId.value)
+    if (["allBoss","abrsr"].includes(elems.newGoals.value) && !bossCompatible.includes(elems.presetId.value)){
+      elems.newGoals.value = "default"
+    } else if (["allRelic","abrsr"].includes(elems.newGoals.value) && !relicCompatible.includes(elems.presetId.value)){
+      elems.newGoals.value = "default"
+    } else {
+      localStorage.setItem('newGoals', elems.newGoals.value)
+      newGoalsLock = elems.newGoals.value
+    }
   }
 
   function appendSeedChange() {
