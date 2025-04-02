@@ -21,6 +21,7 @@
   let selectedFile
   let version
   let mapColorLock
+  let newGoalsLock
   let isAprilFools
 
   const safe = presets.filter(function(preset) {
@@ -208,6 +209,85 @@
 
   function presetIdChange() {                                                                       // auto checks modes and options that presets use
     let idx = elems.presetId.selectedIndex;
+    let bossCompatible = [
+      "casual",
+      "safe",
+      "adventure",
+      "og",
+      "guarded-og",
+      "sequence-breaker",
+      "lycanthrope",
+      "warlock",
+      "nimble",
+      "expedition",
+      "bat-master",
+      "glitch",
+      "scavenger",
+      "empty-hand",
+      "third-castle",
+      "magic-mirror",
+      "leg-day",
+      "big-toss",
+      "grand-tour",
+      "crash-course",
+      "any-percent",
+      "lookingglass",
+      "skinwalker",
+      "summoner",
+      "safe-stwo",
+      "open",
+      "brawler",
+      "lucky-sevens",
+      "sight-seer",
+      "cursed-night",
+      "spellbound",
+      "mobility",
+      "glitchmaster",
+      "dog-life",
+      "battle-mage",
+      "timeline",
+      "chimera",
+      "vanilla"
+    ]
+    let relicCompatible = [
+      "casual",
+      "safe",
+      "adventure",
+      "og",
+      "guarded-og",
+      "sequence-breaker",
+      "lycanthrope",
+      "warlock",
+      "nimble",
+      "expedition",
+      "bat-master",
+      "scavenger",
+      "empty-hand",
+      "gem-farmer",
+      "third-castle",
+      "rat-race",
+      "magic-mirror",
+      "bountyhunter",
+      "bountyhuntertc",
+      "hitman",
+      "beyond",
+      "grand-tour",
+      "crash-course",
+      "lookingglass",
+      "skinwalker",
+      "summoner",
+      "agonize-twtw",
+      "safe-stwo",
+      "open",
+      "lucky-sevens",
+      "sight-seer",
+      "cursed-night",
+      "spellbound",
+      "mobility",
+      "timeline",
+      "chimera",
+      "vanilla"
+    ]    
     if(idx < 0) idx = 0;
     const id = elems.presetId.childNodes[idx].value
     const preset = presets.filter(function(preset) {
@@ -226,7 +306,7 @@
     elems.presetTransformFocus.innerText = preset.transformFocus
     elems.presetWinCondition.innerText = preset.winCondition
     localStorage.setItem('presetId', preset.id) 
-    if (["glitch" , "glitchmaster" , "any-percent"].includes(preset.id)) {                          // Remove anti-freeze mode if the preset is a Glitch preset. - eldri7ch
+    if (["glitch" , "glitchmaster" , "any-percent"].includes(preset.id)) {                          // Remove anti-freeze mode for incompatible presets. - eldri7ch
       elems.antiFreezeMode.checked = false
       elems.antiFreezeMode.disabled = true
     } else {
@@ -239,23 +319,35 @@
       elems.startRoomRando2ndMode.disabled = false
     }
 
-    if (["boss-rush", "beyond"].includes(preset.id)) {
+    if (["boss-rush", "beyond"].includes(preset.id)) {                                              // Remove start room rando mode for incompatible presets. - eldri7ch
       elems.startRoomRandoMode.checked = false
       elems.startRoomRandoMode.disabled = true
     } else {
       elems.startRoomRandoMode.disabled = false
     }
-    if (["boss-rush"].includes(preset.id)) { 
+    if (["boss-rush"].includes(preset.id)) {                                                        // Remove unlocked mode for incompatible presets. - eldri7ch
       elems.unlockedMode.checked = false
       elems.unlockedMode.disabled = true
     } else {
       elems.unlockedMode.disabled = false
     }
-    if (["big-toss"].includes(preset.id)) {
+    if (["big-toss"].includes(preset.id)) {                                                         // Remove ESR mode for incompatible presets. - eldri7ch
       elems.enemyStatRandoMode.checked = false
       elems.enemyStatRandoMode.disabled = true
     } else {
       elems.enemyStatRandoMode.disabled = false
+    }
+    if (["boss-rush", "first-castle"].includes(preset.id)) {                                        // Remove rlbc mode for incompatible presets. - eldri7ch
+      elems.rlbcMode.checked = false
+      elems.rlbcMode.disabled = true
+    } else {
+      elems.rlbcMode.disabled = false
+    }
+    if (!bossCompatible.includes(preset.id) && ["allBoss","abrsr"].includes(elems.newGoals.value)) {
+      elems.newGoals.value = "default"                                                              // Remove all boss mode for incompatible presets. - eldri7ch
+    }
+    if (!relicCompatible.includes(preset.id) && ["allRelic","abrsr"].includes(elems.newGoals.value)) {
+      elems.newGoals.value = "default"                                                              // Remove all relic mode for incompatible presets. - eldri7ch
     }
     if (elems.preset.checked) {
       const options = preset.options()
@@ -461,6 +553,97 @@
   function mapColorChange() {
     localStorage.setItem('mapColor', elems.mapColor.value)
     mapColorLock = elems.mapColor.value
+  }
+
+  function newGoalsChange() {
+    let bossCompatible = [
+      "casual",
+      "safe",
+      "adventure",
+      "og",
+      "guarded-og",
+      "sequence-breaker",
+      "lycanthrope",
+      "warlock",
+      "nimble",
+      "expedition",
+      "bat-master",
+      "glitch",
+      "scavenger",
+      "empty-hand",
+      "third-castle",
+      "magic-mirror",
+      "leg-day",
+      "big-toss",
+      "grand-tour",
+      "crash-course",
+      "any-percent",
+      "lookingglass",
+      "skinwalker",
+      "summoner",
+      "safe-stwo",
+      "open",
+      "brawler",
+      "lucky-sevens",
+      "sight-seer",
+      "cursed-night",
+      "spellbound",
+      "mobility",
+      "glitchmaster",
+      "dog-life",
+      "battle-mage",
+      "timeline",
+      "chimera",
+      "vanilla"
+    ]
+    let relicCompatible = [
+      "casual",
+      "safe",
+      "adventure",
+      "og",
+      "guarded-og",
+      "sequence-breaker",
+      "lycanthrope",
+      "warlock",
+      "nimble",
+      "expedition",
+      "bat-master",
+      "scavenger",
+      "empty-hand",
+      "gem-farmer",
+      "third-castle",
+      "rat-race",
+      "magic-mirror",
+      "bountyhunter",
+      "bountyhuntertc",
+      "hitman",
+      "beyond",
+      "grand-tour",
+      "crash-course",
+      "lookingglass",
+      "skinwalker",
+      "summoner",
+      "agonize-twtw",
+      "safe-stwo",
+      "open",
+      "lucky-sevens",
+      "sight-seer",
+      "cursed-night",
+      "spellbound",
+      "mobility",
+      "timeline",
+      "chimera",
+      "vanilla"
+    ]
+    console.log(elems.newGoals.value + ' ' + elems.presetId.value)
+    if (["allBoss","abrsr"].includes(elems.newGoals.value) && !bossCompatible.includes(elems.presetId.value)){
+      elems.newGoals.value = "default"
+    } else if (["allRelic","abrsr"].includes(elems.newGoals.value) && !relicCompatible.includes(elems.presetId.value)){
+      elems.newGoals.value = "default"
+    } else {
+      localStorage.setItem('newGoals', elems.newGoals.value)
+      newGoalsLock = elems.newGoals.value
+    }
   }
 
   function appendSeedChange() {
@@ -787,6 +970,23 @@
             break
         }
       }
+      if (elems.newGoals != 'default') {
+        switch (elems.newGoals.value){
+          case 'default':
+            break
+          case 'allBoss':
+            newGoalsSet = 'b'
+            break
+          case 'allRelic':
+            newGoalsSet = 'r'
+            break
+          case 'abrsr':
+            newGoalsSet = 'a'
+            break
+          default:
+            break
+        }
+      }
       return options
     }
     const options = {
@@ -1027,7 +1227,21 @@
         ))
         check.apply(randomizeMusic(rng, applied))
         // Initiate the write options function master
-        check.apply(util.randoFuncMaster())
+        let optWrite = 0x00000000                   // This variable lets the ASM used in the Master Function know if it needs to run certain code or sets flags for the tracker to use
+        if (elems.newGoals.value !== "default") {   // Sets flag for the tracker to know which goals to use
+          switch(elems.newGoals.value) {
+            case "allBoss":                         // all bosses flag
+              optWrite = optWrite + 0x01
+              break
+            case "allRelic":                        // all relics flag
+              optWrite = optWrite + 0x02
+              break
+            case "abrsr":                           //  all bosses and relics flag
+              optWrite = optWrite + 0x03
+              break
+          }
+        }
+        check.apply(util.randoFuncMaster(optWrite))
         // Apply tournament mode patches.
         if (options.tournamentMode) {
           check.apply(util.applyTournamentModePatches())
@@ -1128,6 +1342,27 @@
             case 'invis':
               mapcol = 'i'
               check.apply(util.applyMapColor(mapcol))
+              break
+            default:
+              break
+          }
+        }
+        // Apply new goals patches.
+        if (newGoalsLock != 'default') {
+          switch (newGoalsLock){
+            case 'default':
+              break
+            case 'allBoss':
+              nGoal = 'b'
+              check.apply(util.applyNewGoals(nGoal))
+              break
+            case 'allRelic':
+              nGoal = 'r'
+              check.apply(util.applyNewGoals(nGoal))
+              break
+            case 'abrsr':
+              nGoal = 'a'
+              check.apply(util.applyNewGoals(nGoal))
               break
             default:
               break
@@ -1416,6 +1651,7 @@
     clear: document.getElementById('clear'),
     theme: document.getElementById('theme'),
     mapColor: document.getElementById('mapColor'),
+    newGoals: document.getElementById('newGoals'),
     appendSeed: document.getElementById('append-seed'),
     tournamentMode: document.getElementById('tournament-mode'),
     colorrandoMode: document.getElementById('colorrando-mode'),
@@ -1495,6 +1731,7 @@
   elems.clear.addEventListener('click', clearHandler)
   elems.theme.addEventListener('change', themeChange)
   elems.mapColor.addEventListener('change', mapColorChange)
+  elems.newGoals.addEventListener('change', newGoalsChange)
   elems.appendSeed.addEventListener('change', appendSeedChange)
   elems.tournamentMode.addEventListener('change', tournamentModeChange)
   elems.colorrandoMode.addEventListener('change', colorrandoModeChange)
@@ -1801,7 +2038,7 @@
   if (isDev) {
     document.body.classList.add('dev')
     document.getElementById('dev-border').classList.add('dev')
-    document.write([
+    document.writeln([
       '<div id="warning">WARNING: This is the development version of the',
       'randomizer. Do not use this unless you know what you\'re doing.',
       'Bugs and softlocks are to be expected.<br>',
@@ -1823,6 +2060,7 @@
   outputChange()
   loadOption('theme', themeChange, 'menu')
   loadOption('mapColor', mapColorChange, 'menu')
+  loadOption('newGoals', newGoalsChange, 'menu')
   loadOption('appendSeed', appendSeedChange, true)
   loadOption('showSolutions', showSolutionsChange, false)
   loadOption('showRelics', showRelicsChange, false)
