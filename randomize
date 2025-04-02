@@ -667,6 +667,12 @@ const yargs = require('yargs')
     type: 'string',
     requiresArg: true,
   })
+  .option('newGoals', {
+    alias: 'g',
+    describe: 'Change goal of the seed from default.',
+    type: 'string',
+    requiresArg: true,
+  })
   .option('excludesongs', {
     alias: 'eds',
     describe: 'Excludes the songs given by parameters. Example: --eds LOST_PAINTING,CURSE_ZONE',
@@ -1138,6 +1144,19 @@ if ('mapcolor' in argv && typeof(argv.mapcolor) !== 'undefined') {
     options.mapcolorTheme = argv.mapcolor.toString()
   }
 }
+if ('debug' in argv) {console.log('randomize | Choose new goals')}
+// Map Color Features if specified. - eldri7ch
+if ('newGoals' in argv && typeof(argv.newGoals) !== 'undefined') {
+  let termsAllowed = 'd,b,r,a'
+  if (!(termsAllowed.includes(argv.newGoals))) {
+    yargs.showHelp()
+    console.error('\nMust contain a letter \'d\'(Preset Default), \'b\'(All Bosses), \'r\'(All Relics), \'a\'(All Bosses and Relics)')
+    process.exit(1)
+  } else {
+    options.newGoalsSet = argv.newGoals.toString()
+  }
+}
+if ('debug' in argv) {console.log('randomize | Exclude songs')}
 if ('excludesongs' in argv && typeof(argv.excludesongs) !== 'undefined') {
   let songsToExclude = argv.excludesongs.split(",")
   options.excludesongs = songsToExclude
@@ -1428,6 +1447,13 @@ if ('debug' in argv) {console.log('randomize | Start randomization')}
           check.apply(util.applyMapColor(mapcol))
         }
         if ('debug' in argv) {console.log('randomize | function: randomize | Map colors')}
+        optFlag = false
+        if ('newGoals' in argv) { // changes the goals - eldrich
+          // Apply new goal patches. - eldri7ch
+          let nGoal = argv.newGoals
+          check.apply(util.applyNewGoals(nGoal))
+        }
+        if ('debug' in argv) {console.log('randomize | function: randomize | New Goals')}
         if ('debug' in argv) {console.log('randomize | function: randomize | Apply Writes')}
         // Apply writes.
         check.apply(util.applyWrites(rng, applied))

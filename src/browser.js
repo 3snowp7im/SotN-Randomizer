@@ -21,6 +21,7 @@
   let selectedFile
   let version
   let mapColorLock
+  let newGoalsLock
   let isAprilFools
 
   const safe = presets.filter(function(preset) {
@@ -463,6 +464,11 @@
     mapColorLock = elems.mapColor.value
   }
 
+  function newGoalsChange() {
+    localStorage.setItem('newGoals', elems.newGoals.value)
+    newGoalsLock = elems.newGoals.value
+  }
+
   function appendSeedChange() {
     localStorage.setItem('appendSeed', elems.appendSeed.checked)
   }
@@ -782,6 +788,23 @@
             break
           case 'invis':
             mapColorTheme = 'i'
+            break
+          default:
+            break
+        }
+      }
+      if (elems.newGoals != 'default') {
+        switch (elems.newGoals.value){
+          case 'default':
+            break
+          case 'allBoss':
+            newGoalsSet = 'b'
+            break
+          case 'allRelic':
+            newGoalsSet = 'r'
+            break
+          case 'abrsr':
+            newGoalsSet = 'a'
             break
           default:
             break
@@ -1133,6 +1156,27 @@
               break
           }
         }
+        // Apply new goals patches.
+        if (newGoalsLock != 'default') {
+          switch (newGoalsLock){
+            case 'default':
+              break
+            case 'allBoss':
+              nGoal = 'b'
+              check.apply(util.applyNewGoals(nGoal))
+              break
+            case 'allRelic':
+              nGoal = 'r'
+              check.apply(util.applyNewGoals(nGoal))
+              break
+            case 'abrsr':
+              nGoal = 'a'
+              check.apply(util.applyNewGoals(nGoal))
+              break
+            default:
+              break
+          }
+        }
         // Apply writes.
         check.apply(util.applyWrites(rng, applied))
         util.setSeedText(
@@ -1416,6 +1460,7 @@
     clear: document.getElementById('clear'),
     theme: document.getElementById('theme'),
     mapColor: document.getElementById('mapColor'),
+    newGoals: document.getElementById('newGoals'),
     appendSeed: document.getElementById('append-seed'),
     tournamentMode: document.getElementById('tournament-mode'),
     colorrandoMode: document.getElementById('colorrando-mode'),
@@ -1495,6 +1540,7 @@
   elems.clear.addEventListener('click', clearHandler)
   elems.theme.addEventListener('change', themeChange)
   elems.mapColor.addEventListener('change', mapColorChange)
+  elems.newGoals.addEventListener('change', newGoalsChange)
   elems.appendSeed.addEventListener('change', appendSeedChange)
   elems.tournamentMode.addEventListener('change', tournamentModeChange)
   elems.colorrandoMode.addEventListener('change', colorrandoModeChange)
@@ -1801,7 +1847,7 @@
   if (isDev) {
     document.body.classList.add('dev')
     document.getElementById('dev-border').classList.add('dev')
-    document.write([
+    document.content([
       '<div id="warning">WARNING: This is the development version of the',
       'randomizer. Do not use this unless you know what you\'re doing.',
       'Bugs and softlocks are to be expected.<br>',
@@ -1823,6 +1869,7 @@
   outputChange()
   loadOption('theme', themeChange, 'menu')
   loadOption('mapColor', mapColorChange, 'menu')
+  loadOption('newGoals', newGoalsChange, 'menu')
   loadOption('appendSeed', appendSeedChange, true)
   loadOption('showSolutions', showSolutionsChange, false)
   loadOption('showRelics', showRelicsChange, false)

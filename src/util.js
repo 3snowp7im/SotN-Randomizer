@@ -2495,17 +2495,17 @@ function hexValueToDamageString(hexValue) {
     }
     let randomize = []
     while (Object.getOwnPropertyNames(options).length) {
-      if ('tournamentMode' in options) { // stunts spoilers, changes seed randomization, opens statue in clock room and $0 relic in shop - eldrich
+      if ('tournamentMode' in options) { // stunts spoilers, changes seed randomization, opens statue in clock room and $0 relic in shop - eldri7ch
         if (options.tournamentMode) {
           randomize.push('t')
         }
         delete options.tournamentMode
-      } else if ('colorrandoMode' in options) { // randomizes cape, grav boots, and hydro storm colors - eldrich
+      } else if ('colorrandoMode' in options) { // randomizes cape, grav boots, and hydro storm colors - eldri7ch
         if (options.colorrandoMode) {
           randomize.push('l')
         }
         delete options.colorrandoMode
-      } else if ('magicmaxMode' in options) { // replaces Heart Vessel with Magic Vessel - eldrich
+      } else if ('magicmaxMode' in options) { // replaces Heart Vessel with Magic Vessel - eldri7ch
         if (options.magicmaxMode) {
           randomize.push('x')
         }
@@ -2515,17 +2515,17 @@ function hexValueToDamageString(hexValue) {
           randomize.push('z')
         }
         delete options.antiFreezeMode
-      } else if ('mypurseMode' in options) { // Removes Death from entrance - eldrich
+      } else if ('mypurseMode' in options) { // Removes Death from entrance - eldri7ch
         if (options.mypurseMode) {
           randomize.push('y')
         }
         delete options.mypurseMode
-      } else if ('iwsMode' in options) { // Allows for infinite wing smash on first input - eldrich
+      } else if ('iwsMode' in options) { // Allows for infinite wing smash on first input - eldri7ch
         if (options.iwsMode) {
           randomize.push('b')
         }
         delete options.iwsMode
-      } else if ('fastwarpMode' in options) { // quickensd the teleporter warp animations - eldrich
+      } else if ('fastwarpMode' in options) { // quickensd the teleporter warp animations - eldri7ch
         if (options.fastwarpMode) {
           randomize.push('9')
         }
@@ -2535,32 +2535,32 @@ function hexValueToDamageString(hexValue) {
           randomize.push('in')
         }
         delete options.itemnamerandoMode
-      } else if ('noprologueMode' in options) { // Removes prologue - eldrich
+      } else if ('noprologueMode' in options) { // Removes prologue - eldri7ch
         if (options.noprologueMode) {
           randomize.push('R')
         }
         delete options.noprologueMode
-      } else if ('unlockedMode' in options) { // Opens shortcuts - eldrich
+      } else if ('unlockedMode' in options) { // Opens shortcuts - eldri7ch
         if (options.unlockedMode) {
           randomize.push('U')
         }
         delete options.unlockedMode
-      } else if ('surpriseMode' in options) { // Hides relics behind the same sprite - eldrich
+      } else if ('surpriseMode' in options) { // Hides relics behind the same sprite - eldri7ch
         if (options.surpriseMode) {
           randomize.push('S')
         }
         delete options.surpriseMode
-      } else if ('enemyStatRandoMode' in options) { // randomize enemy stats - eldrich
+      } else if ('enemyStatRandoMode' in options) { // randomize enemy stats - eldri7ch
         if (options.enemyStatRandoMode) {
           randomize.push('E')
         }
         delete options.enemyStatRandoMode
-      } else if ('shopPriceRandoMode' in options) { // randomize shop prices - eldrich
+      } else if ('shopPriceRandoMode' in options) { // randomize shop prices - eldri7ch
         if (options.shopPriceRandoMode) {
           randomize.push('sh')
         }
         delete options.shopPriceRandoMode
-      } else if ('startRoomRandoMode' in options) { // randomize starting room - eldrich
+      } else if ('startRoomRandoMode' in options) { // randomize starting room - eldri7ch
         if (options.startRoomRandoMode) {
           randomize.push('ori')
         }
@@ -2570,12 +2570,12 @@ function hexValueToDamageString(hexValue) {
           randomize.push('ori2')
         }
         delete options.startRoomRando2ndMode
-      } else if ('dominoMode' in options) { // guaranteed drops - eldrich
+      } else if ('dominoMode' in options) { // guaranteed drops - eldri7ch
         if (options.dominoMode) {
           randomize.push('gd')
         }
         delete options.dominoMode
-      } else if ('rlbcMode' in options) { // reverse library cards - eldrich
+      } else if ('rlbcMode' in options) { // reverse library cards - eldri7ch
         if (options.rlbcMode) {
           randomize.push('rl')
         }
@@ -2585,7 +2585,7 @@ function hexValueToDamageString(hexValue) {
           randomize.push('ap')
         }
         delete options.alucardPaletteMode
-      } else if ('debugMode' in options) { // Debug mode - eldrich
+      } else if ('debugMode' in options) { // Debug mode - eldri7ch
         if (options.debugMode) {
           randomize.push('D')
         }
@@ -2593,7 +2593,10 @@ function hexValueToDamageString(hexValue) {
       } else if ('mapcolorTheme' in options) { // switch map color
         randomize.push('m:' + options.mapcolorTheme)
         delete options.mapcolorTheme
-      } else if ('excludesongs' in options) {
+      } else if ('newGoalsSet' in options) { // Change the goals
+        randomize.push('g:' + options.newGoalsSet)
+        delete options.newGoalsSet
+      } else if ('excludesongs' in options) { // Exclude songs - eldri7ch
         randomize.push('eds:' + options.excludesongs)
         delete options.excludesongs
       } else if ('preset' in options) {
@@ -6195,6 +6198,107 @@ function hexValueToDamageString(hexValue) {
     return data
   }
 
+  function applyNewGoals(nGoal) {	// Research and function by MottZilla & eldri7ch.
+    const data = new checked()
+    const jmpAddr = 0x04fcf814 // define address to hook
+    const funcAddress = 0x04fe4f68 //define address for richter maps
+    let offset
+    // Patch new goals - eldri7ch
+    switch (nGoal) {
+    case 'b': // All Bosses
+      offset = jmpAddr
+      data.writeWord(offset, 0x08074fbc)
+
+      offset = funcAddress
+      offset = data.writeWord(offset, 0x3C108003)
+      offset = data.writeWord(offset, 0x3610CA2C)
+      offset = data.writeWord(offset, 0x3C118003)
+      offset = data.writeWord(offset, 0x3631CA80)
+      offset = data.writeWord(offset, 0x8E120000)
+      offset = data.writeWord(offset, 0x00000000)
+      offset = data.writeWord(offset, 0x12400005)
+      offset = data.writeWord(offset, 0x26100004)
+      offset = data.writeWord(offset, 0x1611FFFB)
+      offset = data.writeWord(offset, 0x00000000)
+      offset = data.writeWord(offset, 0x080704E4)
+      offset = data.writeWord(offset, 0x00000000)
+      offset = data.writeWord(offset, 0x080705E4)
+      offset = data.writeWord(offset, 0x00000000)
+      break
+    case 'r': // All Relics
+      offset = jmpAddr
+      data.writeWord(offset, 0x08074fbc)
+
+      offset = funcAddress
+      offset = data.writeWord(offset, 0x3C108009)
+      offset = data.writeWord(offset, 0x36107964)
+      offset = data.writeWord(offset, 0x3C118009)
+      offset = data.writeWord(offset, 0x3631797B)
+      offset = data.writeWord(offset, 0x92120000)
+      offset = data.writeWord(offset, 0x00000000)
+      offset = data.writeWord(offset, 0x1240000F)
+      offset = data.writeWord(offset, 0x26100001)
+      offset = data.writeWord(offset, 0x1611FFFB)
+      offset = data.writeWord(offset, 0x00000000)
+      offset = data.writeWord(offset, 0x3C108009)
+      offset = data.writeWord(offset, 0x3610797D)
+      offset = data.writeWord(offset, 0x3C118009)
+      offset = data.writeWord(offset, 0x36317981)
+      offset = data.writeWord(offset, 0x92120000)
+      offset = data.writeWord(offset, 0x00000000)
+      offset = data.writeWord(offset, 0x12400005)
+      offset = data.writeWord(offset, 0x26100001)
+      offset = data.writeWord(offset, 0x1611FFFB)
+      offset = data.writeWord(offset, 0x00000000)
+      offset = data.writeWord(offset, 0x080704E4)
+      offset = data.writeWord(offset, 0x00000000)
+      offset = data.writeWord(offset, 0x080705E4)
+      offset = data.writeWord(offset, 0x00000000)
+      break
+    case 'a': // All Bosses & Relics (ABRSR)
+      offset = jmpAddr
+      data.writeWord(offset, 0x08074fbc)
+
+      offset = funcAddress
+      offset = data.writeWord(offset, 0x3C108003)
+      offset = data.writeWord(offset, 0x3610CA2C)
+      offset = data.writeWord(offset, 0x3C118003)
+      offset = data.writeWord(offset, 0x3631CA80)
+      offset = data.writeWord(offset, 0x8E120000)
+      offset = data.writeWord(offset, 0x00000000)
+      offset = data.writeWord(offset, 0x12400019)
+      offset = data.writeWord(offset, 0x26100004)
+      offset = data.writeWord(offset, 0x1611FFFB)
+      offset = data.writeWord(offset, 0x00000000)
+      offset = data.writeWord(offset, 0x3C108009)
+      offset = data.writeWord(offset, 0x36107964)
+      offset = data.writeWord(offset, 0x3C118009)
+      offset = data.writeWord(offset, 0x3631797B)
+      offset = data.writeWord(offset, 0x92120000)
+      offset = data.writeWord(offset, 0x00000000)
+      offset = data.writeWord(offset, 0x1240000F)
+      offset = data.writeWord(offset, 0x26100001)
+      offset = data.writeWord(offset, 0x1611FFFB)
+      offset = data.writeWord(offset, 0x00000000)
+      offset = data.writeWord(offset, 0x3C108009)
+      offset = data.writeWord(offset, 0x3610797D)
+      offset = data.writeWord(offset, 0x3C118009)
+      offset = data.writeWord(offset, 0x36317981)
+      offset = data.writeWord(offset, 0x92120000)
+      offset = data.writeWord(offset, 0x00000000)
+      offset = data.writeWord(offset, 0x12400005)
+      offset = data.writeWord(offset, 0x26100001)
+      offset = data.writeWord(offset, 0x1611FFFB)
+      offset = data.writeWord(offset, 0x00000000)
+      offset = data.writeWord(offset, 0x080704E4)
+      offset = data.writeWord(offset, 0x00000000)
+      offset = data.writeWord(offset, 0x080705E4)
+      offset = data.writeWord(offset, 0x00000000)
+      break
+    }
+    return data
+  }
+
   function applyiwsPatches() {
     const data = new checked()
     // Patch wing smash duration - eldri7ch
@@ -7549,6 +7653,7 @@ function hexValueToDamageString(hexValue) {
     applyRLBCPatches: applyRLBCPatches,
     applyAlucardPalettePatches: applyAlucardPalettePatches,
     applyMapColor: applyMapColor,
+    applyNewGoals: applyNewGoals,
     randomizeRelics: randomizeRelics,
     randomizeItems: randomizeItems,
     applyWrites: applyWrites,
