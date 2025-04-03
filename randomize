@@ -1425,7 +1425,14 @@ if ('debug' in argv) {console.log('randomize | Start randomization')}
             seed,
             0,
           ))
-          check.apply(util.applyStartRoomRandoPatches(rng,options))
+          let castleFlag = 0x00
+          if (options.startRoomRandoMode || applied.startRoomRandoMode) {
+            castleFlag = castleFlag + 0x01
+          }
+          if (options.startRoomRando2ndMode || applied.startRoomRando2ndMode) {
+            castleFlag = castleFlag + 0x10
+          }
+          check.apply(util.applyStartRoomRandoPatches(rng,castleFlag))
         }
         if ('debug' in argv) {console.log('randomize | function: randomize | Starting Room Randomizer Mode | ' + optFlag)}
         optFlag = false
