@@ -5855,7 +5855,7 @@ function hexValueToDamageString(hexValue) {
     })
   }
 
-  function randoFuncMaster(optWrite) {                        // A master function and table series to handle randomizer options that require additional code
+  function randoFuncMaster(optWrite) {                // A master function and table series to handle randomizer options that require additional code
     const data = new checked()                        // randomizer options that require additional code. 0x3711A68 is loaded from CD by separate code
     let offset
     
@@ -6711,14 +6711,14 @@ function hexValueToDamageString(hexValue) {
     return data
   }
 
-  function applyStartRoomRandoPatches(rng,options) {
+  function applyStartRoomRandoPatches(rng,castleFlag) {
     const startRoomData = constants.startRoomData
     const data = new checked()
     // Patch the starting room being randomized
     let offset
     let newWrite
     let randRoomId
-    
+
     randRoomId = Math.floor(rng() * Math.floor(startRoomData.length))       // Select a starting room at random
 
     // Debug Messages
@@ -6733,18 +6733,19 @@ function hexValueToDamageString(hexValue) {
     // console.log("Last Room in Data is: id = " + startRoomData[Math.floor(0.999 * (startRoomData.length))].id + " : " + startRoomData[Math.floor(0.999 * (startRoomData.length))].comment)
     // End of Debug Messages
     
-    if(options.startRoomRandoMode && (options.startRoomRando2ndMode == undefined || options.startRoomRando2ndMode == false))        // 1st Castle Only
+    if(castleFlag === 0x01)        // 1st Castle Only
 
     {
-      while(startRoomData[randRoomId].stage & 0x20)
+      while(startRoomData[randRoomId].stage >= 0x20)
       {
+        console.log('reroll')
         randRoomId = Math.floor(rng() * Math.floor(startRoomData.length))   // Re-roll if Room is 2nd Castle but we did not choose to include it.
       }
     }
 
-    if(options.startRoomRando2ndMode && (options.startRoomRandoMode == undefined || options.startRoomRandoMode == false))        // 2nd Castle Only
+    if(castleFlag === 0x10)        // 2nd Castle Only
     {
-      while( (startRoomData[randRoomId].stage & 0x20) == 0)
+      while(startRoomData[randRoomId].stage <= 0x20)
       {
         randRoomId = Math.floor(rng() * Math.floor(startRoomData.length))   // Re-roll if Room is 1st Castle but we did not choose to include it.
       }
@@ -6762,7 +6763,7 @@ function hexValueToDamageString(hexValue) {
     // Hooks check for relic when using gravity boots/leap stone so we can add another condition
     // If Zone == 2nd Castle and Two specific Map tiles have not been visited, behave as though we have the relic.
     // The two map tiles are the Keep Teleporter and the Library Card destination tile.
-    if((startRoomData[randRoomId].stage & 0x20) == 0x20)
+    if(startRoomData[randRoomId].stage >= 0x20)
     {
       offset = 0xF0230                            // Code Block
       offset = data.writeWord(offset,0x3C028009)
@@ -6819,7 +6820,7 @@ function hexValueToDamageString(hexValue) {
     offset = data.writeChar(offset,0x41)
     data.writeChar(offset,0x64)
 
-    console.log("randRoomId = " + randRoomId + ", Room id = " + startRoomData[randRoomId].id + " Desc:" + startRoomData[randRoomId].comment)
+    // console.log("randRoomId = " + randRoomId + ", Room id = " + startRoomData[randRoomId].id + " Desc:" + startRoomData[randRoomId].comment)
 
     offset = 0xae95c                                                            // change the destination
     newWrite = startRoomData[randRoomId].xyWrite                                // Write X,Y Position
