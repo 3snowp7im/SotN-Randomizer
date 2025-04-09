@@ -2580,22 +2580,18 @@ function hexValueToDamageString(hexValue) {
           randomize.push('rl')
         }
         delete options.rlbcMode
-      } else if ('alucardPaletteMode' in options) { // alucard palette rando - CRAZY4BLADES
-        if (options.alucardPaletteMode) {
-          randomize.push('ap')
-        }
-        delete options.alucardPaletteMode
-      } else if ('debugMode' in options) { // Debug mode - eldri7ch
-        if (options.debugMode) {
-          randomize.push('D')
-        }
-        delete options.debugMode
       } else if ('mapcolorTheme' in options) { // switch map color
         randomize.push('m:' + options.mapcolorTheme)
         delete options.mapcolorTheme
       } else if ('newGoalsSet' in options) { // Change the goals
         randomize.push('g:' + options.newGoalsSet)
         delete options.newGoalsSet
+      } else if ('alucardPaletteSet' in options) { // alucard's palette - crazy4blades
+        randomize.push('ap:' + options.alucardPaletteSet)
+        delete options.alucardPaletteSet
+      }else if ('alucardLinerSet' in options) { // alucard's Liner - Crazy4blades
+        randomize.push('al:' + options.alucardLinerSet)
+        delete options.alucardLinerSet
       } else if ('excludesongs' in options) { // Exclude songs - eldri7ch
         randomize.push('eds:' + options.excludesongs)
         delete options.excludesongs
@@ -3840,7 +3836,6 @@ function hexValueToDamageString(hexValue) {
     startRoomRando2ndMode,
     dominoMode,
     rlbcMode,
-    alucardPaletteMode,
     debugMode,
     writes,
   ) {
@@ -3885,7 +3880,6 @@ function hexValueToDamageString(hexValue) {
     this.startRoomRando2ndMode = startRoomRando2ndMode
     this.dominoMode = dominoMode
     this.rlbcMode = rlbcMode
-    this.alucardPaletteMode = alucardPaletteMode
     this.debugMode = debugMode
     if (writes) {
       this.writes = writes
@@ -4050,8 +4044,6 @@ function hexValueToDamageString(hexValue) {
     this.domino = false
     // reverse library cards mode.
     this.rlbc = false
-    // Alucard Palette Rando mode.
-    this.alucardPalette = false
     // Debug mode.
     this.debug = false
     // Arbitrary writes.
@@ -4379,9 +4371,6 @@ function hexValueToDamageString(hexValue) {
     }
     if ('rlbcMode' in json) {
       builder.rlbcMode(json.rlbcMode)
-    }
-    if ('alucardPaletteMode' in json) {
-      builder.alucardPaletteMode(json.alucardPaletteMode)
     }
     if ('writes' in json) {
       let lastAddress = 0
@@ -4717,9 +4706,6 @@ function hexValueToDamageString(hexValue) {
     }
     if ('rlbcMode' in preset) {
       this.rlbc = preset.rlbcMode
-    }
-    if ('alucardPaletteMode' in preset) {
-      this.alucardPalette = preset.alucardPaletteMode
     }
     if ('writes' in preset) {
       this.writes = this.writes || []
@@ -5463,11 +5449,6 @@ function hexValueToDamageString(hexValue) {
     this.rlbc = enabled
   }
 
-  // Enable Alucard Palette Rando - eldri7ch
-  PresetBuilder.prototype.alucardPaletteMode = function alucardPaletteMode(enabled) {
-    this.alucardPalette = enabled
-  }
-
   // Write a character.
   PresetBuilder.prototype.writeChar = function writeChar(address, value) {
     let valueCheck
@@ -5784,7 +5765,6 @@ function hexValueToDamageString(hexValue) {
     const startRoomRando2nd = self.startRoomRando2nd
     const domino = self.domino
     const rlbc = self.rlbc
-    const alucardPalette = self.alucardPalette
     const debug = self.debug
     const writes = self.writes
     return new Preset(
@@ -5829,7 +5809,6 @@ function hexValueToDamageString(hexValue) {
       startRoomRando2nd,
       domino,
       rlbc,
-      alucardPalette,
       debug,
       writes,
     )
@@ -7065,46 +7044,91 @@ function hexValueToDamageString(hexValue) {
     return data
   }
 
-  function applyAlucardPalettePatches(rng){                  //Alucard Palette Randomizer - CRAZY4BLADES, palettes by eldri7ch
+  function applyAlucardPalette(alColP){                  //Alucard Palette Randomizer - CRAZY4BLADES, palettes by eldri7ch
     const data = new checked()
-    let colorAlucardSet = Math.floor(rng() * 7)
-    let colorAlucardLiner = Math.floor(rng() * 5)
-    const palettesAlucard1 = [
-      [0x0828,0x0830,0x0833,0x0836,0x083C],                   //Bloody Tears
-      [0xB800,0xCC00,0xD400,0xED00,0xED00],                   //Blue Danube
-      [0x8480,0x84C0,0x84E2,0x8906,0x8D6A],                   //Swamp Thing
-      [0xa94a,0xc210,0xdad6,0xef7b,0xffff],                   //White Knight
-      [0x9803,0xB005,0xBC07,0xD00A,0xE40C],                   //Royal Purple
-      [0xA8EB,0xC191,0xDE37,0xEE7C,0xFA9F],                   //Pink Passion
-      [0x8842,0x8C63,0x94A5,0x94A5,0x9CE7]                    //Shadow Prince
+    let colorAlucardBright = 1//Math.floor(rng() * 2)
+    let colorAlucardSet= 0
+    const palettesAlucard = [
+      [0x8404, 0x8c28, 0x8c4c, 0xa552, 0xb9f3, 0xcad8, 0xf39c], // Bloody Tears
+      [0x9021, 0xa043, 0xb8a6, 0xc529, 0xcded, 0xcef5, 0xf39c], // Blue Danube
+      [0x8042, 0x8082, 0x80c6, 0x8d2f, 0xa9d1, 0xc6d5, 0xe39b], // Swamp Thing
+      [0x9063, 0x94a5, 0xa12a, 0xb9f0, 0xd674, 0xeb5b, 0xf39c], // White Knight
+      [0x8c02, 0x9c04, 0xac88, 0xbd0a, 0xcdad, 0xc655, 0xcf18], // Royal Purple
+      [0x9024, 0x9867, 0xa8ac, 0xbd31, 0xcdf5, 0xeabb, 0xfb1d], // Pink Passion
+      [0x8000, 0x8c42, 0x98a5, 0xa0e9, 0xa96d, 0xb9f1, 0xc655]  // Shadow Prince
     ]
-    const palettesAlucard2 = [
-      0x0824,0x1C00,0x8060,0x9084,0x8c01,0x9886,0x8421
-    ]
+    
+    switch (alColP){
+      case 'r':
+        colorAlucardSet = 0
+        break
+      case 'b':
+        colorAlucardSet = 1
+        break
+      case 'g':
+        colorAlucardSet = 2
+        break
+      case 'w':
+        colorAlucardSet = 3
+        break
+      case 'l':
+        colorAlucardSet = 4
+        break
+      case 'p':
+        colorAlucardSet = 5
+        break
+      case 's':
+        colorAlucardSet = 6
+        break
+    }
+        
+    // Cloth
+    offset = 0xEF952
+    for (let i = 0; i < 5; i++) {
+      index = i + colorAlucardBright + 1
+      offset = data.writeShort(offset, palettesAlucard[colorAlucardSet][index])
+    }
+    // Darkest color
+    offset = 0xEF93E
+    index = colorAlucardBright
+    offset = data.writeShort(offset,palettesAlucard[colorAlucardSet][index])
+    return data
+  }
+
+  function applyAlucardLiner(alColL){
+    const data = new checked()
+    let colorAlucardLiner = 0
     const palettesAlucardLiner = [
-      [0x8068,0x88AA,0x8CEE,0x9553],                          //Bronze Trim
-      [0xA927,0xC1CB,0xD26F,0xE6F3],                          //Silver Trim
-      [0x84AB,0x8D2F,0x91D6,0x929B],                          //Gold trim
-      [0x8C63,0x94A5,0xA94A,0xBDEF],                          //Onyx Trim
-      [0x90C3,0xA167,0xB62B,0xCAEF]                           //Jade Trim
+      [0x84ab, 0x8d2f, 0x91d6, 0x929b], // Gold Trim (Default)
+      [0x8465, 0x88a8, 0x88ec, 0x9151], // Bronze Trim
+      [0x94a6, 0xa54a, 0xb9ef, 0xc693], // Silver Trim
+      [0x8c43, 0x98a5, 0x9cc8, 0xa54c], // Onyx Trim
+      [0xa8ac, 0xad0f, 0xadb3, 0xbe16]  // Coral Trim
     ]
-    if (colorAlucardSet > 6) {
-      colorAlucardSet = 0;
+    switch(alColL){
+      case 'z':
+        colorAlucardLiner = [0]
+        break
+      case "x":
+        colorAlucardLiner = [1]
+        break
+      case 'y':
+        colorAlucardLiner = [2]
+        break
+      case 'w':
+        colorAlucardLiner = [3]
+        break
+      case 'v':
+        colorAlucardLiner = [4]
+        break
     }
     if (colorAlucardLiner > 4) {
       colorAlucardLiner = 0;
     }
-    offset = 0xEF952
-    for (let i = 0; i < 5; i++) {
-      offset = data.writeShort(offset,palettesAlucard1[colorAlucardSet][i])
-    }
-    offset = 0xEF93E
-    offset = data.writeShort(offset,palettesAlucard2[colorAlucardSet])
     offset = 0xEF940
     for (let i = 0; i < 4; i++) {
       offset = data.writeShort(offset,palettesAlucardLiner[colorAlucardLiner][i])
     }
-    
     return data
   }
 
@@ -7659,9 +7683,10 @@ function hexValueToDamageString(hexValue) {
     applyStartRoomRandoPatches: applyStartRoomRandoPatches,
     applyDominoPatches: applyDominoPatches,
     applyRLBCPatches: applyRLBCPatches,
-    applyAlucardPalettePatches: applyAlucardPalettePatches,
     applyMapColor: applyMapColor,
     applyNewGoals: applyNewGoals,
+    applyAlucardPalette: applyAlucardPalette,
+    applyAlucardLiner: applyAlucardLiner,
     randomizeRelics: randomizeRelics,
     randomizeItems: randomizeItems,
     applyWrites: applyWrites,

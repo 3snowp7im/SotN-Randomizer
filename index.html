@@ -354,6 +354,7 @@
                     <option value="invis">Invisible</option>
                   </select>
                 </div>
+                
                 <div class="pure-u-12-24">
                   <label for="newGoals">Change Goals</label>
                 </div>
@@ -374,6 +375,29 @@
                       </span>
                     </span>
                   </span>
+                </div>
+                <div class="pure-u-12-24">
+                  <label for="alucardPalette">Alucard's palette</label>
+                </div>
+                <div class="pure-u-6-24">
+                  <select id="alucardPalette" type="checkbox">
+                    <option value="default">Default</option>
+                    <option value="bloodytears">Bloody Tears</option>
+                    <option value="bluedanube">Blue Danube</option>
+                    <option value="swampthing">Swamp Thing</option>
+                    <option value="whiteknight">White Knight</option>
+                    <option value="royalpurple">Royal Purple</option>
+                    <option value="pinkpassion">Pink Passion</option>
+                  </select>
+                </div>
+                <div class="pure-u-6-24">
+                  <select id="alucardLiner" type="checkbox">
+                    <option value="gold">Gold Liner (default)</option>
+                    <option value="bronze">Bronze Liner</option>
+                    <option value="silver">Silver Liner</option>
+                    <option value="onyx">Onyx Liner</option>
+                    <option value="coral">Coral Liner</option>
+                  </select>
                 </div>
                 <div class="pure-u-1"></div>
                 <div class="pure-u-1-2">
@@ -422,18 +446,19 @@
                   </label>
                 </div>
                 <div class="pure-u-1-2">
-                  <input id="alucardPalette-mode" type="checkbox">
-                  <label for="alucardPalette-mode">Alucard Palette
+                  <input id="magicmax-mode" type="checkbox">
+                  <label for="magicmax-mode">Magic Vessels
                     <span class="tooltip-wrapper">
                       <span class="tooltip-indicator">?</span>
                       <span class="tooltip hidden">
                         <span>
-                          Randomizes Alucard's Palette amongst pre-set colors.
+                          Replace Heart Max Up with Magic Max Up.
                         </span>
                       </span>
                     </span>
                   </label>
                 </div>
+
                 <div class="pure-u-1-2">
                   <input id="accessibility-patches" type="checkbox">
                   <label for="accessibility-patches">Accessibility Patches
@@ -447,23 +472,6 @@
                       </span>
                     </span>
                   </label>
-                </div>
-                <div class="pure-u-1-2">
-                  <input id="magicmax-mode" type="checkbox">
-                  <label for="magicmax-mode">Magic Vessels
-                    <span class="tooltip-wrapper">
-                      <span class="tooltip-indicator">?</span>
-                      <span class="tooltip hidden">
-                        <span>
-                          Replace Heart Max Up with Magic Max Up.
-                        </span>
-                      </span>
-                    </span>
-                  </label>
-                </div>
-                <div class="pure-u-1-2">
-                  <input id="show-spoilers" type="checkbox">
-                  <label for="show-spoilers">Show Spoilers</label>
                 </div>
                 <div class="pure-u-1-2">
                   <input id="antifreeze-mode" type="checkbox">
@@ -480,8 +488,8 @@
                   </label>
                 </div>
                 <div class="pure-u-1-2">
-                  <input id="show-relics" type="checkbox">
-                  <label for="show-relics">Show Relic Locations</label>
+                  <input id="show-spoilers" type="checkbox">
+                  <label for="show-spoilers">Show Spoilers</label>
                 </div>
                 <div class="pure-u-1-2">
                   <input id="mypurse-mode" type="checkbox">
@@ -497,8 +505,8 @@
                   </label>
                 </div>
                 <div class="pure-u-1-2">
-                  <input id="show-solutions" type="checkbox">
-                  <label for="show-solutions">Show solutions</label>
+                  <input id="show-relics" type="checkbox">
+                  <label for="show-relics">Show Relic Locations</label>
                 </div>
                 <div class="pure-u-1-2">
                   <input id="iws-mode" type="checkbox">
@@ -514,8 +522,8 @@
                   </label>
                 </div>
                 <div class="pure-u-1-2">
-                  <input id="enemy-drops" type="checkbox">
-                  <label for="enemy-drops">Enemy Drops</label>
+                  <input id="show-solutions" type="checkbox">
+                  <label for="show-solutions">Show solutions</label>
                 </div>
                 <div class="pure-u-1-2">
                   <input id="fastwarp-mode" type="checkbox">
@@ -531,8 +539,8 @@
                   </label>
                 </div>
                 <div class="pure-u-1-2">
-                  <input id="stats" type="checkbox">
-                  <label for="stats">Item stats</label>
+                  <input id="enemy-drops" type="checkbox">
+                  <label for="enemy-drops">Enemy Drops</label>
                 </div>
                 <div class="pure-u-1-2">
                   <input id="noprologue-mode" type="checkbox">
@@ -549,17 +557,8 @@
                   </label>
                 </div>
                 <div class="pure-u-1-2">
-                  <input id="itemnamerando-mode" type="checkbox">
-                  <label for="itemnamerando-mode">Item stats names randomized
-                    <span class="tooltip-wrapper">
-                      <span class="tooltip-indicator">?</span>
-                      <span class="tooltip hidden">
-                        <span>
-                          Randomize item names when using Item Stat Rando.
-                        </span>
-                      </span>
-                    </span>
-                  </label>
+                  <input id="stats" type="checkbox">
+                  <label for="stats">Item stats</label>
                 </div>
                 <div class="pure-u-1-2">
                   <input id="unlocked-mode" type="checkbox">
@@ -577,14 +576,13 @@
                   </label>
                 </div>
                 <div class="pure-u-1-2">
-                  <input id="turkey-mode" type="checkbox">
-                  <label for="turkey-mode">Turkey Mode
+                  <input id="itemnamerando-mode" type="checkbox">
+                  <label for="itemnamerando-mode">Item stats names randomized
                     <span class="tooltip-wrapper">
                       <span class="tooltip-indicator">?</span>
                       <span class="tooltip hidden">
                         <span>
-                          Replaces the subweapons in the glass vats at Alchemy Lab 
-                          and Black Marble Gallery with useless turkeys.
+                          Randomize item names when using Item Stat Rando.
                         </span>
                       </span>
                     </span>
@@ -606,8 +604,18 @@
                   </label>
                 </div>
                 <div class="pure-u-1-2">
-                  <input id="music" type="checkbox">
-                  <label for="music">Music Randomizer</label>
+                  <input id="turkey-mode" type="checkbox">
+                  <label for="turkey-mode">Turkey Mode
+                    <span class="tooltip-wrapper">
+                      <span class="tooltip-indicator">?</span>
+                      <span class="tooltip hidden">
+                        <span>
+                          Replaces the subweapons in the glass vats at Alchemy Lab 
+                          and Black Marble Gallery with useless turkeys.
+                        </span>
+                      </span>
+                    </span>
+                  </label>
                 </div>
                 <div class="pure-u-1-2">
                   <input id="enemyStatRando-mode" type="checkbox">
@@ -625,8 +633,8 @@
                   </label>
                 </div>
                 <div class="pure-u-1-2">
-                  <input id="item-locations" type="checkbox">
-                  <label for="item-locations">Item locations</label>
+                  <input id="music" type="checkbox">
+                  <label for="music">Music Randomizer</label>
                 </div>
                 <div class="pure-u-1-2">
                   <input id="shopPriceRando-mode" type="checkbox">
@@ -644,10 +652,10 @@
                   </label>
                 </div>
                 <div class="pure-u-1-2">
-                  <input id="starting-equipment" type="checkbox" disabled>
-                  <label for="starting-equipment">Starting Equipment</label>
+                  <input id="item-locations" type="checkbox">
+                  <label for="item-locations">Item locations</label>
                 </div>
-                <div class="pure-u-1-2">
+                 <div class="pure-u-1-2">
                   <input id="startRoomRando-mode" type="checkbox">
                   <label for="startRoomRando-mode">Starting Zone 1st Castle
                     <span class="tooltip-wrapper">
@@ -663,10 +671,10 @@
                   </label>
                 </div>
                 <div class="pure-u-1-2">
-                  <input id="prologue-rewards" type="checkbox">
-                  <label for="prologue-rewards">Prologue Rewards</label>
+                  <input id="starting-equipment" type="checkbox" disabled>
+                  <label for="starting-equipment">Starting Equipment</label>
                 </div>
-                <div class="pure-u-1-2">
+               <div class="pure-u-1-2">
                   <input id="startRoomRando2nd-mode" type="checkbox">
                   <label for="startRoomRando2nd-mode">Starting Zone 2nd Castle
                     <span class="tooltip-wrapper">
@@ -683,8 +691,10 @@
                   </label>
                 </div>
                 <div class="pure-u-1-2">
+                  <input id="prologue-rewards" type="checkbox">
+                  <label for="prologue-rewards">Prologue Rewards</label>
                 </div>
-                <div class="pure-u-1-2">
+                 <div class="pure-u-1-2">
                   <input id="domino-mode" type="checkbox">
                   <label for="domino-mode">Guaranteed Drops
                     <span class="tooltip-wrapper">
@@ -701,7 +711,7 @@
                 </div>
                 <div class="pure-u-1-2">
                 </div>
-                <div class="pure-u-1-2">
+               <div class="pure-u-1-2">
                   <input id="rlbc-mode" type="checkbox">
                   <label for="rlbc-mode">Reverse Library Card
                     <span class="tooltip-wrapper">
@@ -719,6 +729,7 @@
               </div>
             </fieldset>
           </div>
+               
           <div class="pure-u-9-24">
             <div id="spoilers-container" class="hide" style="display: none">
               <textarea id="spoilers" rows="8" cols="32"></textarea>

@@ -651,11 +651,6 @@ const yargs = require('yargs')
     describe: 'Guarantees drops from every enemy that has one. Ring of Arcana makes them drop their rare item instead of the uncommon.',
     type: 'boolean',
   })
-  .option('alucardPalette', {
-    alias: 'ap',
-    describe: 'Randomizes Alucard\'s Palette amongst pre-set colors.',
-    type: 'boolean',
-  })
   .option('debug', {
     alias: 'D',
     describe: 'Debug mode.',
@@ -670,6 +665,18 @@ const yargs = require('yargs')
   .option('newGoals', {
     alias: 'g',
     describe: 'Change goal of the seed from default.',
+    type: 'string',
+    requiresArg: true,
+  })
+  .option('alucardPalette', {
+    alias: 'ap',
+    describe: 'Change Alucard\'s Palette',
+    type: 'string',
+    requiresArg: true,
+  })
+  .option('alucardLiner', {
+    alias: 'al',
+    describe: 'Change Alucard\'s Liner.',
     type: 'string',
     requiresArg: true,
   })
@@ -1127,11 +1134,6 @@ if ('debug' in argv) {console.log('randomize | Set rlbc')}
 if (argv.rlbc) { // reverse library cards - eldrich
   options.rlbcMode = true
 }
-if ('debug' in argv) {console.log('randomize | Set alucardPaletteRando')}
-// Enable Alucard palette randomizer mode if specified. - CRAZY4BLADES
-if (argv.alucardPalette) { // Alucard palette randomizer - CRAZY4BLADES
-  options.alucardPaletteMode = true
-}
 if ('debug' in argv) {console.log('randomize | Set map colors')}
 // Map Color Features if specified. - eldri7ch
 if ('mapcolor' in argv && typeof(argv.mapcolor) !== 'undefined') {
@@ -1154,6 +1156,28 @@ if ('newGoals' in argv && typeof(argv.newGoals) !== 'undefined') {
     process.exit(1)
   } else {
     options.newGoalsSet = argv.newGoals.toString()
+  }
+}
+if ('debug' in argv) {console.log('randomize | Alucard\'s palette')}
+if ('alucardPalette' in argv && typeof(argv.alucardPalette) !== 'undefined') {
+  let termsAllowed = 'd,r,b,g,w,l,p,s'
+  if (!(termsAllowed.includes(argv.alucardPalette))) {
+    yargs.showHelp()
+    console.error('\nMust contain a letter \'d\'(Default), \'r\'(Bloody Tears), \'b\'(Blue Danube), \'g\'(Swamp Thing), \'w\'(White Knight), \'l\'(Royal Purple), \'p\'(Pink Passion), \'s\'(Shadow Prince)')
+    process.exit(1)
+  } else {
+    options.alucardPaletteSet = argv.alucardPalette.toString()
+  }
+}
+if ('debug' in argv) {console.log('randomize | Alucard\'s liner')}
+if ('alucardLiner' in argv && typeof(argv.alucardLiner) !== 'undefined') {
+  let termsAllowed = 'z,x,y,w,v'
+  if (!(termsAllowed.includes(argv.alucardLiner))) {
+    yargs.showHelp()
+    console.error('\nMust contain a letter \'x\'(Bronze Liner), \'y\'(Silver Liner), \'z\'(Gold Liner), \'w\'(Onyx Liner), \'v\'(Jade Liner)')
+    process.exit(1)
+  } else {
+    options.alucardLinerSet = argv.alucardLiner.toString()
   }
 }
 if ('debug' in argv) {console.log('randomize | Exclude songs')}
@@ -1450,19 +1474,6 @@ if ('debug' in argv) {console.log('randomize | Start randomization')}
         }
         if ('debug' in argv) {console.log('randomize | function: randomize | Reverse Library Card Mode | ' + optFlag)}
         optFlag = false
-        if (options.alucardPaletteMode || applied.alucardPaletteMode) { // Alucard Palette Rando - CRAZY4BLADES
-          // Apply Alucard Palette Rando patches. - CRAZY4BLADES
-          optFlag = true
-          rng = new require('seedrandom')(util.saltSeed(
-            version,
-            options,
-            seed,
-            0,
-          ))
-          check.apply(util.applyAlucardPalettePatches(rng))
-        }
-        if ('debug' in argv) {console.log('randomize | function: randomize | Alucard Palette Randomizer Mode | ' + optFlag)}
-        optFlag = false
         if ('mapcolor' in argv) { // Colors the map - eldrich
           // Apply map color patches. - eldri7ch
           let mapcol = argv.mapcolor
@@ -1476,6 +1487,18 @@ if ('debug' in argv) {console.log('randomize | Start randomization')}
           check.apply(util.applyNewGoals(nGoal))
         }
         if ('debug' in argv) {console.log('randomize | function: randomize | New Goals')}
+        if ('alucardPalette' in argv) { // Changes Alucard's Palette. -Crazy4blades
+          // Apply new goal patches. - eldri7ch
+          let alColP = argv.alucardPalette
+          check.apply(util.applyAlucardPalette(alColP))
+        }
+        if ('debug' in argv) {console.log('randomize | function: randomize | Alucard Palette')}
+        if ('alucardLiner' in argv) { // Changes Alucard's Palette. -Crazy4blades
+          // Apply new goal patches. - eldri7ch
+          let alColL = argv.alucardLiner
+          check.apply(util.applyAlucardLiner(alColL))
+        }
+        if ('debug' in argv) {console.log('randomize | function: randomize | Alucard Liner')}
         if ('debug' in argv) {console.log('randomize | function: randomize | Apply Writes')}
         // Apply writes.
         check.apply(util.applyWrites(rng, applied))
