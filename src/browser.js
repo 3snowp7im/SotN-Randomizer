@@ -22,6 +22,8 @@
   let version
   let mapColorLock
   let newGoalsLock
+  let alucardPaletteLock
+  let alucardLinerLock
   let isAprilFools
 
   const safe = presets.filter(function(preset) {
@@ -409,7 +411,6 @@
       elems.startRoomRando2ndMode.checked = !!options.startRoomRando2ndMode
       elems.dominoMode.checked = !!options.dominoMode
       elems.rlbcMode.checked = !!options.rlbcMode
-      elems.alucardPaletteMode.checked = !!options.alucardPaletteMode
     }
   }
 
@@ -646,6 +647,16 @@
     }
   }
 
+  function alucardPaletteChange() {
+    localStorage.setItem('alucardPalette', elems.alucardPalette.value)
+    alucardPaletteLock = elems.alucardPalette.value
+  }
+
+  function alucardLinerChange(){
+    localStorage.setItem('alucardLiner', elems.alucardLiner.value)
+    alucardLinerLock = elems.alucardLiner.value
+  }
+
   function appendSeedChange() {
     localStorage.setItem('appendSeed', elems.appendSeed.checked)
   }
@@ -733,10 +744,6 @@
 
   function rlbcModeChange() {
     localStorage.setItem('rlbcMode', elems.rlbcMode.checked)
-  }
-
-  function alucardPaletteModeChange() {
-    localStorage.setItem('alucardPaletteMode', elems.alucardPaletteMode.checked)
   }
 
   function accessibilityPatchesChange() {
@@ -932,9 +939,6 @@
       if (elems.rlbcMode.checked) {
         options.rlbcMode = true
       }
-      if (elems.alucardPaletteMode.checked) {
-        options.alucardPaletteMode = true
-      }
       if (elems.mapColor != 'normal') {
         switch (elems.mapColor.value){
           case 'normal':
@@ -987,6 +991,53 @@
             break
         }
       }
+      if(elems.alucardPalette != 'default') {
+        switch(elems.alucardPalette.value){
+          case 'default':
+            break
+          case 'bloodytears':
+            alucardPaletteSet = 'r'
+            break
+          case 'bluedanube':
+            alucardPaletteSet = 'b'
+            break
+          case 'swampthing':
+            alucardPaletteSet = 'g'
+            break
+          case 'whiteknight':
+            alucardPaletteSet = 'w'
+            break
+          case 'royalpurple':
+            alucardPaletteSet = 'l'
+            break
+          case 'pinkpassion':
+            alucardPaletteSet = 'p'
+            break
+          case 'shadowp':
+            alucardPaletteSet = 's'
+            break
+                                                    
+        }
+      }
+      if(elems.alucardLiner != 'default'){
+        switch(elems.alucardLiner.value){
+          case 'gold':
+            alucardLinerSet = 'z'
+            break
+          case 'bronze':
+            alucardLinerSet = 'x'
+            break
+          case 'silver':
+            alucardLinerSet = 'y'
+            break
+          case 'onyx':
+            alucardLinerSet = 'w'
+            break
+          case 'coral':
+            alucardLinerSet = 'v'
+            break
+        }
+      }
       return options
     }
     const options = {
@@ -1016,7 +1067,6 @@
       startRoomRando2ndMode: elems.startRoomRando2ndMode.checked,
       dominoMode: elems.dominoMode.checked,
       rlbcMode: elems.rlbcMode.checked,
-      alucardPaletteMode: elems.alucardPaletteMode.checked,
     }
     if (elems.enemyDropsArg.value) {
       options.enemyDrops = util.optionsFromString(
@@ -1298,10 +1348,6 @@
         if (options.rlbcMode || applied.rlbcMode) {
           check.apply(util.applyRLBCPatches(rng))
         }
-        // Alucard Pelette Rando patches.
-        if (options.alucardPaletteMode || applied.alucardPaletteMode) {
-          check.apply(util.applyAlucardPalettePatches(rng))
-        }
         // Apply map color patches.
         if (mapColorLock != 'normal') {
           switch (mapColorLock){
@@ -1365,6 +1411,67 @@
               check.apply(util.applyNewGoals(nGoal))
               break
             default:
+              break
+          }
+        }
+        // Apply Alucard's palette.
+        if (alucardPaletteLock != 'default'){
+          switch(alucardPaletteLock){
+            case 'default':
+              break
+            case 'bloodytears':
+              alColP = 'r'
+              check.apply(util.applyAlucardPalette(alColP))
+              break
+            case 'bluedanube':
+              alColP = 'b'
+              check.apply(util.applyAlucardPalette(alColP))
+              break
+            case 'swampthing':
+              alColP = 'g'
+              check.apply(util.applyAlucardPalette(alColP))
+              break
+            case 'whiteknight':
+              alColP = 'w'
+              check.apply(util.applyAlucardPalette(alColP))
+              break
+            case 'royalpurple':
+              alColP = 'l'
+              check.apply(util.applyAlucardPalette(alColP))
+              break
+            case 'pinkpassion':
+              alColP = 'p'
+              check.apply(util.applyAlucardPalette(alColP))
+              break
+            case 'shadowp':
+              alcolP = 's'
+              check.apply(util.applyAlucardPalette(alColP))
+              break
+          }
+        }
+
+        //Apply Alucard's Liner
+        if(alucardLinerLock != 'default'){
+          switch(alucardLinerLock){
+            case 'gold':
+              alColL = 'z'
+              check.apply(util.applyAlucardLiner(alColL))
+              break
+            case 'bronze':
+              alColL = 'x'
+              check.apply(util.applyAlucardLiner(alColL))
+              break
+            case 'silver':
+              alColL = 'y'
+              check.apply(util.applyAlucardLiner(alColL))
+              break
+            case 'onyx':
+              alColL = 'w'
+              check.apply(util.applyAlucardLiner(alColL))
+              break
+            case 'coral':
+              alColL = "v"
+              check.apply(util.applyAlucardLiner(alColL))
               break
           }
         }
@@ -1507,7 +1614,6 @@
     elems.startRoomRando2ndMode.disabled = false
     elems.dominoMode.disabled = false
     elems.rlbcMode.disabled = false
-    elems.alucardPaletteMode.disabled = false
     elems.tournamentMode.disabled = false
     elems.clear.classList.add('hidden')
     presetChange()
@@ -1652,6 +1758,8 @@
     theme: document.getElementById('theme'),
     mapColor: document.getElementById('mapColor'),
     newGoals: document.getElementById('newGoals'),
+    alucardPalette: document.getElementById('alucardPalette'),
+    alucardLiner: document.getElementById('alucardLiner'),
     appendSeed: document.getElementById('append-seed'),
     tournamentMode: document.getElementById('tournament-mode'),
     colorrandoMode: document.getElementById('colorrando-mode'),
@@ -1670,7 +1778,6 @@
     startRoomRando2ndMode: document.getElementById('startRoomRando2nd-mode'),
     dominoMode: document.getElementById('domino-mode'),
     rlbcMode: document.getElementById('rlbc-mode'),
-    alucardPaletteMode: document.getElementById('alucardPalette-mode'),
     accessibilityPatches: document.getElementById('accessibility-patches'),
     showSpoilers: document.getElementById('show-spoilers'),
     showRelics: document.getElementById('show-relics'),
@@ -1732,6 +1839,8 @@
   elems.theme.addEventListener('change', themeChange)
   elems.mapColor.addEventListener('change', mapColorChange)
   elems.newGoals.addEventListener('change', newGoalsChange)
+  elems.alucardPalette.addEventListener('change', alucardPaletteChange)
+  elems.alucardLiner.addEventListener('change', alucardLinerChange)
   elems.appendSeed.addEventListener('change', appendSeedChange)
   elems.tournamentMode.addEventListener('change', tournamentModeChange)
   elems.colorrandoMode.addEventListener('change', colorrandoModeChange)
@@ -1750,7 +1859,6 @@
   elems.startRoomRando2ndMode.addEventListener('change', startRoomRando2ndModeChange)
   elems.dominoMode.addEventListener('change', dominoModeChange)
   elems.rlbcMode.addEventListener('change', rlbcModeChange)
-  elems.alucardPaletteMode.addEventListener('change', alucardPaletteModeChange)
   elems.accessibilityPatches.addEventListener('change', accessibilityPatchesChange)
   elems.showSpoilers.addEventListener('change', spoilersChange)
   elems.showRelics.addEventListener('change', showRelicsChange)
@@ -2061,6 +2169,8 @@
   loadOption('theme', themeChange, 'menu')
   loadOption('mapColor', mapColorChange, 'menu')
   loadOption('newGoals', newGoalsChange, 'menu')
+  loadOption('alucardPalette', alucardPaletteChange, 'menu')
+  loadOption('alucardLiner', alucardLinerChange, 'menu')
   loadOption('appendSeed', appendSeedChange, true)
   loadOption('showSolutions', showSolutionsChange, false)
   loadOption('showRelics', showRelicsChange, false)
@@ -2081,7 +2191,6 @@
   loadOption('startRoomRando2ndMode', startRoomRando2ndModeChange, false)
   loadOption('dominoMode', dominoModeChange, false)
   loadOption('rlbcMode', rlbcModeChange, false)
-  loadOption('alucardPaletteMode', alucardPaletteModeChange, false)
   loadOption('accessibilityPatches', accessibilityPatchesChange, true)
   loadOption('showSpoilers', spoilersChange, true)
   setTimeout(function() {
