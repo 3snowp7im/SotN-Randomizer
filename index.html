@@ -774,9 +774,21 @@
         </ul>
         <hr>
         <h2><a name="changelog">Changelog</a></h2>
+        <h3><time>April 14, 2025</time></h3>
+        <ul>
+          <h4>Options Changes</h4>
+          <li>Added Alucard Palette Selector.</li>
+          <li>Almost every single randomized / selected palette for Richter, Maria, Dracula, and Alucard was reworked.</li>
+          <li>Removed Guaranteed Drops mode for Bounty Hunter variants (The BH tool breaks drops if enabled).</li>
+          <li>Removed Reverse Library Card for Beyond preset.</li>
+          <h4>Website Updates</h4>
+          <li>Added "Known Bugs" section for transparency.</li>
+        </ul>
         <h3><time>April 3, 2025</time></h3>
+        <ul>
           <h4>Hotfix</h4>
           <li>Fixed Starting Room Randomizer execution from Preset Files.</li>
+        </ul>
         <h3><time>April 2, 2025</time></h3>
         <ul>
           <h4>Preset Changes</h4>
@@ -1344,6 +1356,12 @@
               to javascript.</li>
           </ul>
         </div>
+        <h2>Known Bugs</h2>
+        <ul>
+          <li>Non-Preset Generation through Browser results in impossible logic at layer 1 making the seed incompletable.</li>
+          <li>Removing Tournament Mode can make seeds take longer to generate.</li>
+          <li>Removing Color Randomizer mode from certain presets <i>may</i> cause the preset to be disabled in generation and cause layer 1 logic issues.</li>
+        </ul>
       </div>
     </main>
     <div id="dev-border"></div>
