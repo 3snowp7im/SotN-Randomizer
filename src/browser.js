@@ -339,11 +339,17 @@
     } else {
       elems.enemyStatRandoMode.disabled = false
     }
-    if (["boss-rush", "first-castle"].includes(preset.id)) {                                        // Remove rlbc mode for incompatible presets. - eldri7ch
+    if (["boss-rush", "first-castle","beyond"].includes(preset.id)) {                               // Remove rlbc mode for incompatible presets. - eldri7ch
       elems.rlbcMode.checked = false
       elems.rlbcMode.disabled = true
     } else {
       elems.rlbcMode.disabled = false
+    }
+    if (["bountyhunter","bountyhuntertc","hitman","chaos-lite"].includes(preset.id)) {              // Remove guaranteed drops mode for incompatible presets. - eldri7ch
+      elems.dominoMode.checked = false
+      elems.dominoMode.disabled = true
+    } else {
+      elems.dominoMode.disabled = false
     }
     if (!bossCompatible.includes(preset.id) && ["allBoss","abrsr"].includes(elems.newGoals.value)) {
       elems.newGoals.value = "default"                                                              // Remove all boss mode for incompatible presets. - eldri7ch
