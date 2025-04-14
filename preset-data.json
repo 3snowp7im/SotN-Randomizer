@@ -978,11 +978,11 @@
   {
     "name": "Vanilla",
     "id": "vanilla",
-    "description": "April Fools Preset Released on April 1st, 2025. The vanilla game.",
+    "description": "The vanilla game.",
     "author": [
       "eldri7ch"
     ],
-    "knowledgeCheck": "April Fools",
+    "knowledgeCheck": "None",
     "timeFrame": "Normal",
     "moddedLevel": "None",
     "castleType": "Normal",
