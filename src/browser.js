@@ -292,7 +292,15 @@
     } else {
       elems.startRoomRando2ndMode.disabled = false
     }
-
+    if (["boss-rush", "first-castle"].includes(preset.id)) {
+      elems.relicLocations.checked = false
+      elems.relicLocations.disabled = true
+      elems.relicLocationsSet.checked = false
+      elems.relicLocationsSet.disabled = true
+    } else {
+      elems.relicLocations.disabled = false
+      elems.relicLocationsSet.disabled = false
+    }
     if (["boss-rush", "beyond"].includes(preset.id)) {                                              // Remove start room rando mode for incompatible presets. - eldri7ch
       elems.startRoomRandoMode.checked = false
       elems.startRoomRandoMode.disabled = true

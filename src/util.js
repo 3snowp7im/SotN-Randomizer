@@ -6129,7 +6129,7 @@ function hexValueToDamageString(hexValue) {
       data.writeWord(addressRi, colorWrite)
       break
     case 'r': // Crimson
-      colorWrite = 0x00500000
+      colorWrite = 0x80500000
       data.writeWord(addressAl, colorWrite)
       data.writeWord(addressRi, colorWrite)
       break
@@ -6144,7 +6144,7 @@ function hexValueToDamageString(hexValue) {
       data.writeWord(addressRi, colorWrite)
       break
     case 'y': // Gray
-      colorWrite = 0xE3180000
+      colorWrite = 0xc20d0000
       bordWrite = 0xffff
       data.writeWord(addressAl, colorWrite)
       data.writeWord(addressRi, colorWrite)
@@ -6157,8 +6157,8 @@ function hexValueToDamageString(hexValue) {
       data.writeWord(addressRi, colorWrite)
       break
     case 'k': // Pink
-      colorWrite = 0xff1f0000
-      bordWrite = 0xfd0f
+      colorWrite = 0xf4b40000
+      bordWrite = 0xfe9e
       data.writeWord(addressAl, colorWrite)
       data.writeWord(addressRi, colorWrite)
       data.writeShort(addressAlBord,bordWrite)
