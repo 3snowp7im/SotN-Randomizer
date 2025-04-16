@@ -1271,7 +1271,14 @@
         }
         // Apply starting room rando patches.
         if (options.startRoomRandoMode || applied.startRoomRandoMode || options.startRoomRando2ndMode || applied.startRoomRando2ndMode) {
-          check.apply(util.applyStartRoomRandoPatches(rng,options))
+          let castleFlag = 0x00
+          if (options.startRoomRandoMode || applied.startRoomRandoMode) {
+            castleFlag = castleFlag + 0x01
+          }
+          if (options.startRoomRando2ndMode || applied.startRoomRando2ndMode) {
+            castleFlag = castleFlag + 0x10
+          }
+          check.apply(util.applyStartRoomRandoPatches(rng,castleFlag))
         }
         // Apply guaranteed drop patches.
         if (options.dominoMode || applied.dominoMode) {

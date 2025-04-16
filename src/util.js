@@ -6711,9 +6711,9 @@ function hexValueToDamageString(hexValue) {
 
     // console.log("Last Room in Data is: id = " + startRoomData[Math.floor(0.999 * (startRoomData.length))].id + " : " + startRoomData[Math.floor(0.999 * (startRoomData.length))].comment)
     // End of Debug Messages
-    
-    if(castleFlag === 0x01)        // 1st Castle Only
+    console.log('castle flag: ' + castleFlag)
 
+    if(castleFlag === 0x01)        // 1st Castle Only
     {
       while(startRoomData[randRoomId].stage >= 0x20)
       {
@@ -6724,7 +6724,7 @@ function hexValueToDamageString(hexValue) {
 
     if(castleFlag === 0x10)        // 2nd Castle Only
     {
-      while(startRoomData[randRoomId].stage <= 0x20)
+      while(startRoomData[randRoomId].stage < 0x20)
       {
         randRoomId = Math.floor(rng() * Math.floor(startRoomData.length))   // Re-roll if Room is 1st Castle but we did not choose to include it.
       }
@@ -6799,7 +6799,7 @@ function hexValueToDamageString(hexValue) {
     offset = data.writeChar(offset,0x41)
     data.writeChar(offset,0x64)
 
-    // console.log("randRoomId = " + randRoomId + ", Room id = " + startRoomData[randRoomId].id + " Desc:" + startRoomData[randRoomId].comment)
+    console.log("randRoomId = " + randRoomId + ", Room id = " + startRoomData[randRoomId].id + " Desc:" + startRoomData[randRoomId].comment)
 
     offset = 0xae95c                                                            // change the destination
     newWrite = startRoomData[randRoomId].xyWrite                                // Write X,Y Position
