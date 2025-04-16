@@ -339,7 +339,7 @@ const relicsHelp = [
   '  r:x:guarded:@y:fe0  Holy Symbol location may be empty or contain Fire of',
   '                      Bat or Force of Echo',
   '',
-  'Relics may be blocked from being randomized to a location by prefxing it',
+  'Relics may be blocked from being randomized to a location by prefixing it',
   'with a hypen ("-"):',
   '  r:-J:0BLG  Never let Jewel of Open location be empty, or have Soul of',
   '             Bat, Leap Stone, or Gravity Boots',
