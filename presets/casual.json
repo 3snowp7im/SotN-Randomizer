@@ -56,6 +56,11 @@
       "Holy glasses + Form of Mist + Power of Mist"
     ]
   }, {
+    "location": "Soul of Wolf",
+    "comment": "No Requirements",
+    "locks": [
+    ]
+  }, {
     "location": "Power of Wolf",
     "comment": "Requires flight",
     "locks": [
@@ -97,6 +102,16 @@
       "Holy glasses + Form of Mist + Power of Mist"
     ]
   }, {
+    "location": "Cube of Zoe",
+    "comment": "No Requirements",
+    "locks": [
+    ]
+  }, {
+    "location": "Spirit Orb",
+    "comment": "No Requirements",
+    "locks": [
+    ]
+  }, {
     "location": "Gravity Boots",
     "comment": "Requires flight",
     "locks": [
@@ -118,6 +133,16 @@
     "location": "Holy Symbol",
     "locks": [
       "Jewel of Open + Merman Statue"
+    ]
+  }, {
+    "location": "Faerie Scroll",
+    "comment": "No Requirements",
+    "locks": [
+    ]
+  }, {
+    "location": "Jewel of Open",
+    "comment": "No Requirements",
+    "locks": [
     ]
   }, {
     "location": "Merman Statue",
@@ -303,6 +328,21 @@
       "Soul of Wolf + Soul of Bat"
     ]
   }, {
+    "location": "Basilard",
+    "comment": "No Requirements",
+    "locks": [
+    ]
+  }, {
+    "location": "Sunglasses",
+    "comment": "No Requirements",
+    "locks": [
+    ]
+  }, {
+    "location": "Cloth cape",
+    "comment": "No Requirements",
+    "locks": [
+    ]
+  }, {
     "location": "Mystic pendant",
     "comment": "Requires at least Leap Stone",
     "locks": [
@@ -394,6 +434,16 @@
       "Form of Mist + Power of Mist"
     ]
   }, {
+    "location": "Gladius",
+    "comment": "No Requirements",
+    "locks": [
+    ]
+  }, {
+    "location": "Jewel knuckles",
+    "comment": "No Requirements",
+    "locks": [
+    ]
+  }, {
     "location": "Holy rod",
     "comment": "Requires at least Leap Stone",
     "locks": [
@@ -410,6 +460,11 @@
       "Leap Stone",
       "Gravity Boots",
       "Form of Mist + Power of Mist"
+    ]
+  }, {
+    "location": "Bronze cuirass",
+    "comment": "No Requirements",
+    "locks": [
     ]
   }, {
     "location": "Alucart sword",
