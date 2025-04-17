@@ -1233,7 +1233,7 @@
           }
         }
         check.apply(util.randoFuncMaster(optWrite))
-        rng = new require('seedrandom')(util.saltSeed(
+        rng = new Math.seedrandom(util.saltSeed(
           version,
           options,
           seed,
