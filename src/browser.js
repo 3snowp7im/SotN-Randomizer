@@ -1233,6 +1233,13 @@
           }
         }
         check.apply(util.randoFuncMaster(optWrite))
+        rng = new require('seedrandom')(util.saltSeed(
+          version,
+          options,
+          seed,
+          0,
+        ))
+        check.apply(util.applySplashText(rng))
         // Apply tournament mode patches.
         if (options.tournamentMode) {
           check.apply(util.applyTournamentModePatches())

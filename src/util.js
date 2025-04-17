@@ -6711,13 +6711,11 @@ function hexValueToDamageString(hexValue) {
 
     // console.log("Last Room in Data is: id = " + startRoomData[Math.floor(0.999 * (startRoomData.length))].id + " : " + startRoomData[Math.floor(0.999 * (startRoomData.length))].comment)
     // End of Debug Messages
-    console.log('castle flag: ' + castleFlag)
 
     if(castleFlag === 0x01)        // 1st Castle Only
     {
       while(startRoomData[randRoomId].stage >= 0x20)
       {
-        console.log('reroll')
         randRoomId = Math.floor(rng() * Math.floor(startRoomData.length))   // Re-roll if Room is 2nd Castle but we did not choose to include it.
       }
     }
@@ -6799,7 +6797,7 @@ function hexValueToDamageString(hexValue) {
     offset = data.writeChar(offset,0x41)
     data.writeChar(offset,0x64)
 
-    console.log("randRoomId = " + randRoomId + ", Room id = " + startRoomData[randRoomId].id + " Desc:" + startRoomData[randRoomId].comment)
+    // console.log("randRoomId = " + randRoomId + ", Room id = " + startRoomData[randRoomId].id + " Desc:" + startRoomData[randRoomId].comment)
 
     offset = 0xae95c                                                            // change the destination
     newWrite = startRoomData[randRoomId].xyWrite                                // Write X,Y Position
@@ -7129,6 +7127,70 @@ function hexValueToDamageString(hexValue) {
     for (let i = 0; i < 4; i++) {
       offset = data.writeShort(offset,palettesAlucardLiner[colorAlucardLiner][i])
     }
+    return data
+  }
+
+  function applySplashText(rng) {
+    const splashPhrases = constants.splashPhrases
+    const data = new checked()
+    let strId
+    let strText
+    let strLength
+    let newXPos
+    let offset
+    // Identify Variables
+    strId= Math.floor(rng() * Math.floor(splashPhrases.length))
+    strText = splashPhrases[strId]
+    strLength = strText.length
+    newXPos = numToHex(0x3404004b + (180-((strLength * 8) / 2)))
+    // Start writing the code - code by MottZilla
+    // Title Screen Display Text through Debug
+    offset = 0x4398AD0
+    offset = data.writeWord(offset, 0x3C04801B)
+    offset = data.writeWord(offset, 0x34844880)
+    offset = data.writeWord(offset, 0x0C004657)
+    offset = data.writeWord(offset, 0x00000000)
+    offset = data.writeWord(offset, 0x00000000)
+    offset = data.writeWord(offset, 0x2404FFFF)
+    offset = data.writeWord(offset, 0x0C0045BF)
+    offset = data.writeWord(offset, 0x00000000)
+    offset = data.writeWord(offset, 0x34040020)
+    offset = data.writeWord(offset, 0x3C058003)
+    offset = data.writeWord(offset, 0xA0A4B768)
+    offset = data.writeWord(offset, 0x340400C1)
+    offset = data.writeWord(offset, 0xA0A4B76A)
+    offset = data.writeWord(offset, 0x3C028009)
+    offset = data.writeWord(offset, 0x94427494)
+    offset = data.writeWord(offset, 0x0806D200)
+    offset = data.writeWord(offset, 0x00000000)
+    offset = data.writeWord(offset, 0x00000000)
+    offset = data.writeWord(offset, 0x00007845)
+    // Write Text Hook
+    offset = 0x439895C
+    offset = data.writeWord(offset, 0x0806d20e)
+    offset = data.writeWord(offset, 0x00000000)
+    // Write the new X pos
+    offset = 0x4398AF0
+    console.log(newXPos)
+    data.writeWord(offset, newXPos)
+    // Write the text
+    let i = 0
+    let strHex = []
+    // Convert each character of the text to hex code
+    while (i < (strLength)) {
+      if (i < strLength) {
+        strHex[i] = strText.charCodeAt(i)
+      } else {
+        strHex[i] = 0x00
+      }
+      i++
+    }
+    // perform the write
+    offset = 0x4398B18
+    strHex[strLength + 1] = 0x00
+    offset = data.writeString(offset, strHex)
+    offset = data.writeChar(offset, 0x00)
+
     return data
   }
 
@@ -7686,6 +7748,7 @@ function hexValueToDamageString(hexValue) {
     applyMapColor: applyMapColor,
     applyNewGoals: applyNewGoals,
     applyAlucardPalette: applyAlucardPalette,
+    applySplashText: applySplashText,
     applyAlucardLiner: applyAlucardLiner,
     randomizeRelics: randomizeRelics,
     randomizeItems: randomizeItems,
