@@ -1249,23 +1249,33 @@
     // Create relics and locations collections.
     let locations = getLocations()
     const extensions = []
+    let excludedDefaultRelics = [];
     switch (options.relicLocations.extension) {
-    case constants.EXTENSION.EXTENDED: // This is a smaller distribution than Equipment but includes all Scenic checks + GuardedPlus + some Equipment - eldri7ch
-      extensions.push(constants.EXTENSION.EXTENDED)
-      extensions.push(constants.EXTENSION.GUARDEDPLUS)
-      extensions.push(constants.EXTENSION.GUARDED) 
-      break
-    case constants.EXTENSION.SCENIC:
-      extensions.push(constants.EXTENSION.SCENIC)
-    case constants.EXTENSION.EQUIPMENT:
-      extensions.push(constants.EXTENSION.EQUIPMENT)
-    case constants.EXTENSION.GUARDEDPLUS:
-      extensions.push(constants.EXTENSION.GUARDEDPLUS)
-    case constants.EXTENSION.GUARDED:
-      extensions.push(constants.EXTENSION.GUARDED)
+      case constants.EXTENSION.EXTENDED: // This is a smaller distribution than Equipment but includes all Scenic checks + GuardedPlus + some Equipment - eldri7ch
+        extensions.push(constants.EXTENSION.EXTENDED);
+        extensions.push(constants.EXTENSION.GUARDEDPLUS);
+        extensions.push(constants.EXTENSION.GUARDED);
+        break;
+      case constants.EXTENSION.SCENIC:
+        extensions.push(constants.EXTENSION.SCENIC);
+        break;
+      case constants.EXTENSION.EQUIPMENT:
+        extensions.push(constants.EXTENSION.EQUIPMENT);
+        break;
+      case constants.EXTENSION.GUARDEDPLUS:
+        extensions.push(constants.EXTENSION.GUARDEDPLUS);
+        break;
+      case constants.EXTENSION.GUARDED:
+        extensions.push(constants.EXTENSION.GUARDED);
+        break;
+      case constants.EXTENSION.MIRROR:
+        extensions.push(constants.EXTENSION.MIRROR);
+        excludedDefaultRelics = ["Heart of Vlad", "Tooth of Vlad", "Ring of Vlad", "Eye of Vlad"];
+        break;
     }
+
     locations = locations.filter(function(location) {
-      return !location.extension
+      return (!location.extension && !excludedDefaultRelics.includes(location.name))
         || extensions.indexOf(location.extension) !== -1
     })
     let enabledRelics = relics.filter(function(relic) {

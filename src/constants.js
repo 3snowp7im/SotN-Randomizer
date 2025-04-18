@@ -504,6 +504,7 @@
     GUARDEDPLUS:    'guardedplus',
     SCENIC:   'scenic',
     EXTENDED:  'extended',
+    MIRROR: 'mirror'
   }
 
   const defaultExtension = EXTENSION.GUARDED

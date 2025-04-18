@@ -199,8 +199,24 @@
       y: 0x0098,
     },
   }, {
+    name: LOCATION.MORMEGIL,
+    extension: EXTENSION.MIRROR,
+    itemId: 110,
+    tileIndex: 0,
+    asRelic: {
+      y: 0x0098,
+    },
+  }, {
     name: LOCATION.DARK_BLADE,
     extension: EXTENSION.GUARDED,
+    itemId: 118,
+    tileIndex: 0,
+    asRelic: {
+      y: 0x0080,
+    },
+  },  {
+    name: LOCATION.DARK_BLADE,
+    extension: EXTENSION.MIRROR,
     itemId: 118,
     tileIndex: 0,
     asRelic: {
@@ -226,6 +242,32 @@
   }, {
     name: LOCATION.TRIO,
     extension: EXTENSION.GUARDED,
+    entity: {
+      zones: [ ZONE.RARE ],
+      entities: [ 0x23ba, 0x293c ],
+    },
+    reward: {
+      zone: ZONE.RBO0,
+      index: 0x02,
+    },
+    erase: {
+      instructions: [{
+        addresses: [ 0x06487bd4 ],
+        instruction: 0x34020000,
+      }],
+    },
+    replaceWithRelic: replaceTrioWithRelic,
+    replaceWithItem: replaceTrioRelicWithItem({
+      boss: ZONE.RBO0,
+      entry: 0x026e64,
+      inj: 0x038a00,
+    }),
+    asItem: {
+      y: 0x00d9,
+    },
+  }, {
+    name: LOCATION.TRIO,
+    extension: EXTENSION.MIRROR,
     entity: {
       zones: [ ZONE.RARE ],
       entities: [ 0x23ba, 0x293c ],
@@ -575,6 +617,14 @@
     asRelic: {
       y: 0x0110,
     },
+  },{
+    name: LOCATION.SWORD_OF_DAWN,
+    extension: EXTENSION.MIRROR,
+    itemId: 236, // Actually the garnet because sword is in breakable wall.
+    tileIndex: 2,
+    asRelic: {
+      y: 0x0110,
+    },
   }, {
     name: LOCATION.BASTARD_SWORD,
     extension: EXTENSION.EQUIPMENT,
@@ -628,6 +678,14 @@
     asRelic: {
       y: 0x0060,
     },
+  },  {
+    name: LOCATION.DRAGON_HELM,
+    extension: EXTENSION.MIRROR,
+    itemId: 214,
+    tileIndex: 0,
+    asRelic: {
+      y: 0x0060,
+    },
   }, {
     name: LOCATION.SHOTEL,
     extension: EXTENSION.EQUIPMENT,
@@ -645,6 +703,14 @@
       y: 0x00b0,
     },
   }, {
+    name: LOCATION.STAUROLITE,
+    extension: EXTENSION.MIRROR,
+    itemId: 230,
+    tileIndex: 0,
+    asRelic: {
+      y: 0x00b0,
+    },
+  }, {
     name: LOCATION.BADELAIRE,
     extension: EXTENSION.GUARDEDPLUS,
     itemId: 125,
@@ -655,6 +721,14 @@
   }, {
     name: LOCATION.FORBIDDEN_LIBRARY_OPAL,
     extension: EXTENSION.GUARDEDPLUS,
+    itemId: 237,
+    tileIndex: 0,
+    asRelic: {
+      y: 0x0080,
+    },
+  }, {
+    name: LOCATION.FORBIDDEN_LIBRARY_OPAL,
+    extension: EXTENSION.MIRROR,
     itemId: 237,
     tileIndex: 0,
     asRelic: {
@@ -704,8 +778,25 @@
       y: 0x0080,
     },
   }, {
+    name: LOCATION.ALUCARD_SHIELD,
+    extension: EXTENSION.MIRROR,
+    itemId: 16,
+    tileIndex: 0,
+    asRelic: {
+      x: 0x0080,
+      y: 0x0080,
+    },
+  }, {
     name: LOCATION.ALUCARD_SWORD,
     extension: EXTENSION.EQUIPMENT,
+    itemId: 123,
+    tileIndex: 0,
+    asRelic: {
+      y: 0x0080,
+    },
+  }, {
+    name: LOCATION.ALUCARD_SWORD,
+    extension: EXTENSION.MIRROR,
     itemId: 123,
     tileIndex: 0,
     asRelic: {
@@ -812,8 +903,24 @@
       y: 0x0077,
     },
   }, {
+    name: LOCATION.FLOATING_CATACOMBS_ELIXIR,
+    extension: EXTENSION.MIRROR,
+    itemId: 161,
+    tileIndex: 2,
+    asRelic: {
+      y: 0x0077,
+    },
+  }, {
     name: LOCATION.REVERSE_ENTRANCE_ANTIVENOM,
     extension: EXTENSION.SCENIC,
+    itemId: 144,
+    tileIndex: 3,
+    asRelic: {
+      y: 0x0279,
+    },
+  }, {
+    name: LOCATION.REVERSE_ENTRANCE_ANTIVENOM,
+    extension: EXTENSION.MIRROR,
     itemId: 144,
     tileIndex: 3,
     asRelic: {
@@ -860,6 +967,14 @@
   }, {
     name: LOCATION.REVERSE_KEEP_HIGH_POTION,
     extension: EXTENSION.SCENIC,
+    itemId: 160,
+    tileIndex: 0,
+    asRelic: {
+      y: 0x0180,
+    },
+  }, {
+    name: LOCATION.REVERSE_KEEP_HIGH_POTION,
+    extension: EXTENSION.MIRROR,
     itemId: 160,
     tileIndex: 0,
     asRelic: {
@@ -1060,6 +1175,14 @@
   }, {
     name: LOCATION.TWILIGHT_CLOAK,
     extension: EXTENSION.EXTENDED,
+    itemId: 225,
+    tileIndex: 0,
+    asRelic: {
+      y: 0x0080,
+    },
+  }, {
+    name: LOCATION.TWILIGHT_CLOAK,
+    extension: EXTENSION.MIRROR,
     itemId: 225,
     tileIndex: 0,
     asRelic: {
