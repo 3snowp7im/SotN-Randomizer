@@ -1349,12 +1349,6 @@ if ('debug' in argv) {console.log('randomize | Start randomization')}
           }
         }
         check.apply(util.randoFuncMaster(optWrite))
-        rng = new require('seedrandom')(util.saltSeed(
-          version,
-          options,
-          seed,
-          0,
-        ))
         check.apply(util.applySplashText(rng))
         if ('debug' in argv) {console.log('randomize | function: randomize | Apply patches from options')}
         optFlag = false

@@ -622,7 +622,6 @@
       "chimera",
       "vanilla"
     ]
-    console.log(elems.newGoals.value + ' ' + elems.presetId.value)
     if (["allBoss","abrsr"].includes(elems.newGoals.value) && !bossCompatible.includes(elems.presetId.value)){
       elems.newGoals.value = "default"
     } else if (["allRelic","abrsr"].includes(elems.newGoals.value) && !relicCompatible.includes(elems.presetId.value)){
@@ -1233,12 +1232,6 @@
           }
         }
         check.apply(util.randoFuncMaster(optWrite))
-        rng = new Math.seedrandom(util.saltSeed(
-          version,
-          options,
-          seed,
-          0,
-        ))
         check.apply(util.applySplashText(rng))
         // Apply tournament mode patches.
         if (options.tournamentMode) {
