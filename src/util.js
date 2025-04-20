@@ -3216,7 +3216,7 @@ function hexValueToDamageString(hexValue) {
     nonce = nonce || 0
     return JSON.stringify({
       version: version,
-      options: optionsToString(options),
+      tournamentMode: "tournamentMode" in options,
       seed: seed,
       nonce: nonce,
     })
