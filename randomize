@@ -1149,10 +1149,10 @@ if ('mapcolor' in argv && typeof(argv.mapcolor) !== 'undefined') {
 if ('debug' in argv) {console.log('randomize | Choose new goals')}
 // Map Color Features if specified. - eldri7ch
 if ('newGoals' in argv && typeof(argv.newGoals) !== 'undefined') {
-  let termsAllowed = 'd,b,r,a'
+  let termsAllowed = 'd,b,r,a,v'
   if (!(termsAllowed.includes(argv.newGoals))) {
     yargs.showHelp()
-    console.error('\nMust contain a letter \'d\'(Preset Default), \'b\'(All Bosses), \'r\'(All Relics), \'a\'(All Bosses and Relics)')
+    console.error('\nMust contain a letter \'d\'(Preset Default), \'b\'(All Bosses), \'r\'(All Relics), \'a\'(All Bosses and Relics), \'v\'(All Bosses and Vlad Relics)')
     process.exit(1)
   } else {
     options.newGoalsSet = argv.newGoals.toString()
@@ -1345,6 +1345,9 @@ if ('debug' in argv) {console.log('randomize | Start randomization')}
               break
             case "a":                                 //  all bosses and relics flag
               optWrite = optWrite + 0x03
+              break
+            case "v":                                 //  all bosses and vlad relics flag
+              optWrite = optWrite + 0x05
               break
           }
         }

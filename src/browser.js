@@ -331,7 +331,7 @@
     } else {
       elems.dominoMode.disabled = false
     }
-    if (!bossCompatible.includes(preset.id) && ["allBoss","abrsr"].includes(elems.newGoals.value)) {
+    if (!bossCompatible.includes(preset.id) && ["allBoss","abrsr","vladBoss"].includes(elems.newGoals.value)) {
       elems.newGoals.value = "default"                                                              // Remove all boss mode for incompatible presets. - eldri7ch
     }
     if (!relicCompatible.includes(preset.id) && ["allRelic","abrsr"].includes(elems.newGoals.value)) {
@@ -623,7 +623,7 @@
       "chimera",
       "vanilla"
     ]
-    if (["allBoss","abrsr"].includes(elems.newGoals.value) && !bossCompatible.includes(elems.presetId.value)){
+    if (["allBoss","abrsr","vladBoss"].includes(elems.newGoals.value) && !bossCompatible.includes(elems.presetId.value)){
       elems.newGoals.value = "default"
     } else if (["allRelic","abrsr"].includes(elems.newGoals.value) && !relicCompatible.includes(elems.presetId.value)){
       elems.newGoals.value = "default"
@@ -976,6 +976,9 @@
         case 'abrsr':
           newGoalsSet = 'a'
           break
+        case 'vladBoss':
+          newGoalsSet = 'v'
+          break
         default:
           break
       }
@@ -1230,6 +1233,9 @@
             case "abrsr":                           //  all bosses and relics flag
               optWrite = optWrite + 0x03
               break
+            case "vladBoss":                           //  all bosses and relics flag
+              optWrite = optWrite + 0x05
+              break
           }
         }
         check.apply(util.randoFuncMaster(optWrite))
@@ -1357,6 +1363,10 @@
               break
             case 'abrsr':
               nGoal = 'a'
+              check.apply(util.applyNewGoals(nGoal))
+              break
+            case 'vladBoss':
+              nGoal = 'v'
               check.apply(util.applyNewGoals(nGoal))
               break
             default:
