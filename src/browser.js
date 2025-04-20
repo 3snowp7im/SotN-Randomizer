@@ -351,6 +351,7 @@
       && options.relicLocations.extension
     adjustMaxComplexity()
     elems.complexity.value = complexity
+    elems.complexityCurrentValue.innerText = `(${elems.complexity.value})`;
     elems.enemyDrops.checked = !!options.enemyDrops
     elems.enemyDrops.disabled = options.enemyDrops != null && typeof(options.enemyDrops) == 'object'
     elems.startingEquipment.checked = !!options.startingEquipment
