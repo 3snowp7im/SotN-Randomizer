@@ -6885,6 +6885,12 @@ function hexValueToDamageString(hexValue) {
       data.writeWord(0x45f879a,0x03430342)
     }
 
+    if(startRoomData[randRoomId].stageWrite === 0x0b) {                         // Solve soft lock if player starts in the Keep Attic
+      offset = 0x0563E4C0
+      offset = data.writeWord(offset,0x34020001)
+      data.writeChar(offset,0x00000000)
+    }
+
     return data
   }
 
