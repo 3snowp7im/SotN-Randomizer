@@ -7138,7 +7138,7 @@ function hexValueToDamageString(hexValue) {
       offset = data.writeShort(offset, palettesWolfCloth[colorAlucardSet][i])
     }
     offset += 0x0c
-    offset = data.writeWord(offset, palettesWolfCloth[colorAlucardSet][13])
+    offset = data.writeShort(offset, palettesWolfCloth[colorAlucardSet][13])
     return data
   }
 
