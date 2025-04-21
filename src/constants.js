@@ -1832,6 +1832,26 @@
     "Randomizer? I hardly know her!"
   ]
 
+  const prideSplashPhrases = [
+    "Happy Pride!",
+    "Trans rights are human rights!",
+    "Gay rights are human rights!",
+    "Marriage Equality!",
+    "Ace homies rise up!",
+    "Enby comrades!",
+    "Hug your nearest Intersex friend!",
+    "Bisexual pride!",
+    "LGBTQIA+: You are seen and valid!",
+    "We love Demis!",
+    "Can't stand the Rainbow? Face the Painbow!",
+    "Progress only hurts the oppressor!",
+    "Love is Love!",
+    "Queer is here to stay!",
+    "Aromantics are welcome!",
+    "Preferred pronouns!",
+    "You get to decide your own identity!"
+  ]
+
   const adjectivesNormal = [
     "Invincible",
     "Burning",
@@ -2675,6 +2695,7 @@
     shopItemsData: shopItemsData,
     startRoomData: startRoomData,
     splashPhrases: splashPhrases,
+    prideSplashPhrases: prideSplashPhrases,
     digest: digest,
     adjectivesNormal: adjectivesNormal,
     adjectivesHalloween: adjectivesHalloween,

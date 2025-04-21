@@ -7196,7 +7196,16 @@ function hexValueToDamageString(hexValue) {
   }
 
   function applySplashText(rng) {
-    const splashPhrases = constants.splashPhrases
+    const month = new Date().getMonth() + 1
+    let splashPhrases = []
+    switch (month) {
+    case 6:
+      splashPhrases = constants.prideSplashPhrases
+      break
+    default:
+      splashPhrases = constants.splashPhrases
+      break
+    }
     const data = new checked()
     let strId
     let strText
