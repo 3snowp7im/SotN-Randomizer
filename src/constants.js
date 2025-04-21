@@ -1790,7 +1790,6 @@
     "Now featuring fewer calories!",
     "Heh, heh, thank you!",
     "Holy cross!",
-    "Your MOM is the wind!",
     "Maria is only seventeen!",
     "That relic was bait!",
     "So you made it!",
@@ -1805,7 +1804,7 @@
     "This cannot be!",
     "Behold my true form and despair!",
     "What are these!?",
-    "Hydrostorm!",
+    "Hydro Storm!",
     "Vial Stacks!",
     "Dark Wolf!",
     "This ain\’t nothing to me, man!",
@@ -1814,7 +1813,17 @@
     "Sword of Brawn!",
     "Xorlo!",
     "Pictures of Dad!",
-    "Yo, live!"
+    "Yo, live!",
+    "Hey, that's pretty good!",
+    "I'm bad at the game!",
+    "Complexity Vlad!",
+    "Wear Clock In Tower!",
+    "Twenty seven frames of walking animation!",
+    "Die monster! You don't belong in this world!",
+    "What is a man!?",
+    "A miserable little pile of relics!",
+    "Track one contains a dubstep banger!",
+    "The original Metroidvania!"
   ]
 
   const adjectivesNormal = [
