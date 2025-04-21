@@ -42,6 +42,13 @@ h1 {
     clear: both;
 }
 
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+  }
+  
 .dev h1 {
     display: none;
 }
