@@ -25,6 +25,13 @@
   let alucardPaletteLock
   let alucardLinerLock
   let isAprilFools
+ 
+  var paletteSelect = document.querySelector('#alucardPalette');
+  var linerSelect = document.querySelector('#alucardLiner');
+  var paletteDisplay = document.querySelector('#alucardPaletteDisplay');
+  var linerDisplay = document.querySelector('#alucardLinerDisplay');
+  var mapColorSelect = document.querySelector('#mapColor')
+  var mapColorDisplay = document.querySelector('#mapColorDisplay')
 
   const safe = presets.filter(function(preset) {
     return preset.id === 'safe'
@@ -40,7 +47,7 @@
       return clone
     })
   }
-
+  
   async function doApiRequest(reqPath, method, body){
     let data = null;
     try {
@@ -179,6 +186,38 @@
     if (event) {
       elems.options.classList.add('animate')
     }
+  }
+
+  function updateAlucardPreview() {
+    // Fix liner Y position
+    linerDisplay.style.backgroundPositionY = "64px";
+    // Calculate current position based on the selected options
+    var paletteIndex = paletteSelect.selectedIndex;
+    var linerIndex = linerSelect.selectedIndex;
+    paletteDisplay.style.backgroundPositionX = (768 - (paletteIndex * 96)) + "px";
+    linerDisplay.style.backgroundPositionX = (768 - (linerIndex * 96)) + "px";
+    console.log(paletteDisplay.style.backgroundPositionX);
+  };
+ 
+  updateAlucardPreview();
+ 
+  paletteSelect.onclick = function(){
+    updateAlucardPreview();
+  };
+ 
+  linerSelect.onclick = function(){
+    updateAlucardPreview();
+  };
+
+  function updateMapColorPreview() {
+    // Calculate current position based on the selected options
+    var mapColorIndex = mapColorSelect.selectedIndex;
+    mapColorDisplay.style.backgroundPositionX = (432 - (mapColorIndex * 48)) + "px";
+    console.log(mapColorDisplay.style.backgroundPositionX);
+  };
+
+  mapColorSelect.onclick = function() {
+    updateMapColorPreview();
   }
 
   function presetIdChange() {                                                                       // auto checks modes and options that presets use
