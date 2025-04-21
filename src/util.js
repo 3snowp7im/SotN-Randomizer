@@ -7195,14 +7195,14 @@ function hexValueToDamageString(hexValue) {
     return data
   }
 
-  function applySplashText(rng) {
-    const month = new Date().getMonth() + 1
+  function applySplashText(rng) {                                               // Splash text; ASM by MottZilla, JS by 3snow_p7im, eldri7ch, and DotChris
+    const month = new Date().getMonth() + 1                                     // Acquire the month the code is run
     let splashPhrases = []
-    switch (month) {
-    case 6:
+    switch (month) {                                                            // Establish different sets of phrases from constants.js based on the month
+    case 6:                                                                     // Pride month
       splashPhrases = constants.prideSplashPhrases
       break
-    default:
+    default:                                                                    // Any other month
       splashPhrases = constants.splashPhrases
       break
     }
@@ -7231,7 +7231,7 @@ function hexValueToDamageString(hexValue) {
     offset = data.writeWord(offset, 0x34040020)
     offset = data.writeWord(offset, 0x3C058003)
     offset = data.writeWord(offset, 0xA0A4B768)
-    offset = data.writeWord(offset, 0x340400C1)
+    offset = data.writeWord(offset, 0x340400C1)                                 // y posoition for text
     offset = data.writeWord(offset, 0xA0A4B76A)
     offset = data.writeWord(offset, 0x3C028009)
     offset = data.writeWord(offset, 0x94427494)
@@ -7243,32 +7243,33 @@ function hexValueToDamageString(hexValue) {
     offset = 0x439895C
     offset = data.writeWord(offset, 0x0806d20e)
     offset = data.writeWord(offset, 0x00000000)
-    // Write the new X pos
+    // Write the new X pos for the text
     offset = 0x4398AF0
     console.log(newXPos)
     data.writeWord(offset, newXPos)
     // Write the text
     let i = 0
     let strHex = []
-    // Convert each character of the text to hex code
-    console.log(strText)
-    while (i < (strLength)) {
-      if (i < strLength) {
-        if (strText[i] == "\\") {
+    // Convert each character of the text to hex code.
+    // Loops through each character in the string and assigns
+    // a hex code for that character to be written.
+    while (i < (strLength)) {                                                   // code runs as long as the string still has characters in it
+      if (i < strLength) {                                                      // run if the character is not the end of the string
+        if (strText[i] == "\\") {                                               // Check for apostrophes
           strhex[i] = 0x27
-        } else { 
+        } else {                                                                // if it's not an apostrophe, write the hex code for the text
           strHex[i] = strText.charCodeAt(i)
         }
-      } else {
+      } else {                                                                  // if it IS the end of the string, add a termination 0x00
         strHex[i] = 0x00
       }
-      i++
+      i++                                                                       // advance the integer in 'i'
     }
     // perform the write
     offset = 0x4398B18
-    strHex[strLength + 1] = 0x00
-    offset = data.writeString(offset, strHex)
-    offset = data.writeChar(offset, 0x00)
+    strHex[strLength + 1] = 0x00                                                // add an additional termination 0x00 in case the past one failed
+    offset = data.writeString(offset, strHex)                                   // actually write the text we need
+    offset = data.writeChar(offset, 0x00)                                       // I know, it seems redundant, but add an additional termination 0x00
     
     return data
   }

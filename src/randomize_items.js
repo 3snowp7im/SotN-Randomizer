@@ -1440,10 +1440,6 @@
   //   return 0x80000000 | (r << 10) | (g << 10) | b
   // }
 
-  function randomColor(rng) {
-    return 0x8000 | Math.floor(rng() * 0x10000)
-  }
-
   function ConvertRGBToSotN(r, g, b) {                                          // Code by Wecoc, converted by eldri7ch
     return (Math.floor(r / 8) + (Math.floor(g / 8) << 5) + (Math.floor(b / 8) << 10)) + 32768
   }
