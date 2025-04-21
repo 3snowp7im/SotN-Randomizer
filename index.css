@@ -48,7 +48,9 @@ h1 {
     margin-right: auto;
     width: 50%;
   }
-  
+.right {
+    float: right;
+}
 .dev h1 {
     display: none;
 }
