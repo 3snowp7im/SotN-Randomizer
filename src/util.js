@@ -7242,9 +7242,14 @@ function hexValueToDamageString(hexValue) {
     let i = 0
     let strHex = []
     // Convert each character of the text to hex code
+    console.log(strText)
     while (i < (strLength)) {
       if (i < strLength) {
-        strHex[i] = strText.charCodeAt(i)
+        if (strText[i] == "\\") {
+          strhex[i] = 0x27
+        } else { 
+          strHex[i] = strText.charCodeAt(i)
+        }
       } else {
         strHex[i] = 0x00
       }
@@ -7255,7 +7260,7 @@ function hexValueToDamageString(hexValue) {
     strHex[strLength + 1] = 0x00
     offset = data.writeString(offset, strHex)
     offset = data.writeChar(offset, 0x00)
-
+    
     return data
   }
 

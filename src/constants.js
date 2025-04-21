@@ -1823,7 +1823,13 @@
     "What is a man!?",
     "A miserable little pile of relics!",
     "Track one contains a dubstep banger!",
-    "The original Metroidvania!"
+    "The original Metroidvania!",
+    "The second best randomizer website!*",
+    "Patricide Simulator \'97!",
+    "Now with larger statue dongs!",
+    "Keep that 'Thang on ya!",
+    "We patched it!",
+    "Randomizer? I hardly know her!"
   ]
 
   const adjectivesNormal = [
