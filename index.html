@@ -14,6 +14,7 @@
   <body>
     <div class="navbar">
       <ul class="nav-links">
+        <img src="images/ICON.jpg" />
           <li class="nav-item"><a href="#">Randomizer</a></li>
           <li class="nav-item"><a href="/faq">FAQ</a></li>
           <li class="nav-item"><a href="https://ppf.sotn.io">PPF Patcher</a></li>
@@ -70,6 +71,16 @@
             <img height="16" width="16"
                 src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/twitch.svg"></a>
         </div>
+        <div class="pure-u-1-4"></div>
+        <div class="pure-u-1-4"></div>
+        <div class="pure-u-1-4">
+          <label for="theme">Theme</label>  
+          <select id="theme" type="checkbox">
+            <option value="menu">Menu</option>
+            <option value="light">Light</option>
+            <option value="dark">Dark</option>
+          </select>
+        </div>
         <form id="form" class="pure-u-1">
           <fieldset id="output">
             <legend>Output</legend>
@@ -95,8 +106,9 @@
               <input id="file" type="file" accept=".bin,.iso">
             </div>
           </fieldset>
+          
           <div id="randomization-options">
-            <fieldset class="pure-u-lg-1-2">
+            <fieldset class="pure-u-lg-1-3">
               <legend>Randomizations</legend>
               <div id="seed-container">
                 <label for="seed">Seed:</label>
@@ -328,19 +340,9 @@
                 </div>
               </div>
             </fieldset>
-            <fieldset class="pure-u-lg-1-2">
+            <fieldset class="pure-u-lg-1-3">
               <legend>Options</legend>
               <div class="pure-g">
-                <div class="pure-u-12-24">
-                  <label for="theme">Theme</label>
-                </div>
-                <div class="pure-u-12-24">
-                  <select id="theme" type="checkbox">
-                    <option value="menu">Menu</option>
-                    <option value="light">Light</option>
-                    <option value="dark">Dark</option>
-                  </select>
-                </div>
                 <div class="pure-u-12-24">
                   <label for="mapColor">Map Color</label>
                 </div>
@@ -735,6 +737,34 @@
                   </label>
                 </div>
               </div>
+            </fieldset>
+            <fieldset class="pure-u-lg-1-3">
+              <legend>Customizations</legend>
+              <div class="pure-u-1-5">Default Palette<img src = "images/default palette.png" /></div>
+                <div class="pure-u-1-5">Bloody - Tears <img src = "images/bloody tears palette.png" /></div>
+                <div class="pure-u-1-5">Blue - Danube <img src = "images/Blue Danube Palette.png" /></div>
+                <div class="pure-u-1-5">Swamp - Thing <img src = "images/Swamp Thing Palette.png" /></div>
+                <div class="pure-u-1-5">White Knight <img src = "images/White Knight Palette.png" /></div>
+                <div class="pure-u-1-5">Royal Purple <img src = "images/Royal Purple Palette.png" /></div>
+                <div class="pure-u-1-5">Pink Passion <img src = "images/Pink Passion Palette.png" /></div>
+                <div class="pure-u-1-5"></div>
+                <div class="pure-u-1-5">Default Liner <img src = "images/Default Liner.png"/></div>
+                <div class="pure-u-1-5">Bronze Liner <img src = "images/Bronze Liner.png"/></div>
+                <div class="pure-u-1-5">Silver Liner <img src = "images/Silver Liner.png"/></div>
+                <div class="pure-u-1-5">Onyx Liner <img src = "images/Onyx Liner.png"/></div>
+                <div class="pure-u-1-5">Coral Liner <img src = "images/Coral Liner.png"/></div>
+                <div class="pure-u-1-5"></div>
+                <div class="pure-u-1-5"></div>
+                <div class="pure-u-1-5"></div>
+                <div class="pure-u-1-5">Default Map <img src = "images/Default Map.png"/></div>
+                <div class="pure-u-1-5">Dark Blue <img src = "images/Dark Blue Map.png"/></div>
+                <div class="pure-u-1-5">Green <img src = "images/Green.png"/></div>
+                <div class="pure-u-1-5">Crimson<img src = "images/Crimson.png"/></div>
+                <div class="pure-u-1-5">Brown <img src = "images/Brown Map.png"/></div>
+                <div class="pure-u-1-5">Purple <img src = "images/Purple Map.png"/></div>
+                <div class="pure-u-1-5">Grey  <img src = "images/Gray Map.png"/></div>
+                <div class="pure-u-1-5">Pink <img src = "images/Pink Map.png"/></div>
+                <div class="pure-u-1-5">Black <img src = "images/Black Map.png"/></div>
             </fieldset>
           </div>
                
