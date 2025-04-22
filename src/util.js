@@ -7188,7 +7188,7 @@ function hexValueToDamageString(hexValue) {
     for (let i = 0; i< 5; i++) {
       offset = data.writeShort(offset,palettesWolfSkin[colorAlucardLiner][i])
     }
-    offset += 0x20
+    offset += 0x16
     for (let i = 5; i< 10; i++) {
       offset = data.writeShort(offset,palettesWolfSkin[colorAlucardLiner][i])
     }
