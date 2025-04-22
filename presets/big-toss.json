@@ -1866,6 +1866,60 @@
   }],
 
   "writes": [{
+    "comment": "Jump to injected code",
+    "address": "0x000fa97c",
+    "type": "word",
+    "value": "0x0c04db00"
+  },{
+    "address": "0x00158c98",
+    "type": "word",
+    "value": "0x3c038004",
+    "comment": "lui v1, 0x8004"
+  },
+  
+  {
+    "comment": "Save Return Address for rA (Armor Code)",
+    "type": "word",
+    "value": "0x37F70000"
+  },
+
+  {
+    "comment": "Give Library Card",
+    "type": "word",
+    "value": "0x34040024"
+  },{
+    "type": "word",
+    "value": "0x34050000"
+  },{
+    "type": "word",
+    "value": "0x0C03F61D"
+  },{
+    "type": "word",
+    "value": "0x00000000"
+  },
+  
+  {
+    "comment": "Recall Return Address for rA (Armor Code)",
+    "type": "word",
+    "value": "0x36FF0000"
+  }, {
+    "type": "word",
+    "value": "0x00000000",
+    "comment": "nop"
+  },
+  
+  {
+    "comment": "Return from injected code",
+    "type": "word",
+    "value": "0x0803924f",
+    "comment": "j 0x800e493c"
+  },{
+    "type": "word",
+    "value": "0x00000000",
+    "comment": "nop"
+  },
+  
+  {
     "comment": "Big Toss on normal damage",
     "type": "char",
     "address": "0x001188b4",
