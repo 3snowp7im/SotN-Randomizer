@@ -11,6 +11,7 @@
   const applyAccessibilityPatches = sotnRando.applyAccessibilityPatches
   const relics = sotnRando.relics
   const apiUrl = "https://sotnrandoapi.duckdns.org";
+  
 
   let info
   let currSeed
@@ -37,6 +38,11 @@
     return preset.id === 'safe'
   }).pop()
 
+  const selectElement = (element) => document.querySelector(element)
+
+  selectElement('.menu-icons').addEventListener('click', () => {
+    selectElement('nav').classList.toggle('active')
+  })
   function cloneItems(items) {                                                              //Saves previous selections
     return items.map(function(item) {
       const clone = Object.assign({}, item)
