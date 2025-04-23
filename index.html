@@ -9,31 +9,40 @@
     <link rel="stylesheet"
           href="https://d1azc1qln24ryf.cloudfront.net/114779/Socicon/style-cf.css?u8vidh">
     <link rel="stylesheet" href="index.css">
+    <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
     <link rel="stylesheet" href="static/css/randomizations.css">
   </head>
   <body>
-    <div class="navbar">
-      <ul class="nav-links">
-          <li class="nav-item"><a href="#">Randomizer</a></li>
-          <li class="nav-item"><a href="/faq">FAQ</a></li>
-          <li class="nav-item"><a href="https://ppf.sotn.io">PPF Patcher</a></li>
-          <li class="nav-item"><a href="community.html">Leaderboards</a></li>
-          <li class="nav-item dropdown">
-              <a href="#">Tools ▼</a>
-              <div class="dropdown-content">
-                  <a href="https://github.com/LuciaRolon/SotNRandomizerLauncher/releases">Randomizer Launcher</a>
-                  <a href="https://taliczealot.github.io/#/apps/sotnrandotools">Rando Tools</a>
-                  <a href="https://github.com/MottZilla/BountyHunterTool/releases/">Bounty Hunter Tool</a>
-              </div>
-          </li>
-          <li class="nav-item dropdown">
-            <a href="#">Community & News ▼</a>
-            <div class="dropdown-content">
-                <a href="https://discord.gg/dzbKhQDjrs">Long Library Discord</a>
-                <a href="https://www.symphonyrando.fun">Knowledge Database (sr.f)</a>
-            </div>
-        </li>
-      </ul>
+    <div class="container">
+      <nav>
+        <div class="menu-icons">
+          <i class="icon ion-md-menu"></i>
+          <i class="icon ion-md-close"></i>
+        </div>
+      
+      <ul class="nav-list">
+          <li><a href="#">Randomizer</a></li>
+          <li><a href="/faq">FAQ</a></li>
+          <li><a href="https://ppf.sotn.io">PPF Patcher</a></li>
+          <li><a href="community.html">Leaderboards</a></li>
+              <li>
+                    <a href="#">Community & News ▼</a>
+                  <ul class="sub-menu">
+                    <li><a href="https://discord.gg/dzbKhQDjrs">Long Library Discord</a></li>
+                    <li><a href="https://www.symphonyrando.fun">Knowledge Database (sr.f)</a></li>
+                  </ul>
+              </li>
+              <li>
+                  <a href="#">Tools ▼</a>
+                  <ul class="sub-menu">
+                    <li><a href="https://github.com/LuciaRolon/SotNRandomizerLauncher/releases">Randomizer Launcher</a></li>
+                    <li><a href="https://taliczealot.github.io/#/apps/sotnrandotools">Rando Tools</a></li>
+                    <li><a href="https://github.com/MottZilla/BountyHunterTool/releases/">Bounty Hunter Tool</a></li>
+                  </ul>
+              </li>
+        
+        </ul>
+      </nav>
     </div>
 
     <div id="version"></div>
@@ -70,8 +79,6 @@
             <img height="16" width="16"
                 src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/twitch.svg"></a>
         </div>
-        <div class="pure-u-1-4"></div>
-        <div class="pure-u-1-4"></div>
         <div class="right">
           <label for="theme">Theme</label>  
           <select id="theme" type="checkbox">
