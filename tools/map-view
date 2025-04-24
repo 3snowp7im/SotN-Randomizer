@@ -84,7 +84,18 @@ const rooms = util.entityData(data).map(function(entities, index) {
         lines.push('    index: ' + item.index + ',')
       }
     } else {
-      lines.push('  entity')
+
+      switch (entity.data.toString('hex').substring(8,10)) {
+      case '05':
+        lines.push('  red door:')
+        break
+      case '0a':
+        lines.push('  infinite item: Peanuts')
+        break
+      default:
+        lines.push('  entity:')
+        break
+      }
     }
     lines.push('    offsets: [ ' + entity.addresses.map(function(address) {
       return util.numToHex(address)
@@ -92,7 +103,10 @@ const rooms = util.entityData(data).map(function(entities, index) {
     lines.push('    rom: [ ' + entity.addresses.map(function(address) {
       return util.numToHex(util.romOffset(zone, address))
     }).join(', ') + ' ],')
-    lines.push('    data: ' + entity.data.toString('hex') + ',')
+    lines.push('    data:    ' + entity.data.toString('hex') + ',')
+    lines.push('    X pos:   ' + entity.data.toString('hex').substring(2,4) + entity.data.toString('hex').substring(0,2) + '|  Y pos:   ' + entity.data.toString('hex').substring(6,8) + entity.data.toString('hex').substring(4,6))
+    lines.push('    type:    ' + entity.data.toString('hex').substring(10,12) + entity.data.toString('hex').substring(8,10) + '|  slot:    ' + entity.data.toString('hex').substring(12,14) + entity.data.toString('hex').substring(14,16))
+    lines.push('    subtype: ' + entity.data.toString('hex').substring(16,18) + entity.data.toString('hex').substring(18,20))
   })
   return lines.join('\n')
 })
