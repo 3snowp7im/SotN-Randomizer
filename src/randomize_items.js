@@ -1745,6 +1745,77 @@
       offset = data.writeShort(offset,palettesMaria[colorM][i])
     }
   }
+
+  function randomizeMenuBgColor(data, rng){
+    let redVal
+    let greenVal
+    let blueVal
+    let baseWrite = 0x34020000                                                    // for this, register 2 is used
+    let redWrite
+    let greenWrite
+    let blueWrite
+    let offset = 0x000fa948
+    const colorArray = ["r1","g1","b1"]
+    let colorShuffled = shuffled(rng, colorArray)                                     // Shuffle the colors to randomize which becomes primary, secondary, tertiary
+    
+    let primary = colorShuffled.pop()                                           // Choose a primary color for the Menu
+    let secondary = colorShuffled.pop()                                         // Secondary color will be sometimes present but not too much
+    let tertiary = colorShuffled.pop()                                          // This color will never appear
+
+    switch (primary) {                                                          // The primary has a max value of 15 (0x0f)
+      case "r1":
+        redVal = Math.floor(rng() * 0x09)
+        redWrite = util.numToHex(baseWrite + redVal)
+        break
+      case "g1":
+        greenVal = Math.floor(rng() * 0x09)
+        greenWrite = util.numToHex(baseWrite + greenVal)
+        break
+      case "b1":
+        blueVal = Math.floor(rng() * 0x09)
+        blueWrite = util.numToHex(baseWrite + blueVal)
+        break
+    }
+    switch (secondary) {                                                        // the Secondary has a max value of 08
+      case "r1":
+        redVal = Math.floor(rng() * 0x06)
+        redWrite = util.numToHex(baseWrite + redVal)
+        break
+      case "g1":
+        greenVal = Math.floor(rng() * 0x06)
+        greenWrite = util.numToHex(baseWrite + greenVal)
+        break
+      case "b1":
+        blueVal = Math.floor(rng() * 0x06)
+        blueWrite = util.numToHex(baseWrite + blueVal)
+        break
+    }
+    switch (tertiary) {                                                         // never represented. This makes for less grey menus
+      case "r1":
+        redWrite = baseWrite
+        break
+      case "g1":
+        greenWrite = baseWrite
+        break
+      case "b1":
+        blueWrite = baseWrite
+        break
+    }
+    console.log("red: " + util.numToHex(redWrite))
+    console.log("green: " + util.numToHex(greenWrite))
+    console.log("blue: " + util.numToHex(blueWrite))
+    // this copde literally replaces the ASM that the game normally uses to set the menu color
+    // This code was compiled with a repeated function that wasn't needed so we can use the space
+    offset = data.writeWord(offset, 0x3C108003)                                 
+    offset = data.writeWord(offset, 0x3610CAC0)                                 // populate r16 with the address 0x8003cac0 (used again later in and out of our code)                       
+    offset = data.writeWord(offset, redWrite)
+    offset = data.writeWord(offset, 0xAE020000)                                 // Write the red color to 0x8003cac0
+    offset = data.writeWord(offset, greenWrite)
+    offset = data.writeWord(offset, 0xAE020004)                                 // green to 0x8003cac4
+    offset = data.writeWord(offset, blueWrite)
+    offset = data.writeWord(offset, 0xAE020008)                                 // blue to 0x8003cac8
+    data.writeWord(offset, 0x34020001)                                          // r2 needed to be set to 1 after this.
+  }
   
   function randomizeItems(rng, items, newNames, options) {
     const data = new util.checked()
@@ -1876,6 +1947,7 @@
           randomizeRichterColor(data,rng)
           randomizeDraculaCape(data,rng)
           randomizeMariaColor(data,rng)
+          randomizeMenuBgColor(data, rng)
         }
         // Write items to ROM.
         if (options.itemLocations
