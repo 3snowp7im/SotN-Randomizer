@@ -89,6 +89,12 @@ const rooms = util.entityData(data).map(function(entities, index) {
       case '05':
         lines.push('  red door:')
         break
+      case '08':
+        lines.push('  room foreground:')
+        break
+      case '09':
+        lines.push('  stage name: ' + process.argv[3])
+        break
       case '0a':
         lines.push('  infinite item: Peanuts')
         break
