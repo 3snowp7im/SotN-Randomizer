@@ -1829,7 +1829,13 @@
     "Now with larger statue dongs!",
     "Keep that 'Thang on ya!",
     "We patched it!",
-    "Randomizer? I hardly know her!"
+    "Randomizer? I hardly know her!",
+    "Also try Archipelago!",
+    "Check out Kind and Fair!",
+    "Bora, bora, bora, bora!",
+    "Ay, vamos!",
+    "Klasse!",
+    "C\’est genial!"
   ]
 
   const prideSplashPhrases = [
