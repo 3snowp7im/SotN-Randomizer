@@ -648,7 +648,7 @@ const yargs = require('yargs')
   })
   .option('rlbc', {
     alias: 'rl',
-    describe: 'Guarantees drops from every enemy that has one. Ring of Arcana makes them drop their rare item instead of the uncommon.',
+    describe: 'Allows use of Library Cards to teleport to the Forbidden Library by holding Down while using them.',
     type: 'boolean',
   })
   .option('debug', {
@@ -1334,8 +1334,15 @@ if ('debug' in argv) {console.log('randomize | Start randomization')}
         check.apply(randomizeMusic(rng, applied))
         if ('debug' in argv) {console.log('randomize | function: randomize | Apply options / writes function master')}
         let optWrite = 0x00000000                   // This variable lets the ASM used in the Master Function know if it needs to run certain code or sets flags for the tracker to use
-        if ('newGoals' in argv) {                   // Sets flag for the tracker to know which goals to use
-          let nGoal = argv.newGoals
+        let nGoal
+        if ('newGoals' in argv || options.newGoals || applied.newGoals) {                   // Sets flag for the tracker to know which goals to use
+          if (argv.newgoals !== undefined) {
+            nGoal = argv.newgoals
+          } else if (applied.newGoals !== undefined) {
+            nGoal = applied.newGoals
+          } else if (options.newGoals !== undefined) {
+            nGoal = options.newGoals
+          }
           switch(nGoal) {
             case "b":                                 // all bosses flag
               optWrite = optWrite + 0x01

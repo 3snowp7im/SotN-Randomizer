@@ -1801,9 +1801,7 @@
         blueWrite = baseWrite
         break
     }
-    console.log("red: " + util.numToHex(redWrite))
-    console.log("green: " + util.numToHex(greenWrite))
-    console.log("blue: " + util.numToHex(blueWrite))
+    
     // this copde literally replaces the ASM that the game normally uses to set the menu color
     // This code was compiled with a repeated function that wasn't needed so we can use the space
     offset = data.writeWord(offset, 0x3C108003)                                 

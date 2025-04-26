@@ -8,6 +8,7 @@
   let relics
   let fs
   let crypto
+  let goals
 
   if (self) {
     constants = self.sotnRando.constants
@@ -17,6 +18,7 @@
     items = self.sotnRando.items
     relics = self.sotnRando.relics
     crypto = self.crypto
+    goals = self.goals
   } else {
     constants = require('./constants')
     enemies = require('./enemies')
@@ -3836,6 +3838,7 @@ function hexValueToDamageString(hexValue) {
     startRoomRando2ndMode,
     dominoMode,
     rlbcMode,
+    newGoals,
     debugMode,
     writes,
   ) {
@@ -3880,6 +3883,7 @@ function hexValueToDamageString(hexValue) {
     this.startRoomRando2ndMode = startRoomRando2ndMode
     this.dominoMode = dominoMode
     this.rlbcMode = rlbcMode
+    this.newGoals = newGoals
     this.debugMode = debugMode
     if (writes) {
       this.writes = writes
@@ -4044,6 +4048,8 @@ function hexValueToDamageString(hexValue) {
     this.domino = false
     // reverse library cards mode.
     this.rlbc = false
+    // new goals for completion.
+    this.newGoals = undefined
     // Debug mode.
     this.debug = false
     // Arbitrary writes.
@@ -4371,6 +4377,9 @@ function hexValueToDamageString(hexValue) {
     }
     if ('rlbcMode' in json) {
       builder.rlbcMode(json.rlbcMode)
+    }
+    if ('newGoalsSet' in json) {
+      builder.newGoalsSet(json.newGoalsSet)
     }
     if ('writes' in json) {
       let lastAddress = 0
@@ -4706,6 +4715,9 @@ function hexValueToDamageString(hexValue) {
     }
     if ('rlbcMode' in preset) {
       this.rlbc = preset.rlbcMode
+    }
+    if ('newGoalsSet' in preset) {
+      this.newGoals = preset.newGoalsSet
     }
     if ('writes' in preset) {
       this.writes = this.writes || []
@@ -5347,7 +5359,7 @@ function hexValueToDamageString(hexValue) {
       }
     }
 
-  // Enable guarded relic locations.
+  // Enable relic locations.
   PresetBuilder.prototype.relicLocationsExtension =
     function relicLocationsExtension(extension) {
       assert.oneOf(typeof(extension), ['boolean', 'string'])
@@ -5447,6 +5459,12 @@ function hexValueToDamageString(hexValue) {
   // Enable Reverse Library Cards - eldri7ch
   PresetBuilder.prototype.rlbcMode = function rlbcMode(enabled) {
     this.rlbc = enabled
+  }
+
+  // Assign New Goals - eldri7ch
+  PresetBuilder.prototype.newGoalsSet = function newGoalsSet(nGoals) {
+    assert.oneOf(typeof(nGoals), ['boolean', 'string'])
+    this.newGoals = nGoals
   }
 
   // Write a character.
@@ -5765,6 +5783,7 @@ function hexValueToDamageString(hexValue) {
     const startRoomRando2nd = self.startRoomRando2nd
     const domino = self.domino
     const rlbc = self.rlbc
+    const newGoals = self.newGoals
     const debug = self.debug
     const writes = self.writes
     return new Preset(
@@ -5809,6 +5828,7 @@ function hexValueToDamageString(hexValue) {
       startRoomRando2nd,
       domino,
       rlbc,
+      newGoals,
       debug,
       writes,
     )
@@ -5838,6 +5858,8 @@ function hexValueToDamageString(hexValue) {
     const data = new checked()                        // randomizer options that require additional code. 0x3711A68 is loaded from CD by separate code
     let offset
     
+    console.log('optwrite: ' + optWrite)
+
     offset = 0xF96D8
     offset = data.writeWord(offset, 0x0c038ba6)       // call the sector load
     data.writeWord(offset, 0x00000000)
@@ -7245,7 +7267,6 @@ function hexValueToDamageString(hexValue) {
     offset = data.writeWord(offset, 0x00000000)
     // Write the new X pos for the text
     offset = 0x4398AF0
-    console.log(newXPos)
     data.writeWord(offset, newXPos)
     // Write the text
     let i = 0
