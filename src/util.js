@@ -3838,7 +3838,7 @@ function hexValueToDamageString(hexValue) {
     startRoomRando2ndMode,
     dominoMode,
     rlbcMode,
-    newGoals,
+    newGoalsSet,
     debugMode,
     writes,
   ) {
@@ -3883,7 +3883,7 @@ function hexValueToDamageString(hexValue) {
     this.startRoomRando2ndMode = startRoomRando2ndMode
     this.dominoMode = dominoMode
     this.rlbcMode = rlbcMode
-    this.newGoals = newGoals
+    this.newGoalsSet = newGoalsSet
     this.debugMode = debugMode
     if (writes) {
       this.writes = writes
