@@ -1267,18 +1267,37 @@
         check.apply(randomizeMusic(rng, applied))
         // Initiate the write options function master
         let optWrite = 0x00000000                   // This variable lets the ASM used in the Master Function know if it needs to run certain code or sets flags for the tracker to use
-        if (elems.newGoals.value !== "default") {   // Sets flag for the tracker to know which goals to use
-          switch(elems.newGoals.value) {
-            case "allBoss":                         // all bosses flag
+        let nGoal                                                                       //begin the newGoals flag setting for the function master
+        if (elems.newGoals.value !== "default" || options.newGoals) {                   // Sets flag for the tracker to know which goals to use
+          if (elems.newGoals.value !== "default") {
+            switch(elems.newGoals.value) {
+              case "allBoss":                         // all bosses flag
+                nGoal = "b"
+                break
+              case "allRelic":                        // all relics flag
+                nGoal = "r"
+                break
+              case "abrsr":                           //  all bosses and relics flag
+                nGoal = "a"
+                break
+              case "vladBoss":                        //  all bosses and relics flag
+                nGoal = "v"
+                break
+            }
+          } else if (options.newGoals !== undefined) {
+            nGoal = options.newGoals
+          }
+          switch(nGoal) {
+            case "b":                                 // all bosses flag
               optWrite = optWrite + 0x01
               break
-            case "allRelic":                        // all relics flag
+            case "r":                                 // all relics flag
               optWrite = optWrite + 0x02
               break
-            case "abrsr":                           //  all bosses and relics flag
+            case "a":                                 //  all bosses and relics flag
               optWrite = optWrite + 0x03
               break
-            case "vladBoss":                           //  all bosses and relics flag
+            case "v":                                 //  all bosses and vlad relics flag
               optWrite = optWrite + 0x05
               break
           }
@@ -1318,34 +1337,34 @@
           check.apply(util.applyunlockedPatches())
         }
         // Apply surprise patches.
-        if (options.surpriseMode || applied.surpriseMode) {
+        if (options.surpriseMode) {
           check.apply(util.applysurprisePatches())
         }
         // Apply enemy stat rando patches.
-        if (options.enemyStatRandoMode || applied.enemyStatRandoMode) {
+        if (options.enemyStatRandoMode) {
           check.apply(util.applyenemyStatRandoPatches(rng))
         }
         // Apply shop price rando patches.
-        if (options.shopPriceRandoMode || applied.shopPriceRandoMode) {
+        if (options.shopPriceRandoModee) {
           check.apply(util.applyShopPriceRandoPatches(rng))
         }
         // Apply starting room rando patches.
-        if (options.startRoomRandoMode || applied.startRoomRandoMode || options.startRoomRando2ndMode || applied.startRoomRando2ndMode) {
+        if (options.startRoomRandoMode || options.startRoomRando2ndMode) {
           let castleFlag = 0x00
-          if (options.startRoomRandoMode || applied.startRoomRandoMode) {
+          if (options.startRoomRandoMode) {
             castleFlag = castleFlag + 0x01
           }
-          if (options.startRoomRando2ndMode || applied.startRoomRando2ndMode) {
+          if (options.startRoomRando2ndMode) {
             castleFlag = castleFlag + 0x10
           }
           check.apply(util.applyStartRoomRandoPatches(rng,castleFlag))
         }
         // Apply guaranteed drop patches.
-        if (options.dominoMode || applied.dominoMode) {
+        if (options.dominoMode) {
           check.apply(util.applyDominoPatches(rng))
         }
         // Apply reverse library card patches.
-        if (options.rlbcMode || applied.rlbcMode) {
+        if (options.rlbcMode) {
           check.apply(util.applyRLBCPatches(rng))
         }
         // Apply map color patches.
