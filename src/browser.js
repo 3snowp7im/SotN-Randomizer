@@ -1267,8 +1267,9 @@
         check.apply(randomizeMusic(rng, applied))
         // Initiate the write options function master
         let optWrite = 0x00000000                   // This variable lets the ASM used in the Master Function know if it needs to run certain code or sets flags for the tracker to use
-        let nGoal                                                                       //begin the newGoals flag setting for the function master
-        if (elems.newGoals.value !== "default" || options.newGoals) {                   // Sets flag for the tracker to know which goals to use
+        let nGoal                                                                           //begin the newGoals flag setting for the function master
+        if (elems.newGoals.value !== "default" || options.newGoals || applied.newGoals) {   // Sets flag for the tracker to know which goals to use
+          console.log(options.newGoals)
           if (elems.newGoals.value !== "default") {
             switch(elems.newGoals.value) {
               case "allBoss":                         // all bosses flag
@@ -1286,6 +1287,8 @@
             }
           } else if (options.newGoals !== undefined) {
             nGoal = options.newGoals
+          } else if (applied.newGoals !== undefined) {
+            nGoal = applied.newGoals
           }
           switch(nGoal) {
             case "b":                                 // all bosses flag
@@ -1309,62 +1312,62 @@
           check.apply(util.applyTournamentModePatches())
         }
         // Apply magic max patches.
-        if (options.magicmaxMode) {
+        if (options.magicmaxMode || applied.magicmaxMode) {
           check.apply(util.applyMagicMaxPatches())
         }
         // Apply anti-freeze patches.
-        if (options.antiFreezeMode) {
+        if (options.antiFreezeMode || applied.antiFreezeMode) {
           check.apply(util.applyAntiFreezePatches())
         }
         // Apply my purse patches.
-        if (options.mypurseMode) {
+        if (options.mypurseMode || applied.mypurseMode) {
           check.apply(util.applyMyPursePatches())
         }
         // Apply iws patches.
-        if (options.iwsMode) {
+        if (options.iwsMode || applied.iwsMode) {
           check.apply(util.applyiwsPatches())
         }
         // Apply fast warp patches.
-        if (options.fastwarpMode) {
+        if (options.fastwarpMode || applied.fastwarpMode) {
           check.apply(util.applyfastwarpPatches())
         }
         // Apply no prologue patches.
-        if (options.noprologueMode) {
+        if (options.noprologueMode || applied.noprologueMode) {
           check.apply(util.applynoprologuePatches())
         }
         // Apply unlocked patches.
-        if (options.unlockedMode) {
+        if (options.unlockedMode || applied.unlockedMode) {
           check.apply(util.applyunlockedPatches())
         }
         // Apply surprise patches.
-        if (options.surpriseMode) {
+        if (options.surpriseMode || applied.surpriseMode) {
           check.apply(util.applysurprisePatches())
         }
         // Apply enemy stat rando patches.
-        if (options.enemyStatRandoMode) {
+        if (options.enemyStatRandoMode || applied.enemyStatRandoMode) {
           check.apply(util.applyenemyStatRandoPatches(rng))
         }
         // Apply shop price rando patches.
-        if (options.shopPriceRandoModee) {
+        if (options.shopPriceRandoMode || applied.shopPriceRandoMode) {
           check.apply(util.applyShopPriceRandoPatches(rng))
         }
         // Apply starting room rando patches.
-        if (options.startRoomRandoMode || options.startRoomRando2ndMode) {
+        if (options.startRoomRandoMode || applied.startRoomRandoMode || options.startRoomRando2ndMode || applied.startRoomRando2ndMode) {
           let castleFlag = 0x00
-          if (options.startRoomRandoMode) {
+          if (options.startRoomRandoMode || applied.startRoomRandoMode) {
             castleFlag = castleFlag + 0x01
           }
-          if (options.startRoomRando2ndMode) {
+          if (options.startRoomRando2ndMode || applied.startRoomRando2ndMode) {
             castleFlag = castleFlag + 0x10
           }
           check.apply(util.applyStartRoomRandoPatches(rng,castleFlag))
         }
         // Apply guaranteed drop patches.
-        if (options.dominoMode) {
+        if (options.dominoMode || applied.dominoMode) {
           check.apply(util.applyDominoPatches(rng))
         }
         // Apply reverse library card patches.
-        if (options.rlbcMode) {
+        if (options.rlbcMode || applied.rlbcMode) {
           check.apply(util.applyRLBCPatches(rng))
         }
         // Apply map color patches.
