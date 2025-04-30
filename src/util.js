@@ -2532,11 +2532,11 @@ function hexValueToDamageString(hexValue) {
           randomize.push('9')
         }
         delete options.fastwarpMode
-      } else if ('itemnamerandoMode' in options) { // randomize item names with item stat rando - MottZilla
-        if (options.itemnamerandoMode) {
+      } else if ('itemNameRandoMode' in options) { // randomize item names with item stat rando - MottZilla
+        if (options.itemNameRandoMode) {
           randomize.push('in')
         }
-        delete options.itemnamerandoMode
+        delete options.itemNameRandoMode
       } else if ('noprologueMode' in options) { // Removes prologue - eldri7ch
         if (options.noprologueMode) {
           randomize.push('R')
@@ -3828,7 +3828,7 @@ function hexValueToDamageString(hexValue) {
     mypurseMode,
     iwsMode,
     fastwarpMode,
-    itemnamerandoMode,
+    itemNameRandoMode,
     noprologueMode,
     unlockedMode,
     surpriseMode,
@@ -3873,7 +3873,7 @@ function hexValueToDamageString(hexValue) {
     this.mypurseMode = mypurseMode
     this.iwsMode = iwsMode
     this.fastwarpMode = fastwarpMode
-    this.itemnamerandoMode = itemnamerandoMode
+    this.itemNameRandoMode = itemNameRandoMode
     this.noprologueMode = noprologueMode
     this.unlockedMode = unlockedMode
     this.surpriseMode = surpriseMode
@@ -4348,8 +4348,8 @@ function hexValueToDamageString(hexValue) {
     if ('fastwarpMode' in json) {
       builder.fastwarpMode(json.fastwarpMode)
     }
-    if ('itemnamerandoMode' in json) {
-      builder.itemnamerandoMode(json.itemnamerandoMode)
+    if ('itemNameRandoMode' in json) {
+      builder.itemNameRandoMode(json.itemNameRandoMode)
     }
     if ('noprologueMode' in json) {
       builder.noprologueMode(json.noprologueMode)
@@ -4686,8 +4686,8 @@ function hexValueToDamageString(hexValue) {
     if ('fastwarpMode' in preset) {
       this.fastwarp = preset.fastwarpMode
     }
-    if ('itemnamerandoMode' in preset) {
-      this.itemnamerando = preset.itemnamerandoMode
+    if ('itemNameRandoMode' in preset) {
+      this.itemnamerando = preset.itemNameRandoMode
     }
     if ('noprologueMode' in preset) {
       this.noprologue = preset.noprologueMode
@@ -5412,7 +5412,7 @@ function hexValueToDamageString(hexValue) {
   }
 
   // Enable Item Name Rando - MottZilla
-  PresetBuilder.prototype.itemnamerandoMode = function itemnamerandoMode(enabled) {
+  PresetBuilder.prototype.itemNameRandoMode = function itemNameRandoMode(enabled) {
     this.itemnamerando = enabled
   }
 

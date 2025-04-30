@@ -219,11 +219,11 @@
     }
   }
 
-  function getNewName(newNames, item) {
+  function getNewName(newNames, item, itemNameRandoMode) {
     const newName =  newNames.filter(function(newName) {
       return newName.id === item.id
     })[0]
-    if (newName) {
+    if (newName && itemNameRandoMode == false) {
       return newName.name
     }
     return item.name
@@ -237,6 +237,7 @@
     newNames,
     info,
     planned,
+    options,
   ) {
     const pool = items.filter(function(item) {
       if (item.name === 'Sword Familiar') {
@@ -409,12 +410,12 @@
     }
     // Update info.
     info[2]['Starting equipment'] = [
-      weapon ? getNewName(newNames, weapon) : 'Empty hand',
-      shield ? getNewName(newNames, shield) : 'Empty hand',
-      helmet ? getNewName(newNames, helmet) : '----',
-      armor ? getNewName(newNames, armor) : '----',
-      cloak ? getNewName(newNames, cloak) : '----',
-      other ? getNewName(newNames, other) : '----',
+      weapon ? getNewName(newNames, weapon, options.itemNameRandoMode) : 'Empty hand',
+      shield ? getNewName(newNames, shield, options.itemNameRandoMode) : 'Empty hand',
+      helmet ? getNewName(newNames, helmet, options.itemNameRandoMode) : '----',
+      armor ? getNewName(newNames, armor, options.itemNameRandoMode) : '----',
+      cloak ? getNewName(newNames, cloak, options.itemNameRandoMode) : '----',
+      other ? getNewName(newNames, other, options.itemNameRandoMode) : '----',
     ]
   }
 
@@ -1834,6 +1835,7 @@
         newNames,
         info,
         planned,
+        options,
       )
     }
     while (true) {
