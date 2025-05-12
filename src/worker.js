@@ -30,7 +30,6 @@ function randomizeWorker() {
       url + 'src/ecc-edc-recalc-js.js',
     )
     let loadedPresets = ["casual", "safe", "adventure", "nimble", "open"]
-    console.log(selectedPreset)    
     
     if(selectedPreset !== null && !(selectedPreset in loadedPresets)){
       importScripts(url + `build/presets/${selectedPreset}.js`)

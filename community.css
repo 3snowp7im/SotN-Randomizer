@@ -22,54 +22,162 @@ h1 {
 
 
 /* Navbar Styles */
-.navbar {
-    background-color: black;
-    overflow: hidden;
-    display: flex;
-    padding: 10px 20px;
-    align-items: center;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-.navbar a {
-    color: white;
+a{
     text-decoration: none;
-    padding: 12px 16px;
-    display: block;
 }
 
-.navbar a:hover {
-    background-color: #444;
-}
-
-.nav-links {
-    display: flex;
+ul{
     list-style: none;
-    padding-left: 10%;
 }
 
-.nav-item {
+header{
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.container{
+    width: 100%;
+    max-width: 117rem;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+.menu-icons{
+    color: #eee;
+    font-size: 4rem;
+    position: absolute ;
+    top: 10%;
+    right: 2rem;
+    transform: translateY(-50%);
+    cursor: pointer;
+    z-index: 1500;
+    display: none;
+}
+
+nav{
+    display: flex;
+    width: 100%;
+    height: 8rem;
+    border-bottom: 1px solid rgba(255,255,255, .1);
+}
+
+.nav-list{
+    display:flex;
+    width: 100%;
+    align-items: center;
+}
+
+.nav-list li{
+    line-height: 4rem;
     position: relative;
 }
 
-/* Dropdown Menu */
-.dropdown-content {
-    display: none;
-    position: fixed; /* Instead of absolute */
-    background-color: black;
-    min-width: 150px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
-    z-index: 1000; /* Ensures it's above everything */
+sub-menu li{
+    line-height: 4rem;
 }
 
-
-.dropdown-content a {
-    padding: 10px;
-    width: 100%;
-}
-
-.dropdown:hover .dropdown-content {
+.nav-list a{
     display: block;
+    color: #000;
+    padding: 0 1rem;
+    font-size: 1rem;
+    transition: color 650ms;
 }
+
+.nav-list a:hover{
+    color: #333;
+}
+
+.sub-menu{
+    width: 17rem;
+    display: block;
+    position: absolute;
+    background-color: #3a3a3a;
+    z-index: 100;
+    top: 4.8rem;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 650ms ease;
+}
+
+
+.nav-list li:hover > .sub-menu{
+    top: 6rem;
+    opacity: 1;
+    visibility: visible;
+}
+
+li.move-right{
+    margin: auto 0 auto auto;
+    line-height: initial;
+}
+
+@media screen and (max-width: 1000px){
+
+    body{
+        overflow: visible;
+    }
+
+    .nav-list{
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        display: none;
+        flex-direction: column;
+        align-items: initial;
+        background-color: #333;
+        z-index: 1000;
+        overflow-y: scroll;
+    }
+    
+    .nav-list > li{
+        line-height: 6rem;
+    }
+
+    .sub-menu{
+        position: initial;
+        border: 3px solid transparent;
+        margin-left: 1rem;
+        max-height: 0;
+    }
+
+    .sub-menu::before{
+        display: none;
+    }
+
+    .nav-list li:hover > .sub-menu{
+        opacity: 1;
+        visibility: visible;
+        max-height: initial;
+    }
+
+    li.move-right{
+        margin: 0 auto 0 0;
+        line-height: initial;
+    }
+
+    .menu-icons{
+        display: block;
+
+    }
+    .ion-md-close{
+        display: none;
+    }
+
+    nav.active .ion-md-close{
+        display: block;
+    }
+
+    nav.active .ion-md-menu{
+        display: none;
+    }
+
+    nav.active .nav-list{
+       display: flex; 
+    }
+
+}
+

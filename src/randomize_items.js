@@ -219,11 +219,11 @@
     }
   }
 
-  function getNewName(newNames, item) {
+  function getNewName(newNames, item, itemNameRandoMode) {
     const newName =  newNames.filter(function(newName) {
       return newName.id === item.id
     })[0]
-    if (newName) {
+    if (newName && itemNameRandoMode == false) {
       return newName.name
     }
     return item.name
@@ -237,6 +237,7 @@
     newNames,
     info,
     planned,
+    options,
   ) {
     const pool = items.filter(function(item) {
       if (item.name === 'Sword Familiar') {
@@ -409,12 +410,12 @@
     }
     // Update info.
     info[2]['Starting equipment'] = [
-      weapon ? getNewName(newNames, weapon) : 'Empty hand',
-      shield ? getNewName(newNames, shield) : 'Empty hand',
-      helmet ? getNewName(newNames, helmet) : '----',
-      armor ? getNewName(newNames, armor) : '----',
-      cloak ? getNewName(newNames, cloak) : '----',
-      other ? getNewName(newNames, other) : '----',
+      weapon ? getNewName(newNames, weapon, options.itemNameRandoMode) : 'Empty hand',
+      shield ? getNewName(newNames, shield, options.itemNameRandoMode) : 'Empty hand',
+      helmet ? getNewName(newNames, helmet, options.itemNameRandoMode) : '----',
+      armor ? getNewName(newNames, armor, options.itemNameRandoMode) : '----',
+      cloak ? getNewName(newNames, cloak, options.itemNameRandoMode) : '----',
+      other ? getNewName(newNames, other, options.itemNameRandoMode) : '----',
     ]
   }
 
@@ -1440,113 +1441,108 @@
   //   return 0x80000000 | (r << 10) | (g << 10) | b
   // }
 
-  function randomColor(rng) {
-    return 0x8000 | Math.floor(rng() * 0x10000)
+  function ConvertRGBToSotN(r, g, b) {                                          // Code by Wecoc, converted by eldri7ch
+    return (Math.floor(r / 8) + (Math.floor(g / 8) << 5) + (Math.floor(b / 8) << 10)) + 32768
   }
 
-  function capeColor(
-    data,
-    liningAddress,
-    outerAddress,
-    opts,
-  ) {
-    let liningColor1
-    let liningColor2
-    let outerColor1
-    let outerColor2
-    if ('liningColor1' in opts) {
-      liningColor1 = opts.liningColor1
-    } else {
-      liningColor1 = randomColor(opts.rng)
-    }
-    if ('liningColor2' in opts) {
-      liningColor2 = opts.liningColor2
-    } else {
-      liningColor2 = randomColor(opts.rng)
-    }
-    if ('outerColor1' in opts) {
-      outerColor1 = opts.outerColor1
-    } else {
-      outerColor1 = randomColor(opts.rng)
-    }
-    if ('outerColor2' in opts) {
-      outerColor2 = opts.outerColor2
-    } else {
-      outerColor2 = randomColor(opts.rng)
-    }
-    data.writeShort(liningAddress + 0x00, liningColor1)
-    data.writeShort(liningAddress + 0x02, liningColor2)
-    data.writeShort(outerAddress + 0x00, outerColor1)
-    data.writeShort(outerAddress + 0x02, outerColor2)
-  }
+  function randomizeCapeColors(data, rng) {                                     // Code provided by Wecoc; doppelganger addresses by MottZilla; code converted by eldri7ch
+    let liningAddress
+    let outerAddress
+    let outBrightColorRed
+    let outDarkColorRed
+    let outBrightColorGreen
+    let outDarkColorGreen
+    let outBrightColorBlue
+    let outDarkColorBlue
+    let inBrightColorRed
+    let inDarkColorRed
+    let inBrightColorGreen
+    let inDarkColorGreen
+    let inBrightColorBlue
+    let inDarkColorBlue
+    let outBrightColor
+    let outDarkColor
+    let inBrightColor
+    let inDarkColor
+    let i = 0
 
-  //disabled for now, conflicts with preset preloaders - eldri7ch
-  function randomizeJosephsCloak(data, rng) {
-    const colors = [
-      Math.floor(rng() * 32),
-      Math.floor(rng() * 32),
-      Math.floor(rng() * 32),
-      Math.floor(rng() * 32),
-      Math.floor(rng() * 32),
-      Math.floor(rng() * 32),
-    ]
-    // Write the jump to injected code.
-    const romAddress = 0x158c98
-    const ramAddress = 0x136c00
-    data.writeWord(0x0fa97c, 0x0c000000 + (ramAddress >> 2))
-    // Write the color setting instructions.
-    let address = romAddress
-    for (let i = 0; i < colors.length; i++) {
-      address = data.writeWord(address, 0x3c020003)
-      address = data.writeWord(address, 0x3442caa8 + 4 * i)
-      address = data.writeWord(address, 0x24030000 + colors[i])
-      address = data.writeWord(address, 0xa0430000)
+    while (i < 10) {
+      // genrate dark colors and light colors for both linings
+      // start by randomizing individual RGB values
+      outBrightColorRed = Math.floor(rng() * 92) + 8
+      outDarkColorRed = Math.max(outBrightColorRed - 8, 8)
+      outBrightColorGreen = Math.floor(rng() *  92) + 8
+      outDarkColorGreen = Math.max(outBrightColorGreen - 8, 8)
+      outBrightColorBlue = Math.floor(rng() *  92) + 8
+      outDarkColorBlue = Math.max(outBrightColorBlue - 8, 8)
+      inBrightColorRed = Math.floor(rng() * 92) + 8
+      inDarkColorRed = Math.max(inBrightColorRed - 8, 8)
+      inBrightColorGreen = Math.floor(rng() *  92) + 8
+      inDarkColorGreen = Math.max(inBrightColorGreen - 8, 8)
+      inBrightColorBlue = Math.floor(rng() *  92) + 8
+      inDarkColorBlue = Math.max(inBrightColorBlue - 8, 8)
+      //aggregate the randomized RGB into a single 2-byte write
+      outBrightColor = ConvertRGBToSotN(outBrightColorRed, outBrightColorGreen, outBrightColorBlue)
+      outDarkColor = ConvertRGBToSotN(outDarkColorRed, outDarkColorGreen, outDarkColorBlue)
+      inBrightColor = ConvertRGBToSotN(inBrightColorRed, inBrightColorGreen, inBrightColorBlue)
+      inDarkColor = ConvertRGBToSotN(inDarkColorRed, inDarkColorGreen, inDarkColorBlue)
+      //identify the addresses to write new colors to
+      switch (i) {
+        case 0: // Cloth Cape
+          liningAddress = 0x0afb84
+          outerAddress = 0x0afb88
+          break
+        case 1: // Reverse Cloak A
+          liningAddress = 0x0afb7c
+          outerAddress = 0x0afb80
+          break
+        case 2: // Reverse Cloak B
+          liningAddress = 0x0afbb8
+          outerAddress = 0x0afbbc
+          break
+        case 3: // Elven Cloak
+          liningAddress = 0x0afb94
+          outerAddress = 0x0afb98
+          break
+        case 4: // Crystal Cloak
+          liningAddress = 0x0afba4
+          outerAddress = 0x0afba8
+          break
+        case 5: // Royal Cloak
+          liningAddress = 0x0afb8c
+          outerAddress = 0x0afb90
+          break
+        case 6: // Blood Cloak
+          liningAddress = 0x0afb9c
+          outerAddress = 0x0afba0
+          break
+        case 7: // Twilight Cloak
+          liningAddress = 0x0afa44
+          outerAddress = 0x0afbac
+          break
+        case 8: // Doppelganger 10
+          liningAddress = 0x627984c
+          outerAddress = 0x6279850
+          break
+        case 9: // Doppelganger 40
+          liningAddress = 0x6894054
+          outerAddress = 0x6894058
+          break
+      }
+      //write the inner lining
+      data.writeShort(liningAddress + 0x00, inBrightColor)
+      data.writeShort(liningAddress + 0x02, inDarkColor)
+      //write the outer lining, but crystal cloak should be crystal cloak.
+      if (i === 4) {
+        data.writeShort(outerAddress + 0x00, 0x0000)
+        data.writeShort(outerAddress + 0x02, outDarkColor)
+      } else {
+        data.writeShort(outerAddress + 0x00, outBrightColor)
+        data.writeShort(outerAddress + 0x02, outDarkColor)
+      }
+      //advance the cape being randomized
+      i++
     }
-    // Write the jump from injected code.
-    data.writeWord(address, 0x0803924f)
-  }
-
-  function randomizeCapeColors(data, rng) {
-    // Cloth Cape.
-    capeColor(data, 0x0afb84, 0x0afb88, {rng: rng})
-    // Reverse Cloak & Inverted Cloak.
-    {
-      const lining1 = randomColor(rng)
-      const lining2 = randomColor(rng)
-      const outer1 = randomColor(rng)
-      const outer2 = randomColor(rng)
-      capeColor(data, 0x0afb7c, 0x0afb80, {
-        liningColor1: lining1,
-        liningColor2: lining2,
-        outerColor1: outer1,
-        outerColor2: outer2,
-      })
-      capeColor(data, 0x0afbb8, 0x0afbbc, {
-        liningColor1: outer1,
-        liningColor2: outer2,
-        outerColor1: lining1,
-        outerColor2: lining2,
-      })
-    }
-    // Elven Cloak.
-    capeColor(data, 0x0afb94, 0x0afb98, {rng: rng})
-    // Crystal Cloak.
-    capeColor(data, 0x0afba4, 0x0afba8, {
-      rng: rng,
-      outerColor1: 0x0000,
-    })
-    // Royal Cloak.
-    capeColor(data, 0x0afb8c, 0x0afb90, {rng: rng})
-    // Blood Cloak.
-    capeColor(data, 0x0afb9c, 0x0afba0, {rng: rng})
-    // Joseph's Cloak.
-    // randomizeJosephsCloak(data, rng)
-    // Twilight Cloak.
-    capeColor(data, 0x0afa44, 0x0afbac, {rng: rng})
-    // DOP10 Cloak. - MottZilla
-    capeColor(data, 0x627984c, 0x6279850, {rng: rng})
-    // DOP40 Cloak. - MottZilla
-    capeColor(data, 0x6894054, 0x6894058, {rng: rng})
   }
 
   function randomizeDraculaCape(data, rng){
@@ -1750,6 +1746,75 @@
       offset = data.writeShort(offset,palettesMaria[colorM][i])
     }
   }
+
+  function randomizeMenuBgColor(data, rng){
+    let redVal
+    let greenVal
+    let blueVal
+    let baseWrite = 0x34020000                                                    // for this, register 2 is used
+    let redWrite
+    let greenWrite
+    let blueWrite
+    let offset = 0x000fa948
+    const colorArray = ["r1","g1","b1"]
+    let colorShuffled = shuffled(rng, colorArray)                                     // Shuffle the colors to randomize which becomes primary, secondary, tertiary
+    
+    let primary = colorShuffled.pop()                                           // Choose a primary color for the Menu
+    let secondary = colorShuffled.pop()                                         // Secondary color will be sometimes present but not too much
+    let tertiary = colorShuffled.pop()                                          // This color will never appear
+
+    switch (primary) {                                                          // The primary has a max value of 15 (0x0f)
+      case "r1":
+        redVal = Math.floor(rng() * 0x09)
+        redWrite = util.numToHex(baseWrite + redVal)
+        break
+      case "g1":
+        greenVal = Math.floor(rng() * 0x09)
+        greenWrite = util.numToHex(baseWrite + greenVal)
+        break
+      case "b1":
+        blueVal = Math.floor(rng() * 0x09)
+        blueWrite = util.numToHex(baseWrite + blueVal)
+        break
+    }
+    switch (secondary) {                                                        // the Secondary has a max value of 08
+      case "r1":
+        redVal = Math.floor(rng() * 0x06)
+        redWrite = util.numToHex(baseWrite + redVal)
+        break
+      case "g1":
+        greenVal = Math.floor(rng() * 0x06)
+        greenWrite = util.numToHex(baseWrite + greenVal)
+        break
+      case "b1":
+        blueVal = Math.floor(rng() * 0x06)
+        blueWrite = util.numToHex(baseWrite + blueVal)
+        break
+    }
+    switch (tertiary) {                                                         // never represented. This makes for less grey menus
+      case "r1":
+        redWrite = baseWrite
+        break
+      case "g1":
+        greenWrite = baseWrite
+        break
+      case "b1":
+        blueWrite = baseWrite
+        break
+    }
+    
+    // this copde literally replaces the ASM that the game normally uses to set the menu color
+    // This code was compiled with a repeated function that wasn't needed so we can use the space
+    offset = data.writeWord(offset, 0x3C108003)                                 
+    offset = data.writeWord(offset, 0x3610CAC0)                                 // populate r16 with the address 0x8003cac0 (used again later in and out of our code)                       
+    offset = data.writeWord(offset, redWrite)
+    offset = data.writeWord(offset, 0xAE020000)                                 // Write the red color to 0x8003cac0
+    offset = data.writeWord(offset, greenWrite)
+    offset = data.writeWord(offset, 0xAE020004)                                 // green to 0x8003cac4
+    offset = data.writeWord(offset, blueWrite)
+    offset = data.writeWord(offset, 0xAE020008)                                 // blue to 0x8003cac8
+    data.writeWord(offset, 0x34020001)                                          // r2 needed to be set to 1 after this.
+  }
   
   function randomizeItems(rng, items, newNames, options) {
     const data = new util.checked()
@@ -1770,6 +1835,7 @@
         newNames,
         info,
         planned,
+        options,
       )
     }
     while (true) {
@@ -1881,6 +1947,7 @@
           randomizeRichterColor(data,rng)
           randomizeDraculaCape(data,rng)
           randomizeMariaColor(data,rng)
+          randomizeMenuBgColor(data, rng)
         }
         // Write items to ROM.
         if (options.itemLocations

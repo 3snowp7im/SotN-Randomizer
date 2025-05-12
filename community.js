@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const leaderboardTable = document.getElementById("leaderboardTable");
     const tableTimeElo = document.getElementById("tableTimeElo");
     const seedColumn = document.getElementById("seedColumn");
+    const selectElement = (element) => document.querySelector(element)
 
     const apiUrl = "https://sotnrandoapi.duckdns.org";
 
@@ -31,6 +32,10 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     };
 
+    selectElement('.menu-icons').addEventListener('click', () => {                            //Watchs for the click on navbar when in mobile mode
+        selectElement('nav').classList.toggle('active')
+      })
+    
     // Load Leaderboard
     const loadLeaderboard = async () => {
         const mode = modeSelector.value;

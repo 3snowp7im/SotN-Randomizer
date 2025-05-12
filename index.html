@@ -9,37 +9,46 @@
     <link rel="stylesheet"
           href="https://d1azc1qln24ryf.cloudfront.net/114779/Socicon/style-cf.css?u8vidh">
     <link rel="stylesheet" href="index.css">
+    <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
     <link rel="stylesheet" href="static/css/randomizations.css">
   </head>
   <body>
-    <div class="navbar">
-      <ul class="nav-links">
-          <li class="nav-item"><a href="#">Randomizer</a></li>
-          <li class="nav-item"><a href="/faq">FAQ</a></li>
-          <li class="nav-item"><a href="https://ppf.sotn.io">PPF Patcher</a></li>
-          <li class="nav-item"><a href="community.html">Leaderboards</a></li>
-          <li class="nav-item dropdown">
-              <a href="#">Tools ▼</a>
-              <div class="dropdown-content">
-                  <a href="https://github.com/LuciaRolon/SotNRandomizerLauncher/releases">Randomizer Launcher</a>
-                  <a href="https://taliczealot.github.io/#/apps/sotnrandotools">Rando Tools</a>
-                  <a href="https://github.com/MottZilla/BountyHunterTool/releases/">Bounty Hunter Tool</a>
-              </div>
-          </li>
-          <li class="nav-item dropdown">
-            <a href="#">Community & News ▼</a>
-            <div class="dropdown-content">
-                <a href="https://discord.gg/dzbKhQDjrs">Long Library Discord</a>
-                <a href="https://www.symphonyrando.fun">Knowledge Database (sr.f)</a>
-            </div>
-        </li>
-      </ul>
+    <div class="container">
+      <nav>
+        <div class="menu-icons">
+          <i class="icon ion-md-menu"></i>
+          <i class="icon ion-md-close"></i>
+        </div>
+      
+      <ul class="nav-list">
+          <li><a href="#">Randomizer</a></li>
+          <li><a href="/faq">FAQ</a></li>
+          <li><a href="https://ppf.sotn.io">PPF Patcher</a></li>
+          <li><a href="community.html">Leaderboards</a></li>
+              <li>
+                    <a href="#">Community & News ▼</a>
+                  <ul class="sub-menu">
+                    <li><a href="https://discord.gg/dzbKhQDjrs">Long Library Discord</a></li>
+                    <li><a href="https://www.symphonyrando.fun">Knowledge Database (sr.f)</a></li>
+                  </ul>
+              </li>
+              <li>
+                  <a href="#">Tools ▼</a>
+                  <ul class="sub-menu">
+                    <li><a href="https://github.com/LuciaRolon/SotNRandomizerLauncher/releases">Randomizer Launcher</a></li>
+                    <li><a href="https://taliczealot.github.io/#/apps/sotnrandotools">Rando Tools</a></li>
+                    <li><a href="https://github.com/MottZilla/BountyHunterTool/releases/">Bounty Hunter Tool</a></li>
+                  </ul>
+              </li>
+        
+        </ul>
+      </nav>
     </div>
 
     <div id="version"></div>
     <main>
       <div id="content" class="pure-u-lg-20-24 pure-u-xl-19-24 pure-u-xxl-18-24">
-        <h1>Castlevania: Symphony of the Night Randomizer</h1>
+        <img src = "images/logo.png" class = "center">
         <div>
           by Wild Mouse,
           <a class="contact" href="https://twitter.com/3snow_p7im">
@@ -61,10 +70,22 @@
           <a class="contact" href="https://twitch.tv/MottZilla0">
             <img height="16" width="16"
                  src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/twitch.svg"></a>
-          , and SacredLucy
+          , SacredLucy
           <a class="contact" href="https://twitch.tv/sacredlucyy">
             <img height="16" width="16"
                 src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/twitch.svg"></a>
+          , and CRAZY4BLADES
+          <a class="contact" href="https://twitch.tv/crazy4bladestv">
+            <img height="16" width="16"
+                src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/twitch.svg"></a>
+        </div>
+        <div class="right">
+          <label for="theme">Theme</label>  
+          <select id="theme" type="checkbox">
+            <option value="menu">Menu</option>
+            <option value="light">Light</option>
+            <option value="dark">Dark</option>
+          </select>
         </div>
         <form id="form" class="pure-u-1">
           <fieldset id="output">
@@ -91,8 +112,9 @@
               <input id="file" type="file" accept=".bin,.iso">
             </div>
           </fieldset>
+          
           <div id="randomization-options">
-            <fieldset class="pure-u-lg-1-2">
+            <fieldset class="pure-u-lg-1-3">
               <legend>Randomizations</legend>
               <div id="seed-container">
                 <label for="seed">Seed:</label>
@@ -100,7 +122,7 @@
               </div>
               <div id="preset-container">
                 <div id="preset-dropdown">
-                  <label for="preset"><input id="preset" type="checkbox"> Preset:</label>
+                  <label for="preset-select">Preset:</label>
                   <div id="preset-select">
                     <select id="preset-id"></select>
                   </div>
@@ -324,36 +346,9 @@
                 </div>
               </div>
             </fieldset>
-            <fieldset class="pure-u-lg-1-2">
+            <fieldset class="pure-u-lg-1-3">
               <legend>Options</legend>
               <div class="pure-g">
-                <div class="pure-u-12-24">
-                  <label for="theme">Theme</label>
-                </div>
-                <div class="pure-u-12-24">
-                  <select id="theme" type="checkbox">
-                    <option value="menu">Menu</option>
-                    <option value="light">Light</option>
-                    <option value="dark">Dark</option>
-                  </select>
-                </div>
-                <div class="pure-u-12-24">
-                  <label for="mapColor">Map Color</label>
-                </div>
-                <div class="pure-u-12-24">
-                  <select id="mapColor" type="checkbox">
-                    <option value="normal">Normal</option>
-                    <option value="blue">Dark Blue</option>
-                    <option value="green">Hunter Green</option>
-                    <option value="red">Crimson</option>
-                    <option value="brown">Brown</option>
-                    <option value="purple">Purple</option>
-                    <option value="grey">Grey</option>
-                    <option value="pink">Pink</option>
-                    <option value="black">Black</option>
-                    <option value="invis">Invisible</option>
-                  </select>
-                </div>
                 
                 <div class="pure-u-12-24">
                   <label for="newGoals">Change Goals</label>
@@ -364,6 +359,7 @@
                     <option value="allBoss">All Bosses</option>
                     <option value="allRelic">All Relics</option>
                     <option value="abrsr">All Bosses & Relics</option>
+                    <option value="vladBoss">All Bosses & Vlad Relics</option>
                   </select>
                   <span class="tooltip-wrapper">
                     <span class="tooltip-indicator">?</span>
@@ -375,29 +371,6 @@
                       </span>
                     </span>
                   </span>
-                </div>
-                <div class="pure-u-12-24">
-                  <label for="alucardPalette">Alucard's palette</label>
-                </div>
-                <div class="pure-u-6-24">
-                  <select id="alucardPalette" type="checkbox">
-                    <option value="default">Default</option>
-                    <option value="bloodytears">Bloody Tears</option>
-                    <option value="bluedanube">Blue Danube</option>
-                    <option value="swampthing">Swamp Thing</option>
-                    <option value="whiteknight">White Knight</option>
-                    <option value="royalpurple">Royal Purple</option>
-                    <option value="pinkpassion">Pink Passion</option>
-                  </select>
-                </div>
-                <div class="pure-u-6-24">
-                  <select id="alucardLiner" type="checkbox">
-                    <option value="gold">Gold Liner (default)</option>
-                    <option value="bronze">Bronze Liner</option>
-                    <option value="silver">Silver Liner</option>
-                    <option value="onyx">Onyx Liner</option>
-                    <option value="coral">Coral Liner</option>
-                  </select>
                 </div>
                 <div class="pure-u-1"></div>
                 <div class="pure-u-1-2">
@@ -558,7 +531,7 @@
                 </div>
                 <div class="pure-u-1-2">
                   <input id="stats" type="checkbox">
-                  <label for="stats">Item stats</label>
+                  <label for="stats">Item Stats</label>
                 </div>
                 <div class="pure-u-1-2">
                   <input id="unlocked-mode" type="checkbox">
@@ -577,7 +550,7 @@
                 </div>
                 <div class="pure-u-1-2">
                   <input id="itemnamerando-mode" type="checkbox">
-                  <label for="itemnamerando-mode">Item stats names randomized
+                  <label for="itemnamerando-mode">Item Names
                     <span class="tooltip-wrapper">
                       <span class="tooltip-indicator">?</span>
                       <span class="tooltip hidden">
@@ -728,6 +701,42 @@
                 </div>
               </div>
             </fieldset>
+            <fieldset class="pure-u-lg-1-3">
+              <legend>Customizations</legend>
+                 <tr><td>Map Color<select id="mapColor" type="checkbox">
+                    <option value="normal">Normal</option>
+                    <option value="blue">Dark Blue</option>
+                    <option value="red">Crimson</option>
+                    <option value="brown">Brown</option>
+                    <option value="green">Hunter Green</option>
+                    <option value="grey">Grey</option>
+                    <option value="purple">Purple</option>
+                    <option value="pink">Pink</option>
+                    <option value="black">Black</option>
+                  </select></td></tr>
+              <table class="filter_langs">
+                <tr><td>Alucard's Palette:</td><td><select id="alucardPalette" type="checkbox">
+                  <option value="default">Default</option>
+                  <option value="bloodytears">Bloody Tears</option>
+                  <option value="bluedanube">Blue Danube</option>
+                  <option value="swampthing">Swamp Thing</option>
+                  <option value="whiteknight">White Knight</option>
+                  <option value="royalpurple">Royal Purple</option>
+                  <option value="pinkpassion">Pink Passion</option>
+                </select></td></tr>
+                <tr><td>Alucard's Liner:</td><td><select id="alucardLiner" type="checkbox">
+                  <option value="gold">Gold Liner (default)</option>
+                  <option value="bronze">Bronze Liner</option>
+                  <option value="silver">Silver Liner</option>
+                  <option value="onyx">Onyx Liner</option>
+                  <option value="coral">Coral Liner</option>
+                </select></td></tr>
+              <div id="mapColorDisplay" style="zoom: 300%; image-rendering: pixelated; width:48px; height:32px; background: url(https://i.servimg.com/u/f81/20/40/06/51/map_pa10.png);"/>
+              </table><br/><div style="zoom: 200%; image-rendering: pixelated; width:96px; height:64px">
+                <div id="alucardPaletteDisplay" style="width:96px; height:64px; background: url(https://i.servimg.com/u/f81/20/40/06/51/alucar10.png);"/>
+                <div id="alucardLinerDisplay" style="width:96px; height:64px; background: url(https://i.servimg.com/u/f81/20/40/06/51/alucar10.png);"/>
+                </div>
+            </fieldset>
           </div>
                
           <div class="pure-u-9-24">
@@ -751,65 +760,76 @@
         </form>
         <div id="notification"><span>Copied to clipboard<span></div>
         <hr>
-        <h2><a name="links">Links</a></h2>
-        <ul>
-          <li><a href="/faq">FAQ</a></li>
-          <li>
-            <a href="https://taliczealot.github.io/#/apps/sotnrandotools">Rando Tools</a>,
-            a collection of tools to enhance the randomizer experience.
-          </li>
-          <li><a href="https://ppf.sotn.io">PPF Patcher [Browser version]</a></li>
-          <li><a href="https://discord.gg/dzbKhQDjrs">The Long Library</a>,
-            a SotN discord server with a dedicated <code>#randomizer</code>
-            channel.</li>
-          <li><a href="https://www.symphonyrando.fun">SymphonyRando.Fun</a>,
-            SotN Randomizer Database, containing tutorials, glossaries, and breakdowns.</li>
-          <li><a href="https://github.com/LuciaRolon/SotNRandomizerLauncher/releases">SotNRandomizerLauncher</a>,
-            A PC-based launcher for the randomizer that helps you get started.</li>
-          <li><a href="https://github.com/MottZilla/BountyHunterTool/releases/">Bounty Hunter Tool</a>,
-            The key ingredient in the highly popular Bounty Hunter preset.</li>
-          <li><a href="community.html">Player Leaderboards</a>,
-            Look at the current season's Leaderboards for those who race in the Long Library Discord.</li>
-        </ul>
-        </ul>
-        <hr>
         <h2><a name="changelog">Changelog</a></h2>
-        <h3><time>April 14, 2025</time></h3>
-        <ul>
-          <h4>Options Changes</h4>
-          <li>Added Alucard Palette Selector.</li>
-          <li>Almost every single randomized / selected palette for Richter, Maria, Dracula, and Alucard was reworked.</li>
-          <li>Removed Guaranteed Drops mode for Bounty Hunter variants (The BH tool breaks drops if enabled).</li>
-          <li>Removed Reverse Library Card for Beyond preset.</li>
-          <h4>Website Updates</h4>
-          <li>Added "Known Bugs" section for transparency.</li>
-        </ul>
-        <h3><time>April 3, 2025</time></h3>
-        <ul>
-          <h4>Hotfix</h4>
-          <li>Fixed Starting Room Randomizer execution from Preset Files.</li>
-        </ul>
-        <h3><time>April 2, 2025</time></h3>
+        <h3><time>May 12, 2025</time></h3>
         <ul>
           <h4>Preset Changes</h4>
-          <li>Added Vanilla preset.</li>
-          <li>Datedupay Litchgay Ogiclay.</li>
+          <li>Added Second Castle Starting Room Randomizer to Chaos-Lite.</li>
+          <li>Familiar cards are no longer given to the player "active" in Timeline.</li>
+          <li>Timeline's timer no longer pauses in the menu.*</li>
+          <li>Added code to give the player a Toadstool at the beginning of Big Toss.</li>
+          <li>Come to me, Glitch, son of romscout! Kneel before Eld!</li>
           <h4>Options Changes</h4>
-          <li>Added new option to change seed goals.</li>
-          <li>♦ All Bosses changes the goal to defeat all bosses listed on the time attack table in the vanilla game.</li>
-          <li>♦ All Relics changes the goal to collect all relics in the North American version of the vanilla game.</li>
-          <li>♦ All Bosses and Relics changes the goal to defeat all bosses and collect all relics as above.</li>
-          <li>Added Guaranteed Drops Option (3/14/2025).</li>
-          <li>Added Reverse Library Cards Option.</li>
-          <li>Added Alucard Palette Randomizer Option.</li>
-          <li>Added Richter Palette Randomizer to Color Randomizer.</li>
+          <li>Removed preset tickbox because all features locked behind it are now available.</li>
+          <li>Removed extensions options for presets which can't use them.</li>
+          <li>Added palettes for Wolf form to match Alucard palettes.</li>
+          <li>Corrected an error where a variable was not set when generating through the website for Random Starting Room.</li>
+          <li>Added an additional goal to update the game to: All Bosses and all Vlads.</li>
+          <li>Removed potential softlock from starting in Castle Keep attic in Starting Room Randomizer.</li>
+          <li>Updated Color Randomizer to use hue-shifting for capes proposed by Wecoc.</li>
+          <li>Added Menu Color to Color Randomizer.</li>
+          <li>Corrected an error in Starting Equipment spoilers when Item Name Randomizer Mode was not being used.</li>
+          <li>Corrected an error with New Goals that allowed players to open the Dracula door in second castle without Eye of Vlad.</li>
           <h4>Program Updates</h4>
-          <li>Fix an issue that prevented SOTN.io from generating seeds after a previous seed was downloaded.</li>
-          <li>Added a way for the randomizer to start setting aside ISO memory and RAM to execute complex functions in ASM.</li>
-          <li>Now the randomizer loads 14 sectors fropm the ISO automatically. Three are reserved for options, eleven sectors are for presets.</li>
+          <li>Added randomized splash phrases to the game title screen.</li>
+          <li>Added a feature where updated goals can be added to preset files using letter codes. "b: All Bosses; r: All Relics; a: ABRSR, v: All Bosses & All Vlads"</li>
+          <h4>Website Updates</h4>
+          <li>Allowed players to generate custom relic extensions and complexity levels with all presets.</li>
+          <li>Fixed a bug where the complexity inner text didn't update, causing misunderstandings about the complexity of the selected preset.</li>
+          <li>Added the SOTNRando icon to the navigation bar.</li>
+          <li>Added the SOTNRando header image courtesy of DarkFalzJoker to the top of the site.</li>
+          <li>Added a new section to help players preview which customizations they might wish to use for their Alucard and Map sprites.</li>
+          <li>All links in the links section have been removed and moved to a navigation bar.</li>
+          <li>Added visual effects to the navigation bar for a more satisfying experience.</li>
+          <h4>Tools Updates</h4>
+          <li>Upgraded Map View to give more detailed information about the entities and to properly name more of them.</li>
         </ul>
         <a id="show-older" href="#older">Show older changes</a>
         <div id="older" class="hidden">
+          <h3><time>April 14, 2025</time></h3>
+          <ul>
+            <h4>Options Changes</h4>
+            <li>Added Alucard Palette Selector.</li>
+            <li>Almost every single randomized / selected palette for Richter, Maria, Dracula, and Alucard was reworked.</li>
+            <li>Removed Guaranteed Drops mode for Bounty Hunter variants (The BH tool breaks drops if enabled).</li>
+            <li>Removed Reverse Library Card for Beyond preset.</li>
+            <h4>Website Updates</h4>
+            <li>Added "Known Bugs" section for transparency.</li>
+          </ul>
+          <h3><time>April 3, 2025</time></h3>
+          <ul>
+            <h4>Hotfix</h4>
+            <li>Fixed Starting Room Randomizer execution from Preset Files.</li>
+          </ul>
+          <h3><time>April 2, 2025</time></h3>
+          <ul>
+            <h4>Preset Changes</h4>
+            <li>Added Vanilla preset.</li>
+            <li>Datedupay Litchgay Ogiclay.</li>
+            <h4>Options Changes</h4>
+            <li>Added new option to change seed goals.</li>
+            <li>♦ All Bosses changes the goal to defeat all bosses listed on the time attack table in the vanilla game.</li>
+            <li>♦ All Relics changes the goal to collect all relics in the North American version of the vanilla game.</li>
+            <li>♦ All Bosses and Relics changes the goal to defeat all bosses and collect all relics as above.</li>
+            <li>Added Guaranteed Drops Option (3/14/2025).</li>
+            <li>Added Reverse Library Cards Option.</li>
+            <li>Added Alucard Palette Randomizer Option.</li>
+            <li>Added Richter Palette Randomizer to Color Randomizer.</li>
+            <h4>Program Updates</h4>
+            <li>Fix an issue that prevented SOTN.io from generating seeds after a previous seed was downloaded.</li>
+            <li>Added a way for the randomizer to start setting aside ISO memory and RAM to execute complex functions in ASM.</li>
+            <li>Now the randomizer loads 14 sectors fropm the ISO automatically. Three are reserved for options, eleven sectors are for presets.</li>
+          </ul>
           <h3><time>March 10, 2025</time></h3>
           <ul>
             <h4>Preset Changes</h4>
@@ -1358,10 +1378,7 @@
         </div>
         <h2>Known Bugs</h2>
         <ul>
-          <li>Non-Preset Generation through Browser results in impossible logic at layer 1 making the seed incompletable.</li>
           <li>Removing Tournament Mode can make seeds take longer to generate.</li>
-          <li>Removing Color Randomizer mode from certain presets <i>may</i> cause the preset to be disabled in generation and cause layer 1 logic issues.</li>
-          <li>Potential softlock when starting in the attic above the Richter with Starting Point Randomizer.</li>
           <li>Incorrect default icons when starting with "null" equipment.</li>
         </ul>
       </div>

@@ -78,17 +78,16 @@
       }
       return true
     })
-    shuffled(rng, items).forEach(function(item, index) {
-      newNames.push({
-        id: stats[index].id,
-        name: item.name,
-      })
-      let addr = util.romOffset(constants.exe, items[index].offset + 0x00)
-      if(options.itemnamerandoMode == true)
-      {
+    if(options.itemNameRandoMode === true) {
+      shuffled(rng, items).forEach(function(item, index) {
+        newNames.push({
+          id: stats[index].id,
+          name: item.name,
+        })
+        let addr = util.romOffset(constants.exe, items[index].offset + 0x00)
         addr = data.writeWord(addr, item.nameAddress)
-      }
-    })
+      })
+    }
     if (handType != 'SHIELD') {
       // Randomize stats.
       if (weaponHandTypes.indexOf(handType) === -1) {
@@ -144,90 +143,90 @@
 
   function shuffleEquipmentStats(rng, data, newNames, stats, options) {
     // Randomize names.
-    function randomizeNames(items) {
-      shuffled(rng, items).forEach(function(item, index) {
-        newNames.push({
-          id: items[index].id,
-          name: item.name,
+    if(options.itemNameRandoMode === true) {
+      console.log("this runs >:D")
+      function randomizeNames(items) {
+        shuffled(rng, items).forEach(function(item, index) {
+          newNames.push({
+            id: items[index].id,
+            name: item.name,
+          })
+          let addr = util.romOffset(constants.exe, items[index].offset + 0x00)
+          addr = data.writeWord(addr, item.nameAddress)
         })
-        let addr = util.romOffset(constants.exe, items[index].offset + 0x00)
-        if(options.itemnamerandoMode == true)
-        {
-            addr = data.writeWord(addr, item.nameAddress)
-        }
-      })
+      }
+      randomizeNames(stats.filter(function(item) {
+        return [
+          'Cloth tunic',
+          'Hide cuirass',
+          'Bronze cuirass',
+          'Iron cuirass',
+          'Steel cuirass',
+          'Silver plate',
+          'Gold plate',
+          'Platinum mail',
+          'Diamond plate',
+          'Fire mail',
+          'Lightning mail',
+          'Ice mail',
+          'Mirror cuirass',
+          'Spike Breaker',
+          'Dark armor',
+          'Holy mail',
+          'Moonstone',
+          'Sunstone',
+          'Bloodstone',
+          'Gauntlet',
+          'Duplicator',
+          'Secret boots',
+          'Sunglasses',
+          'Holy glasses',
+          'Goggles',
+          'Ballroom mask',
+          'Stone mask',
+          'Felt hat',
+          'Leather hat',
+          'Velvet hat',
+          'Wizard hat',
+          'Ring of Pales',
+          'Ring of Ares',
+          'Gold ring',
+          'Silver ring',
+          'Ring of Varda',
+          'Ring of Arcana',
+          'Ring of Feanor',
+          'Necklace of J',
+        ].indexOf(item.name) === -1
+      }))
+      randomizeNames(stats.filter(function(item) {
+        return [
+          'Sunglasses',
+          'Holy glasses',
+          'Goggles',
+          'Ballroom mask',
+          'Stone mask',
+        ].indexOf(item.name) !== -1
+      }))
+      randomizeNames(stats.filter(function(item) {
+        return [
+          'Felt hat',
+          'Leather hat',
+          'Velvet hat',
+          'Wizard hat',
+        ].indexOf(item.name) !== -1
+      }))
+      randomizeNames(stats.filter(function(item) {
+        return [
+          'Ring of Pales',
+          'Ring of Ares',
+          'Gold ring',
+          'Silver ring',
+          'Ring of Varda',
+          'Ring of Arcana',
+          'Ring of Feanor',
+        ].indexOf(item.name) !== -1
+      }))
     }
-    randomizeNames(stats.filter(function(item) {
-      return [
-        'Cloth tunic',
-        'Hide cuirass',
-        'Bronze cuirass',
-        'Iron cuirass',
-        'Steel cuirass',
-        'Silver plate',
-        'Gold plate',
-        'Platinum mail',
-        'Diamond plate',
-        'Fire mail',
-        'Lightning mail',
-        'Ice mail',
-        'Mirror cuirass',
-        'Spike Breaker',
-        'Dark armor',
-        'Holy mail',
-        'Moonstone',
-        'Sunstone',
-        'Bloodstone',
-        'Gauntlet',
-        'Duplicator',
-        'Secret boots',
-        'Sunglasses',
-        'Holy glasses',
-        'Goggles',
-        'Ballroom mask',
-        'Stone mask',
-        'Felt hat',
-        'Leather hat',
-        'Velvet hat',
-        'Wizard hat',
-        'Ring of Pales',
-        'Ring of Ares',
-        'Gold ring',
-        'Silver ring',
-        'Ring of Varda',
-        'Ring of Arcana',
-        'Ring of Feanor',
-        'Necklace of J',
-      ].indexOf(item.name) === -1
-    }))
-    randomizeNames(stats.filter(function(item) {
-      return [
-        'Sunglasses',
-        'Holy glasses',
-        'Goggles',
-        'Ballroom mask',
-        'Stone mask',
-      ].indexOf(item.name) !== -1
-    }))
-    randomizeNames(stats.filter(function(item) {
-      return [
-        'Felt hat',
-        'Leather hat',
-        'Velvet hat',
-        'Wizard hat',
-      ].indexOf(item.name) !== -1
-    }))
-    randomizeNames(stats.filter(function(item) {
-      return [
-        'Ring of Pales',
-        'Ring of Ares',
-        'Gold ring',
-        'Silver ring',
-        'Ring of Varda',
-        'Ring of Arcana',
-        'Ring of Feanor',
-      ].indexOf(item.name) !== -1
-    }))
     // Randomize stats.
     function randomizeStats(items) {
       shuffled(rng, items).forEach(function(item, index) {

@@ -28,7 +28,7 @@
   "mypurseMode": true,
   "unlockedMode": true,
   "startRoomRandoMode": true,
-  
+  "startRoomRando2ndMode": true,
 
   "itemLocations": [{
     "comment": "Force library card spawn in vanilla location for convenience",

@@ -86,7 +86,7 @@
       addr = data.writeShort(addr, 0x0010)
       addr = data.writeShort(addr, item.relicId)
     })
-    // Change Entity to Refer to Table.
+    // Change Entity to Refer to Table. (Entity Subtype)
     data.writeShort(0x4678bc2, index)
   }
 
@@ -116,7 +116,7 @@
       addr = data.writeShort(addr, 0x0010)
       addr = data.writeShort(addr, item.relicId)
     })
-    // Change Entity to Refer to Table.
+    // Change Entity to Refer to Table. (Entity Subtype)
     data.writeShort(0x49d5a14, index)
   }
 
@@ -147,7 +147,7 @@
       addr = data.writeShort(addr, 0x0010)
       addr = data.writeShort(addr, item.itemId)
     })
-    // Change Entity to Refer to Table.
+    // Change Entity to Refer to Table. (Entity Subtype)
     data.writeShort(0x5574dc4, index)
     data.writeShort(0x5575900, index)
   }
@@ -178,7 +178,7 @@
       addr = data.writeShort(addr, 0x0010)
       addr = data.writeShort(addr, item.relicId)
     })
-    // Change Entity to Refer to Table.
+    // Change Entity to Refer to Table. (Entity Subtype)
     data.writeShort(0x4c34fae, index)
   }
   

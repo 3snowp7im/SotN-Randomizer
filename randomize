@@ -339,7 +339,7 @@ const relicsHelp = [
   '  r:x:guarded:@y:fe0  Holy Symbol location may be empty or contain Fire of',
   '                      Bat or Force of Echo',
   '',
-  'Relics may be blocked from being randomized to a location by prefxing it',
+  'Relics may be blocked from being randomized to a location by prefixing it',
   'with a hypen ("-"):',
   '  r:-J:0BLG  Never let Jewel of Open location be empty, or have Soul of',
   '             Bat, Leap Stone, or Gravity Boots',
@@ -648,7 +648,7 @@ const yargs = require('yargs')
   })
   .option('rlbc', {
     alias: 'rl',
-    describe: 'Guarantees drops from every enemy that has one. Ring of Arcana makes them drop their rare item instead of the uncommon.',
+    describe: 'Allows use of Library Cards to teleport to the Forbidden Library by holding Down while using them.',
     type: 'boolean',
   })
   .option('debug', {
@@ -1087,7 +1087,7 @@ if (argv.fastwarp) { // quickens teleporter warp animation - eldrich
 if ('debug' in argv) {console.log('randomize | Set Item Name Rando')}
 // Enable itemname rando mode if specified. - MottZilla
 if (argv.itemnamerando) { // Randomize Item names if randomizing item stats - MottZilla
-  options.itemnamerandoMode = true
+  options.itemNameRandoMode = true
 }
 if ('debug' in argv) {console.log('randomize | Set no prologue')}
 // Enable no prologue mode if specified. - eldri7ch
@@ -1149,10 +1149,10 @@ if ('mapcolor' in argv && typeof(argv.mapcolor) !== 'undefined') {
 if ('debug' in argv) {console.log('randomize | Choose new goals')}
 // Map Color Features if specified. - eldri7ch
 if ('newGoals' in argv && typeof(argv.newGoals) !== 'undefined') {
-  let termsAllowed = 'd,b,r,a'
+  let termsAllowed = 'd,b,r,a,v'
   if (!(termsAllowed.includes(argv.newGoals))) {
     yargs.showHelp()
-    console.error('\nMust contain a letter \'d\'(Preset Default), \'b\'(All Bosses), \'r\'(All Relics), \'a\'(All Bosses and Relics)')
+    console.error('\nMust contain a letter \'d\'(Preset Default), \'b\'(All Bosses), \'r\'(All Relics), \'a\'(All Bosses and Relics), \'v\'(All Bosses and Vlad Relics)')
     process.exit(1)
   } else {
     options.newGoalsSet = argv.newGoals.toString()
@@ -1334,8 +1334,15 @@ if ('debug' in argv) {console.log('randomize | Start randomization')}
         check.apply(randomizeMusic(rng, applied))
         if ('debug' in argv) {console.log('randomize | function: randomize | Apply options / writes function master')}
         let optWrite = 0x00000000                   // This variable lets the ASM used in the Master Function know if it needs to run certain code or sets flags for the tracker to use
-        if ('newGoals' in argv) {                   // Sets flag for the tracker to know which goals to use
-          let nGoal = argv.newGoals
+        let nGoal
+        if ('newGoals' in argv || options.newGoalsSet || applied.newGoalsSet) {                   // Sets flag for the tracker to know which goals to use
+          if (argv.newgoals !== undefined) {
+            nGoal = argv.newgoals
+          } else if (applied.newGoalsSet !== undefined) {
+            nGoal = applied.newGoalsSet
+          } else if (options.newGoalsSet !== undefined) {
+            nGoal = options.newGoalsSet
+          }
           switch(nGoal) {
             case "b":                                 // all bosses flag
               optWrite = optWrite + 0x01
@@ -1346,9 +1353,13 @@ if ('debug' in argv) {console.log('randomize | Start randomization')}
             case "a":                                 //  all bosses and relics flag
               optWrite = optWrite + 0x03
               break
+            case "v":                                 //  all bosses and vlad relics flag
+              optWrite = optWrite + 0x05
+              break
           }
         }
         check.apply(util.randoFuncMaster(optWrite))
+        check.apply(util.applySplashText(rng))
         if ('debug' in argv) {console.log('randomize | function: randomize | Apply patches from options')}
         optFlag = false
         if (options.tournamentMode) {
@@ -1481,9 +1492,13 @@ if ('debug' in argv) {console.log('randomize | Start randomization')}
         }
         if ('debug' in argv) {console.log('randomize | function: randomize | Map colors')}
         optFlag = false
-        if ('newGoals' in argv) { // changes the goals - eldrich
+        if (options.newGoalsSet || applied.newGoalsSet) { // changes the goals - eldrich
           // Apply new goal patches. - eldri7ch
-          let nGoal = argv.newGoals
+          if (options.newGoalsSet !== undefined){
+            nGoal = options.newGoalsSet
+          } else {
+            nGoal = applied.newGoalsSet
+          }
           check.apply(util.applyNewGoals(nGoal))
         }
         if ('debug' in argv) {console.log('randomize | function: randomize | New Goals')}
@@ -1533,7 +1548,7 @@ if ('debug' in argv) {console.log('randomize | Start randomization')}
       // Apply accessibility patches.
       check.apply(applyAccessibilityPatches())
     }
-    if ('debug' in argv) {console.log('randomize | function: randomize | Show url if not provided as arg')}
+    if ('debug' in argv) {console.log('randomize | function: randomize | Show url if provided as arg')}
     // Show url if not provided as arg.
     if ('url' in argv && !argv._[0] && !argv.quiet) {
       console.log(util.optionsToUrl(

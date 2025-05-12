@@ -8,6 +8,7 @@
   let relics
   let fs
   let crypto
+  let goals
 
   if (self) {
     constants = self.sotnRando.constants
@@ -17,6 +18,7 @@
     items = self.sotnRando.items
     relics = self.sotnRando.relics
     crypto = self.crypto
+    goals = self.goals
   } else {
     constants = require('./constants')
     enemies = require('./enemies')
@@ -2530,11 +2532,11 @@ function hexValueToDamageString(hexValue) {
           randomize.push('9')
         }
         delete options.fastwarpMode
-      } else if ('itemnamerandoMode' in options) { // randomize item names with item stat rando - MottZilla
-        if (options.itemnamerandoMode) {
+      } else if ('itemNameRandoMode' in options) { // randomize item names with item stat rando - MottZilla
+        if (options.itemNameRandoMode) {
           randomize.push('in')
         }
-        delete options.itemnamerandoMode
+        delete options.itemNameRandoMode
       } else if ('noprologueMode' in options) { // Removes prologue - eldri7ch
         if (options.noprologueMode) {
           randomize.push('R')
@@ -3216,7 +3218,7 @@ function hexValueToDamageString(hexValue) {
     nonce = nonce || 0
     return JSON.stringify({
       version: version,
-      options: optionsToString(options),
+      tournamentMode: "tournamentMode" in options,
       seed: seed,
       nonce: nonce,
     })
@@ -3826,7 +3828,7 @@ function hexValueToDamageString(hexValue) {
     mypurseMode,
     iwsMode,
     fastwarpMode,
-    itemnamerandoMode,
+    itemNameRandoMode,
     noprologueMode,
     unlockedMode,
     surpriseMode,
@@ -3836,6 +3838,7 @@ function hexValueToDamageString(hexValue) {
     startRoomRando2ndMode,
     dominoMode,
     rlbcMode,
+    newGoalsSet,
     debugMode,
     writes,
   ) {
@@ -3870,7 +3873,7 @@ function hexValueToDamageString(hexValue) {
     this.mypurseMode = mypurseMode
     this.iwsMode = iwsMode
     this.fastwarpMode = fastwarpMode
-    this.itemnamerandoMode = itemnamerandoMode
+    this.itemNameRandoMode = itemNameRandoMode
     this.noprologueMode = noprologueMode
     this.unlockedMode = unlockedMode
     this.surpriseMode = surpriseMode
@@ -3880,6 +3883,7 @@ function hexValueToDamageString(hexValue) {
     this.startRoomRando2ndMode = startRoomRando2ndMode
     this.dominoMode = dominoMode
     this.rlbcMode = rlbcMode
+    this.newGoalsSet = newGoalsSet
     this.debugMode = debugMode
     if (writes) {
       this.writes = writes
@@ -4044,6 +4048,8 @@ function hexValueToDamageString(hexValue) {
     this.domino = false
     // reverse library cards mode.
     this.rlbc = false
+    // new goals for completion.
+    this.newGoals = undefined
     // Debug mode.
     this.debug = false
     // Arbitrary writes.
@@ -4342,8 +4348,8 @@ function hexValueToDamageString(hexValue) {
     if ('fastwarpMode' in json) {
       builder.fastwarpMode(json.fastwarpMode)
     }
-    if ('itemnamerandoMode' in json) {
-      builder.itemnamerandoMode(json.itemnamerandoMode)
+    if ('itemNameRandoMode' in json) {
+      builder.itemNameRandoMode(json.itemNameRandoMode)
     }
     if ('noprologueMode' in json) {
       builder.noprologueMode(json.noprologueMode)
@@ -4371,6 +4377,9 @@ function hexValueToDamageString(hexValue) {
     }
     if ('rlbcMode' in json) {
       builder.rlbcMode(json.rlbcMode)
+    }
+    if ('newGoalsSet' in json) {
+      builder.newGoalsSet(json.newGoalsSet)
     }
     if ('writes' in json) {
       let lastAddress = 0
@@ -4677,8 +4686,8 @@ function hexValueToDamageString(hexValue) {
     if ('fastwarpMode' in preset) {
       this.fastwarp = preset.fastwarpMode
     }
-    if ('itemnamerandoMode' in preset) {
-      this.itemnamerando = preset.itemnamerandoMode
+    if ('itemNameRandoMode' in preset) {
+      this.itemnamerando = preset.itemNameRandoMode
     }
     if ('noprologueMode' in preset) {
       this.noprologue = preset.noprologueMode
@@ -4706,6 +4715,9 @@ function hexValueToDamageString(hexValue) {
     }
     if ('rlbcMode' in preset) {
       this.rlbc = preset.rlbcMode
+    }
+    if ('newGoalsSet' in preset) {
+      this.newGoals = preset.newGoalsSet
     }
     if ('writes' in preset) {
       this.writes = this.writes || []
@@ -5347,7 +5359,7 @@ function hexValueToDamageString(hexValue) {
       }
     }
 
-  // Enable guarded relic locations.
+  // Enable relic locations.
   PresetBuilder.prototype.relicLocationsExtension =
     function relicLocationsExtension(extension) {
       assert.oneOf(typeof(extension), ['boolean', 'string'])
@@ -5400,7 +5412,7 @@ function hexValueToDamageString(hexValue) {
   }
 
   // Enable Item Name Rando - MottZilla
-  PresetBuilder.prototype.itemnamerandoMode = function itemnamerandoMode(enabled) {
+  PresetBuilder.prototype.itemNameRandoMode = function itemNameRandoMode(enabled) {
     this.itemnamerando = enabled
   }
 
@@ -5447,6 +5459,12 @@ function hexValueToDamageString(hexValue) {
   // Enable Reverse Library Cards - eldri7ch
   PresetBuilder.prototype.rlbcMode = function rlbcMode(enabled) {
     this.rlbc = enabled
+  }
+
+  // Assign New Goals - eldri7ch
+  PresetBuilder.prototype.newGoalsSet = function newGoalsSet(nGoals) {
+    assert.oneOf(typeof(nGoals), ['boolean', 'string'])
+    this.newGoals = nGoals
   }
 
   // Write a character.
@@ -5765,6 +5783,7 @@ function hexValueToDamageString(hexValue) {
     const startRoomRando2nd = self.startRoomRando2nd
     const domino = self.domino
     const rlbc = self.rlbc
+    const newGoals = self.newGoals
     const debug = self.debug
     const writes = self.writes
     return new Preset(
@@ -5809,6 +5828,7 @@ function hexValueToDamageString(hexValue) {
       startRoomRando2nd,
       domino,
       rlbc,
+      newGoals,
       debug,
       writes,
     )
@@ -5838,6 +5858,8 @@ function hexValueToDamageString(hexValue) {
     const data = new checked()                        // randomizer options that require additional code. 0x3711A68 is loaded from CD by separate code
     let offset
     
+    console.log('optwrite: ' + optWrite)
+
     offset = 0xF96D8
     offset = data.writeWord(offset, 0x0c038ba6)       // call the sector load
     data.writeWord(offset, 0x00000000)
@@ -6129,7 +6151,7 @@ function hexValueToDamageString(hexValue) {
       data.writeWord(addressRi, colorWrite)
       break
     case 'r': // Crimson
-      colorWrite = 0x00500000
+      colorWrite = 0x80500000
       data.writeWord(addressAl, colorWrite)
       data.writeWord(addressRi, colorWrite)
       break
@@ -6144,7 +6166,7 @@ function hexValueToDamageString(hexValue) {
       data.writeWord(addressRi, colorWrite)
       break
     case 'y': // Gray
-      colorWrite = 0xE3180000
+      colorWrite = 0xc20d0000
       bordWrite = 0xffff
       data.writeWord(addressAl, colorWrite)
       data.writeWord(addressRi, colorWrite)
@@ -6157,8 +6179,8 @@ function hexValueToDamageString(hexValue) {
       data.writeWord(addressRi, colorWrite)
       break
     case 'k': // Pink
-      colorWrite = 0xff1f0000
-      bordWrite = 0xfd0f
+      colorWrite = 0xf4b40000
+      bordWrite = 0xfe9e
       data.writeWord(addressAl, colorWrite)
       data.writeWord(addressRi, colorWrite)
       data.writeShort(addressAlBord,bordWrite)
@@ -6226,7 +6248,7 @@ function hexValueToDamageString(hexValue) {
       offset = data.writeWord(offset, 0x3C108009)
       offset = data.writeWord(offset, 0x3610797D)
       offset = data.writeWord(offset, 0x3C118009)
-      offset = data.writeWord(offset, 0x36317981)
+      offset = data.writeWord(offset, 0x36317982)
       offset = data.writeWord(offset, 0x92120000)
       offset = data.writeWord(offset, 0x00000000)
       offset = data.writeWord(offset, 0x12400005)
@@ -6266,7 +6288,37 @@ function hexValueToDamageString(hexValue) {
       offset = data.writeWord(offset, 0x3C108009)
       offset = data.writeWord(offset, 0x3610797D)
       offset = data.writeWord(offset, 0x3C118009)
-      offset = data.writeWord(offset, 0x36317981)
+      offset = data.writeWord(offset, 0x36317982)
+      offset = data.writeWord(offset, 0x92120000)
+      offset = data.writeWord(offset, 0x00000000)
+      offset = data.writeWord(offset, 0x12400005)
+      offset = data.writeWord(offset, 0x26100001)
+      offset = data.writeWord(offset, 0x1611FFFB)
+      offset = data.writeWord(offset, 0x00000000)
+      offset = data.writeWord(offset, 0x080704E4)
+      offset = data.writeWord(offset, 0x00000000)
+      offset = data.writeWord(offset, 0x080705E4)
+      offset = data.writeWord(offset, 0x00000000)
+      break
+    case 'v':                                                                   // All Bosses All Vlads
+      offset = jmpAddr
+      data.writeWord(offset, 0x08074fbc)
+
+      offset = funcAddress
+      offset = data.writeWord(offset, 0x3C108003)
+      offset = data.writeWord(offset, 0x3610CA2C)
+      offset = data.writeWord(offset, 0x3C118003)
+      offset = data.writeWord(offset, 0x3631CA80)
+      offset = data.writeWord(offset, 0x8E120000)
+      offset = data.writeWord(offset, 0x00000000)
+      offset = data.writeWord(offset, 0x1240000F)
+      offset = data.writeWord(offset, 0x26100004)
+      offset = data.writeWord(offset, 0x1611FFFB)
+      offset = data.writeWord(offset, 0x00000000)
+      offset = data.writeWord(offset, 0x3C108009)
+      offset = data.writeWord(offset, 0x3610797D)
+      offset = data.writeWord(offset, 0x3C118009)
+      offset = data.writeWord(offset, 0x36317982)
       offset = data.writeWord(offset, 0x92120000)
       offset = data.writeWord(offset, 0x00000000)
       offset = data.writeWord(offset, 0x12400005)
@@ -6711,20 +6763,18 @@ function hexValueToDamageString(hexValue) {
 
     // console.log("Last Room in Data is: id = " + startRoomData[Math.floor(0.999 * (startRoomData.length))].id + " : " + startRoomData[Math.floor(0.999 * (startRoomData.length))].comment)
     // End of Debug Messages
-    
-    if(castleFlag === 0x01)        // 1st Castle Only
 
+    if(castleFlag === 0x01)        // 1st Castle Only
     {
       while(startRoomData[randRoomId].stage >= 0x20)
       {
-        console.log('reroll')
         randRoomId = Math.floor(rng() * Math.floor(startRoomData.length))   // Re-roll if Room is 2nd Castle but we did not choose to include it.
       }
     }
 
     if(castleFlag === 0x10)        // 2nd Castle Only
     {
-      while(startRoomData[randRoomId].stage <= 0x20)
+      while(startRoomData[randRoomId].stage < 0x20)
       {
         randRoomId = Math.floor(rng() * Math.floor(startRoomData.length))   // Re-roll if Room is 1st Castle but we did not choose to include it.
       }
@@ -6865,6 +6915,12 @@ function hexValueToDamageString(hexValue) {
       data.writeShort(0x45f8a92,0x0342)
       data.writeShort(0x45f897c,0x0343)
       data.writeWord(0x45f879a,0x03430342)
+    }
+
+    if(startRoomData[randRoomId].stageWrite === 0x0b) {                         // Solve soft lock if player starts in the Keep Attic
+      offset = 0x0563E4C0
+      offset = data.writeWord(offset,0x34020001)
+      data.writeChar(offset,0x00000000)
     }
 
     return data
@@ -7057,7 +7113,15 @@ function hexValueToDamageString(hexValue) {
       [0x9024, 0x9867, 0xa8ac, 0xbd31, 0xcdf5, 0xeabb, 0xfb1d], // Pink Passion
       [0x8000, 0x8c42, 0x98a5, 0xa0e9, 0xa96d, 0xb9f1, 0xc655]  // Shadow Prince
     ]
-    
+    const palettesWolfCloth = [
+      [0x8005,0x802a,0x8cad,0xa4f6,0x810d,0xbdf8,0x81f9,0xa31f,0x82df,0x8003,0x8023,0x8447,0x94ab,0xa112],
+      [0xa465,0xb884,0xc8e6,0xd58b,0x8d21,0xe690,0x9a42,0xb6e8,0xa360,0x9802,0x9423,0xa863,0xb908,0xc147],
+      [0x8063,0x80c7,0x8509,0x954e,0xa42a,0xadd4,0xc454,0xd55a,0xe85a,0x8021,0x8042,0x8064,0x8886,0xa4eb],
+      [0x8c64,0xa0e8,0xad6b,0xde52,0xb4e0,0xfb9a,0xe5e0,0xfe27,0xfea0,0x8422,0x8c64,0x9484,0xb129,0xd1ef],
+      [0xa465,0xb447,0xb88b,0xd94f,0x98c7,0xd9d8,0xad8e,0xca75,0xbe36,0x9802,0x9423,0xa445,0xa067,0xb0cd],
+      [0x9826,0xa46c,0xb8f2,0xe1d8,0x8422,0xfaba,0x8844,0x9086,0x90cb,0x8c03,0x8c24,0x9c69,0xb50d,0xcd2f],
+      [0x8822,0x8c43,0x98a5,0xa0e9,0x808d,0xa96d,0x80f9,0x8d9e,0x813f,0x8421,0x8822,0x8822,0x9063,0x9484]
+    ]
     switch (alColP){
       case 'r':
         colorAlucardSet = 0
@@ -7092,6 +7156,21 @@ function hexValueToDamageString(hexValue) {
     offset = 0xEF93E
     index = colorAlucardBright
     offset = data.writeShort(offset,palettesAlucard[colorAlucardSet][index])
+
+    offset = 0xEF9C0
+    for (let i = 0; i < 4; i++) { //0-3
+      offset = data.writeShort(offset, palettesWolfCloth[colorAlucardSet][i])
+    }
+    offset += 0x0a
+    for (let i = 4; i < 9; i++) {//4-8
+      offset = data.writeShort(offset, palettesWolfCloth[colorAlucardSet][i])
+    }
+    offset += 0x04
+    for (let i = 9; i < 13; i++) {//10-13
+      offset = data.writeShort(offset, palettesWolfCloth[colorAlucardSet][i])
+    }
+    offset += 0x0c
+    offset = data.writeShort(offset, palettesWolfCloth[colorAlucardSet][13])
     return data
   }
 
@@ -7105,6 +7184,14 @@ function hexValueToDamageString(hexValue) {
       [0x8c43, 0x98a5, 0x9cc8, 0xa54c], // Onyx Trim
       [0xa8ac, 0xad0f, 0xadb3, 0xbe16]  // Coral Trim
     ]
+    const palettesWolfSkin = [
+      [0x9db5,0xbebd,0xff9a,0x8888,0x98f0,0x90ec,0xa990,0xa9f6,0x8023,0x8049],
+      [0x94eb,0xa56e,0xba14,0x8445,0x9089,0x8c66,0x94a8,0xa0eb,0x8023,0x8445],
+      [0xc1cf,0xded6,0xff9a,0x98a5,0xb14b,0xa509,0xb9ce,0xc611,0x8421,0x98a5],
+      [0xa52c,0xa98a,0x9cc7,0x8c44,0x98a8,0x9486,0x9ce7,0xa509,0x8001,0x8c44],
+      [0xbdf9,0xce7d,0xdf7c,0x948a,0xb553,0xa10f,0xbdd3,0xbdf8,0x8403,0x904b]
+    ]
+    
     switch(alColL){
       case 'z':
         colorAlucardLiner = [0]
@@ -7129,6 +7216,92 @@ function hexValueToDamageString(hexValue) {
     for (let i = 0; i < 4; i++) {
       offset = data.writeShort(offset,palettesAlucardLiner[colorAlucardLiner][i])
     }
+    offset = 0xEF9C8
+    for (let i = 0; i< 5; i++) {
+      offset = data.writeShort(offset,palettesWolfSkin[colorAlucardLiner][i])
+    }
+    offset += 0x16
+    for (let i = 5; i< 10; i++) {
+      offset = data.writeShort(offset,palettesWolfSkin[colorAlucardLiner][i])
+    }
+    return data
+  }
+
+  function applySplashText(rng) {                                               // Splash text; ASM by MottZilla, JS by 3snow_p7im, eldri7ch, and DotChris
+    const month = new Date().getMonth() + 1                                     // Acquire the month the code is run
+    let splashPhrases = []
+    switch (month) {                                                            // Establish different sets of phrases from constants.js based on the month
+    case 6:                                                                     // Pride month
+      splashPhrases = constants.prideSplashPhrases
+      break
+    default:                                                                    // Any other month
+      splashPhrases = constants.splashPhrases
+      break
+    }
+    const data = new checked()
+    let strId
+    let strText
+    let strLength
+    let newXPos
+    let offset
+    // Identify Variables
+    strId= Math.floor(rng() * Math.floor(splashPhrases.length))
+    strText = splashPhrases[strId]
+    strLength = strText.length
+    newXPos = numToHex(0x3404004b + (180-((strLength * 8) / 2)))
+    // Start writing the code - code by MottZilla
+    // Title Screen Display Text through Debug
+    offset = 0x4398AD0
+    offset = data.writeWord(offset, 0x3C04801B)
+    offset = data.writeWord(offset, 0x34844880)
+    offset = data.writeWord(offset, 0x0C004657)
+    offset = data.writeWord(offset, 0x00000000)
+    offset = data.writeWord(offset, 0x00000000)
+    offset = data.writeWord(offset, 0x2404FFFF)
+    offset = data.writeWord(offset, 0x0C0045BF)
+    offset = data.writeWord(offset, 0x00000000)
+    offset = data.writeWord(offset, 0x34040020)
+    offset = data.writeWord(offset, 0x3C058003)
+    offset = data.writeWord(offset, 0xA0A4B768)
+    offset = data.writeWord(offset, 0x340400C1)                                 // y posoition for text
+    offset = data.writeWord(offset, 0xA0A4B76A)
+    offset = data.writeWord(offset, 0x3C028009)
+    offset = data.writeWord(offset, 0x94427494)
+    offset = data.writeWord(offset, 0x0806D200)
+    offset = data.writeWord(offset, 0x00000000)
+    offset = data.writeWord(offset, 0x00000000)
+    offset = data.writeWord(offset, 0x00007845)
+    // Write Text Hook
+    offset = 0x439895C
+    offset = data.writeWord(offset, 0x0806d20e)
+    offset = data.writeWord(offset, 0x00000000)
+    // Write the new X pos for the text
+    offset = 0x4398AF0
+    data.writeWord(offset, newXPos)
+    // Write the text
+    let i = 0
+    let strHex = []
+    // Convert each character of the text to hex code.
+    // Loops through each character in the string and assigns
+    // a hex code for that character to be written.
+    while (i < (strLength)) {                                                   // code runs as long as the string still has characters in it
+      if (i < strLength) {                                                      // run if the character is not the end of the string
+        if (strText[i] == "\\") {                                               // Check for apostrophes
+          strhex[i] = 0x27
+        } else {                                                                // if it's not an apostrophe, write the hex code for the text
+          strHex[i] = strText.charCodeAt(i)
+        }
+      } else {                                                                  // if it IS the end of the string, add a termination 0x00
+        strHex[i] = 0x00
+      }
+      i++                                                                       // advance the integer in 'i'
+    }
+    // perform the write
+    offset = 0x4398B18
+    strHex[strLength + 1] = 0x00                                                // add an additional termination 0x00 in case the past one failed
+    offset = data.writeString(offset, strHex)                                   // actually write the text we need
+    offset = data.writeChar(offset, 0x00)                                       // I know, it seems redundant, but add an additional termination 0x00
+    
     return data
   }
 
@@ -7686,6 +7859,7 @@ function hexValueToDamageString(hexValue) {
     applyMapColor: applyMapColor,
     applyNewGoals: applyNewGoals,
     applyAlucardPalette: applyAlucardPalette,
+    applySplashText: applySplashText,
     applyAlucardLiner: applyAlucardLiner,
     randomizeRelics: randomizeRelics,
     randomizeItems: randomizeItems,
