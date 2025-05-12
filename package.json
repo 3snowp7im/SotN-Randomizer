@@ -67,8 +67,12 @@
     "battle-mage",
     "timeline",
     "chimera",
-    "april-fools",
-    "vanilla"
+    "vanilla",
+    "glitch-legacy",
+    "oracle",
+    "seeker",
+    "all-bosses",
+    "boss-reflector"
   ],
   "engines": {
     "node": ">=15"

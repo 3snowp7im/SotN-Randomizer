@@ -957,25 +957,6 @@
     "itemStats": "Normal"
   },
   {
-    "name": "Alphabet Soup",
-    "id": "april-fools",
-    "description": "April Fools Preset Released on April 1st, 2025.",
-    "author": [
-      "eldri7ch",
-      "MottZilla"
-    ],
-    "knowledgeCheck": "April Fools",
-    "timeFrame": "Normal",
-    "moddedLevel": "None",
-    "castleType": "Normal",
-    "transformEarly": "No",
-    "transformFocus": "None",
-    "winCondition": "April Fools",
-    "metaExtension": "Classic",
-    "metaComplexity": "9",
-    "itemStats": "Normal"
-  },
-  {
     "name": "Vanilla",
     "id": "vanilla",
     "description": "The vanilla game.",
@@ -991,6 +972,105 @@
     "winCondition": "Normal",
     "metaExtension": "Classic",
     "metaComplexity": "9",
+    "itemStats": "Normal"
+  },
+  {
+    "name": "Glitch",
+    "id": "glitch-legacy",
+    "description": "Adventure logic is the base. Requires extensive glitch knowledge, but avoids memory corruption and lengthy wolf rising.",
+    "author": [
+      "romscout"
+    ],
+    "knowledgeCheck": "Glitches",
+    "timeFrame": "Slow",
+    "moddedLevel": "Slightly",
+    "castleType": "Normal",
+    "transformEarly": "No",
+    "transformFocus": "None",
+    "winCondition": "Relic Skip",
+    "metaExtension": "Equipment",
+    "metaComplexity": "4",
+    "itemStats": "Normal"
+  },
+  {
+    "name": "Oracle",
+    "id": "oracle",
+    "description": "Removes almost all references to RNG. Drops always occur based on Ring of Arcana, Rings are replaced by Silver Key, Vlads are replaced by Gold Key. Reverse Library Card enabled.",
+    "author": [
+      "Forat Negre"
+    ],
+    "knowledgeCheck": "None",
+    "timeFrame": "Normal",
+    "moddedLevel": "None",
+    "castleType": "Normal",
+    "transformEarly": "No",
+    "transformFocus": "None",
+    "winCondition": "Gold Key",
+    "metaExtension": "Guarded",
+    "metaComplexity": "9",
+    "itemStats": "Normal"
+  },
+  {
+    "name": "Seeker",
+    "id": "seeker",
+    "description": "The Portal Spell is always the complexity relic. Still requires five vlads to make it to the end game.",
+    "author": [
+      "SacredLucy",
+      "MottZilla",
+      "eldri7ch",
+      "DinnerDog",
+      "the_swarm"
+    ],
+    "knowledgeCheck": "None",
+    "timeFrame": "Fast",
+    "moddedLevel": "Moderately",
+    "castleType": "Normal",
+    "transformEarly": "No",
+    "transformFocus": "None",
+    "winCondition": "Vlads and Portal Spell",
+    "metaExtension": "Guarded",
+    "metaComplexity": "7",
+    "itemStats": "Normal"
+  },
+  {
+    "name": "All Bosses",
+    "id": "all-bosses",
+    "description": "An all-bosses and all-vlads preset designed for racing. Removes drops, progression items in vanilla locations, sequence breaks are part of logic, all progression is in first castle, Reverse Library Cards, random Castle 1 starting location.",
+    "author": [
+      "TalicZealot",
+      "3snow_p7im",
+      "MottZilla",
+      "eldri7ch"
+    ],
+    "knowledgeCheck": "Sequence Breaks",
+    "timeFrame": "Fast",
+    "moddedLevel": "Moderately",
+    "castleType": "Normal",
+    "transformEarly": "No",
+    "transformFocus": "None",
+    "winCondition": "All Bosses",
+    "metaExtension": "Guarded",
+    "metaComplexity": "6",
+    "itemStats": "Normal"
+  },
+  {
+    "name": "Boss Reflector",
+    "id": "boss-reflector",
+    "description": "Use a Magic Mirror (X + Triangle; Replaces Holy Glasses) to move between the castles. Significant map changes to add new complexity. Warp room in entrance goes to Outer Wall at the start. All bosses and Vlads required, progression items in vanilla locations.",
+    "author": [
+      "eldri7ch",
+      "MottZilla",
+      "Dr4gonBlitz"
+    ],
+    "knowledgeCheck": "None",
+    "timeFrame": "Fast",
+    "moddedLevel": "Heavily",
+    "castleType": "Modded",
+    "transformEarly": "No",
+    "transformFocus": "None",
+    "winCondition": "All Bosses & Vlad Relics",
+    "metaExtension": "GuardedPlus",
+    "metaComplexity": "6",
     "itemStats": "Normal"
   }
 ]
