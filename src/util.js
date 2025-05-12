@@ -6248,7 +6248,7 @@ function hexValueToDamageString(hexValue) {
       offset = data.writeWord(offset, 0x3C108009)
       offset = data.writeWord(offset, 0x3610797D)
       offset = data.writeWord(offset, 0x3C118009)
-      offset = data.writeWord(offset, 0x36317981)
+      offset = data.writeWord(offset, 0x36317982)
       offset = data.writeWord(offset, 0x92120000)
       offset = data.writeWord(offset, 0x00000000)
       offset = data.writeWord(offset, 0x12400005)
@@ -6288,7 +6288,7 @@ function hexValueToDamageString(hexValue) {
       offset = data.writeWord(offset, 0x3C108009)
       offset = data.writeWord(offset, 0x3610797D)
       offset = data.writeWord(offset, 0x3C118009)
-      offset = data.writeWord(offset, 0x36317981)
+      offset = data.writeWord(offset, 0x36317982)
       offset = data.writeWord(offset, 0x92120000)
       offset = data.writeWord(offset, 0x00000000)
       offset = data.writeWord(offset, 0x12400005)
@@ -6300,7 +6300,7 @@ function hexValueToDamageString(hexValue) {
       offset = data.writeWord(offset, 0x080705E4)
       offset = data.writeWord(offset, 0x00000000)
       break
-    case 'v':                                                                   // All Bosses
+    case 'v':                                                                   // All Bosses All Vlads
       offset = jmpAddr
       data.writeWord(offset, 0x08074fbc)
 
@@ -6311,8 +6311,18 @@ function hexValueToDamageString(hexValue) {
       offset = data.writeWord(offset, 0x3631CA80)
       offset = data.writeWord(offset, 0x8E120000)
       offset = data.writeWord(offset, 0x00000000)
-      offset = data.writeWord(offset, 0x12400005)
+      offset = data.writeWord(offset, 0x1240000F)
       offset = data.writeWord(offset, 0x26100004)
+      offset = data.writeWord(offset, 0x1611FFFB)
+      offset = data.writeWord(offset, 0x00000000)
+      offset = data.writeWord(offset, 0x3C108009)
+      offset = data.writeWord(offset, 0x3610797D)
+      offset = data.writeWord(offset, 0x3C118009)
+      offset = data.writeWord(offset, 0x36317982)
+      offset = data.writeWord(offset, 0x92120000)
+      offset = data.writeWord(offset, 0x00000000)
+      offset = data.writeWord(offset, 0x12400005)
+      offset = data.writeWord(offset, 0x26100001)
       offset = data.writeWord(offset, 0x1611FFFB)
       offset = data.writeWord(offset, 0x00000000)
       offset = data.writeWord(offset, 0x080704E4)
