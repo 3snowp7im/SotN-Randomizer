@@ -34,6 +34,7 @@
   "mypurseMode": true,
   "startRoomRandoMode": true,
   "rlbcMode": true,
+  "newGoalsSet": "b",
 
   "complexityGoal": {
     "min": 6,
@@ -1227,86 +1228,5 @@
       "Holy glasses + Gravity Boots + Form of Mist",
       "Holy glasses + Gravity Boots + Thrust sword"
     ]
-  }],
-
-  "writes": [{
-    "comment": "Jump to injected code",
-    "address": "0x000fa97c",
-    "type": "word",
-    "value": "0x0c04db00"
-  }, {
-    "address": "0x00158c98",
-    "type": "word",
-    "value": "0x34020005",
-    "comment": "ori v0, 0x0005"
-  }, {
-    "type": "word",
-    "value": "0x3c038009",
-    "comment": "lui v1, 0x8009"
-  }, {
-    "comment": "Write all bosses all vlads",
-    "type": "word",
-    "value": "0xa06288b0",
-    "comment": "sb v0, 0x88b0 (v1)"
-  }, {
-    "comment": "Return from injected code",
-    "type": "word",
-    "value": "0x0803924f",
-    "comment": "j 0x800e493c"
-  }, {
-    "type": "word",
-    "value": "0x00000000",
-    "comment": "nop"
-  }, {
-    "comment": "All Bosses Required",
-    "type": "word",
-    "address": "0x4FE4F68",
-    "value": "0x3C108003"
-  }, {
-    "type": "word",
-    "value": "0x3610CA2C"
-  }, {
-    "type": "word",
-    "value": "0x3C118003"
-  }, {
-    "type": "word",
-    "value": "0x3631CA80"
-  }, {
-    "type": "word",
-    "value": "0x8E120000"
-  }, {
-    "type": "word",
-    "value": "0x00000000"
-  }, {
-    "type": "word",
-    "value": "0x12400005"
-  }, {
-    "type": "word",
-    "value": "0x26100004"
-  }, {
-    "type": "word",
-    "value": "0x1611FFFB"
-  }, {
-    "type": "word",
-    "value": "0x00000000"
-  }, {
-    "type": "word",
-    "value": "0x080704E4"
-  }, {
-    "type": "word",
-    "value": "0x00000000"
-  }, {
-    "type": "word",
-    "value": "0x080705E4"
-  }, {
-    "type": "word",
-    "value": "0x00000000"
-  }, 
-  
-  {
-    "comment": "All Bosses Hook",
-    "type": "word",
-    "address": "0x4FCF814",
-    "value": "0x08074FBC"
   }]
 }

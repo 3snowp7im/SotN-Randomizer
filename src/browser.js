@@ -266,7 +266,12 @@
       "battle-mage",
       "timeline",
       "chimera",
-      "vanilla"
+      "vanilla",
+      "all-bosses",
+      "rampage",
+      "nimble-lite",
+      "oracle",
+      "boss-reflector"
     ]
     let relicCompatible = [
       "casual",
@@ -305,7 +310,9 @@
       "mobility",
       "timeline",
       "chimera",
-      "vanilla"
+      "vanilla",
+      "nimble-lite",
+      "all-bosses"
     ]    
     if(idx < 0) idx = 0;
     const id = elems.presetId.childNodes[idx].value
@@ -375,6 +382,13 @@
       elems.dominoMode.disabled = true
     } else {
       elems.dominoMode.disabled = false
+    }
+    if (["all-bosses"].includes(preset.id)) {                                                       // set all bosses goals. - eldri7ch
+      elems.newGoals.value = "allBoss"
+    } else if (["boss-reflector","rampage"].includes(preset.id)) {
+      elems.newGoals.value = "vladBoss"
+    } else {
+      elems.newGoals.value = "default"
     }
     if (!bossCompatible.includes(preset.id) && ["allBoss","abrsr","vladBoss"].includes(elems.newGoals.value)) {
       elems.newGoals.value = "default"                                                              // Remove all boss mode for incompatible presets. - eldri7ch
@@ -627,7 +641,12 @@
       "battle-mage",
       "timeline",
       "chimera",
-      "vanilla"
+      "vanilla",
+      "all-bosses",
+      "rampage",
+      "nimble-lite",
+      "oracle",
+      "boss-reflector"
     ]
     let relicCompatible = [
       "casual",
@@ -666,16 +685,39 @@
       "mobility",
       "timeline",
       "chimera",
-      "vanilla"
-    ]
+      "vanilla",
+      "nimble-lite",
+      "all-bosses"
+    ] 
     if (["allBoss","abrsr","vladBoss"].includes(elems.newGoals.value) && !bossCompatible.includes(elems.presetId.value)){
-      elems.newGoals.value = "default"
+      if (["all-bosses"].includes(elems.presetId.value)) {                                                       // set all bosses goals. - eldri7ch
+        elems.newGoals.value = "allBoss"
+      } else if (["boss-reflector","rampage"].includes(elems.presetId.value)) {
+        elems.newGoals.value = "vladBoss"
+      } else {
+        elems.newGoals.value = "default"
+      }
     } else if (["allRelic","abrsr"].includes(elems.newGoals.value) && !relicCompatible.includes(elems.presetId.value)){
-      elems.newGoals.value = "default"
+      if (["all-bosses"].includes(elems.presetId.value)) {                                                       // set all relics goals. - eldri7ch
+        elems.newGoals.value = "allBoss"
+      } else if (["boss-reflector","rampage"].includes(elems.presetId.value)) {
+        elems.newGoals.value = "vladBoss"
+      } else {
+        elems.newGoals.value = "default"
+      }
+    } else if (["default"].includes(elems.newGoals.value)){
+      if (["all-bosses"].includes(elems.presetId.value)) {                                                       // check if default can be used. - eldri7ch
+        elems.newGoals.value = "allBoss"
+      } else if (["boss-reflector","rampage"].includes(elems.presetId.value)) {
+        elems.newGoals.value = "vladBoss"
+      } else {
+        elems.newGoals.value = "default"
+      }
     } else {
       localStorage.setItem('newGoals', elems.newGoals.value)
       newGoalsLock = elems.newGoals.value
     }
+    
   }
 
   function alucardPaletteChange() {
