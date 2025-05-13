@@ -1092,5 +1092,26 @@
     "metaExtension": "Guarded",
     "metaComplexity": "6",
     "itemStats": "Normal"
+  },
+  {
+    "name": "Rampage",
+    "id": "rampage",
+    "description": "Target Confirmed Variant where you start in a random location and opens all shortcuts and all teleporters. All bosses and Vlads required.",
+    "author": [
+      "TalicZealot",
+      "eldri7ch",
+      "MottZilla",
+      "Wecoc"
+    ],
+    "knowledgeCheck": "None",
+    "timeFrame": "Normal",
+    "moddedLevel": "Heavily",
+    "castleType": "Normal",
+    "transformEarly": "No",
+    "transformFocus": "None",
+    "winCondition": "Normal",
+    "metaExtension": "Guarded",
+    "metaComplexity": "6",
+    "itemStats": "Normal"
   }
 ]
