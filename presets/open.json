@@ -9,7 +9,7 @@
       "MottZilla",
       "Wecoc"
     ],
-    "weight": 3100,
+    "weight": -2225,
     "knowledgeCheck": "None",
     "metaExtension": "Guarded",
     "metaComplexity": "6",
@@ -25,6 +25,12 @@
   "colorrandoMode": true,
   "unlockedMode": true,
   "startRoomRandoMode": true,
+
+  "complexityGoal": {
+    "min": 6,
+    "goals": [
+      "Heart of Vlad + Tooth of Vlad + Rib of Vlad + Ring of Vlad + Eye of Vlad + Holy glasses"
+  ]},
 
   "lockLocation": [{
     "location": "Merman Statue",
@@ -840,219 +846,6 @@
     ]
   }],
 
-  "writes": [{
-    "comment": "Jump to injected code",
-    "address": "0x000fa97c",
-    "type": "word",
-    "value": "0x0c04db00"
-  }, {
-    "address": "0x00158c98",
-    "type": "word",
-    "value": "0x34020003",
-    "comment": "ori v0, 0x0003"
-  }, {
-    "comment": "Write to 8003 RAM addresses,",
-    "type": "word",
-    "value": "0x3c038004",
-    "comment": "lui v1, 0x8004"
-  }, {
-    "comment": "Open Entrance to Catacombs",
-    "type": "word",
-    "value": "0xa062BEB3",
-    "comment": "sb v0, 0xBEB3 (v1)"
-  }, {
-    "type": "word",
-    "value": "0x34020001",
-    "comment": "ori v0, 0x0001"
-  }, {
-    "comment": "Open Shortcut: Alchemy Lab Cannon",
-    "type": "word",
-    "value": "0xa062BE6F",
-    "comment": "sb v0, 0xBE6F (v1)"
-  }, {
-    "comment": "Open Keep Attic Stairs",
-    "type": "word",
-    "value": "0xa062BE80",
-    "comment": "sb v0, 0xBE80 (v1)"
-  }, {
-    "comment": "Open Shortcut: Olrox's Quarters - Royal Chapel",
-    "type": "word",
-    "value": "0xa062BE4C",
-    "comment": "sb v0, 0xBE4C (v1)"
-  }, {
-    "comment": "Open Shortcut: Colosseum - Royal Chapel",
-    "type": "word",
-    "value": "0xa062BE9D",
-    "comment": "sb v0, 0xBE9D (v1)"
-  }, {
-    "comment": "Turn on Outer Wall Elevator",
-    "type": "word",
-    "value": "0xa062BDFC",
-    "comment": "sb v0, 0xBDFC (v1)"
-  }, {
-    "comment": "Mines Ledge Has Fallen",
-    "type": "word",
-    "value": "0xa062BE3E",
-    "comment": "sb v0, 0xBE3E (v1)"
-  }, {
-    "type": "word",
-    "value": "0x3402001F",
-    "comment": "ori v0, 0x001F"
-  }, {
-    "comment": "Unlock Normal Teleport Rooms",
-    "type": "word",
-    "value": "0xa062BEBC",
-    "comment": "sb v0, 0xBEBC (v1)"
-  }, {
-    "comment": "Unlock Reverse Teleport Rooms",
-    "type": "word",
-    "value": "0xa062BEBD",
-    "comment": "sb v0, 0xBEBD (v1)"
-  }, {
-    "comment": "Save Return Address for rA (Map Code)",
-    "type": "word",
-    "value": "0x37F70000"
-  }, {
-    "comment": "Call Map Acquisition Function (Map Code)",
-    "type": "word",
-    "value": "0x0C03C8A2"
-  }, {
-    "type": "word",
-    "value": "0x34040000",
-    "comment": "Arg0 w/ 0"
-  }, {
-    "comment": "Recall Return Address for rA (Map Code)",
-    "type": "word",
-    "value": "0x36FF0000"
-  }, {
-    "type": "word",
-    "value": "0x00000000",
-    "comment": "nop"
-  }, {
-    "comment": "Return from injected code",
-    "type": "word",
-    "value": "0x0803924f",
-    "comment": "j 0x800e493c"
-  }, {
-    "type": "word",
-    "value": "0x00000000",
-    "comment": "nop"
-  }, {
-    "comment": "Escape Button for Caverns X",
-    "type": "word",
-    "address": "0x48FE92A",
-    "value": "0x009C00D0"
-  }, {
-    "type": "word",
-    "value": "0x2020A02C"
-  }, {
-    "type": "char",
-    "value": "0x8D"
-  }, {
-    "comment": "Escape Button for Caverns Y",
-    "type": "word",
-    "address": "0x48FD85E",
-    "value": "0x009C00D0"
-  }, {
-    "type": "word",
-    "value": "0x2020A02C"
-  }, {
-    "type": "char",
-    "value": "0x8D"
-  }, {
-    "comment": "BG Fix for missing candle",
-    "type": "short",
-    "address": "0x4929996",
-    "value": "0x03B9"
-  }, {
-    "comment": "Mines Escape! 1",
-    "type": "word",
-    "address": "0x45F8DE2",
-    "value": "0x03430342"
-  }, {
-    "comment": "Mines Escape! 2",
-    "type": "short",
-    "address": "0x45F8A92",
-    "value": "0x0342"
-  }, {
-    "comment": "Mines Escape! 3",
-    "type": "short",
-    "address": "0x45F897C",
-    "value": "0x0343"
-  }, {
-    "comment": "Mines Escape! 4",
-    "type": "word",
-    "address": "0x45F879A",
-    "value": "0x03430342"
-  }, {
-    "comment": "Faster Warping",
-    "type": "char",
-    "address": "0x588BE90",
-    "value": "0x02"
-  }, {
-    "comment": "Faster Warping",
-    "type": "char",
-    "address": "0x5A78FE4",
-    "value": "0x02"
-  }, {
-    "comment": "Death Softlock Fix",
-    "type": "word",
-    "address": "0x6647250",
-    "value": "0x34020000"
-  }, {
-    "type": "word",
-    "value": "0x00000000"
-  }, {
-    "comment": "remove tiles blocking shortcut for reverse entrance",
-    "address": "0x051caaee",
-    "type": "word",
-    "value": "0x00000000"
-  }, {
-    "address": "0x051cab2e",
-    "type": "word",
-    "value": "0x00000000"
-  }, {
-    "address": "0x051cab6e",
-    "type": "word",
-    "value": "0x00000000"
-  }, {
-    "address": "0x051cabae",
-    "type": "word",
-    "value": "0x00000000"
-  }, {
-    "address": "0x051cabee",
-    "type": "word",
-    "value": "0x00000000"
-  }, {
-    "address": "0x051cac2e",
-    "type": "word",
-    "value": "0x00000000"
-  }, {
-    "address": "0x051cac6e",
-    "type": "word",
-    "value": "0x00000000"
-  }, {
-    "address": "0x051cacae",
-    "type": "word",
-    "value": "0x00000000"
-  }, {
-    "comment": "Change Pillar Position",
-    "address": "0x051b03c2",
-    "type": "short",
-    "value": "0x030d"
-  }, {
-    "address": "0x051afb80",
-    "type": "short",
-    "value": "0x030d"
-  }],
-
-  "complexityGoal": {
-    "min": 6,
-    "goals": [
-      "Heart of Vlad + Tooth of Vlad + Rib of Vlad + Ring of Vlad + Eye of Vlad + Holy glasses"
-    ]
-  },
-
   "lockLocationAllowed": [{
     "location": "Merman Statue",
     "comment": "No Requirements",
@@ -1829,5 +1622,211 @@
       "Holy glasses + Gravity Boots + Soul of Wolf",
       "Holy glasses + Gravity Boots + Thrust sword"
     ]
+  }],
+
+  "writes": [{
+    "comment": "Jump to injected code",
+    "address": "0x000fa97c",
+    "type": "word",
+    "value": "0x0c04db00"
+  }, {
+    "address": "0x00158c98",
+    "type": "word",
+    "value": "0x34020003",
+    "comment": "ori v0, 0x0003"
+  }, {
+    "comment": "Write to 8003 RAM addresses,",
+    "type": "word",
+    "value": "0x3c038004",
+    "comment": "lui v1, 0x8004"
+  }, {
+    "comment": "Open Entrance to Catacombs",
+    "type": "word",
+    "value": "0xa062BEB3",
+    "comment": "sb v0, 0xBEB3 (v1)"
+  }, {
+    "type": "word",
+    "value": "0x34020001",
+    "comment": "ori v0, 0x0001"
+  }, {
+    "comment": "Open Shortcut: Alchemy Lab Cannon",
+    "type": "word",
+    "value": "0xa062BE6F",
+    "comment": "sb v0, 0xBE6F (v1)"
+  }, {
+    "comment": "Open Keep Attic Stairs",
+    "type": "word",
+    "value": "0xa062BE80",
+    "comment": "sb v0, 0xBE80 (v1)"
+  }, {
+    "comment": "Open Shortcut: Olrox's Quarters - Royal Chapel",
+    "type": "word",
+    "value": "0xa062BE4C",
+    "comment": "sb v0, 0xBE4C (v1)"
+  }, {
+    "comment": "Open Shortcut: Colosseum - Royal Chapel",
+    "type": "word",
+    "value": "0xa062BE9D",
+    "comment": "sb v0, 0xBE9D (v1)"
+  }, {
+    "comment": "Turn on Outer Wall Elevator",
+    "type": "word",
+    "value": "0xa062BDFC",
+    "comment": "sb v0, 0xBDFC (v1)"
+  }, {
+    "comment": "Mines Ledge Has Fallen",
+    "type": "word",
+    "value": "0xa062BE3E",
+    "comment": "sb v0, 0xBE3E (v1)"
+  }, {
+    "type": "word",
+    "value": "0x3402001F",
+    "comment": "ori v0, 0x001F"
+  }, {
+    "comment": "Unlock Normal Teleport Rooms",
+    "type": "word",
+    "value": "0xa062BEBC",
+    "comment": "sb v0, 0xBEBC (v1)"
+  }, {
+    "comment": "Unlock Reverse Teleport Rooms",
+    "type": "word",
+    "value": "0xa062BEBD",
+    "comment": "sb v0, 0xBEBD (v1)"
+  }, {
+    "comment": "Save Return Address for rA (Map Code)",
+    "type": "word",
+    "value": "0x37F70000"
+  }, {
+    "comment": "Call Map Acquisition Function (Map Code)",
+    "type": "word",
+    "value": "0x0C03C8A2"
+  }, {
+    "type": "word",
+    "value": "0x34040000",
+    "comment": "Arg0 w/ 0"
+  }, {
+    "comment": "Recall Return Address for rA (Map Code)",
+    "type": "word",
+    "value": "0x36FF0000"
+  }, {
+    "type": "word",
+    "value": "0x00000000",
+    "comment": "nop"
+  }, {
+    "comment": "Return from injected code",
+    "type": "word",
+    "value": "0x0803924f",
+    "comment": "j 0x800e493c"
+  }, {
+    "type": "word",
+    "value": "0x00000000",
+    "comment": "nop"
+  }, {
+    "comment": "Escape Button for Caverns X",
+    "type": "word",
+    "address": "0x48FE92A",
+    "value": "0x009C00D0"
+  }, {
+    "type": "word",
+    "value": "0x2020A02C"
+  }, {
+    "type": "char",
+    "value": "0x8D"
+  }, {
+    "comment": "Escape Button for Caverns Y",
+    "type": "word",
+    "address": "0x48FD85E",
+    "value": "0x009C00D0"
+  }, {
+    "type": "word",
+    "value": "0x2020A02C"
+  }, {
+    "type": "char",
+    "value": "0x8D"
+  }, {
+    "comment": "BG Fix for missing candle",
+    "type": "short",
+    "address": "0x4929996",
+    "value": "0x03B9"
+  }, {
+    "comment": "Mines Escape! 1",
+    "type": "word",
+    "address": "0x45F8DE2",
+    "value": "0x03430342"
+  }, {
+    "comment": "Mines Escape! 2",
+    "type": "short",
+    "address": "0x45F8A92",
+    "value": "0x0342"
+  }, {
+    "comment": "Mines Escape! 3",
+    "type": "short",
+    "address": "0x45F897C",
+    "value": "0x0343"
+  }, {
+    "comment": "Mines Escape! 4",
+    "type": "word",
+    "address": "0x45F879A",
+    "value": "0x03430342"
+  }, {
+    "comment": "Faster Warping",
+    "type": "char",
+    "address": "0x588BE90",
+    "value": "0x02"
+  }, {
+    "comment": "Faster Warping",
+    "type": "char",
+    "address": "0x5A78FE4",
+    "value": "0x02"
+  }, {
+    "comment": "Death Softlock Fix",
+    "type": "word",
+    "address": "0x6647250",
+    "value": "0x34020000"
+  }, {
+    "type": "word",
+    "value": "0x00000000"
+  }, {
+    "comment": "remove tiles blocking shortcut for reverse entrance",
+    "address": "0x051caaee",
+    "type": "word",
+    "value": "0x00000000"
+  }, {
+    "address": "0x051cab2e",
+    "type": "word",
+    "value": "0x00000000"
+  }, {
+    "address": "0x051cab6e",
+    "type": "word",
+    "value": "0x00000000"
+  }, {
+    "address": "0x051cabae",
+    "type": "word",
+    "value": "0x00000000"
+  }, {
+    "address": "0x051cabee",
+    "type": "word",
+    "value": "0x00000000"
+  }, {
+    "address": "0x051cac2e",
+    "type": "word",
+    "value": "0x00000000"
+  }, {
+    "address": "0x051cac6e",
+    "type": "word",
+    "value": "0x00000000"
+  }, {
+    "address": "0x051cacae",
+    "type": "word",
+    "value": "0x00000000"
+  }, {
+    "comment": "Change Pillar Position",
+    "address": "0x051b03c2",
+    "type": "short",
+    "value": "0x030d"
+  }, {
+    "address": "0x051afb80",
+    "type": "short",
+    "value": "0x030d"
   }]
 }

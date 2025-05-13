@@ -6,7 +6,7 @@
     "author": [
       "3snow_p7im"
     ],
-    "weight": 3200,
+    "weight": -2200,
     "knowledgeCheck": "April Fools",
     "metaExtension": "Guarded",
     "metaComplexity": "9",
@@ -18,18 +18,17 @@
     "transformFocus": "None",
     "winCondition": "April Fools"
   },
+
   "inherits": "safe",
   "stats": false,
+
   "complexityGoal": {
     "min": 9,
     "goals": [
       "Spirit Orb"
     ]
   },
-  "replaceRelic": [{
-    "relic": "Spirit Orb",
-    "item": "Zircon"
-  }],
+
   "placeRelic": [{
     "location": "Jewel of Open",
     "relic": [
@@ -40,28 +39,39 @@
       "Eye of Vlad"
     ]
   }],
-  "blockDrops": [{
-    "enemy": "*",
-    "items": [
-      "$1",
-      "$25",
-      "$50",
-      "$100",
-      "$250",
-      "$400",
-      "$1000",
-      "$2000",
+
+  "replaceRelic": [{
+    "relic": "Spirit Orb",
+    "item": "Zircon"
+  }],
+  
+  "blockEquipment": [{
+    "slot": "Right hand",
+    "item": "Jewel sword"
+  }, {
+    "slot": "Other",
+    "item": [
       "Zircon",
       "Aquamarine",
       "Turquoise",
       "Onyx",
       "Garnet",
       "Opal",
-      "Diamond",
-      "Jewel sword",
-      "Library card"
+      "Diamond"
     ]
   }],
+
+  "blockRewards": [{
+    "item": "Heart Refresh",
+    "replacement": "Library card"
+  }, {
+    "item": "Neutron bomb",
+    "replacement": "Library card"
+  }, {
+    "item": "Potion",
+    "replacement": "Library card"
+  }],
+  
   "blockItems": [{
     "zone": "*",
     "item": "*",
@@ -85,31 +95,7 @@
       "Library card"
     ]
   }],
-  "blockEquipment": [{
-    "slot": "Right hand",
-    "item": "Jewel sword"
-  }, {
-    "slot": "Other",
-    "item": [
-      "Zircon",
-      "Aquamarine",
-      "Turquoise",
-      "Onyx",
-      "Garnet",
-      "Opal",
-      "Diamond"
-    ]
-  }],
-  "blockRewards": [{
-    "item": "Heart Refresh",
-    "replacement": "Library card"
-  }, {
-    "item": "Neutron bomb",
-    "replacement": "Library card"
-  }, {
-    "item": "Potion",
-    "replacement": "Library card"
-  }],
+
   "enemyDrops": [{
     "enemy": "Global",
     "items": [
@@ -149,6 +135,30 @@
       "Heart"
     ]
   }],
+
+  "blockDrops": [{
+    "enemy": "*",
+    "items": [
+      "$1",
+      "$25",
+      "$50",
+      "$100",
+      "$250",
+      "$400",
+      "$1000",
+      "$2000",
+      "Zircon",
+      "Aquamarine",
+      "Turquoise",
+      "Onyx",
+      "Garnet",
+      "Opal",
+      "Diamond",
+      "Jewel sword",
+      "Library card"
+    ]
+  }],
+
   "writes": [{
     "comment": "Patch shop relic price",
     "type":    "word",

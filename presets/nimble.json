@@ -6,7 +6,7 @@
     "author": [
       "3snow_p7im"
     ],
-    "weight": 2900,
+    "weight": -2275,
     "knowledgeCheck": "None",
     "metaExtension": "Guarded",
     "metaComplexity": "6",
@@ -18,7 +18,15 @@
     "transformFocus": "Bat",
     "winCondition": "Normal"
   },
+
   "stats": false,
+
+  "complexityGoal": {
+    "min": 6,
+    "goals": [
+      "Holy glasses + Heart of Vlad + Tooth of Vlad + Rib of Vlad + Ring of Vlad + Eye of Vlad"
+  ]},
+
   "startingEquipment": [{
     "slot": "Right hand",
     "item": "Manna prism"
@@ -38,6 +46,7 @@
     "slot": "Other",
     "item": "Duplicator"
   }],
+
   "lockLocation": [{
     "location": "Soul of Bat",
     "comment": "Requires Mist",
@@ -428,13 +437,6 @@
       "Holy glasses"
     ]
   }],
-
-  "complexityGoal": {
-    "min": 6,
-    "goals": [
-      "Holy glasses + Heart of Vlad + Tooth of Vlad + Rib of Vlad + Ring of Vlad + Eye of Vlad"
-    ]
-  },
   
   "writes": [{
     "comment": "Jump to injected code",

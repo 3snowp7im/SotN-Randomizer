@@ -8,7 +8,7 @@
       "the_swarm",
       "3snow_p7im"
     ],
-    "weight": 2500,
+    "weight": -5008,
     "knowledgeCheck": "None",
     "metaExtension": "Guarded",
     "metaComplexity": "6",
@@ -22,6 +22,12 @@
   },
   
   "stats": false,
+
+  "complexityGoal": {
+    "min": 6,
+    "goals": [
+      "Holy glasses + Heart of Vlad + Tooth of Vlad + Rib of Vlad + Ring of Vlad + Eye of Vlad"
+  ]},
 
   "lockLocation": [{
     "location": "Soul of Bat",
@@ -413,13 +419,6 @@
       "Holy glasses"
     ]
   }],
-
-  "complexityGoal": {
-    "min": 6,
-    "goals": [
-      "Holy glasses + Heart of Vlad + Tooth of Vlad + Rib of Vlad + Ring of Vlad + Eye of Vlad"
-    ]
-  },
   
   "writes": [{
     "comment": "Jump to injected code",

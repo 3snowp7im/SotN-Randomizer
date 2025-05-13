@@ -6,7 +6,7 @@
     "author": [
       "3snow_p7im"
     ],
-    "weight": 3400,
+    "weight": -2125,
     "knowledgeCheck": "None",
     "metaExtension": "Guarded",
     "metaComplexity": "9",
@@ -18,8 +18,33 @@
     "transformFocus": "None",
     "winCondition": "Normal"
   },
+
   "inherits": "safe",
   "colorrandoMode": true,
+  
+  "placeRelic": [{
+    "location": "Jewel of Open",
+    "relic": [
+      "Fire of Bat",
+      "Force of Echo",
+      "Power of Wolf",
+      "Skill of Wolf",
+      "Gas Cloud",
+      "Cube of Zoe",
+      "Spirit Orb",
+      "Holy Symbol",
+      "Faerie Scroll",
+      "Bat Card",
+      "Ghost Card",
+      "Faerie Card",
+      "Demon Card",
+      "Sword Card",
+      "Sprite Card",
+      "Nosedevil Card",
+      null
+    ]
+  }],
+
   "enemyDrops": [{
     "enemy": "*",
     "items": [null, null]
@@ -58,28 +83,6 @@
       "Heart",
       "Heart",
       "Heart"
-    ]
-  }],
-  "placeRelic": [{
-    "location": "Jewel of Open",
-    "relic": [
-      "Fire of Bat",
-      "Force of Echo",
-      "Power of Wolf",
-      "Skill of Wolf",
-      "Gas Cloud",
-      "Cube of Zoe",
-      "Spirit Orb",
-      "Holy Symbol",
-      "Faerie Scroll",
-      "Bat Card",
-      "Ghost Card",
-      "Faerie Card",
-      "Demon Card",
-      "Sword Card",
-      "Sprite Card",
-      "Nosedevil Card",
-      null
     ]
   }]
 }

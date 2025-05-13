@@ -8,7 +8,7 @@
       "setz",
       "soba"
     ],
-    "weight": 3350,
+    "weight": -2175,
     "knowledgeCheck": "None",
     "metaExtension": "Guarded",
     "metaComplexity": "8",
@@ -20,12 +20,13 @@
     "transformFocus": "None",
     "winCondition": "Normal"
   },
+
   "inherits": "casual",
   "stats": false,
+
   "complexityGoal": {
     "min": 8,
     "goals": [
       "Holy glasses + Heart of Vlad + Tooth of Vlad + Rib of Vlad + Ring of Vlad + Eye of Vlad"
-    ]
-  }
+  ]}
 }

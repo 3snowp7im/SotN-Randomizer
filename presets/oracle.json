@@ -6,7 +6,7 @@
     "author": [
       "Forat Negre"
     ],
-    "weight": 3300,
+    "weight": -5007,
     "knowledgeCheck": "None",
     "metaExtension": "Guarded",
     "metaComplexity": "9",
@@ -33,12 +33,13 @@
     "alias": "Gold Key"
   }],
 
-  "itemLocations": [{
-    "zone": "NO3",
-    "item": "Pot roast",
-    "index": 1,
-    "replacement": "Ring of Arcana"
-  }],
+  "complexityGoal": {
+    "min": 9,
+    "max": 9,
+    "goals": [
+      "Holy glasses + Gold Key"
+    ]
+  },
 
   "placeRelic": [{
     "comment": "Cube of Zoe at shop",
@@ -67,6 +68,13 @@
   }, {
     "relic": "Rib of Vlad",
     "item": "Library card"
+  }],
+
+  "itemLocations": [{
+    "zone": "NO3",
+    "item": "Pot roast",
+    "index": 1,
+    "replacement": "Ring of Arcana"
   }],
 
   "blockItems": [{
@@ -933,14 +941,6 @@
       "Holy glasses + Form of Mist + Power of Mist"
     ]
   }],
-
-  "complexityGoal": {
-    "min": 9,
-    "max": 9,
-    "goals": [
-      "Holy glasses + Gold Key"
-    ]
-  },
 
   "writes": [{
     "comment": "Jump to injected code",

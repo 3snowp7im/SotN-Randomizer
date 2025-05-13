@@ -2,12 +2,12 @@
   "metadata": {
     "id": "sight-seer",
     "name": "Sight-Seer",
-    "description": "A simple, no mess preset using the Extended relic locations.",
+    "description": "A simple, Casual-style preset using the Extended relic locations.",
     "author": [
       "3snow_p7im",
       "eldri7ch"
     ],
-    "weight": 3600,
+    "weight": -2075,
     "knowledgeCheck": "None",
     "metaExtension": "Extended",
     "metaComplexity": "7",
@@ -20,9 +20,15 @@
     "winCondition": "Normal"
   },
   
-  "colorrandoMode": true,
-  "stats": false,
   "relicLocationsExtension": "extended",
+  "stats": false,
+  "colorrandoMode": true,
+
+  "complexityGoal": {
+    "min": 7,
+    "goals": [
+      "Holy glasses + Heart of Vlad + Tooth of Vlad + Rib of Vlad + Ring of Vlad + Eye of Vlad"
+  ]},
 
   "lockLocation": [{
     "location": "Soul of Bat",
@@ -939,12 +945,5 @@
       "Holy glasses + Gravity Boots + Leap Stone",
       "Holy glasses + Form of Mist + Power of Mist"
     ]
-  }],
-
-  "complexityGoal": {
-    "min": 7,
-    "goals": [
-      "Holy glasses + Heart of Vlad + Tooth of Vlad + Rib of Vlad + Ring of Vlad + Eye of Vlad"
-    ]
-  }
+  }]
 }
