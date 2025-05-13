@@ -6,7 +6,7 @@
     "author": [ 
       "eldri7ch"
     ],
-    "weight": -5007,
+    "weight": -1950,
     "knowledgeCheck": "None",
     "metaExtension": "Classic",
     "metaComplexity": "9",
@@ -19,16 +19,13 @@
     "winCondition": "Normal"
   },
 
+  "relicLocations": false,
+  "relicLocationsExtension": false,
   "preventLeaks": false,
   "stats": false,
-  "colorrandoMode": false,
-  "turkeyMode": false,
   "music": false,
-  "relicLocationsExtension": false,
-  "itemLocations": false,
-  "prologueRewards": false,
-  "startingEquipment": false,
-  "enemyDrops": false,
+  "turkeyMode": false,
+  "colorrandoMode": false,
 
   "placeRelic": [{
     "location": "Soul of Bat",
@@ -126,5 +123,10 @@
   }, {
     "location": "Rib of Vlad",
     "relic": "Rib of Vlad"
-  }]
+  }],
+  
+  "startingEquipment": false,
+  "prologueRewards": false,
+  "itemLocations": false,
+  "enemyDrops": false
 }

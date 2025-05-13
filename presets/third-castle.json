@@ -6,7 +6,7 @@
     "author": [
       "3snow_p7im"
     ],
-    "weight": 4000,
+    "weight": -2000,
     "knowledgeCheck": "April Fools",
     "metaExtension": "Guarded",
     "metaComplexity": "9",
@@ -18,8 +18,10 @@
     "transformFocus": "None",
     "winCondition": "April Fools"
   },
+
   "inherits": "safe",
   "colorrandoMode": true,
+  
   "writes": [{
     "address": "0x043f0448",
     "type": "short",
