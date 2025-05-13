@@ -73,7 +73,8 @@
     "seeker",
     "all-bosses",
     "boss-reflector",
-    "nimble-lite"
+    "nimble-lite",
+    "rampage"
   ],
   "engines": {
     "node": ">=15"

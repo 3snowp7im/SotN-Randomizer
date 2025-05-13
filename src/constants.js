@@ -1824,7 +1824,7 @@
     "A miserable little pile of relics!",
     "Track one contains a dubstep banger!",
     "The original Metroidvania!",
-    "The second best randomizer website!*",
+    "The second best randomizer website!",
     "Patricide Simulator \'97!",
     "Now with larger statue dongs!",
     "Keep that 'Thang on ya!",
@@ -1835,7 +1835,9 @@
     "Bora, bora, bora, bora!",
     "Ay, vamos!",
     "Klasse!",
-    "C\’est genial!"
+    "C\’est genial!",
+    "Fifty dollar gift card!",
+    "eldri7ch checks!"
   ]
 
   const prideSplashPhrases = [
