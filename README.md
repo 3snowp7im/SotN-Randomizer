@@ -10,7 +10,7 @@ https://sotn.io
 ## CLI
 
 ```shell
-$ git clone https://github.com/3snowp7im/SotN-Randomizer
+$ git clone https://github.com/sotnrando/sotnrando
 $ cd SotN-Randomizer
 $ npm install
 ```
