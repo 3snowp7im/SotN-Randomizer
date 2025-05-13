@@ -19,31 +19,17 @@
     "transformFocus": "None",
     "winCondition": "Enemies Drop Vlads"
   },
+
   "inherits": "casual",
   "stats": false,
-  "startingEquipment": [{
-    "slot": "Right hand",
-    "item": "Alucart sword"
-  }, {
-    "slot": "Left hand",
-    "item": "Alucart shield"
-  }, {
-    "slot": "Head",
-    "item": "Dragon helm"
-  }, {
-    "slot": "Body",
-    "item": "Alucart mail"
-  }, {
-    "slot": "Cloak",
-    "item": "Twilight cloak"
-  }, {
-    "slot": "Other",
-    "item": "Ring of Arcana"
-  }],
-  "prologueRewards": [{
-    "item": "Neutron bomb",
-    "replacement": "Library card"
-  }],
+
+  "complexityGoal": {
+    "min": 5,
+    "goals": [
+      "Holy glasses + Demon Card + Faerie Card + Bat Card + Sword Card + Ghost Card"
+    ]
+  },
+
   "replaceRelic": [{
     "relic": "Tooth of Vlad",
     "item": "Library card"
@@ -66,6 +52,32 @@
     "relic": "Nosedevil Card",
     "item": "Ring of Arcana"
   }],
+
+  "startingEquipment": [{
+    "slot": "Right hand",
+    "item": "Alucart sword"
+  }, {
+    "slot": "Left hand",
+    "item": "Alucart shield"
+  }, {
+    "slot": "Head",
+    "item": "Dragon helm"
+  }, {
+    "slot": "Body",
+    "item": "Alucart mail"
+  }, {
+    "slot": "Cloak",
+    "item": "Twilight cloak"
+  }, {
+    "slot": "Other",
+    "item": "Ring of Arcana"
+  }],
+
+  "prologueRewards": [{
+    "item": "Neutron bomb",
+    "replacement": "Library card"
+  }],
+
   "itemLocations": [{
     "zone": "*",
     "item": "*",
@@ -151,6 +163,7 @@
     "item": "Sunglasses",
     "replacement": "Sunglasses"
   }],
+
   "blockDrops": [{
     "enemy": "*",
     "items": [
@@ -206,6 +219,7 @@
       "Diamond"
     ]
   }],
+
   "writes": [{
     "comment": "Jump to injected code",
     "address": "0x000fa97c",
@@ -1189,11 +1203,5 @@
   },{
     "type": "word",
     "value": "0x0000006C"
-  }],
-  "complexityGoal": {
-    "min": 5,
-    "goals": [
-      "Holy glasses + Demon Card + Faerie Card + Bat Card + Sword Card + Ghost Card"
-    ]
-  }
+  }]
 }

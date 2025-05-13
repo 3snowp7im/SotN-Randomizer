@@ -19,6 +19,7 @@
     "transformFocus": "Bat",
     "winCondition": "Normal"
   },
+  
   "inherits": "nimble",
   "relicLocationsExtension": "scenic",
   "stats": false,

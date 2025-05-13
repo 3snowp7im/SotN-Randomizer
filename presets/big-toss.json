@@ -23,6 +23,12 @@
 
   "stats": false,
   "colorrandoMode": true,
+
+  "alias": [{
+    "comment": "Alias Skill of Wolf as Toadstool (Tstool)",
+    "relic": "Skill of Wolf",
+    "alias": "Tstool"
+  }],
   
   "complexityGoal": {
     "min": 5,
@@ -30,19 +36,6 @@
       "Holy glasses + Heart of Vlad + Tooth of Vlad + Rib of Vlad + Ring of Vlad + Eye of Vlad"
     ]
   },
-
-  "prologueRewards": [{
-    "item": "Neutron bomb",
-    "replacement": "High potion"
-  }, {
-    "item": "Heart Refresh",
-    "replacement": "Antivenom"
-  }],
-
-  "startingEquipment": [{
-    "slot": "Body",
-    "item": "God's Garb"
-  }],
 
   "replaceRelic": [{
     "relic": "Soul of Bat",
@@ -64,10 +57,17 @@
     "item": "Toadstool"
   }],
 
-  "alias": [{
-    "comment": "Alias Skill of Wolf as Toadstool (Tstool)",
-    "relic": "Skill of Wolf",
-    "alias": "Tstool"
+  "startingEquipment": [{
+    "slot": "Body",
+    "item": "God's Garb"
+  }],
+
+  "prologueRewards": [{
+    "item": "Neutron bomb",
+    "replacement": "High potion"
+  }, {
+    "item": "Heart Refresh",
+    "replacement": "Antivenom"
   }],
 
   "lockLocation": [{

@@ -22,18 +22,44 @@
     "winCondition": "All Bosses"
   },
 
+  "relicLocationsExtension": "guarded",
   "preventLeaks": false,
   "stats": false,
+  "thrustSwordAbility": true,
   "music": false,
   "tournamentMode": true,
+  "colorrandoMode": true,
   "fastwarpMode": true,
-  "startRoomRandoMode": true,
   "magicmaxMode": true,
   "mypurseMode": true,
+  "startRoomRandoMode": true,
   "rlbcMode": true,
-  "thrustSwordAbility": true,
-  "colorrandoMode": true,
-  "relicLocationsExtension": "guarded",
+
+  "complexityGoal": {
+    "min": 6,
+    "goals": [
+      "Holy glasses + Soul of Bat",
+      "Holy glasses + Gravity Boots + Leap Stone",
+      "Holy glasses + Gravity Boots + Soul of Wolf",
+      "Holy glasses + Gravity Boots + Form of Mist",
+      "Holy glasses + Gravity Boots + Thrust sword",
+      "Holy glasses + Form of Mist + Power of Mist"
+    ]
+  },
+  
+  "placeRelic": [{
+    "location": "Silver ring",
+    "relic": "Silver ring"
+  }, {
+    "location": "Gold ring",
+    "relic": "Gold ring"
+  }, {
+    "location": "Holy glasses",
+    "relic": "Holy glasses"
+  }, {
+    "location": "Spike Breaker",
+    "relic": "Spike Breaker"
+  }],
 
   "enemyDrops": [{
     "enemy": "*",
@@ -1202,32 +1228,6 @@
       "Holy glasses + Gravity Boots + Thrust sword"
     ]
   }],
-  
-  "placeRelic": [{
-    "location": "Silver ring",
-    "relic": "Silver ring"
-  }, {
-    "location": "Gold ring",
-    "relic": "Gold ring"
-  }, {
-    "location": "Holy glasses",
-    "relic": "Holy glasses"
-  }, {
-    "location": "Spike Breaker",
-    "relic": "Spike Breaker"
-  }],
-
-  "complexityGoal": {
-    "min": 6,
-    "goals": [
-      "Holy glasses + Soul of Bat",
-      "Holy glasses + Gravity Boots + Leap Stone",
-      "Holy glasses + Gravity Boots + Soul of Wolf",
-      "Holy glasses + Gravity Boots + Form of Mist",
-      "Holy glasses + Gravity Boots + Thrust sword",
-      "Holy glasses + Form of Mist + Power of Mist"
-    ]
-  },
 
   "writes": [{
     "comment": "Jump to injected code",

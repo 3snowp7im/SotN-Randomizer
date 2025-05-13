@@ -21,12 +21,63 @@
   },
   
   "relicLocationsExtension": "guardedplus",
-  "colorrandoMode": true,
   "stats": false,
+  "colorrandoMode": true,
+  "fastwarpMode": true,
   "magicmaxMode": true,
   "mypurseMode": true,
-  "fastwarpMode": true,
   "enemyStatRandoMode": true,
+
+  "alias": [{
+    "comment": "Alias Bat Card as Rune(sword)",
+    "relic": "Bat Card",
+    "alias": "RuneS"
+  }, {
+    "comment": "Alias Demon Card as (Topaz) circletX",
+    "relic": "Demon Card",
+    "alias": "CircletX"
+  }, {
+    "comment": "Alias Nosedevil Card as (Magic) Missile",
+    "relic": "Nosedevil Card",
+    "alias": "Missile"
+  }, {
+    "comment": "Alias Faerie Scroll as (Mystic) Pendant",
+    "relic": "Faerie Scroll",
+    "alias": "Pendant"
+  }, {
+    "comment": "Alias Ghost Card as Armor (Mojo Mail)",
+    "relic": "Ghost Card",
+    "alias": "Armor"
+  }],
+
+  "complexityGoal": {
+    "min": 8,
+    "goals": [
+      "Holy glasses + Heart of Vlad + Tooth of Vlad + Rib of Vlad + Ring of Vlad + Eye of Vlad"
+    ]
+  },
+
+  "replaceRelic": [{
+    "comment": "Replace Ghost Card with Mojo Mail",
+    "relic": "Ghost Card",
+    "item": "Mojo mail"
+  }, {
+    "comment": "Replace Demon Card with Topaz Circlet",
+    "relic": "Demon Card",
+    "item": "Topaz circlet"
+  }, {
+    "comment": "Replace Bat Card with Runesword",
+    "relic": "Bat Card",
+    "item": "Runesword"
+  }, {
+    "comment": "Replace Faerie Scroll with Mystic pendant",
+    "relic": "Faerie Scroll",
+    "item": "Mystic pendant"
+  }, {
+    "comment": "Replace Nosedevil with Magic Missile",
+    "relic": "Nosedevil Card",
+    "item": "Magic Missile"
+  }],
 
   "startingEquipment": [{
     "slot": "Right hand",
@@ -147,57 +198,6 @@
       "Mojo mail"
     ]
   }],
-
-  "alias": [{
-    "comment": "Alias Bat Card as Rune(sword)",
-    "relic": "Bat Card",
-    "alias": "RuneS"
-  }, {
-    "comment": "Alias Demon Card as (Topaz) circletX",
-    "relic": "Demon Card",
-    "alias": "CircletX"
-  }, {
-    "comment": "Alias Nosedevil Card as (Magic) Missile",
-    "relic": "Nosedevil Card",
-    "alias": "Missile"
-  }, {
-    "comment": "Alias Faerie Scroll as (Mystic) Pendant",
-    "relic": "Faerie Scroll",
-    "alias": "Pendant"
-  }, {
-    "comment": "Alias Ghost Card as Armor (Mojo Mail)",
-    "relic": "Ghost Card",
-    "alias": "Armor"
-  }],
-
-  "replaceRelic": [{
-    "comment": "Replace Ghost Card with Mojo Mail",
-    "relic": "Ghost Card",
-    "item": "Mojo mail"
-  }, {
-    "comment": "Replace Demon Card with Topaz Circlet",
-    "relic": "Demon Card",
-    "item": "Topaz circlet"
-  }, {
-    "comment": "Replace Bat Card with Runesword",
-    "relic": "Bat Card",
-    "item": "Runesword"
-  }, {
-    "comment": "Replace Faerie Scroll with Mystic pendant",
-    "relic": "Faerie Scroll",
-    "item": "Mystic pendant"
-  }, {
-    "comment": "Replace Nosedevil with Magic Missile",
-    "relic": "Nosedevil Card",
-    "item": "Magic Missile"
-  }],
-
-  "complexityGoal": {
-    "min": 8,
-    "goals": [
-      "Holy glasses + Heart of Vlad + Tooth of Vlad + Rib of Vlad + Ring of Vlad + Eye of Vlad"
-    ]
-  },
 
   "lockLocation": [{
     "location": "Soul of Bat",

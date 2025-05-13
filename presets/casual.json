@@ -20,7 +20,15 @@
     "transformFocus": "None",
     "winCondition": "Normal"
   },
+
   "colorrandoMode": true,
+
+  "complexityGoal": {
+    "min": 1,
+    "goals": [
+      "Holy glasses + Heart of Vlad + Tooth of Vlad + Rib of Vlad + Ring of Vlad + Eye of Vlad"
+  ]},
+
   "lockLocation": [{
     "location": "Soul of Bat",
     "comment": "Requires Mist + at least Leap Stone",
@@ -991,12 +999,5 @@
       "Holy glasses + Gravity Boots + Leap Stone",
       "Holy glasses + Form of Mist + Power of Mist"
     ]
-  }],
-
-  "complexityGoal": {
-    "min": 1,
-    "goals": [
-      "Holy glasses + Heart of Vlad + Tooth of Vlad + Rib of Vlad + Ring of Vlad + Eye of Vlad"
-    ]
-  }
+  }]
 }

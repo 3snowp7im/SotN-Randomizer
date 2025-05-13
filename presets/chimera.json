@@ -19,12 +19,11 @@
     "winCondition": "Normal"
   },
 
-  "comment": "Prototype for testing",
   "inherits": "casual",
-  "colorrandoMode": true,
   "stats": false,
-  "turkeyMode": true,
   "music": false,
+  "turkeyMode": true,
+  "colorrandoMode": true,
   "fastwarpMode": true,
   "magicmaxMode": true,
 

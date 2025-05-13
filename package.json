@@ -40,7 +40,7 @@
     "aperture",
     "big-toss",
     "bountyhunter",
-    "bountyhuntertc",
+    "target-confirmed",
     "hitman",
     "chaos-lite",
     "beyond",
@@ -72,7 +72,8 @@
     "oracle",
     "seeker",
     "all-bosses",
-    "boss-reflector"
+    "boss-reflector",
+    "nimble-lite"
   ],
   "engines": {
     "node": ">=15"

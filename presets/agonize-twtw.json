@@ -25,36 +25,7 @@
   "stats": false,
   "music": false,
   "colorrandoMode": true,
-
-  "replaceRelic": [{
-    "relic": "Sprite Card",
-    "item": "Turkey"
-  }, {
-    "relic": "Nosedevil Card",
-    "item": "Harper"
-  }],
-   
-  "lockLocation": [{
-    "location": "Heart of Vlad",
-    "locks": [
-      "Holy glasses"
-    ],
-    "location": "Rib of Vlad",
-    "locks": [
-      "Holy glasses"
-    ],
-    "location": "Ring of Vlad",
-    "locks": [
-      "Holy glasses"
-    ],
-    "location": "Trio",
-    "locks": [
-      "Holy glasses"
-    ]
-    
-  }],
   
-
   "placeRelic": [{
     "location": "Silver ring",
     "relic": "Silver ring"
@@ -145,6 +116,32 @@
       "Tooth of Vlad",
       "Heart of Vlad"
     ]
-  }
-  ]
+  }],
+
+  "replaceRelic": [{
+    "relic": "Sprite Card",
+    "item": "Turkey"
+  }, {
+    "relic": "Nosedevil Card",
+    "item": "Harper"
+  }],
+   
+  "lockLocation": [{
+    "location": "Heart of Vlad",
+    "locks": [
+      "Holy glasses"
+    ],
+    "location": "Rib of Vlad",
+    "locks": [
+      "Holy glasses"
+    ],
+    "location": "Ring of Vlad",
+    "locks": [
+      "Holy glasses"
+    ],
+    "location": "Trio",
+    "locks": [
+      "Holy glasses"
+    ]
+  }]
 }

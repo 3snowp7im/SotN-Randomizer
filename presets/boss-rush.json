@@ -28,6 +28,52 @@
   "antiFreezeMode": true,
   "mypurseMode": true,
 
+  "complexityGoal": {
+    "min": 1,
+    "comment": "Beat all bosses",
+    "goals": [
+        "Spirit Orb"
+      ]
+  },
+
+  "placeRelic": [{
+    "comment": "Spirit Orb at Cube of Zoe",
+    "relic": "Spirit Orb",
+    "location": "Cube of Zoe"
+  }, {
+    "comment": "Soul of Wolf at Jewel Sword",
+    "relic": "Soul of Wolf",
+    "location": "Jewel sword"
+  }, {
+    "comment": "Gravity Boots at Holy Mail",
+    "relic": "Gravity Boots",
+    "location": "Holy mail"
+  }, {
+    "comment": "Form of Mist at Power of Wolf",
+    "relic": "Form of Mist",
+    "location": "Power of Wolf"
+  }, {
+    "comment": "Faerie Card at Jewel of Open (Shop)",
+    "relic": "Faerie Card",
+    "location": "Jewel of Open"
+  }, {
+    "comment": "Sword Card at Soul of Bat",
+    "relic": "Sword Card",
+    "location": "Soul of Bat"
+  }, {
+    "comment": "Holy Symbol at Knuckle duster",
+    "relic": "Holy Symbol",
+    "location": "Knuckle duster"
+  }, {
+    "comment": "Merman Statue at Caverns Onyx",
+    "relic": "Merman Statue",
+    "location": "Caverns Onyx"
+  }, {
+    "comment": "Crissaegrim (Fire of Bat) at Holy Symbol",
+    "relic": "Fire of Bat",
+    "location": "Holy Symbol"
+  }],
+
   "replaceRelic": [{
     "comment": "Replace all non-entrance Relics with Meal ticket",
     "relic": "Cube of Zoe",
@@ -109,48 +155,99 @@
     "item": "Meal ticket"
   }],
 
-  "placeRelic": [{
-    "comment": "Spirit Orb at Cube of Zoe",
-    "relic": "Spirit Orb",
-    "location": "Cube of Zoe"
+  "blockEquipment": [{
+    "slot": "Right hand",
+    "item": [
+        "Crissaegrim",
+        "Vorpal blade",
+        "Gurthang",
+        "Masamune",
+        "Osafune katana",
+        "Mablung Sword",
+        "Estoc",
+        "Yasutsuna",
+        "Mourneblade",
+        "Jewel sword",
+        "Short sword",
+        "Tyrfing",
+        "Red Rust",
+        "Muramasa",
+        "Fist of Tulkas",
+        "Alucard sword",
+        "Blue knuckles",
+        "Holbein dagger",
+        "Terminus Est",
+        "Runesword"
+      ]
   }, {
-    "comment": "Soul of Wolf at Jewel Sword",
-    "relic": "Soul of Wolf",
-    "location": "Jewel sword"
+    "slot": "Left hand",
+    "item": [
+        "Alucard shield",
+        "Medusa shield",
+        "Fire shield",
+        "Iron shield"
+      ]
   }, {
-    "comment": "Gravity Boots at Holy Mail",
-    "relic": "Gravity Boots",
-    "location": "Holy mail"
+    "slot": "Head",
+    "item": [
+        "Beryl circlet",
+        "Dragon helm",
+        "Ruby circlet",
+        "Gold circlet",
+        "Wizard hat"
+      ]
   }, {
-    "comment": "Form of Mist at Power of Wolf",
-    "relic": "Form of Mist",
-    "location": "Power of Wolf"
+    "slot": "Body",
+    "item": [
+        "God's Garb",
+        "Mojo mail",
+        "Fury plate",
+        "Alucard mail",
+        "Dark armor",
+        "Cloth tunic",
+        "Hide cuirass",
+        "Dracula tunic",
+        "Diamond plate"
+      ]
   }, {
-    "comment": "Faerie Card at Jewel of Open (Shop)",
-    "relic": "Faerie Card",
-    "location": "Jewel of Open"
+    "slot": "Cloak",
+    "item": [
+        "Twilight cloak",
+        "Royal cloak",
+        "Joseph's cloak"
+      ]
   }, {
-    "comment": "Sword Card at Soul of Bat",
-    "relic": "Sword Card",
-    "location": "Soul of Bat"
-  }, {
-    "comment": "Holy Symbol at Knuckle duster",
-    "relic": "Holy Symbol",
-    "location": "Knuckle duster"
-  }, {
-    "comment": "Merman Statue at Caverns Onyx",
-    "relic": "Merman Statue",
-    "location": "Caverns Onyx"
-  }, {
-    "comment": "Crissaegrim (Fire of Bat) at Holy Symbol",
-    "relic": "Fire of Bat",
-    "location": "Holy Symbol"
+    "slot": "Other",
+    "item": [
+        "Duplicator",
+        "Ring of Feanor",
+        "Ring of Varda",
+        "Moonstone",
+        "Gauntlet",
+        "King's stone",
+        "Covenant stone",
+        "Ring of Ares",
+        "Nauglamir",
+        "Zircon",
+        "Aquamarine",
+        "Turquoise",
+        "Onyx",
+        "Garnet",
+        "Opal",
+        "Diamond"
+    ]
   }],
 
-  "enemyDrops": [{
-    "comment": "Force Bone Scimitar to drop useable potions",
-    "enemy": "Bone Scimitar",
-    "items": ["High potion", "Manna prism"]
+  "prologueRewards": [{
+    "comment": "If the player does 41-0 heart prologue, they get a free vial stack nuke.", 
+    "item": "Heart Refresh",
+    "replacement": "Monster vial 3"
+  }, {
+    "item": "Neutron bomb",
+    "replacement": "Pentagram"
+  }, {
+    "item": "Potion",
+    "replacement": "Elixir"
   }],
 
   "itemLocations": [{
@@ -205,6 +302,69 @@
     "zone": "TOP",
     "item": "Pot roast",
     "replacement": "Turquoise"
+  }],
+
+  "blockItems": [{
+    "zone": "*",
+    "item": "*",
+    "replacement": [
+        "Crissaegrim",
+        "Library card",
+        "Vorpal blade",
+        "Gurthang",
+        "Masamune",
+        "Osafune katana",
+        "Mablung Sword",
+        "Duplicator",
+        "Estoc",
+        "Yasutsuna",
+        "Mourneblade",
+        "Alucard shield",
+        "Jewel sword",
+        "Short sword",
+        "Tyrfing",
+        "Red Rust",
+        "God's Garb",
+        "Mojo mail",
+        "Fury plate",
+        "Alucard mail",
+        "Muramasa",
+        "Fist of Tulkas",
+        "Ring of Varda",
+        "Ring of Ares",
+        "Resist stone",
+        "Resist holy",
+        "Resist thunder",
+        "Resist fire",
+        "Resist ice",
+        "Resist dark",
+        "Cloth tunic",
+        "Hide cuirass",
+        "Bronze cuirass",
+        "Toadstool",
+        "Blue knuckles",
+        "Gladius",
+        "Basilard",
+        "Leather shield",
+        "Knight shield",
+        "Rapier",
+        "Badelaire",
+        "Knuckle duster",
+        "Mace",
+        "Morningstar",
+        "Scimitar",
+        "Cutlass",
+        "Namakura",
+        "Takemitsu",
+        "Alucart mail",
+        "Sword of Dawn"
+    ]
+  }],
+
+  "enemyDrops": [{
+    "comment": "Force Bone Scimitar to drop useable potions",
+    "enemy": "Bone Scimitar",
+    "items": ["High potion", "Manna prism"]
   }],
 
   "blockDrops": [{
@@ -432,166 +592,6 @@
       "Sword of Dawn"
     ]
   }],
-
-  "blockItems": [{
-    "zone": "*",
-    "item": "*",
-    "replacement": [
-        "Crissaegrim",
-        "Library card",
-        "Vorpal blade",
-        "Gurthang",
-        "Masamune",
-        "Osafune katana",
-        "Mablung Sword",
-        "Duplicator",
-        "Estoc",
-        "Yasutsuna",
-        "Mourneblade",
-        "Alucard shield",
-        "Jewel sword",
-        "Short sword",
-        "Tyrfing",
-        "Red Rust",
-        "God's Garb",
-        "Mojo mail",
-        "Fury plate",
-        "Alucard mail",
-        "Muramasa",
-        "Fist of Tulkas",
-        "Ring of Varda",
-        "Ring of Ares",
-        "Resist stone",
-        "Resist holy",
-        "Resist thunder",
-        "Resist fire",
-        "Resist ice",
-        "Resist dark",
-        "Cloth tunic",
-        "Hide cuirass",
-        "Bronze cuirass",
-        "Toadstool",
-        "Blue knuckles",
-        "Gladius",
-        "Basilard",
-        "Leather shield",
-        "Knight shield",
-        "Rapier",
-        "Badelaire",
-        "Knuckle duster",
-        "Mace",
-        "Morningstar",
-        "Scimitar",
-        "Cutlass",
-        "Namakura",
-        "Takemitsu",
-        "Alucart mail",
-        "Sword of Dawn"
-    ]
-  }],
-
-  "blockEquipment": [{
-    "slot": "Right hand",
-    "item": [
-        "Crissaegrim",
-        "Vorpal blade",
-        "Gurthang",
-        "Masamune",
-        "Osafune katana",
-        "Mablung Sword",
-        "Estoc",
-        "Yasutsuna",
-        "Mourneblade",
-        "Jewel sword",
-        "Short sword",
-        "Tyrfing",
-        "Red Rust",
-        "Muramasa",
-        "Fist of Tulkas",
-        "Alucard sword",
-        "Blue knuckles",
-        "Holbein dagger",
-        "Terminus Est",
-        "Runesword"
-      ]
-  }, {
-    "slot": "Left hand",
-    "item": [
-        "Alucard shield",
-        "Medusa shield",
-        "Fire shield",
-        "Iron shield"
-      ]
-  }, {
-    "slot": "Head",
-    "item": [
-        "Beryl circlet",
-        "Dragon helm",
-        "Ruby circlet",
-        "Gold circlet",
-        "Wizard hat"
-      ]
-  }, {
-    "slot": "Body",
-    "item": [
-        "God's Garb",
-        "Mojo mail",
-        "Fury plate",
-        "Alucard mail",
-        "Dark armor",
-        "Cloth tunic",
-        "Hide cuirass",
-        "Dracula tunic",
-        "Diamond plate"
-      ]
-  }, {
-    "slot": "Cloak",
-    "item": [
-        "Twilight cloak",
-        "Royal cloak",
-        "Joseph's cloak"
-      ]
-  }, {
-    "slot": "Other",
-    "item": [
-        "Duplicator",
-        "Ring of Feanor",
-        "Ring of Varda",
-        "Moonstone",
-        "Gauntlet",
-        "King's stone",
-        "Covenant stone",
-        "Ring of Ares",
-        "Nauglamir",
-        "Zircon",
-        "Aquamarine",
-        "Turquoise",
-        "Onyx",
-        "Garnet",
-        "Opal",
-        "Diamond"
-    ]
-  }],
-
-  "prologueRewards": [{
-    "comment": "If the player does 41-0 heart prologue, they get a free vial stack nuke.", 
-    "item": "Heart Refresh",
-    "replacement": "Monster vial 3"
-  }, {
-    "item": "Neutron bomb",
-    "replacement": "Pentagram"
-  }, {
-    "item": "Potion",
-    "replacement": "Elixir"
-  }],
-
-  "complexityGoal": {
-    "min": 1,
-    "comment": "Beat all bosses",
-    "goals": [
-        "Spirit Orb"
-      ]
-  },
 
   "writes": [{
     "comment": "Jump to injected code",

@@ -20,15 +20,51 @@
     "transformFocus": "Bat",
     "winCondition": "April Fools"
   },
-  
+
+  "relicLocationsExtension": "scenic",
   "colorrandoMode": true,
-  "enemyStatRandoMode": true,
-  "shopPriceRandoMode": true,
   "fastwarpMode": true,
   "mypurseMode": true,
   "unlockedMode": true,
+  "enemyStatRandoMode": true,
+  "shopPriceRandoMode": true,
   "startRoomRandoMode": true,
   "startRoomRando2ndMode": true,
+
+  "complexityGoal": {
+    "min": 1,
+    "goals": [
+      "Faerie Scroll + Demon Card + Faerie Card + Bat Card + Sword Card + Ghost Card"
+    ]
+  },
+
+  "replaceRelic": [{
+    "relic": "Tooth of Vlad",
+    "item": "Library card"
+  }, {
+    "relic": "Ring of Vlad",
+    "item": "Library card"
+  }, {
+    "relic": "Rib of Vlad",
+    "item": "Library card"
+  }, {
+    "relic": "Heart of Vlad",
+    "item": "Library card"
+  }, {
+    "relic": "Eye of Vlad",
+    "item": "Library card"
+  }, {
+    "relic": "Sprite Card",
+    "item": "Sunstone"
+  }, {
+    "relic": "Nosedevil Card",
+    "item": "Ring of Arcana"
+  }],
+
+  "startingEquipment": [{
+    "slot": "Other",
+    "item": "Ring of Arcana"
+  }],
 
   "itemLocations": [{
     "comment": "Force library card spawn in vanilla location for convenience",
@@ -40,6 +76,105 @@
     "zone": "RCAT",
     "item": "Ruby circlet",
     "replacement": "Library card"
+  }],
+
+  "blockItems": [{
+    "zone": "*",
+    "item": "*",
+    "replacement": [
+      "Orange",
+      "Apple",
+      "Banana",
+      "Grapes",
+      "Strawberry",
+      "Pineapple",
+      "Peanuts",
+      "Toadstool",
+      "Shiitake",
+      "Cheesecake",
+      "Shortcake",
+      "Tart",
+      "Parfait",
+      "Pudding",
+      "Pudding",
+      "Ice cream",
+      "Frankfurter",
+      "Hamburger",
+      "Pizza",
+      "Cheese",
+      "Ham and eggs",
+      "Omelette",
+      "Morning set",
+      "Lunch A",
+      "Lunch B",
+      "Curry rice",
+      "Gyros plate",
+      "Spaghetti",
+      "Grape juice",
+      "Barley tea",
+      "Green tea",
+      "Chinese bun",
+      "Red bean bun",
+      "Pork bun",
+      "Miso soup",
+      "Dim Sum set",
+      "Ramen",
+      "Natou",
+      "Pot roast",
+      "Turkey",
+      "Sirloin",
+      "Sushi",
+      "Toadstool"
+    ]
+  }],
+
+  "blockDrops": [{
+    "enemy": "*",
+    "items": [
+      "Orange",
+      "Apple",
+      "Banana",
+      "Grapes",
+      "Strawberry",
+      "Pineapple",
+      "Peanuts",
+      "Toadstool",
+      "Shiitake",
+      "Cheesecake",
+      "Shortcake",
+      "Tart",
+      "Parfait",
+      "Pudding",
+      "Pudding",
+      "Ice cream",
+      "Frankfurter",
+      "Hamburger",
+      "Pizza",
+      "Cheese",
+      "Ham and eggs",
+      "Omelette",
+      "Morning set",
+      "Lunch A",
+      "Lunch B",
+      "Curry rice",
+      "Gyros plate",
+      "Spaghetti",
+      "Grape juice",
+      "Barley tea",
+      "Green tea",
+      "Chinese bun",
+      "Red bean bun",
+      "Pork bun",
+      "Miso soup",
+      "Dim Sum set",
+      "Ramen",
+      "Natou",
+      "Pot roast",
+      "Turkey",
+      "Sirloin",
+      "Sushi",
+      "Toadstool"
+    ]
   }],
 
   "lockLocation": [{
@@ -856,132 +991,780 @@
     ]
   }],
 
-  "relicLocationsExtension": "scenic",
-
-  "startingEquipment": [{
-    "slot": "Other",
-    "item": "Ring of Arcana"
-  }],
-
-  "replaceRelic": [{
-    "relic": "Tooth of Vlad",
-    "item": "Library card"
-  }, {
-    "relic": "Ring of Vlad",
-    "item": "Library card"
-  }, {
-    "relic": "Rib of Vlad",
-    "item": "Library card"
-  }, {
-    "relic": "Heart of Vlad",
-    "item": "Library card"
-  }, {
-    "relic": "Eye of Vlad",
-    "item": "Library card"
-  }, {
-    "relic": "Sprite Card",
-    "item": "Sunstone"
-  }, {
-    "relic": "Nosedevil Card",
-    "item": "Ring of Arcana"
-  }],
-
-  "blockItems": [{
-    "zone": "*",
-    "item": "*",
-    "replacement": [
-      "Orange",
-      "Apple",
-      "Banana",
-      "Grapes",
-      "Strawberry",
-      "Pineapple",
-      "Peanuts",
-      "Toadstool",
-      "Shiitake",
-      "Cheesecake",
-      "Shortcake",
-      "Tart",
-      "Parfait",
-      "Pudding",
-      "Pudding",
-      "Ice cream",
-      "Frankfurter",
-      "Hamburger",
-      "Pizza",
-      "Cheese",
-      "Ham and eggs",
-      "Omelette",
-      "Morning set",
-      "Lunch A",
-      "Lunch B",
-      "Curry rice",
-      "Gyros plate",
-      "Spaghetti",
-      "Grape juice",
-      "Barley tea",
-      "Green tea",
-      "Chinese bun",
-      "Red bean bun",
-      "Pork bun",
-      "Miso soup",
-      "Dim Sum set",
-      "Ramen",
-      "Natou",
-      "Pot roast",
-      "Turkey",
-      "Sirloin",
-      "Sushi",
-      "Toadstool"
+  "lockLocationAllowed": [{
+    "location": "Merman Statue",
+    "comment": "No Requirements",
+    "locks": [
     ]
-  }],
-
-  "blockDrops": [{
-    "enemy": "*",
-    "items": [
-      "Orange",
-      "Apple",
-      "Banana",
-      "Grapes",
-      "Strawberry",
-      "Pineapple",
-      "Peanuts",
-      "Toadstool",
-      "Shiitake",
-      "Cheesecake",
-      "Shortcake",
-      "Tart",
-      "Parfait",
-      "Pudding",
-      "Pudding",
-      "Ice cream",
-      "Frankfurter",
-      "Hamburger",
-      "Pizza",
-      "Cheese",
-      "Ham and eggs",
-      "Omelette",
-      "Morning set",
-      "Lunch A",
-      "Lunch B",
-      "Curry rice",
-      "Gyros plate",
-      "Spaghetti",
-      "Grape juice",
-      "Barley tea",
-      "Green tea",
-      "Chinese bun",
-      "Red bean bun",
-      "Pork bun",
-      "Miso soup",
-      "Dim Sum set",
-      "Ramen",
-      "Natou",
-      "Pot roast",
-      "Turkey",
-      "Sirloin",
-      "Sushi",
-      "Toadstool"
+  }, {
+    "location": "Form of Mist",
+    "comment": "No Requirements",
+    "locks": [
+    ]
+  }, {
+    "location": "Leap Stone",
+    "comment": "No Requirements",
+    "locks": [
+    ]
+  }, {
+    "location": "Demon Card",
+    "comment": "No Requirements",
+    "locks": [
+    ]
+  }, {
+    "location": "Soul of Bat",
+    "comment": "Requires Mist + at least a Transformation",
+    "locks": [
+      "Form of Mist + Soul of Wolf",
+      "Form of Mist + Thrust sword",
+      "Form of Mist"
+    ]
+  }, {
+    "location": "Fire of Bat",
+    "comment": "Requires at least Leap Stone",
+    "locks": [
+      "Leap Stone",
+      "Gravity Boots + Form of Mist",
+      "Gravity Boots + Soul of Wolf",
+      "Gravity Boots + Thrust sword"
+    ]
+  }, {
+    "location": "Echo of Bat",
+    "comment": "Requires flight + a transformation",
+    "locks": [
+      "Soul of Bat",
+      "Gravity Boots + Form of Mist",
+      "Gravity Boots + Soul of Wolf",
+      "Form of Mist + Power of Mist"
+    ]
+  }, {
+    "location": "Force of Echo",
+    "comment": "Second Castle, Requires Holy Symbol + Soul of Wolf",
+    "locks": [
+      "Gravity Boots + Form of Mist + Holy Symbol + Soul of Wolf",
+      "Gravity Boots + Soul of Wolf + Holy Symbol + Soul of Wolf",
+      "Gravity Boots + Thrust sword + Holy Symbol + Soul of Wolf"
+    ]
+  }, {
+    "location": "Power of Wolf",
+    "comment": "Requires flight",
+    "locks": [
+      "Gravity Boots + Form of Mist",
+      "Gravity Boots + Soul of Wolf",
+      "Gravity Boots + Thrust sword"
+    ]
+  }, {
+    "location": "Skill of Wolf",
+    "comment": "Requires at least Gravity Boots + Jewel of Open",
+    "locks": [
+      "Gravity Boots + Jewel of Open",
+      "Soul of Bat + Jewel of Open",
+      "Form of Mist + Power of Mist + Jewel of Open"
+    ]
+  }, {
+    "location": "Power of Mist",
+    "comment": "Requires flight",
+    "locks": [
+      "Leap Stone",
+      "Gravity Boots + Form of Mist",
+      "Gravity Boots + Soul of Wolf",
+      "Gravity Boots + Thrust sword"
+    ]
+  }, {
+    "location": "Gas Cloud",
+    "comment": "In second castle",
+    "locks": [
+      "Gravity Boots + Form of Mist",
+      "Gravity Boots + Soul of Wolf",
+      "Gravity Boots + Thrust sword"
+    ]
+  }, {
+    "location": "Gravity Boots",
+    "comment": "Requires flight + Jewel of Open",
+    "locks": [
+      "Gravity Boots + Form of Mist + Jewel of Open",
+      "Gravity Boots + Soul of Wolf + Jewel of Open",
+      "Gravity Boots + Thrust sword + Jewel of Open"
+    ]
+  }, {
+    "location": "Holy Symbol",
+    "comment": "Requires Merman Statue Wolf Swim up Waterfall",
+    "locks": [
+      "Soul of Wolf + Skill of Wolf + Holy Symbol + Merman Statue"
+    ]
+  }, {
+    "location": "Bat Card",
+    "comment": "Requires at least a transformation and Leap Stone",
+    "locks": [
+      "Leap Stone + Soul of Wolf",
+      "Leap Stone + Form of Mist"
+    ]
+  }, {
+    "location": "Ghost Card",
+    "comment": "Requires at least Leap Stone",
+    "locks": [
+      "Leap Stone",
+      "Gravity Boots + Form of Mist",
+      "Gravity Boots + Soul of Wolf",
+      "Gravity Boots + Thrust sword"
+    ]
+  }, {
+    "location": "Faerie Card",
+    "comment": "Requires at least Leap Stone",
+    "locks": [
+      "Leap Stone",
+      "Soul of Wolf",
+      "Form of Mist",
+      "Thrust sword"
+    ]
+  }, {
+    "location": "Sword Card",
+    "comment": "Requires at least Gravity Boots",
+    "locks": [
+      "Gravity Boots",
+      "Soul of Bat",
+      "Form of Mist + Power of Mist"
+    ]
+  }, {
+    "location": "Heart of Vlad",
+    "comment": "In second castle",
+    "locks": [
+      "Gravity Boots + Form of Mist",
+      "Gravity Boots + Soul of Wolf",
+      "Gravity Boots + Thrust sword"
+    ]
+  }, {
+    "location": "Tooth of Vlad",
+    "comment": "In second castle + Form of Mist",
+    "locks": [
+      "Gravity Boots + Form of Mist"
+    ]
+  }, {
+    "location": "Rib of Vlad",
+    "comment": "In second castle + Transformation + Spike Breaker",
+    "locks": [
+      "Soul of Bat",
+      "Gravity Boots + Form of Mist + Spike Breaker",
+      "Gravity Boots + Soul of Wolf + Spike Breaker"
+    ]
+  }, {
+    "location": "Ring of Vlad",
+    "comment": "In second castle",
+    "locks": [
+      "Gravity Boots + Form of Mist",
+      "Gravity Boots + Soul of Wolf",
+      "Gravity Boots + Thrust sword"
+    ]
+  }, {
+    "location": "Eye of Vlad",
+    "comment": "In second castle",
+    "locks": [
+      "Gravity Boots + Form of Mist",
+      "Gravity Boots + Soul of Wolf",
+      "Gravity Boots + Thrust sword"
+    ]
+  }, {
+    "location": "Spike Breaker",
+    "locks": [
+      "Leap Stone + Spike Breaker",
+      "Gravity Boots + Spike Breaker",
+      "form of Mist + Power of Mist",
+      "Soul of Bat"
+    ],
+    "comment": "Access must also give at least Gravity Boots",
+    "escapeRequires": [
+      "Gravity Boots",
+      "Soul of Bat",
+      "Form of Mist + Power of Mist"
+    ]
+  }, {
+    "location": "Gold ring",
+    "comment": "Requires flight",
+    "locks": [
+      "Leap Stone + Soul of Wolf",
+      "Leap Stone + Form of Mist",
+      "Gravity Boots + Form of Mist",
+      "Gravity Boots + Soul of Wolf",
+      "Gravity Boots + Thrust sword",
+      "Soul of Wolf + Skill of Wolf"
+    ]
+  }, {
+    "location": "Silver ring",
+    "locks": [
+      "Soul of Bat + Jewel of Open + Form of Mist",
+      "Soul of Wolf + Skill of Wolf + Power of Wolf + Jewel of Open + Form of Mist",
+      "Jewel of Open + Form of Mist + Power of Mist"
+    ]
+  }, {
+    "location": "Holy glasses",
+    "locks": [
+      "Silver ring + Gold ring"
+    ],
+    "comment": "Access must also give flight",
+    "escapeRequires": [
+      "Soul of Bat",
+      "Gravity Boots + Leap Stone",
+      "Form of Mist + Power of Mist"
+    ]
+  }, {
+    "location": "Crystal cloak",
+    "comment": "Requires Wolf Swim up Waterfall",
+    "locks": [
+      "Soul of Wolf + Skill of Wolf + Holy Symbol"
+    ]
+  }, {
+    "location": "Mormegil",
+    "comment": "No Requirements",
+    "locks": [
+    ],
+    "escapeRequires": [
+      "Soul of Bat",
+      "Leap Stone",
+      "Gravity Boots",
+      "Form of Mist + Power of Mist"
+    ]
+  }, {
+    "location": "Dark Blade",
+    "comment": "In second castle",
+    "locks": [
+      "Gravity Boots + Form of Mist",
+      "Gravity Boots + Soul of Wolf",
+      "Gravity Boots + Thrust sword"
+    ]
+  }, {
+    "location": "Ring of Arcana",
+    "comment": "In second castle",
+    "locks": [
+      "Gravity Boots + Form of Mist",
+      "Gravity Boots + Soul of Wolf",
+      "Gravity Boots + Thrust sword"
+    ]
+  }, {
+    "location": "Trio",
+    "comment": "In second castle",
+    "locks": [
+      "Gravity Boots + Form of Mist",
+      "Gravity Boots + Soul of Wolf",
+      "Gravity Boots + Thrust sword"
+    ]
+  }, {
+    "location": "Holy mail",
+    "comment": "Requires at least Leap Stone",
+    "locks": [
+      "Leap Stone"
+    ]
+  }, {
+    "location": "Jewel sword",
+    "comment": "Requires Wolf + Bat",
+    "locks": [
+      "Soul of Wolf + Soul of Bat"
+    ]
+  }, {
+    "location": "Mystic pendant",
+    "comment": "Requires at least Leap Stone",
+    "locks": [
+      "Soul of Bat",
+      "Leap Stone",
+      "Gravity Boots",
+      "Form of Mist + Power of Mist"
+    ]
+  }, {
+    "location": "Ankh of Life",
+    "comment": "Requires at least Leap Stone",
+    "locks": [
+      "Soul of Bat",
+      "Leap Stone",
+      "Gravity Boots",
+      "Form of Mist + Power of Mist"
+    ]
+  }, {
+    "location": "Morningstar",
+    "comment": "Requires at least Leap Stone",
+    "locks": [
+      "Soul of Bat",
+      "Leap Stone",
+      "Gravity Boots",
+      "Form of Mist + Power of Mist"
+    ]
+  }, {
+    "location": "Goggles",
+    "comment": "Requires Jewel of Open or at least Leap Stone",
+    "locks": [
+    ]
+  }, {
+    "location": "Silver plate",
+    "comment": "Requires Jewel of Open or at least Leap Stone",
+    "locks": [
+    ]
+  }, {
+    "location": "Cutlass",
+    "comment": "Requires Jewel of Open or at least Leap Stone",
+    "locks": [
+    ]
+  }, {
+    "location": "Platinum mail",
+    "comment": "Requires at least Leap Stone",
+    "locks": [
+      "Leap Stone"
+    ]
+  }, {
+    "location": "Falchion",
+    "comment": "Requires at least Leap Stone",
+    "locks": [
+      "Soul of Bat",
+      "Leap Stone",
+      "Gravity Boots",
+      "Form of Mist + Power of Mist"
+    ]
+  }, {
+    "location": "Gold plate",
+    "comment": "Requires Nothing",
+    "locks": [
+    ]
+  }, {
+    "location": "Bekatowa",
+    "comment": "Requires at least Leap Stone",
+    "locks": [
+      "Leap Stone"
+    ]
+  }, {
+    "location": "Holy rod",
+    "comment": "Requires at least Leap Stone",
+    "locks": [
+      "Leap Stone",
+      "Soul of Bat",
+      "Gravity Boots",
+      "Form of Mist + Power of Mist"
+    ]
+  }, {
+    "location": "Library Onyx",
+    "comment": "Requires at least a transformation",
+    "locks": [
+      "Soul of Wolf",
+      "Thrust sword",
+      "Form of Mist"
+    ]
+  }, {
+    "location": "Alucart sword",
+    "comment": "Requires at least Cube of Zoe + at least Leap Stone",
+    "locks": [
+      "Cube of Zoe + Soul of Wolf",
+      "Cube of Zoe + Thrust sword",
+      "Cube of Zoe + Form of Mist"
+    ]
+  }, {
+    "location": "Estoc",
+    "comment": "Requires flight",
+    "locks": [
+      "Gravity Boots + Form of Mist",
+      "Gravity Boots + Soul of Wolf",
+      "Gravity Boots + Thrust sword"
+    ]
+  }, {
+    "location": "Olrox Garnet",
+    "comment": "Requires at least Gravity Boots",
+    "locks": [
+      "Soul of Bat",
+      "Gravity Boots",
+      "Form of Mist + Power of Mist"
+    ]
+  }, {
+    "location": "Holy sword",
+    "comment": "Requires at least Gravity Boots",
+    "locks": [
+      "Soul of Bat",
+      "Gravity Boots",
+      "Form of Mist + Power of Mist"
+    ]
+  }, {
+    "location": "Bandanna",
+    "comment": "Requires Wolf Swim up Waterfall",
+    "locks": [
+      "Soul of Wolf + Skill of Wolf + Holy Symbol"
+    ]
+  }, {
+    "location": "Secret boots",
+    "comment": "Requires Wolf Swim up Waterfall",
+    "locks": [
+      "Soul of Wolf + Skill of Wolf + Holy Symbol",
+      "Gravity Boots + Form of Mist",
+      "Gravity Boots + Soul of Wolf",
+      "Gravity Boots + Thrust sword"
+    ]
+  }, {
+    "location": "Nunchaku",
+    "comment": "Requires Jewel of Open or at least Leap Stone + Holy Symbol",
+    "locks": [
+      "Soul of Wolf + Skill of Wolf + Holy Symbol",
+      "Jewel of Open",
+      "Leap Stone",
+      "Gravity Boots",
+      "Soul of Bat",
+      "Form of Mist + Power of Mist"
+    ]
+  }, {
+    "location": "Knuckle duster",
+    "comment": "Requires Wolf Swim up Waterfall",
+    "locks": [
+      "Soul of Wolf + Skill of Wolf + Holy Symbol"
+    ]
+  }, {
+    "location": "Caverns Onyx",
+    "comment": "Requires Wolf Swim up Waterfall",
+    "locks": [
+      "Soul of Wolf + Skill of Wolf + Holy Symbol"
+    ]
+  }, {
+    "location": "Combat knife",
+    "comments": "Access must also give at least Leap Stone",
+    "locks": [
+    ]
+  }, {
+    "location": "Ring of Ares",
+    "comment": "Requires Wolf Swim up Waterfall",
+    "locks": [
+      "Soul of Wolf + Skill of Wolf + Holy Symbol"
+    ],
+    "comment": "Access must also give at least Leap Stone",
+    "escapeRequires": [
+      "Soul of Bat",
+      "Leap Stone",
+      "Gravity Boots",
+      "Form of Mist + Power of Mist"
+    ]
+  }, {
+    "location": "Bloodstone",
+    "comment": "Access must also give at least Leap Stone",
+    "locks": [
+    ]
+  }, {
+    "location": "Icebrand",
+    "comment": "Requires at least Leap Stone",
+    "locks": [
+      "Leap Stone"
+    ]
+  }, {
+    "location": "Beryl circlet",
+    "comment": "Requires Holy glasses + Bat + Wolf",
+    "locks": [
+      "Soul of Bat + Soul of Wolf"
+    ]
+  }, {
+    "location": "Talisman",
+    "comment": "Requires Holy glasses + flight",
+    "locks": [
+      "Gravity Boots + Form of Mist",
+      "Gravity Boots + Soul of Wolf",
+      "Gravity Boots + Thrust sword"
+    ]
+  }, {
+    "location": "Katana",
+    "comment": "Requires Holy glasses + flight",
+    "locks": [
+      "Gravity Boots + Form of Mist",
+      "Gravity Boots + Soul of Wolf",
+      "Gravity Boots + Thrust sword"
+    ]
+  }, {
+    "location": "Goddess shield",
+    "comment": "Requires Holy glasses + flight",
+    "locks": [
+      "Gravity Boots + Form of Mist",
+      "Gravity Boots + Soul of Wolf",
+      "Gravity Boots + Thrust sword"
+    ]
+  }, {
+    "location": "Twilight cloak",
+    "comment": "Requires Holy glasses + Mist + flight",
+    "locks": [
+      "Gravity Boots + Form of Mist"
+    ]
+  }, {
+    "location": "Talwar",
+    "comment": "Requires Holy glasses + flight",
+    "locks": [
+      "Gravity Boots + Form of Mist",
+      "Gravity Boots + Soul of Wolf",
+      "Gravity Boots + Thrust sword"
+    ]
+  }, {
+    "location": "Sword of Dawn",
+    "comment": "Requires Holy glasses + flight",
+    "locks": [
+      "Gravity Boots + Form of Mist",
+      "Gravity Boots + Soul of Wolf",
+      "Gravity Boots + Thrust sword"
+    ]
+  }, {
+    "location": "Bastard sword",
+    "comment": "Requires Holy glasses + flight",
+    "locks": [
+      "Gravity Boots + Form of Mist",
+      "Gravity Boots + Soul of Wolf",
+      "Gravity Boots + Thrust sword"
+    ]
+  }, {
+    "location": "Royal cloak",
+    "comment": "Requires Holy glasses + flight",
+    "locks": [
+      "Gravity Boots + Form of Mist",
+      "Gravity Boots + Soul of Wolf",
+      "Gravity Boots + Thrust sword"
+    ]
+  }, {
+    "location": "Lightning mail",
+    "comment": "Requires Holy glasses + flight",
+    "locks": [
+      "Gravity Boots + Form of Mist",
+      "Gravity Boots + Soul of Wolf",
+      "Gravity Boots + Thrust sword"
+    ]
+  }, {
+    "location": "Moon rod",
+    "comment": "Requires Holy glasses + flight",
+    "locks": [
+      "Gravity Boots + Form of Mist",
+      "Gravity Boots + Soul of Wolf",
+      "Gravity Boots + Thrust sword"
+    ]
+  }, {
+    "location": "Sunstone",
+    "comment": "Requires Holy glasses + flight",
+    "locks": [
+      "Gravity Boots + Form of Mist",
+      "Gravity Boots + Soul of Wolf",
+      "Gravity Boots + Thrust sword"
+    ]
+  }, {
+    "location": "Luminus",
+    "comment": "Requires Holy glasses + flight",
+    "locks": [
+      "Gravity Boots + Form of Mist",
+      "Gravity Boots + Soul of Wolf",
+      "Gravity Boots + Thrust sword"
+    ]
+  }, {
+    "location": "Dragon helm",
+    "comment": "Requires Holy glasses + flight",
+    "locks": [
+      "Gravity Boots + Form of Mist",
+      "Gravity Boots + Soul of Wolf",
+      "Gravity Boots + Thrust sword"
+    ]
+  }, {
+    "location": "Shotel",
+    "comment": "Requires Holy glasses + Mist + flight",
+    "locks": [
+      "Gravity Boots + Form of Mist"
+    ]
+  }, {
+    "location": "Staurolite",
+    "comment": "Requires Holy glasses + Mist + flight",
+    "locks": [
+      "Gravity Boots + Form of Mist"
+    ]
+  }, {
+    "location": "Badelaire",
+    "comment": "Requires Holy glasses + flight",
+    "locks": [
+      "Gravity Boots + Form of Mist",
+      "Gravity Boots + Soul of Wolf",
+      "Gravity Boots + Thrust sword"
+    ]
+  }, {
+    "location": "Forbidden Library Opal",
+    "comment": "Requires Holy glasses + flight",
+    "locks": [
+      "Gravity Boots + Form of Mist",
+      "Gravity Boots + Soul of Wolf",
+      "Gravity Boots + Thrust sword"
+    ]
+  }, {
+    "location": "Reverse Caverns Diamond",
+    "comment": "Requires Holy glasses + flight",
+    "locks": [
+      "Gravity Boots + Form of Mist",
+      "Gravity Boots + Soul of Wolf",
+      "Gravity Boots + Thrust sword"
+    ]
+  }, {
+    "location": "Reverse Caverns Opal",
+    "comment": "Requires Holy glasses + flight",
+    "locks": [
+      "Gravity Boots + Form of Mist",
+      "Gravity Boots + Soul of Wolf",
+      "Gravity Boots + Thrust sword"
+    ]
+  }, {
+    "location": "Reverse Caverns Garnet",
+    "comment": "Requires Holy glasses + flight",
+    "locks": [
+      "Gravity Boots + Form of Mist",
+      "Gravity Boots + Soul of Wolf",
+      "Gravity Boots + Thrust sword"
+    ]
+  }, {
+    "location": "Osafune katana",
+    "comment": "Requires Holy glasses + flight",
+    "locks": [
+      "Gravity Boots + Form of Mist",
+      "Gravity Boots + Soul of Wolf",
+      "Gravity Boots + Thrust sword"
+    ]
+  }, {
+    "location": "Alucard shield",
+    "comment": "Requires Holy glasses + flight",
+    "locks": [
+      "Gravity Boots + Form of Mist",
+      "Gravity Boots + Soul of Wolf",
+      "Gravity Boots + Thrust sword"
+    ]
+  }, {
+    "location": "Alucard sword",
+    "comment": "Requires Holy glasses + flight",
+    "locks": [
+      "Gravity Boots + Form of Mist",
+      "Gravity Boots + Soul of Wolf",
+      "Gravity Boots + Thrust sword"
+    ]
+  }, {
+    "location": "Necklace of J",
+    "comment": "Requires Holy glasses + flight",
+    "locks": [
+      "Gravity Boots + Form of Mist",
+      "Gravity Boots + Soul of Wolf",
+      "Gravity Boots + Thrust sword"
+    ]
+  }, {
+    "location": "Floating Catacombs Diamond",
+    "comment": "Requires Holy glasses + flight",
+    "locks": [
+      "Gravity Boots + Form of Mist",
+      "Gravity Boots + Soul of Wolf",
+      "Gravity Boots + Thrust sword"
+    ]
+  }, {
+    "location": "Sword of Hador",
+    "comment": "Requires Holy glasses + flight",
+    "locks": [
+      "Gravity Boots + Form of Mist",
+      "Gravity Boots + Soul of Wolf",
+      "Gravity Boots + Thrust sword"
+    ]
+  }, {
+    "location": "Alucard mail",
+    "comment": "Requires Holy glasses + flight",
+    "locks": [
+      "Gravity Boots + Form of Mist",
+      "Gravity Boots + Soul of Wolf",
+      "Gravity Boots + Thrust sword"
+    ]
+  }, {
+    "location": "Gram",
+    "comment": "Requires Holy glasses + flight",
+    "locks": [
+      "Gravity Boots + Form of Mist",
+      "Gravity Boots + Soul of Wolf",
+      "Gravity Boots + Thrust sword"
+    ]
+  }, {
+    "location": "Fury plate",
+    "comment": "Requires Holy glasses + flight",
+    "locks": [
+      "Gravity Boots + Form of Mist",
+      "Gravity Boots + Soul of Wolf",
+      "Gravity Boots + Thrust sword"
+    ]
+  }, {
+    "location": "Confessional",
+    "comment": "Requires Jewel of Open or at least Leap Stone",
+    "locks": [
+    ]
+  }, {
+    "location": "Colosseum Green tea",
+    "comment": "Requires at least Leap Stone",
+    "locks": [
+    ]
+  }, {
+    "location": "Clock Tower Cloaked knight",
+    "comment": "Requires at least Leap Stone",
+    "locks": [
+      "Leap Stone",
+      "Gravity Boots",
+      "Soul of Bat",
+      "Form of Mist + Power of Mist"
+    ]
+  }, {
+    "location": "Waterfall Cave",
+    "comment": "Requires Jewel of Open",
+    "locks": [
+    ]
+  }, {
+    "location": "Floating Catacombs Elixir",
+    "comment": "Requires Holy glasses + flight + Possibly Spike Breaker",
+    "locks": [
+      "Soul of Bat",
+      "Gravity Boots + Leap Stone + Spike Breaker",
+      "Form of Mist + Power of Mist"
+    ]
+  }, {
+    "location": "Reverse Entrance Antivenom",
+    "comment": "Requires Holy glasses + flight",
+    "locks": [
+      "Gravity Boots + Form of Mist",
+      "Gravity Boots + Soul of Wolf",
+      "Gravity Boots + Thrust sword"
+    ]
+  }, {
+    "location": "Reverse Forbidden Route",
+    "comment": "Requires Holy glasses + flight",
+    "locks": [
+      "Gravity Boots + Form of Mist",
+      "Gravity Boots + Soul of Wolf",
+      "Gravity Boots + Thrust sword"
+    ]
+  }, {
+    "location": "Cave Life apple",
+    "comment": "Requires Holy glasses + flight + Demon Card",
+    "locks": [
+      "Demon Card + Gravity Boots + Form of Mist",
+      "Demon Card + Gravity Boots + Soul of Wolf",
+      "Demon Card + Gravity Boots + Thrust sword",
+      "Nosedevil Card + Gravity Boots + Form of Mist",
+      "Nosedevil Card + Gravity Boots + Soul of Wolf",
+      "Nosedevil Card + Gravity Boots + Thrust sword"
+    ]
+  }, {
+    "location": "Reverse Colosseum Zircon",
+    "comment": "Requires Holy glasses + flight",
+    "locks": [
+      "Gravity Boots + Form of Mist",
+      "Gravity Boots + Soul of Wolf",
+      "Gravity Boots + Thrust sword"
+    ]
+  }, {
+    "location": "Reverse Alucart Sword",
+    "comment": "Requires Holy glasses + flight + Cube of Zoe",
+    "locks": [
+      "Gravity Boots + Form of Mist + Cube of Zoe",
+      "Gravity Boots + Soul of Wolf + Cube of Zoe",
+      "Gravity Boots + Thrust sword + Cube of Zoe"
+    ]
+  }, {
+    "location": "Black Marble Meal Ticket",
+    "comment": "Requires Holy glasses + flight + Jewel of Open",
+    "locks": [
+      "Jewel of Open + Gravity Boots + Form of Mist",
+      "Jewel of Open + Gravity Boots + Soul of Wolf",
+      "Jewel of Open + Gravity Boots + Thrust sword"
+    ]
+  }, {
+    "location": "Reverse Keep High Potion",
+    "comment": "Requires Holy glasses + flight",
+    "locks": [
+      "Gravity Boots + Form of Mist",
+      "Gravity Boots + Soul of Wolf",
+      "Gravity Boots + Thrust sword"
     ]
   }],
   
@@ -7536,789 +8319,5 @@
   },{
     "type": "word",
     "value": "0x0000006C"
-  }],
-
-  "complexityGoal": {
-    "min": 1,
-    "goals": [
-      "Faerie Scroll + Demon Card + Faerie Card + Bat Card + Sword Card + Ghost Card"
-    ]
-  },
-
-  "lockLocationAllowed": [{
-    "location": "Merman Statue",
-    "comment": "No Requirements",
-    "locks": [
-    ]
-  }, {
-    "location": "Form of Mist",
-    "comment": "No Requirements",
-    "locks": [
-    ]
-  }, {
-    "location": "Leap Stone",
-    "comment": "No Requirements",
-    "locks": [
-    ]
-  }, {
-    "location": "Demon Card",
-    "comment": "No Requirements",
-    "locks": [
-    ]
-  }, {
-    "location": "Soul of Bat",
-    "comment": "Requires Mist + at least a Transformation",
-    "locks": [
-      "Form of Mist + Soul of Wolf",
-      "Form of Mist + Thrust sword",
-      "Form of Mist"
-    ]
-  }, {
-    "location": "Fire of Bat",
-    "comment": "Requires at least Leap Stone",
-    "locks": [
-      "Leap Stone",
-      "Gravity Boots + Form of Mist",
-      "Gravity Boots + Soul of Wolf",
-      "Gravity Boots + Thrust sword"
-    ]
-  }, {
-    "location": "Echo of Bat",
-    "comment": "Requires flight + a transformation",
-    "locks": [
-      "Soul of Bat",
-      "Gravity Boots + Form of Mist",
-      "Gravity Boots + Soul of Wolf",
-      "Form of Mist + Power of Mist"
-    ]
-  }, {
-    "location": "Force of Echo",
-    "comment": "Second Castle, Requires Holy Symbol + Soul of Wolf",
-    "locks": [
-      "Gravity Boots + Form of Mist + Holy Symbol + Soul of Wolf",
-      "Gravity Boots + Soul of Wolf + Holy Symbol + Soul of Wolf",
-      "Gravity Boots + Thrust sword + Holy Symbol + Soul of Wolf"
-    ]
-  }, {
-    "location": "Power of Wolf",
-    "comment": "Requires flight",
-    "locks": [
-      "Gravity Boots + Form of Mist",
-      "Gravity Boots + Soul of Wolf",
-      "Gravity Boots + Thrust sword"
-    ]
-  }, {
-    "location": "Skill of Wolf",
-    "comment": "Requires at least Gravity Boots + Jewel of Open",
-    "locks": [
-      "Gravity Boots + Jewel of Open",
-      "Soul of Bat + Jewel of Open",
-      "Form of Mist + Power of Mist + Jewel of Open"
-    ]
-  }, {
-    "location": "Power of Mist",
-    "comment": "Requires flight",
-    "locks": [
-      "Leap Stone",
-      "Gravity Boots + Form of Mist",
-      "Gravity Boots + Soul of Wolf",
-      "Gravity Boots + Thrust sword"
-    ]
-  }, {
-    "location": "Gas Cloud",
-    "comment": "In second castle",
-    "locks": [
-      "Gravity Boots + Form of Mist",
-      "Gravity Boots + Soul of Wolf",
-      "Gravity Boots + Thrust sword"
-    ]
-  }, {
-    "location": "Gravity Boots",
-    "comment": "Requires flight + Jewel of Open",
-    "locks": [
-      "Gravity Boots + Form of Mist + Jewel of Open",
-      "Gravity Boots + Soul of Wolf + Jewel of Open",
-      "Gravity Boots + Thrust sword + Jewel of Open"
-    ]
-  }, {
-    "location": "Holy Symbol",
-    "comment": "Requires Merman Statue Wolf Swim up Waterfall",
-    "locks": [
-      "Soul of Wolf + Skill of Wolf + Holy Symbol + Merman Statue"
-    ]
-  }, {
-    "location": "Bat Card",
-    "comment": "Requires at least a transformation and Leap Stone",
-    "locks": [
-      "Leap Stone + Soul of Wolf",
-      "Leap Stone + Form of Mist"
-    ]
-  }, {
-    "location": "Ghost Card",
-    "comment": "Requires at least Leap Stone",
-    "locks": [
-      "Leap Stone",
-      "Gravity Boots + Form of Mist",
-      "Gravity Boots + Soul of Wolf",
-      "Gravity Boots + Thrust sword"
-    ]
-  }, {
-    "location": "Faerie Card",
-    "comment": "Requires at least Leap Stone",
-    "locks": [
-      "Leap Stone",
-      "Soul of Wolf",
-      "Form of Mist",
-      "Thrust sword"
-    ]
-  }, {
-    "location": "Sword Card",
-    "comment": "Requires at least Gravity Boots",
-    "locks": [
-      "Gravity Boots",
-      "Soul of Bat",
-      "Form of Mist + Power of Mist"
-    ]
-  }, {
-    "location": "Heart of Vlad",
-    "comment": "In second castle",
-    "locks": [
-      "Gravity Boots + Form of Mist",
-      "Gravity Boots + Soul of Wolf",
-      "Gravity Boots + Thrust sword"
-    ]
-  }, {
-    "location": "Tooth of Vlad",
-    "comment": "In second castle + Form of Mist",
-    "locks": [
-      "Gravity Boots + Form of Mist"
-    ]
-  }, {
-    "location": "Rib of Vlad",
-    "comment": "In second castle + Transformation + Spike Breaker",
-    "locks": [
-      "Soul of Bat",
-      "Gravity Boots + Form of Mist + Spike Breaker",
-      "Gravity Boots + Soul of Wolf + Spike Breaker"
-    ]
-  }, {
-    "location": "Ring of Vlad",
-    "comment": "In second castle",
-    "locks": [
-      "Gravity Boots + Form of Mist",
-      "Gravity Boots + Soul of Wolf",
-      "Gravity Boots + Thrust sword"
-    ]
-  }, {
-    "location": "Eye of Vlad",
-    "comment": "In second castle",
-    "locks": [
-      "Gravity Boots + Form of Mist",
-      "Gravity Boots + Soul of Wolf",
-      "Gravity Boots + Thrust sword"
-    ]
-  }, {
-    "location": "Spike Breaker",
-    "locks": [
-      "Leap Stone + Spike Breaker",
-      "Gravity Boots + Spike Breaker",
-      "form of Mist + Power of Mist",
-      "Soul of Bat"
-    ],
-    "comment": "Access must also give at least Gravity Boots",
-    "escapeRequires": [
-      "Gravity Boots",
-      "Soul of Bat",
-      "Form of Mist + Power of Mist"
-    ]
-  }, {
-    "location": "Gold ring",
-    "comment": "Requires flight",
-    "locks": [
-      "Leap Stone + Soul of Wolf",
-      "Leap Stone + Form of Mist",
-      "Gravity Boots + Form of Mist",
-      "Gravity Boots + Soul of Wolf",
-      "Gravity Boots + Thrust sword",
-      "Soul of Wolf + Skill of Wolf"
-    ]
-  }, {
-    "location": "Silver ring",
-    "locks": [
-      "Soul of Bat + Jewel of Open + Form of Mist",
-      "Soul of Wolf + Skill of Wolf + Power of Wolf + Jewel of Open + Form of Mist",
-      "Jewel of Open + Form of Mist + Power of Mist"
-    ]
-  }, {
-    "location": "Holy glasses",
-    "locks": [
-      "Silver ring + Gold ring"
-    ],
-    "comment": "Access must also give flight",
-    "escapeRequires": [
-      "Soul of Bat",
-      "Gravity Boots + Leap Stone",
-      "Form of Mist + Power of Mist"
-    ]
-  }, {
-    "location": "Crystal cloak",
-    "comment": "Requires Wolf Swim up Waterfall",
-    "locks": [
-      "Soul of Wolf + Skill of Wolf + Holy Symbol"
-    ]
-  }, {
-    "location": "Mormegil",
-    "comment": "No Requirements",
-    "locks": [
-    ],
-    "escapeRequires": [
-      "Soul of Bat",
-      "Leap Stone",
-      "Gravity Boots",
-      "Form of Mist + Power of Mist"
-    ]
-  }, {
-    "location": "Dark Blade",
-    "comment": "In second castle",
-    "locks": [
-      "Gravity Boots + Form of Mist",
-      "Gravity Boots + Soul of Wolf",
-      "Gravity Boots + Thrust sword"
-    ]
-  }, {
-    "location": "Ring of Arcana",
-    "comment": "In second castle",
-    "locks": [
-      "Gravity Boots + Form of Mist",
-      "Gravity Boots + Soul of Wolf",
-      "Gravity Boots + Thrust sword"
-    ]
-  }, {
-    "location": "Trio",
-    "comment": "In second castle",
-    "locks": [
-      "Gravity Boots + Form of Mist",
-      "Gravity Boots + Soul of Wolf",
-      "Gravity Boots + Thrust sword"
-    ]
-  }, {
-    "location": "Holy mail",
-    "comment": "Requires at least Leap Stone",
-    "locks": [
-      "Leap Stone"
-    ]
-  }, {
-    "location": "Jewel sword",
-    "comment": "Requires Wolf + Bat",
-    "locks": [
-      "Soul of Wolf + Soul of Bat"
-    ]
-  }, {
-    "location": "Mystic pendant",
-    "comment": "Requires at least Leap Stone",
-    "locks": [
-      "Soul of Bat",
-      "Leap Stone",
-      "Gravity Boots",
-      "Form of Mist + Power of Mist"
-    ]
-  }, {
-    "location": "Ankh of Life",
-    "comment": "Requires at least Leap Stone",
-    "locks": [
-      "Soul of Bat",
-      "Leap Stone",
-      "Gravity Boots",
-      "Form of Mist + Power of Mist"
-    ]
-  }, {
-    "location": "Morningstar",
-    "comment": "Requires at least Leap Stone",
-    "locks": [
-      "Soul of Bat",
-      "Leap Stone",
-      "Gravity Boots",
-      "Form of Mist + Power of Mist"
-    ]
-  }, {
-    "location": "Goggles",
-    "comment": "Requires Jewel of Open or at least Leap Stone",
-    "locks": [
-    ]
-  }, {
-    "location": "Silver plate",
-    "comment": "Requires Jewel of Open or at least Leap Stone",
-    "locks": [
-    ]
-  }, {
-    "location": "Cutlass",
-    "comment": "Requires Jewel of Open or at least Leap Stone",
-    "locks": [
-    ]
-  }, {
-    "location": "Platinum mail",
-    "comment": "Requires at least Leap Stone",
-    "locks": [
-      "Leap Stone"
-    ]
-  }, {
-    "location": "Falchion",
-    "comment": "Requires at least Leap Stone",
-    "locks": [
-      "Soul of Bat",
-      "Leap Stone",
-      "Gravity Boots",
-      "Form of Mist + Power of Mist"
-    ]
-  }, {
-    "location": "Gold plate",
-    "comment": "Requires Nothing",
-    "locks": [
-    ]
-  }, {
-    "location": "Bekatowa",
-    "comment": "Requires at least Leap Stone",
-    "locks": [
-      "Leap Stone"
-    ]
-  }, {
-    "location": "Holy rod",
-    "comment": "Requires at least Leap Stone",
-    "locks": [
-      "Leap Stone",
-      "Soul of Bat",
-      "Gravity Boots",
-      "Form of Mist + Power of Mist"
-    ]
-  }, {
-    "location": "Library Onyx",
-    "comment": "Requires at least a transformation",
-    "locks": [
-      "Soul of Wolf",
-      "Thrust sword",
-      "Form of Mist"
-    ]
-  }, {
-    "location": "Alucart sword",
-    "comment": "Requires at least Cube of Zoe + at least Leap Stone",
-    "locks": [
-      "Cube of Zoe + Soul of Wolf",
-      "Cube of Zoe + Thrust sword",
-      "Cube of Zoe + Form of Mist"
-    ]
-  }, {
-    "location": "Estoc",
-    "comment": "Requires flight",
-    "locks": [
-      "Gravity Boots + Form of Mist",
-      "Gravity Boots + Soul of Wolf",
-      "Gravity Boots + Thrust sword"
-    ]
-  }, {
-    "location": "Olrox Garnet",
-    "comment": "Requires at least Gravity Boots",
-    "locks": [
-      "Soul of Bat",
-      "Gravity Boots",
-      "Form of Mist + Power of Mist"
-    ]
-  }, {
-    "location": "Holy sword",
-    "comment": "Requires at least Gravity Boots",
-    "locks": [
-      "Soul of Bat",
-      "Gravity Boots",
-      "Form of Mist + Power of Mist"
-    ]
-  }, {
-    "location": "Bandanna",
-    "comment": "Requires Wolf Swim up Waterfall",
-    "locks": [
-      "Soul of Wolf + Skill of Wolf + Holy Symbol"
-    ]
-  }, {
-    "location": "Secret boots",
-    "comment": "Requires Wolf Swim up Waterfall",
-    "locks": [
-      "Soul of Wolf + Skill of Wolf + Holy Symbol",
-      "Gravity Boots + Form of Mist",
-      "Gravity Boots + Soul of Wolf",
-      "Gravity Boots + Thrust sword"
-    ]
-  }, {
-    "location": "Nunchaku",
-    "comment": "Requires Jewel of Open or at least Leap Stone + Holy Symbol",
-    "locks": [
-      "Soul of Wolf + Skill of Wolf + Holy Symbol",
-      "Jewel of Open",
-      "Leap Stone",
-      "Gravity Boots",
-      "Soul of Bat",
-      "Form of Mist + Power of Mist"
-    ]
-  }, {
-    "location": "Knuckle duster",
-    "comment": "Requires Wolf Swim up Waterfall",
-    "locks": [
-      "Soul of Wolf + Skill of Wolf + Holy Symbol"
-    ]
-  }, {
-    "location": "Caverns Onyx",
-    "comment": "Requires Wolf Swim up Waterfall",
-    "locks": [
-      "Soul of Wolf + Skill of Wolf + Holy Symbol"
-    ]
-  }, {
-    "location": "Combat knife",
-    "comments": "Access must also give at least Leap Stone",
-    "locks": [
-    ]
-  }, {
-    "location": "Ring of Ares",
-    "comment": "Requires Wolf Swim up Waterfall",
-    "locks": [
-      "Soul of Wolf + Skill of Wolf + Holy Symbol"
-    ],
-    "comment": "Access must also give at least Leap Stone",
-    "escapeRequires": [
-      "Soul of Bat",
-      "Leap Stone",
-      "Gravity Boots",
-      "Form of Mist + Power of Mist"
-    ]
-  }, {
-    "location": "Bloodstone",
-    "comment": "Access must also give at least Leap Stone",
-    "locks": [
-    ]
-  }, {
-    "location": "Icebrand",
-    "comment": "Requires at least Leap Stone",
-    "locks": [
-      "Leap Stone"
-    ]
-  }, {
-    "location": "Beryl circlet",
-    "comment": "Requires Holy glasses + Bat + Wolf",
-    "locks": [
-      "Soul of Bat + Soul of Wolf"
-    ]
-  }, {
-    "location": "Talisman",
-    "comment": "Requires Holy glasses + flight",
-    "locks": [
-      "Gravity Boots + Form of Mist",
-      "Gravity Boots + Soul of Wolf",
-      "Gravity Boots + Thrust sword"
-    ]
-  }, {
-    "location": "Katana",
-    "comment": "Requires Holy glasses + flight",
-    "locks": [
-      "Gravity Boots + Form of Mist",
-      "Gravity Boots + Soul of Wolf",
-      "Gravity Boots + Thrust sword"
-    ]
-  }, {
-    "location": "Goddess shield",
-    "comment": "Requires Holy glasses + flight",
-    "locks": [
-      "Gravity Boots + Form of Mist",
-      "Gravity Boots + Soul of Wolf",
-      "Gravity Boots + Thrust sword"
-    ]
-  }, {
-    "location": "Twilight cloak",
-    "comment": "Requires Holy glasses + Mist + flight",
-    "locks": [
-      "Gravity Boots + Form of Mist"
-    ]
-  }, {
-    "location": "Talwar",
-    "comment": "Requires Holy glasses + flight",
-    "locks": [
-      "Gravity Boots + Form of Mist",
-      "Gravity Boots + Soul of Wolf",
-      "Gravity Boots + Thrust sword"
-    ]
-  }, {
-    "location": "Sword of Dawn",
-    "comment": "Requires Holy glasses + flight",
-    "locks": [
-      "Gravity Boots + Form of Mist",
-      "Gravity Boots + Soul of Wolf",
-      "Gravity Boots + Thrust sword"
-    ]
-  }, {
-    "location": "Bastard sword",
-    "comment": "Requires Holy glasses + flight",
-    "locks": [
-      "Gravity Boots + Form of Mist",
-      "Gravity Boots + Soul of Wolf",
-      "Gravity Boots + Thrust sword"
-    ]
-  }, {
-    "location": "Royal cloak",
-    "comment": "Requires Holy glasses + flight",
-    "locks": [
-      "Gravity Boots + Form of Mist",
-      "Gravity Boots + Soul of Wolf",
-      "Gravity Boots + Thrust sword"
-    ]
-  }, {
-    "location": "Lightning mail",
-    "comment": "Requires Holy glasses + flight",
-    "locks": [
-      "Gravity Boots + Form of Mist",
-      "Gravity Boots + Soul of Wolf",
-      "Gravity Boots + Thrust sword"
-    ]
-  }, {
-    "location": "Moon rod",
-    "comment": "Requires Holy glasses + flight",
-    "locks": [
-      "Gravity Boots + Form of Mist",
-      "Gravity Boots + Soul of Wolf",
-      "Gravity Boots + Thrust sword"
-    ]
-  }, {
-    "location": "Sunstone",
-    "comment": "Requires Holy glasses + flight",
-    "locks": [
-      "Gravity Boots + Form of Mist",
-      "Gravity Boots + Soul of Wolf",
-      "Gravity Boots + Thrust sword"
-    ]
-  }, {
-    "location": "Luminus",
-    "comment": "Requires Holy glasses + flight",
-    "locks": [
-      "Gravity Boots + Form of Mist",
-      "Gravity Boots + Soul of Wolf",
-      "Gravity Boots + Thrust sword"
-    ]
-  }, {
-    "location": "Dragon helm",
-    "comment": "Requires Holy glasses + flight",
-    "locks": [
-      "Gravity Boots + Form of Mist",
-      "Gravity Boots + Soul of Wolf",
-      "Gravity Boots + Thrust sword"
-    ]
-  }, {
-    "location": "Shotel",
-    "comment": "Requires Holy glasses + Mist + flight",
-    "locks": [
-      "Gravity Boots + Form of Mist"
-    ]
-  }, {
-    "location": "Staurolite",
-    "comment": "Requires Holy glasses + Mist + flight",
-    "locks": [
-      "Gravity Boots + Form of Mist"
-    ]
-  }, {
-    "location": "Badelaire",
-    "comment": "Requires Holy glasses + flight",
-    "locks": [
-      "Gravity Boots + Form of Mist",
-      "Gravity Boots + Soul of Wolf",
-      "Gravity Boots + Thrust sword"
-    ]
-  }, {
-    "location": "Forbidden Library Opal",
-    "comment": "Requires Holy glasses + flight",
-    "locks": [
-      "Gravity Boots + Form of Mist",
-      "Gravity Boots + Soul of Wolf",
-      "Gravity Boots + Thrust sword"
-    ]
-  }, {
-    "location": "Reverse Caverns Diamond",
-    "comment": "Requires Holy glasses + flight",
-    "locks": [
-      "Gravity Boots + Form of Mist",
-      "Gravity Boots + Soul of Wolf",
-      "Gravity Boots + Thrust sword"
-    ]
-  }, {
-    "location": "Reverse Caverns Opal",
-    "comment": "Requires Holy glasses + flight",
-    "locks": [
-      "Gravity Boots + Form of Mist",
-      "Gravity Boots + Soul of Wolf",
-      "Gravity Boots + Thrust sword"
-    ]
-  }, {
-    "location": "Reverse Caverns Garnet",
-    "comment": "Requires Holy glasses + flight",
-    "locks": [
-      "Gravity Boots + Form of Mist",
-      "Gravity Boots + Soul of Wolf",
-      "Gravity Boots + Thrust sword"
-    ]
-  }, {
-    "location": "Osafune katana",
-    "comment": "Requires Holy glasses + flight",
-    "locks": [
-      "Gravity Boots + Form of Mist",
-      "Gravity Boots + Soul of Wolf",
-      "Gravity Boots + Thrust sword"
-    ]
-  }, {
-    "location": "Alucard shield",
-    "comment": "Requires Holy glasses + flight",
-    "locks": [
-      "Gravity Boots + Form of Mist",
-      "Gravity Boots + Soul of Wolf",
-      "Gravity Boots + Thrust sword"
-    ]
-  }, {
-    "location": "Alucard sword",
-    "comment": "Requires Holy glasses + flight",
-    "locks": [
-      "Gravity Boots + Form of Mist",
-      "Gravity Boots + Soul of Wolf",
-      "Gravity Boots + Thrust sword"
-    ]
-  }, {
-    "location": "Necklace of J",
-    "comment": "Requires Holy glasses + flight",
-    "locks": [
-      "Gravity Boots + Form of Mist",
-      "Gravity Boots + Soul of Wolf",
-      "Gravity Boots + Thrust sword"
-    ]
-  }, {
-    "location": "Floating Catacombs Diamond",
-    "comment": "Requires Holy glasses + flight",
-    "locks": [
-      "Gravity Boots + Form of Mist",
-      "Gravity Boots + Soul of Wolf",
-      "Gravity Boots + Thrust sword"
-    ]
-  }, {
-    "location": "Sword of Hador",
-    "comment": "Requires Holy glasses + flight",
-    "locks": [
-      "Gravity Boots + Form of Mist",
-      "Gravity Boots + Soul of Wolf",
-      "Gravity Boots + Thrust sword"
-    ]
-  }, {
-    "location": "Alucard mail",
-    "comment": "Requires Holy glasses + flight",
-    "locks": [
-      "Gravity Boots + Form of Mist",
-      "Gravity Boots + Soul of Wolf",
-      "Gravity Boots + Thrust sword"
-    ]
-  }, {
-    "location": "Gram",
-    "comment": "Requires Holy glasses + flight",
-    "locks": [
-      "Gravity Boots + Form of Mist",
-      "Gravity Boots + Soul of Wolf",
-      "Gravity Boots + Thrust sword"
-    ]
-  }, {
-    "location": "Fury plate",
-    "comment": "Requires Holy glasses + flight",
-    "locks": [
-      "Gravity Boots + Form of Mist",
-      "Gravity Boots + Soul of Wolf",
-      "Gravity Boots + Thrust sword"
-    ]
-  }, {
-    "location": "Confessional",
-    "comment": "Requires Jewel of Open or at least Leap Stone",
-    "locks": [
-    ]
-  }, {
-    "location": "Colosseum Green tea",
-    "comment": "Requires at least Leap Stone",
-    "locks": [
-    ]
-  }, {
-    "location": "Clock Tower Cloaked knight",
-    "comment": "Requires at least Leap Stone",
-    "locks": [
-      "Leap Stone",
-      "Gravity Boots",
-      "Soul of Bat",
-      "Form of Mist + Power of Mist"
-    ]
-  }, {
-    "location": "Waterfall Cave",
-    "comment": "Requires Jewel of Open",
-    "locks": [
-    ]
-  }, {
-    "location": "Floating Catacombs Elixir",
-    "comment": "Requires Holy glasses + flight + Possibly Spike Breaker",
-    "locks": [
-      "Soul of Bat",
-      "Gravity Boots + Leap Stone + Spike Breaker",
-      "Form of Mist + Power of Mist"
-    ]
-  }, {
-    "location": "Reverse Entrance Antivenom",
-    "comment": "Requires Holy glasses + flight",
-    "locks": [
-      "Gravity Boots + Form of Mist",
-      "Gravity Boots + Soul of Wolf",
-      "Gravity Boots + Thrust sword"
-    ]
-  }, {
-    "location": "Reverse Forbidden Route",
-    "comment": "Requires Holy glasses + flight",
-    "locks": [
-      "Gravity Boots + Form of Mist",
-      "Gravity Boots + Soul of Wolf",
-      "Gravity Boots + Thrust sword"
-    ]
-  }, {
-    "location": "Cave Life apple",
-    "comment": "Requires Holy glasses + flight + Demon Card",
-    "locks": [
-      "Demon Card + Gravity Boots + Form of Mist",
-      "Demon Card + Gravity Boots + Soul of Wolf",
-      "Demon Card + Gravity Boots + Thrust sword",
-      "Nosedevil Card + Gravity Boots + Form of Mist",
-      "Nosedevil Card + Gravity Boots + Soul of Wolf",
-      "Nosedevil Card + Gravity Boots + Thrust sword"
-    ]
-  }, {
-    "location": "Reverse Colosseum Zircon",
-    "comment": "Requires Holy glasses + flight",
-    "locks": [
-      "Gravity Boots + Form of Mist",
-      "Gravity Boots + Soul of Wolf",
-      "Gravity Boots + Thrust sword"
-    ]
-  }, {
-    "location": "Reverse Alucart Sword",
-    "comment": "Requires Holy glasses + flight + Cube of Zoe",
-    "locks": [
-      "Gravity Boots + Form of Mist + Cube of Zoe",
-      "Gravity Boots + Soul of Wolf + Cube of Zoe",
-      "Gravity Boots + Thrust sword + Cube of Zoe"
-    ]
-  }, {
-    "location": "Black Marble Meal Ticket",
-    "comment": "Requires Holy glasses + flight + Jewel of Open",
-    "locks": [
-      "Jewel of Open + Gravity Boots + Form of Mist",
-      "Jewel of Open + Gravity Boots + Soul of Wolf",
-      "Jewel of Open + Gravity Boots + Thrust sword"
-    ]
-  }, {
-    "location": "Reverse Keep High Potion",
-    "comment": "Requires Holy glasses + flight",
-    "locks": [
-      "Gravity Boots + Form of Mist",
-      "Gravity Boots + Soul of Wolf",
-      "Gravity Boots + Thrust sword"
-    ]
   }]
 }

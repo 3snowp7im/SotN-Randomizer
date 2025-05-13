@@ -21,7 +21,41 @@
     "winCondition": "Relic Skip"
   },
   
+  "stats": false,
+  "thrustSwordAbility": true,
   "colorrandoMode": true,
+
+  "alias": [{
+    "comment": "Alias Holy Glasses as Duplicator",
+    "relic": "Holy glasses",
+    "alias": "Dupe"
+  }, {
+    "comment": "Alias Tooth of Vlad as Heart Refresh",
+    "relic": "Tooth of Vlad",
+    "alias": "HeartRef"
+  }, {
+    "comment": "Alias Heart of Vlad as Infinite Diamond",
+    "relic": "Heart of Vlad",
+    "alias": "InfDiam"
+  }],
+
+  "complexityGoal": {
+    "min": 6,
+    "goals": [
+      "Soul of Wolf + Soul of Bat + HeartRef + Dupe"
+    ]
+  },
+
+  "placeRelic": [{
+    "comment": "Soul of Wolf or Soul of Bat at Jewel of Open location",
+    "relic": [
+      "Soul of Wolf",
+      "Soul of Bat",
+      "Dupe",
+      "HeartRef"
+    ],
+    "location": "Jewel of Open"
+  }],
 
   "replaceRelic": [{
     "relic": "Holy glasses",
@@ -45,29 +79,74 @@
     "item": "Library card"
   }],
 
-  "placeRelic": [{
-    "comment": "Soul of Wolf or Soul of Bat at Jewel of Open location",
-    "relic": [
-      "Soul of Wolf",
-      "Soul of Bat",
-      "Dupe",
-      "HeartRef"
-    ],
-    "location": "Jewel of Open"
+  "blockEquipment": [{
+    "slot": "Other",
+    "item": [
+        "Duplicator",
+        "Zircon",
+        "Aquamarine",
+        "Turquoise",
+        "Onyx",
+        "Garnet",
+        "Opal",
+        "Diamond"
+    ]
   }],
 
-  "alias": [{
-    "comment": "Alias Holy Glasses as Duplicator",
-    "relic": "Holy glasses",
-    "alias": "Dupe"
-  }, {
-    "comment": "Alias Tooth of Vlad as Heart Refresh",
-    "relic": "Tooth of Vlad",
-    "alias": "HeartRef"
-  }, {
-    "comment": "Alias Heart of Vlad as Infinite Diamond",
-    "relic": "Heart of Vlad",
-    "alias": "InfDiam"
+  "prologueRewards": [{
+    "item": "Neutron bomb",
+    "replacement": "Neutron bomb",
+    "comment": "Force the Neutron Bomb to always appear for the 41+ hearts"
+  }],
+  
+  "itemLocations": [{
+    "comment": "Place a Manna Prism in the Pot roast wall of Entrance",
+    "zone": "NO3",
+    "item": "Turkey",
+    "replacement": "Manna prism"
+  }],
+
+  "blockItems": [{
+    "zone": "*",
+    "item": "*",
+    "replacement": [
+      "Estoc",
+      "Claymore",
+      "Flamberge",
+      "Zwei hander",
+      "Obsidian sword",
+      "Heart Refresh",
+      "Duplicator",
+      "Zircon",
+      "Aquamarine",
+      "Turquoise",
+      "Onyx",
+      "Garnet",
+      "Opal",
+      "Diamond",
+      "Jewel sword"
+    ]
+  }],
+
+  "blockDrops": [{
+    "enemy": "*",
+    "items": [
+      "Estoc",
+      "Claymore",
+      "Flamberge",
+      "Zwei hander",
+      "Obsidian sword",
+      "Heart Refresh",
+      "Duplicator",
+      "Zircon",
+      "Aquamarine",
+      "Turquoise",
+      "Onyx",
+      "Garnet",
+      "Opal",
+      "Diamond",
+      "Jewel sword"
+    ]
   }],
 
   "lockLocation": [{
@@ -1241,79 +1320,6 @@
       "Holy glasses + Gravity Boots + Form of Mist",
       "Holy glasses + Gravity Boots + Thrust sword"
     ]
-  }],
-  
-  "stats": false,
-  "thrustSwordAbility": true,
-
-  "blockItems": [{
-    "zone": "*",
-    "item": "*",
-    "replacement": [
-      "Estoc",
-      "Claymore",
-      "Flamberge",
-      "Zwei hander",
-      "Obsidian sword",
-      "Heart Refresh",
-      "Duplicator",
-      "Zircon",
-      "Aquamarine",
-      "Turquoise",
-      "Onyx",
-      "Garnet",
-      "Opal",
-      "Diamond",
-      "Jewel sword"
-    ]
-  }],
-
-  "blockDrops": [{
-    "enemy": "*",
-    "items": [
-      "Estoc",
-      "Claymore",
-      "Flamberge",
-      "Zwei hander",
-      "Obsidian sword",
-      "Heart Refresh",
-      "Duplicator",
-      "Zircon",
-      "Aquamarine",
-      "Turquoise",
-      "Onyx",
-      "Garnet",
-      "Opal",
-      "Diamond",
-      "Jewel sword"
-    ]
-  }],
-
-  "blockEquipment": [{
-    "slot": "Other",
-    "item": [
-        "Duplicator",
-        "Zircon",
-        "Aquamarine",
-        "Turquoise",
-        "Onyx",
-        "Garnet",
-        "Opal",
-        "Diamond"
-    ]
-  }],
-  
-  "itemLocations": [{
-    "comment": "Place a Manna Prism in the Pot roast wall of Entrance",
-    "zone": "NO3",
-    "item": "Turkey",
-    "replacement": "Manna prism"
-  }],
-
-  "prologueRewards": [{
-    "item": "Neutron bomb",
-    "replacement": "Neutron bomb",
-    "comment": "Force the Neutron Bomb to always appear for the 41+ hearts"
   }],
 
   "lockLocationAllowed": [{
@@ -2517,12 +2523,5 @@
       "address": "0x5642528",
       "type": "word",
       "value": "0x00000000"
-  }],
-
-  "complexityGoal": {
-    "min": 6,
-    "goals": [
-      "Soul of Wolf + Soul of Bat + HeartRef + Dupe"
-    ]
-  }
+  }]
 }

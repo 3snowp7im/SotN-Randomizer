@@ -431,8 +431,8 @@
     "itemStats": "Normal"
   },
   {
-    "name": "Bounty Hunter TC",
-    "id": "bountyhuntertc",
+    "name": "Target Confirmed",
+    "id": "target-confirmed",
     "description": "Bounty Hunter variant. Vlad drop rates are much higher, Familiar Cards are required before the drop is unlocked. Requires the Bounty Hunter Tool. App URL: https://github.com/MottZilla/BountyHunterTool",
     "author": [
       "eldri7ch",
@@ -1070,6 +1070,26 @@
     "transformFocus": "None",
     "winCondition": "All Bosses & Vlad Relics",
     "metaExtension": "GuardedPlus",
+    "metaComplexity": "6",
+    "itemStats": "Normal"
+  },
+  {
+    "name": "Nimble Lite",
+    "id": "nimble-lite",
+    "description": "A fast, complexity-focused preset. Start with Soul of Bat, Leap Stone, Gravity Boots. Reduced movement MP costs.",
+    "author": [
+      "MottZilla",
+      "the_swarm",
+      "3snow_p7im"
+    ],
+    "knowledgeCheck": "None",
+    "timeFrame": "Fast",
+    "moddedLevel": "None",
+    "castleType": "Normal",
+    "transformEarly": "Yes",
+    "transformFocus": "Bat",
+    "winCondition": "Normal",
+    "metaExtension": "Guarded",
     "metaComplexity": "6",
     "itemStats": "Normal"
   }

@@ -23,21 +23,15 @@
   "relicLocationsExtension": "guarded",
   "stats": false,
   "colorrandoMode": true,
-  "mypurseMode": true,
   "fastwarpMode": true,
+  "mypurseMode": true,
   "surpriseMode": true,
   
-
-  "prologueRewards": [{
-    "item": "Neutron bomb",
-    "replacement": "Library card"
-  }, {
-    "item": "Heart Refresh",
-    "replacement": "Str. potion"
-  }, {
-    "item": "Potion",
-    "replacement": "High potion"
-  }],
+  "complexityGoal": {
+    "min": 7,
+    "goals": [
+      "Holy glasses + Heart of Vlad + Tooth of Vlad + Rib of Vlad + Ring of Vlad + Eye of Vlad"
+  ]},
 
   "replaceRelic": [{
       "relic": "Soul of Bat",
@@ -86,6 +80,17 @@
   }, {
     "slot": "Other",
       "item": "Gauntlet"
+  }],
+  
+  "prologueRewards": [{
+    "item": "Neutron bomb",
+    "replacement": "Library card"
+  }, {
+    "item": "Heart Refresh",
+    "replacement": "Str. potion"
+  }, {
+    "item": "Potion",
+    "replacement": "High potion"
   }],
 
   "blockItems": [
@@ -2120,12 +2125,5 @@
     "type": "char",
     "address": "0x000b53b0",
     "value": "0x01"
-  }],
-  
-  "complexityGoal": {
-    "min": 7,
-    "goals": [
-      "Holy glasses + Heart of Vlad + Tooth of Vlad + Rib of Vlad + Ring of Vlad + Eye of Vlad"
-    ]
-  }
+  }]
 }
