@@ -6,7 +6,7 @@
     "author": [
       "eldri7ch"
     ],
-    "weight": 2500,
+    "weight": -2375,
     "knowledgeCheck": "None",
     "metaExtension": "Guarded",
     "metaComplexity": "7",
@@ -19,12 +19,24 @@
     "winCondition": "Normal"
   },
 
-  "stats": false,
-  "magicmaxMode": true,
-  "fastwarpMode": true,
-  "colorrandoMode": true,
-  "noprologueMode": true,
   "relicLocationsExtension": "guarded",
+  "stats": false,
+  "colorrandoMode": true,
+  "fastwarpMode": true,
+  "magicmaxMode": true,
+  "noprologueMode": true,
+
+  "complexityGoal": {
+    "min": 7,
+    "max": 7,
+    "goals": [
+      "Holy glasses + Heart of Vlad + Tooth of Vlad + Rib of Vlad + Ring of Vlad + Eye of Vlad"
+  ]},
+
+  "startingEquipment": [{
+      "slot": "Other",
+      "item": "Ring of Arcana"
+  }],
   
   "itemLocations": [{
     "zone": "NZ0",
@@ -119,11 +131,6 @@
       "item": "Resist thunder",
       "index": 1,
       "replacement": "Library card"
-  }],
-
-  "startingEquipment": [{
-      "slot": "Other",
-      "item": "Ring of Arcana"
   }],
   
   "lockLocation": [{
@@ -951,14 +958,6 @@
       "Holy glasses + Soul of Bat"
     ]
   }],
-
-  "complexityGoal": {
-    "min": 7,
-    "max": 7,
-    "goals": [
-      "Holy glasses + Heart of Vlad + Tooth of Vlad + Rib of Vlad + Ring of Vlad + Eye of Vlad"
-    ]
-  },
 
   "writes": [{
     "comment": "Jump to injected code",

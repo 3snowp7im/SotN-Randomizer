@@ -6,7 +6,7 @@
     "author": [
       "3snow_p7im"
     ],
-    "weight": 1800,
+    "weight": -2525,
     "knowledgeCheck": "April Fools",
     "metaExtension": "Guarded",
     "metaComplexity": "1",
@@ -18,150 +18,12 @@
     "transformFocus": "None",
     "winCondition": "April Fools"
   },
-  "stats": false,
-  "preventLeaks": false,
-  "itemLocations": [{
-    "zone": "*",
-    "item": "*",
-    "replacement": "Luck potion"
-  }, {
-    "zone": "ST0",
-    "item": "Heart",
-    "index": 1,
-    "replacement": "Heart"
-  }, {
-    "zone": "ST0",
-    "item": "Heart",
-    "index": 2,
-    "replacement": "Heart"
-  }, {
-    "zone": "ST0",
-    "item": "Heart",
-    "index": 3,
-    "replacement": "Heart"
-  }, {
-    "zone": "ST0",
-    "item": "Heart",
-    "index": 4,
-    "replacement": "Heart"
-  }, {
-    "zone": "ST0",
-    "item": "Heart",
-    "index": 5,
-    "replacement": "Heart"
-  }, {
-    "zone": "ST0",
-    "item": "Big heart",
-    "index": 1,
-    "replacement": "Big heart"
-  }, {
-    "zone": "ST0",
-    "item": "Big heart",
-    "index": 2,
-    "replacement": "Big heart"
-  }, {
-    "zone": "ST0",
-    "item": "Big heart",
-    "index": 3,
-    "replacement": "Big heart"
-  }, {
-    "zone": "ST0",
-    "item": "Cross",
-    "replacement": "Cross"
-  }, {
-    "zone": "ST0",
-    "item": "Holy Water",
-    "replacement": "Holy Water"
-  }, {
-    "zone": "ST0",
-    "item": "Shield rod",
-    "replacement": "Shield rod"
-  }, {
-    "zone": "ST0",
-    "item": "Dark shield",
-    "replacement": "Dark shield"
-  }, {
-    "zone": "ST0",
-    "item": "Power of Sire",
-    "replacement": "Power of Sire"
-  }, {
-    "zone": "ST0",
-    "item": "Firebrand",
-    "replacement": "Firebrand"
-  }, {
-    "zone": "ST0",
-    "item": "Badelaire",
-    "replacement": "Badelaire"
-  }, {
-    "zone": "ST0",
-    "item": "Moon rod",
-    "replacement": "Moon rod"
-  }, {
-    "zone": "ST0",
-    "item": "Heart Refresh",
-    "replacement": "Heart Refresh"
-  }, {
-    "zone": "ST0",
-    "item": "Sunglasses",
-    "replacement": "Sunglasses"
-  }],
-  "enemyDrops": [{
-    "enemy": "*",
-    "items": ["Luck potion", "Luck potion"]
-  }, {
-    "enemy": "Bone Scimitar",
-    "items": ["Jewel sword", "Alucard shield"]
-  }, {
-    "enemy": "Global",
-    "items": [
-      "Luck potion",
-      "Heart",
-      "Luck potion",
-      "Luck potion",
-      "Luck potion",
-      "Luck potion",
-      "Luck potion",
-      "Luck potion",
-      "Luck potion",
-      "Luck potion",
-      "Luck potion",
-      "Luck potion",
-      "Luck potion",
-      "Luck potion",
-      "Luck potion",
-      "Heart",
-      "Heart",
-      "Heart",
-      "Heart",
-      "Heart",
-      "Heart",
-      "Heart",
-      "Heart",
-      "Heart",
-      "Heart",
-      "Heart",
-      "Big heart",
-      "Big heart",
-      "Luck potion",
-      "Luck potion",
-      "Luck potion",
-      "Heart",
-      "Luck potion",
-      "Luck potion"
-    ]
-  }],
-  "prologueRewards": [{
-    "item": "Heart Refresh",
-    "replacement": "Luck potion"
-  }, {
-    "item": "Neutron bomb",
-    "replacement": "Luck potion"
-  }, {
-    "item": "Potion",
-    "replacement": "Luck potion"
-  }],
+
   "relicLocations": false,
   "relicLocationsExtension": false,
+  "preventLeaks": false,
+  "stats": false,
+
   "placeRelic": [{
     "location": "Soul of Bat",
     "relic": null
@@ -265,6 +127,150 @@
     "location": "Holy glasses",
     "relic": null
   }],
+
+  "prologueRewards": [{
+    "item": "Heart Refresh",
+    "replacement": "Luck potion"
+  }, {
+    "item": "Neutron bomb",
+    "replacement": "Luck potion"
+  }, {
+    "item": "Potion",
+    "replacement": "Luck potion"
+  }],
+
+  "itemLocations": [{
+    "zone": "*",
+    "item": "*",
+    "replacement": "Luck potion"
+  }, {
+    "zone": "ST0",
+    "item": "Heart",
+    "index": 1,
+    "replacement": "Heart"
+  }, {
+    "zone": "ST0",
+    "item": "Heart",
+    "index": 2,
+    "replacement": "Heart"
+  }, {
+    "zone": "ST0",
+    "item": "Heart",
+    "index": 3,
+    "replacement": "Heart"
+  }, {
+    "zone": "ST0",
+    "item": "Heart",
+    "index": 4,
+    "replacement": "Heart"
+  }, {
+    "zone": "ST0",
+    "item": "Heart",
+    "index": 5,
+    "replacement": "Heart"
+  }, {
+    "zone": "ST0",
+    "item": "Big heart",
+    "index": 1,
+    "replacement": "Big heart"
+  }, {
+    "zone": "ST0",
+    "item": "Big heart",
+    "index": 2,
+    "replacement": "Big heart"
+  }, {
+    "zone": "ST0",
+    "item": "Big heart",
+    "index": 3,
+    "replacement": "Big heart"
+  }, {
+    "zone": "ST0",
+    "item": "Cross",
+    "replacement": "Cross"
+  }, {
+    "zone": "ST0",
+    "item": "Holy Water",
+    "replacement": "Holy Water"
+  }, {
+    "zone": "ST0",
+    "item": "Shield rod",
+    "replacement": "Shield rod"
+  }, {
+    "zone": "ST0",
+    "item": "Dark shield",
+    "replacement": "Dark shield"
+  }, {
+    "zone": "ST0",
+    "item": "Power of Sire",
+    "replacement": "Power of Sire"
+  }, {
+    "zone": "ST0",
+    "item": "Firebrand",
+    "replacement": "Firebrand"
+  }, {
+    "zone": "ST0",
+    "item": "Badelaire",
+    "replacement": "Badelaire"
+  }, {
+    "zone": "ST0",
+    "item": "Moon rod",
+    "replacement": "Moon rod"
+  }, {
+    "zone": "ST0",
+    "item": "Heart Refresh",
+    "replacement": "Heart Refresh"
+  }, {
+    "zone": "ST0",
+    "item": "Sunglasses",
+    "replacement": "Sunglasses"
+  }],
+
+  "enemyDrops": [{
+    "enemy": "*",
+    "items": ["Luck potion", "Luck potion"]
+  }, {
+    "enemy": "Bone Scimitar",
+    "items": ["Jewel sword", "Alucard shield"]
+  }, {
+    "enemy": "Global",
+    "items": [
+      "Luck potion",
+      "Heart",
+      "Luck potion",
+      "Luck potion",
+      "Luck potion",
+      "Luck potion",
+      "Luck potion",
+      "Luck potion",
+      "Luck potion",
+      "Luck potion",
+      "Luck potion",
+      "Luck potion",
+      "Luck potion",
+      "Luck potion",
+      "Luck potion",
+      "Heart",
+      "Heart",
+      "Heart",
+      "Heart",
+      "Heart",
+      "Heart",
+      "Heart",
+      "Heart",
+      "Heart",
+      "Heart",
+      "Heart",
+      "Big heart",
+      "Big heart",
+      "Luck potion",
+      "Luck potion",
+      "Luck potion",
+      "Heart",
+      "Luck potion",
+      "Luck potion"
+    ]
+  }],
+
   "writes": [{
     "comment": "Lapis lazuli",
     "address": "0x047a3094",

@@ -8,7 +8,7 @@
       "MottZilla", 
       "Wecoc"
     ],
-    "weight": 400,
+    "weight": -2900,
     "knowledgeCheck": "None",
     "metaExtension": "Guarded",
     "metaComplexity": "8",

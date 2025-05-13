@@ -10,7 +10,7 @@
       "MottZilla",
       "Doozyzood"
     ],
-    "weight": 2000,
+    "weight": -2475,
     "knowledgeCheck": "Glitches",
     "metaExtension": "Extended",
     "metaComplexity": "1",
@@ -26,31 +26,6 @@
   "relicLocationsExtension": "extended",
   "stats": false,
   "thrustSwordAbility": true,
-
-  "prologueRewards": [{
-    "item": "Heart Refresh",
-    "replacement": "Fire boomerang"
-  }, {
-    "item": "Neutron bomb",
-    "replacement": "Karma Coin"
-  }, {
-    "item": "Potion",
-    "replacement": "Orange"
-  }],
-
-  "replaceRelic": [{
-    "relic": "Nosedevil Card",
-    "item": "Diamond"
-  }, {
-    "relic": "Sprite Card",
-    "item": "Antivenom"
-  }, {
-    "relic": "Faerie Scroll",
-    "item": "Heart Refresh"
-  }, {
-    "relic": "Spirit Orb",
-    "item": "Heart Refresh"
-  }],
 
   "alias": [{
     "comment": "Alias Spirit Orb as Heart Refresh 1",
@@ -72,6 +47,73 @@
     "comment": "Alias Thrust sword as Clay",
     "relic": "Thrust sword",
     "alias": "Clay"
+  }],
+
+  "complexityGoal": {
+    "min": 1,
+    "goals": [
+      "Soul of Bat",
+      "Form of Mist + Power of Mist",
+      "Gravity Boots + Hrefresh1 + Hrefresh2"
+  ]},
+
+  "replaceRelic": [{
+    "relic": "Nosedevil Card",
+    "item": "Diamond"
+  }, {
+    "relic": "Sprite Card",
+    "item": "Antivenom"
+  }, {
+    "relic": "Faerie Scroll",
+    "item": "Heart Refresh"
+  }, {
+    "relic": "Spirit Orb",
+    "item": "Heart Refresh"
+  }],
+  
+  "startingEquipment": [{
+    "slot": "Right hand",
+    "item": "Shield rod"
+  }, {
+    "slot": "Left hand",
+    "item": "Leather shield"
+  }, {
+    "slot": "Head",
+    "item": "Dragon helm"
+  }, {
+    "slot": "Body",
+    "item": "Alucard mail"
+  }, {
+    "slot": "Cloak",
+    "item": "Twilight cloak"
+  }, {
+    "slot": "Other",
+    "item": "Duplicator"
+  }],
+
+  "prologueRewards": [{
+    "item": "Heart Refresh",
+    "replacement": "Fire boomerang"
+  }, {
+    "item": "Neutron bomb",
+    "replacement": "Karma Coin"
+  }, {
+    "item": "Potion",
+    "replacement": "Orange"
+  }],
+  
+  "itemLocations": [{
+    "comment": "Place Stopwatch in the Clock Room",
+    "zone": "NO0",
+    "item": "Big heart",
+    "index": 16,
+    "replacement": "Stopwatch"
+  }, {
+    "comment": "Place Stopwatch in the Clock Room",
+    "zone": "NO0",
+    "item": "Big heart",
+    "index": 17,
+    "replacement": "Stopwatch"
   }],
 
   "blockItems": [{
@@ -109,40 +151,6 @@
       "Zwei hander",
       "Obsidian sword"
     ]
-  }],
-  
-  "startingEquipment": [{
-    "slot": "Right hand",
-    "item": "Shield rod"
-  }, {
-    "slot": "Left hand",
-    "item": "Leather shield"
-  }, {
-    "slot": "Head",
-    "item": "Dragon helm"
-  }, {
-    "slot": "Body",
-    "item": "Alucard mail"
-  }, {
-    "slot": "Cloak",
-    "item": "Twilight cloak"
-  }, {
-    "slot": "Other",
-    "item": "Duplicator"
-  }],
-  
-  "itemLocations": [{
-    "comment": "Place Stopwatch in the Clock Room",
-    "zone": "NO0",
-    "item": "Big heart",
-    "index": 16,
-    "replacement": "Stopwatch"
-  }, {
-    "comment": "Place Stopwatch in the Clock Room",
-    "zone": "NO0",
-    "item": "Big heart",
-    "index": 17,
-    "replacement": "Stopwatch"
   }],
   
   "lockLocation": [{
@@ -1753,14 +1761,5 @@
   }, {
     "type": "word",
     "value": "0x00000000"
-}],
-
-  "complexityGoal": {
-    "min": 1,
-    "goals": [
-      "Soul of Bat",
-      "Form of Mist + Power of Mist",
-      "Gravity Boots + Hrefresh1 + Hrefresh2"
-    ]
-  }
+}]
 }

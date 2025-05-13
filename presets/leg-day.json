@@ -7,7 +7,7 @@
       "MT_Fun",
       "MottZilla"
     ],
-    "weight": 2300,
+    "weight": -2400,
     "knowledgeCheck": "None",
     "metaExtension": "Guarded",
     "metaComplexity": "7",
@@ -19,7 +19,16 @@
     "transformFocus": "None",
     "winCondition": "Normal"
   },
+
+  "relicLocationsExtension": "guarded",
   "stats": false,
+
+  "complexityGoal": {
+    "min": 7,
+    "goals": [
+      "Holy glasses + Heart of Vlad + Tooth of Vlad + Rib of Vlad + Ring of Vlad + Eye of Vlad"
+  ]},
+
   "replaceRelic": [{
     "relic": "Soul of Bat",
     "item": "Str. potion"
@@ -45,7 +54,7 @@
     "relic": "Gravity Boots",
     "item": "Str. potion"
   }],
-  "relicLocationsExtension": "guarded",
+
   "lockLocation": [{
     "location": "Soul of Bat",
     "locks": [
@@ -365,12 +374,7 @@
       "Holy glasses + Spike Breaker"
     ]
   }],
-  "complexityGoal": {
-    "min": 7,
-    "goals": [
-      "Holy glasses + Heart of Vlad + Tooth of Vlad + Rib of Vlad + Ring of Vlad + Eye of Vlad"
-    ]
-  },
+
   "lockLocationAllowed": [{
     "location": "Soul of Bat",
     "locks": [
