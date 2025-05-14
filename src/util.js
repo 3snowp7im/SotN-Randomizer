@@ -6757,7 +6757,7 @@ function hexValueToDamageString(hexValue) {
     // let TargetRingId = 0
     // let TargetEyeId = 0
 
-    console.log('applying bh patches')
+    // console.log('applying bh patches')
 
     let TargetHeartEnemyId = 0
     let TargetToothEnemyId = 0
