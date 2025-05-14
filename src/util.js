@@ -6751,11 +6751,11 @@ function hexValueToDamageString(hexValue) {
     const bountyHunterTargets = enemies.bountyHunterTargets
     const data = new checked()
 
-    let TargetHeartId = 0
-    let TargetToothId = 0
-    let TargetRibId = 0
-    let TargetRingId = 0
-    let TargetEyeId = 0
+    // let TargetHeartId = 0
+    // let TargetToothId = 0
+    // let TargetRibId = 0
+    // let TargetRingId = 0
+    // let TargetEyeId = 0
 
     console.log('applying bh patches')
 
@@ -6780,7 +6780,7 @@ function hexValueToDamageString(hexValue) {
     }
 
     function updateOffset(TargetCurrentId,baseOffset) {
-      console.log('update offset')
+      // console.log('update offset')
       let offset_e
       let offset_s
 
@@ -6791,7 +6791,7 @@ function hexValueToDamageString(hexValue) {
     }
 
     function WriteRelicTargetDropData(TargetCurrentId,bhRelicId,hintOffset,baseOffset) {
-      console.log('Write Relic Drop')
+      // console.log('Write Relic Drop')
       // Write Target Drop Data
       offset = updateOffset(TargetCurrentId,baseOffset)
       
@@ -6852,30 +6852,24 @@ function hexValueToDamageString(hexValue) {
 
     // console.log('Target Selection')
     // -- Selecting Targets --
-    // Heart of Vlad - Pick Enemy Id
-    while(TargetHeartId == 0) {
-      TargetHeartId = Math.floor(rng() * Math.floor(bountyHunterTargets.length))
+    let targetValues = []
+
+    while(targetValues.length < 5) {
+        let value = Math.floor(rng() * Math.floor(bountyHunterTargets.length))
+        if (value !== 0 && !targetValues.includes(value)) {
+            targetValues.push(value);
+        }
     }
+    const [TargetHeartId, TargetToothId, TargetRibId, TargetRingId, TargetEyeId] = targetValues;
+    // Heart of Vlad - Pick Enemy Id
     TargetHeartEnemyId = bountyHunterTargets[TargetHeartId].enemyid
     // Tooth of Vlad - Pick Enemy Id (Can't match Heart)
-    while([TargetHeartId,0].includes(TargetToothId)) {
-      TargetToothId = Math.floor(rng() * Math.floor(bountyHunterTargets.length))	
-    }
     TargetToothEnemyId = bountyHunterTargets[TargetToothId].enemyid
     // Rib of Vlad - Pick Enemy Id (Can't Match Heart, Tooth)
-    while([TargetHeartId,TargetToothId,0].includes(TargetRibId)) {
-      TargetRibId = Math.floor(rng() * Math.floor(bountyHunterTargets.length))	
-    }
     TargetRibEnemyId = bountyHunterTargets[TargetRibId].enemyid
     // Ring of Vlad - Pick Enemy Id (Can't Match Heart, Tooth, Rib)
-    while([TargetHeartId,TargetToothId,TargetRibId,0].includes(TargetRingId)) {
-      TargetRingId = Math.floor(rng() * Math.floor(bountyHunterTargets.length))	
-    }
     TargetRingEnemyId = bountyHunterTargets[TargetRingId].enemyid
     // Eye of Vlad - Pick Enemy Id (Can't Match Heart, Tooth, Rib, Ring)
-    while([TargetHeartId,TargetToothId,TargetRibId,TargetRingId,0].includes(TargetEyeId)) {
-      TargetEyeId = Math.floor(rng() * Math.floor(bountyHunterTargets.length))	
-    }
     TargetEyeEnemyId = bountyHunterTargets[TargetEyeId].enemyid
     
     // console.log('Writing targets')
