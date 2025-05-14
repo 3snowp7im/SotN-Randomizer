@@ -1404,6 +1404,9 @@
           }
           check.apply(util.applyStartRoomRandoPatches(rng,castleFlag))
         }
+		// Pick Bounty Hunter Targets (debug, should have a conditional later)
+		//check.apply(util.applyBountyHunterTargets(rng,0))
+		
         // Apply guaranteed drop patches.
         if (options.dominoMode || applied.dominoMode) {
           check.apply(util.applyDominoPatches(rng))

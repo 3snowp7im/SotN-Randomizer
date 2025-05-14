@@ -1026,6 +1026,329 @@
     }
   ]
 
+  const bountyHunterTargets = [
+    {
+      name: "DUMMY",		// Do not Remove.
+	  enemyid: 0
+    }, {
+      name: "AXE KNIGHT",
+	  enemyid: 6
+    }, {
+      name: "SWORD LORD",
+	  enemyid: 9
+    }, {
+      name: "SKELERANG",
+	  enemyid: 11
+    }, {
+      name: "BLOODY ZOMBIE",
+	  enemyid: 13
+    }, {
+      name: "FLYING ZOMBIE",
+	  enemyid: 14
+    }, {
+      name: "DIPLOCEPHALUS",
+	  enemyid: 16
+    }, {
+      name: "OWL KNIGHT",
+	  enemyid: 20,
+	  ram: 0xA8C20
+    }, {
+      name: "LESSER DEMON",
+	  enemyid: 23
+    }, {
+      name: "MERMAN",
+	  enemyid: 27
+    }, {
+      name: "GORGON",
+	  enemyid: 31
+    }, {
+      name: "ARMOR LORD",
+	  enemyid: 34
+    }, {
+      name: "BLACK PANTHER",
+	  enemyid: 37
+    }, {
+      name: "DARK OCTOPUS",
+	  enemyid: 38
+    }, {
+      name: "FLEA MAN",
+	  enemyid: 40
+    }, {
+      name: "FLEA ARMOR",
+	  enemyid: 41
+    }, {
+      name: "BONE ARK",
+	  enemyid: 45
+    }, {
+      name: "FLEA RIDER",
+	  enemyid: 48
+    }, {
+      name: "MARIONETTE",
+	  enemyid: 49
+    }, {
+      name: "WERESKELETON",
+	  enemyid: 61
+    }, {
+      name: "BAT",
+	  enemyid: 64
+    }, {
+      name: "PHANTOM SKULL",
+	  enemyid: 67
+    }, {
+      name: "FLAIL GUARD",
+	  enemyid: 68
+    }, {
+      name: "HELLFIRE BEAST",
+	  enemyid: 71
+    }, {
+      name: "SKELETON",
+	  enemyid: 75
+    }, {
+      name: "DISCUS LORD",
+	  enemyid: 77
+    }, {
+      name: "FIRE DEMON",
+	  enemyid: 79
+    }, {
+      name: "SKELETON APE",
+	  enemyid: 83
+    }, {
+      name: "STONE ROSE",
+	  enemyid: 85
+    }, {
+      name: "ECTOPLASM",
+	  enemyid: 88
+    }, {
+      name: "SPEAR GUARD",
+	  enemyid: 93
+    }, {
+      name: "PLATE LORD",
+	  enemyid: 97
+    }, {
+      name: "FROZEN SHADE",
+	  enemyid: 99
+    }, {
+      name: "BONE MUSKET",
+	  enemyid: 102
+    }, {
+      name: "DODO BIRD",
+	  enemyid: 104
+    }, {
+      name: "BONE SCIMITAR",
+	  enemyid: 105
+    }, {
+      name: "TOAD",
+	  enemyid: 106
+    }, {
+      name: "FROG",
+	  enemyid: 107
+    }, {
+      name: "BONE ARCHER",
+	  enemyid: 108
+    }, {
+      name: "ZOMBIE",
+	  enemyid: 110
+    }, {
+      name: "GRAVE KEEPER",
+	  enemyid: 111
+    }, {
+      name: "TOMBSTONE",
+	  enemyid: 113
+    }, {
+      name: "BLUE RAVEN",
+	  enemyid: 114
+    }, {
+      name: "BLACK CROW",
+	  enemyid: 115
+    }, {
+      name: "JACK O'BONES",
+	  enemyid: 116
+    }, {
+      name: "BONE HALBERD",
+	  enemyid: 118
+    }, {
+      name: "YORICK",
+	  enemyid: 120
+    }, {
+      name: "SKULL",
+	  enemyid: 121
+    }, {
+      name: "BLADE MASTER",
+	  enemyid: 122
+    }, {
+      name: "BLADE SOLDIER",
+	  enemyid: 124
+    }, {
+      name: "NOVA SKELETON",
+	  enemyid: 126
+    }, {
+      name: "WINGED GUARD",
+	  enemyid: 128
+    }, {
+      name: "SPECTRAL SWORD",
+	  enemyid: 129
+    }, {
+      name: "LOSSOTH",
+	  enemyid: 131
+    }, {
+      name: "VALHALLA KNIGHT",
+	  enemyid: 133
+    }, {
+      name: "OROBOUROUS",
+	  enemyid: 141
+    }, {
+      name: "DHURON",
+	  enemyid: 146
+    }, {
+      name: "FIRE WARG",
+	  enemyid: 148
+    }, {
+      name: "CAVE TROLL",
+	  enemyid: 153
+    }, {
+      name: "GHOST",
+	  enemyid: 156
+    }, {
+      name: "THORNWEED",
+	  enemyid: 157
+    }, {
+      name: "CORPSEWEED",
+	  enemyid: 158
+    }, {
+      name: "VENUS WEED",
+	  enemyid: 161
+    }, {
+      name: "BOMB KNIGHT",
+	  enemyid: 165
+    }, {
+      name: "ROCK KNIGHT",
+	  enemyid: 167
+    }, {
+      name: "SLINGER",
+	  enemyid: 178
+    }, {
+      name: "CORNER GUARD",
+	  enemyid: 180
+    }, {
+      name: "BITTERFLY",
+	  enemyid: 182
+    }, {
+      name: "BONE PILLAR",
+	  enemyid: 183
+    }, {
+      name: "SPIKED BALL",
+	  enemyid: 185
+    }, {
+      name: "HAMMER",
+	  enemyid: 186
+    }, {
+      name: "GURKHA",
+	  enemyid: 188
+    }, {
+      name: "BLADE",
+	  enemyid: 190
+    }, {
+      name: "OUIJA TABLE",
+	  enemyid: 193
+    }, {
+      name: "SNIPER OF GOTH",
+	  enemyid: 195
+    }, {
+      name: "PARANTHROPUS",
+	  enemyid: 211
+    }, {
+      name: "GHOST DANCER",
+	  enemyid: 216
+    }, {
+      name: "FROZEN HALF",
+	  enemyid: 217
+    }, {
+      name: "SALEM WITCH",
+	  enemyid: 221
+    }, {
+      name: "AZAGHAL",
+	  enemyid: 224
+    }, {
+      name: "GREMLIN",
+	  enemyid: 225
+    }, {
+      name: "HUNTING GIRL",
+	  enemyid: 227
+    }, {
+      name: "VANDAL SWORD",
+	  enemyid: 228
+    }, {
+      name: "SALOME",
+	  enemyid: 229
+    }, {
+      name: "CTULHU",
+	  enemyid: 233
+    }, {
+      name: "MALACHI",
+	  enemyid: 236
+    }, {
+      name: "HARPY",
+	  enemyid: 239
+    }, {
+      name: "SPELLBOOK",
+	  enemyid: 247
+    }, {
+      name: "MAGIC TOME",
+	  enemyid: 251
+    }, {
+      name: "SKULL LORD",
+	  enemyid: 261
+    }, {
+      name: "LION",
+	  enemyid: 262
+    }, {
+      name: "TIN MAN",
+	  enemyid: 264
+    }, {
+      name: "CLOAKED KNIGHT",
+	  enemyid: 271
+    }, {
+      name: "FISHHEAD",
+	  enemyid: 277
+    }, {
+      name: "KARASUMAN",
+	  enemyid: 280
+    }, {
+      name: "IMP",
+	  enemyid: 284
+    }, {
+      name: "MEDUSA HEAD",
+	  enemyid: 303
+    }, {
+      name: "ARCHER",
+	  enemyid: 305
+    }, {
+      name: "SCARECROW",
+	  enemyid: 322
+    }, {
+      name: "SCHMOO",
+	  enemyid: 323
+    }, {
+      name: "KILLER FISH",
+	  enemyid: 350
+    }, {
+      name: "MINOTAUR",
+	  enemyid: 386
+    }, {
+      name: "WEREWOLF",
+	  enemyid: 389
+    }, {
+      name: "BLUE VENUS WEED",
+	  enemyid: 392
+    }, {
+      name: "GUARDIAN",
+	  enemyid: 396
+    }, {
+      name: "GUARDIAN",		// Don't Remove
+	  enemyid: 396
+    }
+  ]
+
   const startRoomData = [                                                       // Data provided for starting room randomizer (Writes are used, other fields are reference)
     {
       id: 1,
@@ -2701,6 +3024,7 @@
     faerieScrollForceAddresses: faerieScrollForceAddresses,
     characterMap: characterMap,
     shopItemsData: shopItemsData,
+	bountyHunterTargets: bountyHunterTargets,
     startRoomData: startRoomData,
     splashPhrases: splashPhrases,
     prideSplashPhrases: prideSplashPhrases,
