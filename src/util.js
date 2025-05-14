@@ -6769,10 +6769,10 @@ function hexValueToDamageString(hexValue) {
       // Buff item Drops for Hitman & Target Confirmed
       while(dindex < 397)
       {
-        offset = 0xB5858												// EnemyDef Base
-        offset_e = dindex * 0x28										// Get Enemy Entry Offset
-        offset_s = Math.floor((offset_e+0x100) / 0x800) * 0x130			// Based on Offset Calculate Sector Crossings
-        offset = offset + offset_e + offset_s							// Add it all up to get final address for enemy.
+        offset = 0xB5858												                                // EnemyDef Base
+        offset_e = dindex * 0x28										                            // Get Enemy Entry Offset
+        offset_s = Math.floor((offset_e+0x100) / 0x800) * 0x130			            // Based on Offset Calculate Sector Crossings
+        offset = offset + offset_e + offset_s							                      // Add it all up to get final address for enemy.
         
         data.writeShort(offset + 0x1E,16)
         data.writeShort(offset + 0x20,32)
@@ -6807,10 +6807,10 @@ function hexValueToDamageString(hexValue) {
       let offset_e
       let offset_s
 
-      offset_e = (bountyHunterTargets[TargetCurrentId].enemyid * 0x28)	// Get Enemy Entry Offset
-      offset_s = Math.floor((offset_e+0x100) / 0x800) * 0x130			// Based on Offset Calculate Sector Crossings
+      offset_e = (bountyHunterTargets[TargetCurrentId].enemyid * 0x28)	        // Get Enemy Entry Offset
+      offset_s = Math.floor((offset_e+0x100) / 0x800) * 0x130			              // Based on Offset Calculate Sector Crossings
 
-      return baseOffset + offset_e + offset_s							// Add it all up to get final address for enemy.
+      return baseOffset + offset_e + offset_s							                      // Add it all up to get final address for enemy.
     }
 
     function WriteRelicTargetDropData(TargetCurrentId,bhRelicId,hintOffset,baseOffset) {
@@ -6821,16 +6821,16 @@ function hexValueToDamageString(hexValue) {
       data.writeShort(offset + 0x1E,VladDropRate)
       
       // Writing Hint String
-      offset = hintOffset	// Offset for Sword Card Description
-      offset = data.writeWord(offset,0x47524154)	// TARG
-      offset = data.writeShort(offset,0x5445)		// ET
-      offset = data.writeChar(offset,0x20)		// ' '
+      offset = hintOffset	                                                      // Offset for Sword Card Description
+      offset = data.writeWord(offset,0x47524154)	                              // TARG
+      offset = data.writeShort(offset,0x5445)		                                // ET
+      offset = data.writeChar(offset,0x20)		                                  // ' '
       // Write Enemy Name on Card
       for(let i = 0; i < bountyHunterTargets[TargetCurrentId].name.length; i++)
       {
         offset = data.writeChar(offset,bountyHunterTargets[TargetCurrentId].name.charCodeAt(i) )
       }
-      data.writeChar(offset,0)	// String Termination
+      data.writeChar(offset,0)	                                                // String Termination
     }
 
     function duplicateEnemyId(enemyId,bhRelicId,baseOffset) {
@@ -6843,9 +6843,9 @@ function hexValueToDamageString(hexValue) {
         
         dupeEnemies.forEach(enemy => {
           // Write Target Drop Data
-          offset_e = enemy.index * 0x28	// Get Enemy Entry Offset
-          offset_s = Math.floor((offset_e+0x100) / 0x800) * 0x130			// Based on Offset Calculate Sector Crossings
-          offset = baseOffset + offset_e + offset_s							// Add it all up to get final address for enemy.
+          offset_e = enemy.index * 0x28	                                        // Get Enemy Entry Offset
+          offset_s = Math.floor((offset_e+0x100) / 0x800) * 0x130			          // Based on Offset Calculate Sector Crossings
+          offset = baseOffset + offset_e + offset_s							                // Add it all up to get final address for enemy.
 
           data.writeShort(offset + 0x1A,RelicNumber)
           data.writeShort(offset + 0x1E,VladDropRate)
@@ -6928,7 +6928,7 @@ function hexValueToDamageString(hexValue) {
     let newWrite
     let randRoomId
 
-    randRoomId = Math.floor(rng() * Math.floor(startRoomData.length))       // Select a starting room at random
+    randRoomId = Math.floor(rng() * Math.floor(startRoomData.length))           // Select a starting room at random
 
     // Debug Messages
     // if(options.startRoomRandoMode){
@@ -6946,7 +6946,7 @@ function hexValueToDamageString(hexValue) {
     {
       while(startRoomData[randRoomId].stage >= 0x20)
       {
-        randRoomId = Math.floor(rng() * Math.floor(startRoomData.length))   // Re-roll if Room is 2nd Castle but we did not choose to include it.
+        randRoomId = Math.floor(rng() * Math.floor(startRoomData.length))       // Re-roll if Room is 2nd Castle but we did not choose to include it.
       }
     }
 
@@ -6954,7 +6954,7 @@ function hexValueToDamageString(hexValue) {
     {
       while(startRoomData[randRoomId].stage < 0x20)
       {
-        randRoomId = Math.floor(rng() * Math.floor(startRoomData.length))   // Re-roll if Room is 1st Castle but we did not choose to include it.
+        randRoomId = Math.floor(rng() * Math.floor(startRoomData.length))       // Re-roll if Room is 1st Castle but we did not choose to include it.
       }
     }
     
