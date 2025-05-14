@@ -1,34 +1,49 @@
 {
   "metadata": {
-    "id": "hitman",
-    "name": "Hitman",
-    "description": "Bounty Hunter variant. Start with all five Familiar Cards so you know your targets. Requires the Bounty Hunter Tool. App URL: https://github.com/MottZilla/BountyHunterTool",
+    "id": "bountyhuntertc",
+    "name": "Bounty Hunter TC",
+    "description": "Bounty Hunter variant. Vlad drop rates are much higher, Familiar Cards are required before the drop is unlocked. Requires the Bounty Hunter Tool. App URL: https://github.com/MottZilla/BountyHunterTool",
     "author": [
       "eldri7ch",
       "MottZilla"
     ],
-    "weight": 6200,
+    "weight": 7100,
     "knowledgeCheck": "Enemy Locations",
     "metaExtension": "Guarded",
-    "metaComplexity": "1",
+    "metaComplexity": "6",
     "itemStats": "Normal",
-    "timeFrame": "Fast",
+    "timeFrame": "Normal",
     "moddedLevel": "Heavily",
     "castleType": "Normal",
     "transformEarly": "No",
     "transformFocus": "None",
     "winCondition": "Enemies Drop Vlads"
   },
-
   "inherits": "casual",
   "stats": false,
-  
-  "complexityGoal": {
-    "min": 1,
-    "goals": [
-      "Holy glasses"
-  ]},
-
+  "startingEquipment": [{
+    "slot": "Right hand",
+    "item": "Alucart sword"
+  }, {
+    "slot": "Left hand",
+    "item": "Alucart shield"
+  }, {
+    "slot": "Head",
+    "item": "Dragon helm"
+  }, {
+    "slot": "Body",
+    "item": "Alucart mail"
+  }, {
+    "slot": "Cloak",
+    "item": "Twilight cloak"
+  }, {
+    "slot": "Other",
+    "item": "Ring of Arcana"
+  }],
+  "prologueRewards": [{
+    "item": "Neutron bomb",
+    "replacement": "Library card"
+  }],
   "replaceRelic": [{
     "relic": "Tooth of Vlad",
     "item": "Library card"
@@ -51,32 +66,6 @@
     "relic": "Nosedevil Card",
     "item": "Ring of Arcana"
   }],
-
-  "startingEquipment": [{
-    "slot": "Right hand",
-    "item": "Alucart sword"
-  }, {
-    "slot": "Left hand",
-    "item": "Alucart shield"
-  }, {
-    "slot": "Head",
-    "item": "Dragon helm"
-  }, {
-    "slot": "Body",
-    "item": "Alucart mail"
-  }, {
-    "slot": "Cloak",
-    "item": "Twilight cloak"
-  }, {
-    "slot": "Other",
-    "item": "Ring of Arcana"
-  }],
-
-  "prologueRewards": [{
-    "item": "Neutron bomb",
-    "replacement": "Library card"
-  }],
-
   "itemLocations": [{
     "zone": "*",
     "item": "*",
@@ -162,7 +151,6 @@
     "item": "Sunglasses",
     "replacement": "Sunglasses"
   }],
-
   "blockDrops": [{
     "enemy": "*",
     "items": [
@@ -218,7 +206,6 @@
       "Diamond"
     ]
   }],
-
   "writes": [{
     "comment": "Jump to injected code",
     "address": "0x000fa97c",
@@ -238,35 +225,6 @@
     "type": "word",
     "value": "0xa0627973",
     "comment": "sb v0, 0x7973 (v1)"
-  }, {
-    "type": "word",
-    "value": "0x34020001",
-    "comment": "ori v0, 0x0001"
-  }, {
-    "comment": "Enable Cards",
-    "type": "word",
-    "value": "0xa0627976",
-    "comment": "sb v0, 0x7976 (v1)"
-  }, {
-    "comment": "Enable Cards",
-    "type": "word",
-    "value": "0xa0627977",
-    "comment": "sb v0, 0x7977 (v1)"
-  }, {
-    "comment": "Enable Cards",
-    "type": "word",
-    "value": "0xa0627978",
-    "comment": "sb v0, 0x7978 (v1)"
-  }, {
-    "comment": "Enable Cards",
-    "type": "word",
-    "value": "0xa0627979",
-    "comment": "sb v0, 0x7979 (v1)"
-  }, {
-    "comment": "Enable Cards",
-    "type": "word",
-    "value": "0xa062797A",
-    "comment": "sb v0, 0x797A (v1)"
   }, {
     "type": "word",
     "value": "0x34020063",
@@ -1131,12 +1089,279 @@
     "address": "0x4608BE4",
     "type": "word",
     "value": "0x00000000"
-  },{
-    "comment": "Remove MG Jewel Door",
-    "address": "0x4964EE6",
-    "type": "short",
-    "value": "0x1800"
   },
+{
+    "address": "0x10B138",
+    "type": "word",
+    "value": "0x0C038927",
+    "comment": "Func Hook"
+},
+{
+    "type": "word",
+    "value": "0x00000000"
+},
+{
+    "address": "0xF7C84",
+    "type": "word",
+    "value": "0x3C078001",
+    "comment": "Func Block"
+},
+{
+    "type": "word",
+    "value": "0x3404800A"
+},
+{
+    "type": "word",
+    "value": "0x94E5C002"
+},
+{
+    "type": "word",
+    "value": "0x00000000"
+},
+{
+    "type": "word",
+    "value": "0x10850004"
+},
+{
+    "type": "word",
+    "value": "0x3C06800A"
+},
+{
+    "type": "word",
+    "value": "0x34C689F0"
+},
+{
+    "type": "word",
+    "value": "0x00000000"
+},
+{
+    "type": "word",
+    "value": "0xACE6C000"
+},
+{
+    "type": "word",
+    "value": "0x8CE4C000"
+},
+{
+    "type": "word",
+    "value": "0x00000000"
+},
+{
+    "type": "word",
+    "value": "0x9485001A"
+},
+{
+    "type": "word",
+    "value": "0x00000000"
+},
+{
+    "type": "word",
+    "value": "0x14A00004"
+},
+{
+    "type": "word",
+    "value": "0x00000000"
+},
+{
+    "type": "word",
+    "value": "0x24840028"
+},
+{
+    "type": "word",
+    "value": "0x1800FFFA"
+},
+{
+    "type": "word",
+    "value": "0x00000000"
+},
+{
+    "type": "word",
+    "value": "0x3C078009"
+},
+{
+    "type": "word",
+    "value": "0x34E7797A"
+},
+{
+    "type": "word",
+    "value": "0x340600B6"
+},
+{
+    "type": "word",
+    "value": "0x10A60013"
+},
+{
+    "type": "word",
+    "value": "0x00000000"
+},
+{
+    "type": "word",
+    "value": "0x24E7FFFF"
+},
+{
+    "type": "word",
+    "value": "0x24C60001"
+},
+{
+    "type": "word",
+    "value": "0x10A6000F"
+},
+{
+    "type": "word",
+    "value": "0x00000000"
+},
+{
+    "type": "word",
+    "value": "0x24E7FFFF"
+},
+{
+    "type": "word",
+    "value": "0x24C60001"
+},
+{
+    "type": "word",
+    "value": "0x10A6000B"
+},
+{
+    "type": "word",
+    "value": "0x00000000"
+},
+{
+    "type": "word",
+    "value": "0x24E7FFFF"
+},
+{
+    "type": "word",
+    "value": "0x24C60001"
+},
+{
+    "type": "word",
+    "value": "0x10A60007"
+},
+{
+    "type": "word",
+    "value": "0x00000000"
+},
+{
+    "type": "word",
+    "value": "0x24E7FFFF"
+},
+{
+    "type": "word",
+    "value": "0x24C60001"
+},
+{
+    "type": "word",
+    "value": "0x10A60003"
+},
+{
+    "type": "word",
+    "value": "0x00000000"
+},
+{
+    "type": "word",
+    "value": "0x1800000B"
+},
+{
+    "type": "word",
+    "value": "0x00000000"
+},
+{
+    "type": "word",
+    "value": "0x90E50000"
+},
+{
+    "type": "word",
+    "value": "0x00000000"
+},
+{
+    "type": "word",
+    "value": "0x10A00005"
+},
+{
+    "type": "word",
+    "value": "0x00000000"
+},
+{
+    "type": "word",
+    "value": "0x34050024"
+},
+{
+    "type": "word",
+    "value": "0xA0850025"
+},
+{
+    "type": "word",
+    "value": "0x18000003"
+},
+{
+    "type": "word",
+    "value": "0x00000000"
+},
+{
+    "type": "word",
+    "value": "0x00000000"
+},
+{
+    "type": "word",
+    "value": "0x00000000"
+},
+{
+    "type": "word",
+    "value": "0x24840028"
+},
+{
+    "type": "word",
+    "value": "0x3C05800A"
+},
+{
+    "type": "word",
+    "value": "0x34A5C708"
+},
+{
+    "type": "word",
+    "value": "0x00000000"
+},
+{
+    "type": "word",
+    "value": "0x14850003"
+},
+{
+    "type": "word",
+    "value": "0x00000000"
+},
+{
+    "type": "word",
+    "value": "0x3C04800A"
+},
+{
+    "type": "word",
+    "value": "0x348489F0"
+},
+{
+    "type": "word",
+    "value": "0x3C078001"
+},
+{
+    "type": "word",
+    "value": "0xACE4C000"
+},
+{
+    "type": "word",
+    "value": "0x3C028004"
+},
+{
+    "type": "word",
+    "value": "0x8C42C9A0"
+},
+{
+    "type": "word",
+    "value": "0x03E00008"
+},
+{
+    "type": "word",
+    "value": "0x00000000"
+},
 {
     "address": "0xB4EAF",
     "type": "char",
@@ -1152,5 +1377,11 @@
     "type": "char",
     "address": "0x5A78FE4",
     "value": "0x02"
-  }]
+  }],
+  "complexityGoal": {
+    "min": 6,
+    "goals": [
+      "Holy glasses + Demon Card + Faerie Card + Bat Card + Sword Card + Ghost Card"
+    ]
+  }
 }
