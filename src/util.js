@@ -6742,443 +6742,183 @@ function hexValueToDamageString(hexValue) {
     return data
   }
 
-// Written By: MottZilla
-// Selects 5 Enemies as Bounty Hunter Targets, sets their drops and applies hints to the Cards.
-function applyBountyHunterTargets(rng,bhmode) {
-	const bountyHunterTargets = constants.bountyHunterTargets
-	const data = new checked()
-	
-	console.log("applyBountyHunterTargets()")
-	
-	let TargetHeartId = 0
-	let TargetToothId = 0
-	let TargetRibId = 0
-	let TargetRingId = 0
-	let TargetEyeId = 0
-	let TargetHeartEnemyId = 0
-	let TargetToothEnemyId = 0
-	let TargetRibEnemyId = 0
-	let TargetRingEnemyId = 0
-	let TargetEyeEnemyId = 0
-	
-	let TargetCurrentId = 0
-	let VladDropRate = 16
+  // Written By: MottZilla; edited by eldri7ch and DotChris
+  // Selects 5 Enemies as Bounty Hunter Targets, sets their drops and applies hints to the Cards.
+  function applyBountyHunterTargets(rng,bhmode) {
+    const bountyHunterTargets = enemies.bountyHunterTargets
+    const data = new checked()
+    
+    // console.log("applyBountyHunterTargets()")
 
-	let offset
-	let offset_e
-	let offset_s
-	
-	let dindex = 6
-	
-	if(bhmode > 0)	// If mode is Hitman or Target Confirmed
-	{
-		VladDropRate = 256
-		
-		// Buff item Drops for Hitman & Target Confirmed
-		while(dindex < 397)
-		{
-			offset = 0xB5858												// EnemyDef Base
-			offset_e = dindex * 0x28										// Get Enemy Entry Offset
-			offset_s = Math.floor((offset_e+0x100) / 0x800) * 0x130			// Based on Offset Calculate Sector Crossings
-			offset = offset + offset_e + offset_s							// Add it all up to get final address for enemy.
-			
-			data.writeShort(offset + 0x1E,16)
-			data.writeShort(offset + 0x20,32)		
-			dindex = dindex + 1			
-		}
-		
-	}
+    let TargetHeartEnemyId = 0
+    let TargetToothEnemyId = 0
+    let TargetRibEnemyId = 0
+    let TargetRingEnemyId = 0
+    let TargetEyeEnemyId = 0
+    let VladDropRate = 16
 
-	// -- Selecting Targets --
-	
-	// Heart of Vlad - Pick Enemy Id
-	while(TargetHeartId == 0)
-	{
-		TargetHeartId = Math.floor(rng() * Math.floor(bountyHunterTargets.length))
-	}
-	TargetHeartEnemyId = bountyHunterTargets[TargetHeartId].enemyid
-	// Tooth of Vlad - Pick Enemy Id (Can't match Heart)
-	while(TargetToothId == TargetHeartId || TargetToothId == 0)
-	{
-		TargetToothId = Math.floor(rng() * Math.floor(bountyHunterTargets.length))	
-	}
-	TargetToothEnemyId = bountyHunterTargets[TargetToothId].enemyid
-	// Rib of Vlad - Pick Enemy Id (Can't Match Heart, Tooth)
-	while(TargetRibId == TargetHeartId || TargetRibId == TargetToothId || TargetRibId == 0)
-	{
-		TargetRibId = Math.floor(rng() * Math.floor(bountyHunterTargets.length))	
-	}
-	TargetRibEnemyId = bountyHunterTargets[TargetRibId].enemyid
-	// Ring of Vlad - Pick Enemy Id (Can't Match Heart, Tooth, Rib)
-	while(TargetRingId == TargetHeartId || TargetRingId == TargetToothId || TargetRingId == TargetRibId || TargetRingId == 0)
-	{
-		TargetRingId = Math.floor(rng() * Math.floor(bountyHunterTargets.length))	
-	}
-	TargetRingEnemyId = bountyHunterTargets[TargetRingId].enemyid
-	// Eye of Vlad - Pick Enemy Id (Can't Match Heart, Tooth, Rib, Ring)
-	while(TargetEyeId == TargetHeartId || TargetEyeId == TargetToothId || TargetEyeId == TargetRibId || TargetEyeId == TargetRingId || TargetEyeId == 0)
-	{
-		TargetEyeId = Math.floor(rng() * Math.floor(bountyHunterTargets.length))	
-	}
-	TargetEyeEnemyId = bountyHunterTargets[TargetEyeId].enemyid
-	
-	// -- Writing Targets --
-	
-	// Write Heart Target Drop Data
-	TargetCurrentId = TargetHeartId
-	offset = 0xB5858	// EnemyDef Base
-	offset_e = (bountyHunterTargets[TargetCurrentId].enemyid * 0x28)	// Get Enemy Entry Offset
-	offset_s = Math.floor((offset_e+0x100) / 0x800) * 0x130			// Based on Offset Calculate Sector Crossings
-	offset = offset + offset_e + offset_s							// Add it all up to get final address for enemy.
-	
-	data.writeShort(offset + 0x1A,54 + 128)
-	data.writeShort(offset + 0x1E,VladDropRate)
-	
-	// Writing Hint String
-	offset = 0xF5560	// Offset for Sword Card Description
-	offset = data.writeWord(offset,0x47524154)	// TARG
-	offset = data.writeShort(offset,0x5445)		// ET
-	offset = data.writeChar(offset,0x20)		// ' '
-	// Write Enemy Name on Card
-	for(let i = 0; i < bountyHunterTargets[TargetCurrentId].name.length; i++)
-	{
-		offset = data.writeChar(offset,bountyHunterTargets[TargetCurrentId].name.charCodeAt(i) )
-	}
-	data.writeChar(offset,0)	// String Termination
-	
-	// Set Relic Name (Heart Card)
-	offset = 0xF5581
-	offset = data.writeWord(offset,0x72616548)
-	offset = data.writeChar(offset,0x74)
-	
+    let baseOffset = 0xB5858
+    let offset
+    let bhRelicId
+    let dindex = 6
+    
+    if(bhmode > 0)	// If mode is Hitman or Target Confirmed
+    {
+      VladDropRate = 256
+      
+      // Buff item Drops for Hitman & Target Confirmed
+      while(dindex < 397)
+      {
+        offset = 0xB5858												// EnemyDef Base
+        offset_e = dindex * 0x28										// Get Enemy Entry Offset
+        offset_s = Math.floor((offset_e+0x100) / 0x800) * 0x130			// Based on Offset Calculate Sector Crossings
+        offset = offset + offset_e + offset_s							// Add it all up to get final address for enemy.
+        
+        data.writeShort(offset + 0x1E,16)
+        data.writeShort(offset + 0x20,32)
+        dindex = dindex + 1			
+      }
+    }
 
-	// Write Tooth Target Drop Data
-	TargetCurrentId = TargetToothId
-	offset = 0xB5858	// EnemyDef Base
-	offset_e = (bountyHunterTargets[TargetCurrentId].enemyid * 0x28)	// Get Enemy Entry Offset
-	offset_s = Math.floor((offset_e+0x100) / 0x800) * 0x130			// Based on Offset Calculate Sector Crossings
-	offset = offset + offset_e + offset_s							// Add it all up to get final address for enemy.
-	
-	data.writeShort(offset + 0x1A,55 + 128)
-	data.writeShort(offset + 0x1E,VladDropRate)
-	
-	// Writing Hint String
-	offset = 0xF558C	// Offset for Demon Card Description
-	offset = data.writeWord(offset,0x47524154)	// TARG
-	offset = data.writeShort(offset,0x5445)		// ET
-	offset = data.writeChar(offset,0x20)		// ' '
-	// Write Enemy Name on Card
-	for(let i = 0; i < bountyHunterTargets[TargetCurrentId].name.length; i++)
-	{
-		offset = data.writeChar(offset,bountyHunterTargets[TargetCurrentId].name.charCodeAt(i) )
-	}
-	data.writeChar(offset,0)	// String Termination
-	
-	// Set Relic Name (Tooth Card)
-	offset = 0xF55AC
-	offset = data.writeWord(offset,0x746F6F54)
-	offset = data.writeChar(offset,0x68)
+    // -- Selecting Targets --
+    let targetValues = [0, 0, 0, 0, 0];
 
+    while(targetValues.includes(0)) {
+        targetValues.forEach(value =>{
+            while(value === 0 || targetValues.includes(value)) {
+                value = Math.floor(rng() * Math.floor(bountyHunterTargets.length))
+            }
+        })
+    }
+    const [TargetHeartId, TargetToothId, TargetRibId, TargetRingId, TargetEyeId] = targetValues;
+    // Heart of Vlad - Pick Enemy Id
+    TargetHeartEnemyId = bountyHunterTargets[TargetHeartId].enemyid
+    // Tooth of Vlad - Pick Enemy Id (Can't match Heart)
+    TargetToothEnemyId = bountyHunterTargets[TargetToothId].enemyid
+    // Rib of Vlad - Pick Enemy Id (Can't Match Heart, Tooth)
+    TargetRibEnemyId = bountyHunterTargets[TargetRibId].enemyid
+    // Ring of Vlad - Pick Enemy Id (Can't Match Heart, Tooth, Rib)
+    TargetRingEnemyId = bountyHunterTargets[TargetRingId].enemyid
+    // Eye of Vlad - Pick Enemy Id (Can't Match Heart, Tooth, Rib, Ring)
+    TargetEyeEnemyId = bountyHunterTargets[TargetEyeId].enemyid
+    
+    // -- Writing Targets --
+    function updateoffset(TargetCurrentId,baseOffset) {
+      let offset_e
+      let offset_s
 
-	// Write Rib Target Drop Data
-	TargetCurrentId = TargetRibId
-	offset = 0xB5858	// EnemyDef Base
-	offset_e = (bountyHunterTargets[TargetCurrentId].enemyid * 0x28)	// Get Enemy Entry Offset
-	offset_s = Math.floor((offset_e+0x100) / 0x800) * 0x130			// Based on Offset Calculate Sector Crossings
-	offset = offset + offset_e + offset_s							// Add it all up to get final address for enemy.
-	
-	data.writeShort(offset + 0x1A,56 + 128)
-	data.writeShort(offset + 0x1E,VladDropRate)
-	
-	// Writing Hint String
-	offset = 0xF55B8	// Offset for Faerie Card Description
-	offset = data.writeWord(offset,0x47524154)	// TARG
-	offset = data.writeShort(offset,0x5445)		// ET
-	offset = data.writeChar(offset,0x20)		// ' '
-	// Write Enemy Name on Card
-	for(let i = 0; i < bountyHunterTargets[TargetCurrentId].name.length; i++)
-	{
-		offset = data.writeChar(offset,bountyHunterTargets[TargetCurrentId].name.charCodeAt(i) )
-	}
-	data.writeChar(offset,0)	// String Termination
-	
-	// Set Relic Name (Rib Card)
-	offset = 0xF55D9
-	offset = data.writeWord(offset,0x20626952)
-	offset = data.writeWord(offset,0x64726143)
-	offset = data.writeChar(offset,0)
-	
-	
-	// Write Ring Target Drop Data
-	TargetCurrentId = TargetRingId
-	offset = 0xB5858	// EnemyDef Base
-	offset_e = (bountyHunterTargets[TargetCurrentId].enemyid * 0x28)	// Get Enemy Entry Offset
-	offset_s = Math.floor((offset_e+0x100) / 0x800) * 0x130			// Based on Offset Calculate Sector Crossings
-	offset = offset + offset_e + offset_s							// Add it all up to get final address for enemy.
-	
-	data.writeShort(offset + 0x1A,57 + 128)
-	data.writeShort(offset + 0x1E,VladDropRate)
-	
-	// Writing Hint String
-	offset = 0xF55E8	// Offset for Ghost Card Description
-	offset = data.writeWord(offset,0x47524154)	// TARG
-	offset = data.writeShort(offset,0x5445)		// ET
-	offset = data.writeChar(offset,0x20)		// ' '
-	// Write Enemy Name on Card
-	for(let i = 0; i < bountyHunterTargets[TargetCurrentId].name.length; i++)
-	{
-		offset = data.writeChar(offset,bountyHunterTargets[TargetCurrentId].name.charCodeAt(i) )
-	}
-	data.writeChar(offset,0)	// String Termination
-	
-	// Set Relic Name (Ring Card)
-	offset = 0xF5608
-	offset = data.writeWord(offset,0x676E6952)
-	offset = data.writeWord(offset,0x72614320)
-	offset = data.writeShort(offset,0x0064)
+      offset_e = (bountyHunterTargets[TargetCurrentId].enemyid * 0x28)	// Get Enemy Entry Offset
+      offset_s = Math.floor((offset_e+0x100) / 0x800) * 0x130			// Based on Offset Calculate Sector Crossings
 
+      return baseOffset + offset_e + offset_s							// Add it all up to get final address for enemy.
+    }
 
-	// Write Eye Target Drop Data
-	TargetCurrentId = TargetEyeId
-	offset = 0xB5858	// EnemyDef Base
-	offset_e = (bountyHunterTargets[TargetCurrentId].enemyid * 0x28)	// Get Enemy Entry Offset
-	offset_s = Math.floor((offset_e+0x100) / 0x800) * 0x130			// Based on Offset Calculate Sector Crossings
-	offset = offset + offset_e + offset_s							// Add it all up to get final address for enemy.
-	
-	data.writeShort(offset + 0x1A,58 + 128)
-	data.writeShort(offset + 0x1E,VladDropRate)
-	
-	// Writing Hint String
-	offset = 0xF5614	// Offset for Bat Card Description
-	offset = data.writeWord(offset,0x47524154)	// TARG
-	offset = data.writeShort(offset,0x5445)		// ET
-	offset = data.writeChar(offset,0x20)		// ' '
-	// Write Enemy Name on Card
-	for(let i = 0; i < bountyHunterTargets[TargetCurrentId].name.length; i++)
-	{
-		offset = data.writeChar(offset,bountyHunterTargets[TargetCurrentId].name.charCodeAt(i) )
-	}
-	data.writeChar(offset,0)	// String Termination
-	
-	// Set Relic Name (Eye Card)
-	offset = 0xF5635
-	offset = data.writeWord(offset,0x20657945)
-	offset = data.writeWord(offset,0x64726143)
-	offset = data.writeChar(offset,0)
+    function WriteRelicTargetDropData(TargetCurrentId,bhRelicId,hintOffset,baseOffset) {
+      // Write Target Drop Data
+      offset = updateoffset(TargetCurrentId,baseOffset)
+      
+      data.writeShort(offset + 0x1A,bhRelicId + 128)
+      data.writeShort(offset + 0x1E,VladDropRate)
+      
+      // Writing Hint String
+      offset = hintOffset	// Offset for Sword Card Description
+      offset = data.writeWord(offset,0x47524154)	// TARG
+      offset = data.writeShort(offset,0x5445)		// ET
+      offset = data.writeChar(offset,0x20)		// ' '
+      // Write Enemy Name on Card
+      for(let i = 0; i < bountyHunterTargets[TargetCurrentId].name.length; i++)
+      {
+        offset = data.writeChar(offset,bountyHunterTargets[TargetCurrentId].name.charCodeAt(i) )
+      }
+      data.writeChar(offset,0)	// String Termination
+    }
 
-	// -- Handling dupes --
-	
-	// AXE KNIGHT
-	if(TargetHeartEnemyId == 6 || TargetToothEnemyId == 6 || TargetRibEnemyId == 6 || TargetRingEnemyId == 6 || TargetEyeEnemyId == 6)
-	{
-		let RelicNumber = 54 + 128								// Set to Heart of Vlad
-		if(TargetToothEnemyId == 6) { RelicNumber = 55 + 128 }	// Set to Tooth of Vlad
-		if(TargetRibEnemyId == 6) { RelicNumber = 56 + 128 }	// Set to Rib of Vlad
-		if(TargetRingEnemyId == 6) { RelicNumber = 57 + 128 }	// Set to Ring of Vlad
-		if(TargetEyeEnemyId == 6) { RelicNumber = 58 + 128 }	// Set to Eye of Vlad
-		
-		// Write Target Drop Data
-		offset = 0xB5858		// EnemyDef Base
-		offset_e = 246 * 0x28	// Get Enemy Entry Offset
-		offset_s = Math.floor((offset_e+0x100) / 0x800) * 0x130			// Based on Offset Calculate Sector Crossings
-		offset = offset + offset_e + offset_s							// Add it all up to get final address for enemy.
-		
-		data.writeShort(offset + 0x1A,RelicNumber)
-		data.writeShort(offset + 0x1E,VladDropRate)
-	}
-	
-	// FLYING ZOMBIE
-	if(TargetHeartEnemyId == 14 || TargetToothEnemyId == 14 || TargetRibEnemyId == 14 || TargetRingEnemyId == 14 || TargetEyeEnemyId == 14)
-	{
-		let RelicNumber = 54 + 128								// Set to Heart of Vlad
-		if(TargetToothEnemyId == 6) { RelicNumber = 55 + 128 }	// Set to Tooth of Vlad
-		if(TargetRibEnemyId == 6) { RelicNumber = 56 + 128 }	// Set to Rib of Vlad
-		if(TargetRingEnemyId == 6) { RelicNumber = 57 + 128 }	// Set to Ring of Vlad
-		if(TargetEyeEnemyId == 6) { RelicNumber = 58 + 128 }	// Set to Eye of Vlad
-		
-		// Write Target Drop Data
-		offset = 0xB5858		// EnemyDef Base
-		offset_e = 15 * 0x28	// Get Enemy Entry Offset
-		offset_s = Math.floor((offset_e+0x100) / 0x800) * 0x130			// Based on Offset Calculate Sector Crossings
-		offset = offset + offset_e + offset_s							// Add it all up to get final address for enemy.
-		
-		data.writeShort(offset + 0x1A,RelicNumber)
-		data.writeShort(offset + 0x1E,VladDropRate)
-	}
-	
-	// MERMAN
-	if(TargetHeartEnemyId == 27 || TargetToothEnemyId == 27 || TargetRibEnemyId == 27 || TargetRingEnemyId == 27 || TargetEyeEnemyId == 27)
-	{
-		let RelicNumber = 54 + 128								// Set to Heart of Vlad
-		if(TargetToothEnemyId == 6) { RelicNumber = 55 + 128 }	// Set to Tooth of Vlad
-		if(TargetRibEnemyId == 6) { RelicNumber = 56 + 128 }	// Set to Rib of Vlad
-		if(TargetRingEnemyId == 6) { RelicNumber = 57 + 128 }	// Set to Ring of Vlad
-		if(TargetEyeEnemyId == 6) { RelicNumber = 58 + 128 }	// Set to Eye of Vlad
-		
-		// Write Target Drop Data
-		offset = 0xB5858		// EnemyDef Base
-		offset_e = 29 * 0x28	// Get Enemy Entry Offset
-		offset_s = Math.floor((offset_e+0x100) / 0x800) * 0x130			// Based on Offset Calculate Sector Crossings
-		offset = offset + offset_e + offset_s							// Add it all up to get final address for enemy.
-		
-		data.writeShort(offset + 0x1A,RelicNumber)
-		data.writeShort(offset + 0x1E,VladDropRate)
-	}
-	
-	// SPECTRAL SWORD
-	if(TargetHeartEnemyId == 129 || TargetToothEnemyId == 129 || TargetRibEnemyId == 129 || TargetRingEnemyId == 129 || TargetEyeEnemyId == 129)
-	{
-		let RelicNumber = 54 + 128								// Set to Heart of Vlad
-		if(TargetToothEnemyId == 6) { RelicNumber = 55 + 128 }	// Set to Tooth of Vlad
-		if(TargetRibEnemyId == 6) { RelicNumber = 56 + 128 }	// Set to Rib of Vlad
-		if(TargetRingEnemyId == 6) { RelicNumber = 57 + 128 }	// Set to Ring of Vlad
-		if(TargetEyeEnemyId == 6) { RelicNumber = 58 + 128 }	// Set to Eye of Vlad
-		
-		// Write Target Drop Data
-		offset = 0xB5858		// EnemyDef Base
-		offset_e = 136 * 0x28	// Get Enemy Entry Offset
-		offset_s = Math.floor((offset_e+0x100) / 0x800) * 0x130			// Based on Offset Calculate Sector Crossings
-		offset = offset + offset_e + offset_s							// Add it all up to get final address for enemy.
-		
-		data.writeShort(offset + 0x1A,RelicNumber)
-		data.writeShort(offset + 0x1E,VladDropRate)
-		
-		// Write Target Drop Data
-		offset = 0xB5858		// EnemyDef Base
-		offset_e = 138 * 0x28	// Get Enemy Entry Offset
-		offset_s = Math.floor((offset_e+0x100) / 0x800) * 0x130			// Based on Offset Calculate Sector Crossings
-		offset = offset + offset_e + offset_s							// Add it all up to get final address for enemy.
-		
-		data.writeShort(offset + 0x1A,RelicNumber)
-		data.writeShort(offset + 0x1E,VladDropRate)
-	}
+    function duplicateEnemyId(enemyId,bhRelicId,baseOffset) {
+      let offset_e
+      let offset_s
+      const dupeEnemies = getDuplicateEnemies(enemyId)
 
-	// CORPSEWEED
-	if(TargetHeartEnemyId == 158 || TargetToothEnemyId == 158 || TargetRibEnemyId == 158 || TargetRingEnemyId == 158 || TargetEyeEnemyId == 158)
-	{
-		let RelicNumber = 54 + 128								// Set to Heart of Vlad
-		if(TargetToothEnemyId == 6) { RelicNumber = 55 + 128 }	// Set to Tooth of Vlad
-		if(TargetRibEnemyId == 6) { RelicNumber = 56 + 128 }	// Set to Rib of Vlad
-		if(TargetRingEnemyId == 6) { RelicNumber = 57 + 128 }	// Set to Ring of Vlad
-		if(TargetEyeEnemyId == 6) { RelicNumber = 58 + 128 }	// Set to Eye of Vlad
-		
-		// Write Target Drop Data
-		offset = 0xB5858		// EnemyDef Base
-		offset_e = 159 * 0x28	// Get Enemy Entry Offset
-		offset_s = Math.floor((offset_e+0x100) / 0x800) * 0x130			// Based on Offset Calculate Sector Crossings
-		offset = offset + offset_e + offset_s							// Add it all up to get final address for enemy.
-		
-		data.writeShort(offset + 0x1A,RelicNumber)
-		data.writeShort(offset + 0x1E,VladDropRate)
-	}
+      if (dupeEnemies.length > 0) {
+        let RelicNumber = bhRelicId + 128
+        
+        dupeEnemies.forEach(enemy => {
+          // Write Target Drop Data
+          offset_e = enemy.index * 0x28	// Get Enemy Entry Offset
+          offset_s = Math.floor((offset_e+0x100) / 0x800) * 0x130			// Based on Offset Calculate Sector Crossings
+          offset = baseOffset + offset_e + offset_s							// Add it all up to get final address for enemy.
 
-	// VENUS WEED
-	if(TargetHeartEnemyId == 161 || TargetToothEnemyId == 161 || TargetRibEnemyId == 161 || TargetRingEnemyId == 161 || TargetEyeEnemyId == 161)
-	{
-		let RelicNumber = 54 + 128								// Set to Heart of Vlad
-		if(TargetToothEnemyId == 6) { RelicNumber = 55 + 128 }	// Set to Tooth of Vlad
-		if(TargetRibEnemyId == 6) { RelicNumber = 56 + 128 }	// Set to Rib of Vlad
-		if(TargetRingEnemyId == 6) { RelicNumber = 57 + 128 }	// Set to Ring of Vlad
-		if(TargetEyeEnemyId == 6) { RelicNumber = 58 + 128 }	// Set to Eye of Vlad
-		
-		// Write Target Drop Data
-		offset = 0xB5858		// EnemyDef Base
-		offset_e = 162 * 0x28	// Get Enemy Entry Offset
-		offset_s = Math.floor((offset_e+0x100) / 0x800) * 0x130			// Based on Offset Calculate Sector Crossings
-		offset = offset + offset_e + offset_s							// Add it all up to get final address for enemy.
-		
-		data.writeShort(offset + 0x1A,RelicNumber)
-		data.writeShort(offset + 0x1E,VladDropRate)
-	}
-	
-	// MEDUSA HEAD
-	if(TargetHeartEnemyId == 303 || TargetToothEnemyId == 303 || TargetRibEnemyId == 303 || TargetRingEnemyId == 303 || TargetEyeEnemyId == 303)
-	{
-		let RelicNumber = 54 + 128								// Set to Heart of Vlad
-		if(TargetToothEnemyId == 6) { RelicNumber = 55 + 128 }	// Set to Tooth of Vlad
-		if(TargetRibEnemyId == 6) { RelicNumber = 56 + 128 }	// Set to Rib of Vlad
-		if(TargetRingEnemyId == 6) { RelicNumber = 57 + 128 }	// Set to Ring of Vlad
-		if(TargetEyeEnemyId == 6) { RelicNumber = 58 + 128 }	// Set to Eye of Vlad
-		
-		// Write Target Drop Data
-		offset = 0xB5858		// EnemyDef Base
-		offset_e = 304 * 0x28	// Get Enemy Entry Offset
-		offset_s = Math.floor((offset_e+0x100) / 0x800) * 0x130			// Based on Offset Calculate Sector Crossings
-		offset = offset + offset_e + offset_s							// Add it all up to get final address for enemy.
-		
-		data.writeShort(offset + 0x1A,RelicNumber)
-		data.writeShort(offset + 0x1E,VladDropRate)
-	}
-	
-	// BLUE VENUS WEED
-	if(TargetHeartEnemyId == 392 || TargetToothEnemyId == 392 || TargetRibEnemyId == 392 || TargetRingEnemyId == 392 || TargetEyeEnemyId == 392)
-	{
-		let RelicNumber = 54 + 128								// Set to Heart of Vlad
-		if(TargetToothEnemyId == 6) { RelicNumber = 55 + 128 }	// Set to Tooth of Vlad
-		if(TargetRibEnemyId == 6) { RelicNumber = 56 + 128 }	// Set to Rib of Vlad
-		if(TargetRingEnemyId == 6) { RelicNumber = 57 + 128 }	// Set to Ring of Vlad
-		if(TargetEyeEnemyId == 6) { RelicNumber = 58 + 128 }	// Set to Eye of Vlad
-		
-		// Write Target Drop Data
-		offset = 0xB5858		// EnemyDef Base
-		offset_e = 393 * 0x28	// Get Enemy Entry Offset
-		offset_s = Math.floor((offset_e+0x100) / 0x800) * 0x130			// Based on Offset Calculate Sector Crossings
-		offset = offset + offset_e + offset_s							// Add it all up to get final address for enemy.
-		
-		data.writeShort(offset + 0x1A,RelicNumber)
-		data.writeShort(offset + 0x1E,VladDropRate)
-	}
-	
-	// BONE ARK
-	if(TargetHeartEnemyId == 45 || TargetToothEnemyId == 45 || TargetRibEnemyId == 45 || TargetRingEnemyId == 45 || TargetEyeEnemyId == 45)
-	{
-		let RelicNumber = 54 + 128								// Set to Heart of Vlad
-		if(TargetToothEnemyId == 6) { RelicNumber = 55 + 128 }	// Set to Tooth of Vlad
-		if(TargetRibEnemyId == 6) { RelicNumber = 56 + 128 }	// Set to Rib of Vlad
-		if(TargetRingEnemyId == 6) { RelicNumber = 57 + 128 }	// Set to Ring of Vlad
-		if(TargetEyeEnemyId == 6) { RelicNumber = 58 + 128 }	// Set to Eye of Vlad
-		
-		// Write Target Drop Data
-		offset = 0xB5858		// EnemyDef Base
-		offset_e = 46 * 0x28	// Get Enemy Entry Offset
-		offset_s = Math.floor((offset_e+0x100) / 0x800) * 0x130			// Based on Offset Calculate Sector Crossings
-		offset = offset + offset_e + offset_s							// Add it all up to get final address for enemy.
-		
-		data.writeShort(offset + 0x1A,RelicNumber)
-		data.writeShort(offset + 0x1E,VladDropRate)
-	}
-	
-	// OROBOUROUS
-	if(TargetHeartEnemyId == 141 || TargetToothEnemyId == 141 || TargetRibEnemyId == 141 || TargetRingEnemyId == 141 || TargetEyeEnemyId == 141)
-	{
-		let RelicNumber = 54 + 128								// Set to Heart of Vlad
-		if(TargetToothEnemyId == 6) { RelicNumber = 55 + 128 }	// Set to Tooth of Vlad
-		if(TargetRibEnemyId == 6) { RelicNumber = 56 + 128 }	// Set to Rib of Vlad
-		if(TargetRingEnemyId == 6) { RelicNumber = 57 + 128 }	// Set to Ring of Vlad
-		if(TargetEyeEnemyId == 6) { RelicNumber = 58 + 128 }	// Set to Eye of Vlad
-		
-		// Write Target Drop Data
-		offset = 0xB5858		// EnemyDef Base
-		offset_e = 142 * 0x28	// Get Enemy Entry Offset
-		offset_s = Math.floor((offset_e+0x100) / 0x800) * 0x130			// Based on Offset Calculate Sector Crossings
-		offset = offset + offset_e + offset_s							// Add it all up to get final address for enemy.
-		
-		data.writeShort(offset + 0x1A,RelicNumber)
-		data.writeShort(offset + 0x1E,VladDropRate)
+          data.writeShort(offset + 0x1A,RelicNumber)
+          data.writeShort(offset + 0x1E,VladDropRate)
+        })
+      }
+    }
 
-		// Write Target Drop Data
-		offset = 0xB5858		// EnemyDef Base
-		offset_e = 143 * 0x28	// Get Enemy Entry Offset
-		offset_s = Math.floor((offset_e+0x100) / 0x800) * 0x130			// Based on Offset Calculate Sector Crossings
-		offset = offset + offset_e + offset_s							// Add it all up to get final address for enemy.
-		
-		data.writeShort(offset + 0x1A,RelicNumber)
-		data.writeShort(offset + 0x1E,VladDropRate)
-		data.writeChar(offset + 0x25,0x24)								// Enable Drops
-	}
-	
-	return data
-}
+    // Write Heart Target Drop Data
+    bhRelicId = 54
+    hintOPffset = 0xF5560
+    WriteRelicTargetDropData(TargetHeartId,bhRelicId,hintOffset,baseOffset)
+    duplicateEnemyId(TargetHeartId,bhRelicId,baseOffset)
+
+    // Set Relic Name (Heart Card)
+    offset = 0xF5581
+    offset = data.writeWord(offset,0x72616548)
+    offset = data.writeChar(offset,0x74)
+
+    // Write Tooth Target Drop Data
+    bhRelicId = 55
+    hintOPffset = 0xF558C
+    WriteRelicTargetDropData(TargetToothId,bhRelicId,hintOffset,baseOffset)
+    duplicateEnemyId(TargetToothId,bhRelicId,baseOffset)
+    
+    // Set Relic Name (Tooth Card)
+    offset = 0xF55AC
+    offset = data.writeWord(offset,0x746F6F54)
+    offset = data.writeChar(offset,0x68)
+
+    // Write Rib Target Drop Data
+    bhRelicId = 56
+    hintOPffset = 0xF55B8
+    WriteRelicTargetDropData(TargetRibId,bhRelicId,hintOffset,baseOffset)
+    duplicateEnemyId(TargetRibId,bhRelicId,baseOffset)
+    
+    // Set Relic Name (Rib Card)
+    offset = 0xF55D9
+    offset = data.writeWord(offset,0x20626952)
+    offset = data.writeWord(offset,0x64726143)
+    offset = data.writeChar(offset,0)
+
+    // Write Ring Target Drop Data
+    bhRelicId = 57
+    hintOPffset = 0xF55E8
+    WriteRelicTargetDropData(TargetRingtId,bhRelicId,hintOffset,baseOffset)
+    duplicateEnemyId(TargetRingId,bhRelicId,baseOffset)
+    
+    // Set Relic Name (Ring Card)
+    offset = 0xF5608
+    offset = data.writeWord(offset,0x676E6952)
+    offset = data.writeWord(offset,0x72614320)
+    offset = data.writeShort(offset,0x0064)
+
+    // Write Eye Target Drop Data
+    bhRelicId = 58
+    hintOPffset = 0xF5614
+    WriteRelicTargetDropData(TargetEyetId,bhRelicId,hintOffset,baseOffset)
+    duplicateEnemyId(TargetEyeId,bhRelicId,baseOffset)
+    
+    // Set Relic Name (Eye Card)
+    offset = 0xF5635
+    offset = data.writeWord(offset,0x20657945)
+    offset = data.writeWord(offset,0x64726143)
+    offset = data.writeChar(offset,0)
+
+    // -- Finding dupes --
+    const getDuplicateEnemies = (enemyId) => {
+      const enemyName = enemies.enemyStats.find(enemy => enemy.index === enemyId).name;
+      return enemies.enemyStats.filter(enemy => enemy.name === enemyName && enemy.index !== enemyId);
+    }
+    
+    return data
+  }
 
   function applyStartRoomRandoPatches(rng,castleFlag) {
     const startRoomData = constants.startRoomData
