@@ -6850,7 +6850,7 @@ function hexValueToDamageString(hexValue) {
       }
     }
 
-    console.log('Target Selection')
+    // console.log('Target Selection')
     // -- Selecting Targets --
     // Heart of Vlad - Pick Enemy Id
     while(TargetHeartId == 0) {
@@ -6858,35 +6858,31 @@ function hexValueToDamageString(hexValue) {
     }
     TargetHeartEnemyId = bountyHunterTargets[TargetHeartId].enemyid
     // Tooth of Vlad - Pick Enemy Id (Can't match Heart)
-    while(TargetToothId == TargetHeartId || TargetToothId == 0)
-    {
+    while([TargetHeartId,0].includes(TargetToothId)) {
       TargetToothId = Math.floor(rng() * Math.floor(bountyHunterTargets.length))	
     }
     TargetToothEnemyId = bountyHunterTargets[TargetToothId].enemyid
     // Rib of Vlad - Pick Enemy Id (Can't Match Heart, Tooth)
-    while(TargetRibId == TargetHeartId || TargetRibId == TargetToothId || TargetRibId == 0)
-    {
+    while([TargetHeartId,TargetToothId,0].includes(TargetRibId)) {
       TargetRibId = Math.floor(rng() * Math.floor(bountyHunterTargets.length))	
     }
     TargetRibEnemyId = bountyHunterTargets[TargetRibId].enemyid
     // Ring of Vlad - Pick Enemy Id (Can't Match Heart, Tooth, Rib)
-    while(TargetRingId == TargetHeartId || TargetRingId == TargetToothId || TargetRingId == TargetRibId || TargetRingId == 0)
-    {
+    while([TargetHeartId,TargetToothId,TargetRibId,0].includes(TargetRingId)) {
       TargetRingId = Math.floor(rng() * Math.floor(bountyHunterTargets.length))	
     }
     TargetRingEnemyId = bountyHunterTargets[TargetRingId].enemyid
     // Eye of Vlad - Pick Enemy Id (Can't Match Heart, Tooth, Rib, Ring)
-    while(TargetEyeId == TargetHeartId || TargetEyeId == TargetToothId || TargetEyeId == TargetRibId || TargetEyeId == TargetRingId || TargetEyeId == 0)
-    {
+    while([TargetHeartId,TargetToothId,TargetRibId,TargetRingId,0].includes(TargetEyeId)) {
       TargetEyeId = Math.floor(rng() * Math.floor(bountyHunterTargets.length))	
     }
     TargetEyeEnemyId = bountyHunterTargets[TargetEyeId].enemyid
     
-    console.log('Writing targets')
+    // console.log('Writing targets')
     // -- Writing Targets --
 
     // Write Heart Target Drop Data
-    console.log('write heart')
+    // console.log('write heart')
     bhRelicId = 54
     hintOffset = 0xF5560
     WriteRelicTargetDropData(TargetHeartId,bhRelicId,hintOffset,baseOffset)
@@ -6898,7 +6894,7 @@ function hexValueToDamageString(hexValue) {
     offset = data.writeChar(offset,0x74)
 
     // Write Tooth Target Drop Data
-    console.log('write tooth')
+    // console.log('write tooth')
     bhRelicId = 55
     hintOffset = 0xF558C
     WriteRelicTargetDropData(TargetToothId,bhRelicId,hintOffset,baseOffset)
