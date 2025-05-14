@@ -1149,10 +1149,10 @@ if ('mapcolor' in argv && typeof(argv.mapcolor) !== 'undefined') {
 if ('debug' in argv) {console.log('randomize | Choose new goals')}
 // Map Color Features if specified. - eldri7ch
 if ('newGoals' in argv && typeof(argv.newGoals) !== 'undefined') {
-  let termsAllowed = 'd,b,r,a,v'
+  let termsAllowed = 'd,b,r,a,v,h,t,x'
   if (!(termsAllowed.includes(argv.newGoals))) {
     yargs.showHelp()
-    console.error('\nMust contain a letter \'d\'(Preset Default), \'b\'(All Bosses), \'r\'(All Relics), \'a\'(All Bosses and Relics), \'v\'(All Bosses and Vlad Relics)')
+    console.error('\nMust contain a letter \'d\'(Preset Default), \'b\'(All Bosses), \'r\'(All Relics), \'a\'(All Bosses and Relics), \'v\'(All Bosses and Vlad Relics), \'h\'(Bounty Hunter), \'t\'(Bounty Hunter Target Confirmed), \'x\'(Bounty Hunter and All Bosses)')
     process.exit(1)
   } else {
     options.newGoalsSet = argv.newGoals.toString()
@@ -1354,7 +1354,10 @@ if ('debug' in argv) {console.log('randomize | Start randomization')}
               optWrite = optWrite + 0x03
               break
             case "v":                                 //  all bosses and vlad relics flag
+            case "x":                                 //  all bosses and bounties flag
               optWrite = optWrite + 0x05
+              break
+            default:
               break
           }
         }
@@ -1499,7 +1502,16 @@ if ('debug' in argv) {console.log('randomize | Start randomization')}
           } else {
             nGoal = applied.newGoalsSet
           }
-          check.apply(util.applyNewGoals(nGoal))
+          if (nGoal = "h") {
+            check.apply(util.applyBountyHunterTargets(rng,0))                 // 0 = normal Bounty Hunter; 1 = buffed drop rates and guaranteed relics after card obtained
+          } else if (nGoal = "t") {
+            check.apply(util.applyBountyHunterTargets(rng,1))                 // 0 = normal Bounty Hunter; 1 = buffed drop rates and guaranteed relics after card obtained
+          } else if (nGoal = "x") {
+            check.apply(util.applyNewGoals(nGoal))
+            check.apply(util.applyBountyHunterTargets(rng,1))                 // 0 = normal Bounty Hunter; 1 = buffed drop rates and guaranteed relics after card obtained
+          } else {
+            check.apply(util.applyNewGoals(nGoal))
+          }
         }
         if ('debug' in argv) {console.log('randomize | function: randomize | New Goals')}
         if ('alucardPalette' in argv) { // Changes Alucard's Palette. -Crazy4blades

@@ -30,6 +30,7 @@
   "shopPriceRandoMode": true,
   "startRoomRandoMode": true,
   "startRoomRando2ndMode": true,
+  "newGoalsSet": "h",
 
   "complexityGoal": {
     "min": 1,

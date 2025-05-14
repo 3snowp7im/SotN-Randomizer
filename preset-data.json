@@ -413,7 +413,7 @@
   },
   {
     "name": "Bounty Hunter",
-    "id": "bountyhunter",
+    "id": "bounty-hunter",
     "description": "The Vlad Relics are dropped by 5 random enemies throughout the castle and the player must collect familiar cards to find out which enemies have the relics. Relic placement requires the Bounty Hunter Tool. App URL: https://github.com/MottZilla/BountyHunterTool",
     "author": [
       "eldri7ch",

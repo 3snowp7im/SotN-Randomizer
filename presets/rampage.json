@@ -33,7 +33,7 @@
   "unlockedMode": true,
   "startRoomRandoMode": true,
   "rlbcMode": true,
-  "newGoalsSet": "v",
+  "newGoalsSet": "x",
 
   "complexityGoal": {
     "min": 6,

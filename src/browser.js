@@ -228,6 +228,13 @@
 
   function presetIdChange() {                                                                       // auto checks modes and options that presets use
     let idx = elems.presetId.selectedIndex;
+    let bhCompatible = [
+      "bounty-hunter",
+      "target-confirmed",
+      "hitman",
+      "chaos-lite",
+      "rampage"
+    ]
     let bossCompatible = [
       "casual",
       "safe",
@@ -371,17 +378,24 @@
     } else {
       elems.enemyStatRandoMode.disabled = false
     }
-    if (["boss-rush", "first-castle","beyond"].includes(preset.id)) {                               // Remove rlbc mode for incompatible presets. - eldri7ch
+    if (["boss-rush","first-castle","beyond"].includes(preset.id)) {                               // Remove rlbc mode for incompatible presets. - eldri7ch
       elems.rlbcMode.checked = false
       elems.rlbcMode.disabled = true
     } else {
       elems.rlbcMode.disabled = false
     }
-    if (["bountyhunter","bountyhuntertc","hitman","chaos-lite"].includes(preset.id)) {              // Remove guaranteed drops mode for incompatible presets. - eldri7ch
+    if (["bountyhunter","target-confirmed","hitman","chaos-lite","rampage","oracle"].includes(preset.id)) {              // Remove guaranteed drops mode for incompatible presets. - eldri7ch
       elems.dominoMode.checked = false
       elems.dominoMode.disabled = true
     } else {
       elems.dominoMode.disabled = false
+    }
+    if (["bountyhunter","chaos-lite"].includes(preset.id)) {                                        // set Bounty hunter menu
+      elems.newGoals.value = "bhNorm"
+    } else if (["target-confirmed","hitman"].includes(preset.id)) {                       // set Bounty hunter TC menu
+      elems.newGoals.value = "bhAdvanced"
+    } else if (["rampage"].includes(preset.id)) {                                                   // set All Bosses and Bounties menu
+      elems.newGoals.value = "bhBoss"
     }
     if (["all-bosses"].includes(preset.id)) {                                                       // set all bosses goals. - eldri7ch
       elems.newGoals.value = "allBoss"
@@ -394,6 +408,9 @@
       elems.newGoals.value = "default"                                                              // Remove all boss mode for incompatible presets. - eldri7ch
     }
     if (!relicCompatible.includes(preset.id) && ["allRelic","abrsr"].includes(elems.newGoals.value)) {
+      elems.newGoals.value = "default"                                                              // Remove all relic mode for incompatible presets. - eldri7ch
+    }
+    if (!bhCompatible.includes(preset.id) && ["bhNorm","bhAdvanced","bhBoss"].includes(elems.newGoals.value)) {
       elems.newGoals.value = "default"                                                              // Remove all relic mode for incompatible presets. - eldri7ch
     }
 
@@ -603,6 +620,13 @@
   }
 
   function newGoalsChange() {
+    let bhCompatible = [
+      "bounty-hunter",
+      "target-confirmed",
+      "hitman",
+      "chaos-lite",
+      "rampage"
+    ]
     let bossCompatible = [
       "casual",
       "safe",
@@ -689,7 +713,7 @@
       "nimble-lite",
       "all-bosses"
     ] 
-    if (["allBoss","abrsr","vladBoss"].includes(elems.newGoals.value) && !bossCompatible.includes(elems.presetId.value)){
+    if (["allBoss","abrsr","vladBoss"].includes(elems.newGoals.value) && !bossCompatible.includes(elems.presetId.value)) {
       if (["all-bosses"].includes(elems.presetId.value)) {                                                       // set all bosses goals. - eldri7ch
         elems.newGoals.value = "allBoss"
       } else if (["boss-reflector","rampage"].includes(elems.presetId.value)) {
@@ -697,7 +721,7 @@
       } else {
         elems.newGoals.value = "default"
       }
-    } else if (["allRelic","abrsr"].includes(elems.newGoals.value) && !relicCompatible.includes(elems.presetId.value)){
+    } else if (["allRelic","abrsr"].includes(elems.newGoals.value) && !relicCompatible.includes(elems.presetId.value)) {
       if (["all-bosses"].includes(elems.presetId.value)) {                                                       // set all relics goals. - eldri7ch
         elems.newGoals.value = "allBoss"
       } else if (["boss-reflector","rampage"].includes(elems.presetId.value)) {
@@ -705,13 +729,29 @@
       } else {
         elems.newGoals.value = "default"
       }
-    } else if (["default"].includes(elems.newGoals.value)){
+    } else if (["default"].includes(elems.newGoals.value)) {
       if (["all-bosses"].includes(elems.presetId.value)) {                                                       // check if default can be used. - eldri7ch
         elems.newGoals.value = "allBoss"
       } else if (["boss-reflector","rampage"].includes(elems.presetId.value)) {
         elems.newGoals.value = "vladBoss"
       } else {
         elems.newGoals.value = "default"
+      }
+    } else if (!bhCompatible.includes(elems.presetId.value)) {
+      switch (elems.presetId.value) {
+        case "bounty-hunter":
+        case "chaos-lite":
+          elems.newGoals.value = "bhNorm"
+          break
+        case "target-confirmed":
+        case "hitman":
+          elems.newGoals.value = "bhAdvanced"
+          break
+        case "rampage":
+          elems.newGoals.value = "bhBoss"
+          break
+        default:
+          elems.newGoals.value = "default"
       }
     } else {
       localStorage.setItem('newGoals', elems.newGoals.value)
@@ -1052,8 +1092,6 @@
     }
     if (elems.newGoals != 'default') {
       switch (elems.newGoals.value){
-        case 'default':
-          break
         case 'allBoss':
           newGoalsSet = 'b'
           break
@@ -1065,6 +1103,15 @@
           break
         case 'vladBoss':
           newGoalsSet = 'v'
+          break
+        case 'bhNorm':
+          newGoalsSet = 'h'
+          break
+        case 'bhAdvanced':
+          newGoalsSet = 't'
+          break
+        case 'bhBoss':
+          newGoalsSet = 'x'
           break
         default:
           break
@@ -1326,6 +1373,15 @@
               case "vladBoss":                        //  all bosses and relics flag
                 nGoal = "v"
                 break
+              case "bhNorm":                          //  all bosses and relics flag
+                nGoal = "h"
+                break
+              case "bhAdvanced":                      //  all bosses and relics flag
+                nGoal = "t"
+                break
+              case "bhBoss":                          //  all bosses and relics flag
+                nGoal = "x"
+                break
             }
           } else if (options.newGoals !== undefined) {
             nGoal = options.newGoals
@@ -1343,6 +1399,7 @@
               optWrite = optWrite + 0x03
               break
             case "v":                                 //  all bosses and vlad relics flag
+            case "x":                                 //  all bosses and bounties flag
               optWrite = optWrite + 0x05
               break
           }
@@ -1404,15 +1461,6 @@
           }
           check.apply(util.applyStartRoomRandoPatches(rng,castleFlag))
         }
-		// Pick Bounty Hunter Targets (debug, maybe alter the conditional later)
-		if (["bountyhunter","chaos-lite"].includes(elems.presetId.childNodes[elems.presetId.selectedIndex].value))
-		{
-			check.apply(util.applyBountyHunterTargets(rng,0))
-		}
-		if (["bountyhuntertc","hitman"].includes(elems.presetId.childNodes[elems.presetId.selectedIndex].value))
-		{
-			check.apply(util.applyBountyHunterTargets(rng,1))
-		}
         // Apply guaranteed drop patches.
         if (options.dominoMode || applied.dominoMode) {
           check.apply(util.applyDominoPatches(rng))
@@ -1486,6 +1534,17 @@
             case 'vladBoss':
               nGoal = 'v'
               check.apply(util.applyNewGoals(nGoal))
+              break
+            case 'bhNorm':
+              check.apply(util.applyBountyHunterTargets(rng,0))                 // 0 = normal Bounty Hunter; 1 = buffed drop rates and guaranteed relics after card obtained
+              break
+            case 'bhAdvanced':
+              check.apply(util.applyBountyHunterTargets(rng,1))                 // 0 = normal Bounty Hunter; 1 = buffed drop rates and guaranteed relics after card obtained
+              break
+            case 'bhBoss':
+              nGoal = 'v'
+              check.apply(util.applyNewGoals(nGoal))
+              check.apply(util.applyBountyHunterTargets(rng,1))                 // 0 = normal Bounty Hunter; 1 = buffed drop rates and guaranteed relics after card obtained
               break
             default:
               break
