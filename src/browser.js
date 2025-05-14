@@ -1405,9 +1405,13 @@
           check.apply(util.applyStartRoomRandoPatches(rng,castleFlag))
         }
 		// Pick Bounty Hunter Targets (debug, maybe alter the conditional later)
-		if (["bountyhunter","bountyhuntertc","hitman","chaos-lite"].includes(elems.presetId.childNodes[elems.presetId.selectedIndex].value))
+		if (["bountyhunter","chaos-lite"].includes(elems.presetId.childNodes[elems.presetId.selectedIndex].value))
 		{
 			check.apply(util.applyBountyHunterTargets(rng,0))
+		}
+		if (["bountyhuntertc","hitman"].includes(elems.presetId.childNodes[elems.presetId.selectedIndex].value))
+		{
+			check.apply(util.applyBountyHunterTargets(rng,1))
 		}
         // Apply guaranteed drop patches.
         if (options.dominoMode || applied.dominoMode) {
