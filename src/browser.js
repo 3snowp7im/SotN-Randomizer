@@ -384,18 +384,11 @@
     } else {
       elems.rlbcMode.disabled = false
     }
-    if (["bountyhunter","target-confirmed","hitman","chaos-lite","rampage","oracle"].includes(preset.id)) {              // Remove guaranteed drops mode for incompatible presets. - eldri7ch
+    if (["bounty-hunter","target-confirmed","hitman","chaos-lite","rampage","oracle"].includes(preset.id)) {              // Remove guaranteed drops mode for incompatible presets. - eldri7ch
       elems.dominoMode.checked = false
       elems.dominoMode.disabled = true
     } else {
       elems.dominoMode.disabled = false
-    }
-    if (["bountyhunter","chaos-lite"].includes(preset.id)) {                                        // set Bounty hunter menu
-      elems.newGoals.value = "bhNorm"
-    } else if (["target-confirmed","hitman"].includes(preset.id)) {                       // set Bounty hunter TC menu
-      elems.newGoals.value = "bhAdvanced"
-    } else if (["rampage"].includes(preset.id)) {                                                   // set All Bosses and Bounties menu
-      elems.newGoals.value = "bhBoss"
     }
     if (["all-bosses"].includes(preset.id)) {                                                       // set all bosses goals. - eldri7ch
       elems.newGoals.value = "allBoss"
@@ -412,7 +405,20 @@
     }
     if (!bhCompatible.includes(preset.id) && ["bhNorm","bhAdvanced","bhBoss"].includes(elems.newGoals.value)) {
       elems.newGoals.value = "default"                                                              // Remove all relic mode for incompatible presets. - eldri7ch
+    } else {
+      if (["bounty-hunter","chaos-lite"].includes(preset.id)) {                                     // set Bounty hunter menu
+        elems.newGoals.value = "bhNorm"
+      } else if (["target-confirmed","hitman"].includes(preset.id)) {                               // set Bounty hunter TC menu
+        elems.newGoals.value = "bhAdvanced"
+      } else if (["rampage"].includes(preset.id)) {                                                 // set All Bosses and Bounties menu
+        elems.newGoals.value = "bhBoss"
+      }
     }
+
+    localStorage.setItem('newGoals', elems.newGoals.value)
+    newGoalsLock = elems.newGoals.value
+
+    console.log('preset new goals: ' + newGoalsLock)
 
     const options = preset.options()
     let complexity = 1
@@ -737,7 +743,8 @@
       } else {
         elems.newGoals.value = "default"
       }
-    } else if (!bhCompatible.includes(elems.presetId.value)) {
+    } else if (bhCompatible.includes(elems.presetId.value)) {
+      console.log("bhCompatible")
       switch (elems.presetId.value) {
         case "bounty-hunter":
         case "chaos-lite":
@@ -753,11 +760,11 @@
         default:
           elems.newGoals.value = "default"
       }
-    } else {
-      localStorage.setItem('newGoals', elems.newGoals.value)
-      newGoalsLock = elems.newGoals.value
     }
-    
+    localStorage.setItem('newGoals', elems.newGoals.value)
+    newGoalsLock = elems.newGoals.value
+
+    console.log('set new goals: ' + newGoalsLock)
   }
 
   function alucardPaletteChange() {
@@ -1090,7 +1097,7 @@
           break
       }
     }
-    if (elems.newGoals != 'default') {
+    if (elems.newGoals.value != 'default') {
       switch (elems.newGoals.value){
         case 'allBoss':
           newGoalsSet = 'b'
@@ -1357,10 +1364,10 @@
         // Initiate the write options function master
         let optWrite = 0x00000000                   // This variable lets the ASM used in the Master Function know if it needs to run certain code or sets flags for the tracker to use
         let nGoal                                                                           //begin the newGoals flag setting for the function master
-        if (elems.newGoals.value !== "default" || options.newGoals || applied.newGoals) {   // Sets flag for the tracker to know which goals to use
-          console.log(options.newGoals)
-          if (elems.newGoals.value !== "default") {
-            switch(elems.newGoals.value) {
+        let elementSet = elems.newGoals.value
+        if (elementSet !== "default" || options.newGoals || applied.newGoals) {   // Sets flag for the tracker to know which goals to use
+          if (elementSet !== "default") {
+            switch(elementSet) {
               case "allBoss":                         // all bosses flag
                 nGoal = "b"
                 break
@@ -1402,6 +1409,8 @@
             case "x":                                 //  all bosses and bounties flag
               optWrite = optWrite + 0x05
               break
+            default: 
+              optWrite = optWrite + 0x00
           }
         }
         check.apply(util.randoFuncMaster(optWrite))
@@ -1515,7 +1524,9 @@
           }
         }
         // Apply new goals patches.
+        console.log('new goals: ' + newGoalsLock)
         if (newGoalsLock != 'default') {
+          console.log('not default goal')
           switch (newGoalsLock){
             case 'default':
               break

@@ -6744,11 +6744,20 @@ function hexValueToDamageString(hexValue) {
 
   // Written By: MottZilla; edited by eldri7ch and DotChris
   // Selects 5 Enemies as Bounty Hunter Targets, sets their drops and applies hints to the Cards.
+
+  
+
   function applyBountyHunterTargets(rng,bhmode) {
     const bountyHunterTargets = enemies.bountyHunterTargets
     const data = new checked()
-    
-    // console.log("applyBountyHunterTargets()")
+
+    let TargetHeartId = 0
+    let TargetToothId = 0
+    let TargetRibId = 0
+    let TargetRingId = 0
+    let TargetEyeId = 0
+
+    console.log('applying bh patches')
 
     let TargetHeartEnemyId = 0
     let TargetToothEnemyId = 0
@@ -6761,61 +6770,30 @@ function hexValueToDamageString(hexValue) {
     let offset
     let bhRelicId
     let dindex = 6
-    
-    if(bhmode > 0)	// If mode is Hitman or Target Confirmed
-    {
-      VladDropRate = 256
-      
-      // Buff item Drops for Hitman & Target Confirmed
-      while(dindex < 397)
-      {
-        offset = 0xB5858												                                // EnemyDef Base
-        offset_e = dindex * 0x28										                            // Get Enemy Entry Offset
-        offset_s = Math.floor((offset_e+0x100) / 0x800) * 0x130			            // Based on Offset Calculate Sector Crossings
-        offset = offset + offset_e + offset_s							                      // Add it all up to get final address for enemy.
-        
-        data.writeShort(offset + 0x1E,16)
-        data.writeShort(offset + 0x20,32)
-        dindex = dindex + 1			
-      }
+
+    // -- Finding dupes --
+    const getDuplicateEnemies = (enemyId) => {
+      // console.log('find dupe enemy' + enemyId)
+      const enemyName = enemies.enemyStats.filter(enemy => enemy.index === enemyId);
+      // console.log(enemyName)
+      return enemies.enemyStats.filter(enemy => enemy.name === enemyName.name && enemy.index !== enemyId);
     }
 
-    // -- Selecting Targets --
-    let targetValues = [0, 0, 0, 0, 0];
-
-    while(targetValues.includes(0)) {
-        targetValues.forEach(value =>{
-            while(value === 0 || targetValues.includes(value)) {
-                value = Math.floor(rng() * Math.floor(bountyHunterTargets.length))
-            }
-        })
-    }
-    const [TargetHeartId, TargetToothId, TargetRibId, TargetRingId, TargetEyeId] = targetValues;
-    // Heart of Vlad - Pick Enemy Id
-    TargetHeartEnemyId = bountyHunterTargets[TargetHeartId].enemyid
-    // Tooth of Vlad - Pick Enemy Id (Can't match Heart)
-    TargetToothEnemyId = bountyHunterTargets[TargetToothId].enemyid
-    // Rib of Vlad - Pick Enemy Id (Can't Match Heart, Tooth)
-    TargetRibEnemyId = bountyHunterTargets[TargetRibId].enemyid
-    // Ring of Vlad - Pick Enemy Id (Can't Match Heart, Tooth, Rib)
-    TargetRingEnemyId = bountyHunterTargets[TargetRingId].enemyid
-    // Eye of Vlad - Pick Enemy Id (Can't Match Heart, Tooth, Rib, Ring)
-    TargetEyeEnemyId = bountyHunterTargets[TargetEyeId].enemyid
-    
-    // -- Writing Targets --
-    function updateoffset(TargetCurrentId,baseOffset) {
+    function updateOffset(TargetCurrentId,baseOffset) {
+      console.log('update offset')
       let offset_e
       let offset_s
 
-      offset_e = (bountyHunterTargets[TargetCurrentId].enemyid * 0x28)	        // Get Enemy Entry Offset
+      offset_e = Number(bountyHunterTargets[TargetCurrentId].enemyid * 0x28)	        // Get Enemy Entry Offset
       offset_s = Math.floor((offset_e+0x100) / 0x800) * 0x130			              // Based on Offset Calculate Sector Crossings
 
       return baseOffset + offset_e + offset_s							                      // Add it all up to get final address for enemy.
     }
 
     function WriteRelicTargetDropData(TargetCurrentId,bhRelicId,hintOffset,baseOffset) {
+      console.log('Write Relic Drop')
       // Write Target Drop Data
-      offset = updateoffset(TargetCurrentId,baseOffset)
+      offset = updateOffset(TargetCurrentId,baseOffset)
       
       data.writeShort(offset + 0x1A,bhRelicId + 128)
       data.writeShort(offset + 0x1E,VladDropRate)
@@ -6826,14 +6804,16 @@ function hexValueToDamageString(hexValue) {
       offset = data.writeShort(offset,0x5445)		                                // ET
       offset = data.writeChar(offset,0x20)		                                  // ' '
       // Write Enemy Name on Card
-      for(let i = 0; i < bountyHunterTargets[TargetCurrentId].name.length; i++)
-      {
+      for(let i = 0; i < bountyHunterTargets[TargetCurrentId].name.length; i++) {
         offset = data.writeChar(offset,bountyHunterTargets[TargetCurrentId].name.charCodeAt(i) )
       }
       data.writeChar(offset,0)	                                                // String Termination
+
+      return data
     }
 
     function duplicateEnemyId(enemyId,bhRelicId,baseOffset) {
+      // console.log('Duplicate Enemy ID')
       let offset_e
       let offset_s
       const dupeEnemies = getDuplicateEnemies(enemyId)
@@ -6853,9 +6833,62 @@ function hexValueToDamageString(hexValue) {
       }
     }
 
+    if(bhmode > 0) {	// If mode is Hitman or Target Confirmed
+      VladDropRate = 256
+      
+      // Buff item Drops for Hitman & Target Confirmed
+      while(dindex < 397)
+      {
+        offset = 0xB5858												                                // EnemyDef Base
+        offset_e = dindex * 0x28										                            // Get Enemy Entry Offset
+        offset_s = Math.floor((offset_e+0x100) / 0x800) * 0x130			            // Based on Offset Calculate Sector Crossings
+        offset = offset + offset_e + offset_s							                      // Add it all up to get final address for enemy.
+        
+        data.writeShort(offset + 0x1E,16)
+        data.writeShort(offset + 0x20,32)
+        dindex = dindex + 1			
+      }
+    }
+
+    console.log('Target Selection')
+    // -- Selecting Targets --
+    // Heart of Vlad - Pick Enemy Id
+    while(TargetHeartId == 0) {
+      TargetHeartId = Math.floor(rng() * Math.floor(bountyHunterTargets.length))
+    }
+    TargetHeartEnemyId = bountyHunterTargets[TargetHeartId].enemyid
+    // Tooth of Vlad - Pick Enemy Id (Can't match Heart)
+    while(TargetToothId == TargetHeartId || TargetToothId == 0)
+    {
+      TargetToothId = Math.floor(rng() * Math.floor(bountyHunterTargets.length))	
+    }
+    TargetToothEnemyId = bountyHunterTargets[TargetToothId].enemyid
+    // Rib of Vlad - Pick Enemy Id (Can't Match Heart, Tooth)
+    while(TargetRibId == TargetHeartId || TargetRibId == TargetToothId || TargetRibId == 0)
+    {
+      TargetRibId = Math.floor(rng() * Math.floor(bountyHunterTargets.length))	
+    }
+    TargetRibEnemyId = bountyHunterTargets[TargetRibId].enemyid
+    // Ring of Vlad - Pick Enemy Id (Can't Match Heart, Tooth, Rib)
+    while(TargetRingId == TargetHeartId || TargetRingId == TargetToothId || TargetRingId == TargetRibId || TargetRingId == 0)
+    {
+      TargetRingId = Math.floor(rng() * Math.floor(bountyHunterTargets.length))	
+    }
+    TargetRingEnemyId = bountyHunterTargets[TargetRingId].enemyid
+    // Eye of Vlad - Pick Enemy Id (Can't Match Heart, Tooth, Rib, Ring)
+    while(TargetEyeId == TargetHeartId || TargetEyeId == TargetToothId || TargetEyeId == TargetRibId || TargetEyeId == TargetRingId || TargetEyeId == 0)
+    {
+      TargetEyeId = Math.floor(rng() * Math.floor(bountyHunterTargets.length))	
+    }
+    TargetEyeEnemyId = bountyHunterTargets[TargetEyeId].enemyid
+    
+    console.log('Writing targets')
+    // -- Writing Targets --
+
     // Write Heart Target Drop Data
+    console.log('write heart')
     bhRelicId = 54
-    hintOPffset = 0xF5560
+    hintOffset = 0xF5560
     WriteRelicTargetDropData(TargetHeartId,bhRelicId,hintOffset,baseOffset)
     duplicateEnemyId(TargetHeartId,bhRelicId,baseOffset)
 
@@ -6865,8 +6898,9 @@ function hexValueToDamageString(hexValue) {
     offset = data.writeChar(offset,0x74)
 
     // Write Tooth Target Drop Data
+    console.log('write tooth')
     bhRelicId = 55
-    hintOPffset = 0xF558C
+    hintOffset = 0xF558C
     WriteRelicTargetDropData(TargetToothId,bhRelicId,hintOffset,baseOffset)
     duplicateEnemyId(TargetToothId,bhRelicId,baseOffset)
     
@@ -6877,7 +6911,7 @@ function hexValueToDamageString(hexValue) {
 
     // Write Rib Target Drop Data
     bhRelicId = 56
-    hintOPffset = 0xF55B8
+    hintOffset = 0xF55B8
     WriteRelicTargetDropData(TargetRibId,bhRelicId,hintOffset,baseOffset)
     duplicateEnemyId(TargetRibId,bhRelicId,baseOffset)
     
@@ -6889,8 +6923,8 @@ function hexValueToDamageString(hexValue) {
 
     // Write Ring Target Drop Data
     bhRelicId = 57
-    hintOPffset = 0xF55E8
-    WriteRelicTargetDropData(TargetRingtId,bhRelicId,hintOffset,baseOffset)
+    hintOffset = 0xF55E8
+    WriteRelicTargetDropData(TargetRingId,bhRelicId,hintOffset,baseOffset)
     duplicateEnemyId(TargetRingId,bhRelicId,baseOffset)
     
     // Set Relic Name (Ring Card)
@@ -6901,8 +6935,8 @@ function hexValueToDamageString(hexValue) {
 
     // Write Eye Target Drop Data
     bhRelicId = 58
-    hintOPffset = 0xF5614
-    WriteRelicTargetDropData(TargetEyetId,bhRelicId,hintOffset,baseOffset)
+    hintOffset = 0xF5614
+    WriteRelicTargetDropData(TargetEyeId,bhRelicId,hintOffset,baseOffset)
     duplicateEnemyId(TargetEyeId,bhRelicId,baseOffset)
     
     // Set Relic Name (Eye Card)
@@ -6910,12 +6944,6 @@ function hexValueToDamageString(hexValue) {
     offset = data.writeWord(offset,0x20657945)
     offset = data.writeWord(offset,0x64726143)
     offset = data.writeChar(offset,0)
-
-    // -- Finding dupes --
-    const getDuplicateEnemies = (enemyId) => {
-      const enemyName = enemies.enemyStats.find(enemy => enemy.index === enemyId).name;
-      return enemies.enemyStats.filter(enemy => enemy.name === enemyName && enemy.index !== enemyId);
-    }
     
     return data
   }
@@ -8033,7 +8061,7 @@ function hexValueToDamageString(hexValue) {
     applyenemyStatRandoPatches: applyenemyStatRandoPatches,
     applyShopPriceRandoPatches: applyShopPriceRandoPatches,
     applyStartRoomRandoPatches: applyStartRoomRandoPatches,
-	applyBountyHunterTargets: applyBountyHunterTargets,
+	  applyBountyHunterTargets: applyBountyHunterTargets,
     applyDominoPatches: applyDominoPatches,
     applyRLBCPatches: applyRLBCPatches,
     applyMapColor: applyMapColor,
