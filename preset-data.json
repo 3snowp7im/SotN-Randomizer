@@ -1113,5 +1113,25 @@
     "metaExtension": "Guarded",
     "metaComplexity": "6",
     "itemStats": "Normal"
+  },
+  {
+    "name": "Cornivus",
+    "id": "cornivus",
+    "description": "Start in second castle with all wolf relics and boosted stats. MP consumption is greatly reduced when in wolf form. The Reverse Keep teleporter is active. All Bosses and All Vlads required to win.",
+    "author": [
+      "3snow_p7im",
+      "eldri7ch",
+      "Dr4gonBlitz"
+    ],
+    "knowledgeCheck": "None",
+    "timeFrame": "Fast",
+    "moddedLevel": "Moderately",
+    "castleType": "Normal",
+    "transformEarly": "Yes",
+    "transformFocus": "Wolf",
+    "winCondition": "All Bosses & Vlad Relics",
+    "metaExtension": "Guarded",
+    "metaComplexity": "8",
+    "itemStats": "Normal"
   }
 ]
