@@ -418,8 +418,6 @@
     localStorage.setItem('newGoals', elems.newGoals.value)
     newGoalsLock = elems.newGoals.value
 
-    console.log('preset new goals: ' + newGoalsLock)
-
     const options = preset.options()
     let complexity = 1
     Object.getOwnPropertyNames(options.relicLocations).forEach(
@@ -718,53 +716,71 @@
       "vanilla",
       "nimble-lite",
       "all-bosses"
-    ] 
-    if (["allBoss","abrsr","vladBoss"].includes(elems.newGoals.value) && !bossCompatible.includes(elems.presetId.value)) {
-      if (["all-bosses"].includes(elems.presetId.value)) {                                                       // set all bosses goals. - eldri7ch
-        elems.newGoals.value = "allBoss"
-      } else if (["boss-reflector","rampage"].includes(elems.presetId.value)) {
-        elems.newGoals.value = "vladBoss"
-      } else {
-        elems.newGoals.value = "default"
-      }
-    } else if (["allRelic","abrsr"].includes(elems.newGoals.value) && !relicCompatible.includes(elems.presetId.value)) {
-      if (["all-bosses"].includes(elems.presetId.value)) {                                                       // set all relics goals. - eldri7ch
-        elems.newGoals.value = "allBoss"
-      } else if (["boss-reflector","rampage"].includes(elems.presetId.value)) {
-        elems.newGoals.value = "vladBoss"
-      } else {
-        elems.newGoals.value = "default"
-      }
-    } else if (["default"].includes(elems.newGoals.value)) {
-      if (["all-bosses"].includes(elems.presetId.value)) {                                                       // check if default can be used. - eldri7ch
-        elems.newGoals.value = "allBoss"
-      } else if (["boss-reflector","rampage"].includes(elems.presetId.value)) {
-        elems.newGoals.value = "vladBoss"
-      } else {
-        elems.newGoals.value = "default"
-      }
-    } else if (bhCompatible.includes(elems.presetId.value)) {
-      console.log("bhCompatible")
-      switch (elems.presetId.value) {
-        case "bounty-hunter":
-        case "chaos-lite":
-          elems.newGoals.value = "bhNorm"
-          break
-        case "target-confirmed":
-        case "hitman":
-          elems.newGoals.value = "bhAdvanced"
-          break
-        case "rampage":
-          elems.newGoals.value = "bhBoss"
-          break
-        default:
+    ]
+    switch (elems.newGoals.value) {                                             // Adjusting newGoals drop-down based on selections - eldri7ch
+      case "abrsr":                                                             // ABRSR (All Bosses and Relics) can't exist if not compatible with All Boss AND All Relics - eldri7ch
+        if (!bossCompatible.includes(elems.presetId.value) || !relicCompatible.includes(elems.presetId.value)) {
           elems.newGoals.value = "default"
+        }
+        break
+      case "vladBoss":                                                          // Very few presets remove Vlads as possibilities. No 'break' here because it also needs to check All Bosses - eldri7ch
+        if (["oracle","glitch","glitchmaster","any-percent"].includes(elems.presetId.value)) {
+          elems.newGoals.value = "default"
+        }
+      case "allBoss":                                                           // Check against all bosses compatibility - eldri7ch
+        if (!bossCompatible.includes(elems.presetId.value)) {
+          elems.newGoals.value = "default"
+        }
+        break
+      case "allRelic":                                                          // Check against all relics compatibility - eldri7ch
+        if (!relicCompatible.includes(elems.presetId.value)) {
+          elems.newGoals.value = "default"
+        }
+        break
+      case "bhNorm":
+      case "bhAdvanced":
+      case "bhBoss":                                                            // Check against BH compatibility - eldri7ch
+        if (!bhCompatible.includes(elems.presetId.value)) {
+          elems.newGoals.value = "default"
+        }
+        break
+      default:
+    }
+    // All BH presets need to match their respective coding. This is to prevent arbitrary additions of BH code to presets where vlads can spawn. - eldri7ch
+    if (elems.newGoals.value !== "bhNorm") {                                    // Check against BH compatibility - eldri7ch
+      if (["chaos-lite","bounty-hunter"].includes(elems.presetId.value)) {
+        elems.newGoals.value = "bhNorm"
       }
     }
-    localStorage.setItem('newGoals', elems.newGoals.value)
+    if (elems.newGoals.value !== "bhAdvanced") {                                // Check against Target Confirmed compatibility - eldri7ch
+      if (["target-confirmed","hitman"].includes(elems.presetId.value)) {
+        elems.newGoals.value = "bhAdvanced"
+      }
+    }
+    if (elems.newGoals.value !== "bhBoss") {                                    // Check against BH + All Bosses compatibility - eldri7ch
+      if (["rampage"].includes(elems.presetId.value)) {
+        elems.newGoals.value = "bhBoss"
+      }
+    }
+    if (elems.newGoals.value !== "allBoss") {                                   // Check against all Bosses compatibility (Right now this only checks All-Bosses Preset) - eldri7ch
+      if (["all-bosses"].includes(elems.presetId.value) && elems.newGoals.value !== "abrsr") {
+        elems.newGoals.value = "allBoss"
+      }
+    }
+    // if (elems.newGoals.value !== "abrsr") {                                  // Check against abrsr compatibility (No presets currently use this) - eldri7ch
+    //   if (["rampage"].includes(elems.presetId.value)) {
+    //     elems.newGoals.value = "abrsr"
+    //   }
+    // }
+    if (elems.newGoals.value !== "vladBoss") {                                  // Check against all Bosses + all vlads compatibility - eldri7ch
+      if (["boss-reflector"].includes(elems.presetId.value)) {
+        elems.newGoals.value = "vladBoss"
+      }
+    }
+    localStorage.setItem('newGoals', elems.newGoals.value)                      // Set local storage and the newGoalsLock - eldri7ch
     newGoalsLock = elems.newGoals.value
-
-    console.log('set new goals: ' + newGoalsLock)
+    // console.log(elems.presetId.value)
+    // console.log('set new goals: ' + newGoalsLock)
   }
 
   function alucardPaletteChange() {
@@ -1524,9 +1540,7 @@
           }
         }
         // Apply new goals patches.
-        console.log('new goals: ' + newGoalsLock)
         if (newGoalsLock != 'default') {
-          console.log('not default goal')
           switch (newGoalsLock){
             case 'default':
               break

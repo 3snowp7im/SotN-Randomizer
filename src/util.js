@@ -5858,7 +5858,7 @@ function hexValueToDamageString(hexValue) {
     const data = new checked()                        // randomizer options that require additional code. 0x3711A68 is loaded from CD by separate code
     let offset
     
-    console.log('optwrite: ' + optWrite)
+    // console.log('optwrite: ' + optWrite)
 
     offset = 0xF96D8
     offset = data.writeWord(offset, 0x0c038ba6)       // call the sector load
