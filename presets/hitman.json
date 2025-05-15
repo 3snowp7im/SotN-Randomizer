@@ -22,7 +22,7 @@
 
   "inherits": "casual",
   "stats": false,
-  "newGoalsSet": "t",
+  "newGoalsSet": "w",
   
   "complexityGoal": {
     "min": 1,

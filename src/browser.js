@@ -403,13 +403,15 @@
     if (!relicCompatible.includes(preset.id) && ["allRelic","abrsr"].includes(elems.newGoals.value)) {
       elems.newGoals.value = "default"                                                              // Remove all relic mode for incompatible presets. - eldri7ch
     }
-    if (!bhCompatible.includes(preset.id) && ["bhNorm","bhAdvanced","bhBoss"].includes(elems.newGoals.value)) {
+    if (!bhCompatible.includes(preset.id) && ["bhNorm","bhAdvanced","bhBoss","bhHitman"].includes(elems.newGoals.value)) {
       elems.newGoals.value = "default"                                                              // Remove all relic mode for incompatible presets. - eldri7ch
     } else {
       if (["bounty-hunter","chaos-lite"].includes(preset.id)) {                                     // set Bounty hunter menu
         elems.newGoals.value = "bhNorm"
-      } else if (["target-confirmed","hitman"].includes(preset.id)) {                               // set Bounty hunter TC menu
+      } else if (["target-confirmed"].includes(preset.id)) {                                        // set Target Confirmed menu
         elems.newGoals.value = "bhAdvanced"
+      } else if (["hitman"].includes(preset.id)) {                                                  // set Hitman menu
+        elems.newGoals.value = "bhHitman"
       } else if (["rampage"].includes(preset.id)) {                                                 // set All Bosses and Bounties menu
         elems.newGoals.value = "bhBoss"
       }
@@ -739,6 +741,7 @@
         break
       case "bhNorm":
       case "bhAdvanced":
+      case "bhHitman":
       case "bhBoss":                                                            // Check against BH compatibility - eldri7ch
         if (!bhCompatible.includes(elems.presetId.value)) {
           elems.newGoals.value = "default"
@@ -753,8 +756,13 @@
       }
     }
     if (elems.newGoals.value !== "bhAdvanced") {                                // Check against Target Confirmed compatibility - eldri7ch
-      if (["target-confirmed","hitman"].includes(elems.presetId.value)) {
+      if (["target-confirmed"].includes(elems.presetId.value)) {
         elems.newGoals.value = "bhAdvanced"
+      }
+    }
+    if (elems.newGoals.value !== "bhHitman") {                                  // Check against Hitman compatibility - eldri7ch
+      if (["hitman"].includes(elems.presetId.value)) {
+        elems.newGoals.value = "bhHitman"
       }
     }
     if (elems.newGoals.value !== "bhBoss") {                                    // Check against BH + All Bosses compatibility - eldri7ch
@@ -1133,6 +1141,9 @@
         case 'bhAdvanced':
           newGoalsSet = 't'
           break
+        case 'bhHitman':
+          newGoalsSet = 'w'
+          break
         case 'bhBoss':
           newGoalsSet = 'x'
           break
@@ -1393,16 +1404,19 @@
               case "abrsr":                           //  all bosses and relics flag
                 nGoal = "a"
                 break
-              case "vladBoss":                        //  all bosses and relics flag
+              case "vladBoss":                        //  all bosses and vlads flag
                 nGoal = "v"
                 break
-              case "bhNorm":                          //  all bosses and relics flag
+              case "bhNorm":                          //  Bounty Hunter flag
                 nGoal = "h"
                 break
-              case "bhAdvanced":                      //  all bosses and relics flag
+              case "bhAdvanced":                      //  Target Confirmed flag
                 nGoal = "t"
                 break
-              case "bhBoss":                          //  all bosses and relics flag
+              case "bhHitman":                        //  Hitman flag
+                nGoal = "w"
+                break
+              case "bhBoss":                          //  all bosses and BH flag
                 nGoal = "x"
                 break
             }
@@ -1564,19 +1578,15 @@
               check.apply(util.applyBountyHunterTargets(rng,0))                 // 0 = normal Bounty Hunter; 1 = buffed drop rates and guaranteed relics after card obtained
               break
             case 'bhAdvanced':
-				if (["target-confirmed"].includes(elems.presetId.childNodes[elems.presetId.selectedIndex].value))
-				{
-					check.apply(util.applyBountyHunterTargets(rng,2))
-				}
-				if (["hitman"].includes(elems.presetId.childNodes[elems.presetId.selectedIndex].value))
-				{
-					check.apply(util.applyBountyHunterTargets(rng,1))
-				}
+              check.apply(util.applyBountyHunterTargets(rng,2))                 // 0 = normal Bounty Hunter; 1 = buffed drop rates and guaranteed relics after card obtained
+              break
+            case "bhHitman":
+              check.apply(util.applyBountyHunterTargets(rng,1))                 // 0 = normal Bounty Hunter; 1 = buffed drop rates and guaranteed relics after card obtained
               break
             case 'bhBoss':
               nGoal = 'v'
               check.apply(util.applyNewGoals(nGoal))
-              check.apply(util.applyBountyHunterTargets(rng,1))                 // 0 = normal Bounty Hunter; 1 = buffed drop rates and guaranteed relics after card obtained
+              check.apply(util.applyBountyHunterTargets(rng,2))                 // 0 = normal Bounty Hunter; 1 = buffed drop rates and guaranteed relics after card obtained
               break
             default:
               break
