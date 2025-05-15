@@ -278,7 +278,8 @@
       "rampage",
       "nimble-lite",
       "oracle",
-      "boss-reflector"
+      "boss-reflector",
+      "cornivus"
     ]
     let relicCompatible = [
       "casual",
@@ -319,7 +320,8 @@
       "chimera",
       "vanilla",
       "nimble-lite",
-      "all-bosses"
+      "all-bosses",
+      "cornivus"
     ]    
     if(idx < 0) idx = 0;
     const id = elems.presetId.childNodes[idx].value
@@ -392,7 +394,7 @@
     }
     if (["all-bosses"].includes(preset.id)) {                                                       // set all bosses goals. - eldri7ch
       elems.newGoals.value = "allBoss"
-    } else if (["boss-reflector","rampage"].includes(preset.id)) {
+    } else if (["boss-reflector","rampage","cornivus"].includes(preset.id)) {
       elems.newGoals.value = "vladBoss"
     } else {
       elems.newGoals.value = "default"
@@ -676,7 +678,8 @@
       "rampage",
       "nimble-lite",
       "oracle",
-      "boss-reflector"
+      "boss-reflector",
+      "cornivus"
     ]
     let relicCompatible = [
       "casual",
@@ -717,7 +720,8 @@
       "chimera",
       "vanilla",
       "nimble-lite",
-      "all-bosses"
+      "all-bosses",
+      "cornivus"
     ]
     switch (elems.newGoals.value) {                                             // Adjusting newGoals drop-down based on selections - eldri7ch
       case "abrsr":                                                             // ABRSR (All Bosses and Relics) can't exist if not compatible with All Boss AND All Relics - eldri7ch
@@ -781,7 +785,7 @@
     //   }
     // }
     if (elems.newGoals.value !== "vladBoss") {                                  // Check against all Bosses + all vlads compatibility - eldri7ch
-      if (["boss-reflector"].includes(elems.presetId.value)) {
+      if (["boss-reflector","cornivus"].includes(elems.presetId.value)) {
         elems.newGoals.value = "vladBoss"
       }
     }
