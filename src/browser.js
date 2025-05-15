@@ -1564,7 +1564,14 @@
               check.apply(util.applyBountyHunterTargets(rng,0))                 // 0 = normal Bounty Hunter; 1 = buffed drop rates and guaranteed relics after card obtained
               break
             case 'bhAdvanced':
-              check.apply(util.applyBountyHunterTargets(rng,1))                 // 0 = normal Bounty Hunter; 1 = buffed drop rates and guaranteed relics after card obtained
+				if (["target-confirmed"].includes(elems.presetId.childNodes[elems.presetId.selectedIndex].value))
+				{
+					check.apply(util.applyBountyHunterTargets(rng,2))
+				}
+				if (["hitman"].includes(elems.presetId.childNodes[elems.presetId.selectedIndex].value))
+				{
+					check.apply(util.applyBountyHunterTargets(rng,1))
+				}
               break
             case 'bhBoss':
               nGoal = 'v'
