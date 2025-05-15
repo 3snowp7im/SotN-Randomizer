@@ -414,7 +414,7 @@
   {
     "name": "Bounty Hunter",
     "id": "bounty-hunter",
-    "description": "The Vlad Relics are dropped by 5 random enemies throughout the castle and the player must collect familiar cards to find out which enemies have the relics. Relic placement requires the Bounty Hunter Tool. App URL: https://github.com/MottZilla/BountyHunterTool",
+    "description": "The Vlad Relics are dropped by 5 random enemies throughout the castle and the player must collect familiar cards to find out which enemies have the relics.",
     "author": [
       "eldri7ch",
       "MottZilla"
@@ -433,7 +433,7 @@
   {
     "name": "Target Confirmed",
     "id": "target-confirmed",
-    "description": "Bounty Hunter variant. Vlad drop rates are much higher, Familiar Cards are required before the drop is unlocked. Requires the Bounty Hunter Tool. App URL: https://github.com/MottZilla/BountyHunterTool",
+    "description": "Bounty Hunter variant. Vlad drop rates are much higher, Familiar Cards are required before the drop is unlocked.",
     "author": [
       "eldri7ch",
       "MottZilla"
@@ -452,7 +452,7 @@
   {
     "name": "Hitman",
     "id": "hitman",
-    "description": "Bounty Hunter variant. Start with all five Familiar Cards so you know your targets. Requires the Bounty Hunter Tool. App URL: https://github.com/MottZilla/BountyHunterTool",
+    "description": "Bounty Hunter variant. Start with all five Familiar Cards so you know your targets.",
     "author": [
       "eldri7ch",
       "MottZilla"
@@ -471,7 +471,7 @@
   {
     "name": "Chaos Lite",
     "id": "chaos-lite",
-    "description": "April Fools Preset Released on April 1st, 2024. A child of the original Chaos. Requires the Bounty Hunter Tool. App URL: https://github.com/MottZilla/BountyHunterTool",
+    "description": "April Fools Preset Released on April 1st, 2024. A child of the original Chaos.",
     "author": [
       "3snow_p7im",
       "eldri7ch",

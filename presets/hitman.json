@@ -2,12 +2,12 @@
   "metadata": {
     "id": "hitman",
     "name": "Hitman",
-    "description": "Bounty Hunter variant. Start with all five Familiar Cards so you know your targets. Requires the Bounty Hunter Tool. App URL: https://github.com/MottZilla/BountyHunterTool",
+    "description": "Bounty Hunter variant. Start with all five Familiar Cards so you know your targets.",
     "author": [
       "eldri7ch",
       "MottZilla"
     ],
-    "weight": 6200,
+    "weight": -2412,
     "knowledgeCheck": "Enemy Locations",
     "metaExtension": "Guarded",
     "metaComplexity": "1",

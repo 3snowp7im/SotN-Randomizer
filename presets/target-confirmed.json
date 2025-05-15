@@ -2,12 +2,12 @@
   "metadata": {
     "id": "target-confirmed",
     "name": "Target Confirmed",
-    "description": "Bounty Hunter variant. Vlad drop rates are much higher, Familiar Cards are required before the drop is unlocked. Requires the Bounty Hunter Tool. App URL: https://github.com/MottZilla/BountyHunterTool",
+    "description": "Bounty Hunter variant. Vlad drop rates are much higher, Familiar Cards are required before the drop is unlocked.",
     "author": [
       "eldri7ch",
       "MottZilla"
     ],
-    "weight": 6300,
+    "weight": -2012,
     "knowledgeCheck": "Enemy Locations",
     "metaExtension": "Guarded",
     "metaComplexity": "6",

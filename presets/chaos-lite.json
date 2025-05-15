@@ -2,13 +2,13 @@
   "metadata": {
     "id": "chaos-lite",
     "name": "Chaos Lite",
-    "description": "April Fools Preset Released on April 1st, 2024. A child of the original Chaos. Requires the Bounty Hunter Tool. App URL: https://github.com/MottZilla/BountyHunterTool",
+    "description": "April Fools Preset Released on April 1st, 2024. A child of the original Chaos.",
     "author": [
       "3snow_p7im", 
       "eldri7ch",
       "MottZilla"
     ],
-    "weight": 6100,
+    "weight": -2688,
     "knowledgeCheck": "April Fools",
     "metaExtension": "Scenic",
     "metaComplexity": "1",
