@@ -6771,13 +6771,7 @@ function hexValueToDamageString(hexValue) {
     let bhRelicId
     let dindex = 6
 
-    // -- Finding dupes --
-    const getDuplicateEnemies = (enemyId) => {
-      // console.log('find dupe enemy' + enemyId)
-      const enemyName = enemies.enemyStats.filter(enemy => enemy.index === enemyId);
-      // console.log(enemyName)
-      return enemies.enemyStats.filter(enemy => enemy.name === enemyName.name && enemy.index !== enemyId);
-    }
+    
 
     function updateOffset(TargetCurrentId,baseOffset) {
       // console.log('update offset')
@@ -6812,25 +6806,74 @@ function hexValueToDamageString(hexValue) {
       return data
     }
 
-    function duplicateEnemyId(enemyId,bhRelicId,baseOffset) {
-      // console.log('Duplicate Enemy ID')
+    function distrForDuplicateEnemies(TargetEnemyId,bhRelicId,baseOffset) {
+      let nextEnemyId = 0
+      let nextEnemyId2 = 0
+
+      let offset
       let offset_e
       let offset_s
-      const dupeEnemies = getDuplicateEnemies(enemyId)
 
-      if (dupeEnemies.length > 0) {
-        let RelicNumber = bhRelicId + 128
-        
-        dupeEnemies.forEach(enemy => {
-          // Write Target Drop Data
-          offset_e = enemy.index * 0x28	                                        // Get Enemy Entry Offset
-          offset_s = Math.floor((offset_e+0x100) / 0x800) * 0x130			          // Based on Offset Calculate Sector Crossings
-          offset = baseOffset + offset_e + offset_s							                // Add it all up to get final address for enemy.
+      let RelicNumber = bhRelicId + 128
 
-          data.writeShort(offset + 0x1A,RelicNumber)
-          data.writeShort(offset + 0x1E,VladDropRate)
-        })
+      // console.log('dupe check')
+      // console.log(TargetEnemyId)
+      switch (TargetEnemyId) {
+        case 6: // AXE KNIGHT
+          nextEnemyId = 246
+          break
+        case 14: // FLYING ZOMBIE
+          nextEnemyId = 15
+          break
+        case 27: // MERMAN
+          nextEnemyId = 29
+          break
+        case 129: // SPECTRAL SWORD
+          nextEnemyId = 136
+          nextEnemyId2 = 138
+          break
+        case 158: // CORPSEWEED
+          nextEnemyId = 159
+          break
+        case 161: // VENUS WEED
+          nextEnemyId = 162
+          break
+        case 303: // MEDUSA HEAD
+          nextEnemyId = 304
+          break
+        case 392: // BLUE VENUS WEED
+          nextEnemyId = 393
+          break
+        case 45: // BONE ARK
+          nextEnemyId = 46
+          break
+        case 141: // OROBOUROUS
+          nextEnemyId = 142
+          nextEnemyId2 = 143
+          break
+        default:
+          return
       }
+
+      // console.log(nextEnemyId)
+      // Write Target Drop Data
+      offset_e = nextEnemyId * 0x28	// Get Enemy Entry Offset
+      offset_s = Math.floor((offset_e+0x100) / 0x800) * 0x130			// Based on Offset Calculate Sector Crossings
+      offset = baseOffset + offset_e + offset_s							// Add it all up to get final address for enemy.
+      
+      data.writeShort(offset + 0x1A,RelicNumber)
+      data.writeShort(offset + 0x1E,VladDropRate)
+
+      if (nextEnemyId2 > 0) {
+        offset_e = nextEnemyId2 * 0x28	// Get Enemy Entry Offset
+        offset_s = Math.floor((offset_e+0x100) / 0x800) * 0x130			// Based on Offset Calculate Sector Crossings
+        offset = baseOffset + offset_e + offset_s							// Add it all up to get final address for enemy.
+        
+        data.writeShort(offset + 0x1A,RelicNumber)
+        data.writeShort(offset + 0x1E,VladDropRate)
+      }
+
+      return data
     }
 
     if(bhmode > 0) {	// If mode is Hitman or Target Confirmed
@@ -6863,14 +6906,19 @@ function hexValueToDamageString(hexValue) {
     const [TargetHeartId, TargetToothId, TargetRibId, TargetRingId, TargetEyeId] = targetValues;
     // Heart of Vlad - Pick Enemy Id
     TargetHeartEnemyId = bountyHunterTargets[TargetHeartId].enemyid
+    // console.log(bountyHunterTargets[TargetHeartId].enemyid)
     // Tooth of Vlad - Pick Enemy Id (Can't match Heart)
     TargetToothEnemyId = bountyHunterTargets[TargetToothId].enemyid
+    // console.log(bountyHunterTargets[TargetToothId].enemyid)
     // Rib of Vlad - Pick Enemy Id (Can't Match Heart, Tooth)
     TargetRibEnemyId = bountyHunterTargets[TargetRibId].enemyid
+    // console.log(bountyHunterTargets[TargetRibId].enemyid)
     // Ring of Vlad - Pick Enemy Id (Can't Match Heart, Tooth, Rib)
     TargetRingEnemyId = bountyHunterTargets[TargetRingId].enemyid
+    // console.log(bountyHunterTargets[TargetRingId].enemyid)
     // Eye of Vlad - Pick Enemy Id (Can't Match Heart, Tooth, Rib, Ring)
     TargetEyeEnemyId = bountyHunterTargets[TargetEyeId].enemyid
+    // console.log(bountyHunterTargets[TargetEyeId].enemyid)
     
     // console.log('Writing targets')
     // -- Writing Targets --
@@ -6880,7 +6928,7 @@ function hexValueToDamageString(hexValue) {
     bhRelicId = 54
     hintOffset = 0xF5560
     WriteRelicTargetDropData(TargetHeartId,bhRelicId,hintOffset,baseOffset)
-    duplicateEnemyId(TargetHeartId,bhRelicId,baseOffset)
+    distrForDuplicateEnemies(TargetHeartEnemyId,bhRelicId,baseOffset)
 
     // Set Relic Name (Heart Card)
     offset = 0xF5581
@@ -6892,7 +6940,7 @@ function hexValueToDamageString(hexValue) {
     bhRelicId = 55
     hintOffset = 0xF558C
     WriteRelicTargetDropData(TargetToothId,bhRelicId,hintOffset,baseOffset)
-    duplicateEnemyId(TargetToothId,bhRelicId,baseOffset)
+    distrForDuplicateEnemies(TargetToothEnemyId,bhRelicId,baseOffset)
     
     // Set Relic Name (Tooth Card)
     offset = 0xF55AC
@@ -6903,7 +6951,7 @@ function hexValueToDamageString(hexValue) {
     bhRelicId = 56
     hintOffset = 0xF55B8
     WriteRelicTargetDropData(TargetRibId,bhRelicId,hintOffset,baseOffset)
-    duplicateEnemyId(TargetRibId,bhRelicId,baseOffset)
+    distrForDuplicateEnemies(TargetRibEnemyId,bhRelicId,baseOffset)
     
     // Set Relic Name (Rib Card)
     offset = 0xF55D9
@@ -6915,7 +6963,7 @@ function hexValueToDamageString(hexValue) {
     bhRelicId = 57
     hintOffset = 0xF55E8
     WriteRelicTargetDropData(TargetRingId,bhRelicId,hintOffset,baseOffset)
-    duplicateEnemyId(TargetRingId,bhRelicId,baseOffset)
+    distrForDuplicateEnemies(TargetRingEnemyId,bhRelicId,baseOffset)
     
     // Set Relic Name (Ring Card)
     offset = 0xF5608
@@ -6927,7 +6975,7 @@ function hexValueToDamageString(hexValue) {
     bhRelicId = 58
     hintOffset = 0xF5614
     WriteRelicTargetDropData(TargetEyeId,bhRelicId,hintOffset,baseOffset)
-    duplicateEnemyId(TargetEyeId,bhRelicId,baseOffset)
+    distrForDuplicateEnemies(TargetEyeEnemyId,bhRelicId,baseOffset)
     
     // Set Relic Name (Eye Card)
     offset = 0xF5635
