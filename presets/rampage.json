@@ -66,21 +66,6 @@
   }],
 
   "startingEquipment": [{
-    "slot": "Right hand",
-    "item": "Alucart sword"
-  }, {
-    "slot": "Left hand",
-    "item": "Alucart shield"
-  }, {
-    "slot": "Head",
-    "item": "Dragon helm"
-  }, {
-    "slot": "Body",
-    "item": "Alucart mail"
-  }, {
-    "slot": "Cloak",
-    "item": "Twilight cloak"
-  }, {
     "slot": "Other",
     "item": "Ring of Arcana"
   }],
@@ -1804,6 +1789,11 @@
     "type": "word",
     "value": "0x34020003",
     "comment": "ori v0, 0x0003"
+  }, {
+    "comment": "Enable Faerie Scroll",
+    "type": "word",
+    "value": "0xa0627973",
+    "comment": "sb v0, 0x7973 (v1)"
   }, {
     "comment": "Write to 8003 RAM addresses,",
     "type": "word",

@@ -22,6 +22,8 @@
   },
 
   "relicLocationsExtension": "scenic",
+  "stats": true,
+  "itemNameRandoMode": true,
   "colorrandoMode": true,
   "fastwarpMode": true,
   "mypurseMode": true,
