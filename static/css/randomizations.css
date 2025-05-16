@@ -65,7 +65,8 @@
 
 @media screen and (min-width: 64em) {
   #randomization-options {
-    display: flex;
+    /* display: flex; */
+    width: 100%;
   }
 
   #relic-locations-set {

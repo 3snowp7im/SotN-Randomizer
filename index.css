@@ -35,7 +35,7 @@ main {
     display: flex;
     justify-content: center;
     width: 100%;
-    padding: 0 2rem 2rem 2rem;
+    padding: 0 4rem 4rem 4rem;
 }
 
 h1 {
@@ -46,11 +46,33 @@ h1 {
     display: block;
     margin-left: auto;
     margin-right: auto;
-    width: 50%;
+    width: 30%;
   }
 
-.right {
+.center-text{
+    text-align: center;
+    padding: 5px;
+}
+
+.right-theme {
     float: right;
+    font-size: large;
+}
+
+.responsive-three-column-grid {
+    display:grid;  
+}
+
+.responsive-three-column-grid > * {
+    padding:1rem;
+}
+
+@media (min-width:1200px) {
+    .responsive-three-column-grid {
+        display: grid;
+        grid-auto-rows: 1fr;
+        grid-template-columns: 1fr 1fr 1fr;
+    }
 }
 
 .dev h1 {
@@ -62,8 +84,21 @@ h1 {
 }
 
 #warning {
+    margin-left: calc(15%);
+    margin-right: calc(15%);
     padding-top: 1em;
+    padding-left: 1em;
+    padding-bottom: 1em;
     font-size: x-large;
+    color: red;
+    border: .4em solid rgba(255, 255, 0, .5);
+    border-image: repeating-linear-gradient(
+        -45deg,
+        rgba(0, 0, 0, .5) 0,
+        rgba(0, 0, 0, .5) 15px,
+        rgba(255, 255, 0, .5) 0,
+        rgba(255, 255, 0, .5) 30px
+    ) 15;
 }
 
 #dev-border.dev {
@@ -112,23 +147,7 @@ h3 time {
     flex-wrap: wrap;
 }
 
-fieldset .pure-g .pure-u-12-24,
-fieldset .pure-g .pure-u-1 {
-    margin: .1em 0;
-}
 
-fieldset .pure-g .pure-u-12-24 fieldset {
-    margin-right: 1em;
-}
-
-form > fieldset,
-form > .pure-u-14-24 > fieldset {
-    margin-bottom: .5em;
-}
-
-fieldset {
-    padding: .45em .5em;
-}
 
 #buttons {
     margin: 0 0 .5em 0;
@@ -222,13 +241,16 @@ fieldset {
     width: 100%;
 }
 
-fieldset > div > fieldset > div > div > label:first-child {
-    margin-left: 1.8em;
+.checkboxes{
+    display:flex;
+    flex-wrap: wrap;    
 }
 
-div > div + fieldset {
-    margin-top: .5em;
+.checkboxes > div{
+    flex: 50%;
 }
+
+
 
 input[type="number"] {
     width: 2.5em;
@@ -869,9 +891,11 @@ header{
 }
 
 nav{
+    margin-left: 5%;
+    margin-right: 5%;
     display: flex;
     width: 100%;
-    height: 8rem;
+    height: 4rem;
     border-bottom: 1px solid rgba(255,255,255, .1);
 }
 
