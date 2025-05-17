@@ -37,7 +37,6 @@
                   <ul class="sub-menu">
                     <li><a href="https://github.com/LuciaRolon/SotNRandomizerLauncher/releases">Randomizer Launcher</a></li>
                     <li><a href="https://taliczealot.github.io/#/apps/sotnrandotools">Rando Tools</a></li>
-                    <li><a href="https://github.com/MottZilla/BountyHunterTool/releases/">Bounty Hunter Tool</a></li>
                   </ul>
               </li>
         
@@ -704,45 +703,76 @@
                     </span>
                   </label>
                 </div>
+                <div>     </div>
+                <div>     </div>
+                <div>     </div>
+                <div>     </div>
+                <div>     </div>
+                <div>     </div>
+                <div>     </div>
+                <div>     </div>
+                <div>     </div>
+                <div>     </div>
+                <div>     </div>
+                <div>     </div>
+                <div>     </div>
+                <div>     </div>
+                <div>     </div>
+                <div>     </div>
+                <div>     </div>
+                <div>     </div>
+                <div>     </div>
+                <div>     </div>
+                <div>     </div>
+                <div>     </div>
+                <div>     </div>
+                <div>     </div>
               </div>
             </fieldset>
             <fieldset>
               <legend>Customizations</legend>
-                 <tr><td>Map Color<select id="mapColor" type="checkbox">
-                    <option value="normal">Normal</option>
-                    <option value="blue">Dark Blue</option>
-                    <option value="red">Crimson</option>
-                    <option value="brown">Brown</option>
-                    <option value="green">Hunter Green</option>
-                    <option value="grey">Grey</option>
-                    <option value="purple">Purple</option>
-                    <option value="pink">Pink</option>
-                    <option value="black">Black</option>
-                  </select></td></tr>
-              <table class="filter_langs">
-                <tr><td>Alucard's Palette:</td><td><select id="alucardPalette" type="checkbox">
-                  <option value="default">Default</option>
-                  <option value="bloodytears">Bloody Tears</option>
-                  <option value="bluedanube">Blue Danube</option>
-                  <option value="swampthing">Swamp Thing</option>
-                  <option value="whiteknight">White Knight</option>
-                  <option value="royalpurple">Royal Purple</option>
-                  <option value="pinkpassion">Pink Passion</option>
-                </select></td></tr>
-                <tr><td>Alucard's Liner:</td><td><select id="alucardLiner" type="checkbox">
-                  <option value="gold">Gold Liner (default)</option>
-                  <option value="bronze">Bronze Liner</option>
-                  <option value="silver">Silver Liner</option>
-                  <option value="onyx">Onyx Liner</option>
-                  <option value="coral">Coral Liner</option>
-                </select></td></tr>
-              <div id="mapColorDisplay" style="zoom: 300%; image-rendering: pixelated; width:48px; height:32px; background: url(https://i.servimg.com/u/f81/20/40/06/51/map_pa10.png);"/>
-              </table><br/><div style="zoom: 200%; image-rendering: pixelated; width:96px; height:64px">
-                <div id="alucardPaletteDisplay" style="width:96px; height:64px; background: url(https://i.servimg.com/u/f81/20/40/06/51/alucar10.png);"/>
-                <div id="alucardLinerDisplay" style="width:96px; height:64px; background: url(https://i.servimg.com/u/f81/20/40/06/51/alucar10.png);"/>
+              <div class = "checkboxes">
+                 <div id = "map-dropdown">Map Color:                                   
+                    <select id="mapColor">
+                      <option value="normal">Normal</option>
+                      <option value="blue">Dark Blue</option>
+                      <option value="red">Crimson</option>
+                      <option value="brown">Brown</option>
+                      <option value="green">Hunter Green</option>
+                      <option value="grey">Grey</option>
+                      <option value="purple">Purple</option>
+                      <option value="pink">Pink</option>
+                      <option value="black">Black</option>
+                    </select>                  
+                  </div>
                 </div>
-            </fieldset>
-          </div>
+                  <div id="mapColorDisplay" class= "map-color" style="background: url(https://i.servimg.com/u/f81/20/40/06/51/map_pa10.png);"></div>              
+                    <div id = "alucard-palette-container">
+                      <label for="alucard-palette-dropdown">Alucard Palette:</label>
+                      <select id="alucardPalette" type="checkbox">
+                        <option value="default">Default</option>
+                        <option value="bloodytears">Bloody Tears</option>
+                        <option value="bluedanube">Blue Danube</option>
+                        <option value="swampthing">Swamp Thing</option>
+                        <option value="whiteknight">White Knight</option>
+                        <option value="royalpurple">Royal Purple</option>
+                        <option value="pinkpassion">Pink Passion</option>
+                      </select></div>                    
+                <div id = "alucard-liner-container">
+                  <label for="alucard-liner-dropdown">Alucard Liner:</label>
+                  <select id="alucardLiner" type="checkbox">
+                    <option value="gold">Gold Liner (default)</option>
+                    <option value="bronze">Bronze Liner</option>
+                    <option value="silver">Silver Liner</option>
+                    <option value="onyx">Onyx Liner</option>
+                    <option value="coral">Coral Liner</option>
+                  </select>                            
+                <div class = "alucard-display">
+                  <div id="alucardPaletteDisplay" style="width:96px; height:64px; background: url(https://i.servimg.com/u/f81/20/40/06/51/alucar10.png);"/>
+                  <div id="alucardLinerDisplay" style="width:96px; height:64px; background: url(https://i.servimg.com/u/f81/20/40/06/51/alucar10.png);"/>
+                </div>
+              </fieldset>
+        </div>
                
           <div class="pure-u-9-24">
             <div id="spoilers-container" class="hide" style="display: none">
