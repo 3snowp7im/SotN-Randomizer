@@ -651,6 +651,11 @@ const yargs = require('yargs')
     describe: 'Allows use of Library Cards to teleport to the Forbidden Library by holding Down while using them.',
     type: 'boolean',
   })
+  .option('bossMusic', {
+    alias: 'bm',
+    describe: 'Randomizes Boss Music separately from other songs.',
+    type: 'boolean',
+  })
   .option('debug', {
     alias: 'D',
     describe: 'Debug mode.',
@@ -1134,6 +1139,11 @@ if ('debug' in argv) {console.log('randomize | Set rlbc')}
 if (argv.rlbc) { // reverse library cards - eldrich
   options.rlbcMode = true
 }
+if ('debug' in argv) {console.log('randomize | Set bossMusic')}
+// randomize Boss Music Separately. - eldri7ch
+if (argv.bossMusic) {
+  options.bossMusicSeparation = true
+}
 if ('debug' in argv) {console.log('randomize | Set map colors')}
 // Map Color Features if specified. - eldri7ch
 if ('mapcolor' in argv && typeof(argv.mapcolor) !== 'undefined') {
@@ -1333,6 +1343,7 @@ if ('debug' in argv) {console.log('randomize | Start randomization')}
         ))
         check.apply(randomizeMusic(rng, applied))
         if ('debug' in argv) {console.log('randomize | function: randomize | Apply options / writes function master')}
+        // Start the function master
         let optWrite = 0x00000000                   // This variable lets the ASM used in the Master Function know if it needs to run certain code or sets flags for the tracker to use
         let nGoal
         if ('newGoals' in argv || options.newGoalsSet || applied.newGoalsSet) {                   // Sets flag for the tracker to know which goals to use

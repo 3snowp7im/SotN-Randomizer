@@ -641,10 +641,53 @@
     // I_AM_THE_WIND: 0x3c,       // I Am the Wind
     // SILENCE: 0x3d,             // Silence
     // LAND_OF_BENEDICTION: 0x3e, // Land of Benediction
-    NOCTURNE: 0x3f,            // Nocturne
+    // NOCTURNE: 0x3f,            // Nocturne
     // MOONLIGHT_NOCTURNE: 0x40,  // Moonlight Nocturne
     // SPOKEN: 0x41,
     // SPOKEN: 0x42,
+  }
+
+  const TRAVEL_MUSIC = {
+    LOST_PAINTING: 0x01,          // Lost Painting
+    CURSE_ZONE: 0x03,             // Curse Zone
+    REQUIEM_FOR_THE_GODS: 0x05,   // Requiem for the Gods
+    RAINBOW_CEMETARY: 0x07,       // Rainbow Cemetary
+    WOOD_CARVING_PARTITA: 0x09,   // Wood Carving Partita
+    CRYSTAL_TEARDROPS: 0x0b,      // Crystal Teardrops
+    MARBLE_GALLERY: 0x0d,         // Marble Gallery
+    DRACULAS_CASTLE: 0x0f,        // Dracula's Castle
+    THE_TRAGIC_PRINCE: 0x11,      // The Tragic Prince
+    TOWER_OF_MIST: 0x13,          // Tower of Mist
+    DOOR_OF_HOLY_SPIRITS: 0x15,   // Door of Holy Spirits
+    DANCE_OF_PALES: 0x17,         // Dance of Pales
+    ABANDONED_PIT: 0x19,          // Abandoned Pit
+    HEAVENLY_DOORWAY: 0x1b,       // Heavenly Doorway
+    WANDERING_GHOSTS: 0x23,       // Wandering Ghosts
+    THE_DOOR_TO_THE_ABYSS: 0x25,  // The Door to the Abyss
+    DANCE_OF_GOLD: 0x2e,          // Dance of Gold
+    FINAL_TOCCATA: 0x38,          // Final Tocatta
+    // PROLOGUE: 0x21,            // Prologue
+    // METAMORPHOSIS: 0x27,       // Metamorphosis
+    // METAMORPHOSIS_II: 0x28,    // Metamorphosis II
+    // METAMORPHOSIS_III: 0x29,   // Metamorphosis III
+    // HOWLING_WIND: 0x2a,        // Howling Wind
+    // PRAYER: 0x32,              // Prayer
+    // I_AM_THE_WIND: 0x3c,       // I Am the Wind
+    // SILENCE: 0x3d,             // Silence
+    // LAND_OF_BENEDICTION: 0x3e, // Land of Benediction
+    // NOCTURNE: 0x3f,            // Nocturne
+    // MOONLIGHT_NOCTURNE: 0x40,  // Moonlight Nocturne
+    // SPOKEN: 0x41,
+    // SPOKEN: 0x42,
+  }
+
+  const BOSS_MUSIC = {
+    FESTIVAL_OF_SERVANTS: 0x1d,   // Festival of Servants
+    ENCHANTED_BANQUET: 0x30,      // Enchanted Banquet
+    DEATH_BALLAD: 0x34,           // Death Ballad
+    DANCE_OF_ILLUSIONS: 0x1f,  // Dance of Illusions
+    BLOOD_RELATIONS: 0x36,     // Blood Relations
+    // BLACK_BANQUET: 0x3a,       // Black Banquet
   }
 
   const HAND_TYPE = {
@@ -2695,6 +2738,8 @@
     GLOBAL_DROP: GLOBAL_DROP,
     globalDropsCount: globalDropsCount,
     MUSIC: MUSIC,
+    TRAVEL_MUSIC: TRAVEL_MUSIC,
+    BOSS_MUSIC: BOSS_MUSIC,
     HAND_TYPE: HAND_TYPE,
     handTypeNames: handTypeNames,
     WORKER_ACTION: WORKER_ACTION,

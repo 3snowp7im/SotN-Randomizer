@@ -2582,6 +2582,11 @@ function hexValueToDamageString(hexValue) {
           randomize.push('rl')
         }
         delete options.rlbcMode
+      } else if ('bossMusicSeparation' in options) { // boss Music Separation- eldri7ch
+        if (options.bossMusicSeparation) {
+          randomize.push('bm')
+        }
+        delete options.bossMusicSeparation
       } else if ('mapcolorTheme' in options) { // switch map color
         randomize.push('m:' + options.mapcolorTheme)
         delete options.mapcolorTheme
@@ -4048,6 +4053,8 @@ function hexValueToDamageString(hexValue) {
     this.domino = false
     // reverse library cards mode.
     this.rlbc = false
+    // boss music separation
+    this.bossMusic = false
     // new goals for completion.
     this.newGoals = undefined
     // Debug mode.
@@ -4377,6 +4384,9 @@ function hexValueToDamageString(hexValue) {
     }
     if ('rlbcMode' in json) {
       builder.rlbcMode(json.rlbcMode)
+    }
+    if ('bossMusicSeparation' in json) {
+      builder.bossMusicSeparation(json.bossMusicSeparation)
     }
     if ('newGoalsSet' in json) {
       builder.newGoalsSet(json.newGoalsSet)
@@ -4716,8 +4726,11 @@ function hexValueToDamageString(hexValue) {
     if ('rlbcMode' in preset) {
       this.rlbc = preset.rlbcMode
     }
+    if ('bossMusicSeparation' in preset) {
+      this.bossMusic = preset.rlbcMode
+    }
     if ('newGoalsSet' in preset) {
-      this.newGoals = preset.newGoalsSet
+      this.newGoals = preset.bossMusicSeparation
     }
     if ('writes' in preset) {
       this.writes = this.writes || []
@@ -5461,6 +5474,11 @@ function hexValueToDamageString(hexValue) {
     this.rlbc = enabled
   }
 
+  // Enable boss music separation - eldri7ch
+  PresetBuilder.prototype.bossMusicSeparation = function bossMusicSeparation(enabled) {
+    this.bossMusic = enabled
+  }
+
   // Assign New Goals - eldri7ch
   PresetBuilder.prototype.newGoalsSet = function newGoalsSet(nGoals) {
     assert.oneOf(typeof(nGoals), ['boolean', 'string'])
@@ -5783,6 +5801,7 @@ function hexValueToDamageString(hexValue) {
     const startRoomRando2nd = self.startRoomRando2nd
     const domino = self.domino
     const rlbc = self.rlbc
+    const bossMusic = self.bossMusic
     const newGoals = self.newGoals
     const debug = self.debug
     const writes = self.writes
@@ -5828,6 +5847,7 @@ function hexValueToDamageString(hexValue) {
       startRoomRando2nd,
       domino,
       rlbc,
+      bossMusic,
       newGoals,
       debug,
       writes,
