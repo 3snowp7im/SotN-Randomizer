@@ -237,7 +237,7 @@
         }
       }
 
-      if (options.bossMusicSeparation) {
+      if (!options.bossMusicSeparation) { // Boss Music Separation requires the pool to be ran twice, once for normal songs (travel) and then for boss songs
         music = Object.values(bossMusicByArea)
         randomizeMusicByArea(rng,music,bossMusic)
 

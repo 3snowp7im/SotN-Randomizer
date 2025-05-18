@@ -4054,7 +4054,7 @@ function hexValueToDamageString(hexValue) {
     // reverse library cards mode.
     this.rlbc = false
     // boss music separation
-    this.bossMusic = false
+    this.bossMusic = true
     // new goals for completion.
     this.newGoals = undefined
     // Debug mode.
