@@ -1499,6 +1499,12 @@ if ('debug' in argv) {console.log('randomize | Start randomization')}
         }
         if ('debug' in argv) {console.log('randomize | function: randomize | Reverse Library Card Mode | ' + optFlag)}
         optFlag = false
+        if (options.bossMusicSeparation || applied.bossMusicSeparation) { // reverse library cards - eldrich
+          // verify boss music separate. - eldri7ch
+          optFlag = true
+        }
+        if ('debug' in argv) {console.log('randomize | function: randomize | Boss Music Separator | ' + optFlag)}
+        optFlag = false
         if ('mapcolor' in argv) { // Colors the map - eldrich
           // Apply map color patches. - eldri7ch
           let mapcol = argv.mapcolor

@@ -482,7 +482,7 @@
     elems.startRoomRando2ndMode.checked = !!options.startRoomRando2ndMode
     elems.dominoMode.checked = !!options.dominoMode
     elems.rlbcMode.checked = !!options.rlbcMode
-
+    elems.bossMusicSeparation.checked = !!options.bossMusicSeparation
   }
 
   function complexityChange() {
@@ -894,6 +894,10 @@
     localStorage.setItem('rlbcMode', elems.rlbcMode.checked)
   }
 
+  function bossMusicSeparationChange() {
+    localStorage.setItem('bossMusicSeparation', elems.bossMusicSeparation.checked)
+  }
+
   function accessibilityPatchesChange() {
     localStorage.setItem('accessibilityPatches', elems.accessibilityPatches.checked)
   }
@@ -1087,8 +1091,8 @@
     if (elems.dominoMode.checked) {
       options.dominoMode = true
     }
-    if (elems.rlbcMode.checked) {
-      options.rlbcMode = true
+    if (elems.bossMusicSeparation.checked) {
+      options.bossMusicSeparation = true
     }
     if (elems.mapColor != 'normal') {
       switch (elems.mapColor.value){
@@ -1509,8 +1513,7 @@
           check.apply(util.applyDominoPatches(rng))
         }
         // Apply reverse library card patches.
-        if (options.rlbcMode || applied.rlbcMode) {
-          check.apply(util.applyRLBCPatches(rng))
+        if (options.bossMusicSeparation || applied.bossMusicSeparation) {
         }
         // Apply map color patches.
         if (mapColorLock != 'normal') {
@@ -1796,6 +1799,7 @@
     elems.startRoomRando2ndMode.disabled = false
     elems.dominoMode.disabled = false
     elems.rlbcMode.disabled = false
+    elems.bossMusicSeparation.disabled = false
     elems.tournamentMode.disabled = false
     elems.clear.classList.add('hidden')
     presetChange()
@@ -1961,6 +1965,7 @@
     startRoomRando2ndMode: document.getElementById('startRoomRando2nd-mode'),
     dominoMode: document.getElementById('domino-mode'),
     rlbcMode: document.getElementById('rlbc-mode'),
+    bossMusicSeparation: document.getElementById('boss-music-separation'),
     accessibilityPatches: document.getElementById('accessibility-patches'),
     showSpoilers: document.getElementById('show-spoilers'),
     showRelics: document.getElementById('show-relics'),
@@ -2041,6 +2046,7 @@
   elems.startRoomRando2ndMode.addEventListener('change', startRoomRando2ndModeChange)
   elems.dominoMode.addEventListener('change', dominoModeChange)
   elems.rlbcMode.addEventListener('change', rlbcModeChange)
+  elems.bossMusicSeparation.addEventListener('change', bossMusicSeparationChange)
   elems.accessibilityPatches.addEventListener('change', accessibilityPatchesChange)
   elems.showSpoilers.addEventListener('change', spoilersChange)
   elems.showRelics.addEventListener('change', showRelicsChange)
@@ -2370,6 +2376,7 @@
   loadOption('startRoomRando2ndMode', startRoomRando2ndModeChange, false)
   loadOption('dominoMode', dominoModeChange, false)
   loadOption('rlbcMode', rlbcModeChange, false)
+  loadOption('bossMusicSeparation', bossMusicSeparationChange, false)
   loadOption('accessibilityPatches', accessibilityPatchesChange, true)
   loadOption('showSpoilers', spoilersChange, true)
   setTimeout(function() {

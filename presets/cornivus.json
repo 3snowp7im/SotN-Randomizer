@@ -39,21 +39,6 @@
   ]},
 
   "startingEquipment": [{
-    "slot": "Right hand",
-    "item": "Shield rod"
-  }, {
-    "slot": "Left hand",
-    "item": "Shaman shield"
-  }, {
-    "slot": "Head",
-    "item": "Silver crown"
-  }, {
-    "slot": "Body",
-    "item": "Fury plate"
-  }, {
-    "slot": "Cloak",
-    "item": "Blood cloak"
-  }, {
     "slot": "Other",
     "item": "Mystic pendant"
   }],

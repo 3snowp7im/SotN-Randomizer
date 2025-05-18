@@ -2582,17 +2582,17 @@ function hexValueToDamageString(hexValue) {
           randomize.push('rl')
         }
         delete options.rlbcMode
-      } else if ('bossMusicSeparation' in options) { // boss Music Separation- eldri7ch
-        if (options.bossMusicSeparation) {
-          randomize.push('bm')
-        }
-        delete options.bossMusicSeparation
       } else if ('mapcolorTheme' in options) { // switch map color
         randomize.push('m:' + options.mapcolorTheme)
         delete options.mapcolorTheme
       } else if ('newGoalsSet' in options) { // Change the goals
         randomize.push('g:' + options.newGoalsSet)
         delete options.newGoalsSet
+      } else if ('bossMusicSeparation' in options) { // boss Music Separation- eldri7ch
+        if (options.bossMusicSeparation) {
+          randomize.push('bm')
+        }
+        delete options.bossMusicSeparation
       } else if ('alucardPaletteSet' in options) { // alucard's palette - crazy4blades
         randomize.push('ap:' + options.alucardPaletteSet)
         delete options.alucardPaletteSet
@@ -3843,6 +3843,7 @@ function hexValueToDamageString(hexValue) {
     startRoomRando2ndMode,
     dominoMode,
     rlbcMode,
+    bossMusicSeparation,
     newGoalsSet,
     debugMode,
     writes,
@@ -3888,6 +3889,7 @@ function hexValueToDamageString(hexValue) {
     this.startRoomRando2ndMode = startRoomRando2ndMode
     this.dominoMode = dominoMode
     this.rlbcMode = rlbcMode
+    this.bossMusicSeparation = bossMusicSeparation
     this.newGoalsSet = newGoalsSet
     this.debugMode = debugMode
     if (writes) {
@@ -4727,10 +4729,10 @@ function hexValueToDamageString(hexValue) {
       this.rlbc = preset.rlbcMode
     }
     if ('bossMusicSeparation' in preset) {
-      this.bossMusic = preset.rlbcMode
+      this.bossMusic = preset.bossMusicSeparation
     }
     if ('newGoalsSet' in preset) {
-      this.newGoals = preset.bossMusicSeparation
+      this.newGoals = preset.newGoalsSet
     }
     if ('writes' in preset) {
       this.writes = this.writes || []
