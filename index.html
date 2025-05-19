@@ -758,18 +758,46 @@
                     </select>                  
                   </div>
                 </div>
-                  <div id="mapColorDisplay" class= "map-color" style="background: url(https://i.servimg.com/u/f81/20/40/06/51/map_pa10.png);"></div>              
-                    <div id = "alucard-palette-container">
-                      <label for="alucard-palette-dropdown">Alucard Palette:</label>
-                      <select id="alucardPalette" type="checkbox">
-                        <option value="default">Default</option>
-                        <option value="bloodytears">Bloody Tears</option>
-                        <option value="bluedanube">Blue Danube</option>
-                        <option value="swampthing">Swamp Thing</option>
-                        <option value="whiteknight">White Knight</option>
-                        <option value="royalpurple">Royal Purple</option>
-                        <option value="pinkpassion">Pink Passion</option>
-                      </select></div>                    
+                <div id="mapColorDisplay" class= "map-color" style="background: url(https://i.servimg.com/u/f81/20/40/06/51/map_pa10.png);"></div>              
+                <div>
+                  <label>
+                    <span>Exclude Songs</span>
+                    <input id="excludeSongsOption" type="checkbox">
+                    <span class="tooltip-wrapper">
+                      <span class="tooltip-indicator">?</span>
+                      <span class="tooltip hidden">
+                        <span>
+                          If Music Randomizer is enabled, you can choose which songs to exclude from Randomizations.
+                          These songs will not appear during your playthrough.
+                        </span>
+                      </span>
+                    </span>
+                  </label>
+                  
+                  <div id="excludeSongsMenu" class="listbox-container" hidden>
+                    <select id="includeList" class="listbox" multiple>
+                      
+                    </select>
+                    <div class="listbox-button-container">
+                      <button id="esMoveToRight" class="listbox-button" type="button">→</button>
+                      <button id="esMoveToLeft" class="listbox-button" type="button">←</button>
+                    </div>
+                    <select id="excludeList" class="listbox" multiple>
+                      
+                    </select>
+                  </div>
+                </div>  
+                  <div id = "alucard-palette-container">
+                    <label for="alucard-palette-dropdown">Alucard Palette:</label>
+                    <select id="alucardPalette" type="checkbox">
+                      <option value="default">Default</option>
+                      <option value="bloodytears">Bloody Tears</option>
+                      <option value="bluedanube">Blue Danube</option>
+                      <option value="swampthing">Swamp Thing</option>
+                      <option value="whiteknight">White Knight</option>
+                      <option value="royalpurple">Royal Purple</option>
+                      <option value="pinkpassion">Pink Passion</option>
+                    </select></div>                    
                 <div id = "alucard-liner-container">
                   <label for="alucard-liner-dropdown">Alucard Liner:</label>
                   <select id="alucardLiner" type="checkbox">
@@ -782,7 +810,7 @@
                 <div class = "alucard-display">
                   <div id="alucardPaletteDisplay" style="width:96px; height:64px; background: url(https://i.servimg.com/u/f81/20/40/06/51/alucar10.png);"/>
                   <div id="alucardLinerDisplay" style="width:96px; height:64px; background: url(https://i.servimg.com/u/f81/20/40/06/51/alucar10.png);"/>
-                </div>
+                </div>                        
               </fieldset>
         </div>
                
