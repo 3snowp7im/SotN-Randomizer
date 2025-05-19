@@ -1133,5 +1133,25 @@
     "metaExtension": "Guarded",
     "metaComplexity": "8",
     "itemStats": "Normal"
+  },
+  {
+    "name": "Max Rando",
+    "id": "max-rando",
+    "description": "Literally randomizes everything we can except for map tiles. Portal Spell is the goal to teleport to dracula.",
+    "author": [
+      "3snow_p7im",
+      "eldri7ch",
+      "MottZilla"
+    ],
+    "knowledgeCheck": "None",
+    "timeFrame": "Slow",
+    "moddedLevel": "Heavily",
+    "castleType": "Normal",
+    "transformEarly": "Yes",
+    "transformFocus": "None",
+    "winCondition": "Portal Spell",
+    "metaExtension": "Scenic",
+    "metaComplexity": "1",
+    "itemStats": "Randomized"
   }
 ]

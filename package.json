@@ -75,7 +75,8 @@
     "boss-reflector",
     "nimble-lite",
     "rampage",
-    "cornivus"
+    "cornivus",
+    "max-rando"
   ],
   "engines": {
     "node": ">=15"
