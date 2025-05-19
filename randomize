@@ -1390,6 +1390,13 @@ if ('debug' in argv) {console.log('randomize | Start randomization')}
         }
         if ('debug' in argv) {console.log('randomize | function: randomize | Magicmax Mode | ' + optFlag)}
         optFlag = false
+        if (options.magicmaxMode || applied.magicmaxMode) { // todo: Change this to Resist to Immune Potions "mode" or option. 
+          // Apply resist to immune potion patches. - MottZilla
+          optFlag = true
+          check.apply(util.applyResistToImmunePotionsPatches())
+        }
+        if ('debug' in argv) {console.log('randomize | function: randomize | Magicmax Mode | ' + optFlag)}
+        optFlag = false
         if (options.antiFreezeMode || applied.antiFreezeMode) { // Removes screen freezes on relic / vessel collection and level-up - eldrich
           // Apply anti-freeze mode patches. - eldri7ch
           optFlag = true

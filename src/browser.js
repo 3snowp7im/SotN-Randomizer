@@ -1461,6 +1461,10 @@
         if (options.magicmaxMode || applied.magicmaxMode) {
           check.apply(util.applyMagicMaxPatches())
         }
+        // Apply Resist potion patches. todo: Give own toggle option.
+        if (options.magicmaxMode || applied.magicmaxMode) {
+          check.apply(util.applyResistToImmunePotionsPatches())
+        }
         // Apply anti-freeze patches.
         if (options.antiFreezeMode || applied.antiFreezeMode) {
           check.apply(util.applyAntiFreezePatches())

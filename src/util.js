@@ -6927,6 +6927,62 @@ function applyBountyHunterTargets(rng,bhmode) {
 	return data
 }
 
+// Written By: MottZilla
+// Changes Resist Potions to grant immunity and gives i-frames like Potion, High Potion, etc.
+  function applyResistToImmunePotionsPatches() {
+	  const data = new checked()
+	  let offset = 0x13F7D8
+	  offset = data.writeWord(offset,0x0C04D1FE)	// Assembly patch
+	  offset = data.writeWord(offset,0x34040668)
+	  offset = data.writeWord(offset,0x8E240018)
+	  offset = data.writeWord(offset,0x00000000)
+	  offset = data.writeWord(offset,0x2C8F0005)
+	  offset = data.writeWord(offset,0x2C820080)
+	  offset = data.writeWord(offset,0x15E00003)
+	  offset = data.writeWord(offset,0x34040001)
+	  offset = data.writeWord(offset,0x0C04385A)
+	  offset = data.writeWord(offset,0x34050040)
+	  offset = data.writeWord(offset,0x14400003)
+	  offset = data.writeWord(offset,0x8E240018)
+	  offset = data.writeWord(offset,0x0C03FC3D)
+	  offset = data.writeWord(offset,0x00000000)
+	  offset = data.writeWord(offset,0x08048367)
+	  offset = data.writeWord(offset,0x00000000)
+	  // Assembly adjustmetns
+	  data.writeChar(0x10D6DC,0x2C)
+	  data.writeChar(0x10D6EC,0x2C)
+	  data.writeChar(0x10D708,0x2C)
+	  data.writeChar(0x10D718,0x2C)
+	  data.writeChar(0x10D734,0x2C)
+	  data.writeChar(0x10D744,0x2C)
+	  data.writeChar(0x10D760,0x2C)
+	  data.writeChar(0x10D770,0x2C)
+	  data.writeChar(0x10D78C,0x2C)
+	  data.writeChar(0x10D79C,0x2C)
+	  data.writeChar(0x10D7E4,0x2C)
+	  data.writeChar(0x10D7F4,0x2C)
+	  // Name Change
+	  offset = 0xF204C
+	  offset = data.writeWord(offset,0x554D4D29)
+	  offset = data.writeShort(offset,0x454E)
+	  offset = 0xF2018
+	  offset = data.writeWord(offset,0x554D4D29)
+	  offset = data.writeShort(offset,0x454E)
+	  offset = 0xF1FE8
+	  offset = data.writeWord(offset,0x554D4D29)
+	  offset = data.writeShort(offset,0x454E)
+	  offset = 0xF1FB8
+	  offset = data.writeWord(offset,0x554D4D29)
+	  offset = data.writeShort(offset,0x454E)
+	  offset = 0xF1F8C
+	  offset = data.writeWord(offset,0x554D4D29)
+	  offset = data.writeShort(offset,0x454E)
+	  offset = 0xF1F60
+	  offset = data.writeWord(offset,0x554D4D29)
+	  offset = data.writeShort(offset,0x454E)
+	  return data
+  }
+
   function applyStartRoomRandoPatches(rng,castleFlag) {
     const startRoomData = constants.startRoomData
     const data = new checked()
@@ -8030,6 +8086,7 @@ function applyBountyHunterTargets(rng,bhmode) {
     applyTournamentModePatches: applyTournamentModePatches,
     randoFuncMaster: randoFuncMaster,
     applyMagicMaxPatches: applyMagicMaxPatches,
+	applyResistToImmunePotionsPatches: applyResistToImmunePotionsPatches,
     applyAntiFreezePatches: applyAntiFreezePatches,
     applyMyPursePatches: applyMyPursePatches,
     applyiwsPatches: applyiwsPatches,
