@@ -28,6 +28,7 @@
   "colorrandoMode": true,
   "fastwarpMode": true,
   "magicmaxMode": true,
+  "shopPriceRandoMode": true,
 
   "complexityGoal": {
     "min": 7,
