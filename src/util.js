@@ -2582,6 +2582,11 @@ function hexValueToDamageString(hexValue) {
           randomize.push('rl')
         }
         delete options.rlbcMode
+      } else if ('immunityPotionMode' in options) { // immuntiy potions - eldri7ch
+        if (options.immunityPotionMode) {
+          randomize.push('ip')
+        }
+        delete options.immunityPotionMode
       } else if ('mapcolorTheme' in options) { // switch map color
         randomize.push('m:' + options.mapcolorTheme)
         delete options.mapcolorTheme
@@ -3843,6 +3848,7 @@ function hexValueToDamageString(hexValue) {
     startRoomRando2ndMode,
     dominoMode,
     rlbcMode,
+    immunityPotionMode,
     bossMusicSeparation,
     newGoalsSet,
     debugMode,
@@ -3889,6 +3895,7 @@ function hexValueToDamageString(hexValue) {
     this.startRoomRando2ndMode = startRoomRando2ndMode
     this.dominoMode = dominoMode
     this.rlbcMode = rlbcMode
+    this.immunityPotionMode = immunityPotionMode
     this.bossMusicSeparation = bossMusicSeparation
     this.newGoalsSet = newGoalsSet
     this.debugMode = debugMode
@@ -4055,6 +4062,8 @@ function hexValueToDamageString(hexValue) {
     this.domino = false
     // reverse library cards mode.
     this.rlbc = false
+    // immunity potions mode.
+    this.immunityPotion = false
     // boss music separation
     this.bossMusic = true
     // new goals for completion.
@@ -4386,6 +4395,9 @@ function hexValueToDamageString(hexValue) {
     }
     if ('rlbcMode' in json) {
       builder.rlbcMode(json.rlbcMode)
+    }
+    if ('immunityPotionMode' in json) {
+      builder.immunityPotionMode(json.immunityPotionMode)
     }
     if ('bossMusicSeparation' in json) {
       builder.bossMusicSeparation(json.bossMusicSeparation)
@@ -4727,6 +4739,9 @@ function hexValueToDamageString(hexValue) {
     }
     if ('rlbcMode' in preset) {
       this.rlbc = preset.rlbcMode
+    }
+    if ('immunityPotionMode' in preset) {
+      this.immunityPotion = preset.immunityPotionMode
     }
     if ('bossMusicSeparation' in preset) {
       this.bossMusic = preset.bossMusicSeparation
@@ -5476,6 +5491,11 @@ function hexValueToDamageString(hexValue) {
     this.rlbc = enabled
   }
 
+  // Enable Reverse Library Cards - eldri7ch
+  PresetBuilder.prototype.immunityPotionMode = function immunityPotionMode(enabled) {
+    this.immunityPotion = enabled
+  }
+
   // Enable boss music separation - eldri7ch
   PresetBuilder.prototype.bossMusicSeparation = function bossMusicSeparation(enabled) {
     this.bossMusic = enabled
@@ -5803,6 +5823,7 @@ function hexValueToDamageString(hexValue) {
     const startRoomRando2nd = self.startRoomRando2nd
     const domino = self.domino
     const rlbc = self.rlbc
+    const immunityPotion = self.immunityPotion
     const bossMusic = self.bossMusic
     const newGoals = self.newGoals
     const debug = self.debug
@@ -5849,6 +5870,7 @@ function hexValueToDamageString(hexValue) {
       startRoomRando2nd,
       domino,
       rlbc,
+      immunityPotion,
       bossMusic,
       newGoals,
       debug,
@@ -8086,7 +8108,6 @@ function applyBountyHunterTargets(rng,bhmode) {
     applyTournamentModePatches: applyTournamentModePatches,
     randoFuncMaster: randoFuncMaster,
     applyMagicMaxPatches: applyMagicMaxPatches,
-	applyResistToImmunePotionsPatches: applyResistToImmunePotionsPatches,
     applyAntiFreezePatches: applyAntiFreezePatches,
     applyMyPursePatches: applyMyPursePatches,
     applyiwsPatches: applyiwsPatches,
@@ -8100,6 +8121,7 @@ function applyBountyHunterTargets(rng,bhmode) {
 	  applyBountyHunterTargets: applyBountyHunterTargets,
     applyDominoPatches: applyDominoPatches,
     applyRLBCPatches: applyRLBCPatches,
+	  applyResistToImmunePotionsPatches: applyResistToImmunePotionsPatches,
     applyMapColor: applyMapColor,
     applyNewGoals: applyNewGoals,
     applyAlucardPalette: applyAlucardPalette,

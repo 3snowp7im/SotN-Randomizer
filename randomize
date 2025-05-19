@@ -651,6 +651,11 @@ const yargs = require('yargs')
     describe: 'Allows use of Library Cards to teleport to the Forbidden Library by holding Down while using them.',
     type: 'boolean',
   })
+  .option('immunityPotion', {
+    alias: 'ip',
+    describe: 'Converts Resist Fire, Resist Ice, etc. potions to grant Immunity to the element in question and allows them to grant invincibility frames.',
+    type: 'boolean',
+  })
   .option('bossMusic', {
     alias: 'bm',
     describe: 'Randomizes Boss Music separately from other songs.',
@@ -1139,6 +1144,10 @@ if ('debug' in argv) {console.log('randomize | Set rlbc')}
 if (argv.rlbc) { // reverse library cards - eldrich
   options.rlbcMode = true
 }
+// Enable immunity potion mode if specified. - eldri7ch
+if (argv.immunityPotion) { // immunity potions - eldrich
+  options.immunityPotionMode = true
+}
 if ('debug' in argv) {console.log('randomize | Set bossMusic')}
 // randomize Boss Music Separately. - eldri7ch
 if (argv.bossMusic) {
@@ -1390,13 +1399,6 @@ if ('debug' in argv) {console.log('randomize | Start randomization')}
         }
         if ('debug' in argv) {console.log('randomize | function: randomize | Magicmax Mode | ' + optFlag)}
         optFlag = false
-        if (options.magicmaxMode || applied.magicmaxMode) { // todo: Change this to Resist to Immune Potions "mode" or option. 
-          // Apply resist to immune potion patches. - MottZilla
-          optFlag = true
-          check.apply(util.applyResistToImmunePotionsPatches())
-        }
-        if ('debug' in argv) {console.log('randomize | function: randomize | Magicmax Mode | ' + optFlag)}
-        optFlag = false
         if (options.antiFreezeMode || applied.antiFreezeMode) { // Removes screen freezes on relic / vessel collection and level-up - eldrich
           // Apply anti-freeze mode patches. - eldri7ch
           optFlag = true
@@ -1505,6 +1507,13 @@ if ('debug' in argv) {console.log('randomize | Start randomization')}
           check.apply(util.applyRLBCPatches())
         }
         if ('debug' in argv) {console.log('randomize | function: randomize | Reverse Library Card Mode | ' + optFlag)}
+        optFlag = false
+        if (options.immunityPotionMode || applied.immunityPotionMode) { // todo: Change this to Resist to Immune Potions "mode" or option. 
+          // Apply resist to immune potion patches. - MottZilla
+          optFlag = true
+          check.apply(util.applyResistToImmunePotionsPatches())
+        }
+        if ('debug' in argv) {console.log('randomize | function: randomize | Immunity Potions Mode | ' + optFlag)}
         optFlag = false
         if (options.bossMusicSeparation || applied.bossMusicSeparation) { // reverse library cards - eldrich
           // verify boss music separate. - eldri7ch
