@@ -48,7 +48,8 @@
     "Enchanted Banquet",
     "Death Ballad",
     "Final Toccata",
-    "Nocturne"
+    "Dance of Illusions",
+    "Blood Relations"
   ]
  
   var paletteSelect = document.querySelector('#alucardPalette');
