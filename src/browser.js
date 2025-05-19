@@ -26,6 +26,30 @@
   let alucardPaletteLock
   let alucardLinerLock
   let isAprilFools
+  let songsList = [
+    "Lost Painting",
+    "Curse Zone",
+    "Requiem For The Gods",
+    "Rainbow Cemetary",
+    "Wood Carving Partita",
+    "Crystal Teardrops",
+    "Marble Gallery",
+    "Draculas Castle",
+    "The Tragic Prince",
+    "Tower of Mist",
+    "Door of Holy Spirits",
+    "Dance of Pales",
+    "Abandoned Pit",
+    "Heavenly Doorway",
+    "Festival of Servants",
+    "Wandering Ghosts",
+    "The Door to the Abyss",
+    "Dance of Gold",
+    "Enchanted Banquet",
+    "Death Ballad",
+    "Final Toccata",
+    "Nocturne"
+  ]
  
   var paletteSelect = document.querySelector('#alucardPalette');
   var linerSelect = document.querySelector('#alucardLiner');
@@ -1395,6 +1419,9 @@
           seed,
           3,
         ))
+        if(elems.excludeSongsOption.checked){
+          applied.excludesongs = Array.from(elems.excludeList.options).map(option => option.value);
+        }
         check.apply(randomizeMusic(rng, applied))
         // Initiate the write options function master
         let optWrite = 0x00000000                   // This variable lets the ASM used in the Master Function know if it needs to run certain code or sets flags for the tracker to use
@@ -1882,6 +1909,37 @@
     elems.spoilersContainer.classList.add('hide')
   }
 
+  function showExcludeMenu(){
+    elems.excludeSongsMenu.hidden = !elems.excludeSongsOption.checked;
+    localStorage.setItem('excludeSongsOption', elems.excludeSongsOption.checked)
+  }
+
+  function moveItemBetweenExclusionLists(from, to){
+    const fromList = document.getElementById(from + 'List');
+    const toList = document.getElementById(to + 'List');
+
+    Array.from(fromList.selectedOptions).forEach(option => {
+      toList.appendChild(option);
+    });
+  }
+
+  function excludeSong(){
+    moveItemBetweenExclusionLists("include", "exclude");
+  }
+
+  function includeSong(){
+    moveItemBetweenExclusionLists("exclude", "include");
+  }
+
+  function loadSongs(){
+    songsList.forEach(song => {
+      const option = document.createElement('option');
+      option.value = song.toUpperCase().replace(/ /g, "_");;
+      option.textContent = song;
+      elems.includeList.appendChild(option);
+    })
+  }
+
   const body = document.getElementsByTagName('body')[0]
   body.addEventListener('dragover', dragOverListener)
   body.addEventListener('dragleave', dragLeaveListener)
@@ -1979,6 +2037,12 @@
     seedUrl: document.getElementById('seed-url'),
     showOlder: document.getElementById('show-older'),
     older: document.getElementById('older'),
+    esMoveToLeft: document.getElementById('esMoveToLeft'),
+    esMoveToRight: document.getElementById('esMoveToRight'),
+    excludeSongsMenu: document.getElementById('excludeSongsMenu'),
+    excludeSongsOption: document.getElementById('excludeSongsOption'),
+    includeList: document.getElementById('includeList'),
+    excludeList: document.getElementById('excludeList')
   }
 
   resetState()
@@ -2053,6 +2117,9 @@
   elems.showSolutions.addEventListener('change', showSolutionsChange)
   elems.copy.addEventListener('click', copyHandler)
   elems.showOlder.addEventListener('click', showOlderHandler)
+  elems.excludeSongsOption.addEventListener('change', showExcludeMenu)
+  elems.esMoveToRight.addEventListener('click', excludeSong)
+  elems.esMoveToLeft.addEventListener('click', includeSong)
   // Set April Fools flag
   const month = new Date().getMonth() + 1;
   const day = new Date().getDate();
@@ -2113,6 +2180,8 @@
   }
   let options
   let seed
+  loadOption('excludeSongsOption', showExcludeMenu, false);
+  loadSongs();
   if (url.search.length) {
     const rs = util.optionsFromUrl(window.location.href)
     options = rs.options

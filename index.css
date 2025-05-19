@@ -1034,3 +1034,25 @@ li.move-right{
 
 }
 
+.listbox-container {
+    display: flex;
+    gap: 20px;    
+}
+
+.listbox {
+    width: 200px;
+    height: 200px;
+}
+
+.listbox-button-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+}
+
+.listbox-button {
+    padding: 5px 10px;
+    color: #000;
+    font-weight: bolder;
+}
