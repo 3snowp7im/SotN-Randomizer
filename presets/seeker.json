@@ -80,7 +80,7 @@
   "enemyDrops": [{
     "comment": "Make Bone Scimitar drop $700 twice",
     "enemy": "Bone Scimitar",
-    "items": ["$700", "$700"]
+    "items": ["Aquamarine", "Aquamarine"]
   }],
 
   "lockLocation": [{
