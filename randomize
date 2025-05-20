@@ -1144,6 +1144,7 @@ if ('debug' in argv) {console.log('randomize | Set rlbc')}
 if (argv.rlbc) { // reverse library cards - eldrich
   options.rlbcMode = true
 }
+if ('debug' in argv) {console.log('randomize | Set immunity potions')}
 // Enable immunity potion mode if specified. - eldri7ch
 if (argv.immunityPotion) { // immunity potions - eldrich
   options.immunityPotionMode = true
