@@ -1552,6 +1552,10 @@
           check.apply(util.applyDominoPatches(rng))
         }
         // Apply reverse library card patches.
+        if (options.rlbcMode || applied.rlbcMode) {
+          check.apply(util.applyRLBCPatches())
+        }
+        // No patches to apply for Boss Music Separator
         if (options.bossMusicSeparation || applied.bossMusicSeparation) {
         }
         // Apply Resist potion patches. todo: Give own toggle option.

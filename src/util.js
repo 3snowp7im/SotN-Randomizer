@@ -6952,6 +6952,7 @@ function applyBountyHunterTargets(rng,bhmode) {
 // Written By: MottZilla
 // Changes Resist Potions to grant immunity and gives i-frames like Potion, High Potion, etc.
   function applyResistToImmunePotionsPatches() {
+    console.log('potions ran')
 	  const data = new checked()
 	  let offset = 0x13F7D8
 	  offset = data.writeWord(offset,0x0C04D1FE)	// Assembly patch
