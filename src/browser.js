@@ -1085,9 +1085,6 @@
     if (elems.antiFreezeMode.checked) {
       options.antiFreezeMode = true
     }
-    if (elems.immunityPotionMode.checked) {
-      options.immunityPotionMode = true
-    }
     if (elems.mypurseMode.checked) {
       options.mypurseMode = true
     }
@@ -1123,6 +1120,12 @@
     }
     if (elems.dominoMode.checked) {
       options.dominoMode = true
+    }
+    if (elems.rlbcMode.checked) {
+      options.rlbcMode = true
+    }
+    if (elems.immunityPotionMode.checked) {
+      options.immunityPotionMode = true
     }
     if (elems.bossMusicSeparation.checked) {
       options.bossMusicSeparation = true
