@@ -38,16 +38,13 @@
                     <li><a href="https://github.com/LuciaRolon/SotNRandomizerLauncher/releases">Randomizer Launcher</a></li>
                     <li><a href="https://taliczealot.github.io/#/apps/sotnrandotools">Rando Tools</a></li>
                   </ul>
-              </li>
-        
+              </li>        
         </ul>
       </nav>
     </div>
-
     <div id="version"></div>
     <main>
-      <div id="content">
-        
+      <div id="content">        
         <img src = "images/logo.png" class = "center">
         <div class = "center-text">
           by Wild Mouse,
@@ -78,8 +75,7 @@
           <a class="contact" href="https://twitch.tv/crazy4bladestv">
             <img height="16" width="16"
                 src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/twitch.svg"></a>
-        </div>
-        
+        </div>        
         <form id="form">
           <fieldset id="output">
         <div class="right-theme">
@@ -99,7 +95,6 @@
                      value="bin">
                 <label for="output-bin">.bin</label>
               </div>
-
               <div id="ppf">
                 <input id="output-ppf"
                   name="output"
@@ -112,8 +107,7 @@
               <label id="status" for="file"></label>
               <input id="file" type="file" accept=".bin,.iso">
             </div>
-          </fieldset>
-          
+          </fieldset>          
           <div id="randomization-options" class="responsive-three-column-grid">
             <fieldset>
               <legend>Randomizations</legend>
@@ -127,8 +121,7 @@
                   <div id="preset-select">
                     <select id="preset-id"></select>
                   </div>
-                </div>
-                
+                </div>                
                 <section id="preset-details">
                   <h4>Preset description:</h4>
                   <p id="preset-description"></p>
@@ -136,7 +129,6 @@
                   <p id="preset-author"></p>
                   <fieldset id="meta-data-group">
                     <legend>Meta Data</legend>
-
                     <div class="meta-data">
                       <h4>Knowledge Required:</h4>
                       <p id="preset-knowledgeCheck"></p>
@@ -178,18 +170,15 @@
                       <p id="preset-winCondition"></p>
                     </div>
                   </fieldset>
-                </section>
-  
+                </section>  
                 <fieldset id="options">
                   <small>&#10071; Lower complexities generate faster but may also be faster to beat.</small>
                   <div id="complexity-slider">
                     <label for="complexity">Complexity</label>
-
                     <div id="complexity-slider-details"> 
                       <span id="complexityMinValue">1</span>
                       <input id="complexity" type="range" min="1" list="complexityValues">
                       <span id="complexityMaxValue"></span>
-
                       <span id="complexityCurrentValue"></span>
                       <datalist id="complexityValues">
                         <option value="1" label="1"></option>
@@ -314,7 +303,6 @@
                       </label>
                     </div>
                   </fieldset>
-
                   <input id="enemy-drops-arg"
                          type="text"
                          disabled="disabled"
@@ -349,8 +337,7 @@
             </fieldset>
             <fieldset>
               <legend>Options</legend>
-              <div class = "checkboxes">
-                
+              <div class = "checkboxes">                
                 <div>
                   <label for="newGoals">Change Goals</label><span class="tooltip-wrapper">
                     <span class="tooltip-indicator">?</span>
@@ -374,8 +361,7 @@
                     <option value="bhAdvanced">Target Confirmed</option>
                     <option value="bhHitman">Hitman</option>
                     <option value="bhBoss">All Bosses & Bounties</option>
-                  </select>
-                  
+                  </select>                  
                 </div>
                 <div>
                   <input id="append-seed" type="checkbox">
@@ -422,7 +408,7 @@
                     </span>
                   </label>
                 </div>
-                <div >
+                <div>
                   <input id="magicmax-mode" type="checkbox">
                   <label for="magicmax-mode">Magic Vessels
                     <span class="tooltip-wrapper">
@@ -435,8 +421,7 @@
                     </span>
                   </label>
                 </div>
-
-                <div >
+                <div>
                   <input id="accessibility-patches" type="checkbox">
                   <label for="accessibility-patches">Accessibility Patches
                     <span class="tooltip-wrapper">
@@ -610,9 +595,9 @@
                   </label>
                 </div>
                 <div>
-                  <input id="music" type="checkbox">
-                  <label for="music">Music Randomizer</label>
-                </div>
+                  <input id="item-locations" type="checkbox">
+                  <label for="item-locations">Item locations</label>
+                </div>                
                 <div>
                   <input id="shopPriceRando-mode" type="checkbox">
                   <label for="shopPriceRando-mode">Shop Prices
@@ -629,8 +614,8 @@
                   </label>
                 </div>
                 <div>
-                  <input id="item-locations" type="checkbox">
-                  <label for="item-locations">Item locations</label>
+                  <input id="starting-equipment" type="checkbox" disabled>
+                  <label for="starting-equipment">Starting Equipment</label>
                 </div>
                  <div>
                   <input id="startRoomRando-mode" type="checkbox">
@@ -648,8 +633,8 @@
                   </label>
                 </div>
                 <div>
-                  <input id="starting-equipment" type="checkbox" disabled>
-                  <label for="starting-equipment">Starting Equipment</label>
+                  <input id="prologue-rewards" type="checkbox">
+                  <label for="prologue-rewards">Prologue Rewards</label>
                 </div>
                <div>
                   <input id="startRoomRando2nd-mode" type="checkbox">
@@ -668,8 +653,7 @@
                   </label>
                 </div>
                 <div>
-                  <input id="prologue-rewards" type="checkbox">
-                  <label for="prologue-rewards">Prologue Rewards</label>
+                  
                 </div>
                  <div>
                   <input id="domino-mode" type="checkbox">
@@ -704,20 +688,7 @@
                   </label>
                 </div>
                 <div>     </div>
-                <div>     
-                  <input id="boss-music-separation" type="checkbox">
-                  <label for="boss-music-separation">Separate Boss Music
-                    <span class="tooltip-wrapper">
-                      <span class="tooltip-indicator">?</span>
-                      <span class="tooltip hidden">
-                        <span>
-                          Separates Boss music and Normal stage music randomization. 
-                          Prevents hearing Enchanted Banquet for 10 minutes.
-                        </span>
-                      </span>
-                    </span>
-                  </label>
-                </div>
+                <div>     </div>
                 <div>     </div>
                 <div>     
                   <input id="immunity-potion-mode" type="checkbox">
@@ -802,9 +773,28 @@
                   <div id="alucardPaletteDisplay" style="width:96px; height:64px; background: url(https://i.servimg.com/u/f81/20/40/06/51/alucar10.png);"></div>
                 </div>
                 <div>
+                  <input id="music" type="checkbox">
+                  <label for="music">Music Randomizer</label>
+                </div>
+                <div>     
+                  <input id="boss-music-separation" type="checkbox">
+                  <label for="boss-music-separation">Separate Boss Music
+                    <span class="tooltip-wrapper">
+                      <span class="tooltip-indicator">?</span>
+                      <span class="tooltip hidden">
+                        <span>
+                          Separates Boss music and Normal stage music randomization. 
+                          Prevents hearing Enchanted Banquet for 10 minutes.
+                        </span>
+                      </span>
+                    </span>
+                  </label>
+                </div>
+                <div>
                   <label>
-                    <span>Exclude Songs</span>
+                    
                     <input id="excludeSongsOption" type="checkbox">
+                    <span>Exclude Songs </span>
                     <span class="tooltip-wrapper">
                       <span class="tooltip-indicator">?</span>
                       <span class="tooltip hidden">
