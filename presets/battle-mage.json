@@ -27,6 +27,7 @@
   "magicmaxMode": true,
   "mypurseMode": true,
   "enemyStatRandoMode": true,
+  "immunityPotionMode": true,
 
   "alias": [{
     "comment": "Alias Bat Card as Rune(sword)",

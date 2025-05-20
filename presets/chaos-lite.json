@@ -33,6 +33,7 @@
   "startRoomRandoMode": true,
   "startRoomRando2ndMode": true,
   "newGoalsSet": "h",
+  "immunityPotionMode": true,
 
   "complexityGoal": {
     "min": 1,
