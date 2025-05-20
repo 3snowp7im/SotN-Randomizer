@@ -6927,16 +6927,18 @@ function applyBountyHunterTargets(rng,bhmode) {
 			VladDropRate = 256						// Vlad Drop Rate increased for Hitman & Target Confirmed
 			while(dindex < 397)						// Buff item Drops for Hitman & Target Confirmed
 			{
-				offset = getEnemyOffset(dindex)
-				data.writeShort(offset + 0x1E,16)
-				data.writeShort(offset + 0x20,32)		
-				dindex = dindex + 1			
+				if(enemyHasVlad(dindex) == 0)		// Only change Drop Rates on Enemies without Vlads.
+				{
+					offset = getEnemyOffset(dindex)
+					data.writeShort(offset + 0x1E,16)
+					data.writeShort(offset + 0x20,32)		
+					dindex = dindex + 1
+				}			
 			}
 		}		
 	}
 	
 	// Execution
-	checkForDropRateBoost()
 	selectTargets()
 	writeTargetData(TargetHeartId,TargetHeartEnemyId,0xF5560,1)
 	writeTargetData(TargetToothId,TargetToothEnemyId,0xF558C,2)
@@ -6945,6 +6947,7 @@ function applyBountyHunterTargets(rng,bhmode) {
 	writeTargetData(TargetEyeId,TargetEyeEnemyId,0xF5614,5)
 	changeCardNames()
 	handleDuplicateDefs()
+	checkForDropRateBoost()
 	
 	return data
 }
