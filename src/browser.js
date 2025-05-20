@@ -1085,6 +1085,9 @@
     if (elems.antiFreezeMode.checked) {
       options.antiFreezeMode = true
     }
+    if (elems.immunityPotionMode.checked) {
+      options.immunityPotionMode = true
+    }
     if (elems.mypurseMode.checked) {
       options.mypurseMode = true
     }
