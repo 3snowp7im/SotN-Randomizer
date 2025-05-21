@@ -656,6 +656,11 @@ const yargs = require('yargs')
     describe: 'Converts Resist Fire, Resist Ice, etc. potions to grant Immunity to the element in question and allows them to grant invincibility frames.',
     type: 'boolean',
   })
+  .option('godspeed', {
+    alias: 'gss',
+    describe: 'Allows Alucard to run by double-pressing in the direction you intend to move in.',
+    type: 'boolean',
+  })
   .option('bossMusic', {
     alias: 'bm',
     describe: 'Randomizes Boss Music separately from other songs.',
@@ -1149,6 +1154,11 @@ if ('debug' in argv) {console.log('randomize | Set immunity potions')}
 if (argv.immunityPotion) { // immunity potions - eldrich
   options.immunityPotionMode = true
 }
+if ('debug' in argv) {console.log('randomize | Set godspeed')}
+// Enable godspeed shoes mode if specified. - eldri7ch
+if (argv.godspeed) {
+  options.godspeedMode = true
+}
 if ('debug' in argv) {console.log('randomize | Set bossMusic')}
 // randomize Boss Music Separately. - eldri7ch
 if (argv.bossMusic) {
@@ -1382,6 +1392,10 @@ if ('debug' in argv) {console.log('randomize | Start randomization')}
               break
           }
         }
+        // Apply Godspeed Shoes Patches
+        if ('godspeed' in argv || options.godspeedMode || applied.godspeedMode) {
+          optWrite = optWrite + 0x80000000
+        }
         check.apply(util.randoFuncMaster(optWrite))
         check.apply(util.applySplashText(rng))
         if ('debug' in argv) {console.log('randomize | function: randomize | Apply patches from options')}
@@ -1515,6 +1529,11 @@ if ('debug' in argv) {console.log('randomize | Start randomization')}
           check.apply(util.applyResistToImmunePotionsPatches())
         }
         if ('debug' in argv) {console.log('randomize | function: randomize | Immunity Potions Mode | ' + optFlag)}
+        optFlag = false
+        if (options.godspeedMode || applied.godspeedMode) { // godspeed shoes - eldrich
+          optFlag = true
+        }
+        if ('debug' in argv) {console.log('randomize | function: randomize | Godspeed Mode | ' + optFlag)}
         optFlag = false
         if (options.bossMusicSeparation || applied.bossMusicSeparation) { // reverse library cards - eldrich
           // verify boss music separate. - eldri7ch

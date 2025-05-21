@@ -411,6 +411,12 @@
     } else {
       elems.rlbcMode.disabled = false
     }
+    if (["battle-mage"].includes(preset.id)) {                                                      // Remove godspeed mode for incompatible presets. - eldri7ch
+      elems.godspeedMode.checked = false
+      elems.godspeedMode.disabled = true
+    } else {
+      elems.godspeedMode.disabled = false
+    }
     if (["bounty-hunter","target-confirmed","hitman","chaos-lite","rampage","oracle"].includes(preset.id)) {              // Remove guaranteed drops mode for incompatible presets. - eldri7ch
       elems.dominoMode.checked = false
       elems.dominoMode.disabled = true
@@ -508,6 +514,7 @@
     elems.dominoMode.checked = !!options.dominoMode
     elems.rlbcMode.checked = !!options.rlbcMode
     elems.immunityPotionMode.checked = !!options.immunityPotionMode
+    elems.godspeedMode.checked = !!options.godspeedMode
     elems.bossMusicSeparation.checked = !!options.bossMusicSeparation
   }
 
@@ -924,6 +931,10 @@
     localStorage.setItem('immunityPotionMode', elems.immunityPotionMode.checked)
   }
 
+  function godspeedModeChange() {
+    localStorage.setItem('godspeedMode', elems.godspeedMode.checked)
+  }
+
   function bossMusicSeparationChange() {
     localStorage.setItem('bossMusicSeparation', elems.bossMusicSeparation.checked)
   }
@@ -1126,6 +1137,9 @@
     }
     if (elems.immunityPotionMode.checked) {
       options.immunityPotionMode = true
+    }
+    if (elems.godspeedMode.checked) {
+      options.godspeedMode = true
     }
     if (elems.bossMusicSeparation.checked) {
       options.bossMusicSeparation = true
@@ -1490,6 +1504,12 @@
               optWrite = optWrite + 0x00
           }
         }
+        // Apply godspeed shoes patches.
+        elementSet = elems.godspeedMode.value
+        console.log('godspeed enabled ' + elementSet)
+        if (elementSet || options.godspeedMode || applied.godspeedMode) {
+          optWrite = optWrite + 0x80000000
+        }
         check.apply(util.randoFuncMaster(optWrite))
         check.apply(util.applySplashText(rng))
         // Apply tournament mode patches.
@@ -1555,12 +1575,12 @@
         if (options.rlbcMode || applied.rlbcMode) {
           check.apply(util.applyRLBCPatches())
         }
-        // No patches to apply for Boss Music Separator
-        if (options.bossMusicSeparation || applied.bossMusicSeparation) {
-        }
         // Apply Resist potion patches. todo: Give own toggle option.
         if (options.immunityPotionMode || applied.immunityPotionMode) {
           check.apply(util.applyResistToImmunePotionsPatches())
+        }
+        // No patches to apply for Boss Music Separator
+        if (options.bossMusicSeparation || applied.bossMusicSeparation) {
         }
         // Apply map color patches.
         if (mapColorLock != 'normal') {
@@ -1847,6 +1867,7 @@
     elems.dominoMode.disabled = false
     elems.rlbcMode.disabled = false
     elems.immunityPotionMode.disabled = false
+    elems.godspeedMode.disabled = false
     elems.bossMusicSeparation.disabled = false
     elems.tournamentMode.disabled = false
     elems.clear.classList.add('hidden')
@@ -2046,6 +2067,7 @@
     dominoMode: document.getElementById('domino-mode'),
     rlbcMode: document.getElementById('rlbc-mode'),
     immunityPotionMode: document.getElementById('immunity-potion-mode'),
+    godspeedMode: document.getElementById('godspeed-mode'),
     bossMusicSeparation: document.getElementById('boss-music-separation'),
     accessibilityPatches: document.getElementById('accessibility-patches'),
     showSpoilers: document.getElementById('show-spoilers'),
@@ -2134,6 +2156,7 @@
   elems.dominoMode.addEventListener('change', dominoModeChange)
   elems.rlbcMode.addEventListener('change', rlbcModeChange)
   elems.immunityPotionMode.addEventListener('change', immunityPotionModeChange)
+  elems.godspeedMode.addEventListener('change',godspeedModeChange)
   elems.bossMusicSeparation.addEventListener('change', bossMusicSeparationChange)
   elems.accessibilityPatches.addEventListener('change', accessibilityPatchesChange)
   elems.showSpoilers.addEventListener('change', spoilersChange)
@@ -2470,7 +2493,8 @@
   loadOption('dominoMode', dominoModeChange, false)
   loadOption('rlbcMode', rlbcModeChange, false)
   loadOption('immunityPotionMode', immunityPotionModeChange, false)
-  loadOption('bossMusicSeparation', bossMusicSeparationChange, false)
+  loadOption('godspeedMode', godspeedModeChange, false)
+  loadOption('bossMusicSeparation', bossMusicSeparationChange, true)
   loadOption('accessibilityPatches', accessibilityPatchesChange, true)
   loadOption('showSpoilers', spoilersChange, true)
   setTimeout(function() {

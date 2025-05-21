@@ -2587,6 +2587,11 @@ function hexValueToDamageString(hexValue) {
           randomize.push('ip')
         }
         delete options.immunityPotionMode
+      } else if ('godspeedMode' in options) { // godspeed shoes - eldri7ch
+        if (options.godspeedMode) {
+          randomize.push('gss')
+        }
+        delete options.godspeedMode
       } else if ('mapcolorTheme' in options) { // switch map color
         randomize.push('m:' + options.mapcolorTheme)
         delete options.mapcolorTheme
@@ -3849,6 +3854,7 @@ function hexValueToDamageString(hexValue) {
     dominoMode,
     rlbcMode,
     immunityPotionMode,
+    godspeedMode,
     bossMusicSeparation,
     newGoalsSet,
     debugMode,
@@ -3896,6 +3902,7 @@ function hexValueToDamageString(hexValue) {
     this.dominoMode = dominoMode
     this.rlbcMode = rlbcMode
     this.immunityPotionMode = immunityPotionMode
+    this.godspeedMode = godspeedMode
     this.bossMusicSeparation = bossMusicSeparation
     this.newGoalsSet = newGoalsSet
     this.debugMode = debugMode
@@ -4064,6 +4071,8 @@ function hexValueToDamageString(hexValue) {
     this.rlbc = false
     // immunity potions mode.
     this.immunityPotion = false
+    // godspeed mode.
+    this.godspeed = false
     // boss music separation
     this.bossMusic = true
     // new goals for completion.
@@ -4398,6 +4407,9 @@ function hexValueToDamageString(hexValue) {
     }
     if ('immunityPotionMode' in json) {
       builder.immunityPotionMode(json.immunityPotionMode)
+    }
+    if ('godspeedMode' in json) {
+      builder.godspeedMode(json.godspeedMode)
     }
     if ('bossMusicSeparation' in json) {
       builder.bossMusicSeparation(json.bossMusicSeparation)
@@ -4742,6 +4754,9 @@ function hexValueToDamageString(hexValue) {
     }
     if ('immunityPotionMode' in preset) {
       this.immunityPotion = preset.immunityPotionMode
+    }
+    if ('godspeedMode' in preset) {
+      this.godspeed = preset.godspeedMode
     }
     if ('bossMusicSeparation' in preset) {
       this.bossMusic = preset.bossMusicSeparation
@@ -5491,9 +5506,14 @@ function hexValueToDamageString(hexValue) {
     this.rlbc = enabled
   }
 
-  // Enable Reverse Library Cards - eldri7ch
+  // Enable Immunity Potions - eldri7ch
   PresetBuilder.prototype.immunityPotionMode = function immunityPotionMode(enabled) {
     this.immunityPotion = enabled
+  }
+
+  // Enable Godspeed Shoes - eldri7ch
+  PresetBuilder.prototype.godspeedMode = function godspeedMode(enabled) {
+    this.godspeed = enabled
   }
 
   // Enable boss music separation - eldri7ch
@@ -5824,6 +5844,7 @@ function hexValueToDamageString(hexValue) {
     const domino = self.domino
     const rlbc = self.rlbc
     const immunityPotion = self.immunityPotion
+    const godspeed = self.godspeed
     const bossMusic = self.bossMusic
     const newGoals = self.newGoals
     const debug = self.debug
@@ -5871,6 +5892,7 @@ function hexValueToDamageString(hexValue) {
       domino,
       rlbc,
       immunityPotion,
+      godspeed,
       bossMusic,
       newGoals,
       debug,
