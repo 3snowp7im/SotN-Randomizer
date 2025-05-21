@@ -1056,7 +1056,7 @@
   {
     "name": "Boss Reflector",
     "id": "boss-reflector",
-    "description": "Use a Magic Mirror (X + Triangle; Replaces Holy Glasses) to move between the castles. Significant map changes to add new complexity. Warp room in entrance goes to Outer Wall at the start. All bosses and Vlads required, progression items in vanilla locations.",
+    "description": "Use a Magic Mirror (X + Triangle; Replaces Holy Glasses) to move between the castles. Significant map changes to add new complexity. Warp room in entrance goes to Outer Wall at the start. All bosses and Vlads required.",
     "author": [
       "eldri7ch",
       "MottZilla",
