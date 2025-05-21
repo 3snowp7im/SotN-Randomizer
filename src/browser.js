@@ -1505,9 +1505,9 @@
           }
         }
         // Apply godspeed shoes patches.
-        elementSet = elems.godspeedMode.value
-        console.log('godspeed enabled ' + elementSet)
-        if (elementSet || options.godspeedMode || applied.godspeedMode) {
+        // console.log('godspeed option: ' + options.godspeedMode + '; godspeed applied: ' + applied.godspeedMode)
+        if (options.godspeedMode || applied.godspeedMode) {
+          // console.log('godspeed enabled')
           optWrite = optWrite + 0x80000000
         }
         check.apply(util.randoFuncMaster(optWrite))

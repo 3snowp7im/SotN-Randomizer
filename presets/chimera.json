@@ -26,6 +26,7 @@
   "colorrandoMode": true,
   "fastwarpMode": true,
   "magicmaxMode": true,
+  "godspeedMode": true,
 
   "complexityGoal": {
     "min": 8,
