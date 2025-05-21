@@ -1858,21 +1858,22 @@
   function copyHandler(event) {
     event.preventDefault()
     event.stopPropagation()
-    elems.seed.value = elems.seed.value || currSeed || ''
-    const url = util.optionsToUrl(
-      version,
-      getFormOptions(),
-      checksum,
-      elems.seed.value,
-      window.location.href,
-    )
-    const input = document.createElement('input')
-    document.body.appendChild(input)
-    input.type = 'text'
-    input.value = url.toString()
-    input.select()
-    document.execCommand('copy')
-    document.body.removeChild(input)
+    //elems.seed.value = elems.seed.value || currSeed || ''
+    // const url = util.optionsToUrl(                                     Removed to change the copy seed button to a Copy Spoilers button
+    //   version,
+    //   getFormOptions(),
+    //   checksum,
+    //   elems.seed.value,
+    //   window.location.href,
+    // )
+    // const input = document.createElement('input')
+    // document.body.appendChild(input)
+    // input.type = 'text'
+    // input.value = url.toString()
+    // input.select()
+    // document.execCommand('copy')
+    // document.body.removeChild(input)
+    navigator.clipboard.writeText(spoilers.value);
     if (animationDone) {
       animationDone = false
       elems.notification.classList.add('success')
