@@ -50,7 +50,17 @@
     "Final Toccata",
     "Dance of Illusions",
     "Blood Relations"
-  ]
+  ]  
+
+function displayRandomSplashText() {
+    const splashTextPride = constants.prideSplashPhrases
+    const randomSplashIndex = Math.floor(Math.random() * splashTextPride.length);
+    const randomText = splashTextPride[randomSplashIndex];
+    document.getElementById("splashTextDisplay").textContent = randomText;
+}
+
+displayRandomSplashText()
+
  
   var paletteSelect = document.querySelector('#alucardPalette');
   var linerSelect = document.querySelector('#alucardLiner');

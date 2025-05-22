@@ -68,6 +68,27 @@ h1 {
     text-align: center;
     padding: 5px;
 }
+.splash-text{
+    padding-top: .5em;
+    text-align: center;
+    margin: auto;
+    width: 100%;
+    font-size: 2.5em;
+    background-image: linear-gradient(to left, #F94144, #F3722C, #F9C74F, #90BE6D, #57BED6, #9C71D4);
+    background-clip: text;
+    background-size: 200% auto;
+    color: transparent;
+    animation: rainbow 4s linear infinite;
+}
+
+@keyframes rainbow {
+    0%{
+        background-position: 200% 50%;
+    }
+    100%{
+        background-position: 0% 50% ;
+    }
+}
 
 .right-theme {
     float: right;
