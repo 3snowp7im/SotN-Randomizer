@@ -1366,6 +1366,7 @@ if ('debug' in argv) {console.log('randomize | Start randomization')}
         // Start the function master
         let optWrite = 0x00000000                   // This variable lets the ASM used in the Master Function know if it needs to run certain code or sets flags for the tracker to use
         let nGoal
+        // console.log(options.newGoalsSet + '|' + applied.newGoalsSet)
         if ('newGoals' in argv || options.newGoalsSet || applied.newGoalsSet) {                   // Sets flag for the tracker to know which goals to use
           if (argv.newgoals !== undefined) {
             nGoal = argv.newgoals
@@ -1391,6 +1392,7 @@ if ('debug' in argv) {console.log('randomize | Start randomization')}
             default:
               break
           }
+          // console.log('optwrite ' + optWrite)
         }
         // Apply Godspeed Shoes Patches
         if ('godspeed' in argv || options.godspeedMode || applied.godspeedMode) {

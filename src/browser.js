@@ -304,7 +304,8 @@
       "nimble-lite",
       "oracle",
       "boss-reflector",
-      "cornivus"
+      "cornivus",
+      "mirror-breaker"
     ]
     let relicCompatible = [
       "casual",
@@ -346,7 +347,8 @@
       "vanilla",
       "nimble-lite",
       "all-bosses",
-      "cornivus"
+      "cornivus",
+      "mirror-breaker"
     ]    
     if(idx < 0) idx = 0;
     const id = elems.presetId.childNodes[idx].value
@@ -423,7 +425,7 @@
     } else {
       elems.dominoMode.disabled = false
     }
-    if (["all-bosses"].includes(preset.id)) {                                                       // set all bosses goals. - eldri7ch
+    if (["all-bosses","mirror-breaker"].includes(preset.id)) {                                                       // set all bosses goals. - eldri7ch
       elems.newGoals.value = "allBoss"
     } else if (["boss-reflector","rampage","cornivus"].includes(preset.id)) {
       elems.newGoals.value = "vladBoss"
@@ -712,7 +714,8 @@
       "nimble-lite",
       "oracle",
       "boss-reflector",
-      "cornivus"
+      "cornivus",
+      "mirror-breaker"
     ]
     let relicCompatible = [
       "casual",
@@ -754,7 +757,8 @@
       "vanilla",
       "nimble-lite",
       "all-bosses",
-      "cornivus"
+      "cornivus",
+      "mirror-breaker"
     ]
     switch (elems.newGoals.value) {                                             // Adjusting newGoals drop-down based on selections - eldri7ch
       case "abrsr":                                                             // ABRSR (All Bosses and Relics) can't exist if not compatible with All Boss AND All Relics - eldri7ch
@@ -808,7 +812,7 @@
       }
     }
     if (elems.newGoals.value !== "allBoss") {                                   // Check against all Bosses compatibility (Right now this only checks All-Bosses Preset) - eldri7ch
-      if (["all-bosses"].includes(elems.presetId.value) && elems.newGoals.value !== "abrsr") {
+      if (["all-bosses","mirror-breaker"].includes(elems.presetId.value) && !["abrsr","vladBoss"].includes(elems.newGoals.value)) {
         elems.newGoals.value = "allBoss"
       }
     }
@@ -1453,6 +1457,7 @@
         let optWrite = 0x00000000                   // This variable lets the ASM used in the Master Function know if it needs to run certain code or sets flags for the tracker to use
         let nGoal                                                                           //begin the newGoals flag setting for the function master
         let elementSet = elems.newGoals.value
+        console.log('elem set ' + elementSet + '; opt ' + options.newGoals + '; appl ' + applied.newGoals)
         if (elementSet !== "default" || options.newGoals || applied.newGoals) {   // Sets flag for the tracker to know which goals to use
           if (elementSet !== "default") {
             switch(elementSet) {
@@ -1866,6 +1871,7 @@
     elems.startRoomRando2ndMode.disabled = false
     elems.dominoMode.disabled = false
     elems.rlbcMode.disabled = false
+    elems.newGoals.value = ''
     elems.immunityPotionMode.disabled = false
     elems.godspeedMode.disabled = false
     elems.bossMusicSeparation.disabled = false
