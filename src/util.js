@@ -7507,7 +7507,18 @@ function applyBountyHunterTargets(rng,bhmode) {
     // Patch the reverse library card function
     offset = 0x12B534                                 // Hook to our new LBC function
     data.writeWord(offset, 0x0C02622F)                // No "nop" instr needed as it's already a call
-    
+    // Update description
+	offset = 0xF1DE8
+	offset = data.writeWord(offset,0x65766552)
+	offset = data.writeWord(offset,0x62697372)
+	offset = data.writeWord(offset,0x6C20656C)
+	offset = data.writeWord(offset,0x61726269)
+	offset = data.writeWord(offset,0x63207972)
+	offset = data.writeWord(offset,0x20647261)
+	offset = data.writeWord(offset,0x73756D81)
+	offset = data.writeWord(offset,0x006E8165)
+	// Update Name
+	data.writeShort(0xF1E14,0xFFE6)    
     return data
   }
 
