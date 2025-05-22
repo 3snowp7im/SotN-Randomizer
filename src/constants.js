@@ -1880,7 +1880,9 @@
     "Klasse!",
     "C\’est genial!",
     "Fifty dollar gift card!",
-    "eldri7ch checks!"
+    "eldri7ch checks!",
+    "At least it\'s better than Spellbound!",
+    "There's no \'world record\' for randomizers!"
   ]
 
   const prideSplashPhrases = [
