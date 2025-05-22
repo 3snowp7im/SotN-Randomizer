@@ -995,7 +995,7 @@
   {
     "name": "Oracle",
     "id": "oracle",
-    "description": "Removes almost all references to RNG. Drops always occur based on Ring of Arcana, Rings are replaced by Silver Key, Vlads are replaced by Gold Key. Reverse Library Card enabled.",
+    "description": "Removes almost all references to RNG. Drops always occur and rarity is determined based on Ring of Arcana, Rings are replaced by Silver Key, Vlads are replaced by Gold Key. Reverse Library Card enabled.",
     "author": [
       "Forat Negre"
     ],
@@ -1050,26 +1050,6 @@
     "transformFocus": "None",
     "winCondition": "All Bosses",
     "metaExtension": "Guarded",
-    "metaComplexity": "6",
-    "itemStats": "Normal"
-  },
-  {
-    "name": "Boss Reflector",
-    "id": "boss-reflector",
-    "description": "Use a Magic Mirror (X + Triangle; Replaces Holy Glasses) to move between the castles. Significant map changes to add new complexity. Warp room in entrance goes to Outer Wall at the start. All bosses and Vlads required.",
-    "author": [
-      "eldri7ch",
-      "MottZilla",
-      "Dr4gonBlitz"
-    ],
-    "knowledgeCheck": "None",
-    "timeFrame": "Fast",
-    "moddedLevel": "Heavily",
-    "castleType": "Modded",
-    "transformEarly": "No",
-    "transformFocus": "None",
-    "winCondition": "All Bosses & Vlad Relics",
-    "metaExtension": "GuardedPlus",
     "metaComplexity": "6",
     "itemStats": "Normal"
   },
@@ -1153,5 +1133,26 @@
     "metaExtension": "Scenic",
     "metaComplexity": "1",
     "itemStats": "Randomized"
+  },
+  {
+    "name": "Mirror Breaker",
+    "id": "mirror-breaker",
+    "description": "Start in a random first castle location with Gravity Boots, one of each stat potion, and a Magic Mirror (X + Triangle; Replaces Holy Glasses) to move between the castles. Significant map changes to add new complexity. All bosses required.",
+    "author": [
+      "eldri7ch",
+      "MottZilla",
+      "Dr4gonBlitz",
+      "emeraldend9231"
+    ],
+    "knowledgeCheck": "None",
+    "timeFrame": "Fast",
+    "moddedLevel": "Heavily",
+    "castleType": "Modded",
+    "transformEarly": "No",
+    "transformFocus": "None",
+    "winCondition": "All Bosses",
+    "metaExtension": "GuardedPlus",
+    "metaComplexity": "3",
+    "itemStats": "Normal"
   }
 ]

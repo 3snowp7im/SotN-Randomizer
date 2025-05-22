@@ -2,11 +2,11 @@
   "metadata": {
     "id": "oracle",
     "name": "Oracle",
-    "description": "Removes almost all references to RNG. Drops always occur based on Ring of Arcana, Rings are replaced by Silver Key, Vlads are replaced by Gold Key. Reverse Library Card enabled.",
+    "description": "Removes almost all references to RNG. Drops always occur and rarity is determined based on Ring of Arcana, Rings are replaced by Silver Key, Vlads are replaced by Gold Key. Reverse Library Card enabled.",
     "author": [
       "Forat Negre"
     ],
-    "weight": -5005,
+    "weight": -5004,
     "knowledgeCheck": "None",
     "metaExtension": "Guarded",
     "metaComplexity": "9",
@@ -943,53 +943,6 @@
   }],
 
   "writes": [{
-    "comment": "Jump to injected code",
-    "address": "0x000FA97C",
-    "type": "word",
-    "value": "0x0C04DB00"
-  }, {
-    "address": "0x00158C98",
-    "type": "word",
-    "value": "0x3C038009",
-    "comment": "lui v1, 0x8009"
-  }, {
-    "type": "word",
-    "value": "0x34020063",
-    "comment": "ori v0, 0x0063"
-  }, {
-    "comment": "Set luck stat to 99",
-    "type": "word",
-    "value": "0xA0627BC4",
-    "comment": "sb v0, 0x7bc4 (v1)"
-  }, {
-    "type": "word",
-    "value": "0x34020001",
-    "comment": "ori v0, 0x0001"
-  }, {
-    "comment": "Set intelligence stat to 1",
-    "type": "word",
-    "value": "0xA0627BC0",
-    "comment": "sb v0, 0x7bc0 (v1)"
-  }, {
-    "comment": "Set constitution stat to 1",
-    "type": "word",
-    "value": "0xA0627BBC",
-    "comment": "sb v0, 0x7bbc (v1)"
-  }, {
-    "comment": "Set strength stat to 1",
-    "type": "word",
-    "value": "0xA0627BB8",
-    "comment": "sb v0, 0x7bb8 (v1)"
-  }, {
-    "comment": "Return from injected code",
-    "type": "word",
-    "value": "0x0803924f",
-    "comment": "j 0x800e493c"
-  }, {
-    "type": "word",
-    "value": "0x00000000",
-    "comment": "nop"
-  }, {
     "comment": "Enemies always drop their item (default: uncommon, w/Arcana: rare)",
     "address": "0x119188",
     "type": "word",

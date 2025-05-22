@@ -4129,6 +4129,7 @@ function hexValueToDamageString(hexValue) {
   function locksFromArray(locks) {
     const self = this
     return locks.map(function(lock) {
+      // console.log(lock)
       return lock.split(/\s*\+\s*/).map(function(name) {
         return relicFromName(getRelicAlias.call(self, name)).ability
       }).join('')
