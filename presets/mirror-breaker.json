@@ -34,6 +34,24 @@
       "Jewel of Open + Soul of Bat"
   ]},
 
+  "blockEquipment": [{
+    "slot": "Right hand",
+    "item": [
+        "Estoc",
+        "Jewel sword",
+        "Short sword",
+        "Tyrfing",
+        "Red Rust",
+        "Blue knuckles",
+        "Basilard",
+        "Gladius",
+        "Muramasa",
+        "Falchion",
+        "Mace",
+        "Jewel knuckles"
+      ]
+  }],
+
   "lockLocation": [{
     "location": "Faerie Scroll",
     "comment": "Requires Mirror",
@@ -5357,5 +5375,34 @@
     "type":    "char",
     "address": "0x143C58",
     "value":    "0x40"
+  }, 
+  
+  {
+    "comment": "Escape Button for Caverns X",
+    "type": "word",
+    "address": "0x48FE92A",
+    "value": "0x009C00D0"
+  }, {
+    "type": "word",
+    "value": "0x2020A02C"
+  }, {
+    "type": "char",
+    "value": "0x8D"
+  }, {
+    "comment": "Escape Button for Caverns Y",
+    "type": "word",
+    "address": "0x48FD85E",
+    "value": "0x009C00D0"
+  }, {
+    "type": "word",
+    "value": "0x2020A02C"
+  }, {
+    "type": "char",
+    "value": "0x8D"
+  }, {
+    "comment": "BG Fix for missing candle",
+    "type": "short",
+    "address": "0x4929996",
+    "value": "0x03B9"
   }]
 }
