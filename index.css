@@ -23,6 +23,10 @@ h4{
     image-rendering: pixelated;
 }
 
+.input-box{
+    margin-top: 1em;
+}
+
 .alucard-display{
     zoom: 200%; 
     image-rendering: pixelated; 
@@ -126,7 +130,7 @@ h1 {
 }
 
 #warning {
-    display: block;
+    margin-top: 1em;
     padding-top: 1em;
     padding-left: 1em;
     padding-bottom: 1em;
