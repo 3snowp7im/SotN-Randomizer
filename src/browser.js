@@ -11,6 +11,17 @@
   const applyAccessibilityPatches = sotnRando.applyAccessibilityPatches
   const relics = sotnRando.relics
   const apiUrl = "https://sotnrandoapi.duckdns.org";
+  const seasonalEvents = [
+    {
+      "eventName": "Pride Month",
+      "startMonth": 5,
+      "startDay": 1,
+      "endMonth": 7,
+      "endDay": 1,
+      "eventLogo": "images/logopride.png",
+      "toolSplashPhrases": constants.prideSplashPhrases
+    }
+  ]
   
 
   let info
@@ -52,15 +63,13 @@
     "Blood Relations"
   ]  
 
-function displayRandomSplashText() {
-    const splashTextPride = constants.prideSplashPhrases
-    const randomSplashIndex = Math.floor(Math.random() * splashTextPride.length);
-    const randomText = splashTextPride[randomSplashIndex];
+function displayRandomSplashText(seasonalEvent) {
+    if(!seasonalEvent.toolSplashPhrases) return;
+    const splashPhrases = seasonalEvent.toolSplashPhrases;
+    const randomSplashIndex = Math.floor(Math.random() * splashPhrases.length);
+    const randomText = splashPhrases[randomSplashIndex];
     document.getElementById("splashTextDisplay").textContent = randomText;
 }
-
-displayRandomSplashText()
-
  
   var paletteSelect = document.querySelector('#alucardPalette');
   var linerSelect = document.querySelector('#alucardLiner');
@@ -1982,12 +1991,32 @@ displayRandomSplashText()
     });
   }
 
+  function saveStoredSongs(){
+    const excludeList = document.getElementById('excludeList');
+    const excludedItems = Array.from(excludeList.options).map(option => option.text);
+    localStorage.setItem('excludedSongsList', excludedItems);
+  }
+
+  function loadStoredSongs(){
+    const storedExcludedSongs = localStorage.getItem('excludedSongsList');
+    if(storedExcludedSongs){
+      const includeList = document.getElementById("includeList");
+      const excludeList = document.getElementById('excludeList');
+      for (const option of includeList.options) {
+        option.selected = storedExcludedSongs.includes(option.text);
+      }
+      excludeSong();
+    }
+  }
+
   function excludeSong(){
     moveItemBetweenExclusionLists("include", "exclude");
+    saveStoredSongs();
   }
 
   function includeSong(){
     moveItemBetweenExclusionLists("exclude", "include");
+    saveStoredSongs();
   }
 
   function loadSongs(){
@@ -1997,6 +2026,35 @@ displayRandomSplashText()
       option.textContent = song;
       elems.includeList.appendChild(option);
     })
+    loadStoredSongs();
+  }
+
+  function isTodayBetweenDates(startMonth, startDay, endMonth, endDay){
+    const today = new Date();
+    const year = today.getFullYear();
+
+    const startDate = new Date(year, startMonth, startDay); 
+    const endDate = new Date(year, endMonth, endDay);   
+
+    return today >= startDate && today < endDate;
+  }
+
+  function loadEventLogo(seasonalEvent){
+    if(seasonalEvent.eventLogo){
+      elems.logo.src = seasonalEvent.eventLogo;
+      return;
+    }  
+  }
+
+  function loadEvent(){
+    for(const seasonalEvent of seasonalEvents){
+      // Months are - 1 because JS months start from 0.
+      if(isTodayBetweenDates(seasonalEvent.startMonth - 1, seasonalEvent.startDay, seasonalEvent.endMonth - 1, seasonalEvent.endDay)){
+        loadEventLogo(seasonalEvent);
+        displayRandomSplashText(seasonalEvent);
+        return;
+      }
+    }
   }
 
   const body = document.getElementsByTagName('body')[0]
@@ -2103,9 +2161,10 @@ displayRandomSplashText()
     excludeSongsMenu: document.getElementById('excludeSongsMenu'),
     excludeSongsOption: document.getElementById('excludeSongsOption'),
     includeList: document.getElementById('includeList'),
-    excludeList: document.getElementById('excludeList')
+    excludeList: document.getElementById('excludeList'),
+    logo: document.getElementById('pageLogo')
   }
-
+  loadEvent();
   resetState()
   elems.output.ppf.addEventListener('change', outputChange)
   elems.output.bin.addEventListener('change', outputChange)
