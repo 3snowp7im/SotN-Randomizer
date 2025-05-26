@@ -14,7 +14,7 @@
   const seasonalEvents = [
     {
       "eventName": "Pride Month",
-      "startMonth": 5,
+      "startMonth": 6,
       "startDay": 1,
       "endMonth": 7,
       "endDay": 1,
