@@ -1813,970 +1813,1444 @@
     "type": "word",
     "value": "0x00006461"
   },
-
-  {
-    "comment": "Brain of Vlad Icon NowMake",
-    "type": "word",
-    "address": "0xB5580",
-    "value": "0x00000000"
-  },
-   {
-    "comment": "Ear of Vlad Icon NowMake",
-    "type": "word",
-    "address": "0xB5600",
-    "value": "0x00000000"
-  },
-    {
-    "comment": "Tongue of Vlad Icon NowMake",
-    "type": "word",
-    "address": "0xB5770",
-    "value": "0x00000000"
-  },
   
 {
     "comment": "Hook EX0",
     "type": "word",
     "address": "0x10B138",
     "value": "0x0C003000"
-  }, {
+},
+{
     "type": "word",
     "value": "0x00000000"
-  }, {
+},
+{
     "comment": "EX0",
     "type": "word",
     "address": "0x370F5A8",
     "value": "0x08003004"
-  }, {
+},
+{
     "type": "word",
     "value": "0x00000000"
-  }, {
+},
+{
     "type": "word",
-    "value": "0x08003116"
-  }, {
+    "value": "0x08003143"
+},
+{
     "type": "word",
     "value": "0x00000000"
-  }, {
+},
+{
     "type": "word",
     "value": "0x27BDFFE0"
-  }, {
+},
+{
     "type": "word",
     "value": "0xAFBF0018"
-  }, {
+},
+{
     "type": "word",
     "value": "0x0C00301C"
-  }, {
+},
+{
     "type": "word",
     "value": "0x00000000"
-  }, {
+},
+{
     "type": "word",
     "value": "0x0C00302D"
-  }, {
+},
+{
     "type": "word",
     "value": "0x00000000"
-  }, {
+},
+{
     "type": "word",
     "value": "0x0C00303E"
-  }, {
+},
+{
     "type": "word",
     "value": "0x00000000"
-  }, {
+},
+{
     "type": "word",
-    "value": "0x0C003052"
-  }, {
-    "type": "word",
-    "value": "0x00000000"
-  }, {
-    "type": "word",
-    "value": "0x0C003074"
-  }, {
+    "value": "0x0C00305C"
+},
+{
     "type": "word",
     "value": "0x00000000"
-  }, {
+},
+{
     "type": "word",
-    "value": "0x0C0030A3"
-  }, {
-    "type": "word",
-    "value": "0x00000000"
-  }, {
-    "type": "word",
-    "value": "0x0C003108"
-  }, {
+    "value": "0x0C00307E"
+},
+{
     "type": "word",
     "value": "0x00000000"
-  }, {
+},
+{
     "type": "word",
-    "value": "0x0C0030EE"
-  }, {
+    "value": "0x0C0030B3"
+},
+{
     "type": "word",
     "value": "0x00000000"
-  }, {
+},
+{
+    "type": "word",
+    "value": "0x0C003135"
+},
+{
+    "type": "word",
+    "value": "0x00000000"
+},
+{
+    "type": "word",
+    "value": "0x0C003110"
+},
+{
+    "type": "word",
+    "value": "0x00000000"
+},
+{
     "type": "word",
     "value": "0x8FBF0018"
-  }, {
+},
+{
     "type": "word",
     "value": "0x27BD0020"
-  }, {
+},
+{
     "type": "word",
     "value": "0x3C028004"
-  }, {
+},
+{
     "type": "word",
     "value": "0x8C42C9A0"
-  }, {
+},
+{
     "type": "word",
     "value": "0x03E00008"
-  }, {
+},
+{
     "type": "word",
     "value": "0x00000000"
-  }, {
+},
+{
     "type": "word",
     "value": "0x3C048009"
-  }, {
+},
+{
     "type": "word",
     "value": "0x90857964"
-  }, {
+},
+{
     "type": "word",
     "value": "0x90867976"
-  }, {
+},
+{
     "type": "word",
     "value": "0x00000000"
-  }, {
+},
+{
     "type": "word",
     "value": "0x3C04800A"
-  }, {
+},
+{
     "type": "word",
     "value": "0x348484C4"
-  }, {
+},
+{
     "type": "word",
     "value": "0x10A00006"
-  }, {
+},
+{
     "type": "word",
     "value": "0x00000000"
-  }, {
+},
+{
     "type": "word",
     "value": "0x10C00004"
-  }, {
+},
+{
     "type": "word",
     "value": "0x00000000"
-  }, {
+},
+{
     "type": "word",
     "value": "0xA0800000"
-  }, {
+},
+{
     "type": "word",
     "value": "0x03E00008"
-  }, {
+},
+{
     "type": "word",
     "value": "0x00000000"
-  }, {
+},
+{
     "type": "word",
     "value": "0x34050008"
-  }, {
+},
+{
     "type": "word",
     "value": "0xA0850000"
-  }, {
+},
+{
     "type": "word",
     "value": "0x03E00008"
-  }, {
+},
+{
     "type": "word",
     "value": "0x00000000"
-  }, {
+},
+{
     "type": "word",
     "value": "0x3C048009"
-  }, {
+},
+{
     "type": "word",
     "value": "0x90857970"
-  }, {
+},
+{
     "type": "word",
     "value": "0x9086797A"
-  }, {
+},
+{
     "type": "word",
     "value": "0x00000000"
-  }, {
+},
+{
     "type": "word",
     "value": "0x3C04800F"
-  }, {
+},
+{
     "type": "word",
     "value": "0x3484F074"
-  }, {
+},
+{
     "type": "word",
     "value": "0x10A00006"
-  }, {
+},
+{
     "type": "word",
     "value": "0x00000000"
-  }, {
+},
+{
     "type": "word",
     "value": "0x10C00004"
-  }, {
+},
+{
     "type": "word",
     "value": "0x00000000"
-  }, {
+},
+{
     "type": "word",
     "value": "0xA4800000"
-  }, {
+},
+{
     "type": "word",
     "value": "0x03E00008"
-  }, {
+},
+{
     "type": "word",
     "value": "0x00000000"
-  }, {
+},
+{
     "type": "word",
     "value": "0x3405FFFB"
-  }, {
+},
+{
     "type": "word",
     "value": "0xA4850000"
-  }, {
+},
+{
     "type": "word",
     "value": "0x03E00008"
-  }, {
+},
+{
     "type": "word",
     "value": "0x00000000"
-  }, {
+},
+{
     "type": "word",
     "value": "0x3C048009"
-  }, {
+},
+{
     "type": "word",
     "value": "0x9085796B"
-  }, {
+},
+{
     "type": "word",
     "value": "0x90867977"
-  }, {
+},
+{
     "type": "word",
     "value": "0x00000000"
-  }, {
+},
+{
     "type": "word",
     "value": "0x3C04800F"
-  }, {
+},
+{
     "type": "word",
     "value": "0x3484EF50"
-  }, {
+},
+{
     "type": "word",
-    "value": "0x10A00007"
-  }, {
-    "type": "word",
-    "value": "0x00000000"
-  }, {
-    "type": "word",
-    "value": "0x10C00005"
-  }, {
+    "value": "0x10A0000C"
+},
+{
     "type": "word",
     "value": "0x00000000"
-  }, {
+},
+{
+    "type": "word",
+    "value": "0x10C0000A"
+},
+{
+    "type": "word",
+    "value": "0x00000000"
+},
+{
     "type": "word",
     "value": "0xA4800000"
-  }, {
+},
+{
     "type": "word",
     "value": "0xA480004C"
-  }, {
-    "type": "word",
-    "value": "0x03E00008"
-  }, {
+},
+{
     "type": "word",
     "value": "0x00000000"
-  }, {
+},
+{
     "type": "word",
-    "value": "0x3405FFFE"
-  }, {
+    "value": "0x3C04800A"
+},
+{
+    "type": "word",
+    "value": "0x34848576"
+},
+{
+    "type": "word",
+    "value": "0x34051020"
+},
+{
     "type": "word",
     "value": "0xA4850000"
-  }, {
+},
+{
+    "type": "word",
+    "value": "0x03E00008"
+},
+{
+    "type": "word",
+    "value": "0x00000000"
+},
+{
+    "type": "word",
+    "value": "0x3405FFFE"
+},
+{
+    "type": "word",
+    "value": "0xA4850000"
+},
+{
     "type": "word",
     "value": "0x3405FFF6"
-  }, {
+},
+{
     "type": "word",
     "value": "0xA485004C"
-  }, {
-    "type": "word",
-    "value": "0x03E00008"
-  }, {
+},
+{
     "type": "word",
     "value": "0x00000000"
-  }, {
+},
+{
+    "type": "word",
+    "value": "0x3C04800A"
+},
+{
+    "type": "word",
+    "value": "0x34848576"
+},
+{
+    "type": "word",
+    "value": "0x34050080"
+},
+{
+    "type": "word",
+    "value": "0xA4850000"
+},
+{
+    "type": "word",
+    "value": "0x03E00008"
+},
+{
+    "type": "word",
+    "value": "0x00000000"
+},
+{
     "type": "word",
     "value": "0x3C048009"
-  }, {
+},
+{
     "type": "word",
     "value": "0x90857968"
-  }, {
+},
+{
     "type": "word",
     "value": "0x9086797B"
-  }, {
+},
+{
     "type": "word",
     "value": "0x00000000"
-  }, {
+},
+{
     "type": "word",
     "value": "0x3C04800A"
-  }, {
+},
+{
     "type": "word",
     "value": "0x34848588"
-  }, {
+},
+{
     "type": "word",
     "value": "0x10A00007"
-  }, {
+},
+{
     "type": "word",
     "value": "0x00000000"
-  }, {
+},
+{
     "type": "word",
     "value": "0x10C00005"
-  }, {
+},
+{
     "type": "word",
     "value": "0x00000000"
-  }, {
+},
+{
     "type": "word",
     "value": "0x34050001"
-  }, {
+},
+{
     "type": "word",
     "value": "0xA0850000"
-  }, {
+},
+{
     "type": "word",
     "value": "0x18000004"
-  }, {
+},
+{
     "type": "word",
     "value": "0x00000000"
-  }, {
+},
+{
     "type": "word",
     "value": "0x34050005"
-  }, {
+},
+{
     "type": "word",
     "value": "0xA0850000"
-  }, {
+},
+{
     "type": "word",
     "value": "0x1800000E"
-  }, {
+},
+{
     "type": "word",
     "value": "0x3C048009"
-  }, {
+},
+{
     "type": "word",
     "value": "0x90857969"
-  }, {
+},
+{
     "type": "word",
     "value": "0x00000000"
-  }, {
+},
+{
     "type": "word",
     "value": "0x14A00003"
-  }, {
+},
+{
     "type": "word",
     "value": "0x00000000"
-  }, {
+},
+{
     "type": "word",
     "value": "0x34A50003"
-  }, {
+},
+{
     "type": "word",
     "value": "0xA0857969"
-  }, {
+},
+{
     "type": "word",
     "value": "0x00000000"
-  }, {
+},
+{
     "type": "word",
     "value": "0x9085796A"
-  }, {
+},
+{
     "type": "word",
     "value": "0x00000000"
-  }, {
+},
+{
     "type": "word",
     "value": "0x14A00003"
-  }, {
+},
+{
     "type": "word",
     "value": "0x00000000"
-  }, {
+},
+{
     "type": "word",
     "value": "0x34A50003"
-  }, {
+},
+{
     "type": "word",
     "value": "0xA085796A"
-  }, {
+},
+{
     "type": "word",
     "value": "0x03E00008"
-  }, {
+},
+{
     "type": "word",
     "value": "0x00000000"
-  }, {
+},
+{
     "type": "word",
     "value": "0x00000000"
-  }, {
+},
+{
     "type": "word",
     "value": "0x3C048009"
-  }, {
+},
+{
     "type": "word",
     "value": "0x90857971"
-  }, {
+},
+{
     "type": "word",
     "value": "0x9086797C"
-  }, {
+},
+{
     "type": "word",
     "value": "0x00000000"
-  }, {
+},
+{
     "type": "word",
-    "value": "0x10A00028"
-  }, {
-    "type": "word",
-    "value": "0x00000000"
-  }, {
-    "type": "word",
-    "value": "0x10C00026"
-  }, {
+    "value": "0x10A0002E"
+},
+{
     "type": "word",
     "value": "0x00000000"
-  }, {
+},
+{
+    "type": "word",
+    "value": "0x10C0002C"
+},
+{
+    "type": "word",
+    "value": "0x00000000"
+},
+{
+    "type": "word",
+    "value": "0x90857970"
+},
+{
+    "type": "word",
+    "value": "0x9086797A"
+},
+{
+    "type": "word",
+    "value": "0x00000000"
+},
+{
+    "type": "word",
+    "value": "0x00A62821"
+},
+{
+    "type": "word",
+    "value": "0x14C00026"
+},
+{
+    "type": "word",
+    "value": "0x00000000"
+},
+{
     "type": "word",
     "value": "0x3C048007"
-  }, {
+},
+{
     "type": "word",
     "value": "0x94853404"
-  }, {
+},
+{
     "type": "word",
     "value": "0x00000000"
-  }, {
+},
+{
     "type": "word",
     "value": "0x10A00003"
-  }, {
+},
+{
     "type": "word",
     "value": "0x24A5FFFF"
-  }, {
+},
+{
     "type": "word",
     "value": "0x14A00005"
-  }, {
+},
+{
     "type": "word",
     "value": "0x00000000"
-  }, {
+},
+{
     "type": "word",
     "value": "0x3C048000"
-  }, {
+},
+{
     "type": "word",
-    "value": "0x3484C1CC"
-  }, {
+    "value": "0x3484C1F4"
+},
+{
     "type": "word",
     "value": "0x34050001"
-  }, {
+},
+{
     "type": "word",
     "value": "0xAC850000"
-  }, {
+},
+{
     "type": "word",
     "value": "0x00000000"
-  }, {
+},
+{
     "type": "word",
     "value": "0x3C048007"
-  }, {
+},
+{
     "type": "word",
     "value": "0x3C068000"
-  }, {
+},
+{
     "type": "word",
-    "value": "0x34C6C1CC"
-  }, {
+    "value": "0x34C6C1F4"
+},
+{
     "type": "word",
     "value": "0x8CC50000"
-  }, {
+},
+{
     "type": "word",
     "value": "0x90872F64"
-  }, {
+},
+{
     "type": "word",
     "value": "0x10A00013"
-  }, {
+},
+{
     "type": "word",
     "value": "0x00000000"
-  }, {
+},
+{
     "type": "word",
     "value": "0x34E60000"
-  }, {
+},
+{
     "type": "word",
     "value": "0x30C60001"
-  }, {
+},
+{
     "type": "word",
     "value": "0x10C0000F"
-  }, {
+},
+{
     "type": "word",
     "value": "0x00000000"
-  }, {
+},
+{
     "type": "word",
     "value": "0x3C068009"
-  }, {
+},
+{
     "type": "word",
     "value": "0x34C67491"
-  }, {
+},
+{
     "type": "word",
     "value": "0x90C50000"
-  }, {
+},
+{
     "type": "word",
     "value": "0x00000000"
-  }, {
+},
+{
     "type": "word",
     "value": "0x30A50010"
-  }, {
+},
+{
     "type": "word",
     "value": "0x10A00008"
-  }, {
+},
+{
     "type": "word",
     "value": "0x30E700FE"
-  }, {
+},
+{
     "type": "word",
     "value": "0xA0872F64"
-  }, {
+},
+{
     "type": "word",
     "value": "0x3C068000"
-  }, {
+},
+{
     "type": "word",
-    "value": "0x34C6C1CC"
-  }, {
+    "value": "0x34C6C1F4"
+},
+{
     "type": "word",
     "value": "0x8CC50000"
-  }, {
+},
+{
     "type": "word",
     "value": "0x00000000"
-  }, {
+},
+{
     "type": "word",
     "value": "0x24A5FFFF"
-  }, {
+},
+{
     "type": "word",
     "value": "0xACC50000"
-  }, {
+},
+{
     "type": "word",
     "value": "0x03E00008"
-  }, {
+},
+{
     "type": "word",
     "value": "0x00000000"
-  }, {
+},
+{
     "type": "word",
     "value": "0x3C048009"
-  }, {
+},
+{
     "type": "word",
     "value": "0x90857967"
-  }, {
+},
+{
     "type": "word",
     "value": "0x00000000"
-  }, {
+},
+{
     "type": "word",
     "value": "0x10A0001B"
-  }, {
+},
+{
     "type": "word",
     "value": "0x00000000"
-  }, {
+},
+{
     "type": "word",
     "value": "0x3C04800A"
-  }, {
+},
+{
     "type": "word",
     "value": "0x34848000"
-  }, {
+},
+{
     "type": "word",
     "value": "0x34050005"
-  }, {
+},
+{
     "type": "word",
     "value": "0xA085041C"
-  }, {
+},
+{
     "type": "word",
     "value": "0x34050003"
-  }, {
+},
+{
     "type": "word",
     "value": "0xA0850438"
-  }, {
+},
+{
     "type": "word",
     "value": "0x34050008"
-  }, {
+},
+{
     "type": "word",
     "value": "0xA0850454"
-  }, {
+},
+{
     "type": "word",
     "value": "0x3405000A"
-  }, {
+},
+{
     "type": "word",
     "value": "0xA0850470"
-  }, {
+},
+{
     "type": "word",
     "value": "0x34050005"
-  }, {
+},
+{
     "type": "word",
     "value": "0xA085048C"
-  }, {
+},
+{
     "type": "word",
     "value": "0x34050019"
-  }, {
+},
+{
     "type": "word",
     "value": "0xA08504A8"
-  }, {
+},
+{
     "type": "word",
     "value": "0x908504C4"
-  }, {
+},
+{
     "type": "word",
     "value": "0x00000000"
-  }, {
+},
+{
     "type": "word",
     "value": "0x10A00002"
-  }, {
+},
+{
     "type": "word",
     "value": "0x34060005"
-  }, {
+},
+{
     "type": "word",
     "value": "0xA08604C4"
-  }, {
+},
+{
     "type": "word",
     "value": "0x90850588"
-  }, {
+},
+{
     "type": "word",
     "value": "0x34060001"
-  }, {
+},
+{
     "type": "word",
     "value": "0x10A60002"
-  }, {
+},
+{
     "type": "word",
     "value": "0x34070003"
-  }, {
+},
+{
     "type": "word",
     "value": "0xA0870588"
-  }, {
+},
+{
     "type": "word",
     "value": "0x03E00008"
-  }, {
+},
+{
     "type": "word",
     "value": "0x00000000"
-  }, {
+},
+{
     "type": "word",
     "value": "0x3C04800A"
-  }, {
+},
+{
     "type": "word",
     "value": "0x34848000"
-  }, {
+},
+{
     "type": "word",
     "value": "0x3405000A"
-  }, {
+},
+{
     "type": "word",
     "value": "0xA085041C"
-  }, {
+},
+{
     "type": "word",
     "value": "0x34050005"
-  }, {
+},
+{
     "type": "word",
     "value": "0xA0850438"
-  }, {
+},
+{
     "type": "word",
     "value": "0x3405000F"
-  }, {
+},
+{
     "type": "word",
     "value": "0xA0850454"
-  }, {
+},
+{
     "type": "word",
     "value": "0x34050014"
-  }, {
+},
+{
     "type": "word",
     "value": "0xA0850470"
-  }, {
+},
+{
     "type": "word",
     "value": "0x3405000A"
-  }, {
+},
+{
     "type": "word",
     "value": "0xA085048C"
-  }, {
+},
+{
     "type": "word",
     "value": "0x34050032"
-  }, {
+},
+{
     "type": "word",
     "value": "0xA08504A8"
-  }, {
+},
+{
     "type": "word",
     "value": "0x908504C4"
-  }, {
+},
+{
     "type": "word",
     "value": "0x00000000"
-  }, {
+},
+{
     "type": "word",
     "value": "0x10A00002"
-  }, {
+},
+{
     "type": "word",
     "value": "0x34060008"
-  }, {
+},
+{
     "type": "word",
     "value": "0xA08604C4"
-  }, {
+},
+{
     "type": "word",
     "value": "0x90850588"
-  }, {
+},
+{
     "type": "word",
     "value": "0x34060001"
-  }, {
+},
+{
     "type": "word",
     "value": "0x10A60002"
-  }, {
+},
+{
     "type": "word",
     "value": "0x34070005"
-  }, {
+},
+{
     "type": "word",
     "value": "0xA0870588"
-  }, {
+},
+{
     "type": "word",
     "value": "0x03E00008"
-  }, {
+},
+{
     "type": "word",
     "value": "0x00000000"
-  }, {
+},
+{
     "type": "word",
     "value": "0x3C048009"
-  }, {
+},
+{
     "type": "word",
     "value": "0x8C857C14"
-  }, {
+},
+{
     "type": "word",
     "value": "0x8C867C18"
-  }, {
+},
+{
     "type": "word",
-    "value": "0x3407004B"
-  }, {
+    "value": "0x34070053"
+},
+{
     "type": "word",
     "value": "0x34020000"
-  }, {
+},
+{
     "type": "word",
     "value": "0x14A70002"
-  }, {
+},
+{
     "type": "word",
     "value": "0x00000000"
-  }, {
+},
+{
     "type": "word",
     "value": "0x24420001"
-  }, {
+},
+{
     "type": "word",
     "value": "0x14C70002"
-  }, {
+},
+{
     "type": "word",
     "value": "0x00000000"
-  }, {
+},
+{
     "type": "word",
     "value": "0x24420001"
-  }, {
+},
+{
     "type": "word",
     "value": "0x9085796F"
-  }, {
+},
+{
     "type": "word",
     "value": "0x00000000"
-  }, {
+},
+{
     "type": "word",
     "value": "0x10A00002"
-  }, {
+},
+{
     "type": "word",
     "value": "0x00000000"
-  }, {
+},
+{
     "type": "word",
-    "value": "0x24420001"
-  }, {
+    "value": "0x24420002"
+},
+{
     "type": "word",
     "value": "0x03E00008"
-  }, {
+},
+{
     "type": "word",
     "value": "0x00000000"
-  }, {
-    "type": "word",
-    "value": "0x3C078000"
-  }, {
-    "type": "word",
-    "value": "0x34E7C370"
-  }, {
-    "type": "word",
-    "value": "0x3C068000"
-  }, {
-    "type": "word",
-    "value": "0x00E63826"
-  }, {
-    "type": "word",
-    "value": "0x00073882"
-  }, {
-    "type": "word",
-    "value": "0x3C060C00"
-  }, {
-    "type": "word",
-    "value": "0x00E63825"
-  }, {
-    "type": "word",
-    "value": "0x3C04800F"
-  }, {
-    "type": "word",
-    "value": "0x3484F4B8"
-  }, {
-    "type": "word",
-    "value": "0xAC870000"
-  }, {
-    "type": "word",
-    "value": "0x03E00008"
-  }, {
-    "type": "word",
-    "value": "0x00000000"
-  }, {
+},
+{
     "type": "word",
     "value": "0x3C048009"
-  }, {
+},
+{
     "type": "word",
-    "value": "0x8C857C0C"
-  }, {
+    "value": "0x8C857C14"
+},
+{
     "type": "word",
-    "value": "0x34060015"
-  }, {
+    "value": "0x8C867C18"
+},
+{
+    "type": "word",
+    "value": "0x3407004B"
+},
+{
     "type": "word",
     "value": "0x34020000"
-  }, {
+},
+{
     "type": "word",
-    "value": "0x14A60002"
-  }, {
+    "value": "0x14A70002"
+},
+{
     "type": "word",
     "value": "0x00000000"
-  }, {
+},
+{
     "type": "word",
     "value": "0x24420001"
-  }, {
+},
+{
     "type": "word",
-    "value": "0x90857973"
-  }, {
+    "value": "0x14C70002"
+},
+{
     "type": "word",
     "value": "0x00000000"
-  }, {
+},
+{
+    "type": "word",
+    "value": "0x24420001"
+},
+{
+    "type": "word",
+    "value": "0x9085796F"
+},
+{
+    "type": "word",
+    "value": "0x00000000"
+},
+{
     "type": "word",
     "value": "0x10A00002"
-  }, {
+},
+{
     "type": "word",
     "value": "0x00000000"
-  }, {
+},
+{
     "type": "word",
     "value": "0x24420001"
-  }, {
+},
+{
     "type": "word",
     "value": "0x03E00008"
-  }, {
+},
+{
     "type": "word",
     "value": "0x00000000"
-  }, {
+},
+{
     "type": "word",
     "value": "0x3C078000"
-  }, {
+},
+{
     "type": "word",
-    "value": "0x34E7C3E8"
-  }, {
+    "value": "0x34E7C3F8"
+},
+{
     "type": "word",
     "value": "0x3C068000"
-  }, {
+},
+{
     "type": "word",
     "value": "0x00E63826"
-  }, {
+},
+{
     "type": "word",
     "value": "0x00073882"
-  }, {
+},
+{
     "type": "word",
     "value": "0x3C060C00"
-  }, {
+},
+{
     "type": "word",
     "value": "0x00E63825"
-  }, {
+},
+{
     "type": "word",
     "value": "0x3C04800F"
-  }, {
+},
+{
     "type": "word",
-    "value": "0x3484DAD0"
-  }, {
+    "value": "0x3484F4B8"
+},
+{
     "type": "word",
     "value": "0xAC870000"
-  }, {
-    "type": "word",
-    "value": "0x03E00008"
-  }, {
+},
+{
     "type": "word",
     "value": "0x00000000"
-  }, {
+},
+{
+    "type": "word",
+    "value": "0x3C078000"
+},
+{
+    "type": "word",
+    "value": "0x34E7C3B0"
+},
+{
+    "type": "word",
+    "value": "0x3C068000"
+},
+{
+    "type": "word",
+    "value": "0x00E63826"
+},
+{
+    "type": "word",
+    "value": "0x00073882"
+},
+{
+    "type": "word",
+    "value": "0x3C060C00"
+},
+{
+    "type": "word",
+    "value": "0x00E63825"
+},
+{
+    "type": "word",
+    "value": "0x3C04800F"
+},
+{
+    "type": "word",
+    "value": "0x3484EC7C"
+},
+{
+    "type": "word",
+    "value": "0xAC870000"
+},
+{
     "type": "word",
     "value": "0x03E00008"
-  }, {
+},
+{
     "type": "word",
     "value": "0x00000000"
-  }, {
+},
+{
+    "type": "word",
+    "value": "0x3C048009"
+},
+{
+    "type": "word",
+    "value": "0x8C857C0C"
+},
+{
+    "type": "word",
+    "value": "0x34060015"
+},
+{
+    "type": "word",
+    "value": "0x34020000"
+},
+{
+    "type": "word",
+    "value": "0x14A60002"
+},
+{
+    "type": "word",
+    "value": "0x00000000"
+},
+{
+    "type": "word",
+    "value": "0x24420001"
+},
+{
+    "type": "word",
+    "value": "0x90857973"
+},
+{
+    "type": "word",
+    "value": "0x00000000"
+},
+{
+    "type": "word",
+    "value": "0x10A00002"
+},
+{
+    "type": "word",
+    "value": "0x00000000"
+},
+{
+    "type": "word",
+    "value": "0x24420001"
+},
+{
+    "type": "word",
+    "value": "0x03E00008"
+},
+{
+    "type": "word",
+    "value": "0x00000000"
+},
+{
+    "type": "word",
+    "value": "0x3C078000"
+},
+{
+    "type": "word",
+    "value": "0x34E7C49C"
+},
+{
+    "type": "word",
+    "value": "0x3C068000"
+},
+{
+    "type": "word",
+    "value": "0x00E63826"
+},
+{
+    "type": "word",
+    "value": "0x00073882"
+},
+{
+    "type": "word",
+    "value": "0x3C060C00"
+},
+{
+    "type": "word",
+    "value": "0x00E63825"
+},
+{
+    "type": "word",
+    "value": "0x3C04800F"
+},
+{
+    "type": "word",
+    "value": "0x3484DAD0"
+},
+{
+    "type": "word",
+    "value": "0xAC870000"
+},
+{
+    "type": "word",
+    "value": "0x03E00008"
+},
+{
+    "type": "word",
+    "value": "0x00000000"
+},
+{
+    "type": "word",
+    "value": "0x03E00008"
+},
+{
+    "type": "word",
+    "value": "0x00000000"
+},
+{
     "type": "word",
     "value": "0x34050000"
-  }, {
+},
+{
     "type": "word",
     "value": "0x14800003"
-  }, {
+},
+{
     "type": "word",
     "value": "0x3C018009"
-  }, {
+},
+{
     "type": "word",
     "value": "0x90257976"
-  }, {
+},
+{
     "type": "word",
     "value": "0x18000014"
-  }, {
+},
+{
     "type": "word",
     "value": "0x3406000C"
-  }, {
+},
+{
     "type": "word",
     "value": "0x14860003"
-  }, {
+},
+{
     "type": "word",
     "value": "0x00000000"
-  }, {
+},
+{
     "type": "word",
     "value": "0x9025797A"
-  }, {
+},
+{
     "type": "word",
     "value": "0x1800000F"
-  }, {
+},
+{
     "type": "word",
     "value": "0x34060007"
-  }, {
+},
+{
     "type": "word",
     "value": "0x14860003"
-  }, {
+},
+{
     "type": "word",
     "value": "0x00000000"
-  }, {
+},
+{
     "type": "word",
     "value": "0x90257977"
-  }, {
+},
+{
     "type": "word",
     "value": "0x1800000A"
-  }, {
+},
+{
     "type": "word",
     "value": "0x3406000D"
-  }, {
+},
+{
     "type": "word",
     "value": "0x14860003"
-  }, {
+},
+{
     "type": "word",
     "value": "0x00000000"
-  }, {
+},
+{
     "type": "word",
     "value": "0x9025797C"
-  }, {
+},
+{
     "type": "word",
     "value": "0x18000005"
-  }, {
+},
+{
     "type": "word",
     "value": "0x34060004"
-  }, {
+},
+{
     "type": "word",
     "value": "0x14860003"
-  }, {
+},
+{
     "type": "word",
     "value": "0x00000000"
-  }, {
+},
+{
     "type": "word",
     "value": "0x9025797B"
-  }, {
+},
+{
     "type": "word",
     "value": "0x18000000"
-  }, {
+},
+{
     "type": "word",
     "value": "0x3C018009"
-  }, {
+},
+{
     "type": "word",
     "value": "0x00240821"
-  }, {
+},
+{
     "type": "word",
     "value": "0x90227964"
-  }, {
+},
+{
     "type": "word",
     "value": "0x00000000"
-  }, {
+},
+{
     "type": "word",
     "value": "0x30420002"
-  }, {
+},
+{
     "type": "word",
     "value": "0x00451025"
-  }, {
+},
+{
     "type": "word",
     "value": "0x03E00008"
-  }, {
+},
+{
     "type": "word",
     "value": "0x0002102B"
-  }, {
+},
+{
     "comment": "End of EX0",
     "type": "word",
     "value": "0x00000000"
@@ -2873,22 +3347,555 @@
     "type": "word",
     "address": "0x117E10",
     "value": "0x08003001"
+  },
+
+  {
+    "comment": "Ear Icon",
+    "type": "word",
+    "address": "0xDFB2C",
+    "value": "0x00000000"
+  }, {
+    "type": "word",
+    "value": "0x00000000"
+  }, {
+    "type": "word",
+    "value": "0x00000000"
+  }, {
+    "type": "word",
+    "value": "0x00000000"
+  }, {
+    "type": "word",
+    "value": "0x11000000"
+  }, {
+    "type": "word",
+    "value": "0x00000011"
+  }, {
+    "type": "word",
+    "value": "0x55100000"
+  }, {
+    "type": "word",
+    "value": "0x00000145"
+  }, {
+    "type": "word",
+    "value": "0x66510000"
+  }, {
+    "type": "word",
+    "value": "0x00001476"
+  }, {
+    "type": "word",
+    "value": "0x44641000"
+  }, {
+    "type": "word",
+    "value": "0x00014745"
+  }, {
+    "type": "word",
+    "value": "0x35741000"
+  }, {
+    "type": "word",
+    "value": "0x00014856"
+  }, {
+    "type": "word",
+    "value": "0x26741000"
+  }, {
+    "type": "word",
+    "value": "0x00014765"
+  }, {
+    "type": "word",
+    "value": "0x56410000"
+  }, {
+    "type": "word",
+    "value": "0x00014582"
+  }, {
+    "type": "word",
+    "value": "0x34100000"
+  }, {
+    "type": "word",
+    "value": "0x00014362"
+  }, {
+    "type": "word",
+    "value": "0x44100000"
+  }, {
+    "type": "word",
+    "value": "0x00001357"
+  }, {
+    "type": "word",
+    "value": "0x73100000"
+  }, {
+    "type": "word",
+    "value": "0x00001245"
+  }, {
+    "type": "word",
+    "value": "0x31000000"
+  }, {
+    "type": "word",
+    "value": "0x00000124"
+  }, {
+    "type": "word",
+    "value": "0x10000000"
+  }, {
+    "type": "word",
+    "value": "0x00000011"
+  }, {
+    "type": "word",
+    "value": "0x00000000"
+  }, {
+    "type": "word",
+    "value": "0x00000000"
+  }, {
+    "type": "word",
+    "value": "0x00000000"
+  }, {
+    "type": "word",
+    "value": "0x00000000"
+  },
+  
+  {
+    "comment": "Tongue Icon",
+    "type": "word",
+    "address": "0xDFD34",
+    "value": "0x00000000"
+  }, {
+    "type": "word",
+    "value": "0x00000000"
+  }, {
+    "type": "word",
+    "value": "0x00000000"
+  }, {
+    "type": "word",
+    "value": "0x00000000"
+  }, {
+    "type": "word",
+    "value": "0x11000000"
+  }, {
+    "type": "word",
+    "value": "0x00000000"
+  }, {
+    "type": "word",
+    "value": "0x43100000"
+  }, {
+    "type": "word",
+    "value": "0x00000001"
+  }, {
+    "type": "word",
+    "value": "0x56210000"
+  }, {
+    "type": "word",
+    "value": "0x00000013"
+  }, {
+    "type": "word",
+    "value": "0x68521000"
+  }, {
+    "type": "word",
+    "value": "0x00000134"
+  }, {
+    "type": "word",
+    "value": "0x87653100"
+  }, {
+    "type": "word",
+    "value": "0x00000124"
+  }, {
+    "type": "word",
+    "value": "0x69765310"
+  }, {
+    "type": "word",
+    "value": "0x00001246"
+  }, {
+    "type": "word",
+    "value": "0x88876210"
+  }, {
+    "type": "word",
+    "value": "0x00113476"
+  }, {
+    "type": "word",
+    "value": "0x86222100"
+  }, {
+    "type": "word",
+    "value": "0x01344757"
+  }, {
+    "type": "word",
+    "value": "0x62111000"
+  }, {
+    "type": "word",
+    "value": "0x01237698"
+  }, {
+    "type": "word",
+    "value": "0x21000000"
+  }, {
+    "type": "word",
+    "value": "0x00123652"
+  }, {
+    "type": "word",
+    "value": "0x10000000"
+  }, {
+    "type": "word",
+    "value": "0x00011221"
+  }, {
+    "type": "word",
+    "value": "0x00000000"
+  }, {
+    "type": "word",
+    "value": "0x00000110"
+  }, {
+    "type": "word",
+    "value": "0x00000000"
+  }, {
+    "type": "word",
+    "value": "0x00000000"
+  }, {
+    "type": "word",
+    "value": "0x00000000"
+  }, {
+    "type": "word",
+    "value": "0x00000000"
+  },
+  
+  {
+    "comment": "Brain Icon",
+    "type": "word",
+    "address": "0xDAEAC",
+    "value": "0x00000000"
+  }, {
+    "type": "word",
+    "value": "0x00000000"
+  }, {
+    "type": "word",
+    "value": "0x11000000"
+  }, {
+    "type": "word",
+    "value": "0x00000001"
+  }, {
+    "type": "word",
+    "value": "0x44110000"
+  }, {
+    "type": "word",
+    "value": "0x00000114"
+  }, {
+    "type": "word",
+    "value": "0x55441000"
+  }, {
+    "type": "word",
+    "value": "0x00001446"
+  }, {
+    "type": "word",
+    "value": "0x59864100"
+  }, {
+    "type": "word",
+    "value": "0x0001695A"
+  }, {
+    "type": "word",
+    "value": "0x88976100"
+  }, {
+    "type": "word",
+    "value": "0x0014A5A5"
+  }, {
+    "type": "word",
+    "value": "0x79597410"
+  }, {
+    "type": "word",
+    "value": "0x01598A5A"
+  }, {
+    "type": "word",
+    "value": "0x8A977610"
+  }, {
+    "type": "word",
+    "value": "0x01697558"
+  }, {
+    "type": "word",
+    "value": "0x95976410"
+  }, {
+    "type": "word",
+    "value": "0x01365539"
+  }, {
+    "type": "word",
+    "value": "0x59793100"
+  }, {
+    "type": "word",
+    "value": "0x00122333"
+  }, {
+    "type": "word",
+    "value": "0x66642100"
+  }, {
+    "type": "word",
+    "value": "0x00011123"
+  }, {
+    "type": "word",
+    "value": "0x56221000"
+  }, {
+    "type": "word",
+    "value": "0x00000012"
+  }, {
+    "type": "word",
+    "value": "0x23110000"
+  }, {
+    "type": "word",
+    "value": "0x00000001"
+  }, {
+    "type": "word",
+    "value": "0x12100000"
+  }, {
+    "type": "word",
+    "value": "0x00000000"
+  }, {
+    "type": "word",
+    "value": "0x01000000"
+  }, {
+    "type": "word",
+    "value": "0x00000000"
+  }, {
+    "type": "word",
+    "value": "0x00000000"
+  }, {
+    "type": "word",
+    "value": "0x00000000"
+  }, {
+    "type": "short",
+    "address": "0xB5580",
+    "value": "0x007e"
   }, 
   
   {
-    "comment": "Default Warps Open Entrance & Outer Wall OK!",
-    "type": "char",
-    "address": "0x588BC08",
-    "value": "0x05"
-  }, {
-    "comment": "Entrance warp shortcut A",
+    "comment": "Ear Palette",
     "type": "word",
-    "address": "0x4BAB540",
+    "address": "0xEF04C",
+    "value": "0x6EBF0000"
+  }, {
+    "type": "word",
+    "value": "0x84658022"
+  }, {
+    "type": "word",
+    "value": "0xA10E80A9"
+  }, {
+    "type": "word",
+    "value": "0xAE3F8196"
+  }, {
+    "type": "word",
+    "value": "0x0000D2F9"
+  }, {
+    "type": "word",
     "value": "0x00000000"
   }, {
-    "comment": "Entrance warp shortcut B",
     "type": "word",
-    "address": "0x5432848",
     "value": "0x00000000"
+  }, {
+    "type": "word",
+    "value": "0x00000000"
+  }, 
+  
+  {
+    "comment": "Tongue Palette",
+    "type": "word",
+    "address": "0xEF0CC",
+    "value": "0x83920000"
+  }, {
+    "type": "word",
+    "value": "0xA00B8406"
+  }, {
+    "type": "word",
+    "value": "0xB44FC08C"
+  }, {
+    "type": "word",
+    "value": "0xA8FBA4B3"
+  }, {
+    "type": "word",
+    "value": "0xAE3FC5BF"
+  }, {
+    "type": "word",
+    "value": "0x00000000"
+  }, {
+    "type": "word",
+    "value": "0x00000000"
+  }, {
+    "type": "word",
+    "value": "0x00000000"
+  }, 
+  
+  {
+    "comment": "Brain Palette",
+    "type": "word",
+    "address": "0xEEF4C",
+    "value": "0xD3400000"
+  }, {
+    "type": "word",
+    "value": "0x80668022"
+  }, {
+    "type": "word",
+    "value": "0x84EC80A9"
+  }, {
+    "type": "word",
+    "value": "0x895088AF"
+  }, {
+    "type": "word",
+    "value": "0xA5D78D93"
+  }, {
+    "type": "word",
+    "value": "0x0000D2F9"
+  }, {
+    "type": "word",
+    "value": "0x00000000"
+  }, {
+    "type": "word",
+    "value": "0x00000000"
+  }, 
+  
+  {
+    "comment": "New Vlad Descriptions",
+    "type": "word",
+    "address": "0x37135F8",
+    "value": "0x6F205082"
+  }, {
+    "type": "word",
+    "value": "0x57822066"
+  }, {
+    "type": "word",
+    "value": "0x65725420"
+  }, {
+    "type": "word",
+    "value": "0x72757361"
+  }, {
+    "type": "word",
+    "value": "0x44817365"
+  }, {
+    "type": "word",
+    "value": "0x65705320"
+  }, {
+    "type": "word",
+    "value": "0x64206C6C"
+  }, {
+    "type": "word",
+    "value": "0x67616D61"
+  }, {
+    "type": "word",
+    "value": "0x00448165"
+  }, {
+    "type": "word",
+    "value": "0x00000000"
+  }, {
+    "type": "word",
+    "value": "0x00000000"
+  }, {
+    "type": "word",
+    "value": "0x00000000"
+  }, {
+    "type": "word",
+    "value": "0x6F205082"
+  }, {
+    "type": "word",
+    "value": "0x57822066"
+  }, {
+    "type": "word",
+    "value": "0x65725420"
+  }, {
+    "type": "word",
+    "value": "0x72757361"
+  }, {
+    "type": "word",
+    "value": "0x44817365"
+  }, {
+    "type": "word",
+    "value": "0x63754C20"
+  }, {
+    "type": "word",
+    "value": "0x6520796B"
+  }, {
+    "type": "word",
+    "value": "0x746E6576"
+  }, {
+    "type": "word",
+    "value": "0x00448173"
+  }, {
+    "type": "word",
+    "value": "0x00000000"
+  }, {
+    "type": "word",
+    "value": "0x00000000"
+  }, {
+    "type": "word",
+    "value": "0x00000000"
+  }, {
+    "type": "word",
+    "value": "0x6F205082"
+  }, {
+    "type": "word",
+    "value": "0x57822066"
+  }, {
+    "type": "word",
+    "value": "0x65725420"
+  }, {
+    "type": "word",
+    "value": "0x72757361"
+  }, {
+    "type": "word",
+    "value": "0x44817365"
+  }, {
+    "type": "word",
+    "value": "0x776F4C20"
+  }, {
+    "type": "word",
+    "value": "0x20504D20"
+  }, {
+    "type": "word",
+    "value": "0x74736F63"
+  }, {
+    "type": "word",
+    "value": "0x00004481"
+  }, 
+  
+  {
+    "comment": "New Tongue Description Pointer",
+    "type": "word",
+    "address": "0xB576C",
+    "value": "0x8009a0b0"
+  }, {
+    "comment": "New Ear Description Pointer",
+    "type": "word",
+    "address": "0xB55FC",
+    "value": "0x8009a0E0"
+  }, {
+    "comment": "New Brain Description Pointer",
+    "type": "word",
+    "address": "0xB557C",
+    "value": "0x8009a110"
+  }, 
+  
+  {
+    "comment": "New Vlad Count 1",
+    "type": "word",
+    "address": "0xF5410",
+    "value": "0x6F205082"
+  }, {
+    "type": "word",
+    "value": "0x57822066"
+  }, {
+    "comment": "New Vlad Count 2",
+    "type": "word",
+    "address": "0xF543C",
+    "value": "0x6F205082"
+  }, {
+    "type": "word",
+    "value": "0x57822066"
+  }, {
+    "comment": "New Vlad Count 3",
+    "type": "word",
+    "address": "0xF546C",
+    "value": "0x6F205082"
+  }, {
+    "type": "word",
+    "value": "0x57822066"
+  }, {
+    "comment": "New Vlad Count 4",
+    "type": "word",
+    "address": "0xF5498",
+    "value": "0x6F205082"
+  }, {
+    "type": "word",
+    "value": "0x57822066"
+  }, {
+    "comment": "New Vlad Count 5",
+    "type": "word",
+    "address": "0xF54C8",
+    "value": "0x6F205082"
+  }, {
+    "type": "word",
+    "value": "0x57822066"
   }]
 }
