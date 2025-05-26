@@ -1882,7 +1882,8 @@
     "Fifty dollar gift card!",
     "eldri7ch checks!",
     "At least it\'s better than Spellbound!",
-    "There's no \'world record\' for randomizers!"
+    "There's no \'world record\' for randomizers!",
+    "Rest in Peace, Scott."
   ]
 
   const prideSplashPhrases = [
