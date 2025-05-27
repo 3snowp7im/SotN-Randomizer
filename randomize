@@ -666,6 +666,11 @@ const yargs = require('yargs')
     describe: 'Opens a shortcut to allow players to swiftly exit the Long Library.',
     type: 'boolean',
   })
+  .option('devStash', {
+    alias: 'dev',
+    describe: '???',
+    type: 'boolean',
+  })
   .option('bossMusic', {
     alias: 'bm',
     describe: 'Randomizes Boss Music separately from other songs.',
@@ -1169,6 +1174,11 @@ if ('debug' in argv) {console.log('randomize | Set libShort')}
 if (argv.libShort) {
   options.libraryShortcut = true
 }
+if ('debug' in argv) {console.log('randomize | Set devStash')}
+// Enable Dev's Stash if specified. - eldri7ch
+if (argv.devStash) {
+  options.devStashMode = true
+}
 if ('debug' in argv) {console.log('randomize | Set bossMusic')}
 // randomize Boss Music Separately. - eldri7ch
 if (argv.bossMusic) {
@@ -1552,6 +1562,12 @@ if ('debug' in argv) {console.log('randomize | Start randomization')}
           check.apply(util.applyLibraryShortcutPatches())
         }
         if ('debug' in argv) {console.log('randomize | function: randomize | Library Shortcut | ' + optFlag)}
+        optFlag = false
+        if (options.devStashMode || applied.devStashMode) { // dev's stash - eldrich
+          optFlag = true
+          check.apply(util.applyDevsStashPatches())
+        }
+        if ('debug' in argv) {console.log('randomize | function: randomize | Dev\'s Stash | ' + optFlag)}
         optFlag = false
         if (options.bossMusicSeparation || applied.bossMusicSeparation) { // separate boss music - eldrich
           // verify boss music separate. - eldri7ch

@@ -537,6 +537,7 @@ function displayRandomSplashText(seasonalEvent) {
     elems.immunityPotionMode.checked = !!options.immunityPotionMode
     elems.godspeedMode.checked = !!options.godspeedMode
     elems.libraryShortcut.checked = !!options.libraryShortcut
+    elems.devStashMode.checked = !!options.devStashMode
     elems.bossMusicSeparation.checked = !!options.bossMusicSeparation
   }
 
@@ -963,6 +964,10 @@ function displayRandomSplashText(seasonalEvent) {
     localStorage.setItem('libraryShortcut', elems.libraryShortcut.checked)
   }
 
+  function devStashModeChange() {
+    localStorage.setItem('devStashMode', elems.devStashMode.checked)
+  }
+
   function bossMusicSeparationChange() {
     localStorage.setItem('bossMusicSeparation', elems.bossMusicSeparation.checked)
   }
@@ -1171,6 +1176,9 @@ function displayRandomSplashText(seasonalEvent) {
     }
     if (elems.libraryShortcut.checked) {
       options.libraryShortcut = true
+    }
+    if (elems.devStashMode.checked) {
+      options.devStashMode = true
     }
     if (elems.bossMusicSeparation.checked) {
       options.bossMusicSeparation = true
@@ -1615,6 +1623,10 @@ function displayRandomSplashText(seasonalEvent) {
         if (options.libraryShortcut || applied.libraryShortcut) {
           check.apply(util.applyLibraryShortcutPatches())
         }
+        // Apply dev stash patches.
+        if (options.devStashMode || applied.devStashMode) {
+          check.apply(util.applyDevsStashPatches())
+        }
         // No patches to apply for Boss Music Separator
         if (options.bossMusicSeparation || applied.bossMusicSeparation) {
         }
@@ -1906,6 +1918,7 @@ function displayRandomSplashText(seasonalEvent) {
     elems.immunityPotionMode.disabled = false
     elems.godspeedMode.disabled = false
     elems.libraryShortcut.disabled = false
+    elems.devStashMode.disabled = false
     elems.bossMusicSeparation.disabled = false
     elems.tournamentMode.disabled = false
     elems.clear.classList.add('hidden')
@@ -2156,6 +2169,7 @@ function displayRandomSplashText(seasonalEvent) {
     immunityPotionMode: document.getElementById('immunity-potion-mode'),
     godspeedMode: document.getElementById('godspeed-mode'),
     libraryShortcut: document.getElementById('library-shortcut'),
+    devStashMode: document.getElementById('dev-stash'),
     bossMusicSeparation: document.getElementById('boss-music-separation'),
     accessibilityPatches: document.getElementById('accessibility-patches'),
     showSpoilers: document.getElementById('show-spoilers'),
@@ -2247,6 +2261,7 @@ function displayRandomSplashText(seasonalEvent) {
   elems.immunityPotionMode.addEventListener('change', immunityPotionModeChange)
   elems.godspeedMode.addEventListener('change', godspeedModeChange)
   elems.libraryShortcut.addEventListener('change', libraryShortcutChange)
+  elems.devStashMode.addEventListener('change', devStashModeChange)
   elems.bossMusicSeparation.addEventListener('change', bossMusicSeparationChange)
   elems.accessibilityPatches.addEventListener('change', accessibilityPatchesChange)
   elems.showSpoilers.addEventListener('change', spoilersChange)
@@ -2585,6 +2600,7 @@ function displayRandomSplashText(seasonalEvent) {
   loadOption('immunityPotionMode', immunityPotionModeChange, false)
   loadOption('godspeedMode', godspeedModeChange, false)
   loadOption('libraryShortcut', libraryShortcutChange, false)
+  loadOption('devStashMode', devStashModeChange, false)
   loadOption('bossMusicSeparation', bossMusicSeparationChange, true)
   loadOption('accessibilityPatches', accessibilityPatchesChange, true)
   loadOption('showSpoilers', spoilersChange, true)
