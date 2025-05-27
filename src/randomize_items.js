@@ -1630,7 +1630,7 @@
 
   function randomizeRichterColor(data, rng){
     const RichterPaletteCount = 6
-    let colorR = 5//Math.floor(rng() * RichterPaletteCount)
+    let colorR = Math.floor(rng() * RichterPaletteCount)
     let offset = 0
     const RichterOffset = [         //Offsets for the pause UI during Prologue.
       0x38BE9EA,0x38BEA0A,0x38BEA2A,0x38BEA4A,0x38BEA6A,0x38BEAAA,0x38BEACA,0x38BEAEA,0x38BEB0A,0x38BEB2A,0x38BEB4A,0x38BEB6A
