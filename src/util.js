@@ -2592,6 +2592,11 @@ function hexValueToDamageString(hexValue) {
           randomize.push('gss')
         }
         delete options.godspeedMode
+      } else if ('libraryShortcut' in options) { // library shortcut - eldri7ch
+        if (options.libraryShortcut) {
+          randomize.push('ls')
+        }
+        delete options.libraryShortcut
       } else if ('mapcolorTheme' in options) { // switch map color
         randomize.push('m:' + options.mapcolorTheme)
         delete options.mapcolorTheme
@@ -3855,6 +3860,7 @@ function hexValueToDamageString(hexValue) {
     rlbcMode,
     immunityPotionMode,
     godspeedMode,
+    libraryShortcut,
     bossMusicSeparation,
     newGoalsSet,
     debugMode,
@@ -3903,6 +3909,7 @@ function hexValueToDamageString(hexValue) {
     this.rlbcMode = rlbcMode
     this.immunityPotionMode = immunityPotionMode
     this.godspeedMode = godspeedMode
+    this.libraryShortcut = libraryShortcut
     this.bossMusicSeparation = bossMusicSeparation
     this.newGoalsSet = newGoalsSet
     this.debugMode = debugMode
@@ -4073,6 +4080,8 @@ function hexValueToDamageString(hexValue) {
     this.immunityPotion = false
     // godspeed mode.
     this.godspeed = false
+    // library shortcut.
+    this.libShort = false
     // boss music separation
     this.bossMusic = true
     // new goals for completion.
@@ -4411,6 +4420,9 @@ function hexValueToDamageString(hexValue) {
     }
     if ('godspeedMode' in json) {
       builder.godspeedMode(json.godspeedMode)
+    }
+    if ('libraryShortcut' in json) {
+      builder.libraryShortcut(json.libraryShortcut)
     }
     if ('bossMusicSeparation' in json) {
       builder.bossMusicSeparation(json.bossMusicSeparation)
@@ -4758,6 +4770,9 @@ function hexValueToDamageString(hexValue) {
     }
     if ('godspeedMode' in preset) {
       this.godspeed = preset.godspeedMode
+    }
+    if ('libraryShortcut' in preset) {
+      this.libShort = preset.libraryShortcut
     }
     if ('bossMusicSeparation' in preset) {
       this.bossMusic = preset.bossMusicSeparation
@@ -5517,6 +5532,11 @@ function hexValueToDamageString(hexValue) {
     this.godspeed = enabled
   }
 
+  // Enable Library Shortcut - eldri7ch
+  PresetBuilder.prototype.libraryShortcut = function libraryShortcut(enabled) {
+    this.libShort = enabled
+  }
+
   // Enable boss music separation - eldri7ch
   PresetBuilder.prototype.bossMusicSeparation = function bossMusicSeparation(enabled) {
     this.bossMusic = enabled
@@ -5846,6 +5866,7 @@ function hexValueToDamageString(hexValue) {
     const rlbc = self.rlbc
     const immunityPotion = self.immunityPotion
     const godspeed = self.godspeed
+    const libShort = self.libShort
     const bossMusic = self.bossMusic
     const newGoals = self.newGoals
     const debug = self.debug
@@ -5894,6 +5915,7 @@ function hexValueToDamageString(hexValue) {
       rlbc,
       immunityPotion,
       godspeed,
+      libShort,
       bossMusic,
       newGoals,
       debug,
@@ -7742,6 +7764,175 @@ function applyBountyHunterTargets(rng,bhmode) {
     return data
   }
 
+  function applyLibraryShortcutPatches() {
+    const data = new checked()
+    let offset = 0x47c22ea
+    offset = data.writeWord(offset,0x02400254)
+    offset = data.writeWord(offset,0x02630221)
+    offset = data.writeWord(offset,0x02320233)
+    offset = data.writeWord(offset,0x02320233)
+    offset = data.writeWord(offset,0x02320233)
+    offset = data.writeWord(offset,0x02320233)
+    offset = data.writeWord(offset,0x02320233)
+    data.writeWord(offset,0x02320233)
+    
+    offset = 0x47c23c8
+    offset = data.writeWord(offset,0x022f022e)
+    offset = data.writeWord(offset,0x023a022f)
+    offset = data.writeWord(offset,0x023b023a)
+    offset = data.writeWord(offset,0x023b023a)
+    offset = data.writeWord(offset,0x023b023a)
+    offset = data.writeWord(offset,0x023b023a)
+    offset = data.writeWord(offset,0x023b023a)
+    offset = data.writeWord(offset,0x023b023a)
+    data.writeShort(offset,0x023a)
+    
+    offset = 0x47c24a8
+    offset = data.writeWord(offset,0x00b3026e)
+    offset = data.writeWord(offset,0x014100e7)
+    offset = data.writeWord(offset,0x013f0141)
+    offset = data.writeWord(offset,0x026e00b3)
+    offset = data.writeWord(offset,0x026c026f)
+    offset = data.writeWord(offset,0x026c026d)
+    offset = data.writeWord(offset,0x026c026d)
+    offset = data.writeWord(offset,0x026c026d)
+    data.writeShort(offset,0x026d)
+    
+    offset = 0x47c26b6
+    offset = data.writeWord(offset,0x026c0251)
+    offset = data.writeWord(offset,0x00e800b4)
+    offset = data.writeWord(offset,0x00ea00e9)
+    offset = data.writeWord(offset,0x00b400eb)
+    offset = data.writeWord(offset,0x0255026c)
+    offset = data.writeWord(offset,0x025d025c)
+    offset = data.writeWord(offset,0x025d025c)
+    offset = data.writeWord(offset,0x025d025c)
+    data.writeWord(offset,0x025d025c)
+    
+    offset = 0x47c2794
+    offset = data.writeWord(offset,0x0251025a)
+    offset = data.writeWord(offset,0x00b5026e)
+    offset = data.writeWord(offset,0x00ed00ec)
+    offset = data.writeWord(offset,0x00ef00ee)
+    offset = data.writeWord(offset,0x026e00b5)
+    offset = data.writeWord(offset,0x01fd025d)
+    offset = data.writeWord(offset,0x021001f3)
+    offset = data.writeWord(offset,0x01fa01f3)
+    offset = data.writeWord(offset,0x01f40210)
+    data.writeShort(offset,0x0204)
+    
+    offset = 0x47c2872
+    offset = data.writeWord(offset,0x02500278)
+    offset = data.writeWord(offset,0x026c0259)
+    offset = data.writeWord(offset,0x00f000b6)
+    offset = data.writeWord(offset,0x00f200f1)
+    offset = data.writeWord(offset,0x00b600f3)
+    offset = data.writeWord(offset,0x0255026c)
+    offset = data.writeWord(offset,0x01f901fe)
+    offset = data.writeWord(offset,0x01f3020f)
+    offset = data.writeWord(offset,0x020f01f4)
+    data.writeWord(offset,0x02020272)
+    
+    offset = 0x47c2950
+    offset = data.writeWord(offset,0x020501f7)
+    offset = data.writeWord(offset,0x02510250)
+    offset = data.writeWord(offset,0x00b7026e)
+    offset = data.writeWord(offset,0x00f500f4)
+    offset = data.writeWord(offset,0x00f700f6)
+    offset = data.writeWord(offset,0x026e00b7)
+    offset = data.writeWord(offset,0x0200025d)
+    offset = data.writeWord(offset,0x02bb01f6)
+    offset = data.writeWord(offset,0x01f801f9)
+    offset = data.writeWord(offset,0x01f30212)
+    data.writeShort(offset,0x0278)
+    
+    offset = 0x47c2a2e
+    offset = data.writeWord(offset,0x02720273)
+    offset = data.writeWord(offset,0x025a0205)
+    offset = data.writeWord(offset,0x026c0251)
+    offset = data.writeWord(offset,0x00f800b8)
+    offset = data.writeWord(offset,0x00fa00f9)
+    offset = data.writeWord(offset,0x00b800fb)
+    offset = data.writeWord(offset,0x0255026c)
+    offset = data.writeWord(offset,0x020301fe)
+    offset = data.writeWord(offset,0x01fa02bb)
+    offset = data.writeWord(offset,0x02bb01fa)
+    data.writeWord(offset,0x020101f6)
+    
+    offset = 0x47c2b0c
+    offset = data.writeWord(offset,0x021101f7)
+    offset = data.writeWord(offset,0x02bc01fa)
+    offset = data.writeWord(offset,0x02510252)
+    offset = data.writeWord(offset,0x00b9026e)
+    offset = data.writeWord(offset,0x00fd00fc)
+    offset = data.writeWord(offset,0x00ff00fe)
+    offset = data.writeWord(offset,0x026e00b9)
+    offset = data.writeWord(offset,0x0276025d)
+    offset = data.writeWord(offset,0x02120272)
+    offset = data.writeWord(offset,0x01f301f6)
+    offset = data.writeWord(offset,0x02740273)
+    data.writeShort(offset,0x0203)
+    
+    offset = 0x47c2bea
+    offset = data.writeWord(offset,0x02540255)
+    offset = data.writeWord(offset,0x02540255)
+    offset = data.writeWord(offset,0x02460255)
+    offset = data.writeWord(offset,0x026c0247)
+    offset = data.writeWord(offset,0x00c300ba)
+    offset = data.writeWord(offset,0x00c500c4)
+    offset = data.writeWord(offset,0x00ba00c6)
+    offset = data.writeWord(offset,0x0255026c)
+    offset = data.writeWord(offset,0x02550254)
+    offset = data.writeWord(offset,0x02550254)
+    offset = data.writeWord(offset,0x02550248)
+    data.writeShort(offset,0x0254)
+    
+    offset = 0x47c2cc8
+    offset = data.writeWord(offset,0x025d025c)
+    offset = data.writeWord(offset,0x025d025c)
+    offset = data.writeWord(offset,0x025d025c)
+    offset = data.writeWord(offset,0x024f024e)
+    offset = data.writeWord(offset,0x00bb026e)
+    offset = data.writeWord(offset,0x00c800c7)
+    offset = data.writeWord(offset,0x00ca00c9)
+    offset = data.writeWord(offset,0x026e00bb)
+    offset = data.writeWord(offset,0x025c025d)
+    offset = data.writeWord(offset,0x025c025d)
+    offset = data.writeWord(offset,0x025c025d)
+    data.writeShort(offset,0x025d)
+    
+    offset = 0x47c2da8
+    offset = data.writeWord(offset,0x02210220)
+    offset = data.writeWord(offset,0x02210221)
+    offset = data.writeWord(offset,0x02210221)
+    offset = data.writeWord(offset,0x02210221)
+    offset = data.writeWord(offset,0x02210221)
+    offset = data.writeWord(offset,0x02210221)
+    offset = data.writeWord(offset,0x02210221)
+    offset = data.writeWord(offset,0x021f0221)
+    offset = data.writeWord(offset,0x021f021f)
+    offset = data.writeWord(offset,0x01fd0237)
+    offset = data.writeWord(offset,0x01fa0272)
+    data.writeShort(offset,0x01f9)
+    
+    offset = 0x47C2E8A
+    offset = data.writeWord(offset,0x02280228)
+    offset = data.writeWord(offset,0x02280228)
+    offset = data.writeWord(offset,0x02280228)
+    data.writeShort(offset,0x0228)
+        
+    offset = 0x47C2FC8
+    offset = data.writeWord(offset,0x02280228)
+    offset = data.writeWord(offset,0x02280228)
+    offset = data.writeWord(offset,0x02280228)
+    offset = data.writeWord(offset,0x02280228)
+    offset = data.writeWord(offset,0x02280228)
+    offset = data.writeWord(offset,0x0200022A)
+    data.writeShort(offset,0x01F3)
+
+    return data
+  }
+
   function randomizeRelics(
     version,
     applied,
@@ -8295,6 +8486,7 @@ function applyBountyHunterTargets(rng,bhmode) {
     applyDominoPatches: applyDominoPatches,
     applyRLBCPatches: applyRLBCPatches,
 	  applyResistToImmunePotionsPatches: applyResistToImmunePotionsPatches,
+    applyLibraryShortcutPatches: applyLibraryShortcutPatches,
     applyMapColor: applyMapColor,
     applyNewGoals: applyNewGoals,
     applyAlucardPalette: applyAlucardPalette,

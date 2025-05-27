@@ -426,7 +426,7 @@ function displayRandomSplashText(seasonalEvent) {
     } else {
       elems.enemyStatRandoMode.disabled = false
     }
-    if (["boss-rush","first-castle","beyond"].includes(preset.id)) {                               // Remove rlbc mode for incompatible presets. - eldri7ch
+    if (["boss-rush","first-castle","beyond","seeker","recycler"].includes(preset.id)) {            // Remove rlbc mode for incompatible presets. - eldri7ch
       elems.rlbcMode.checked = false
       elems.rlbcMode.disabled = true
     } else {
@@ -536,6 +536,7 @@ function displayRandomSplashText(seasonalEvent) {
     elems.rlbcMode.checked = !!options.rlbcMode
     elems.immunityPotionMode.checked = !!options.immunityPotionMode
     elems.godspeedMode.checked = !!options.godspeedMode
+    elems.libraryShortcut.checked = !!options.libraryShortcut
     elems.bossMusicSeparation.checked = !!options.bossMusicSeparation
   }
 
@@ -958,6 +959,10 @@ function displayRandomSplashText(seasonalEvent) {
     localStorage.setItem('godspeedMode', elems.godspeedMode.checked)
   }
 
+  function libraryShortcutChange() {
+    localStorage.setItem('libraryShortcut', elems.libraryShortcut.checked)
+  }
+
   function bossMusicSeparationChange() {
     localStorage.setItem('bossMusicSeparation', elems.bossMusicSeparation.checked)
   }
@@ -1163,6 +1168,9 @@ function displayRandomSplashText(seasonalEvent) {
     }
     if (elems.godspeedMode.checked) {
       options.godspeedMode = true
+    }
+    if (elems.libraryShortcut.checked) {
+      options.libraryShortcut = true
     }
     if (elems.bossMusicSeparation.checked) {
       options.bossMusicSeparation = true
@@ -1603,6 +1611,10 @@ function displayRandomSplashText(seasonalEvent) {
         if (options.immunityPotionMode || applied.immunityPotionMode) {
           check.apply(util.applyResistToImmunePotionsPatches())
         }
+        // Apply library shortcut patches.
+        if (options.libraryShortcut || applied.libraryShortcut) {
+          check.apply(util.applyLibraryShortcutPatches())
+        }
         // No patches to apply for Boss Music Separator
         if (options.bossMusicSeparation || applied.bossMusicSeparation) {
         }
@@ -1893,6 +1905,7 @@ function displayRandomSplashText(seasonalEvent) {
     elems.newGoals.value = ''
     elems.immunityPotionMode.disabled = false
     elems.godspeedMode.disabled = false
+    elems.libraryShortcut.disabled = false
     elems.bossMusicSeparation.disabled = false
     elems.tournamentMode.disabled = false
     elems.clear.classList.add('hidden')
@@ -2142,6 +2155,7 @@ function displayRandomSplashText(seasonalEvent) {
     rlbcMode: document.getElementById('rlbc-mode'),
     immunityPotionMode: document.getElementById('immunity-potion-mode'),
     godspeedMode: document.getElementById('godspeed-mode'),
+    libraryShortcut: document.getElementById('library-shortcut'),
     bossMusicSeparation: document.getElementById('boss-music-separation'),
     accessibilityPatches: document.getElementById('accessibility-patches'),
     showSpoilers: document.getElementById('show-spoilers'),
@@ -2231,7 +2245,8 @@ function displayRandomSplashText(seasonalEvent) {
   elems.dominoMode.addEventListener('change', dominoModeChange)
   elems.rlbcMode.addEventListener('change', rlbcModeChange)
   elems.immunityPotionMode.addEventListener('change', immunityPotionModeChange)
-  elems.godspeedMode.addEventListener('change',godspeedModeChange)
+  elems.godspeedMode.addEventListener('change', godspeedModeChange)
+  elems.libraryShortcut.addEventListener('change', libraryShortcutChange)
   elems.bossMusicSeparation.addEventListener('change', bossMusicSeparationChange)
   elems.accessibilityPatches.addEventListener('change', accessibilityPatchesChange)
   elems.showSpoilers.addEventListener('change', spoilersChange)
@@ -2569,6 +2584,7 @@ function displayRandomSplashText(seasonalEvent) {
   loadOption('rlbcMode', rlbcModeChange, false)
   loadOption('immunityPotionMode', immunityPotionModeChange, false)
   loadOption('godspeedMode', godspeedModeChange, false)
+  loadOption('libraryShortcut', libraryShortcutChange, false)
   loadOption('bossMusicSeparation', bossMusicSeparationChange, true)
   loadOption('accessibilityPatches', accessibilityPatchesChange, true)
   loadOption('showSpoilers', spoilersChange, true)

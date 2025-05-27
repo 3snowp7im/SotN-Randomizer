@@ -661,6 +661,11 @@ const yargs = require('yargs')
     describe: 'Allows Alucard to run by double-pressing in the direction you intend to move in.',
     type: 'boolean',
   })
+  .option('libShort', {
+    alias: 'ls',
+    describe: 'Opens a shortcut to allow players to swiftly exit the Long Library.',
+    type: 'boolean',
+  })
   .option('bossMusic', {
     alias: 'bm',
     describe: 'Randomizes Boss Music separately from other songs.',
@@ -1159,6 +1164,11 @@ if ('debug' in argv) {console.log('randomize | Set godspeed')}
 if (argv.godspeed) {
   options.godspeedMode = true
 }
+if ('debug' in argv) {console.log('randomize | Set libShort')}
+// Enable library shortcut if specified. - eldri7ch
+if (argv.libShort) {
+  options.libraryShortcut = true
+}
 if ('debug' in argv) {console.log('randomize | Set bossMusic')}
 // randomize Boss Music Separately. - eldri7ch
 if (argv.bossMusic) {
@@ -1537,7 +1547,13 @@ if ('debug' in argv) {console.log('randomize | Start randomization')}
         }
         if ('debug' in argv) {console.log('randomize | function: randomize | Godspeed Mode | ' + optFlag)}
         optFlag = false
-        if (options.bossMusicSeparation || applied.bossMusicSeparation) { // reverse library cards - eldrich
+        if (options.libraryShortcut || applied.libraryShortcut) { // library shortcut - eldrich
+          optFlag = true
+          check.apply(util.applyLibraryShortcutPatches())
+        }
+        if ('debug' in argv) {console.log('randomize | function: randomize | Library Shortcut | ' + optFlag)}
+        optFlag = false
+        if (options.bossMusicSeparation || applied.bossMusicSeparation) { // separate boss music - eldrich
           // verify boss music separate. - eldri7ch
           optFlag = true
         }
