@@ -26,6 +26,12 @@
   "music": false,
   "colorrandoMode": true,
   
+  "complexityGoal": {
+    "min": 1,
+    "goals": [
+      "Holy glasses + Heart of Vlad + Tooth of Vlad + Rib of Vlad + Ring of Vlad + Eye of Vlad"
+  ]},
+
   "placeRelic": [{
     "location": "Silver ring",
     "relic": "Silver ring"
