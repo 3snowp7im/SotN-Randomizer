@@ -7134,8 +7134,8 @@ function applyBountyHunterTargets(rng,bhmode) {
 					offset = getEnemyOffset(dindex)
 					data.writeShort(offset + 0x1E,16)
 					data.writeShort(offset + 0x20,32)		
-					dindex = dindex + 1
-				}			
+				}	
+				dindex = dindex + 1
 			}
 		}		
 	}
