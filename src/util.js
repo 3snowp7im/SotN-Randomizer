@@ -2602,6 +2602,11 @@ function hexValueToDamageString(hexValue) {
           randomize.push('dev')
         }
         delete options.devStashMode
+      } else if ('seasonalPhrasesMode' in options) { // seasonal phrases - eldri7ch
+        if (options.seasonalPhrasesMode) {
+          randomize.push('sp')
+        }
+        delete options.seasonalPhrasesMode
       } else if ('mapcolorTheme' in options) { // switch map color
         randomize.push('m:' + options.mapcolorTheme)
         delete options.mapcolorTheme
@@ -3867,6 +3872,7 @@ function hexValueToDamageString(hexValue) {
     godspeedMode,
     libraryShortcut,
     devStashMode,
+    seasonalPhrasesMode,
     bossMusicSeparation,
     newGoalsSet,
     debugMode,
@@ -3917,6 +3923,7 @@ function hexValueToDamageString(hexValue) {
     this.godspeedMode = godspeedMode
     this.libraryShortcut = libraryShortcut
     this.devStashMode = devStashMode
+    this.seasonalPhrasesMode = seasonalPhrasesMode
     this.bossMusicSeparation = bossMusicSeparation
     this.newGoalsSet = newGoalsSet
     this.debugMode = debugMode
@@ -4091,6 +4098,8 @@ function hexValueToDamageString(hexValue) {
     this.libShort = false
     // dev's stash mode.
     this.devStash = false
+    // seasonal phrases mode.
+    this.seasonalPhrases = false
     // boss music separation
     this.bossMusic = true
     // new goals for completion.
@@ -4435,6 +4444,9 @@ function hexValueToDamageString(hexValue) {
     }
     if ('devStashMode' in json) {
       builder.devStashMode(json.devStashMode)
+    }
+    if ('seasonalPhrasesMode' in json) {
+      builder.seasonalPhrasesMode(json.seasonalPhrasesMode)
     }
     if ('bossMusicSeparation' in json) {
       builder.bossMusicSeparation(json.bossMusicSeparation)
@@ -4788,6 +4800,9 @@ function hexValueToDamageString(hexValue) {
     }
     if ('devStashMode' in preset) {
       this.devStash = preset.devStashMode
+    }
+    if ('seasonalPhrasesMode' in preset) {
+      this.seasonalPhrases = preset.seasonalPhrasesMode
     }
     if ('bossMusicSeparation' in preset) {
       this.bossMusic = preset.bossMusicSeparation
@@ -5557,6 +5572,11 @@ function hexValueToDamageString(hexValue) {
     this.devStash = enabled
   }
 
+  // Enable Seasonal Phrases - eldri7ch
+  PresetBuilder.prototype.seasonalPhrasesMode = function seasonalPhrasesMode(enabled) {
+    this.seasonalPhrases = enabled
+  }
+
   // Enable boss music separation - eldri7ch
   PresetBuilder.prototype.bossMusicSeparation = function bossMusicSeparation(enabled) {
     this.bossMusic = enabled
@@ -5888,6 +5908,7 @@ function hexValueToDamageString(hexValue) {
     const godspeed = self.godspeed
     const libShort = self.libShort
     const devStash = self.devStash
+    const seasonalPhrases = self.seasonalPhrases
     const bossMusic = self.bossMusic
     const newGoals = self.newGoals
     const debug = self.debug
@@ -5938,6 +5959,7 @@ function hexValueToDamageString(hexValue) {
       godspeed,
       libShort,
       devStash,
+      seasonalPhrases,
       bossMusic,
       newGoals,
       debug,
@@ -7707,17 +7729,23 @@ function applyBountyHunterTargets(rng,bhmode) {
     return data
   }
 
-  function applySplashText(rng) {                                               // Splash text; ASM by MottZilla, JS by 3snow_p7im, eldri7ch, and DotChris
+  function applySplashText(rng,seasonAllowed) {                                               // Splash text; ASM by MottZilla, JS by 3snow_p7im, eldri7ch, and DotChris
     const month = new Date().getMonth() + 1                                     // Acquire the month the code is run
     let splashPhrases = []
-    switch (month) {                                                            // Establish different sets of phrases from constants.js based on the month
-    case 6:                                                                     // Pride month
-      splashPhrases = constants.prideSplashPhrases
-      break
-    default:                                                                    // Any other month
+
+    if (seasonAllowed = 1) {                                                    // check if seasonal phrases are allowed
+      switch (month) {                                                          // Establish different sets of phrases from constants.js based on the month
+      case 6:                                                                   // Pride month
+        splashPhrases = constants.prideSplashPhrases
+        break
+      default:                                                                  // Any other month
+        splashPhrases = constants.splashPhrases
+        break
+      }
+    } else {
       splashPhrases = constants.splashPhrases
-      break
     }
+
     const data = new checked()
     let strId
     let strText

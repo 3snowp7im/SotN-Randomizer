@@ -538,6 +538,7 @@ function displayRandomSplashText(seasonalEvent) {
     elems.godspeedMode.checked = !!options.godspeedMode
     elems.libraryShortcut.checked = !!options.libraryShortcut
     elems.devStashMode.checked = !!options.devStashMode
+    elems.seasonalPhrasesMode.checked = !!options.seasonalPhrasesMode
     elems.bossMusicSeparation.checked = !!options.bossMusicSeparation
   }
 
@@ -968,6 +969,10 @@ function displayRandomSplashText(seasonalEvent) {
     localStorage.setItem('devStashMode', elems.devStashMode.checked)
   }
 
+  function seasonalPhrasesModeChange() {
+    localStorage.setItem('seasonalPhrasesMode', elems.seasonalPhrasesMode.checked)
+  }
+
   function bossMusicSeparationChange() {
     localStorage.setItem('bossMusicSeparation', elems.bossMusicSeparation.checked)
   }
@@ -1179,6 +1184,9 @@ function displayRandomSplashText(seasonalEvent) {
     }
     if (elems.devStashMode.checked) {
       options.devStashMode = true
+    }
+    if (elems.seasonalPhrasesMode.checked) {
+      options.seasonalPhrasesMode = true
     }
     if (elems.bossMusicSeparation.checked) {
       options.bossMusicSeparation = true
@@ -1551,7 +1559,14 @@ function displayRandomSplashText(seasonalEvent) {
           optWrite = optWrite + 0x80000000
         }
         check.apply(util.randoFuncMaster(optWrite))
-        check.apply(util.applySplashText(rng))
+
+        let seasonAllowed = 1
+        console.log('Seasonal mode ' + elems.seasonalPhrasesMode.value)
+        if (elems.seasonalPhrasesMode.value = false) {
+          seasonAllowed = 0
+        }
+        check.apply(util.applySplashText(rng,seasonAllowed))
+
         // Apply tournament mode patches.
         if (options.tournamentMode) {
           check.apply(util.applyTournamentModePatches())
@@ -1919,6 +1934,8 @@ function displayRandomSplashText(seasonalEvent) {
     elems.godspeedMode.disabled = false
     elems.libraryShortcut.disabled = false
     elems.devStashMode.disabled = false
+    elems.seasonalPhrasesMode.disabled = false
+    elems.seasonalPhrasesMode.value = true
     elems.bossMusicSeparation.disabled = false
     elems.tournamentMode.disabled = false
     elems.clear.classList.add('hidden')
@@ -2170,6 +2187,7 @@ function displayRandomSplashText(seasonalEvent) {
     godspeedMode: document.getElementById('godspeed-mode'),
     libraryShortcut: document.getElementById('library-shortcut'),
     devStashMode: document.getElementById('dev-stash'),
+    seasonalPhrasesMode: document.getElementById('seasonal-phrases'),
     bossMusicSeparation: document.getElementById('boss-music-separation'),
     accessibilityPatches: document.getElementById('accessibility-patches'),
     showSpoilers: document.getElementById('show-spoilers'),
@@ -2262,6 +2280,7 @@ function displayRandomSplashText(seasonalEvent) {
   elems.godspeedMode.addEventListener('change', godspeedModeChange)
   elems.libraryShortcut.addEventListener('change', libraryShortcutChange)
   elems.devStashMode.addEventListener('change', devStashModeChange)
+  elems.seasonalPhrasesMode.addEventListener('change', seasonalPhrasesModeChange)
   elems.bossMusicSeparation.addEventListener('change', bossMusicSeparationChange)
   elems.accessibilityPatches.addEventListener('change', accessibilityPatchesChange)
   elems.showSpoilers.addEventListener('change', spoilersChange)
@@ -2601,6 +2620,7 @@ function displayRandomSplashText(seasonalEvent) {
   loadOption('godspeedMode', godspeedModeChange, false)
   loadOption('libraryShortcut', libraryShortcutChange, false)
   loadOption('devStashMode', devStashModeChange, false)
+  loadOption('seasonalPhrasesMode', seasonalPhrasesModeChange, true)
   loadOption('bossMusicSeparation', bossMusicSeparationChange, true)
   loadOption('accessibilityPatches', accessibilityPatchesChange, true)
   loadOption('showSpoilers', spoilersChange, true)

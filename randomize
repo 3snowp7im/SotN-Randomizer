@@ -671,6 +671,11 @@ const yargs = require('yargs')
     describe: '???',
     type: 'boolean',
   })
+  .option('seasonalPhrases', {
+    alias: 'sp',
+    describe: 'Allow seasonal and holiday-based splash phrases on the "Press Start" screen.',
+    type: 'boolean',
+  })
   .option('bossMusic', {
     alias: 'bm',
     describe: 'Randomizes Boss Music separately from other songs.',
@@ -1179,6 +1184,11 @@ if ('debug' in argv) {console.log('randomize | Set devStash')}
 if (argv.devStash) {
   options.devStashMode = true
 }
+if ('debug' in argv) {console.log('randomize | Set seasonalPhrases')}
+// Enable library shortcut if specified. - eldri7ch
+if (argv.seasonalPhrases) {
+  options.seasonalPhrasesMode = true
+}
 if ('debug' in argv) {console.log('randomize | Set bossMusic')}
 // randomize Boss Music Separately. - eldri7ch
 if (argv.bossMusic) {
@@ -1419,7 +1429,14 @@ if ('debug' in argv) {console.log('randomize | Start randomization')}
           optWrite = optWrite + 0x80000000
         }
         check.apply(util.randoFuncMaster(optWrite))
-        check.apply(util.applySplashText(rng))
+
+        let seasonAllowed = 1
+        console.log('Seasonal mode' + seasonalPhrasesMode)
+        if (options.seasonalPhrasesMode = false) {
+          seasonAllowed = 0
+        }
+        check.apply(util.applySplashText(rng,seasonAllowed))
+
         if ('debug' in argv) {console.log('randomize | function: randomize | Apply patches from options')}
         optFlag = false
         if (options.tournamentMode) {
@@ -1568,6 +1585,11 @@ if ('debug' in argv) {console.log('randomize | Start randomization')}
           check.apply(util.applyDevsStashPatches())
         }
         if ('debug' in argv) {console.log('randomize | function: randomize | Dev\'s Stash | ' + optFlag)}
+        optFlag = false
+        if (options.seasonalPhrasesMode || applied.seasonalPhrasesMode) { // Seasonal Phrases - eldrich
+          optFlag = true
+        }
+        if ('debug' in argv) {console.log('randomize | function: randomize | Seasonal Phrases Mode | ' + optFlag)}
         optFlag = false
         if (options.bossMusicSeparation || applied.bossMusicSeparation) { // separate boss music - eldrich
           // verify boss music separate. - eldri7ch
