@@ -7736,7 +7736,7 @@ function applyBountyHunterTargets(rng,bhmode) {
     const month = new Date().getMonth() + 1                                     // Acquire the month the code is run
     let splashPhrases = []
 
-    if (seasonAllowed = 1) {                                                    // check if seasonal phrases are allowed
+    if (seasonAllowed) {                                                    // check if seasonal phrases are allowed
       switch (month) {                                                          // Establish different sets of phrases from constants.js based on the month
       case 6:                                                                   // Pride month
         splashPhrases = constants.prideSplashPhrases

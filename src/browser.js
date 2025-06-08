@@ -538,7 +538,6 @@ function displayRandomSplashText(seasonalEvent) {
     elems.godspeedMode.checked = !!options.godspeedMode
     elems.libraryShortcut.checked = !!options.libraryShortcut
     elems.devStashMode.checked = !!options.devStashMode
-    elems.seasonalPhrasesMode.checked = !!options.seasonalPhrasesMode
     elems.bossMusicSeparation.checked = !!options.bossMusicSeparation
   }
 
@@ -1560,12 +1559,8 @@ function displayRandomSplashText(seasonalEvent) {
         }
         check.apply(util.randoFuncMaster(optWrite))
 
-        let seasonAllowed = 1
-        console.log('Seasonal mode ' + elems.seasonalPhrasesMode.value)
-        if (elems.seasonalPhrasesMode.value = false) {
-          seasonAllowed = 0
-        }
-        check.apply(util.applySplashText(rng,seasonAllowed))
+        console.log('Seasonal mode ' + elems.seasonalPhrasesMode.checked)
+        check.apply(util.applySplashText(rng,elems.seasonalPhrasesMode.checked))
 
         // Apply tournament mode patches.
         if (options.tournamentMode) {
@@ -2518,6 +2513,7 @@ function displayRandomSplashText(seasonalEvent) {
     loadOption('stats', statsChange, true)
     loadOption('music', musicChange, true)
     loadOption('turkeyMode', turkeyModeChange, true)
+    loadOption('seasonalPhrasesMode', seasonalPhrasesModeChange, true)
     let relicLocationsExtension =
         localStorage.getItem('relicLocationsExtension')
     if (typeof(relicLocationsExtension) === 'string') {
