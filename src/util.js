@@ -7016,6 +7016,7 @@ function applyBountyHunterTargets(rng,bhmode) {
 	const bountyHunterTargets = enemies.bountyHunterTargets
 	const data = new checked()
 	
+  console.log('Apply BH components')
 	let TargetHeartId,TargetToothId,TargetRibId,TargetRingId,TargetEyeId
 	let TargetHeartEnemyId,TargetToothEnemyId,TargetRibEnemyId,TargetRingEnemyId,TargetEyeEnemyId	
 	let VladDropRate = 16

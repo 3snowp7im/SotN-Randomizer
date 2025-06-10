@@ -1013,7 +1013,7 @@
   {
     "name": "Seeker",
     "id": "seeker",
-    "description": "The Portal Spell is always the complexity relic. Still requires five vlads to make it to the end game.",
+    "description": "The Portal Spell is always the complexity relic in this first-castle only preset. Richter is missing and the keep teleporter is broken. Obtain five vlads and then find the portal spell to win.",
     "author": [
       "SacredLucy",
       "MottZilla",
@@ -1076,7 +1076,7 @@
   {
     "name": "Rampage",
     "id": "rampage",
-    "description": "Target Confirmed Variant where you start in a random location and opens all shortcuts and all teleporters. All bosses and Vlads required.",
+    "description": "Target Confirmed Variant where you start in a random location and opens all shortcuts and all teleporters. Acquire Familiar Cards to know which enemies to hunt. All bosses and Vlads required.",
     "author": [
       "TalicZealot",
       "eldri7ch",
@@ -1137,7 +1137,7 @@
   {
     "name": "Mirror Breaker",
     "id": "mirror-breaker",
-    "description": "Start in a random first castle location with Gravity Boots, one of each stat potion, and a Magic Mirror (X + Triangle; Replaces Holy Glasses) to move between the castles. Significant map changes to add new complexity. All bosses required.",
+    "description": "Start in a random first castle location with Gravity Boots, stat-boosting potions, and a Magic Mirror (X + Triangle; Replaces Holy Glasses) to move between the castles. Significant map changes to add new complexity. All bosses required.",
     "author": [
       "eldri7ch",
       "MottZilla",
@@ -1158,7 +1158,7 @@
   {
     "name": "Recycler",
     "id": "recycler",
-    "description": "A high-complexity preset where duplicate relics appear for the main progression relics and there are eight Vlad relics. Start in second castle with stat potions loadout. Six vlads open the doors to Dracula. Duplicate relics can be acquired to enhance the players abilities and the three new vlads have unique powers.",
+    "description": "A high-complexity preset where duplicate relics appear for the main progression relics and there are eight Vlad relics. Start in second castle with stat-boosting potions. Six vlads open the doors to Dracula. Duplicate relics can be acquired to enhance the players abilities and the three new vlads have unique powers.",
     "author": [
       "eldri7ch",
       "MottZilla"

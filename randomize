@@ -1429,13 +1429,12 @@ if ('debug' in argv) {console.log('randomize | Start randomization')}
           optWrite = optWrite + 0x80000000
         }
         check.apply(util.randoFuncMaster(optWrite))
-
-        let seasonAllowed = 1
-        console.log('Seasonal mode' + seasonalPhrasesMode)
-        if (options.seasonalPhrasesMode = false) {
-          seasonAllowed = 0
+        // Apply Seasonal Phrases Patches
+        let spmFlag = false 
+        if (options.seasonalPhrasesMode !== false) {
+          spmFlag = true 
         }
-        check.apply(util.applySplashText(rng,seasonAllowed))
+        check.apply(util.applySplashText(rng,spmFlag))
 
         if ('debug' in argv) {console.log('randomize | function: randomize | Apply patches from options')}
         optFlag = false
