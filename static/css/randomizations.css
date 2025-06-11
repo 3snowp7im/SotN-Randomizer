@@ -6,7 +6,18 @@
   gap: 1rem;
   margin-bottom: 0.5rem;
 }
+#alucard-palette-dropdown,
+#alucard-liner-dropdown,
+#map-dropdown{
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
 
+
+#alucard-palette-dropdown label,
+#alucard-liner-dropdown label,
 #seed-container label,
 #preset-dropdown label,
 #complexity-slider label {
@@ -65,7 +76,8 @@
 
 @media screen and (min-width: 64em) {
   #randomization-options {
-    display: flex;
+    /* display: flex; */
+    width: 100%;
   }
 
   #relic-locations-set {

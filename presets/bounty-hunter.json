@@ -1,13 +1,13 @@
 {
   "metadata": {
-    "id": "bountyhunter",
+    "id": "bounty-hunter",
     "name": "Bounty Hunter",
-    "description": "The Vlad Relics are dropped by 5 random enemies throughout the castle and the player must collect familiar cards to find out which enemies have the relics. Relic placement requires the Bounty Hunter Tool. App URL: https://github.com/MottZilla/BountyHunterTool",
+    "description": "The Vlad Relics are dropped by 5 random enemies throughout the castle and the player must collect familiar cards to find out which enemies have the relics.",
     "author": [
       "eldri7ch",
       "MottZilla"
     ],
-    "weight": 7000,
+    "weight": -2766,
     "knowledgeCheck": "Enemy Locations",
     "metaExtension": "Guarded",
     "metaComplexity": "5",
@@ -19,31 +19,18 @@
     "transformFocus": "None",
     "winCondition": "Enemies Drop Vlads"
   },
+
   "inherits": "casual",
   "stats": false,
-  "startingEquipment": [{
-    "slot": "Right hand",
-    "item": "Alucart sword"
-  }, {
-    "slot": "Left hand",
-    "item": "Alucart shield"
-  }, {
-    "slot": "Head",
-    "item": "Dragon helm"
-  }, {
-    "slot": "Body",
-    "item": "Alucart mail"
-  }, {
-    "slot": "Cloak",
-    "item": "Twilight cloak"
-  }, {
-    "slot": "Other",
-    "item": "Ring of Arcana"
-  }],
-  "prologueRewards": [{
-    "item": "Neutron bomb",
-    "replacement": "Library card"
-  }],
+  "newGoalsSet": "h",
+
+  "complexityGoal": {
+    "min": 5,
+    "goals": [
+      "Holy glasses + Demon Card + Faerie Card + Bat Card + Sword Card + Ghost Card"
+    ]
+  },
+
   "replaceRelic": [{
     "relic": "Tooth of Vlad",
     "item": "Library card"
@@ -66,6 +53,32 @@
     "relic": "Nosedevil Card",
     "item": "Ring of Arcana"
   }],
+
+  "startingEquipment": [{
+    "slot": "Right hand",
+    "item": "Alucart sword"
+  }, {
+    "slot": "Left hand",
+    "item": "Alucart shield"
+  }, {
+    "slot": "Head",
+    "item": "Dragon helm"
+  }, {
+    "slot": "Body",
+    "item": "Alucart mail"
+  }, {
+    "slot": "Cloak",
+    "item": "Twilight cloak"
+  }, {
+    "slot": "Other",
+    "item": "Ring of Arcana"
+  }],
+
+  "prologueRewards": [{
+    "item": "Neutron bomb",
+    "replacement": "Library card"
+  }],
+
   "itemLocations": [{
     "zone": "*",
     "item": "*",
@@ -151,6 +164,7 @@
     "item": "Sunglasses",
     "replacement": "Sunglasses"
   }],
+
   "blockDrops": [{
     "enemy": "*",
     "items": [
@@ -206,6 +220,7 @@
       "Diamond"
     ]
   }],
+
   "writes": [{
     "comment": "Jump to injected code",
     "address": "0x000fa97c",
@@ -1089,111 +1104,5 @@
     "address": "0x4608BE4",
     "type": "word",
     "value": "0x00000000"
-  },{
-    "comment": "Patch warning A",
-    "address": "0xF5560",
-    "type": "word",
-    "value": "0x20657355"
-  },{
-    "type": "word",
-    "value": "0x6E756F42"
-  },{
-    "type": "word",
-    "value": "0x75487974"
-  },{
-    "type": "word",
-    "value": "0x7265746E"
-  },{
-    "type": "word",
-    "value": "0x6F6F5420"
-  },{
-    "type": "word",
-    "value": "0x0000006C"
-  },{
-    "comment": "Patch warning B",
-    "address": "0xF558C",
-    "type": "word",
-    "value": "0x20657355"
-  },{
-    "type": "word",
-    "value": "0x6E756F42"
-  },{
-    "type": "word",
-    "value": "0x75487974"
-  },{
-    "type": "word",
-    "value": "0x7265746E"
-  },{
-    "type": "word",
-    "value": "0x6F6F5420"
-  },{
-    "type": "word",
-    "value": "0x0000006C"
-  },{
-    "comment": "Patch warning C",
-    "address": "0xF55B8",
-    "type": "word",
-    "value": "0x20657355"
-  },{
-    "type": "word",
-    "value": "0x6E756F42"
-  },{
-    "type": "word",
-    "value": "0x75487974"
-  },{
-    "type": "word",
-    "value": "0x7265746E"
-  },{
-    "type": "word",
-    "value": "0x6F6F5420"
-  },{
-    "type": "word",
-    "value": "0x0000006C"
-  },{
-    "comment": "Patch warning D",
-    "address": "0xF55E8",
-    "type": "word",
-    "value": "0x20657355"
-  },{
-    "type": "word",
-    "value": "0x6E756F42"
-  },{
-    "type": "word",
-    "value": "0x75487974"
-  },{
-    "type": "word",
-    "value": "0x7265746E"
-  },{
-    "type": "word",
-    "value": "0x6F6F5420"
-  },{
-    "type": "word",
-    "value": "0x0000006C"
-  },{
-    "comment": "Patch warning E",
-    "address": "0xF5614",
-    "type": "word",
-    "value": "0x20657355"
-  },{
-    "type": "word",
-    "value": "0x6E756F42"
-  },{
-    "type": "word",
-    "value": "0x75487974"
-  },{
-    "type": "word",
-    "value": "0x7265746E"
-  },{
-    "type": "word",
-    "value": "0x6F6F5420"
-  },{
-    "type": "word",
-    "value": "0x0000006C"
-  }],
-  "complexityGoal": {
-    "min": 5,
-    "goals": [
-      "Holy glasses + Demon Card + Faerie Card + Bat Card + Sword Card + Ghost Card"
-    ]
-  }
+  }]
 }

@@ -6,7 +6,7 @@
     "author": [
         "MottZilla"
     ],
-    "weight": -5001,
+    "weight": -2675,
     "knowledgeCheck": "None",
     "metaExtension": "Guarded",
     "metaComplexity": "8",
@@ -19,14 +19,14 @@
     "winCondition": "Normal"
   },
 
-  "comment": "Prototype for testing",
   "inherits": "casual",
-  "colorrandoMode": true,
   "stats": false,
-  "turkeyMode": true,
   "music": false,
+  "turkeyMode": true,
+  "colorrandoMode": true,
   "fastwarpMode": true,
   "magicmaxMode": true,
+  "godspeedMode": true,
 
   "complexityGoal": {
     "min": 8,

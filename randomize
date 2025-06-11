@@ -651,6 +651,36 @@ const yargs = require('yargs')
     describe: 'Allows use of Library Cards to teleport to the Forbidden Library by holding Down while using them.',
     type: 'boolean',
   })
+  .option('immunityPotion', {
+    alias: 'ip',
+    describe: 'Converts Resist Fire, Resist Ice, etc. potions to grant Immunity to the element in question and allows them to grant invincibility frames.',
+    type: 'boolean',
+  })
+  .option('godspeed', {
+    alias: 'gss',
+    describe: 'Allows Alucard to run by double-pressing in the direction you intend to move in.',
+    type: 'boolean',
+  })
+  .option('libShort', {
+    alias: 'ls',
+    describe: 'Opens a shortcut to allow players to swiftly exit the Long Library.',
+    type: 'boolean',
+  })
+  .option('devStash', {
+    alias: 'dev',
+    describe: '???',
+    type: 'boolean',
+  })
+  .option('seasonalPhrases', {
+    alias: 'sp',
+    describe: 'Allow seasonal and holiday-based splash phrases on the "Press Start" screen.',
+    type: 'boolean',
+  })
+  .option('bossMusic', {
+    alias: 'bm',
+    describe: 'Randomizes Boss Music separately from other songs.',
+    type: 'boolean',
+  })
   .option('debug', {
     alias: 'D',
     describe: 'Debug mode.',
@@ -1134,6 +1164,36 @@ if ('debug' in argv) {console.log('randomize | Set rlbc')}
 if (argv.rlbc) { // reverse library cards - eldrich
   options.rlbcMode = true
 }
+if ('debug' in argv) {console.log('randomize | Set immunity potions')}
+// Enable immunity potion mode if specified. - eldri7ch
+if (argv.immunityPotion) { // immunity potions - eldrich
+  options.immunityPotionMode = true
+}
+if ('debug' in argv) {console.log('randomize | Set godspeed')}
+// Enable godspeed shoes mode if specified. - eldri7ch
+if (argv.godspeed) {
+  options.godspeedMode = true
+}
+if ('debug' in argv) {console.log('randomize | Set libShort')}
+// Enable library shortcut if specified. - eldri7ch
+if (argv.libShort) {
+  options.libraryShortcut = true
+}
+if ('debug' in argv) {console.log('randomize | Set devStash')}
+// Enable Dev's Stash if specified. - eldri7ch
+if (argv.devStash) {
+  options.devStashMode = true
+}
+if ('debug' in argv) {console.log('randomize | Set seasonalPhrases')}
+// Enable library shortcut if specified. - eldri7ch
+if (argv.seasonalPhrases) {
+  options.seasonalPhrasesMode = true
+}
+if ('debug' in argv) {console.log('randomize | Set bossMusic')}
+// randomize Boss Music Separately. - eldri7ch
+if (argv.bossMusic) {
+  options.bossMusicSeparation = true
+}
 if ('debug' in argv) {console.log('randomize | Set map colors')}
 // Map Color Features if specified. - eldri7ch
 if ('mapcolor' in argv && typeof(argv.mapcolor) !== 'undefined') {
@@ -1149,10 +1209,10 @@ if ('mapcolor' in argv && typeof(argv.mapcolor) !== 'undefined') {
 if ('debug' in argv) {console.log('randomize | Choose new goals')}
 // Map Color Features if specified. - eldri7ch
 if ('newGoals' in argv && typeof(argv.newGoals) !== 'undefined') {
-  let termsAllowed = 'd,b,r,a,v'
+  let termsAllowed = 'd,b,r,a,v,h,t,w,x'
   if (!(termsAllowed.includes(argv.newGoals))) {
     yargs.showHelp()
-    console.error('\nMust contain a letter \'d\'(Preset Default), \'b\'(All Bosses), \'r\'(All Relics), \'a\'(All Bosses and Relics), \'v\'(All Bosses and Vlad Relics)')
+    console.error('\nMust contain a letter \'d\'(Preset Default), \'b\'(All Bosses), \'r\'(All Relics), \'a\'(All Bosses and Relics), \'v\'(All Bosses and Vlad Relics), \'h\'(Bounty Hunter), \'t\'(Bounty Hunter Target Confirmed), \'x\'(Bounty Hunter and All Bosses)')
     process.exit(1)
   } else {
     options.newGoalsSet = argv.newGoals.toString()
@@ -1333,8 +1393,10 @@ if ('debug' in argv) {console.log('randomize | Start randomization')}
         ))
         check.apply(randomizeMusic(rng, applied))
         if ('debug' in argv) {console.log('randomize | function: randomize | Apply options / writes function master')}
+        // Start the function master
         let optWrite = 0x00000000                   // This variable lets the ASM used in the Master Function know if it needs to run certain code or sets flags for the tracker to use
         let nGoal
+        // console.log(options.newGoalsSet + '|' + applied.newGoalsSet)
         if ('newGoals' in argv || options.newGoalsSet || applied.newGoalsSet) {                   // Sets flag for the tracker to know which goals to use
           if (argv.newgoals !== undefined) {
             nGoal = argv.newgoals
@@ -1354,12 +1416,23 @@ if ('debug' in argv) {console.log('randomize | Start randomization')}
               optWrite = optWrite + 0x03
               break
             case "v":                                 //  all bosses and vlad relics flag
+            case "x":                                 //  all bosses and bounties flag
               optWrite = optWrite + 0x05
               break
+            default:
+              break
           }
+          // console.log('optwrite ' + optWrite)
+        }
+        // Apply Godspeed Shoes Patches
+        if ('godspeed' in argv || options.godspeedMode || applied.godspeedMode) {
+          optWrite = optWrite + 0x80000000
         }
         check.apply(util.randoFuncMaster(optWrite))
-        check.apply(util.applySplashText(rng))
+
+        let seasonAllowed = options.seasonalPhrasesMode || applied.seasonalPhrasesMode
+        check.apply(util.applySplashText(rng,seasonAllowed))
+
         if ('debug' in argv) {console.log('randomize | function: randomize | Apply patches from options')}
         optFlag = false
         if (options.tournamentMode) {
@@ -1485,6 +1558,41 @@ if ('debug' in argv) {console.log('randomize | Start randomization')}
         }
         if ('debug' in argv) {console.log('randomize | function: randomize | Reverse Library Card Mode | ' + optFlag)}
         optFlag = false
+        if (options.immunityPotionMode || applied.immunityPotionMode) { // todo: Change this to Resist to Immune Potions "mode" or option. 
+          // Apply resist to immune potion patches. - MottZilla
+          optFlag = true
+          check.apply(util.applyResistToImmunePotionsPatches())
+        }
+        if ('debug' in argv) {console.log('randomize | function: randomize | Immunity Potions Mode | ' + optFlag)}
+        optFlag = false
+        if (options.godspeedMode || applied.godspeedMode) { // godspeed shoes - eldrich
+          optFlag = true
+        }
+        if ('debug' in argv) {console.log('randomize | function: randomize | Godspeed Mode | ' + optFlag)}
+        optFlag = false
+        if (options.libraryShortcut || applied.libraryShortcut) { // library shortcut - eldrich
+          optFlag = true
+          check.apply(util.applyLibraryShortcutPatches())
+        }
+        if ('debug' in argv) {console.log('randomize | function: randomize | Library Shortcut | ' + optFlag)}
+        optFlag = false
+        if (options.devStashMode || applied.devStashMode) { // dev's stash - eldrich
+          optFlag = true
+          check.apply(util.applyDevsStashPatches())
+        }
+        if ('debug' in argv) {console.log('randomize | function: randomize | Dev\'s Stash | ' + optFlag)}
+        optFlag = false
+        if (options.seasonalPhrasesMode || applied.seasonalPhrasesMode) { // Seasonal Phrases - eldrich
+          optFlag = true
+        }
+        if ('debug' in argv) {console.log('randomize | function: randomize | Seasonal Phrases Mode | ' + optFlag)}
+        optFlag = false
+        if (options.bossMusicSeparation || applied.bossMusicSeparation) { // separate boss music - eldrich
+          // verify boss music separate. - eldri7ch
+          optFlag = true
+        }
+        if ('debug' in argv) {console.log('randomize | function: randomize | Boss Music Separator | ' + optFlag)}
+        optFlag = false
         if ('mapcolor' in argv) { // Colors the map - eldrich
           // Apply map color patches. - eldri7ch
           let mapcol = argv.mapcolor
@@ -1499,7 +1607,18 @@ if ('debug' in argv) {console.log('randomize | Start randomization')}
           } else {
             nGoal = applied.newGoalsSet
           }
-          check.apply(util.applyNewGoals(nGoal))
+          if (nGoal === "h") {
+            check.apply(util.applyBountyHunterTargets(rng,0))                 // 0 = normal Bounty Hunter; 1 = buffed drop rates and guaranteed relics after card obtained
+          } else if (nGoal === "t") {
+            check.apply(util.applyBountyHunterTargets(rng,2))                 // 0 = normal Bounty Hunter; 1 = buffed drop rates and guaranteed relics after card obtained
+          } else if (nGoal === "w") {
+            check.apply(util.applyBountyHunterTargets(rng,1))                 // 0 = normal Bounty Hunter; 1 = buffed drop rates and guaranteed relics after card obtained
+          }else if (nGoal === "x") {
+            check.apply(util.applyNewGoals(nGoal))
+            check.apply(util.applyBountyHunterTargets(rng,2))                 // 0 = normal Bounty Hunter; 1 = buffed drop rates and guaranteed relics after card obtained
+          } else {
+            check.apply(util.applyNewGoals(nGoal))
+          }
         }
         if ('debug' in argv) {console.log('randomize | function: randomize | New Goals')}
         if ('alucardPalette' in argv) { // Changes Alucard's Palette. -Crazy4blades

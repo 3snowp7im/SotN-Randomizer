@@ -7,7 +7,7 @@
       "eldri7ch",
       "MottZilla"
     ],
-    "weight": 1600,
+    "weight": -2575,
     "knowledgeCheck": "None",
     "metaExtension": "Equipment",
     "metaComplexity": "8",
@@ -19,14 +19,16 @@
     "transformFocus": "Bat",
     "winCondition": "Normal"
   },
+
   "inherits": "nimble",
   "relicLocationsExtension": "equipment",
+
   "complexityGoal": {
     "min": 8,
     "goals": [
       "Holy glasses + Heart of Vlad + Tooth of Vlad + Rib of Vlad + Ring of Vlad + Eye of Vlad"
-    ]
-  },
+  ]},
+
   "itemLocations": [{
     "comment": "Place Stopwatch in the Clock Room",
     "zone": "NO0",
@@ -45,6 +47,7 @@
     "item": "Hammer",
     "replacement": "Library card"
   }],
+  
   "writes": [{
     "type": "word",
     "address": "0x158C30",

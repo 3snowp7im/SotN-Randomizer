@@ -7,7 +7,7 @@
       "eldri7ch",
       "MottZilla"
     ],
-    "weight": 1200,
+    "weight": -3950,
     "knowledgeCheck": "None",
     "metaExtension": "Scenic",
     "metaComplexity": "7",
@@ -19,6 +19,7 @@
     "transformFocus": "Bat",
     "winCondition": "Normal"
   },
+  
   "inherits": "nimble",
   "relicLocationsExtension": "scenic",
   "stats": false,

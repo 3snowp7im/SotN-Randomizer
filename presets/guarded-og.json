@@ -6,7 +6,7 @@
     "author": [
       "TalicZealot"
     ],
-    "weight": 2200,
+    "weight": -2425,
     "knowledgeCheck": "None",
     "metaExtension": "Guarded",
     "metaComplexity": "1",
@@ -18,10 +18,12 @@
     "transformFocus": "None",
     "winCondition": "Normal"
   },
+
   "inherits": "casual",
   "preventLeaks": false,
   "stats": false,
   "music": false,
+  
   "placeRelic": [{
     "location": "Silver ring",
     "relic": "Silver ring"

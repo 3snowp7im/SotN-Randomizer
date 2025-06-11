@@ -11,6 +11,17 @@
   const applyAccessibilityPatches = sotnRando.applyAccessibilityPatches
   const relics = sotnRando.relics
   const apiUrl = "https://sotnrandoapi.duckdns.org";
+  const seasonalEvents = [
+    {
+      "eventName": "Pride Month",
+      "startMonth": 6,
+      "startDay": 1,
+      "endMonth": 7,
+      "endDay": 1,
+      "eventLogo": "images/logopride.png",
+      "toolSplashPhrases": constants.prideSplashPhrases
+    }
+  ]
   
 
   let info
@@ -26,6 +37,39 @@
   let alucardPaletteLock
   let alucardLinerLock
   let isAprilFools
+  let songsList = [
+    "Lost Painting",
+    "Curse Zone",
+    "Requiem For The Gods",
+    "Rainbow Cemetary",
+    "Wood Carving Partita",
+    "Crystal Teardrops",
+    "Marble Gallery",
+    "Draculas Castle",
+    "The Tragic Prince",
+    "Tower of Mist",
+    "Door of Holy Spirits",
+    "Dance of Pales",
+    "Abandoned Pit",
+    "Heavenly Doorway",
+    "Festival of Servants",
+    "Wandering Ghosts",
+    "The Door to the Abyss",
+    "Dance of Gold",
+    "Enchanted Banquet",
+    "Death Ballad",
+    "Final Toccata",
+    "Dance of Illusions",
+    "Blood Relations"
+  ]  
+
+function displayRandomSplashText(seasonalEvent) {
+    if(!seasonalEvent.toolSplashPhrases) return;
+    const splashPhrases = seasonalEvent.toolSplashPhrases;
+    const randomSplashIndex = Math.floor(Math.random() * splashPhrases.length);
+    const randomText = splashPhrases[randomSplashIndex];
+    document.getElementById("splashTextDisplay").textContent = randomText;
+}
  
   var paletteSelect = document.querySelector('#alucardPalette');
   var linerSelect = document.querySelector('#alucardLiner');
@@ -228,6 +272,13 @@
 
   function presetIdChange() {                                                                       // auto checks modes and options that presets use
     let idx = elems.presetId.selectedIndex;
+    let bhCompatible = [
+      "bounty-hunter",
+      "target-confirmed",
+      "hitman",
+      "chaos-lite",
+      "rampage"
+    ]
     let bossCompatible = [
       "casual",
       "safe",
@@ -266,7 +317,14 @@
       "battle-mage",
       "timeline",
       "chimera",
-      "vanilla"
+      "vanilla",
+      "all-bosses",
+      "rampage",
+      "nimble-lite",
+      "oracle",
+      "boss-reflector",
+      "cornivus",
+      "mirror-breaker"
     ]
     let relicCompatible = [
       "casual",
@@ -305,7 +363,11 @@
       "mobility",
       "timeline",
       "chimera",
-      "vanilla"
+      "vanilla",
+      "nimble-lite",
+      "all-bosses",
+      "cornivus",
+      "mirror-breaker"
     ]    
     if(idx < 0) idx = 0;
     const id = elems.presetId.childNodes[idx].value
@@ -364,17 +426,30 @@
     } else {
       elems.enemyStatRandoMode.disabled = false
     }
-    if (["boss-rush", "first-castle","beyond"].includes(preset.id)) {                               // Remove rlbc mode for incompatible presets. - eldri7ch
+    if (["boss-rush","first-castle","beyond","seeker","recycler"].includes(preset.id)) {            // Remove rlbc mode for incompatible presets. - eldri7ch
       elems.rlbcMode.checked = false
       elems.rlbcMode.disabled = true
     } else {
       elems.rlbcMode.disabled = false
     }
-    if (["bountyhunter","bountyhuntertc","hitman","chaos-lite"].includes(preset.id)) {              // Remove guaranteed drops mode for incompatible presets. - eldri7ch
+    if (["battle-mage"].includes(preset.id)) {                                                      // Remove godspeed mode for incompatible presets. - eldri7ch
+      elems.godspeedMode.checked = false
+      elems.godspeedMode.disabled = true
+    } else {
+      elems.godspeedMode.disabled = false
+    }
+    if (["bounty-hunter","target-confirmed","hitman","chaos-lite","rampage","oracle"].includes(preset.id)) {              // Remove guaranteed drops mode for incompatible presets. - eldri7ch
       elems.dominoMode.checked = false
       elems.dominoMode.disabled = true
     } else {
       elems.dominoMode.disabled = false
+    }
+    if (["all-bosses","mirror-breaker"].includes(preset.id)) {                                                       // set all bosses goals. - eldri7ch
+      elems.newGoals.value = "allBoss"
+    } else if (["boss-reflector","rampage","cornivus"].includes(preset.id)) {
+      elems.newGoals.value = "vladBoss"
+    } else {
+      elems.newGoals.value = "default"
     }
     if (!bossCompatible.includes(preset.id) && ["allBoss","abrsr","vladBoss"].includes(elems.newGoals.value)) {
       elems.newGoals.value = "default"                                                              // Remove all boss mode for incompatible presets. - eldri7ch
@@ -382,6 +457,22 @@
     if (!relicCompatible.includes(preset.id) && ["allRelic","abrsr"].includes(elems.newGoals.value)) {
       elems.newGoals.value = "default"                                                              // Remove all relic mode for incompatible presets. - eldri7ch
     }
+    if (!bhCompatible.includes(preset.id) && ["bhNorm","bhAdvanced","bhBoss","bhHitman"].includes(elems.newGoals.value)) {
+      elems.newGoals.value = "default"                                                              // Remove all relic mode for incompatible presets. - eldri7ch
+    } else {
+      if (["bounty-hunter","chaos-lite"].includes(preset.id)) {                                     // set Bounty hunter menu
+        elems.newGoals.value = "bhNorm"
+      } else if (["target-confirmed"].includes(preset.id)) {                                        // set Target Confirmed menu
+        elems.newGoals.value = "bhAdvanced"
+      } else if (["hitman"].includes(preset.id)) {                                                  // set Hitman menu
+        elems.newGoals.value = "bhHitman"
+      } else if (["rampage"].includes(preset.id)) {                                                 // set All Bosses and Bounties menu
+        elems.newGoals.value = "bhBoss"
+      }
+    }
+
+    localStorage.setItem('newGoals', elems.newGoals.value)
+    newGoalsLock = elems.newGoals.value
 
     const options = preset.options()
     let complexity = 1
@@ -443,7 +534,11 @@
     elems.startRoomRando2ndMode.checked = !!options.startRoomRando2ndMode
     elems.dominoMode.checked = !!options.dominoMode
     elems.rlbcMode.checked = !!options.rlbcMode
-
+    elems.immunityPotionMode.checked = !!options.immunityPotionMode
+    elems.godspeedMode.checked = !!options.godspeedMode
+    elems.libraryShortcut.checked = !!options.libraryShortcut
+    elems.devStashMode.checked = !!options.devStashMode
+    elems.bossMusicSeparation.checked = !!options.bossMusicSeparation
   }
 
   function complexityChange() {
@@ -589,6 +684,13 @@
   }
 
   function newGoalsChange() {
+    let bhCompatible = [
+      "bounty-hunter",
+      "target-confirmed",
+      "hitman",
+      "chaos-lite",
+      "rampage"
+    ]
     let bossCompatible = [
       "casual",
       "safe",
@@ -627,7 +729,14 @@
       "battle-mage",
       "timeline",
       "chimera",
-      "vanilla"
+      "vanilla",
+      "all-bosses",
+      "rampage",
+      "nimble-lite",
+      "oracle",
+      "boss-reflector",
+      "cornivus",
+      "mirror-breaker"
     ]
     let relicCompatible = [
       "casual",
@@ -666,16 +775,82 @@
       "mobility",
       "timeline",
       "chimera",
-      "vanilla"
+      "vanilla",
+      "nimble-lite",
+      "all-bosses",
+      "cornivus",
+      "mirror-breaker"
     ]
-    if (["allBoss","abrsr","vladBoss"].includes(elems.newGoals.value) && !bossCompatible.includes(elems.presetId.value)){
-      elems.newGoals.value = "default"
-    } else if (["allRelic","abrsr"].includes(elems.newGoals.value) && !relicCompatible.includes(elems.presetId.value)){
-      elems.newGoals.value = "default"
-    } else {
-      localStorage.setItem('newGoals', elems.newGoals.value)
-      newGoalsLock = elems.newGoals.value
+    switch (elems.newGoals.value) {                                             // Adjusting newGoals drop-down based on selections - eldri7ch
+      case "abrsr":                                                             // ABRSR (All Bosses and Relics) can't exist if not compatible with All Boss AND All Relics - eldri7ch
+        if (!bossCompatible.includes(elems.presetId.value) || !relicCompatible.includes(elems.presetId.value)) {
+          elems.newGoals.value = "default"
+        }
+        break
+      case "vladBoss":                                                          // Very few presets remove Vlads as possibilities. No 'break' here because it also needs to check All Bosses - eldri7ch
+        if (["oracle","glitch","glitchmaster","any-percent"].includes(elems.presetId.value)) {
+          elems.newGoals.value = "default"
+        }
+      case "allBoss":                                                           // Check against all bosses compatibility - eldri7ch
+        if (!bossCompatible.includes(elems.presetId.value)) {
+          elems.newGoals.value = "default"
+        }
+        break
+      case "allRelic":                                                          // Check against all relics compatibility - eldri7ch
+        if (!relicCompatible.includes(elems.presetId.value)) {
+          elems.newGoals.value = "default"
+        }
+        break
+      case "bhNorm":
+      case "bhAdvanced":
+      case "bhHitman":
+      case "bhBoss":                                                            // Check against BH compatibility - eldri7ch
+        if (!bhCompatible.includes(elems.presetId.value)) {
+          elems.newGoals.value = "default"
+        }
+        break
+      default:
     }
+    // All BH presets need to match their respective coding. This is to prevent arbitrary additions of BH code to presets where vlads can spawn. - eldri7ch
+    if (elems.newGoals.value !== "bhNorm") {                                    // Check against BH compatibility - eldri7ch
+      if (["chaos-lite","bounty-hunter"].includes(elems.presetId.value)) {
+        elems.newGoals.value = "bhNorm"
+      }
+    }
+    if (elems.newGoals.value !== "bhAdvanced") {                                // Check against Target Confirmed compatibility - eldri7ch
+      if (["target-confirmed"].includes(elems.presetId.value)) {
+        elems.newGoals.value = "bhAdvanced"
+      }
+    }
+    if (elems.newGoals.value !== "bhHitman") {                                  // Check against Hitman compatibility - eldri7ch
+      if (["hitman"].includes(elems.presetId.value)) {
+        elems.newGoals.value = "bhHitman"
+      }
+    }
+    if (elems.newGoals.value !== "bhBoss") {                                    // Check against BH + All Bosses compatibility - eldri7ch
+      if (["rampage"].includes(elems.presetId.value)) {
+        elems.newGoals.value = "bhBoss"
+      }
+    }
+    if (elems.newGoals.value !== "allBoss") {                                   // Check against all Bosses compatibility (Right now this only checks All-Bosses Preset) - eldri7ch
+      if (["all-bosses","mirror-breaker"].includes(elems.presetId.value) && !["abrsr","vladBoss"].includes(elems.newGoals.value)) {
+        elems.newGoals.value = "allBoss"
+      }
+    }
+    // if (elems.newGoals.value !== "abrsr") {                                  // Check against abrsr compatibility (No presets currently use this) - eldri7ch
+    //   if (["rampage"].includes(elems.presetId.value)) {
+    //     elems.newGoals.value = "abrsr"
+    //   }
+    // }
+    if (elems.newGoals.value !== "vladBoss") {                                  // Check against all Bosses + all vlads compatibility - eldri7ch
+      if (["boss-reflector","cornivus"].includes(elems.presetId.value)) {
+        elems.newGoals.value = "vladBoss"
+      }
+    }
+    localStorage.setItem('newGoals', elems.newGoals.value)                      // Set local storage and the newGoalsLock - eldri7ch
+    newGoalsLock = elems.newGoals.value
+    // console.log(elems.presetId.value)
+    // console.log('set new goals: ' + newGoalsLock)
   }
 
   function alucardPaletteChange() {
@@ -775,6 +950,30 @@
 
   function rlbcModeChange() {
     localStorage.setItem('rlbcMode', elems.rlbcMode.checked)
+  }
+
+  function immunityPotionModeChange() {
+    localStorage.setItem('immunityPotionMode', elems.immunityPotionMode.checked)
+  }
+
+  function godspeedModeChange() {
+    localStorage.setItem('godspeedMode', elems.godspeedMode.checked)
+  }
+
+  function libraryShortcutChange() {
+    localStorage.setItem('libraryShortcut', elems.libraryShortcut.checked)
+  }
+
+  function devStashModeChange() {
+    localStorage.setItem('devStashMode', elems.devStashMode.checked)
+  }
+
+  function seasonalPhrasesModeChange() {
+    localStorage.setItem('seasonalPhrasesMode', elems.seasonalPhrasesMode.checked)
+  }
+
+  function bossMusicSeparationChange() {
+    localStorage.setItem('bossMusicSeparation', elems.bossMusicSeparation.checked)
   }
 
   function accessibilityPatchesChange() {
@@ -973,6 +1172,24 @@
     if (elems.rlbcMode.checked) {
       options.rlbcMode = true
     }
+    if (elems.immunityPotionMode.checked) {
+      options.immunityPotionMode = true
+    }
+    if (elems.godspeedMode.checked) {
+      options.godspeedMode = true
+    }
+    if (elems.libraryShortcut.checked) {
+      options.libraryShortcut = true
+    }
+    if (elems.devStashMode.checked) {
+      options.devStashMode = true
+    }
+    if (elems.seasonalPhrasesMode.checked) {
+      options.seasonalPhrasesMode = true
+    }
+    if (elems.bossMusicSeparation.checked) {
+      options.bossMusicSeparation = true
+    }
     if (elems.mapColor != 'normal') {
       switch (elems.mapColor.value){
         case 'normal':
@@ -1008,10 +1225,8 @@
           break
       }
     }
-    if (elems.newGoals != 'default') {
+    if (elems.newGoals.value != 'default') {
       switch (elems.newGoals.value){
-        case 'default':
-          break
         case 'allBoss':
           newGoalsSet = 'b'
           break
@@ -1023,6 +1238,18 @@
           break
         case 'vladBoss':
           newGoalsSet = 'v'
+          break
+        case 'bhNorm':
+          newGoalsSet = 'h'
+          break
+        case 'bhAdvanced':
+          newGoalsSet = 't'
+          break
+        case 'bhHitman':
+          newGoalsSet = 'w'
+          break
+        case 'bhBoss':
+          newGoalsSet = 'x'
           break
         default:
           break
@@ -1264,14 +1491,18 @@
           seed,
           3,
         ))
+        if(elems.excludeSongsOption.checked){
+          applied.excludesongs = Array.from(elems.excludeList.options).map(option => option.value);
+        }
         check.apply(randomizeMusic(rng, applied))
         // Initiate the write options function master
         let optWrite = 0x00000000                   // This variable lets the ASM used in the Master Function know if it needs to run certain code or sets flags for the tracker to use
         let nGoal                                                                           //begin the newGoals flag setting for the function master
-        if (elems.newGoals.value !== "default" || options.newGoals || applied.newGoals) {   // Sets flag for the tracker to know which goals to use
-          console.log(options.newGoals)
-          if (elems.newGoals.value !== "default") {
-            switch(elems.newGoals.value) {
+        let elementSet = elems.newGoals.value
+        // console.log('elem set ' + elementSet + '; opt ' + options.newGoals + '; appl ' + applied.newGoals)
+        if (elementSet !== "default" || options.newGoals || applied.newGoals) {   // Sets flag for the tracker to know which goals to use
+          if (elementSet !== "default") {
+            switch(elementSet) {
               case "allBoss":                         // all bosses flag
                 nGoal = "b"
                 break
@@ -1281,8 +1512,20 @@
               case "abrsr":                           //  all bosses and relics flag
                 nGoal = "a"
                 break
-              case "vladBoss":                        //  all bosses and relics flag
+              case "vladBoss":                        //  all bosses and vlads flag
                 nGoal = "v"
+                break
+              case "bhNorm":                          //  Bounty Hunter flag
+                nGoal = "h"
+                break
+              case "bhAdvanced":                      //  Target Confirmed flag
+                nGoal = "t"
+                break
+              case "bhHitman":                        //  Hitman flag
+                nGoal = "w"
+                break
+              case "bhBoss":                          //  all bosses and BH flag
+                nGoal = "x"
                 break
             }
           } else if (options.newGoals !== undefined) {
@@ -1301,12 +1544,24 @@
               optWrite = optWrite + 0x03
               break
             case "v":                                 //  all bosses and vlad relics flag
+            case "x":                                 //  all bosses and bounties flag
               optWrite = optWrite + 0x05
               break
+            default: 
+              optWrite = optWrite + 0x00
           }
         }
+        // Apply godspeed shoes patches.
+        // console.log('godspeed option: ' + options.godspeedMode + '; godspeed applied: ' + applied.godspeedMode)
+        if (options.godspeedMode || applied.godspeedMode) {
+          // console.log('godspeed enabled')
+          optWrite = optWrite + 0x80000000
+        }
         check.apply(util.randoFuncMaster(optWrite))
-        check.apply(util.applySplashText(rng))
+
+        // console.log('Seasonal mode ' + elems.seasonalPhrasesMode.checked)
+        check.apply(util.applySplashText(rng,elems.seasonalPhrasesMode.checked))
+
         // Apply tournament mode patches.
         if (options.tournamentMode) {
           check.apply(util.applyTournamentModePatches())
@@ -1368,7 +1623,22 @@
         }
         // Apply reverse library card patches.
         if (options.rlbcMode || applied.rlbcMode) {
-          check.apply(util.applyRLBCPatches(rng))
+          check.apply(util.applyRLBCPatches())
+        }
+        // Apply Resist potion patches. todo: Give own toggle option.
+        if (options.immunityPotionMode || applied.immunityPotionMode) {
+          check.apply(util.applyResistToImmunePotionsPatches())
+        }
+        // Apply library shortcut patches.
+        if (options.libraryShortcut || applied.libraryShortcut) {
+          check.apply(util.applyLibraryShortcutPatches())
+        }
+        // Apply dev stash patches.
+        if (options.devStashMode || applied.devStashMode) {
+          check.apply(util.applyDevsStashPatches())
+        }
+        // No patches to apply for Boss Music Separator
+        if (options.bossMusicSeparation || applied.bossMusicSeparation) {
         }
         // Apply map color patches.
         if (mapColorLock != 'normal') {
@@ -1435,6 +1705,20 @@
             case 'vladBoss':
               nGoal = 'v'
               check.apply(util.applyNewGoals(nGoal))
+              break
+            case 'bhNorm':
+              check.apply(util.applyBountyHunterTargets(rng,0))                 // 0 = normal Bounty Hunter; 1 = buffed drop rates and guaranteed relics after card obtained
+              break
+            case 'bhAdvanced':
+              check.apply(util.applyBountyHunterTargets(rng,2))                 // 0 = normal Bounty Hunter; 1 = buffed drop rates and guaranteed relics after card obtained
+              break
+            case "bhHitman":
+              check.apply(util.applyBountyHunterTargets(rng,1))                 // 0 = normal Bounty Hunter; 1 = buffed drop rates and guaranteed relics after card obtained
+              break
+            case 'bhBoss':
+              nGoal = 'v'
+              check.apply(util.applyNewGoals(nGoal))
+              check.apply(util.applyBountyHunterTargets(rng,2))                 // 0 = normal Bounty Hunter; 1 = buffed drop rates and guaranteed relics after card obtained
               break
             default:
               break
@@ -1640,6 +1924,14 @@
     elems.startRoomRando2ndMode.disabled = false
     elems.dominoMode.disabled = false
     elems.rlbcMode.disabled = false
+    elems.newGoals.value = ''
+    elems.immunityPotionMode.disabled = false
+    elems.godspeedMode.disabled = false
+    elems.libraryShortcut.disabled = false
+    elems.devStashMode.disabled = false
+    elems.seasonalPhrasesMode.disabled = false
+    elems.seasonalPhrasesMode.value = true
+    elems.bossMusicSeparation.disabled = false
     elems.tournamentMode.disabled = false
     elems.clear.classList.add('hidden')
     presetChange()
@@ -1650,21 +1942,22 @@
   function copyHandler(event) {
     event.preventDefault()
     event.stopPropagation()
-    elems.seed.value = elems.seed.value || currSeed || ''
-    const url = util.optionsToUrl(
-      version,
-      getFormOptions(),
-      checksum,
-      elems.seed.value,
-      window.location.href,
-    )
-    const input = document.createElement('input')
-    document.body.appendChild(input)
-    input.type = 'text'
-    input.value = url.toString()
-    input.select()
-    document.execCommand('copy')
-    document.body.removeChild(input)
+    //elems.seed.value = elems.seed.value || currSeed || ''
+    // const url = util.optionsToUrl(                                     Removed to change the copy seed button to a Copy Spoilers button
+    //   version,
+    //   getFormOptions(),
+    //   checksum,
+    //   elems.seed.value,
+    //   window.location.href,
+    // )
+    // const input = document.createElement('input')
+    // document.body.appendChild(input)
+    // input.type = 'text'
+    // input.value = url.toString()
+    // input.select()
+    // document.execCommand('copy')
+    // document.body.removeChild(input)
+    navigator.clipboard.writeText(spoilers.value);
     if (animationDone) {
       animationDone = false
       elems.notification.classList.add('success')
@@ -1720,6 +2013,86 @@
 
   function hideSpoilers() {
     elems.spoilersContainer.classList.add('hide')
+  }
+
+  function showExcludeMenu(){
+    elems.excludeSongsMenu.hidden = !elems.excludeSongsOption.checked;
+    localStorage.setItem('excludeSongsOption', elems.excludeSongsOption.checked)
+  }
+
+  function moveItemBetweenExclusionLists(from, to){
+    const fromList = document.getElementById(from + 'List');
+    const toList = document.getElementById(to + 'List');
+
+    Array.from(fromList.selectedOptions).forEach(option => {
+      toList.appendChild(option);
+    });
+  }
+
+  function saveStoredSongs(){
+    const excludeList = document.getElementById('excludeList');
+    const excludedItems = Array.from(excludeList.options).map(option => option.text);
+    localStorage.setItem('excludedSongsList', excludedItems);
+  }
+
+  function loadStoredSongs(){
+    const storedExcludedSongs = localStorage.getItem('excludedSongsList');
+    if(storedExcludedSongs){
+      const includeList = document.getElementById("includeList");
+      const excludeList = document.getElementById('excludeList');
+      for (const option of includeList.options) {
+        option.selected = storedExcludedSongs.includes(option.text);
+      }
+      excludeSong();
+    }
+  }
+
+  function excludeSong(){
+    moveItemBetweenExclusionLists("include", "exclude");
+    saveStoredSongs();
+  }
+
+  function includeSong(){
+    moveItemBetweenExclusionLists("exclude", "include");
+    saveStoredSongs();
+  }
+
+  function loadSongs(){
+    songsList.forEach(song => {
+      const option = document.createElement('option');
+      option.value = song.toUpperCase().replace(/ /g, "_");;
+      option.textContent = song;
+      elems.includeList.appendChild(option);
+    })
+    loadStoredSongs();
+  }
+
+  function isTodayBetweenDates(startMonth, startDay, endMonth, endDay){
+    const today = new Date();
+    const year = today.getFullYear();
+
+    const startDate = new Date(year, startMonth, startDay); 
+    const endDate = new Date(year, endMonth, endDay);   
+
+    return today >= startDate && today < endDate;
+  }
+
+  function loadEventLogo(seasonalEvent){
+    if(seasonalEvent.eventLogo){
+      elems.logo.src = seasonalEvent.eventLogo;
+      return;
+    }  
+  }
+
+  function loadEvent(){
+    for(const seasonalEvent of seasonalEvents){
+      // Months are - 1 because JS months start from 0.
+      if(isTodayBetweenDates(seasonalEvent.startMonth - 1, seasonalEvent.startDay, seasonalEvent.endMonth - 1, seasonalEvent.endDay)){
+        loadEventLogo(seasonalEvent);
+        displayRandomSplashText(seasonalEvent);
+        return;
+      }
+    }
   }
 
   const body = document.getElementsByTagName('body')[0]
@@ -1805,6 +2178,12 @@
     startRoomRando2ndMode: document.getElementById('startRoomRando2nd-mode'),
     dominoMode: document.getElementById('domino-mode'),
     rlbcMode: document.getElementById('rlbc-mode'),
+    immunityPotionMode: document.getElementById('immunity-potion-mode'),
+    godspeedMode: document.getElementById('godspeed-mode'),
+    libraryShortcut: document.getElementById('library-shortcut'),
+    devStashMode: document.getElementById('dev-stash'),
+    seasonalPhrasesMode: document.getElementById('seasonal-phrases'),
+    bossMusicSeparation: document.getElementById('boss-music-separation'),
     accessibilityPatches: document.getElementById('accessibility-patches'),
     showSpoilers: document.getElementById('show-spoilers'),
     showRelics: document.getElementById('show-relics'),
@@ -1818,8 +2197,15 @@
     seedUrl: document.getElementById('seed-url'),
     showOlder: document.getElementById('show-older'),
     older: document.getElementById('older'),
+    esMoveToLeft: document.getElementById('esMoveToLeft'),
+    esMoveToRight: document.getElementById('esMoveToRight'),
+    excludeSongsMenu: document.getElementById('excludeSongsMenu'),
+    excludeSongsOption: document.getElementById('excludeSongsOption'),
+    includeList: document.getElementById('includeList'),
+    excludeList: document.getElementById('excludeList'),
+    logo: document.getElementById('pageLogo')
   }
-
+  loadEvent();
   resetState()
   elems.output.ppf.addEventListener('change', outputChange)
   elems.output.bin.addEventListener('change', outputChange)
@@ -1885,12 +2271,21 @@
   elems.startRoomRando2ndMode.addEventListener('change', startRoomRando2ndModeChange)
   elems.dominoMode.addEventListener('change', dominoModeChange)
   elems.rlbcMode.addEventListener('change', rlbcModeChange)
+  elems.immunityPotionMode.addEventListener('change', immunityPotionModeChange)
+  elems.godspeedMode.addEventListener('change', godspeedModeChange)
+  elems.libraryShortcut.addEventListener('change', libraryShortcutChange)
+  elems.devStashMode.addEventListener('change', devStashModeChange)
+  elems.seasonalPhrasesMode.addEventListener('change', seasonalPhrasesModeChange)
+  elems.bossMusicSeparation.addEventListener('change', bossMusicSeparationChange)
   elems.accessibilityPatches.addEventListener('change', accessibilityPatchesChange)
   elems.showSpoilers.addEventListener('change', spoilersChange)
   elems.showRelics.addEventListener('change', showRelicsChange)
   elems.showSolutions.addEventListener('change', showSolutionsChange)
   elems.copy.addEventListener('click', copyHandler)
   elems.showOlder.addEventListener('click', showOlderHandler)
+  elems.excludeSongsOption.addEventListener('change', showExcludeMenu)
+  elems.esMoveToRight.addEventListener('click', excludeSong)
+  elems.esMoveToLeft.addEventListener('click', includeSong)
   // Set April Fools flag
   const month = new Date().getMonth() + 1;
   const day = new Date().getDate();
@@ -1951,6 +2346,8 @@
   }
   let options
   let seed
+  loadOption('excludeSongsOption', showExcludeMenu, false);
+  loadSongs();
   if (url.search.length) {
     const rs = util.optionsFromUrl(window.location.href)
     options = rs.options
@@ -2116,6 +2513,7 @@
     loadOption('stats', statsChange, true)
     loadOption('music', musicChange, true)
     loadOption('turkeyMode', turkeyModeChange, true)
+    loadOption('seasonalPhrasesMode', seasonalPhrasesModeChange, true)
     let relicLocationsExtension =
         localStorage.getItem('relicLocationsExtension')
     if (typeof(relicLocationsExtension) === 'string') {
@@ -2214,6 +2612,12 @@
   loadOption('startRoomRando2ndMode', startRoomRando2ndModeChange, false)
   loadOption('dominoMode', dominoModeChange, false)
   loadOption('rlbcMode', rlbcModeChange, false)
+  loadOption('immunityPotionMode', immunityPotionModeChange, false)
+  loadOption('godspeedMode', godspeedModeChange, false)
+  loadOption('libraryShortcut', libraryShortcutChange, false)
+  loadOption('devStashMode', devStashModeChange, false)
+  loadOption('seasonalPhrasesMode', seasonalPhrasesModeChange, true)
+  loadOption('bossMusicSeparation', bossMusicSeparationChange, true)
   loadOption('accessibilityPatches', accessibilityPatchesChange, true)
   loadOption('showSpoilers', spoilersChange, true)
   setTimeout(function() {

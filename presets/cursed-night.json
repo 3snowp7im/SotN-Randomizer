@@ -7,7 +7,7 @@
       "Bob Sagget",
       "Forat Negre"
     ],
-    "weight": 1300,
+    "weight": -2650,
     "knowledgeCheck": "None",
     "metaExtension": "Guarded",
     "metaComplexity": "6",
@@ -24,16 +24,9 @@
   "stats": false,
   "turkeyMode": true,
   "tournamentMode": true,
-  "mypurseMode": true,
-  "magicmaxMode": true,
   "fastwarpMode": true,
-
-  "complexityGoal": {
-    "min": 6,
-    "goals": [
-      "Holy glasses + Heart of Vlad + Tooth of Vlad + Rib of Vlad + Ring of Vlad + Eye of Vlad"
-    ]
-  },
+  "magicmaxMode": true,
+  "mypurseMode": true,
 
   "alias": [{
     "comment": "Dagger",
@@ -73,6 +66,13 @@
     "alias": "Ag"
   }],
 
+  "complexityGoal": {
+    "min": 6,
+    "goals": [
+      "Holy glasses + Heart of Vlad + Tooth of Vlad + Rib of Vlad + Ring of Vlad + Eye of Vlad"
+    ]
+  },
+
   "placeRelic": [{
     "comment": "Force a Subweapon at Cube of Zoe",
     "location": "Cube of Zoe",
@@ -83,6 +83,29 @@
     "comment": "Replace Force of Echo by Coral circlet to remove the curse",
     "relic": "Force of Echo",
     "item": "Coral circlet"
+  }],
+
+  "startingEquipment": [{
+    "slot": "Right hand",
+    "item": [
+      "Dark Blade",
+      "Mormegil"
+    ]
+  }, {
+    "slot": "Left hand",
+    "item": null
+  }, {
+    "slot": "Head",
+    "item": "Wizard hat"
+  }, {
+    "slot": "Body",
+    "item": "Brilliant mail"
+  }, {
+    "slot": "Cloak",
+    "item": "Blood cloak"
+  }, {
+    "slot": "Other",
+    "item": "Nauglamir"
   }],
 
   "prologueRewards": [{
@@ -135,29 +158,6 @@
       "Agunea",
       "Coral circlet"
     ]
-  }],
-
-  "startingEquipment": [{
-    "slot": "Right hand",
-    "item": [
-      "Dark Blade",
-      "Mormegil"
-    ]
-  }, {
-    "slot": "Left hand",
-    "item": null
-  }, {
-    "slot": "Head",
-    "item": "Wizard hat"
-  }, {
-    "slot": "Body",
-    "item": "Brilliant mail"
-  }, {
-    "slot": "Cloak",
-    "item": "Blood cloak"
-  }, {
-    "slot": "Other",
-    "item": "Nauglamir"
   }],
 
   "itemLocations": [{

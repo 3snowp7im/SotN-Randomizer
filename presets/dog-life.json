@@ -8,7 +8,7 @@
       "Forat Negre",
       "eldri7ch"
     ],
-    "weight": 1400,
+    "weight": -2625,
     "knowledgeCheck": "Modified Wolf Tech",
     "metaExtension": "Guarded",
     "metaComplexity": 9,
@@ -25,12 +25,29 @@
   "stats": false,
   "turkeyMode": true,
   "tournamentMode": true,
-  "noprologueMode": true,
-  "mypurseMode": true,
-  "magicmaxMode": true,
   "colorrandoMode": false,
-  "fastwarpMode": true,
   "antiFreezeMode": true,
+  "fastwarpMode": true,
+  "magicmaxMode": true,
+  "mypurseMode": true,
+  "noprologueMode": true,
+
+  "alias": [{
+    "relic": "Soul of Bat",
+    "alias": "Flight of Wolf"
+  }, {
+    "relic": "Fire of Bat",
+    "alias": "Fire of Wolf"
+  }, {
+    "relic": "Echo of Bat",
+    "alias": "Boost of Wolf"
+  }, {
+    "relic": "Gas Cloud",
+    "alias": "Smell of Wolf"
+  }, {
+    "relic": "Force of Echo",
+    "alias": "Gear Strap"
+  }],
 
   "complexityGoal": {
     "min": 9,
@@ -87,6 +104,26 @@
   }, {
     "relic": "Nosedevil Card",
     "item": "Manna prism"
+  }],
+
+  "startingEquipment": [{
+    "slot": "Right hand",
+    "item": null
+  }, {
+    "slot": "Left hand",
+    "item": null
+  }, {
+    "slot": "Head",
+    "item": "Goggles"
+  }, {
+    "slot": "Body",
+    "item": "Hide cuirass"
+  }, {
+    "slot": "Cloak",
+    "item": null
+  }, {
+    "slot": "Other",
+    "item": "Moonstone"
   }],
 
   "itemLocations": [{
@@ -381,43 +418,6 @@
       "Talisman",
       "Secret boots"
     ]
-  }],
-
-  "alias": [{
-    "relic": "Soul of Bat",
-    "alias": "Flight of Wolf"
-  }, {
-    "relic": "Fire of Bat",
-    "alias": "Fire of Wolf"
-  }, {
-    "relic": "Echo of Bat",
-    "alias": "Boost of Wolf"
-  }, {
-    "relic": "Gas Cloud",
-    "alias": "Smell of Wolf"
-  }, {
-    "relic": "Force of Echo",
-    "alias": "Gear Strap"
-  }],
-
-  "startingEquipment": [{
-    "slot": "Right hand",
-    "item": null
-  }, {
-    "slot": "Left hand",
-    "item": null
-  }, {
-    "slot": "Head",
-    "item": "Goggles"
-  }, {
-    "slot": "Body",
-    "item": "Hide cuirass"
-  }, {
-    "slot": "Cloak",
-    "item": null
-  }, {
-    "slot": "Other",
-    "item": "Moonstone"
   }],
 
   "lockLocation": [{

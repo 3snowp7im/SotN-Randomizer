@@ -6,7 +6,7 @@
     "author": [
       "3snow_p7im"
     ],
-    "weight": 2600,
+    "weight": -2350,
     "knowledgeCheck": "None",
     "metaExtension": "Guarded",
     "metaComplexity": "8",
@@ -18,7 +18,15 @@
     "transformFocus": "Wolf",
     "winCondition": "Normal"
   },
+
   "stats": false,
+
+  "complexityGoal": {
+    "min": 8,
+    "goals": [
+      "Holy glasses + Heart of Vlad + Tooth of Vlad + Rib of Vlad + Ring of Vlad + Eye of Vlad"
+  ]},
+
   "startingEquipment": [{
     "slot": "Right hand",
     "item": "Shield rod"
@@ -38,6 +46,7 @@
     "slot": "Other",
     "item": "Mystic pendant"
   }],
+
   "lockLocation": [{
     "location": "Soul of Bat",
     "comment": "Requires Mist + at least Leap Stone",
@@ -922,12 +931,7 @@
       "Holy glasses + Form of Mist + Power of Mist"
     ]
   }],
-  "complexityGoal": {
-    "min": 8,
-    "goals": [
-      "Holy glasses + Heart of Vlad + Tooth of Vlad + Rib of Vlad + Ring of Vlad + Eye of Vlad"
-    ]
-  },
+
   "writes": [{
     "comment": "Jump to injected code",
     "address": "0x000fa97c",

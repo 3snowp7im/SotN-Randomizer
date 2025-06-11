@@ -7,7 +7,7 @@
       "MT_Fun", 
       "MottZilla"
     ],
-    "weight": 500,
+    "weight": -2875,
     "knowledgeCheck": "None",
     "metaExtension": "GuardedPlus",
     "metaComplexity": "1",
@@ -19,8 +19,16 @@
     "transformFocus": "Bat",
     "winCondition": "Normal"
   },
-  "stats": false,
+
   "relicLocationsExtension": "guardedplus",
+  "stats": false,
+
+  "complexityGoal": {
+    "min": 1,
+    "goals": [
+      "Holy glasses + Heart of Vlad + Tooth of Vlad + Rib of Vlad + Ring of Vlad + Eye of Vlad"
+  ]},
+
   "lockLocation": [{
     "location": "Soul of Bat",
     "locks": [
@@ -590,12 +598,7 @@
       "Holy glasses + Soul of Bat + Fire of Bat + Echo of Bat + Force of Echo + Bat Card"
     ]
   }],
-  "complexityGoal": {
-    "min": 1,
-    "goals": [
-      "Holy glasses + Heart of Vlad + Tooth of Vlad + Rib of Vlad + Ring of Vlad + Eye of Vlad"
-    ]
-  },
+
   "writes": [{
     "type": "word",
     "address": "0x000c22a8",
@@ -603,641 +606,482 @@
     "comment": "Start of Bat Movement Speed and Bat Familiar XP code block"
   }, {
     "type": "word",
-    "value": "0xAFA2001C"
-},
-{
-    "type": "word",
-    "value": "0xAFA30018"
-},
-{
-    "type": "word",
-    "value": "0xAFA40014"
-},
-{
-    "type": "word",
-    "value": "0xAFA50010"
-},
-{
-    "type": "word",
-    "value": "0x00000000"
-},
-{
-    "type": "word",
-    "value": "0x3C048009"
-},
-{
-    "type": "word",
-    "value": "0x90847418"
-},
-{
-    "type": "word",
-    "value": "0x00000000"
-},
-{
-    "type": "word",
-    "value": "0x10800024"
-},
-{
-    "type": "word",
-    "value": "0x34030001"
-},
-{
-    "type": "word",
-    "value": "0x3C048007"
-},
-{
-    "type": "word",
-    "value": "0x348433E0"
-},
-{
-    "type": "word",
-    "value": "0x3C058009"
-},
-{
-    "type": "word",
-    "value": "0x34A573F5"
-},
-{
-    "type": "word",
-    "value": "0x3C028009"
-},
-{
-    "type": "word",
-    "value": "0x904274A0"
-},
-{
-    "type": "word",
-    "value": "0xAC800004"
-},
-{
-    "type": "word",
-    "value": "0x1443000D"
-},
-{
-    "type": "word",
-    "value": "0x00000000"
-},
-{
-    "type": "word",
-    "value": "0x90A20000"
-},
-{
-    "type": "word",
-    "value": "0x34030002"
-},
-{
-    "type": "word",
-    "value": "0x00000000"
-},
-{
-    "type": "word",
-    "value": "0x14430016"
-},
-{
-    "type": "word",
-    "value": "0x00000000"
-},
-{
-    "type": "word",
-    "value": "0x3402FFFE"
-},
-{
-    "type": "word",
-    "value": "0x34030001"
-},
-{
-    "type": "word",
-    "value": "0xAC800000"
-},
-{
-    "type": "word",
-    "value": "0xA0830026"
-},
-{
-    "type": "word",
-    "value": "0xA4820002"
-},
-{
-    "type": "word",
-    "value": "0x0802CE7A"
-},
-{
-    "type": "word",
-    "value": "0x00000000"
-},
-{
-    "type": "word",
-    "value": "0x34030021"
-},
-{
-    "type": "word",
-    "value": "0x00000000"
-},
-{
-    "type": "word",
-    "value": "0x1443000B"
-},
-{
-    "type": "word",
-    "value": "0x00000000"
-},
-{
-    "type": "word",
-    "value": "0x90A20000"
-},
-{
-    "type": "word",
-    "value": "0x34030006"
-},
-{
-    "type": "word",
-    "value": "0x00000000"
-},
-{
-    "type": "word",
-    "value": "0x14430006"
-},
-{
-    "type": "word",
-    "value": "0x00000000"
-},
-{
-    "type": "word",
-    "value": "0x34020001"
-},
-{
-    "type": "word",
-    "value": "0x34030001"
-},
-{
-    "type": "word",
-    "value": "0xAC800000"
-},
-{
-    "type": "word",
-    "value": "0xA0830026"
-},
-{
-    "type": "word",
-    "value": "0xA4820002"
-},
-{
-    "type": "word",
-    "value": "0x3C058007"
-},
-{
-    "type": "word",
-    "value": "0x34A533E0"
-},
-{
-    "type": "word",
-    "value": "0x3C048007"
-},
-{
-    "type": "word",
-    "value": "0x90842EFC"
-},
-{
-    "type": "word",
-    "value": "0x00000000"
-},
-{
-    "type": "word",
-    "value": "0x14800050"
-},
-{
-    "type": "word",
-    "value": "0x00000000"
-},
-{
-    "type": "word",
-    "value": "0x3C048004"
-},
-{
-    "type": "word",
-    "value": "0x9084925C"
-},
-{
-    "type": "word",
-    "value": "0x340300EF"
-},
-{
-    "type": "word",
-    "value": "0x00000000"
-},
-{
-    "type": "word",
-    "value": "0x14640008"
-},
-{
-    "type": "word",
-    "value": "0x00000000"
-},
-{
-    "type": "word",
-    "value": "0x94A40026"
-},
-{
-    "type": "word",
-    "value": "0x34030003"
-},
-{
-    "type": "word",
-    "value": "0x14640046"
-},
-{
-    "type": "word",
-    "value": "0x00000000"
-},
-{
-    "type": "word",
-    "value": "0x34030002"
-},
-{
-    "type": "word",
-    "value": "0xA4A30026"
-},
-{
-    "type": "word",
-    "value": "0x0802CED0"
-},
-{
-    "type": "word",
-    "value": "0x90A20026"
-},
-{
-    "type": "word",
-    "value": "0x34030002"
-},
-{
-    "type": "word",
-    "value": "0x1443003F"
-},
-{
-    "type": "word",
-    "value": "0x00000000"
-},
-{
-    "type": "word",
-    "value": "0x3C048004"
-},
-{
-    "type": "word",
-    "value": "0x9084925D"
-},
-{
-    "type": "word",
-    "value": "0x340200EF"
-},
-{
-    "type": "word",
-    "value": "0x14440004"
-},
-{
-    "type": "word",
-    "value": "0x00000000"
-},
-{
-    "type": "word",
-    "value": "0x3C02FFFD"
-},
-{
-    "type": "word",
-    "value": "0x34424000"
-},
-{
-    "type": "word",
-    "value": "0xACA20004"
-},
-{
-    "type": "word",
-    "value": "0x340200CF"
-},
-{
-    "type": "word",
-    "value": "0x14440007"
-},
-{
-    "type": "word",
-    "value": "0x00000000"
-},
-{
-    "type": "word",
-    "value": "0x3C02FFFD"
-},
-{
-    "type": "word",
-    "value": "0x34428000"
-},
-{
-    "type": "word",
-    "value": "0xACA20004"
-},
-{
-    "type": "word",
-    "value": "0x3C030002"
-},
-{
-    "type": "word",
-    "value": "0x34638000"
-},
-{
-    "type": "word",
-    "value": "0xACA30000"
-},
-{
-    "type": "word",
-    "value": "0x340200DF"
-},
-{
-    "type": "word",
-    "value": "0x14440004"
-},
-{
-    "type": "word",
-    "value": "0x00000000"
-},
-{
-    "type": "word",
-    "value": "0x3C030002"
-},
-{
-    "type": "word",
-    "value": "0x3463C000"
-},
-{
-    "type": "word",
-    "value": "0xACA30000"
-},
-{
-    "type": "word",
-    "value": "0x3402009F"
-},
-{
-    "type": "word",
-    "value": "0x14440007"
-},
-{
-    "type": "word",
-    "value": "0x00000000"
-},
-{
-    "type": "word",
-    "value": "0x3C020002"
-},
-{
-    "type": "word",
-    "value": "0x34428000"
-},
-{
-    "type": "word",
-    "value": "0xACA20004"
-},
-{
-    "type": "word",
-    "value": "0x3C030002"
-},
-{
-    "type": "word",
-    "value": "0x34638000"
-},
-{
-    "type": "word",
-    "value": "0xACA30000"
-},
-{
-    "type": "word",
-    "value": "0x340200BF"
-},
-{
-    "type": "word",
-    "value": "0x14440004"
-},
-{
-    "type": "word",
-    "value": "0x00000000"
-},
-{
-    "type": "word",
-    "value": "0x3C020002"
-},
-{
-    "type": "word",
-    "value": "0x3442C000"
-},
-{
-    "type": "word",
-    "value": "0xACA20004"
-},
-{
-    "type": "word",
-    "value": "0x3402003F"
-},
-{
-    "type": "word",
-    "value": "0x14440007"
-},
-{
-    "type": "word",
-    "value": "0x00000000"
-},
-{
-    "type": "word",
-    "value": "0x3C020002"
-},
-{
-    "type": "word",
-    "value": "0x34428000"
-},
-{
-    "type": "word",
-    "value": "0xACA20004"
-},
-{
-    "type": "word",
-    "value": "0x3C03FFFD"
-},
-{
-    "type": "word",
-    "value": "0x34638000"
-},
-{
-    "type": "word",
-    "value": "0xACA30000"
-},
-{
-    "type": "word",
-    "value": "0x3402007F"
-},
-{
-    "type": "word",
-    "value": "0x14440004"
-},
-{
-    "type": "word",
-    "value": "0x00000000"
-},
-{
-    "type": "word",
-    "value": "0x3C03FFFD"
-},
-{
-    "type": "word",
-    "value": "0x34634000"
-},
-{
-    "type": "word",
-    "value": "0xACA30000"
-},
-{
-    "type": "word",
-    "value": "0x3402006F"
-},
-{
-    "type": "word",
-    "value": "0x14440007"
-},
-{
-    "type": "word",
-    "value": "0x00000000"
-},
-{
-    "type": "word",
-    "value": "0x3C02FFFD"
-},
-{
-    "type": "word",
-    "value": "0x34428000"
-},
-{
-    "type": "word",
-    "value": "0xACA20004"
-},
-{
-    "type": "word",
-    "value": "0x3C03FFFD"
-},
-{
-    "type": "word",
-    "value": "0x34638000"
-},
-{
-    "type": "word",
-    "value": "0xACA30000"
-},
-{
-    "type": "word",
-    "value": "0x00000000"
-},
-{
-    "type": "word",
-    "value": "0x8FA2001C"
-},
-{
-    "type": "word",
-    "value": "0x8FA30018"
-},
-{
-    "type": "word",
-    "value": "0x8FA40014"
-},
-{
-    "type": "word",
-    "value": "0x8FA50010"
-},
-{
-    "type": "word",
-    "value": "0x27BD0020"
-},
-{
-    "type": "word",
-    "value": "0x3C048014"
-},
-{
-    "type": "word",
-    "value": "0x8C84AECC"
-},
-{
-    "type": "word",
-    "value": "0x08045DC1"
-},
-{
-    "type": "word",
-    "value": "0x00000000"
-},
-{
-    "type": "word",
-    "value": "0x00000000"
-},
-{
-    "type": "word",
-    "value": "0x00000000"
-},
-{
-    "type": "word",
-    "value": "0x00000000"
-},
-{
-    "type": "word",
-    "value": "0x00000000"
-},
-{
-    "type": "word",
-    "value": "0x00000000"
-},
-{
-    "type": "word",
-    "value": "0x00000000"
-},
-{
-    "type": "word",
-    "value": "0x00000000"
-},
-{
-    "type": "word",
-    "value": "0x00240821"
-},
-{
-    "type": "word",
-    "value": "0x14800007"
-},
-{
-    "type": "word",
-    "value": "0x00000000"
-},
-{
-    "type": "word",
-    "value": "0x34040019"
-},
-{
-    "type": "word",
-    "value": "0x00000000"
-},
-{
-    "type": "word",
-    "value": "0x00441021"
-},
-{
-    "type": "word",
-    "value": "0x00000000"
-},
-{
-    "type": "word",
-    "value": "0x00000000"
-},
-{
-    "type": "word",
-    "value": "0x34040000"
-},
-{
-    "type": "word",
-    "value": "0xAC227C48"
-},
-{
-    "type": "word",
-    "value": "0x0803F8D1"
-},
-{
+    "value": "0xAFA2001C "
+  }, {
+    "type": "word",
+    "value": "0xAFA30018 "
+  }, {
+    "type": "word",
+    "value": "0xAFA40014 "
+  }, {
+    "type": "word",
+    "value": "0xAFA50010 "
+  }, {
+    "type": "word",
+    "value": "0x00000000 "
+  }, {
+    "type": "word",
+    "value": "0x3C048009 "
+  }, {
+    "type": "word",
+    "value": "0x90847418 "
+  }, {
+    "type": "word",
+    "value": "0x00000000 "
+  }, {
+    "type": "word",
+    "value": "0x10800024 "
+  }, {
+    "type": "word",
+    "value": "0x34030001 "
+  }, {
+    "type": "word",
+    "value": "0x3C048007 "
+  }, {
+    "type": "word",
+    "value": "0x348433E0 "
+  }, {
+    "type": "word",
+    "value": "0x3C058009 "
+  }, {
+    "type": "word",
+    "value": "0x34A573F5 "
+  }, {
+    "type": "word",
+    "value": "0x3C028009 "
+  }, {
+    "type": "word",
+    "value": "0x904274A0 "
+  }, {
+    "type": "word",
+    "value": "0xAC800004 "
+  }, {
+    "type": "word",
+    "value": "0x1443000D "
+  }, {
+    "type": "word",
+    "value": "0x00000000 "
+  }, {
+    "type": "word",
+    "value": "0x90A20000 "
+  }, {
+    "type": "word",
+    "value": "0x34030002 "
+  }, {
+    "type": "word",
+    "value": "0x00000000 "
+  }, {
+    "type": "word",
+    "value": "0x14430016 "
+  }, {
+    "type": "word",
+    "value": "0x00000000 "
+  }, {
+    "type": "word",
+    "value": "0x3402FFFE "
+  }, {
+    "type": "word",
+    "value": "0x34030001 "
+  }, {
+    "type": "word",
+    "value": "0xAC800000 "
+  }, {
+    "type": "word",
+    "value": "0xA0830026 "
+  }, {
+    "type": "word",
+    "value": "0xA4820002 "
+  }, {
+    "type": "word",
+    "value": "0x0802CE7A "
+  }, {
+    "type": "word",
+    "value": "0x00000000 "
+  }, {
+    "type": "word",
+    "value": "0x34030021 "
+  }, {
+    "type": "word",
+    "value": "0x00000000 "
+  }, {
+    "type": "word",
+    "value": "0x1443000B "
+  }, {
+    "type": "word",
+    "value": "0x00000000 "
+  }, {
+    "type": "word",
+    "value": "0x90A20000 "
+  }, {
+    "type": "word",
+    "value": "0x34030006 "
+  }, {
+    "type": "word",
+    "value": "0x00000000 "
+  }, {
+    "type": "word",
+    "value": "0x14430006 "
+  }, {
+    "type": "word",
+    "value": "0x00000000 "
+  }, {
+    "type": "word",
+    "value": "0x34020001 "
+  }, {
+    "type": "word",
+    "value": "0x34030001 "
+  }, {
+    "type": "word",
+    "value": "0xAC800000 "
+  }, {
+    "type": "word",
+    "value": "0xA0830026 "
+  }, {
+    "type": "word",
+    "value": "0xA4820002 "
+  }, {
+    "type": "word",
+    "value": "0x3C058007 "
+  }, {
+    "type": "word",
+    "value": "0x34A533E0 "
+  }, {
+    "type": "word",
+    "value": "0x3C048007 "
+  }, {
+    "type": "word",
+    "value": "0x90842EFC "
+  }, {
+    "type": "word",
+    "value": "0x00000000 "
+  }, {
+    "type": "word",
+    "value": "0x14800050 "
+  }, {
+    "type": "word",
+    "value": "0x00000000 "
+  }, {
+    "type": "word",
+    "value": "0x3C048004 "
+  }, {
+    "type": "word",
+    "value": "0x9084925C "
+  }, {
+    "type": "word",
+    "value": "0x340300EF "
+  }, {
+    "type": "word",
+    "value": "0x00000000 "
+  }, {
+    "type": "word",
+    "value": "0x14640008 "
+  }, {
+    "type": "word",
+    "value": "0x00000000 "
+  }, {
+    "type": "word",
+    "value": "0x94A40026 "
+  }, {
+    "type": "word",
+    "value": "0x34030003 "
+  }, {
+    "type": "word",
+    "value": "0x14640046 "
+  }, {
+    "type": "word",
+    "value": "0x00000000 "
+  }, {
+    "type": "word",
+    "value": "0x34030002 "
+  }, {
+    "type": "word",
+    "value": "0xA4A30026 "
+  }, {
+    "type": "word",
+    "value": "0x0802CED0 "
+  }, {
+    "type": "word",
+    "value": "0x90A20026 "
+  }, {
+    "type": "word",
+    "value": "0x34030002 "
+  }, {
+    "type": "word",
+    "value": "0x1443003F "
+  }, {
+    "type": "word",
+    "value": "0x00000000 "
+  }, {
+    "type": "word",
+    "value": "0x3C048004 "
+  }, {
+    "type": "word",
+    "value": "0x9084925D "
+  }, {
+    "type": "word",
+    "value": "0x340200EF "
+  }, {
+    "type": "word",
+    "value": "0x14440004 "
+  }, {
+    "type": "word",
+    "value": "0x00000000 "
+  }, {
+    "type": "word",
+    "value": "0x3C02FFFD "
+  }, {
+    "type": "word",
+    "value": "0x34424000 "
+  }, {
+    "type": "word",
+    "value": "0xACA20004 "
+  }, {
+    "type": "word",
+    "value": "0x340200CF "
+  }, {
+    "type": "word",
+    "value": "0x14440007 "
+  }, {
+    "type": "word",
+    "value": "0x00000000 "
+  }, {
+    "type": "word",
+    "value": "0x3C02FFFD "
+  }, {
+    "type": "word",
+    "value": "0x34428000 "
+  }, {
+    "type": "word",
+    "value": "0xACA20004 "
+  }, {
+    "type": "word",
+    "value": "0x3C030002 "
+  }, {
+    "type": "word",
+    "value": "0x34638000 "
+  }, {
+    "type": "word",
+    "value": "0xACA30000 "
+  }, {
+    "type": "word",
+    "value": "0x340200DF "
+  }, {
+    "type": "word",
+    "value": "0x14440004 "
+  }, {
+    "type": "word",
+    "value": "0x00000000 "
+  }, {
+    "type": "word",
+    "value": "0x3C030002 "
+  }, {
+    "type": "word",
+    "value": "0x3463C000 "
+  }, {
+    "type": "word",
+    "value": "0xACA30000 "
+  }, {
+    "type": "word",
+    "value": "0x3402009F "
+  }, {
+    "type": "word",
+    "value": "0x14440007 "
+  }, {
+    "type": "word",
+    "value": "0x00000000 "
+  }, {
+    "type": "word",
+    "value": "0x3C020002 "
+  }, {
+    "type": "word",
+    "value": "0x34428000 "
+  }, {
+    "type": "word",
+    "value": "0xACA20004 "
+  }, {
+    "type": "word",
+    "value": "0x3C030002 "
+  }, {
+    "type": "word",
+    "value": "0x34638000 "
+  }, {
+    "type": "word",
+    "value": "0xACA30000 "
+  }, {
+    "type": "word",
+    "value": "0x340200BF "
+  }, {
+    "type": "word",
+    "value": "0x14440004 "
+  }, {
+    "type": "word",
+    "value": "0x00000000 "
+  }, {
+    "type": "word",
+    "value": "0x3C020002 "
+  }, {
+    "type": "word",
+    "value": "0x3442C000 "
+  }, {
+    "type": "word",
+    "value": "0xACA20004 "
+  }, {
+    "type": "word",
+    "value": "0x3402003F "
+  }, {
+    "type": "word",
+    "value": "0x14440007 "
+  }, {
+    "type": "word",
+    "value": "0x00000000 "
+  }, {
+    "type": "word",
+    "value": "0x3C020002 "
+  }, {
+    "type": "word",
+    "value": "0x34428000 "
+  }, {
+    "type": "word",
+    "value": "0xACA20004 "
+  }, {
+    "type": "word",
+    "value": "0x3C03FFFD "
+  }, {
+    "type": "word",
+    "value": "0x34638000 "
+  }, {
+    "type": "word",
+    "value": "0xACA30000 "
+  }, {
+    "type": "word",
+    "value": "0x3402007F "
+  }, {
+    "type": "word",
+    "value": "0x14440004 "
+  }, {
+    "type": "word",
+    "value": "0x00000000 "
+  }, {
+    "type": "word",
+    "value": "0x3C03FFFD "
+  }, {
+    "type": "word",
+    "value": "0x34634000 "
+  }, {
+    "type": "word",
+    "value": "0xACA30000 "
+  }, {
+    "type": "word",
+    "value": "0x3402006F "
+  }, {
+    "type": "word",
+    "value": "0x14440007 "
+  }, {
+    "type": "word",
+    "value": "0x00000000 "
+  }, {
+    "type": "word",
+    "value": "0x3C02FFFD "
+  }, {
+    "type": "word",
+    "value": "0x34428000 "
+  }, {
+    "type": "word",
+    "value": "0xACA20004 "
+  }, {
+    "type": "word",
+    "value": "0x3C03FFFD "
+  }, {
+    "type": "word",
+    "value": "0x34638000 "
+  }, {
+    "type": "word",
+    "value": "0xACA30000 "
+  }, {
+    "type": "word",
+    "value": "0x00000000 "
+  }, {
+    "type": "word",
+    "value": "0x8FA2001C "
+  }, {
+    "type": "word",
+    "value": "0x8FA30018 "
+  }, {
+    "type": "word",
+    "value": "0x8FA40014 "
+  }, {
+    "type": "word",
+    "value": "0x8FA50010 "
+  }, {
+    "type": "word",
+    "value": "0x27BD0020 "
+  }, {
+    "type": "word",
+    "value": "0x3C048014 "
+  }, {
+    "type": "word",
+    "value": "0x8C84AECC "
+  }, {
+    "type": "word",
+    "value": "0x08045DC1 "
+  }, {
+    "type": "word",
+    "value": "0x00000000 "
+  }, {
+    "type": "word",
+    "value": "0x00000000 "
+  }, {
+    "type": "word",
+    "value": "0x00000000 "
+  }, {
+    "type": "word",
+    "value": "0x00000000 "
+  }, {
+    "type": "word",
+    "value": "0x00000000 "
+  }, {
+    "type": "word",
+    "value": "0x00000000 "
+  }, {
+    "type": "word",
+    "value": "0x00000000 "
+  }, {
+    "type": "word",
+    "value": "0x00000000 "
+  }, {
+    "type": "word",
+    "value": "0x00240821 "
+  }, {
+    "type": "word",
+    "value": "0x14800007 "
+  }, {
+    "type": "word",
+    "value": "0x00000000 "
+  }, {
+    "type": "word",
+    "value": "0x34040019 "
+  }, {
+    "type": "word",
+    "value": "0x00000000 "
+  }, {
+    "type": "word",
+    "value": "0x00441021 "
+  }, {
+    "type": "word",
+    "value": "0x00000000 "
+  }, {
+    "type": "word",
+    "value": "0x00000000 "
+  }, {
+    "type": "word",
+    "value": "0x34040000 "
+  }, {
+    "type": "word",
+    "value": "0xAC227C48 "
+  }, {
+    "type": "word",
+    "value": "0x0803F8D1 "
+  }, {
     "type": "word",
     "value": "0x00000000"
 }, {

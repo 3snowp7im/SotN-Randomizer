@@ -413,8 +413,8 @@
   },
   {
     "name": "Bounty Hunter",
-    "id": "bountyhunter",
-    "description": "The Vlad Relics are dropped by 5 random enemies throughout the castle and the player must collect familiar cards to find out which enemies have the relics. Relic placement requires the Bounty Hunter Tool. App URL: https://github.com/MottZilla/BountyHunterTool",
+    "id": "bounty-hunter",
+    "description": "The Vlad Relics are dropped by 5 random enemies throughout the castle and the player must collect familiar cards to find out which enemies have the relics.",
     "author": [
       "eldri7ch",
       "MottZilla"
@@ -431,9 +431,9 @@
     "itemStats": "Normal"
   },
   {
-    "name": "Bounty Hunter TC",
-    "id": "bountyhuntertc",
-    "description": "Bounty Hunter variant. Vlad drop rates are much higher, Familiar Cards are required before the drop is unlocked. Requires the Bounty Hunter Tool. App URL: https://github.com/MottZilla/BountyHunterTool",
+    "name": "Target Confirmed",
+    "id": "target-confirmed",
+    "description": "Bounty Hunter variant. Vlad drop rates are much higher, Familiar Cards are required before the drop is unlocked.",
     "author": [
       "eldri7ch",
       "MottZilla"
@@ -452,7 +452,7 @@
   {
     "name": "Hitman",
     "id": "hitman",
-    "description": "Bounty Hunter variant. Start with all five Familiar Cards so you know your targets. Requires the Bounty Hunter Tool. App URL: https://github.com/MottZilla/BountyHunterTool",
+    "description": "Bounty Hunter variant. Start with all five Familiar Cards so you know your targets.",
     "author": [
       "eldri7ch",
       "MottZilla"
@@ -471,7 +471,7 @@
   {
     "name": "Chaos Lite",
     "id": "chaos-lite",
-    "description": "April Fools Preset Released on April 1st, 2024. A child of the original Chaos. Requires the Bounty Hunter Tool. App URL: https://github.com/MottZilla/BountyHunterTool",
+    "description": "April Fools Preset Released on April 1st, 2024. A child of the original Chaos.",
     "author": [
       "3snow_p7im",
       "eldri7ch",
@@ -784,7 +784,7 @@
   {
     "name": "Sight-Seer",
     "id": "sight-seer",
-    "description": "A simple, no mess preset using the Extended relic locations.",
+    "description": "A simple, Casual-style preset using the Extended relic locations.",
     "author": [
       "3snow_p7im",
       "eldri7ch"
@@ -957,25 +957,6 @@
     "itemStats": "Normal"
   },
   {
-    "name": "Alphabet Soup",
-    "id": "april-fools",
-    "description": "April Fools Preset Released on April 1st, 2025.",
-    "author": [
-      "eldri7ch",
-      "MottZilla"
-    ],
-    "knowledgeCheck": "April Fools",
-    "timeFrame": "Normal",
-    "moddedLevel": "None",
-    "castleType": "Normal",
-    "transformEarly": "No",
-    "transformFocus": "None",
-    "winCondition": "April Fools",
-    "metaExtension": "Classic",
-    "metaComplexity": "9",
-    "itemStats": "Normal"
-  },
-  {
     "name": "Vanilla",
     "id": "vanilla",
     "description": "The vanilla game.",
@@ -991,6 +972,206 @@
     "winCondition": "Normal",
     "metaExtension": "Classic",
     "metaComplexity": "9",
+    "itemStats": "Normal"
+  },
+  {
+    "name": "Glitch",
+    "id": "glitch-legacy",
+    "description": "Adventure logic is the base. Requires extensive glitch knowledge, but avoids memory corruption and lengthy wolf rising.",
+    "author": [
+      "romscout"
+    ],
+    "knowledgeCheck": "Glitches",
+    "timeFrame": "Slow",
+    "moddedLevel": "Slightly",
+    "castleType": "Normal",
+    "transformEarly": "No",
+    "transformFocus": "None",
+    "winCondition": "Relic Skip",
+    "metaExtension": "Equipment",
+    "metaComplexity": "4",
+    "itemStats": "Normal"
+  },
+  {
+    "name": "Oracle",
+    "id": "oracle",
+    "description": "Removes almost all references to RNG. Drops always occur and rarity is determined based on Ring of Arcana, Rings are replaced by Silver Key, Vlads are replaced by Gold Key. Reverse Library Card enabled.",
+    "author": [
+      "Forat Negre"
+    ],
+    "knowledgeCheck": "None",
+    "timeFrame": "Normal",
+    "moddedLevel": "None",
+    "castleType": "Normal",
+    "transformEarly": "No",
+    "transformFocus": "None",
+    "winCondition": "Gold Key",
+    "metaExtension": "Guarded",
+    "metaComplexity": "9",
+    "itemStats": "Normal"
+  },
+  {
+    "name": "Seeker",
+    "id": "seeker",
+    "description": "The Portal Spell is always the complexity relic in this first-castle only preset. Richter is missing and the keep teleporter is broken. Obtain five vlads and then find the portal spell to win.",
+    "author": [
+      "SacredLucy",
+      "MottZilla",
+      "eldri7ch",
+      "DinnerDog",
+      "the_swarm"
+    ],
+    "knowledgeCheck": "None",
+    "timeFrame": "Fast",
+    "moddedLevel": "Moderately",
+    "castleType": "Normal",
+    "transformEarly": "No",
+    "transformFocus": "None",
+    "winCondition": "Vlads and Portal Spell",
+    "metaExtension": "Guarded",
+    "metaComplexity": "7",
+    "itemStats": "Normal"
+  },
+  {
+    "name": "All Bosses",
+    "id": "all-bosses",
+    "description": "An all-bosses and all-vlads preset designed for racing. Removes drops, progression items in vanilla locations, sequence breaks are part of logic, all progression is in first castle, Reverse Library Cards, random Castle 1 starting location.",
+    "author": [
+      "TalicZealot",
+      "3snow_p7im",
+      "MottZilla",
+      "eldri7ch"
+    ],
+    "knowledgeCheck": "Sequence Breaks",
+    "timeFrame": "Fast",
+    "moddedLevel": "Moderately",
+    "castleType": "Normal",
+    "transformEarly": "No",
+    "transformFocus": "None",
+    "winCondition": "All Bosses",
+    "metaExtension": "Guarded",
+    "metaComplexity": "6",
+    "itemStats": "Normal"
+  },
+  {
+    "name": "Nimble Lite",
+    "id": "nimble-lite",
+    "description": "A fast, complexity-focused preset. Start with Soul of Bat, Leap Stone, Gravity Boots. Reduced movement MP costs.",
+    "author": [
+      "MottZilla",
+      "the_swarm",
+      "3snow_p7im"
+    ],
+    "knowledgeCheck": "None",
+    "timeFrame": "Fast",
+    "moddedLevel": "None",
+    "castleType": "Normal",
+    "transformEarly": "Yes",
+    "transformFocus": "Bat",
+    "winCondition": "Normal",
+    "metaExtension": "Guarded",
+    "metaComplexity": "6",
+    "itemStats": "Normal"
+  },
+  {
+    "name": "Rampage",
+    "id": "rampage",
+    "description": "Target Confirmed Variant where you start in a random location and opens all shortcuts and all teleporters. Acquire Familiar Cards to know which enemies to hunt. All bosses and Vlads required.",
+    "author": [
+      "TalicZealot",
+      "eldri7ch",
+      "MottZilla",
+      "Wecoc"
+    ],
+    "knowledgeCheck": "None",
+    "timeFrame": "Normal",
+    "moddedLevel": "Heavily",
+    "castleType": "Normal",
+    "transformEarly": "No",
+    "transformFocus": "None",
+    "winCondition": "Normal",
+    "metaExtension": "Guarded",
+    "metaComplexity": "6",
+    "itemStats": "Normal"
+  },
+  {
+    "name": "Cornivus",
+    "id": "cornivus",
+    "description": "Start in second castle with all wolf relics and stat-boosting potions. MP consumption is greatly reduced when in wolf form. All Bosses and All Vlads required to win.",
+    "author": [
+      "3snow_p7im",
+      "eldri7ch",
+      "Dr4gonBlitz"
+    ],
+    "knowledgeCheck": "None",
+    "timeFrame": "Fast",
+    "moddedLevel": "Moderately",
+    "castleType": "Normal",
+    "transformEarly": "Yes",
+    "transformFocus": "Wolf",
+    "winCondition": "All Bosses & Vlad Relics",
+    "metaExtension": "Guarded",
+    "metaComplexity": "8",
+    "itemStats": "Normal"
+  },
+  {
+    "name": "Max Rando",
+    "id": "max-rando",
+    "description": "Literally randomizes everything we can except for map tiles. Portal Spell is the goal to teleport to dracula.",
+    "author": [
+      "3snow_p7im",
+      "eldri7ch",
+      "MottZilla"
+    ],
+    "knowledgeCheck": "None",
+    "timeFrame": "Slow",
+    "moddedLevel": "Heavily",
+    "castleType": "Normal",
+    "transformEarly": "Yes",
+    "transformFocus": "None",
+    "winCondition": "Portal Spell",
+    "metaExtension": "Scenic",
+    "metaComplexity": "1",
+    "itemStats": "Randomized"
+  },
+  {
+    "name": "Mirror Breaker",
+    "id": "mirror-breaker",
+    "description": "Start in a random first castle location with Gravity Boots, stat-boosting potions, and a Magic Mirror (X + Triangle; Replaces Holy Glasses) to move between the castles. Significant map changes to add new complexity. All bosses required.",
+    "author": [
+      "eldri7ch",
+      "MottZilla",
+      "Dr4gonBlitz",
+      "emeraldend9231"
+    ],
+    "knowledgeCheck": "None",
+    "timeFrame": "Fast",
+    "moddedLevel": "Heavily",
+    "castleType": "Modded",
+    "transformEarly": "No",
+    "transformFocus": "None",
+    "winCondition": "All Bosses",
+    "metaExtension": "GuardedPlus",
+    "metaComplexity": "3",
+    "itemStats": "Normal"
+  },
+  {
+    "name": "Recycler",
+    "id": "recycler",
+    "description": "A high-complexity preset where duplicate relics appear for the main progression relics and there are eight Vlad relics. Start in second castle with stat-boosting potions. Six vlads open the doors to Dracula. Duplicate relics can be acquired to enhance the players abilities and the three new vlads have unique powers.",
+    "author": [
+      "eldri7ch",
+      "MottZilla"
+    ],
+    "knowledgeCheck": "None",
+    "timeFrame": "Normal",
+    "moddedLevel": "None",
+    "castleType": "Normal",
+    "transformEarly": "No",
+    "transformFocus": "None",
+    "winCondition": "Six out of Eight Vlads",
+    "metaExtension": "Guarded",
+    "metaComplexity": "6",
     "itemStats": "Normal"
   }
 ]

@@ -6,7 +6,7 @@
     "author": [
       "3snow_p7im"
     ],
-    "weight": 100,
+    "weight": -2975,
     "knowledgeCheck": "None",
     "metaExtension": "Equipment",
     "metaComplexity": 9,
@@ -20,6 +20,13 @@
   },
 
   "relicLocationsExtension": "equipment",
+
+  "complexityGoal": {
+    "min": 9,
+    "goals": [
+      "Holy glasses + Heart of Vlad + Tooth of Vlad + Rib of Vlad + Ring of Vlad + Eye of Vlad"
+    ]
+  },
 
   "lockLocation": [{
     "location": "Soul of Bat",
@@ -936,12 +943,5 @@
       "Holy glasses + Gravity Boots + Leap Stone",
       "Holy glasses + Form of Mist + Power of Mist"
     ]
-  }],
-
-  "complexityGoal": {
-    "min": 9,
-    "goals": [
-      "Holy glasses + Heart of Vlad + Tooth of Vlad + Rib of Vlad + Ring of Vlad + Eye of Vlad"
-    ]
-  }
+  }]
 }

@@ -7,7 +7,7 @@
       "eldri7ch",
       "MottZilla"
     ],
-    "weight": 2700,
+    "weight": -2325,
     "knowledgeCheck": "None",
     "metaExtension": "GuardedPlus",
     "metaComplexity": "6",
@@ -20,8 +20,8 @@
     "winCondition": "Mirror For 2nd Castle"
   },
   
-  "stats": false,
   "relicLocationsExtension": "guardedplus",
+  "stats": false,
   "magicmaxMode": true,
 
   "alias": [{
@@ -30,96 +30,101 @@
     "alias": "Mirror"
   }],
   
-  "itemLocations": [
-    {
-      "zone": "NZ0",
-      "item": "Leather shield",
-      "index": 1,
-      "replacement": [
-        "Shield rod",
-        "Sword of Dawn",
-        "Basilard",
-        "Short sword",
-        "Combat knife",
-        "Nunchaku",
-        "Were Bane",
-        "Rapier",
-        "Red Rust",
-        "Takemitsu",
-        "Shotel",
-        "Namakura",
-        "Knuckle duster",
-        "Gladius",
-        "Scimitar",
-        "Cutlass",
-        "Saber",
-        "Falchion",
-        "Broadsword",
-        "Bekatowa",
-        "Damascus sword",
-        "Hunter sword",
-        "Estoc",
-        "Bastard sword",
-        "Jewel knuckles",
-        "Claymore",
-        "Talwar",
-        "Katana",
-        "Flamberge",
-        "Iron Fist",
-        "Zwei hander",
-        "Sword of Hador",
-        "Luminus",
-        "Harper",
-        "Obsidian sword",
-        "Gram",
-        "Jewel sword",
-        "Mormegil",
-        "Firebrand",
-        "Thunderbrand",
-        "Icebrand",
-        "Stone sword",
-        "Holy sword",
-        "Terminus Est",
-        "Marsil",
-        "Dark Blade",
-        "Heaven sword",
-        "Fist of Tulkas",
-        "Gurthang",
-        "Mourneblade",
-        "Alucard sword",
-        "Mablung Sword",
-        "Badelaire",
-        "Great Sword",
-        "Mace",
-        "Morningstar",
-        "Holy rod",
-        "Star flail",
-        "Moon rod",
-        "Chakram",
-        "Holbein dagger",
-        "Blue knuckles",
-        "Osafune katana",
-        "Masamune",
-        "Muramasa",
-        "Runesword",
-        "Vorpal blade",
-        "Crissaegrim",
-        "Yasutsuna",
-        "Alucart sword",
-        "Leather shield",
-        "Knight shield",
-        "Iron shield",
-        "AxeLord shield",
-        "Herald shield",
-        "Dark shield",
-        "Goddess shield",
-        "Shaman shield",
-        "Medusa shield",
-        "Skull shield",
-        "Fire shield",
-        "Alucard shield"
-      ]
-    }],
+  "complexityGoal": {
+    "min": 6,
+    "goals": [
+      "Mirror + Heart of Vlad + Tooth of Vlad + Rib of Vlad + Ring of Vlad + Eye of Vlad"
+  ]},
+  
+  "itemLocations": [{
+    "zone": "NZ0",
+    "item": "Leather shield",
+    "index": 1,
+    "replacement": [
+      "Shield rod",
+      "Sword of Dawn",
+      "Basilard",
+      "Short sword",
+      "Combat knife",
+      "Nunchaku",
+      "Were Bane",
+      "Rapier",
+      "Red Rust",
+      "Takemitsu",
+      "Shotel",
+      "Namakura",
+      "Knuckle duster",
+      "Gladius",
+      "Scimitar",
+      "Cutlass",
+      "Saber",
+      "Falchion",
+      "Broadsword",
+      "Bekatowa",
+      "Damascus sword",
+      "Hunter sword",
+      "Estoc",
+      "Bastard sword",
+      "Jewel knuckles",
+      "Claymore",
+      "Talwar",
+      "Katana",
+      "Flamberge",
+      "Iron Fist",
+      "Zwei hander",
+      "Sword of Hador",
+      "Luminus",
+      "Harper",
+      "Obsidian sword",
+      "Gram",
+      "Jewel sword",
+      "Mormegil",
+      "Firebrand",
+      "Thunderbrand",
+      "Icebrand",
+      "Stone sword",
+      "Holy sword",
+      "Terminus Est",
+      "Marsil",
+      "Dark Blade",
+      "Heaven sword",
+      "Fist of Tulkas",
+      "Gurthang",
+      "Mourneblade",
+      "Alucard sword",
+      "Mablung Sword",
+      "Badelaire",
+      "Great Sword",
+      "Mace",
+      "Morningstar",
+      "Holy rod",
+      "Star flail",
+      "Moon rod",
+      "Chakram",
+      "Holbein dagger",
+      "Blue knuckles",
+      "Osafune katana",
+      "Masamune",
+      "Muramasa",
+      "Runesword",
+      "Vorpal blade",
+      "Crissaegrim",
+      "Yasutsuna",
+      "Alucart sword",
+      "Leather shield",
+      "Knight shield",
+      "Iron shield",
+      "AxeLord shield",
+      "Herald shield",
+      "Dark shield",
+      "Goddess shield",
+      "Shaman shield",
+      "Medusa shield",
+      "Skull shield",
+      "Fire shield",
+      "Alucard shield"
+    ]
+  }],
 
   "lockLocation": [{
     "location": "Faerie Scroll",
@@ -3890,1845 +3895,1387 @@
     "value": "0x0C003008"
   },
 
-{
+  {
     "comment": "EXPANSION0",
     "type": "word",
     "address": "0x370F5A8",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x08003090"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x7FD67E5D"
-},
-{
+  }, {
     "type": "word",
     "value": "0x78497C0E"
-},
-{
+  }, {
     "type": "word",
     "value": "0x7A34813E"
-},
-{
+  }, {
     "type": "word",
     "value": "0x917F7B8C"
-},
-{
+  }, {
     "type": "word",
     "value": "0x8400793E"
-},
-{
+  }, {
     "type": "word",
     "value": "0x955476E5"
-},
-{
+  }, {
     "type": "word",
     "value": "0x941592DD"
-},
-{
+  }, {
     "type": "word",
     "value": "0x7FD6996C"
-},
-{
+  }, {
     "type": "word",
     "value": "0x7FD67E5D"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00009DAA"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x7E5DB23A"
-},
-{
+  }, {
     "type": "word",
     "value": "0xABD1ACDD"
-},
-{
+  }, {
     "type": "word",
     "value": "0xA956AA76"
-},
-{
+  }, {
     "type": "word",
     "value": "0xA737A854"
-},
-{
+  }, {
     "type": "word",
     "value": "0x9044A5E2"
-},
-{
+  }, {
     "type": "word",
     "value": "0x8B2689C4"
-},
-{
+  }, {
     "type": "word",
     "value": "0x857088BE"
-},
-{
+  }, {
     "type": "word",
     "value": "0x86978C4E"
-},
-{
+  }, {
     "type": "word",
     "value": "0x8D9C878E"
-},
-{
+  }, {
     "type": "word",
     "value": "0x8ED29658"
-},
-{
+  }, {
     "type": "word",
     "value": "0x9883976B"
-},
-{
+  }, {
     "type": "word",
     "value": "0x9B8D9A4F"
-},
-{
+  }, {
     "type": "word",
     "value": "0x8B269CC5"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x98830000"
-},
-{
+  }, {
     "type": "word",
     "value": "0xB791B88F"
-},
-{
+  }, {
     "type": "word",
     "value": "0xB517B671"
-},
-{
+  }, {
     "type": "word",
     "value": "0xB322B415"
-},
-{
+  }, {
     "type": "word",
     "value": "0xB02AB125"
-},
-{
+  }, {
     "type": "word",
     "value": "0x8B26AE35"
-},
-{
+  }, {
     "type": "word",
     "value": "0x82977D6F"
-},
-{
+  }, {
     "type": "word",
     "value": "0x348C27E4"
-},
-{
+  }, {
     "type": "word",
     "value": "0x2AF42EC4"
-},
-{
+  }, {
     "type": "word",
     "value": "0x196032A4"
-},
-{
+  }, {
     "type": "word",
     "value": "0x3A80235C"
-},
-{
+  }, {
     "type": "word",
     "value": "0x30F40000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x1B7C2E60"
-},
-{
+  }, {
     "type": "word",
     "value": "0x23402730"
-},
-{
+  }, {
     "type": "word",
     "value": "0x348C11B0"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x1E9C3440"
-},
-{
+  }, {
     "type": "word",
     "value": "0x248819A4"
-},
-{
+  }, {
     "type": "word",
     "value": "0x183C2394"
-},
-{
+  }, {
     "type": "word",
     "value": "0x2B241B08"
-},
-{
+  }, {
     "type": "word",
     "value": "0x2C040000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x15341C5C"
-},
-{
+  }, {
     "type": "word",
     "value": "0x24C81FAC"
-},
-{
+  }, {
     "type": "word",
     "value": "0x000011B0"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x3C098009"
-},
-{
+  }, {
     "type": "word",
     "value": "0x3C0A800A"
-},
-{
+  }, {
     "type": "word",
     "value": "0x8D2474A0"
-},
-{
+  }, {
     "type": "word",
     "value": "0x3C0B800F"
-},
-{
+  }, {
     "type": "word",
     "value": "0x3C0C8007"
-},
-{
+  }, {
     "type": "word",
     "value": "0x38840020"
-},
-{
+  }, {
     "type": "word",
     "value": "0xA1641724"
-},
-{
+  }, {
     "type": "word",
     "value": "0x348F0000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x31EF0020"
-},
-{
+  }, {
     "type": "word",
     "value": "0x952273F0"
-},
-{
+  }, {
     "type": "word",
     "value": "0x15E00006"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x958330C8"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00621823"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x34620000"
-},
-{
+  }, {
     "type": "word",
     "value": "0xA54225E2"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x952273F4"
-},
-{
+  }, {
     "type": "word",
     "value": "0x15E00006"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x958330CC"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00621823"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x34620000"
-},
-{
+  }, {
     "type": "word",
     "value": "0xA54225E4"
-},
-{
+  }, {
     "type": "word",
     "value": "0x8D2574A0"
-},
-{
+  }, {
     "type": "word",
     "value": "0x3C048013"
-},
-{
+  }, {
     "type": "word",
     "value": "0x948475BC"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00052840"
-},
-{
+  }, {
     "type": "word",
     "value": "0x3C068000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x34C6C0B4"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00C53021"
-},
-{
+  }, {
     "type": "word",
     "value": "0x94C70000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00872023"
-},
-{
+  }, {
     "type": "word",
     "value": "0xA54425E6"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x91651724"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00052840"
-},
-{
+  }, {
     "type": "word",
     "value": "0x3C068000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x34C6C030"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00C53021"
-},
-{
+  }, {
     "type": "word",
     "value": "0x94C70000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0xAD473C98"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x3C058000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x34A5C028"
-},
-{
+  }, {
     "type": "word",
     "value": "0x34040002"
-},
-{
+  }, {
     "type": "word",
     "value": "0xACA40000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x34080006"
-},
-{
+  }, {
     "type": "word",
     "value": "0xAD287C98"
-},
-{
+  }, {
     "type": "word",
     "value": "0x3C0F800F"
-},
-{
+  }, {
     "type": "word",
     "value": "0x35EF32A4"
-},
-{
+  }, {
     "type": "word",
     "value": "0x91641724"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x38840020"
-},
-{
+  }, {
     "type": "word",
     "value": "0xA1E40000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x03E00008"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x27BDFFE0"
-},
-{
+  }, {
     "type": "word",
     "value": "0xAFBF0018"
-},
-{
+  }, {
     "type": "word",
     "value": "0x3C048000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x3484C028"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x8C850000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x10A00007"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x24A5FFFF"
-},
-{
+  }, {
     "type": "word",
     "value": "0xAC850000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x14A00101"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x0C0031B8"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x3C098009"
-},
-{
+  }, {
     "type": "word",
     "value": "0x3C0A8007"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x91443404"
-},
-{
+  }, {
     "type": "word",
     "value": "0x34050010"
-},
-{
+  }, {
     "type": "word",
     "value": "0x108500F8"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x3405000A"
-},
-{
+  }, {
     "type": "word",
     "value": "0x108500F5"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x3405000D"
-},
-{
+  }, {
     "type": "word",
     "value": "0x108500F2"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x34050005"
-},
-{
+  }, {
     "type": "word",
     "value": "0x108500EF"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x34050018"
-},
-{
+  }, {
     "type": "word",
     "value": "0x108500EC"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x34050007"
-},
-{
+  }, {
     "type": "word",
     "value": "0x108500E9"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x95247490"
-},
-{
+  }, {
     "type": "word",
     "value": "0x34050050"
-},
-{
+  }, {
     "type": "word",
     "value": "0x30840050"
-},
-{
+  }, {
     "type": "word",
     "value": "0x148500E4"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x95247494"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x30840010"
-},
-{
+  }, {
     "type": "word",
     "value": "0x108000DF"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x91257C08"
-},
-{
+  }, {
     "type": "word",
     "value": "0x34060022"
-},
-{
+  }, {
     "type": "word",
     "value": "0x91247A55"
-},
-{
+  }, {
     "type": "word",
     "value": "0x10A60003"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x108000D8"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x3C048000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x3484C0B4"
-},
-{
+  }, {
     "type": "word",
     "value": "0x8D2574A0"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00052840"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00852021"
-},
-{
+  }, {
     "type": "word",
     "value": "0x94860000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x10C000C9"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x8D2474A0"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x14800010"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x3C088007"
-},
-{
+  }, {
     "type": "word",
     "value": "0x8D0430B4"
-},
-{
+  }, {
     "type": "word",
     "value": "0x8D0530B0"
-},
-{
+  }, {
     "type": "word",
     "value": "0x3406001B"
-},
-{
+  }, {
     "type": "word",
     "value": "0x1486000A"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x3406001F"
-},
-{
+  }, {
     "type": "word",
     "value": "0x10A600BC"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x24C60001"
-},
-{
+  }, {
     "type": "word",
     "value": "0x10A600B9"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x24C60001"
-},
-{
+  }, {
     "type": "word",
     "value": "0x10A600B6"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x3C098009"
-},
-{
+  }, {
     "type": "word",
     "value": "0x3C0A8007"
-},
-{
+  }, {
     "type": "word",
     "value": "0x8D2474A0"
-},
-{
+  }, {
     "type": "word",
     "value": "0x8D4630B0"
-},
-{
+  }, {
     "type": "word",
     "value": "0x30840020"
-},
-{
+  }, {
     "type": "word",
     "value": "0x14800076"
-},
-{
+  }, {
     "type": "word",
     "value": "0x8D4730B4"
-},
-{
+  }, {
     "type": "word",
     "value": "0x34040039"
-},
-{
+  }, {
     "type": "word",
     "value": "0x14860006"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x34040017"
-},
-{
+  }, {
     "type": "word",
     "value": "0x14870003"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x08003199"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x3404001E"
-},
-{
+  }, {
     "type": "word",
     "value": "0x14860006"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x34040028"
-},
-{
+  }, {
     "type": "word",
     "value": "0x14870003"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x08003199"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x34040017"
-},
-{
+  }, {
     "type": "word",
     "value": "0x14860006"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x3404000D"
-},
-{
+  }, {
     "type": "word",
     "value": "0x14870003"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x08003199"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x34040010"
-},
-{
+  }, {
     "type": "word",
     "value": "0x10860003"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x34040013"
-},
-{
+  }, {
     "type": "word",
     "value": "0x14860006"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x34040010"
-},
-{
+  }, {
     "type": "word",
     "value": "0x14870003"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x08003199"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x34040013"
-},
-{
+  }, {
     "type": "word",
     "value": "0x14860006"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x34040016"
-},
-{
+  }, {
     "type": "word",
     "value": "0x14870003"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x08003199"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x3404000D"
-},
-{
+  }, {
     "type": "word",
     "value": "0x1486000A"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x3404000C"
-},
-{
+  }, {
     "type": "word",
     "value": "0x14870007"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x912473F5"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x14800003"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x08003199"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x34040012"
-},
-{
+  }, {
     "type": "word",
     "value": "0x1486000A"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x3404000B"
-},
-{
+  }, {
     "type": "word",
     "value": "0x14870007"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x912473F5"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x14800003"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x08003199"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x3404001A"
-},
-{
+  }, {
     "type": "word",
     "value": "0x1486000A"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x3404000A"
-},
-{
+  }, {
     "type": "word",
     "value": "0x14870007"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x912473F5"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x14800003"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x08003199"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x3404000E"
-},
-{
+  }, {
     "type": "word",
     "value": "0x14860006"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x34040029"
-},
-{
+  }, {
     "type": "word",
     "value": "0x14870003"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x08003199"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x34040002"
-},
-{
+  }, {
     "type": "word",
     "value": "0x1486000A"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x34040026"
-},
-{
+  }, {
     "type": "word",
     "value": "0x14870007"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x912473F5"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x14800003"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x08003199"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x34040029"
-},
-{
+  }, {
     "type": "word",
     "value": "0x14860006"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x34040032"
-},
-{
+  }, {
     "type": "word",
     "value": "0x14870003"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x08003199"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x3404000A"
-},
-{
+  }, {
     "type": "word",
     "value": "0x14860006"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x3404000F"
-},
-{
+  }, {
     "type": "word",
     "value": "0x14870003"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x08003199"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x08003192"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x3404001A"
-},
-{
+  }, {
     "type": "word",
     "value": "0x14860018"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x34040033"
-},
-{
+  }, {
     "type": "word",
     "value": "0x14870015"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x8D2473F0"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00042202"
-},
-{
+  }, {
     "type": "word",
     "value": "0x34050002"
-},
-{
+  }, {
     "type": "word",
     "value": "0x10850007"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x34050003"
-},
-{
+  }, {
     "type": "word",
     "value": "0x10850004"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x34050001"
-},
-{
+  }, {
     "type": "word",
     "value": "0x14850009"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x8D2473F4"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00042202"
-},
-{
+  }, {
     "type": "word",
     "value": "0x34050004"
-},
-{
+  }, {
     "type": "word",
     "value": "0x14850003"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x08003199"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x34040031"
-},
-{
+  }, {
     "type": "word",
     "value": "0x14860006"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x34040016"
-},
-{
+  }, {
     "type": "word",
     "value": "0x14870003"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x08003199"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x34040014"
-},
-{
+  }, {
     "type": "word",
     "value": "0x14860006"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x3404000D"
-},
-{
+  }, {
     "type": "word",
     "value": "0x14870003"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x08003199"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x34040031"
-},
-{
+  }, {
     "type": "word",
     "value": "0x14860006"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x34040030"
-},
-{
+  }, {
     "type": "word",
     "value": "0x14870003"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x08003199"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x0C00304E"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x3C048000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x3484C028"
-},
-{
+  }, {
     "type": "word",
     "value": "0x34050004"
-},
-{
+  }, {
     "type": "word",
     "value": "0xAC850000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x0800319D"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x340406F2"
-},
-{
+  }, {
     "type": "word",
     "value": "0x0C04D1FE"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x3C088009"
-},
-{
+  }, {
     "type": "word",
     "value": "0x35087976"
-},
-{
+  }, {
     "type": "word",
     "value": "0x3C098009"
-},
-{
+  }, {
     "type": "word",
     "value": "0x34070000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x34060007"
-},
-{
+  }, {
     "type": "word",
     "value": "0x91040000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x24E70001"
-},
-{
+  }, {
     "type": "word",
     "value": "0x25080001"
-},
-{
+  }, {
     "type": "word",
     "value": "0x1080000E"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x14C7FFFA"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x3C088009"
-},
-{
+  }, {
     "type": "word",
     "value": "0x35087C44"
-},
-{
+  }, {
     "type": "word",
     "value": "0x34040063"
-},
-{
+  }, {
     "type": "word",
     "value": "0x340526AB"
-},
-{
+  }, {
     "type": "word",
     "value": "0x34060007"
-},
-{
+  }, {
     "type": "word",
     "value": "0xAD040000"
-},
-{
+  }, {
     "type": "word",
     "value": "0xAD050004"
-},
-{
+  }, {
     "type": "word",
     "value": "0x24C6FFFF"
-},
-{
+  }, {
     "type": "word",
     "value": "0x2508000C"
-},
-{
+  }, {
     "type": "word",
     "value": "0x14C0FFFB"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x8FBF0018"
-},
-{
+  }, {
     "type": "word",
     "value": "0x27BD0020"
-},
-{
+  }, {
     "type": "word",
     "value": "0x03E00008"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x3C0F800F"
-},
-{
+  }, {
     "type": "word",
     "value": "0x35EF1724"
-},
-{
+  }, {
     "type": "word",
     "value": "0x3C0E800A"
-},
-{
+  }, {
     "type": "word",
     "value": "0x34040002"
-},
-{
+  }, {
     "type": "word",
     "value": "0x34050028"
-},
-{
+  }, {
     "type": "word",
     "value": "0x34060010"
-},
-{
+  }, {
     "type": "word",
     "value": "0x34070084"
-},
-{
+  }, {
     "type": "word",
     "value": "0x34087C0E"
-},
-{
+  }, {
     "type": "word",
     "value": "0xA5E40000"
-},
-{
+  }, {
     "type": "word",
     "value": "0xA5C525E6"
-},
-{
+  }, {
     "type": "word",
     "value": "0xA5C625E2"
-},
-{
+  }, {
     "type": "word",
     "value": "0xA5C725E4"
-},
-{
+  }, {
     "type": "word",
     "value": "0xADC83C98"
-},
-{
+  }, {
     "type": "word",
     "value": "0x3C0F800F"
-},
-{
+  }, {
     "type": "word",
     "value": "0x35EF32A4"
-},
-{
+  }, {
     "type": "word",
     "value": "0x34040022"
-},
-{
+  }, {
     "type": "word",
     "value": "0xA1E40000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x03E00008"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000000",
     "comment": "End of Expansion"
-},
+  },
 
 
 
@@ -5785,466 +5332,355 @@
     "comment": "End Creds Block"
   }, 
 
-{
+  {
     "comment": "MP Vessel GFX",
     "address": "0x3868268",
     "type": "word",
     "value": "0x40000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000003"
-},
-{
+  }, {
     "type": "word",
     "value": "0x40000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000003"
-},
-{
+  }, {
     "type": "word",
     "value": "0x40000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000003"
-},
-{
+  }, {
     "type": "word",
     "value": "0x40000000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000003"
-},
-{
+  }, {
     "address": "0x38682A8",
     "type": "word",
     "value": "0xF7200000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000277"
-},
-{
+  }, {
     "type": "word",
     "value": "0xF7200000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000277"
-},
-{
+  }, {
     "type": "word",
     "value": "0xF7200000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000277"
-},
-{
+  }, {
     "type": "word",
     "value": "0xF7200000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00000277"
-},
-{
+  }, {
     "address": "0x38682E8",
     "type": "word",
     "value": "0x97122000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00022169"
-},
-{
+  }, {
     "type": "word",
     "value": "0x97122000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00022169"
-},
-{
+  }, {
     "type": "word",
     "value": "0x97122000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00022169"
-},
-{
+  }, {
     "type": "word",
     "value": "0x97122000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00022169"
-},
-{
+  }, {
     "address": "0x3868328",
     "type": "word",
     "value": "0x1F944300"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00344971"
-},
-{
+  }, {
     "type": "word",
     "value": "0x1F944300"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00344971"
-},
-{
+  }, {
     "type": "word",
     "value": "0x1F944300"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00344971"
-},
-{
+  }, {
     "type": "word",
     "value": "0x1F944300"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00344971"
-},
-{
+  }, {
     "address": "0x3868368",
     "type": "word",
     "value": "0xA9432130"
-},
-{
+  }, {
     "type": "word",
     "value": "0x0321449A"
-},
-{
+  }, {
     "type": "word",
     "value": "0xA9432130"
-},
-{
+  }, {
     "type": "word",
     "value": "0x0321449A"
-},
-{
+  }, {
     "type": "word",
     "value": "0xA9432130"
-},
-{
+  }, {
     "type": "word",
     "value": "0x0321449A"
-},
-{
+  }, {
     "type": "word",
     "value": "0xA9432130"
-},
-{
+  }, {
     "type": "word",
     "value": "0x0321449A"
-},
-{
+  }, {
     "address": "0x38683A8",
     "type": "word",
     "value": "0x93319920"
-},
-{
+  }, {
     "type": "word",
     "value": "0x02992349"
-},
-{
+  }, {
     "type": "word",
     "value": "0x93319920"
-},
-{
+  }, {
     "type": "word",
     "value": "0x02992349"
-},
-{
+  }, {
     "type": "word",
     "value": "0x93319920"
-},
-{
+  }, {
     "type": "word",
     "value": "0x02992349"
-},
-{
+  }, {
     "type": "word",
     "value": "0x93319920"
-},
-{
+  }, {
     "type": "word",
     "value": "0x02992349"
-},
-{
+  }, {
     "address": "0x38683E8",
     "type": "word",
     "value": "0x3F2C7690"
-},
-{
+  }, {
     "type": "word",
     "value": "0x09679233"
-},
-{
+  }, {
     "type": "word",
     "value": "0x3F2C7690"
-},
-{
+  }, {
     "type": "word",
     "value": "0x09679233"
-},
-{
+  }, {
     "type": "word",
     "value": "0x3F2C7690"
-},
-{
+  }, {
     "type": "word",
     "value": "0x09679233"
-},
-{
+  }, {
     "type": "word",
     "value": "0x3F2C7690"
-},
-{
+  }, {
     "type": "word",
     "value": "0x09679233"
-},
-{
+  }, {
     "address": "0x3868428",
     "type": "word",
     "value": "0xF29CCF60"
-},
-{
+  }, {
     "type": "word",
     "value": "0x06FAB913"
-},
-{
+  }, {
     "type": "word",
     "value": "0xF29CCF60"
-},
-{
+  }, {
     "type": "word",
     "value": "0x06FAB913"
-},
-{
+  }, {
     "type": "word",
     "value": "0xF293CF60"
-},
-{
+  }, {
     "type": "word",
     "value": "0x06FAB913"
-},
-{
+  }, {
     "type": "word",
     "value": "0xF23C3F60"
-},
-{
+  }, {
     "type": "word",
     "value": "0x06FAB913"
-},
-{
+  }, {
     "address": "0x3868468",
     "type": "word",
     "value": "0x19ACCBF0"
-},
-{
+  }, {
     "type": "word",
     "value": "0x0F9AAA91"
-},
-{
+  }, {
     "type": "word",
     "value": "0x19CFCBF0"
-},
-{
+  }, {
     "type": "word",
     "value": "0x0F9AAA91"
-},
-{
+  }, {
     "type": "word",
     "value": "0x193F3BF0"
-},
-{
+  }, {
     "type": "word",
     "value": "0x0F9AAA91"
-},
-{
+  }, {
     "type": "word",
     "value": "0x19CFCBF0"
-},
-{
+  }, {
     "type": "word",
     "value": "0x0F9AAA91"
-},
-{
+  }, {
     "address": "0x38684A8",
     "type": "word",
     "value": "0x9ACCBA70"
-},
-{
+  }, {
     "type": "word",
     "value": "0x079BAAA9"
-},
-{
+  }, {
     "type": "word",
     "value": "0x9ACCBA70"
-},
-{
+  }, {
     "type": "word",
     "value": "0x079BAAA9"
-},
-{
+  }, {
     "type": "word",
     "value": "0x9AC3BA70"
-},
-{
+  }, {
     "type": "word",
     "value": "0x079BAAA9"
-},
-{
+  }, {
     "type": "word",
     "value": "0x9A3C3A70"
-},
-{
+  }, {
     "type": "word",
     "value": "0x079BAAA9"
-},
-{
+  }, {
     "address": "0x38684E8",
     "type": "word",
     "value": "0xABCCAF00"
-},
-{
+  }, {
     "type": "word",
     "value": "0x0079BAAA"
-},
-{
+  }, {
     "type": "word",
     "value": "0xABCCAF00"
-},
-{
+  }, {
     "type": "word",
     "value": "0x0079BAAA"
-},
-{
+  }, {
     "type": "word",
     "value": "0xABCCAF00"
-},
-{
+  }, {
     "type": "word",
     "value": "0x0079BAAA"
-},
-{
+  }, {
     "type": "word",
     "value": "0xABCCAF00"
-},
-{
+  }, {
     "type": "word",
     "value": "0x0079BAAA"
-},
-{
+  }, {
     "address": "0x3868528",
     "type": "word",
     "value": "0xBBBAF000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00079BAB"
-},
-{
+  }, {
     "type": "word",
     "value": "0xBBBAF000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00079BAB"
-},
-{
+  }, {
     "type": "word",
     "value": "0xBBBAF000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00079BAB"
-},
-{
+  }, {
     "type": "word",
     "value": "0xBBBAF000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x00079BAB"
-},
-{
+  }, {
     "address": "0x3868568",
     "type": "word",
     "value": "0xAAA70000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x000079AA"
-},
-{
+  }, {
     "type": "word",
     "value": "0xAAA70000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x000079AA"
-},
-{
+  }, {
     "type": "word",
     "value": "0xAAA70000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x000079AA"
-},
-{
+  }, {
     "type": "word",
     "value": "0xAAA70000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x000079AA"
-},
-{
+  }, {
     "address": "0x38685A8",
     "type": "word",
     "value": "0xF7600000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x0000067F"
-},
-{
+  }, {
     "type": "word",
     "value": "0xF7600000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x0000067F"
-},
-{
+  }, {
     "type": "word",
     "value": "0xF7600000"
-},
-{
+  }, {
     "type": "word",
     "value": "0x0000067F"
-},
-{
+  }, {
     "type": "word",
     "value": "0xF7600000"
-},
-{
+  }, {
     "comment": "End of MP Vessel GFX",
     "type": "word",
     "value": "0x0000067F"
@@ -6386,12 +5822,5 @@
     "type":    "char",
     "address": "0x143C58",
     "value":    "0x40"
-  }],
-  
-  "complexityGoal": {
-    "min": 6,
-    "goals": [
-      "Mirror + Heart of Vlad + Tooth of Vlad + Rib of Vlad + Ring of Vlad + Eye of Vlad"
-    ]
-  }
+  }]
 }

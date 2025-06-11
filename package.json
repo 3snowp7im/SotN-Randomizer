@@ -1,6 +1,6 @@
 {
   "name": "SotN-Randomizer",
-  "version": "25.05.12",
+  "version": "25.06.10",
   "description": "This is a romhacking tool to randomize some things about `Castlevania: Symphony of the Night`.",
   "dependencies": {
     "colors": "^1.4.0",
@@ -39,8 +39,8 @@
     "boss-rush",
     "aperture",
     "big-toss",
-    "bountyhunter",
-    "bountyhuntertc",
+    "bounty-hunter",
+    "target-confirmed",
     "hitman",
     "chaos-lite",
     "beyond",
@@ -67,8 +67,17 @@
     "battle-mage",
     "timeline",
     "chimera",
-    "april-fools",
-    "vanilla"
+    "vanilla",
+    "glitch-legacy",
+    "oracle",
+    "seeker",
+    "all-bosses",
+    "nimble-lite",
+    "rampage",
+    "cornivus",
+    "max-rando",
+    "mirror-breaker",
+    "recycler"
   ],
   "engines": {
     "node": ">=15"

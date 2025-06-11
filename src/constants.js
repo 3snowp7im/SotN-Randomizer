@@ -641,10 +641,53 @@
     // I_AM_THE_WIND: 0x3c,       // I Am the Wind
     // SILENCE: 0x3d,             // Silence
     // LAND_OF_BENEDICTION: 0x3e, // Land of Benediction
-    NOCTURNE: 0x3f,            // Nocturne
+    // NOCTURNE: 0x3f,            // Nocturne
     // MOONLIGHT_NOCTURNE: 0x40,  // Moonlight Nocturne
     // SPOKEN: 0x41,
     // SPOKEN: 0x42,
+  }
+
+  const TRAVEL_MUSIC = {
+    LOST_PAINTING: 0x01,          // Lost Painting
+    CURSE_ZONE: 0x03,             // Curse Zone
+    REQUIEM_FOR_THE_GODS: 0x05,   // Requiem for the Gods
+    RAINBOW_CEMETARY: 0x07,       // Rainbow Cemetary
+    WOOD_CARVING_PARTITA: 0x09,   // Wood Carving Partita
+    CRYSTAL_TEARDROPS: 0x0b,      // Crystal Teardrops
+    MARBLE_GALLERY: 0x0d,         // Marble Gallery
+    DRACULAS_CASTLE: 0x0f,        // Dracula's Castle
+    THE_TRAGIC_PRINCE: 0x11,      // The Tragic Prince
+    TOWER_OF_MIST: 0x13,          // Tower of Mist
+    DOOR_OF_HOLY_SPIRITS: 0x15,   // Door of Holy Spirits
+    DANCE_OF_PALES: 0x17,         // Dance of Pales
+    ABANDONED_PIT: 0x19,          // Abandoned Pit
+    HEAVENLY_DOORWAY: 0x1b,       // Heavenly Doorway
+    WANDERING_GHOSTS: 0x23,       // Wandering Ghosts
+    THE_DOOR_TO_THE_ABYSS: 0x25,  // The Door to the Abyss
+    DANCE_OF_GOLD: 0x2e,          // Dance of Gold
+    FINAL_TOCCATA: 0x38,          // Final Tocatta
+    // PROLOGUE: 0x21,            // Prologue
+    // METAMORPHOSIS: 0x27,       // Metamorphosis
+    // METAMORPHOSIS_II: 0x28,    // Metamorphosis II
+    // METAMORPHOSIS_III: 0x29,   // Metamorphosis III
+    // HOWLING_WIND: 0x2a,        // Howling Wind
+    // PRAYER: 0x32,              // Prayer
+    // I_AM_THE_WIND: 0x3c,       // I Am the Wind
+    // SILENCE: 0x3d,             // Silence
+    // LAND_OF_BENEDICTION: 0x3e, // Land of Benediction
+    // NOCTURNE: 0x3f,            // Nocturne
+    // MOONLIGHT_NOCTURNE: 0x40,  // Moonlight Nocturne
+    // SPOKEN: 0x41,
+    // SPOKEN: 0x42,
+  }
+
+  const BOSS_MUSIC = {
+    FESTIVAL_OF_SERVANTS: 0x1d,   // Festival of Servants
+    ENCHANTED_BANQUET: 0x30,      // Enchanted Banquet
+    DEATH_BALLAD: 0x34,           // Death Ballad
+    DANCE_OF_ILLUSIONS: 0x1f,  // Dance of Illusions
+    BLOOD_RELATIONS: 0x36,     // Blood Relations
+    // BLACK_BANQUET: 0x3a,       // Black Banquet
   }
 
   const HAND_TYPE = {
@@ -1477,7 +1520,7 @@
       xPos: 144,
       yPos: 540,
       xyWrite: 0x021c0090,
-      roomWrite: 0x00410000,
+      roomWrite: 0x00270000,
       stageWrite: 0x0000                                                           // Castle 2 Stage Numbers should mask off the 0x20 bit.
     }, {
       id: 46,
@@ -1487,7 +1530,7 @@
       xPos: 232,
       yPos: 128,
       xyWrite: 0x008000e8,
-      roomWrite: 0x00410070,
+      roomWrite: 0x00270070,
       stageWrite: 0x0000
     }, {
       id: 47,
@@ -1497,7 +1540,7 @@
       xPos: 80,
       yPos: 128,
       xyWrite: 0x00800050,
-      roomWrite: 0x004100c0,
+      roomWrite: 0x002700c0,
       stageWrite: 0x0000
     }, {
       id: 48,
@@ -1507,7 +1550,7 @@
       xPos: 232,
       yPos: 128,
       xyWrite: 0x008000e8,
-      roomWrite: 0x00410008,
+      roomWrite: 0x00270008,
       stageWrite: 0x0001
     }, {
       id: 49,
@@ -1517,7 +1560,7 @@
       xPos: 537,
       yPos: 128,
       xyWrite: 0x00800219,
-      roomWrite: 0x00410018,
+      roomWrite: 0x00270018,
       stageWrite: 0x0001
     }, {
       id: 50,
@@ -1527,7 +1570,7 @@
       xPos: 32,
       yPos: 128,
       xyWrite: 0x00800020,
-      roomWrite: 0x00410008,
+      roomWrite: 0x00270008,
       stageWrite: 0x0002
     }, {
       id: 51,
@@ -1537,7 +1580,7 @@
       xPos: 32,
       yPos: 128,
       xyWrite: 0x00800020,
-      roomWrite: 0x00410028,
+      roomWrite: 0x00270028,
       stageWrite: 0x0002
     }, {
       id: 52,
@@ -1547,7 +1590,7 @@
       xPos: 24,
       yPos: 128,
       xyWrite: 0x00800018,
-      roomWrite: 0x00410008,
+      roomWrite: 0x00270008,
       stageWrite: 0x0003
     }, {
       id: 53,
@@ -1557,7 +1600,7 @@
       xPos: 246,
       yPos: 128,
       xyWrite: 0x008000f6,
-      roomWrite: 0x00410068,
+      roomWrite: 0x00270068,
       stageWrite: 0x0003
     }, {
       id: 54,
@@ -1567,7 +1610,7 @@
       xPos: 128,
       yPos: 128,
       xyWrite: 0x00800080,
-      roomWrite: 0x00410008,
+      roomWrite: 0x00270008,
       stageWrite: 0x0004
     }, {
       id: 55,
@@ -1577,7 +1620,7 @@
       xPos: 32,
       yPos: 128,
       xyWrite: 0x00800020,
-      roomWrite: 0x00410050,
+      roomWrite: 0x00270050,
       stageWrite: 0x0004
     }, {
       id: 56,
@@ -1587,7 +1630,7 @@
       xPos: 256,
       yPos: 128,
       xyWrite: 0x00800100,
-      roomWrite: 0x00410070,
+      roomWrite: 0x00270070,
       stageWrite: 0x0004
     }, {
       id: 57,
@@ -1597,7 +1640,7 @@
       xPos: 56,
       yPos: 128,
       xyWrite: 0x00800038,
-      roomWrite: 0x00410058,
+      roomWrite: 0x00270058,
       stageWrite: 0x0005
     }, {
       id: 58,comment: "Anti-Chapel (Confessional)",
@@ -1606,7 +1649,7 @@
       xPos: 204,
       yPos: 128,
       xyWrite: 0x008000cc,
-      roomWrite: 0x00410038,
+      roomWrite: 0x00270038,
       stageWrite: 0x0006
     }, {
       id: 59,
@@ -1616,7 +1659,7 @@
       xPos: 125,
       yPos: 512,
       xyWrite: 0x0100007d,
-      roomWrite: 0x00410000,
+      roomWrite: 0x00270000,
       stageWrite: 0x0007
     }, {
       id: 60,
@@ -1626,7 +1669,7 @@
       xPos: 32,
       yPos: 128,
       xyWrite: 0x00800020,
-      roomWrite: 0x00410050,
+      roomWrite: 0x00270050,
       stageWrite: 0x0007
     }, {
       id: 61,
@@ -1636,7 +1679,7 @@
       xPos: 32,
       yPos: 128,
       xyWrite: 0x00800020,
-      roomWrite: 0x00410088,
+      roomWrite: 0x00270088,
       stageWrite: 0x0007
     }, {
       id: 62,
@@ -1646,7 +1689,7 @@
       xPos: 18,
       yPos: 128,
       xyWrite: 0x00800012,
-      roomWrite: 0x00410128,
+      roomWrite: 0x00270128,
       stageWrite: 0x0009
     }, {
       id: 63,
@@ -1656,7 +1699,7 @@
       xPos: 224,
       yPos: 128,
       xyWrite: 0x008000e0,
-      roomWrite: 0x00410020,
+      roomWrite: 0x00270020,
       stageWrite: 0x0009
     }, {
       id: 64,
@@ -1666,7 +1709,7 @@
       xPos: 228,
       yPos: 128,
       xyWrite: 0x008000e4,
-      roomWrite: 0x00410088,
+      roomWrite: 0x00270088,
       stageWrite: 0x0009
     }, {
       id: 65,
@@ -1676,7 +1719,7 @@
       xPos: 228,
       yPos: 128,
       xyWrite: 0x008000e4,
-      roomWrite: 0x00410050,
+      roomWrite: 0x00270050,
       stageWrite: 0x000a
     }, {
       id: 66,
@@ -1686,7 +1729,7 @@
       xPos: 488,
       yPos: 128,
       xyWrite: 0x008001e8,
-      roomWrite: 0x00410060,
+      roomWrite: 0x00270060,
       stageWrite: 0x000a
     }, {
       id: 67,
@@ -1696,7 +1739,7 @@
       xPos: 32,
       yPos: 256,
       xyWrite: 0x01000020,
-      roomWrite: 0x00410018,
+      roomWrite: 0x00270018,
       stageWrite: 0x000b
     }, {
       id: 68,
@@ -1706,7 +1749,7 @@
       xPos: 16,
       yPos: 128,
       xyWrite: 0x00800010,
-      roomWrite: 0x00410040,
+      roomWrite: 0x00270040,
       stageWrite: 0x000b
     }, {
       id: 69,
@@ -1716,7 +1759,7 @@
       xPos: 16,
       yPos: 128,
       xyWrite: 0x00800010,
-      roomWrite: 0x00410040,
+      roomWrite: 0x00270040,
       stageWrite: 0x000c
     }, {
       id: 70,
@@ -1726,7 +1769,7 @@
       xPos: 248,
       yPos: 128,
       xyWrite: 0x008000f8,
-      roomWrite: 0x00410030,
+      roomWrite: 0x00270030,
       stageWrite: 0x000c
     }, {
       id: 71,
@@ -1736,7 +1779,7 @@
       xPos: 504,
       yPos: 128,
       xyWrite: 0x008001f8,
-      roomWrite: 0x00410010,
+      roomWrite: 0x00270010,
       stageWrite: 0x000c
     }, {
       id: 72,
@@ -1746,7 +1789,7 @@
       xPos: 32,
       yPos: 128,
       xyWrite: 0x00800020,
-      roomWrite: 0x00410060,
+      roomWrite: 0x00270060,
       stageWrite: 0x000d
     }, {
       id: 73,
@@ -1756,7 +1799,7 @@
       xPos: 1728,
       yPos: 128,
       xyWrite: 0x008006c0,
-      roomWrite: 0x00410018,
+      roomWrite: 0x00270018,
       stageWrite: 0x000d
     }
   ]
@@ -1824,7 +1867,7 @@
     "A miserable little pile of relics!",
     "Track one contains a dubstep banger!",
     "The original Metroidvania!",
-    "The second best randomizer website!*",
+    "The second best randomizer website!",
     "Patricide Simulator \'97!",
     "Now with larger statue dongs!",
     "Keep that 'Thang on ya!",
@@ -1835,7 +1878,12 @@
     "Bora, bora, bora, bora!",
     "Ay, vamos!",
     "Klasse!",
-    "C\’est genial!"
+    "C\’est genial!",
+    "Fifty dollar gift card!",
+    "eldri7ch checks!",
+    "At least it\'s better than Spellbound!",
+    "There's no \'world record\' for randomizers!",
+    "Rest in Peace, Scott."
   ]
 
   const prideSplashPhrases = [
@@ -2693,6 +2741,8 @@
     GLOBAL_DROP: GLOBAL_DROP,
     globalDropsCount: globalDropsCount,
     MUSIC: MUSIC,
+    TRAVEL_MUSIC: TRAVEL_MUSIC,
+    BOSS_MUSIC: BOSS_MUSIC,
     HAND_TYPE: HAND_TYPE,
     handTypeNames: handTypeNames,
     WORKER_ACTION: WORKER_ACTION,

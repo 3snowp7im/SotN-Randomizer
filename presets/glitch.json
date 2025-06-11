@@ -9,7 +9,7 @@
       "eldri7ch", 
       "MottZilla"
     ],
-    "weight": 1900,
+    "weight": -2500,
     "knowledgeCheck": "Glitches",
     "metaExtension": "Scenic",
     "metaComplexity": "5",
@@ -25,40 +25,6 @@
   "relicLocationsExtension": "scenic",
   "stats": false,
   "thrustSwordAbility": true,
-
-  "prologueRewards": [{
-    "item": "Heart Refresh",
-    "replacement": "Fire boomerang"
-  }, {
-    "item": "Neutron bomb",
-    "replacement": "Karma Coin"
-  }, {
-    "item": "Potion",
-    "replacement": "Orange"
-  }],
-
-  "replaceRelic": [{
-    "relic": "Tooth of Vlad",
-    "item": "Heart Refresh"
-  }, {
-    "relic": "Ring of Vlad",
-    "item": "Heart Refresh"
-  }, {
-    "relic": "Rib of Vlad",
-    "item": "Shield rod"
-  }, {
-    "relic": "Heart of Vlad",
-    "item": "Fire boomerang"
-  }, {
-    "relic": "Eye of Vlad",
-    "item": "Antivenom"
-  }, {
-    "relic": "Nosedevil Card",
-    "item": "Diamond"
-  }, {
-    "relic": "Sprite Card",
-    "item": "Toadstool"
-  }],
 
   "alias": [{
     "comment": "Alias Tooth of Vlad as Heart Refresh 1",
@@ -92,6 +58,78 @@
     "comment": "Alias Thrust sword as Clay",
     "relic": "Thrust sword",
     "alias": "Clay"
+  }],
+
+  "complexityGoal": {
+    "min": 5,
+    "goals": [
+      "Soul of Bat + Hrefresh1",
+      "Soul of Bat + Hrefresh2",
+      "Soul of Bat + Srod + Leap Stone",
+      "Soul of Bat + Srod + Clay",
+      "Leap Stone + Gravity Boots + Hrefresh1 + Hrefresh2",
+      "Soul of Wolf + Gravity Boots + Hrefresh1 + Hrefresh2",
+      "Form of Mist + Gravity Boots + Hrefresh1 + Hrefresh2",
+      "Form of Mist + Power of Mist + Hrefresh1",
+      "Form of Mist + Power of Mist + Hrefresh2",
+      "Form of Mist + Power of Mist + Srod + Leap Stone",
+      "Form of Mist + Power of Mist + Srod + Clay"
+  ]},
+
+  "replaceRelic": [{
+    "relic": "Tooth of Vlad",
+    "item": "Heart Refresh"
+  }, {
+    "relic": "Ring of Vlad",
+    "item": "Heart Refresh"
+  }, {
+    "relic": "Rib of Vlad",
+    "item": "Shield rod"
+  }, {
+    "relic": "Heart of Vlad",
+    "item": "Fire boomerang"
+  }, {
+    "relic": "Eye of Vlad",
+    "item": "Antivenom"
+  }, {
+    "relic": "Nosedevil Card",
+    "item": "Diamond"
+  }, {
+    "relic": "Sprite Card",
+    "item": "Toadstool"
+  }],
+
+  "blockEquipment": [{
+    "slot": "Right hand",
+    "item": [
+      "Shield rod",
+      "Mablung Sword"
+    ]
+  }],
+
+  "prologueRewards": [{
+    "item": "Heart Refresh",
+    "replacement": "Fire boomerang"
+  }, {
+    "item": "Neutron bomb",
+    "replacement": "Karma Coin"
+  }, {
+    "item": "Potion",
+    "replacement": "Orange"
+  }],
+  
+  "itemLocations": [{
+    "comment": "Place Stopwatch in the Clock Room",
+    "zone": "NO0",
+    "item": "Big heart",
+    "index": 16,
+    "replacement": "Stopwatch"
+  }, {
+    "comment": "Place Stopwatch in the Clock Room",
+    "zone": "NO0",
+    "item": "Big heart",
+    "index": 17,
+    "replacement": "Stopwatch"
   }],
 
   "blockItems": [{
@@ -129,28 +167,6 @@
       "Zwei hander",
       "Obsidian sword"
     ]
-  }],
-
-  "blockEquipment": [{
-    "slot": "Right hand",
-    "item": [
-      "Shield rod",
-      "Mablung Sword"
-    ]
-  }],
-  
-  "itemLocations": [{
-    "comment": "Place Stopwatch in the Clock Room",
-    "zone": "NO0",
-    "item": "Big heart",
-    "index": 16,
-    "replacement": "Stopwatch"
-  }, {
-    "comment": "Place Stopwatch in the Clock Room",
-    "zone": "NO0",
-    "item": "Big heart",
-    "index": 17,
-    "replacement": "Stopwatch"
   }],
   
   "lockLocation": [{
@@ -2842,22 +2858,5 @@
   }, {
     "type": "word",
     "value": "0x00000000"
-}],
-
-  "complexityGoal": {
-    "min": 5,
-    "goals": [
-      "Soul of Bat + Hrefresh1",
-      "Soul of Bat + Hrefresh2",
-      "Soul of Bat + Srod + Leap Stone",
-      "Soul of Bat + Srod + Clay",
-      "Leap Stone + Gravity Boots + Hrefresh1 + Hrefresh2",
-      "Soul of Wolf + Gravity Boots + Hrefresh1 + Hrefresh2",
-      "Form of Mist + Gravity Boots + Hrefresh1 + Hrefresh2",
-      "Form of Mist + Power of Mist + Hrefresh1",
-      "Form of Mist + Power of Mist + Hrefresh2",
-      "Form of Mist + Power of Mist + Srod + Leap Stone",
-      "Form of Mist + Power of Mist + Srod + Clay"
-    ]
-  }
+}]
 }

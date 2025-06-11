@@ -7,7 +7,7 @@
       "eldri7ch",
       "MottZilla"
     ],
-    "weight": 3900,
+    "weight": -2025,
     "knowledgeCheck": "None",
     "metaExtension": "Guarded",
     "metaComplexity": "7",
@@ -21,8 +21,65 @@
   },
   
   "inherits": "safe",
-
   "stats": false,
+
+  "complexityGoal": {
+    "min": 7,
+    "goals": [
+      "Holy glasses + Heart of Vlad + Tooth of Vlad + Rib of Vlad + Ring of Vlad + Eye of Vlad"
+  ]},
+
+  "replaceRelic": [{
+    "comment": "Replace damaging or unfun relics with fun items",
+    "relic": "Faerie Scroll",
+    "item": "Library card"
+  }, {
+    "relic": "Sprite Card",
+    "item": "Monster vial 1"
+  }, {
+    "relic": "Nosedevil Card",
+    "item": "Monster vial 3"
+  }, {
+    "relic": "Fire of Bat",
+    "item": "Sword of Dawn"
+  }, {
+    "relic": "Force of Echo",
+    "item": "Ring of Varda"
+  }, {
+    "relic": "Gas Cloud",
+    "item": "Manna prism"
+  }],
+
+  "startingEquipment": [{
+    "slot": "Right hand",
+    "item": "Hunter sword"
+  }, {
+    "slot": "Left hand",
+    "item": "Monster vial 2"
+  }, {
+    "slot": "Head",
+    "item": "Wizard hat"
+  }, {
+    "slot": "Body",
+    "item": "Fury plate"
+  }, {
+    "slot": "Cloak",
+    "item": "Elven cloak"
+  }, {
+    "slot": "Other",
+    "item": "Duplicator"
+  }],
+
+  "prologueRewards": [{
+    "item": "Neutron bomb",
+    "replacement": "Potion"
+  }, {
+    "item": "Heart Refresh",
+    "replacement": "Str. potion"
+  }, {
+    "item": "Potion",
+    "replacement": "High potion"
+  }],
 
   "itemLocations": [{
     "zone": "*",
@@ -149,58 +206,6 @@
       "$400",
       "Heart"
     ]
-  }],
-
-  "startingEquipment": [{
-    "slot": "Right hand",
-    "item": "Hunter sword"
-  }, {
-    "slot": "Left hand",
-    "item": "Monster vial 2"
-  }, {
-    "slot": "Head",
-    "item": "Wizard hat"
-  }, {
-    "slot": "Body",
-    "item": "Fury plate"
-  }, {
-    "slot": "Cloak",
-    "item": "Elven cloak"
-  }, {
-    "slot": "Other",
-    "item": "Duplicator"
-  }],
-
-  "prologueRewards": [{
-    "item": "Neutron bomb",
-    "replacement": "Potion"
-  }, {
-    "item": "Heart Refresh",
-    "replacement": "Str. potion"
-  }, {
-    "item": "Potion",
-    "replacement": "High potion"
-  }],
-
-  "replaceRelic": [{
-    "comment": "Replace damaging or unfun relics with fun items",
-    "relic": "Faerie Scroll",
-    "item": "Library card"
-  }, {
-    "relic": "Sprite Card",
-    "item": "Monster vial 1"
-  }, {
-    "relic": "Nosedevil Card",
-    "item": "Monster vial 3"
-  }, {
-    "relic": "Fire of Bat",
-    "item": "Sword of Dawn"
-  }, {
-    "relic": "Force of Echo",
-    "item": "Ring of Varda"
-  }, {
-    "relic": "Gas Cloud",
-    "item": "Manna prism"
   }],
 
   "writes": [{
@@ -441,12 +446,5 @@
     "address": "0x4BAEA08",
     "type": "word",
     "value": "0x18000006"
-  }],
-
-  "complexityGoal": {
-    "min": 7,
-    "goals": [
-      "Holy glasses + Heart of Vlad + Tooth of Vlad + Rib of Vlad + Ring of Vlad + Eye of Vlad"
-    ]
-  }
+  }]
 }

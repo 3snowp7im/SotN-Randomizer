@@ -8,7 +8,7 @@
       "Wecoc", 
       "eldri7ch"
     ],
-    "weight": 600,
+    "weight": -2825,
     "knowledgeCheck": "None",
     "metaExtension": "GuardedPlus",
     "metaComplexity": "8",
@@ -21,11 +21,15 @@
     "winCondition": "Normal"
   },
   "inherits": "safe",
+  "relicLocationsExtension": "guardedplus",
   "stats": false,
   "fastwarpMode": true,
   "mypurseMode": true,
-  
-  "relicLocationsExtension": "guardedplus",
+
+  "alias": [{
+    "relic": "Faerie Scroll",
+    "alias": "Castle Key"
+  }],
 
   "complexityGoal": {
     "min": 8,
@@ -33,6 +37,11 @@
       "Holy glasses + Heart of Vlad + Tooth of Vlad + Rib of Vlad + Ring of Vlad + Eye of Vlad"
     ]
   },
+
+  "placeRelic": [{
+    "location": "Jewel of Open",
+    "relic": "Cube of Zoe"
+  }],
 
   "startingEquipment": [{
     "slot": "Right hand",
@@ -52,6 +61,20 @@
   }, {
     "slot": "Other",
     "item": "Mystic pendant"
+  }],
+
+  "prologueRewards": [{
+    "comment": "Maria rescues Richter",
+    "item": "Potion",
+    "replacement": "Potion"
+  }, {
+    "comment": "No hearts left",
+    "item": "Heart Refresh",
+    "replacement": "Heart Refresh"
+  }, {
+    "comment": "More than 41 hearts in cutscene",
+    "item": "Neutron bomb",
+    "replacement": "Power of Sire"
   }],
 
  "blockItems": [{
@@ -133,30 +156,6 @@
       "Sunstone",
       "Bloodstone"
     ]
-  }],
-
-  "prologueRewards": [{
-    "comment": "Maria rescues Richter",
-    "item": "Potion",
-    "replacement": "Potion"
-  }, {
-    "comment": "No hearts left",
-    "item": "Heart Refresh",
-    "replacement": "Heart Refresh"
-  }, {
-    "comment": "More than 41 hearts in cutscene",
-    "item": "Neutron bomb",
-    "replacement": "Power of Sire"
-  }],
-
-  "placeRelic": [{
-    "location": "Jewel of Open",
-    "relic": "Cube of Zoe"
-  }],
-
-  "alias": [{
-    "relic": "Faerie Scroll",
-    "alias": "Castle Key"
   }],
 
   "lockLocation": [{

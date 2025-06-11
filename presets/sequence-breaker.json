@@ -6,7 +6,7 @@
     "author": [
       "3snow_p7im"
     ],
-    "weight": 3500,
+    "weight": -2100,
     "knowledgeCheck": "Sequence Breaks",
     "metaExtension": "Guarded",
     "metaComplexity": "8",
@@ -18,8 +18,16 @@
     "transformFocus": "None",
     "winCondition": "Normal"
   },
+
   "thrustSwordAbility": true,
   "colorrandoMode": true,
+  
+  "complexityGoal": {
+    "min": 8,
+    "goals": [
+      "Holy glasses + Heart of Vlad + Tooth of Vlad + Rib of Vlad + Ring of Vlad + Eye of Vlad"
+  ]},
+
   "blockItems": [{
     "zone": "*",
     "item": "*",
@@ -31,6 +39,7 @@
       "Obsidian sword"
     ]
   }],
+
   "blockDrops": [{
     "enemy": "*",
     "items": [
@@ -41,6 +50,7 @@
       "Obsidian sword"
     ]
   }],
+
   "lockLocation": [{
     "location": "Soul of Bat",
     "comment": "Requires Mist",
@@ -1167,11 +1177,5 @@
       "Holy glasses + Gravity Boots + Form of Mist",
       "Holy glasses + Gravity Boots + Thrust sword"
     ]
-  }],
-  "complexityGoal": {
-    "min": 8,
-    "goals": [
-      "Holy glasses + Heart of Vlad + Tooth of Vlad + Rib of Vlad + Ring of Vlad + Eye of Vlad"
-    ]
-  }
+  }]
 }

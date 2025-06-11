@@ -11,6 +11,29 @@ html, body {
     height: 100%;
 }
 
+h4{
+    margin-left: 1em;
+}
+
+.map-color{
+    flex: 0;
+    height: 32px;
+    width: 48px;
+    zoom: 300%;
+    image-rendering: pixelated;
+}
+
+.input-box{
+    margin-top: 1em;
+}
+
+.alucard-display{
+    zoom: 200%; 
+    image-rendering: pixelated; 
+    width:96px; 
+    height:64px;
+}
+
 #version {
     float: right;
     font-size: small;
@@ -35,7 +58,7 @@ main {
     display: flex;
     justify-content: center;
     width: 100%;
-    padding: 0 2rem 2rem 2rem;
+    padding: 0 4rem 4rem 4rem;
 }
 
 h1 {
@@ -46,12 +69,57 @@ h1 {
     display: block;
     margin-left: auto;
     margin-right: auto;
-    width: 50%;
+    width: 25%;
   }
 
-.right {
-    float: right;
+.center-text{
+    display: block;
+    text-align: center;
+    padding: 5px;
 }
+.splash-text{
+    display: block;
+    text-align: center;
+    margin: auto;
+    width: 100%;
+    font-size: 2.5em;
+    background-image: linear-gradient(to left, #F94144, #F3722C, #F9C74F, #90BE6D, #57BED6, #9C71D4);
+    background-clip: text;
+    background-size: 200% auto;
+    color: transparent;
+    animation: rainbow 4s linear infinite;
+}
+
+@keyframes rainbow {
+    0%{
+        background-position: 200% 50%;
+    }
+    100%{
+        background-position: 0% 50% ;
+    }
+}
+
+.right-theme {
+    float: right;
+    font-size: large;
+}
+
+.responsive-three-column-grid {
+    display:grid;  
+}
+
+.responsive-three-column-grid > * {
+    padding:1rem;
+}
+
+@media (min-width:1200px) {
+    .responsive-three-column-grid {
+        display: grid;
+        grid-auto-rows: 1fr;
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
+
 
 .dev h1 {
     display: none;
@@ -62,8 +130,20 @@ h1 {
 }
 
 #warning {
+    margin-top: 1em;
     padding-top: 1em;
+    padding-left: 1em;
+    padding-bottom: 1em;
     font-size: x-large;
+    color: red;
+    border: .5em solid rgba(255, 255, 0, .5);
+    border-image: repeating-linear-gradient(
+        -45deg,
+        rgba(0, 0, 0, .5) 0,
+        rgba(0, 0, 0, .5) 15px,
+        rgba(255, 255, 0, .5) 0,
+        rgba(255, 255, 0, .5) 30px
+    ) 15;
 }
 
 #dev-border.dev {
@@ -112,26 +192,10 @@ h3 time {
     flex-wrap: wrap;
 }
 
-fieldset .pure-g .pure-u-12-24,
-fieldset .pure-g .pure-u-1 {
-    margin: .1em 0;
-}
 
-fieldset .pure-g .pure-u-12-24 fieldset {
-    margin-right: 1em;
-}
-
-form > fieldset,
-form > .pure-u-14-24 > fieldset {
-    margin-bottom: .5em;
-}
-
-fieldset {
-    padding: .45em .5em;
-}
 
 #buttons {
-    margin: 0 0 .5em 0;
+    margin: 1em 0 .5em 0;
 }
 
 #notification {
@@ -222,13 +286,16 @@ fieldset {
     width: 100%;
 }
 
-fieldset > div > fieldset > div > div > label:first-child {
-    margin-left: 1.8em;
+.checkboxes{
+    display:flex;
+    flex-wrap: wrap;    
 }
 
-div > div + fieldset {
-    margin-top: .5em;
+.checkboxes > div{
+    flex: 50%;
 }
+
+
 
 input[type="number"] {
     width: 2.5em;
@@ -326,7 +393,7 @@ body.menu {
         height: 0;
     }
     100% {
-        width: 98.5%;
+        width: 100%;
         height: 9em;
     }
 }
@@ -846,6 +913,11 @@ header{
     position: absolute;
     top: 0;
     left: 0;
+    margin-top: 5%;
+}
+
+.body-pos{
+    margin-top: 20%;
 }
 
 .container{
@@ -860,7 +932,7 @@ header{
     color: #eee;
     font-size: 4rem;
     position: absolute ;
-    top: 10%;
+    top: 100%;
     right: 2rem;
     transform: translateY(-50%);
     cursor: pointer;
@@ -869,10 +941,14 @@ header{
 }
 
 nav{
+    margin-left: 5%;
+    margin-right: 5%;
     display: flex;
-    width: 100%;
-    height: 8rem;
+    height: 5rem;
     border-bottom: 1px solid rgba(255,255,255, .1);
+    position: sticky;
+    top: 0;
+    z-index: 1;
 }
 
 .nav-list{
@@ -926,10 +1002,14 @@ li.move-right{
     line-height: initial;
 }
 
-@media screen and (max-width: 1000px){
+@media screen and (max-width: 1050px){
 
     body{
         overflow: visible;
+    }
+
+    nav{
+        border-bottom: none;
     }
 
     .nav-list{
@@ -973,8 +1053,8 @@ li.move-right{
 
     .menu-icons{
         display: block;
-
     }
+
     .ion-md-close{
         display: none;
     }
@@ -993,3 +1073,25 @@ li.move-right{
 
 }
 
+.listbox-container {
+    display: flex;
+    gap: 20px;    
+}
+
+.listbox {
+    width: 200px;
+    height: 200px;
+}
+
+.listbox-button-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+}
+
+.listbox-button {
+    padding: 5px 10px;
+    color: #000;
+    font-weight: bolder;
+}

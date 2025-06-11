@@ -8,7 +8,7 @@
       "eldri7ch", 
       "Crazy4blades"
     ],
-    "weight": 200,
+    "weight": -2950,
     "knowledgeCheck": "None",
     "metaExtension": "Guarded",
     "metaComplexity": "1",
@@ -25,35 +25,12 @@
   "stats": false,
   "music": false,
   "colorrandoMode": true,
-
-  "replaceRelic": [{
-    "relic": "Sprite Card",
-    "item": "Turkey"
-  }, {
-    "relic": "Nosedevil Card",
-    "item": "Harper"
-  }],
-   
-  "lockLocation": [{
-    "location": "Heart of Vlad",
-    "locks": [
-      "Holy glasses"
-    ],
-    "location": "Rib of Vlad",
-    "locks": [
-      "Holy glasses"
-    ],
-    "location": "Ring of Vlad",
-    "locks": [
-      "Holy glasses"
-    ],
-    "location": "Trio",
-    "locks": [
-      "Holy glasses"
-    ]
-    
-  }],
   
+  "complexityGoal": {
+    "min": 1,
+    "goals": [
+      "Holy glasses + Heart of Vlad + Tooth of Vlad + Rib of Vlad + Ring of Vlad + Eye of Vlad"
+  ]},
 
   "placeRelic": [{
     "location": "Silver ring",
@@ -145,6 +122,32 @@
       "Tooth of Vlad",
       "Heart of Vlad"
     ]
-  }
-  ]
+  }],
+
+  "replaceRelic": [{
+    "relic": "Sprite Card",
+    "item": "Turkey"
+  }, {
+    "relic": "Nosedevil Card",
+    "item": "Harper"
+  }],
+   
+  "lockLocation": [{
+    "location": "Heart of Vlad",
+    "locks": [
+      "Holy glasses"
+    ],
+    "location": "Rib of Vlad",
+    "locks": [
+      "Holy glasses"
+    ],
+    "location": "Ring of Vlad",
+    "locks": [
+      "Holy glasses"
+    ],
+    "location": "Trio",
+    "locks": [
+      "Holy glasses"
+    ]
+  }]
 }

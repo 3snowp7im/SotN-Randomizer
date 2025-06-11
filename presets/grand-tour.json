@@ -7,7 +7,7 @@
       "eldri7ch",
       "MottZilla"
     ],
-    "weight": 2100,
+    "weight": -2450,
     "knowledgeCheck": "None",
     "metaExtension": "Scenic",
     "metaComplexity": "8",
@@ -19,15 +19,15 @@
     "transformFocus": "None",
     "winCondition": "Normal"
   },
+
   "inherits": "casual",
   "relicLocationsExtension": "scenic",
-  "colorrandoMode": true,
   "music": false,
+  "colorrandoMode": true,
 
   "complexityGoal": {
     "min": 8,
     "goals": [
       "Holy glasses + Heart of Vlad + Tooth of Vlad + Rib of Vlad + Ring of Vlad + Eye of Vlad"
-    ]
-  }
+  ]}
 }

@@ -58,7 +58,7 @@ header{
 
 nav{
     display: flex;
-    width: 100%;
+    width: 90%;
     height: 8rem;
     border-bottom: 1px solid rgba(255,255,255, .1);
 }

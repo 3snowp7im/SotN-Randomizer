@@ -6,7 +6,7 @@
     "author": [
       "3snow_p7im"
     ],
-    "weight": 4100,
+    "weight": -1925,
     "knowledgeCheck": "None",
     "metaExtension": "Guarded",
     "metaComplexity": "6",
@@ -18,11 +18,21 @@
     "transformFocus": "Mist",
     "winCondition": "Normal"
   },
+
   "stats": false,
+
+  "complexityGoal": {
+    "min": 6,
+    "goals": [
+      "Holy glasses + Heart of Vlad + Tooth of Vlad + Rib of Vlad + Ring of Vlad + Eye of Vlad"
+    ]
+  },
+
   "startingEquipment": [{
     "slot": "Head",
     "item": "Wizard hat"
   }],
+
   "lockLocation": [{
     "location": "Soul of Bat",
     "locks": [
@@ -841,12 +851,7 @@
       "Holy glasses + Power of Mist"
     ]
   }],
-  "complexityGoal": {
-    "min": 6,
-    "goals": [
-      "Holy glasses + Heart of Vlad + Tooth of Vlad + Rib of Vlad + Ring of Vlad + Eye of Vlad"
-    ]
-  },
+
   "writes": [{
     "comment": "Jump to injected code",
     "address": "0x000fa97c",
@@ -903,7 +908,9 @@
     "type": "word",
     "value": "0x00000000",
     "comment": "nop"
-  }, {
+  }, 
+  
+  {
     "comment": "Dont consume mana transforming into mist",
     "type": "short",
     "address": "0x00118b34",
@@ -913,7 +920,9 @@
     "type": "short",
     "address": "0x00118ae8",
     "value": "0x0000"
-  }, {
+  }, 
+  
+  {
     "comment": "Summon Spirit cost 1 mana",
     "type": "char",
     "address": "0x000b5260",

@@ -6,7 +6,7 @@
     "author": [
       "3snow_p7im"
     ],
-    "weight": 3000,
+    "weight": -2250,
     "knowledgeCheck": "None",
     "metaExtension": "Classic",
     "metaComplexity": "1",
@@ -18,11 +18,13 @@
     "transformFocus": "None",
     "winCondition": "Normal"
   },
+
   "inherits": "casual",
   "relicLocationsExtension": false,
   "preventLeaks": false,
   "stats": false,
   "music": false,
+
   "placeRelic": [{
     "location": "Silver ring",
     "relic": "Silver ring"
