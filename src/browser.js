@@ -1499,7 +1499,7 @@ function displayRandomSplashText(seasonalEvent) {
         let optWrite = 0x00000000                   // This variable lets the ASM used in the Master Function know if it needs to run certain code or sets flags for the tracker to use
         let nGoal                                                                           //begin the newGoals flag setting for the function master
         let elementSet = elems.newGoals.value
-        console.log('elem set ' + elementSet + '; opt ' + options.newGoals + '; appl ' + applied.newGoals)
+        // console.log('elem set ' + elementSet + '; opt ' + options.newGoals + '; appl ' + applied.newGoals)
         if (elementSet !== "default" || options.newGoals || applied.newGoals) {   // Sets flag for the tracker to know which goals to use
           if (elementSet !== "default") {
             switch(elementSet) {
@@ -1559,7 +1559,7 @@ function displayRandomSplashText(seasonalEvent) {
         }
         check.apply(util.randoFuncMaster(optWrite))
 
-        console.log('Seasonal mode ' + elems.seasonalPhrasesMode.checked)
+        // console.log('Seasonal mode ' + elems.seasonalPhrasesMode.checked)
         check.apply(util.applySplashText(rng,elems.seasonalPhrasesMode.checked))
 
         // Apply tournament mode patches.

@@ -7016,7 +7016,7 @@ function applyBountyHunterTargets(rng,bhmode) {
 	const bountyHunterTargets = enemies.bountyHunterTargets
 	const data = new checked()
 	
-  console.log('Apply BH components')
+  // console.log('Apply BH components')
 	let TargetHeartId,TargetToothId,TargetRibId,TargetRingId,TargetEyeId
 	let TargetHeartEnemyId,TargetToothEnemyId,TargetRibEnemyId,TargetRingEnemyId,TargetEyeEnemyId	
 	let VladDropRate = 16
@@ -7183,7 +7183,7 @@ function applyBountyHunterTargets(rng,bhmode) {
 // Written By: MottZilla
 // Changes Resist Potions to grant immunity and gives i-frames like Potion, High Potion, etc.
   function applyResistToImmunePotionsPatches() {
-    console.log('potions ran')
+    // console.log('potions ran')
 	  const data = new checked()
 	  let offset = 0x13F7D8
 	  offset = data.writeWord(offset,0x0C04D1FE)	// Assembly patch
@@ -7988,7 +7988,7 @@ function applyBountyHunterTargets(rng,bhmode) {
   }
 
   function applyDevsStashPatches() {
-    console.log('Nates Stuff')
+    // console.log('dev's stash')
 
     const data = new checked()
     let offset
