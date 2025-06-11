@@ -11,7 +11,7 @@ https://sotn.io
 
 ```shell
 $ git clone https://github.com/sotnrando/sotnrando
-$ cd SotN-Randomizer
+$ cd sotnrando
 $ npm install
 ```
 
